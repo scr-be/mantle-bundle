@@ -1,5 +1,5 @@
 {
-    "name"             : "symfony/scribe",
+    "name"             : "scribe/symfony",
     "type"             : "library",
     "description"      : "The Symfony PHP framework used within Scribe with utilities and extras.",
     "keywords"         : ["scribe", "symfony", "framework"],
@@ -64,17 +64,17 @@
         "scribe/cssembed-library"               : "CSS Embed compiler built."
     },
     "autoload"         : {
-        "psr-4"   : {
-            "Scribe\\": [
-                "src/",
-                "lib/"
-            ]
+        "psr-0": {
+            "Scribe\\": "src/"
+        },
+        "psr-4": {
+            "Scribe\\": "lib/"
         },
         "classmap": [
             "stubs"
         ],
         "files"   : [
-            "stubs"
+            "stubs/functions.php"
         ]
     },
     "minimum-stability": "stable"
