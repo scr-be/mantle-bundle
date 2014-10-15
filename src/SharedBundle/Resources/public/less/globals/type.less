@@ -1,0 +1,330 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+// Typography
+// --------------------------------------------------
+
+article {
+    font-size: ceil(@font-size-base * 1.1428);
+    p {
+        margin: 0 0 (@line-height-computed);
+
+    }
+
+    ul, ol {
+        margin-bottom: ceil(@line-height-computed * 1.5);
+    }
+
+    li {
+
+    }
+
+    .lead {
+        font-size: ceil(@font-size-base * 1.4285);
+    }
+
+    blockquote p {
+        font-size: ceil(@font-size-base * 1.25);
+    }
+}
+
+h1, h2 {
+    a:hover, a:focus {
+        text-decoration: none;
+    }
+}
+
+h2.strike {
+    font-size: ceil(@font-size-base * 1.4285);
+    color: #969DA3;
+    text-align: center;
+    position: relative;
+    margin: 30px 0 45px;
+
+    span {
+        background: #fff;
+        padding: 0 18px;
+        position: relative;
+        z-index: 2;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        border-top: 2px solid @gray-lighter;
+        width: 100%;
+        height: 0;
+        z-index: 1;
+        top: 14px;
+        left: 0;
+    }
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-weight: 600;
+}
+
+// Definition lists
+// --------------------------------------------------
+
+dl {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+dt, dd {
+    line-height: @line-height-base;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin-left: @line-height-base / 2;
+}
+
+.dl-horizontal {
+    .clearfix();
+    dt {
+        float: left;
+        width: @component-offset-horizontal - 20;
+        clear: left;
+        text-align: right;
+        .text-overflow();
+    }
+    dd {
+        margin-left: @component-offset-horizontal;
+    }
+}
+
+.dl-vertical {
+    dd {
+        padding-left: 8px;
+        margin-bottom: 2px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+        &:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+    }
+}
+
+// Fancy List
+// --------------------------------------------------
+
+.fancyList {
+    border-bottom: 1px solid #eee;
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    a {
+        display: block;
+        margin: 0 12px 0 0;
+        padding: 8px 0 8px 12px;
+        border-left: 4px solid #fff;
+        &:hover {
+            border-left-color: #428bca;
+            text-decoration: none;
+        }
+        h4 {
+            margin-top: 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            span {
+                font-size: 13px;
+                font-family: "Roboto", sans-serif;
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+// Generic header
+// --------------------------------------------------
+
+.scr-page-header {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+      font-family: "Roboto Condensed",sans-serif;
+      h1 {
+          font-family: "Roboto Condensed",sans-serif;
+          font-size: 54px;
+          text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.85);
+          small {
+              text-transform: uppercase;
+              color: #444;
+          }
+      }
+  }
+
+// Overview
+// --------------------------------------------------
+
+.overview {
+    .make-md-column(8);
+    .make-md-column-offset(2);
+
+    h2 {
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+        font-size: ceil(@font-size-base * 1.285);
+        font-weight: 300;
+    }
+}
+
+// Lists
+// --------------------------------------------------
+
+.list-in-panel {
+    padding-left: 22px;
+    margin-bottom: 0px;
+    font-size: 13px;
+}
+
+// Authors and Dates
+// --------------------------------------------------
+
+.author, .date {
+    color: @gray-light;
+    font-weight: 300;
+}
+
+.date {
+    font-size: ceil(@font-size-base * .857);
+}
+
+
+p {
+    .collapsable-toggle {
+        font-style:italic;
+        text-decoration:underline;
+        cursor:pointer;
+        &:hover {
+            text-decoration:none;
+        }
+    }
+}
+
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+hr.shade {
+    background: transparent url("/bundles/scribeshared/images/dirty-shade.png") repeat-x 0 0;
+    border: 0 none;
+    color: #ccc;
+    height: 4px;
+    padding: 0;
+}
+
+.mute {
+    opacity: .5;
+}
+
+li p {
+    font-weight: 300;
+    margin: 0;
+}
+
+.fa-list-selector {
+    padding-right: 6px;
+    color: #151620;
+    text-shadow: 1px 1px 1px rgba(10, 0, 255, 0.14);
+}
+
+.messenger-message-inner {
+    text-align: left !important;
+}
+
+.has-pullquote:before {
+    content: attr(data-pullquote);
+    float: right;
+    width: 50%;
+    margin: 12px 0 24px 36px;
+    position: relative;
+    top: 5px;
+    font-size: @font-size-base * 1.5;
+    line-height: @font-size-base * 2;
+    color: @brand-primary;
+    font-weight: 500;
+}
+
+// Documentation
+// --------------------------------------------------
+
+.hub-docs-main .public-node-body {
+
+    h1 {
+        font-family: @font-family-sans-serif;
+        text-transform: uppercase;
+        font-weight: 100;
+        font-size: floor(@font-size-base * 2.25);
+        margin-top: 0;
+
+        small {
+            text-transform: none;
+        }
+    }
+
+    h2 {
+        font-size: floor(@font-size-base * 1.875);
+    }
+
+    h2, h3, h4, h5, h6 {
+
+
+        .collapsable-toggle {
+            padding-right: 20px;
+            background: transparent url(/bundles/scribeshared/images/minus-square_222222_16.png) no-repeat right center;
+            cursor: pointer;
+        }
+
+        .collapsable-toggle.collapsed {
+            background: transparent url(/bundles/scribeshared/images/plus-square_158ddc_16.png) no-repeat right center;
+        }
+    }
+
+    h3 + h4 {
+        margin-top: 36px;
+    }
+
+    h5 {
+        color: #666;
+        border-left: solid 4px #ddd;
+        padding-left: 8px;
+    }
+
+.app-menu {
+    font-family: @font-family-monospace;
+    font-size: 90%;
+    color: #008000;
+}
+
+.scml {
+    font-family: @font-family-monospace;
+    font-size: 90%;
+    color: #00008B;
+
+}
+}

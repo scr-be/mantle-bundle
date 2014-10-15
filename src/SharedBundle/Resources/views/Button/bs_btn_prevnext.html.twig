@@ -1,0 +1,7 @@
+<a 
+	data-toggle="tooltip" 
+	href="{{ url }}" 
+	class="btn-tooltip btn btn-sm {% for c in btnClasses %}{{ c }} {% endfor %}" 
+	data-title="{{ desc }}">
+		{% if direction == 'prev' and icon != null %}<i class="{{ icon }} fa"></i> {% endif %}{{ title }}{% if direction == 'next' and icon != null %} <i class="{{ icon }} fa"></i>{% endif %}
+</a>

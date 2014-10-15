@@ -1,0 +1,155 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+.form-errors ul {
+    list-style: none;
+    padding-left: 0;
+    color: rgb(193, 91, 91);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.captcha_reload {
+    font-size: 12px;
+    float: right;
+    padding-right: 34px;
+}
+
+.scr-form-row {
+    margin-top: 5px;
+    margin-bottom: @margin-base / 2;
+}
+
+.scr-form-submit-wrapper {
+    text-align: center;
+    margin-top: @margin-base;
+}
+
+.cform label {
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    opacity: .8;
+    font-size: 12px;
+}
+
+// Chosen form styling
+// --------------------------------------------------
+
+.icheckbox_line-blue,
+.iradio_line-blue {
+    padding: 8px 15px 7px 38px !important;
+}
+
+.icheckbox_line-blue.checked,
+.iradio_line-blue.checked {
+    background: #1497E5 !important;
+}
+
+.icheckbox_line-blue,
+.iradio_line-blue {
+    background: #F9C03B !important;
+}
+
+.chosen-container {
+    .chosen-single {
+        height: 33px !important;
+        border-color: #ccc !important;
+        background-color: #fff !important;
+        background: #fff !important;
+        .border-radius-forced(3px);
+        padding: 4px 0 0 10px !important;
+        box-shadow: none !important;
+        div {
+            top: 3px !important;
+            right: 2px !important;
+        }
+        abbr {
+            top: 9px !important;
+        }
+    }
+    .chosen-drop {
+        border-color: #ccc !important;
+    }
+    .chosen-results {
+        li.highlighted {
+            background-color: #d6d6d6 !important;
+            background: #d6d6d6 !important;
+            color: #000 !important;
+        }
+    }
+}
+
+.chosen-container-small {
+    .chosen-results {
+        max-height:100px !important;
+    }
+}
+
+.chosen-container-multi {
+    height: auto !important;
+    .chosen-choices {
+        .border-radius-forced(3px);
+        border-color: #ccc !important;
+        background-color: #fff !important;
+        background: #fff !important;
+        .search-choice {
+            .border-radius-forced(0px);
+            background-color: #e7e7e7 !important;
+            background: #e7e7e7 !important;
+            margin: 3px 0 3px 3px !important;
+            padding: 3px 24px 3px 5px !important;
+            line-height: 19px !important;
+            border-color: #ccc !important;
+            span {
+                color: #444 !important;
+            }
+            .search-choice-close {
+                top: 6px !important;
+                right: 4px !important;
+            }
+        }
+    }
+    .search-field {
+        input {
+            padding: 6px 6px 4px 10px !important;
+            color: #969696 !important;
+            line-height: 18px !important;
+            height: auto !important;
+        }
+    }
+    .chosen-drop {
+        border-color: #ccc !important;
+    }
+}
+
+.icheckbox_line-blue {
+    opacity: 0.8;
+    line-height: 18px !important;
+    &:hover {
+        opacity: 0.8;
+    }
+    .iradio_line-blue {
+        line-height: 18px !important;
+    }
+}
+
+// Captcha
+// --------------------------------------------------
+
+.row-with-captcha {
+    img {
+        .pull-right;
+        border: 1px solid #ccc;
+        .border-radius(3px);
+    }
+    input {
+        width: 47%;
+    }
+}

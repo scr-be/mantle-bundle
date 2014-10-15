@@ -1,0 +1,370 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+// Navbar
+// --------------------------------------------------
+
+#scr-navbar {
+    .border-radius(0);
+}
+
+#scr-navbar.navbar-fixed-top {
+    border: none;
+    z-index: 1030;
+}
+
+@media (min-width: @screen-sm-min) {
+
+    #scr-navbar.navbar-fixed-top {
+        top: 25px;
+    }
+}
+
+
+#scr-service-navbar.navbar-fixed-top {
+    background-color: #123653;
+    min-height: 26px;
+    max-height: 26px;
+    padding-top: 1px;
+    z-index: 1032;
+    box-shadow: none;
+
+    .navbar-nav > li > a {
+        border-top-right-radius: 2px;
+        border-top-left-radius: 2px;
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 13px;
+        line-height: 25px;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-right: 4px;
+        color: #A8B7D6;
+        &:last-child {
+            margin-right: 0;
+        }
+        &:hover {
+            background-color:transparent;
+            color: #DDE2EC;
+            .simple-gradient(transparent, transparent);
+        }
+        &.active {
+            background-color: #2D7CBB;
+            color: #DDE2EC;
+            .simple-gradient(#2D7CBB, #2D7CBB);
+        }
+    }
+    .navbar-right > li {
+        &:last-child {
+            > a {
+                margin-right: 0 !important;
+            }
+        }
+    }
+}
+
+
+#scr-service-navbar.navbar-default {
+    border-bottom-width: 0;
+    background-color: #F5F5F8;
+    .navbar-nav>li>a {
+        color: #B7BECC;
+        &:hover,
+        &.active {
+            background-color: #ededf5;
+            color: #747C8D;
+            .simple-gradient(#ededf5, #ededf5);
+        }
+    }
+}
+
+.navbar-default {
+    background-color: #EDEDF5;
+    border-color: @scribe-blue;
+    border-width: 2px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+
+    .scr-navbar-main {
+        position: absolute;
+        left: 80px;
+    }
+    .navbar-nav {
+        > li > a {
+            color: #787A88;
+            &:hover {
+                color: #787A88;
+                .simple-gradient(#EDEDF5, #F0F3F7);
+            }
+        }
+        > li.active > a {
+            color: #52545E;
+            .simple-gradient(#EDEDF5, #F0F3F7);
+
+            &:hover, &:focus {
+                color: #52545E;
+                .simple-gradient(#EDEDF5, #F0F3F7);
+            }
+        }
+    }
+}
+
+.navbar-inverse {
+    background-color: #2D7CBB;
+    box-shadow: rgba(26, 24, 68, 0.75) 0 4px 24px;
+
+    .scr-navbar-main {
+        position: absolute;
+        left: 80px;
+        > li {
+            > a {
+            }
+            &:first-child {
+                > a {
+                }
+            }
+        }
+    }
+    .navbar-nav {
+        > li > a {
+            color:#C8D2E2;
+            &:hover {
+                .simple-gradient(#2D7CBB , #2076B9);
+            }
+        }
+        > li.active > a {
+            .simple-gradient(#2D7CBB , #2076B9);
+            color:#fff;
+
+            &:hover, &:focus {
+                .simple-gradient(#2D7CBB , #2076B9);
+            }
+        }
+    }
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:hover,
+.navbar-default .navbar-nav>.open>a:focus {
+    background-color: #E0E3EE;
+    color: #555;
+}
+
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:hover,
+.navbar-inverse .navbar-nav>.open>a:focus {
+    background-color: #286FA7;
+    color: #eee;
+}
+
+.container > .navbar-header {
+    margin-right:15px;
+}
+
+.scr-navbar {
+    position: relative;
+    font-size: (@font-size-base - 1);
+
+    .dropdown-menu {
+        fa {
+            color: #4c4c6f;
+            text-shadow: 0 2px 2px #fff;
+        }
+        li {
+            &:hover {
+                background-color: #ECEFF7;
+            }
+        }
+    }
+
+    .scr-navbar-search {
+        margin-left: 10px;
+        margin-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+        .form-group {
+            padding-top: 2px;
+
+            input {
+                width: 240px;
+                box-shadow: 1px 1px 0 #fff;
+                border: 1px solid #ddd;
+                background-color: #fff;
+                height: 30px;
+                font-size: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
+                .border-radius(0px);
+            }
+        }
+
+        .tt-hint {
+            color: #969DBB !important;
+        }
+    }
+
+    .tt-suggestions {
+        width: 240pxpx;
+        background-color: #f8f8f8;
+        border-right: 1px solid #e7e7e7;
+        border-bottom: 1px solid #e7e7e7;
+        border-left: 1px solid #e7e7e7;
+    }
+
+    .tt-suggestion {
+        padding-left: 6px;
+        padding-right: 10px;
+        padding-top: 8px;
+        padding-bottom: 6px;
+        font-size: 12px;
+        border-left: 4px solid #f8f8f8;
+        border-bottom: 1px solid #e7e7e7;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            border-left-color: #bbb;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            padding-top: 4px;
+            padding-bottom: 2px;
+            font-size: 11px;
+        }
+    }
+
+    .scr-navbar-brand {
+        width: 64px;
+        height: 47px;
+        background: transparent url(/bundles/scribeshared/images/scribe-logo_brand-darkv2_48x30.png) 18px 12px no-repeat;
+
+        &:hover {
+            background: transparent url(/bundles/scribeshared/images/scribe-logo_brand_48x30.png) 18px 12px no-repeat;
+        }
+    }
+
+}
+
+.navbar-inverse .scr-navbar {
+    .dropdown-menu {
+        .fa {
+            color: #4c4c6f;
+            text-shadow: 0 2px 2px #fff;
+        }
+    }
+
+    #form-search-input {
+        box-shadow: 1px 1px 0 rgba(74, 143, 197, 0.73);
+        border: 1px solid rgba(18, 57, 88, 1);
+        background-color: rgba(110, 165, 207, 0.73);
+        color: #fff;
+    }
+
+    .scr-navbar-search {
+        .form-group {
+            input {
+                box-shadow: 1px 1px 0 #697EB6;
+                border: 1px solid #454A83;
+                background-color: #fff;
+            }
+        }
+
+        .tt-hint {
+            color: #969DBB !important;
+        }
+    }
+
+    .tt-suggestions {
+        background-color: #F1F0F7;
+        border-right: 1px solid #454A83;
+        border-bottom: 1px solid #454A83;
+        border-left: 1px solid #454A83;
+    }
+
+    .tt-suggestion {
+        border-left: 4px solid #F1F0F7;
+        border-bottom: 1px solid #CED3DD;
+
+        &:hover,
+        &.tt-is-under-cursor {
+            border-left-color: @brand-info;
+            background-color: #FFF;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        label {
+            padding-bottom: 2px;
+        }
+    }
+
+    .scr-navbar-brand {
+        background: transparent url(/bundles/scribeshared/images/scribe-logo_brand-light_48x30.png) 18px 12px no-repeat;
+
+        &:hover {
+            background: transparent url(/bundles/scribeshared/images/scribe-logo_brand-lighth_48x30.png) 18px 12px no-repeat;
+        }
+    }
+}
+
+.navbar-default #form-search-input::-webkit-input-placeholder {
+    color: #333;
+}
+.navbar-default #form-search-input:-moz-placeholder {
+    color: #333;
+}
+.navbar-default #form-search-input::-moz-placeholder {
+    color: #333;
+}
+.navbar-default #form-search-input:-ms-input-placeholder {
+    color: #333;
+}
+
+.navbar-inverse #form-search-input::-webkit-input-placeholder {
+    color: #eee;
+}
+.navbar-inverse #form-search-input:-moz-placeholder {
+    color: #eee;
+}
+.navbar-inverse #form-search-input::-moz-placeholder {
+    color: #eee;
+}
+.navbar-inverse #form-search-input:-ms-input-placeholder {
+    color: #eee;
+}
+
+// XS Devices
+// --------------------------------------------------
+
+@media (max-width: @screen-xs-max) {
+
+    // Navbar
+    // --------------------------------------------------
+
+    .scr-navbar {
+        .scr-navbar-search {
+            margin-left: -15px;
+        }
+
+        .scr-navbar-main {
+            position: relative;
+            left: 0;
+        }
+    }
+}

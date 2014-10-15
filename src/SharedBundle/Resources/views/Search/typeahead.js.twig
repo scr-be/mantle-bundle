@@ -1,0 +1,23 @@
+<script>
+
+    $(document).ready(function() {
+        scr_navbar_search_typeahead = $('{{ search.getFormSelector|raw }}').typeahead({
+            limit:    {{ search.getLimit }},
+            /*name:     '__search_{{ search.getSearchPath }}__{{ search.getDatetimeFormatted }}',*/
+            prefetch: {
+                url:  '{{ path(search.getSearchPath)|raw }}',
+                ttl:  {{ search.getTimeToLive }},
+            },
+            engine:   {{ search.getTemplateEngine }},
+            template: '{{ search.getTemplate|raw }}'
+        });
+        $('#form-search-input').bind('typeahead:selected', function(obj, datum, name) {
+            console.log('selected');
+            window.location.href = datum.url;
+        });
+        $('#form-search-input').bind('typeahead:autocompleted', function(obj, datum, name) {
+            window.location.href = datum.url;
+        });
+    });
+
+</script>

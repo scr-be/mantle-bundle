@@ -1,0 +1,41 @@
+Scribe\SharedBundle\Entity\Icon:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\SharedBundle\Entity\IconRepository
+
+    fields:
+
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+        slug:
+            type:   string
+            length: 40
+
+        unicode:
+            type:   string
+            length: 10
+
+        name:
+            type:   string
+            length: 40
+
+        aliases:
+            type:     json_array
+            nullable: true
+
+        categories:
+            type:     json_array
+            nullable: true
+
+    manyToOne:
+
+        family:
+            targetEntity: IconFamily
+            inversedBy:   icons
+            joinColumn:
+                name:              iconFamilyId
+                referencedColummn: id

@@ -1,0 +1,92 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+footer {
+    background-color: #f6f6f6;
+    color: @scribe-footer-color;
+    padding-bottom: 38px;
+    padding-top: @padding-large-vertical * 2;
+
+    h3 {
+        font-size: floor(@font-size-base * 1.5);
+        color: @scribe-footer-color;
+        margin-bottom: @margin-base;
+    }
+
+    a {
+        color: @scribe-footer-color;
+
+        &:hover,
+        &:focus {
+            color: darken(@scribe-footer-color, 10%);
+            text-decoration: underline;
+        }
+    }
+
+    .text-muted {
+        // color: #9295AD;
+    }
+
+    .scr-footer-info {
+        padding-left: 0;
+        margin-left: 0;
+        list-style-type: none;
+
+        li {
+            margin-bottom: 12px;
+        }
+    }
+
+    .scr-footer-copyright {
+        border-top: 1px solid #DADADA;
+        padding-top: @padding-large-vertical * 2;
+        margin-top: @margin-base / 2;
+    }
+
+    .scr-foot-notfirst {
+        margin-top: @margin-base * 2;
+    }
+
+    .scr-foot-offices ul li {
+        margin-bottom: @margin-base / 2;
+
+        address {
+            margin-bottom: 0;
+        }
+    }
+
+    .scr-foot-articles ul li {
+        margin-bottom: @margin-base / 2;
+    }
+
+    .scr-foot-tooltip {
+
+        padding: 0;
+
+        // Colors pulled from http://brandcolors.net/
+
+        a.fb:hover {
+            color: #3B5999;
+        }
+
+        a.twitter:hover {
+            color: #55ACEE;
+        }
+
+        a.google:hover {
+            color: #DB4437;
+        }
+        a.linkedin:hover {
+            color: #0e76a8;
+        }
+        a.github:hover {
+            color: #171515;
+        }
+    }
+}

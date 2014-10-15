@@ -1,0 +1,14 @@
+Scribe\SharedBundle\Entity\NewsletterUser:
+    type: entity
+    table: null
+    repositoryClass: Scribe\SharedBundle\Entity\NewsletterUserRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        email:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

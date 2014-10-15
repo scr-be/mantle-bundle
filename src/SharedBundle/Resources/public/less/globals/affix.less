@@ -1,0 +1,60 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+// Affix
+// --------------------------------------------------
+
+.affix {
+    position: fixed;
+    top: 130px;
+}
+.affix-bottom {
+    position: absolute;
+    height: auto;
+}
+.affix-top {
+    position: relative;
+}
+
+@media (max-width: @screen-md-min) {
+    .affix,
+    .affix-bottom,
+    .affix-top,
+    .affix.affix-sm,
+    .affix-bottom.affix-sm,
+    .affix-top.affix-sm {
+        position: relative !important;
+        top: auto !important;
+        margin-bottom: @margin-base;
+        margin-top: @margin-base;
+        display: none;
+    }
+}
+
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+    .affix,
+    .affix-bottom {
+        width: 217px;
+    }
+    .affix.affix-sm,
+    .affix-bottom.affix-sm {
+        width: 132px;
+    }
+}
+
+@media (min-width: @screen-lg-min) {
+    .affix,
+    .affix-bottom {
+        width: 263px;
+    }
+    .affix.affix-sm,
+    .affix-bottom.affix-sm {
+        width: 165px;
+    }
+}

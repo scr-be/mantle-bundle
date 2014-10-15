@@ -1,0 +1,34 @@
+{% if not requiredRole is defined %}
+    {% set requiredRole = 'abcdef0123abcdef0123abcdef0123abcdef0123' %}
+{% endif %}
+{% if not requiredOrgManager is defined %}
+    {% set requiredOrgManager = false %}
+{% endif %}
+
+{% if is_granted(requiredRole) or (requiredOrgManager == true and app.user.getOrg.isManager(app.user)) %}
+<div id="scr-btn-actions">
+    <div class="container">
+        <div class="row">
+            <div class="btn-show-hide pull-right btn-group-actions" id="btn-group-wrapper">
+                <div class="btn-group btn-group-in-header btn-group-toggle" id="btn-group-toggle-open">
+                    <a href="#" class="btn btn-md btn-info"><i class="fa fa-cog"></i> Show Actions</a>
+                </div>
+                <div class="btn-group btn-group-in-header btn-group-toggle" id="btn-group-toggle-close">
+                    <a href="#" class="btn btn-md btn-info"><i class="fa fa-cog"></i> Hide Actions</a>
+                </div>
+                <div id="btn-group-content">
+                    <div class="btn-group-in-header btn-group btn-group-nofloat">
+                        {% if buttons is defined %}
+                            {% for b in buttons %}
+                                {{ b|raw }}
+                            {% endfor %}
+                        {% else %}
+                            {{ buttonHtml|raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

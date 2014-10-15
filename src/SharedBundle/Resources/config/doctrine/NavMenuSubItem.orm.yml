@@ -1,0 +1,44 @@
+Scribe\SharedBundle\Entity\NavMenuSubItem:
+    type: entity
+    table: null
+    repositoryClass: Scribe\SharedBundle\Entity\NavMenuSubItemRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        title:
+            type: string
+            length: 40
+        icon:
+            type: string
+            nullable: true
+            length: 40
+        weight:
+            type: integer
+            nullable: true
+        header:
+            type: boolean
+            nullable: true
+        routeName:
+            type: string
+            nullable: true
+            length: 85
+        routeParameters:
+            type: array
+            nullable: true
+        roleRestrictions:
+            type: array
+            nullable: true
+        reverseRoleRestrictions:
+            type: array
+            nullable: true
+    manyToOne:
+        parent:
+            targetEntity: NavMenuItem
+            joinColumn:
+                name: parentId
+                referencedColumnName: id
+            inversedBy: subItems
+    lifecycleCallbacks: {  }

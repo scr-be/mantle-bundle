@@ -1,0 +1,19 @@
+Scribe\SharedBundle\Entity\SystemLoadHistory:
+    type: entity
+    table: null
+    repositoryClass: Scribe\SharedBundle\Entity\SystemLoadHistoryRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        date:
+            type: datetime
+        load01:
+            type: float
+        load05:
+            type: float
+        load15:
+            type: float
+    lifecycleCallbacks: {  }

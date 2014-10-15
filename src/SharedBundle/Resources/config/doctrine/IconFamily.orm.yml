@@ -1,0 +1,36 @@
+Scribe\SharedBundle\Entity\IconFamily:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\SharedBundle\Entity\IconFamilyRepository
+
+    fields:
+
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+        name:
+            type:   string
+            length: 40
+
+        prefix:
+            type:   string
+            length: 10
+
+        requiredClasses:
+            type: json_array
+
+        optionalClasses:
+            type: json_array
+
+    oneToMany:
+
+        templates:
+            targetEntity: IconTemplate
+            mappedBy:     iconFamily
+
+        icons:
+            targetEntity: Icon
+            mappedBy:     family

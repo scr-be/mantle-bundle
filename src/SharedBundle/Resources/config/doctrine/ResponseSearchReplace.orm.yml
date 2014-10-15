@@ -1,0 +1,18 @@
+Scribe\SharedBundle\Entity\ResponseSearchReplace:
+    type: entity
+    table: null
+    repositoryClass: Scribe\SharedBundle\Entity\ResponseSearchReplaceRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        k:
+            type: string
+            length: 255
+        v:
+            type: text
+        re:
+            type: boolean
+    lifecycleCallbacks: {  }

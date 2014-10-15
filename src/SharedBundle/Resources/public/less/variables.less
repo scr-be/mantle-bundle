@@ -1,0 +1,182 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/*
+ * primary brand color
+ */
+@brand-primary:                 #158DDC;
+
+/*
+ * primary brand success/info/warning/danger colors
+ */
+@brand-success:                 #5ca77c;
+@brand-success-sat:             #0F960F;
+@brand-info:                    #2790B0;
+@brand-info-sat:                #1988AA;
+@brand-warning:                 #DDAF54;
+@brand-warning-sat:             #F17E00;
+@brand-danger:                  #CF4444;
+@brand-danger-sat:              #CF1212;
+
+/*
+ * scribe blue color and variants (lighter/darker/saturated/desaturated)
+ */
+@scribe-blue:                   #146699;
+@scribe-blue-dark:              darken(    @scribe-blue, 12%);
+@scribe-blue-darker:            darken(    @scribe-blue, 25%);
+@scribe-blue-light:             lighten(   @scribe-blue, 12%);
+@scribe-blue-lighter:           lighten(   @scribe-blue, 25%);
+@scribe-blue-desat:             desaturate(@scribe-blue, 10%);
+@scribe-blue-desat-more:        desaturate(@scribe-blue, 20%);
+@scribe-blue-sat:               saturate(  @scribe-blue, 10%);
+@scribe-blue-sat-more:          saturate(  @scribe-blue, 20%);
+
+/*
+ * scribe yellow color and variants (and lighter/darker/saturated/desaturated)
+ */
+@scribe-yellow:                 #E9C03C;
+@scribe-yellow-dark:            darken(    @scribe-yellow, 12%);
+@scribe-yellow-darker:          darken(    @scribe-yellow, 25%);
+@scribe-yellow-light:           lighten(   @scribe-yellow, 12%);
+@scribe-yellow-lighter:         lighten(   @scribe-yellow, 25%);
+@scribe-blue-desat:             desaturate(@scribe-yellow, 10%);
+@scribe-blue-desat-more:        desaturate(@scribe-yellow, 20%);
+@scribe-blue-sat:               saturate(  @scribe-yellow, 10%);
+@scribe-blue-sat-more:          saturate(  @scribe-yellow, 20%);
+
+/**
+ * external branding colors
+ */
+@brand-ext-msword:              #00a1f1;
+@brand-ext-msword-blur:         desaturate(@brand-ext-msword, 10%);
+@brand-ext-msword-focus:        @brand-ext-msword;
+@brand-ext-windows:             #00bcf2;
+@brand-ext-windows-blur:        desaturate(@brand-ext-windows, 10%);
+@brand-ext-windows-focus:       @brand-ext-windows;
+@brand-ext-scml:                @scribe-blue;
+@brand-ext-scml-blur:           desaturate(@brand-ext-scml, 10%);
+@brand-ext-scml-focus:          @brand-ext-scml;
+@brand-ext-indesign:            #db4437;
+@brand-ext-indesign-blur:       desaturate(@brand-ext-indesign, 10%);
+@brand-ext-indesign-focus:      @brand-ext-indesign;
+@brand-ext-ebook:               #eb6d20;
+@brand-ext-ebook-blur:          desaturate(@brand-ext-ebook, 10%);
+@brand-ext-ebook-focus:         @brand-ext-ebook;
+@brand-ext-image:               #70b29c;
+@brand-ext-image-blur:          desaturate(@brand-ext-image, 10%);
+@brand-ext-image-focus:         @brand-ext-image;
+
+/*
+ * global font-family definitions
+ */
+@font-family-sans-serif:        "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:             "Bitter", Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:         "Ubuntu Mono", Monaco, Menlo, Consolas, "Courier New", monospace;
+@font-family-base:              @font-family-sans-serif;
+
+/*
+ * global headings
+ */
+@headings-font-family:          @font-family-sans-serif;
+@font-size-h1:                  @font-size-base * 3;
+@font-size-h2:                  @font-size-base * 2.25;
+@font-size-h3:                  @font-size-base * 1.75;
+@font-size-h4:                  @font-size-base * 1.125;
+
+/*
+ * global text
+ */
+@text-color:                    #333;
+@font-size-base:                16px;
+@code-color:                    #B47F21;
+@code-bg:                       #f5f2f0;
+
+/*
+ * global padding/margin
+ */
+@margin-base:                   20px;
+
+/*
+ * gray variants
+ */
+@brand-light-gray:              #F9F9F9;
+@brand-light-red:               #FAF8F8;
+@brand-light-pink:              #FAF8F9;
+@brand-light-magenta:           #FAF8FA;
+@brand-light-purple:            #F9F8FA;
+@brand-light-blue:              #F8F8FA;
+@brand-light-denim:             #F8F9FA;
+@brand-light-cyan:              #F8FAFA;
+@brand-light-aqua:              #F8FAF9;
+@brand-light-green:             #F8FAF8;
+@brand-light-lime:              #F9FAF8;
+@brand-light-yellow:            #FAFAF8;
+@brand-light-orange:            #FAF9F8;
+
+/**
+ * gray background/border variants
+ */
+@brand-light-gray-bg:           @brand-light-gray;
+@brand-light-gray-border:       desaturate(darken(@brand-light-gray,    10%), 25%);
+@brand-light-red-bg:            @brand-light-red;
+@brand-light-red-border:        desaturate(darken(@brand-light-red,     10%), 25%);
+@brand-light-pink-bg:           @brand-light-pink;
+@brand-light-pink-border:       desaturate(darken(@brand-light-pink,    10%), 25%);
+@brand-light-magenta-bg:        @brand-light-magenta;
+@brand-light-magenta-border:    desaturate(darken(@brand-light-magenta, 10%), 25%);
+@brand-light-purple-bg:         @brand-light-purple;
+@brand-light-purple-border:     desaturate(darken(@brand-light-purple,  10%), 25%);
+@brand-light-blue-bg:           @brand-light-blue;
+@brand-light-blue-border:       desaturate(darken(@brand-light-blue,    10%), 25%);
+@brand-light-denim-bg:          @brand-light-denim;
+@brand-light-denim-border:      desaturate(darken(@brand-light-denim,   10%), 25%);
+@brand-light-cyan-bg:           @brand-light-cyan;
+@brand-light-cyan-border:       desaturate(darken(@brand-light-cyan,    10%), 25%);
+@brand-light-aqua-bg:           @brand-light-aqua;
+@brand-light-aqua-border:       desaturate(darken(@brand-light-aqua,    10%), 25%);
+@brand-light-green-bg:          @brand-light-green;
+@brand-light-green-border:      desaturate(darken(@brand-light-green,   10%), 25%);
+@brand-light-lime-bg:           @brand-light-lime;
+@brand-light-lime-border:       desaturate(darken(@brand-light-lime,    10%), 25%);
+@brand-light-yellow-bg:         @brand-light-yellow;
+@brand-light-yellow-border:     desaturate(darken(@brand-light-yellow,  10%), 25%);
+@brand-light-orange-bg:         @brand-light-orange;
+@brand-light-orange-border:     desaturate(darken(@brand-light-orange,  10%), 25%);
+
+/*
+ * default jumbotron
+ */
+@jumbotron-bg:                  rgba(68, 165, 225, 1);
+@jumbotron-header-bg:           #C4C2BA;
+@jumbotron-color:               #eee;
+
+/*
+ * navigation bar (main header)
+ */
+@navbar-inverse-color:               @gray-light;
+@navbar-inverse-bg:                  #2e75ad;
+@navbar-inverse-border:              #135C96;
+@navbar-inverse-link-color:          #E2E7EE;
+@navbar-inverse-link-hover-color:    #E2E7EE;
+@navbar-inverse-link-hover-bg:       transparent;
+@navbar-inverse-link-active-color:   @navbar-inverse-link-hover-color;
+@navbar-inverse-link-active-bg:      darken(@navbar-inverse-bg, 10%);
+@navbar-inverse-link-disabled-color: #444;
+@navbar-inverse-link-disabled-bg:    transparent;
+@navbar-inverse-brand-color:         @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color:   #fff;
+@navbar-inverse-brand-hover-bg:      transparent;
+@navbar-inverse-toggle-hover-bg:     #135C96;
+@navbar-inverse-toggle-icon-bar-bg:  #E2E7EE;
+@navbar-inverse-toggle-border-color: #135C96;
+
+/*
+ * footer
+ */
+@scribe-footer-color:           #7b7b7b;

@@ -1,0 +1,81 @@
+{
+    "name"             : "symfony/scribe",
+    "type"             : "library",
+    "description"      : "The Symfony PHP framework used within Scribe with utilities and extras.",
+    "keywords"         : ["scribe", "symfony", "framework"],
+    "homepage"         : "https://github.com/scribenet/ScribeSymfony",
+    "license"          : "MIT",
+    "authors"          : [
+        {
+            "name" : "Rob Frawley 2nd",
+            "email": "rfrawley@scribenet.com"
+        },
+        {
+            "name" : "Andrew Thomas",
+            "email": "athomas@scribenet.com"
+        },
+        {
+            "name" : "Dan Corrigan",
+            "email": "dcorrigan@scribenet.com"
+        }
+    ],
+    "require": {
+        "php"                                   : ">=5.6",
+        "symfony/symfony"                       : "~2.5",
+        "symfony/yaml"                          : "~2.5",
+        "doctrine/orm"                          : "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle"              : "~1.2",
+        "doctrine/doctrine-fixtures-bundle"     : "~2.2",
+        "twig/extensions"                       : "~1.0",
+        "symfony/filesystem"                    : "~2.5",
+        "symfony/finder"                        : "~2.5",
+        "symfony/swiftmailer-bundle"            : "~2.3",
+        "symfony/monolog-bundle"                : "~2.5",
+        "symfony/assetic-bundle"                : "~2.4",
+        "kriswallsmith/assetic"                 : "~1.2@dev",
+        "sensio/distribution-bundle"            : "~3.0",
+        "sensio/framework-extra-bundle"         : "~3.0",
+        "sensio/generator-bundle"               : "~2.4",
+        "incenteev/composer-parameter-handler"  : "~2.1",
+        "zendframework/zend-json"               : "~2.3",
+        "phpoption/phpoption"                   : "~1.4"
+    },
+    "require-dev"      : {
+        "sami/sami"                             : "~2.0",
+        "phpunit/phpunit"                       : "~4.0",
+        "phpspec/phpspec"                       : "~2.0@dev",
+        "henrikbjorn/phpspec-code-coverage"     : "~0.2",
+        "satooshi/php-coveralls"                : "~0.6",
+        "codeclimate/php-test-reporter"         : "~0.1"
+    },
+    "suggest"          : {
+        "scribe/syslog-bundle"                  : "Import systemlog entries into a database.",
+        "scribe/swim-bundle"                    : "Scribe Simple WIki Markup",
+        "scribe/cache-bundle"                   : "Simple caching abstraction layer for APCu.",
+        "scribe/clockwork-bundle"               : "Library for Clockwork API",
+        "scribe/file-uploader-bundle"           : "Blueimp file uploader handler.",
+        "scribe/stripe-bundle"                  : "Library for Stripe payment API.",
+        "scribe/imagemagick-bundle"             : "Imagemagick abstraction library.",
+        "scribe/github-api-bundle"              : "Library for GitHub API requests.",
+        "scribe/pygments-bundle"                : "Support for pygments (syntax highlighting) within markdown.",
+        "scribe/markdown-bundle"                : "Support for markdown.",
+        "scribe/closurecompiler-library"        : "Closure compiler built.",
+        "scribe/yuicompressor-library"          : "YUI Compresser compiler built.",
+        "scribe/cssembed-library"               : "CSS Embed compiler built."
+    },
+    "autoload"         : {
+        "psr-4"   : {
+            "Scribe\\": [
+                "src/",
+                "lib/"
+            ]
+        },
+        "classmap": [
+            "stubs"
+        ],
+        "files"   : [
+            "stubs"
+        ]
+    },
+    "minimum-stability": "stable"
+}

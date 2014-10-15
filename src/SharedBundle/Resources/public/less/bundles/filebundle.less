@@ -1,0 +1,549 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Styles for the file bundle
+ * @ScribeFileBundle
+ */
+.scr-filebundle-container {
+    margin-top : 60px;
+
+    .scr-file-main.scr-filebundle {
+        .make-sm-column(12);
+        .make-md-column(9);
+        .make-md-column-pull(3);
+
+        .folder-info {
+            overflow         : hidden;
+            position         : relative;
+            background-color : @brand-light-orange-bg;
+
+            div#folder-info-actions {
+                display  : none;
+                position : absolute;
+                right    : 0;
+                padding  : 0;
+
+                button#folder-info-actions-toggle,
+                div#folder-info-actions-wrapper button,
+                div#folder-info-actions-wrapper a {
+                    font-size     : 13px;
+                    border-radius : 0;
+                    border-color  : @brand-light-orange-border;
+                    padding       : 13px 13px 12px 13px;
+                }
+
+                button#folder-info-actions-toggle {
+                    margin-right : -4px;
+
+                    i.fa {
+                        padding-right : 4px;
+                    }
+                }
+
+                div#folder-info-actions-wrapper {
+                    .btn-group;
+
+                    i.fa {
+                        padding-right : 2px;
+                    }
+                }
+            }
+
+            div.folder-info-breadcrumbs {
+                border : 1px solid @brand-light-orange-border;
+
+                ol {
+                    overflow        : hidden;
+                    list-style-type : none;
+                    font-size       : 13px;
+                    padding         : 14px 0 12px 13px;
+                    margin          : 0;
+
+                    li {
+                        float   : left;
+                        padding : 0 6px 0 0;
+
+                        a {
+                            color : #666;
+
+                            &:hover {
+                                color           : #111;
+                                text-decoration : underline;
+                            }
+                        }
+
+                        &::before {
+                            padding-right : 6px;
+                            content       : "\\";
+                            color         : darken(@brand-light-orange-border, 20%);
+                        }
+
+                        &:first-child {
+                            &::before {
+                                padding-right : 0;
+                                content       : "";
+                            }
+                        }
+
+                        &:last-child {
+                            a {
+                                font-weight : bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #project-add-folder-form {
+            display          : none;
+            overflow         : hidden;
+            border           : 1px solid @brand-light-orange-border;
+            border-top-width : 0;
+            margin-top       : 0px;
+            background-color : @brand-light-orange-bg;
+
+            h4 {
+                margin  : 0;
+                padding : 18px 13px 9px 13px;
+            }
+
+            div.cform {
+                padding  : 0 12px 18px 13px;
+                overflow : hidden;
+
+                div.form-group {
+                    float         : left;
+                    width         : 60%;
+                    margin-bottom : 0;
+
+                    div.form-errors {
+                        display : none;
+                    }
+
+                    input {
+                        border        : none;
+                        border-radius : 0;
+                        box-shadow    : none !important;
+                        border        : 1px solid #6B6B6B;
+
+                        &:hover,
+                        &:focus {
+                            box-shadow : none !important;
+                        }
+                    }
+                }
+
+                button {
+                    float              : left;
+                    width              : 20%;
+                    border-radius      : 0;
+                    border             : 1px solid #6B6B6B;
+                    border-left-width  : 0;
+                    border-right-width : 0;
+                    margin-top         : 0;
+                    line-height        : 1.2;
+
+                    &#add-folder-add {
+                        margin-left : -1px;
+                    }
+
+                    &#add-folder-cancel {
+                        border-right-width : 1px;
+                    }
+                }
+            }
+        }
+    }
+
+    .scr-file-upload.scr-filebundle {
+        .make-md-column(3);
+        .make-md-column-push(9);
+        .text-center;
+        overflow         : hidden;
+        background-color : @brand-light-orange-bg;
+        margin-bottom    : 40px;
+
+        form#fileupload {
+            margin-top    : 60px;
+            margin-bottom : 10px;
+
+            .fileupload-boxtext h1 {
+                font-size : 30px;
+            }
+
+            .fileupload-boxtext h2 {
+                font-size : 26px;
+            }
+
+            .fileupload-progress {
+                position         : absolute;
+                background-color : @brand-light-orange-bg;
+                z-index          : 100;
+                padding-top      : 50px;
+                padding-bottom   : 50px;
+                top              : 60px;
+                left             : 14px;
+                right            : 14px;
+
+                h2 {
+                    color : #666;
+                }
+
+                div.progress {
+                    height        : 10px;
+                    border-radius : 0;
+
+                    div.progress-percent {
+                        display : none;
+                    }
+                }
+
+                div.progress-extended {
+                    display : none;
+                }
+
+                div.progress {
+                    height : 10px;
+                }
+            }
+        }
+
+        table.scr-filebundle_file-list {
+            table-layout    : fixed;
+            border-collapse : collapse;
+            width           : 100%;
+            max-width       : 100%;
+            margin-top      : 60px;
+
+            tbody {
+                width : 100%;
+
+                tr > td {
+                    padding        : 6px;
+                    line-height    : @line-height-base;
+                    vertical-align : middle;
+                }
+            }
+
+            tr.file-working > td {
+                opacity : 0.95;
+            }
+
+            @media (max-width : @screen-md-max) {
+                tr.file-done,
+                tr.file-working {
+                    td.file-type {
+                        width : 18%;
+                    }
+
+                    td.file-info {
+                        width : 64%;
+                    }
+
+                    td.file-status {
+                        width : 18%;
+                    }
+                }
+            }
+
+            @media (min-width : @screen-md-max) {
+                tr.file-done,
+                tr.file-working {
+                    td.file-type {
+                        width : 16%;
+                    }
+
+                    td.file-info {
+                        width : 70%;
+                    }
+
+                    td.file-status {
+                        width : 14%;
+                    }
+                }
+            }
+
+            tr.file-done,
+            tr.file-working {
+                display          : block;
+                overflow         : hidden;
+                width            : 100%;
+                background-color : #fff;
+                border-bottom    : 4px solid @brand-light-orange-bg;
+
+                td.file-type {
+                    padding : 8px 6px 6px 6px;
+                    display : inline-block;
+                    float   : left;
+
+                    span.fa-stack {
+                        opacity : .9;
+
+                        .file-uploading,
+                        .file-uploaded {
+                            line-height : 2.6;
+                            font-size   : 75%;
+                        }
+                    }
+                }
+
+                td.file-info {
+                    padding : 9px 2px 6px 2px;
+                    display : inline-block;
+                    float   : left;
+
+                    p {
+                        overflow      : hidden;
+                        text-overflow : ellipsis;
+                        white-space   : nowrap;
+                        text-align    : left;
+                        margin-bottom : 0;
+
+                        &.file-info-name {
+                            font-size   : 11px;
+                            font-weight : normal;
+                            color       : #000;
+                            &.file-uploading {
+                                margin-bottom : 4px;
+                            }
+                        }
+
+                        &.file-info-size {
+                            margin-top  : -1px;
+                            font-size   : 9px;
+                            font-weight : italic;
+                            color       : #666;
+                        }
+                    }
+
+                    div.file-info-uploading-progress {
+                        height           : 4px;
+                        background-color : @brand-light-orange;
+                        margin-right     : 6px;
+                        margin-bottom    : 0;
+                    }
+                }
+                td.file-status {
+                    padding : 8px 6px 0 0;
+                    display : inline-block;
+                    float   : left;
+
+                    span.fa-stack > i {
+                        &.file-status-success {
+                            color : @brand-success-sat;
+                        }
+
+                        &.file-status-error {
+                            color : @brand-danger-sat;
+                        }
+
+                        &.file-status-uploading {
+                            color : @brand-info-sat;
+                        }
+
+                        &.file-status-icon-loading {
+                            font-size : 225%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width : (@screen-md-min - 1)) {
+        .scr-file-upload-wrapper {
+            .make-sm-column(12);
+        }
+
+        .scr-file-upload.scr-filebundle {
+
+            form#fileupload {
+                margin-top : 30px;
+
+                .fileupload-boxtext h1 {
+                    font-size : 20px;
+                }
+
+                .fileupload-boxtext h2 {
+                    font-size  : 18px;
+                    margin-top : 0px;
+                }
+
+                .fileupload-progress {
+                    top            : 20px;
+                    padding-bottom : 20px;
+                    padding-top    : 0px;
+
+                    h2 {
+                        margin-top : 55px;
+                        font-size  : 18px;
+                    }
+                }
+            }
+
+            table.scr-filebundle_file-list {
+                margin-top : 21px;
+            }
+        }
+    }
+
+    #folder-file-list-wrapper {
+        margin-top : 30px;
+
+        #scr-file-list {
+            table-layout : fixed;
+
+            thead {
+                th {
+                    font-size : 15px;
+
+                    &[data-sort] {
+                        cursor : pointer;
+
+                        &:hover {
+                            text-decoration : underline;
+                        }
+                    }
+
+                    &.scr-file-list-name {
+                        width : auto;
+                    }
+                    &.scr-file-list-size {
+                        width      : 80px;
+                        text-align : right;
+                    }
+                    &.scr-file-list-date {
+                        width : 140px;
+                    }
+                    &.scr-file-list-btns {
+                        width : 90px;
+                    }
+                }
+            }
+
+            tbody {
+                border-bottom : 1px solid #f5f5f5;
+                border-left   : 1px solid #f5f5f5;
+
+                tr {
+                    font-size : 14px;
+
+                    &:first-child {
+                        padding-left : 13px;
+                    }
+
+                    &.success td {
+                        background-color : #F8FAF8;
+                    }
+
+
+
+                    &.scr-file-list-file-item,
+                    &.scr-file-list-dir-item {
+                        overflow : hidden;
+
+                        td {
+                            overflow : hidden;
+                            padding  : 6px 6px 6px 6px;
+
+                            .row-td-no-overflow {
+                                display       : block;
+                                margin        : 0;
+                                padding       : 0;
+                                overflow      : hidden;
+                                text-overflow : ellipsis;
+                                white-space   : nowrap;
+                            }
+
+                            &.scr-file-list-name {
+                                padding-right: 0;
+                                padding-left: 12px;
+                            }
+
+                            &.scr-file-list-size {
+                                text-align : right;
+                                font-size: 13px;
+                                padding: 7px 6px;
+                            }
+
+                            &.scr-file-list-date {
+                                font-size: 13px;
+                                padding: 7px 6px;
+                            }
+
+                            &.scr-file-list-btns {
+                                padding : 0;
+                                width   : 90px;
+
+                                div.btn-action-group {
+                                    position : relative;
+                                    overflow : visible;
+                                    width    : 100%;
+                                    height   : 32px;
+                                    .pull-right;
+
+                                    a.btn-delete,
+                                    a.btn-download,
+                                    button.btn-edit {
+                                        position      : absolute;
+                                        line-height   : 1;
+                                        border-radius : 0;
+                                        padding       : 9px 8px;
+                                        border-color  : #F3F3F5;
+                                        width         : 30px;
+
+                                        &:hover,
+                                        &:focus {
+                                            border-color     : #F3F3F5;
+                                            background-color : @brand-primary;
+
+                                            i.fa {
+                                                color : #fff;
+                                            }
+                                        }
+
+                                        i.fa {
+                                            color     : #666;
+                                            font-size : 14px;
+                                        }
+                                    }
+
+                                    a.btn-download {
+                                        top    : -1px;
+                                        bottom : -1px;
+                                        right  : 0px;
+                                    }
+
+                                    button.btn-edit {
+                                        top    : -1px;
+                                        bottom : -1px;
+                                        right  : 29px;
+                                    }
+
+                                    a.btn-delete {
+                                        top    : -1px;
+                                        bottom : -1px;
+                                        right  : 58px;
+
+                                        &:hover,
+                                        &:focus {
+                                            background-color : @brand-danger;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

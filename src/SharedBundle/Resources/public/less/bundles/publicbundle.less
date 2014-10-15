@@ -1,0 +1,428 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+// @ScribePublicBundle
+// --------------------------------------------------
+
+.public-main {
+    .make-md-column(6);
+}
+
+.public-left-sidebar {
+    .make-md-column(2);
+
+    @media (max-width: @screen-md-min) {
+        .affix,
+        .affix-bottom,
+        .affix-top,
+        .affix.affix-sm,
+        .affix-bottom.affix-sm,
+        .affix-top.affix-sm {
+            position: relative !important;
+            top: auto !important;
+            margin-bottom: @margin-base;
+            margin-top: @margin-base;
+            display: block !important;
+        }
+    }
+    
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        .affix.affix-sm,
+        .affix-bottom.affix-sm {
+            position: relative !important;
+            top: auto !important;
+            margin-bottom: @margin-base;
+            margin-top: @margin-base;
+            display: block !important;
+        }
+    }
+}
+
+.public-sidebar {
+    .make-md-column(4);
+    .make-md-column-offset(1);
+    .make-lg-column(4);
+    .make-lg-column-offset(2);
+}
+
+.public-sidebar-nooffset {
+    .make-sm-column(12);
+    .make-md-column(4);
+}
+
+.public-node-body {
+    .blog-body;
+
+    .table-condensed>thead>tr>th,
+    .table-condensed>tbody>tr>th,
+    .table-condensed>tfoot>tr>th,
+    .table-condensed>thead>tr>td,
+    .table-condensed>tbody>tr>td,
+    .table-condensed>tfoot>tr>td {
+        font-size: @font-size-base - 2;
+    }
+}
+
+
+.public-banner {
+    .scr-page-header;
+    background: rgba(175, 199, 229, 0.4);
+}
+
+.public-banner-sail {
+    margin-bottom: 0;
+    text-align: center;
+    line-height: 1.8;
+
+    img {
+        margin-right: @margin-base / 2;
+    }
+}
+
+.public-services-list-group-item {
+    .list-group-item;
+    border-width: 1px 0;
+    border-style: dashed;
+    font-size: @font-size-base - 2;
+    padding: @padding-large-vertical @padding-large-horizontal;
+
+    &:first-child {
+        border-top: none;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.public-well {
+    overflow: hidden;
+    min-height: 20px;
+    padding: 0 @padding-large-horizontal (@padding-large-vertical * 2) @padding-large-horizontal;
+    margin-bottom: @margin-base;
+    background-color: rgba(245, 245, 245, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.public-featuredproject-body {
+    font-size: @font-size-base - 2;
+    font-weight: 300;
+
+    h2 {
+        font-family: @font-family-serif;
+        font-size: @font-size-base + 2;
+    }
+}
+
+h2.featuredproject {
+    font-family: @font-family-serif;
+    font-size: @font-size-base + 2;
+    margin-top: 32px;
+}
+
+
+
+blockquote.testimonial {
+    font-size: @font-size-base;
+    font-weight: 300;
+}
+
+cite.testimonial {
+    margin-top: -@margin-base;
+    font-size: @font-size-base - 2;
+    font-weight: 300;
+    .text-center;
+    display: block;
+    font-style: italic;
+}
+
+cite.featuredproject {
+    margin-top: @margin-base;
+    margin-bottom: @margin-base / 2;
+    font-size: @font-size-base - 2;
+    font-weight: 300;
+    .text-center;
+    font-style: italic;
+}
+
+// Panels
+// --------------------------------------------------
+
+.public-panel {
+    .panel-variant(none; inherit; #efefef; inherit;);
+    background-color: #fafafa;
+    border-radius: 0;
+
+    .list-group-item {
+        border-style: dashed;
+    }
+}
+
+.public-img-wrapper {
+    padding: (@padding-large-vertical * 6) 0;
+    margin-top: 0;
+    position: relative;
+    background: transparent url(//static.scribenet.com/images/general/book-bg-01.jpg) center top;
+    background-size: cover;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(70, 169, 231, 0.65);
+        z-index: 99;
+    }
+
+    .public-image-lead-outer {
+        .make-row;
+        .public-image-lead-inner {
+            .make-xs-column(10);
+            .make-xs-column-offset(1);
+            .make-sm-column(8);
+            .make-sm-column-offset(2);
+            .text-center;
+
+            .lead {
+                font-size: @font-size-base * 2;
+                position: relative;
+                z-index: 500;
+                color: whitesmoke;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+                margin-bottom: @margin-base * 2;
+                margin-top: @margin-base * 2;
+            }
+
+            @media (max-width: @screen-sm-max) {
+                .lead {
+                    margin-top: @margin-base / 2;
+                    margin-bottom: @margin-base / 2;
+                    font-size: @font-size-base * 1.5;
+                }
+            }
+
+            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                .lead {
+                    margin-top: @margin-base * 2;
+                    margin-bottom: @margin-base * 2;
+                    font-size: @font-size-base * 2;
+                }
+            }
+        }
+    }
+}
+
+.public-promo {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    color: #797E83;
+    text-align: center;
+
+    blockquote.testimonial {
+        font-size: @font-size-base * 1.5;
+        font-weight: 300;
+        border-left: none;
+    }
+
+    cite.testimonial {
+        margin-top: -@margin-base;
+        font-size: @font-size-base + 2;
+        font-weight: 300;
+        text-align: center;
+        display: block;
+        font-style: italic;
+    }
+
+    .public-promo-head {
+        .make-lg-column(12);
+        padding-top: @padding-large-vertical * 4;
+    }
+
+    .public-promo-icon-wrapper {
+        .make-row;
+        .public-promo-icon {
+            .make-sm-column(8);
+            .make-sm-column-offset(2);
+
+            img {
+                .img-responsive;
+            }
+        }
+    }
+
+    @media (max-width: @screen-xs-max) {
+        .public-promo-icon {
+            .make-xs-column(4);
+            .make-xs-column-offset(4);
+        }
+    }
+
+    .public-promo-content {
+        .make-sm-column(4);
+        text-align: center;
+        margin-bottom: @margin-base * 3;
+
+        h3 {
+            color: #484F58;
+            font-size: @font-size-base * 1.5;
+        }
+
+        a {
+            color: @gray-darker;
+
+            &:hover {
+                color: darken(@gray-darker, 10%);
+            }
+        }
+
+    }
+
+    .public-promo-feat-outer {
+        .make-xs-column(8);
+        .make-xs-column-offset(2);
+        .make-sm-column(12);
+        .make-sm-column-offset(0);
+        .make-md-column(10);
+        .make-md-column-offset(1);
+
+
+        .public-promo-feat-item {
+            .make-sm-column(4);
+            .public-promo-feat {
+                height: 400px;
+                position: relative;
+                background-size: cover;
+                background-position: center;
+                border-left: 1px solid @gray-light;
+                border-right: 1px solid @gray-light;
+                border-top: 1px solid @gray-light;
+
+                h2 {
+                    color: whitesmoke;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background-color: rgba(10, 10, 10, 0.8);
+                    font-size: @font-size-base;
+                    padding: @padding-large-vertical * 2;
+                    margin-bottom: 0;
+
+                    small {
+                        color: whitesmoke;
+                        font-size: @font-size-base -3;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: @screen-xs-max) {
+            .public-promo-feat-item {
+                .public-promo-feat {
+                    height: 300px;
+                    margin-bottom: @margin-base;
+                }
+            }
+        }
+    }
+}
+
+.public-promo-alt {
+
+    .public-promo;
+    background: transparent url(//static.scribenet.com/images/general/bookshelf-a.png) center center;
+    background-size: cover;
+    position: relative;
+    margin-top: @margin-base * 3;
+    padding: (@padding-large-vertical * 3) 0;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(255, 200, 27, 0.7);
+        z-index: 99;
+    }
+
+    .public-promo-content {
+        text-align: center;
+        position: relative;
+        z-index: 500;
+        color: @gray-dark;
+        .make-sm-column(5);
+
+        &:nth-child(1) {
+            .make-sm-column-offset(1);
+        }
+
+        h3 {
+            color: @gray-darker;
+        }
+
+    }
+}
+
+.public-promo-last {
+    padding-bottom: @padding-large-vertical * 3;
+}
+
+.public-sidebar-feat {
+    height: 360px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+
+    h2 {
+        text-align: center;
+        color: whitesmoke;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(10, 10, 10, 0.8);
+        font-size: @font-size-base;
+        padding: @padding-large-vertical * 2;
+        margin-bottom: 0;
+
+        small {
+            color: whitesmoke;
+            font-size: @font-size-base - 3;
+        }
+    }
+}
+
+@media (min-width: @screen-sm-min) {
+
+    .public-promo .public-promo-content,
+    .public-promo-alt .public-promo-content {
+
+        margin-bottom: 0;
+    }
+}
+
+.vbox {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+}

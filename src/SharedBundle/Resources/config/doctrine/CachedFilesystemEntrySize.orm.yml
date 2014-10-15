@@ -1,0 +1,26 @@
+Scribe\SharedBundle\Entity\CachedFilesystemEntrySize:
+    type: entity
+    table: null
+    repositoryClass: Scribe\SharedBundle\Entity\CachedFilesystemEntrySizeRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        datetime:
+            type: datetime
+        identifier:
+            type: string
+            length: 256
+        sizeBytes:
+            type: integer
+        sizeHuman:
+            type: decimal
+        typeHuman:
+            type: string
+            length: '2'
+        attributes:
+            type: json_array
+            nullable: true
+    lifecycleCallbacks: {  }

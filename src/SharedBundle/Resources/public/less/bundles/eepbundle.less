@@ -1,0 +1,184 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+// @ScribeEepBundle
+// --------------------------------------------------
+
+.eep-main {
+    .make-md-column(7);
+    .make-lg-column(6);
+    margin-top: @margin-base;
+}
+
+.eep-sidebar {
+    .make-md-column(4);
+    .make-md-column-offset(1);
+    .make-lg-column(4);
+    .make-lg-column-offset(2);
+    margin-top: @margin-base;
+}
+
+.eep-session {
+    .make-md-column(8);
+    margin-top: @margin-base;
+}
+
+.eep-session-sidebar {
+    .make-md-column(4);
+    margin-top: @margin-base;
+}
+
+.eep-session-item {
+    margin-top: @margin-base;
+    overflow: hidden;
+
+    h3 {
+        margin-top: @margin-base * 1.5;
+    }
+
+    &:hover, &:focus {
+
+        .eep-session-item-number {
+            background-color: @brand-primary;
+        }
+    }
+}
+
+.eep-session-item-number {
+    background-color: #f6f6f6;
+    .size(120px, 120px);
+    border-radius: 120px;
+    margin-right: @margin-base;
+    .transition(.5s);
+
+
+    p {
+        font-family: @font-family-serif;
+        font-size: ceil(@font-size-base * 5);
+        font-weight: 700;
+        text-align: center;
+
+        a {
+            color: #fff;
+
+            &:hover, &:focus {
+                color: #FFF;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.eep-session-info-block {
+    background-color: rgb(243, 242, 250);
+    border-radius: 3px;
+    border: 1px solid rgb(221, 221, 233);
+    overflow: hidden;
+    margin-bottom: @margin-base;
+
+    h3 {
+        margin-top: @margin-base / 2;
+        float: left;
+        font-size: 18px;
+        margin-left: @margin-base / 2;
+    }
+    p {
+        text-align: right;
+        margin-top: 18px;
+        margin-right: @margin-base;
+    }
+}
+
+.eep-session-map {
+    margin-top: @margin-base;
+    background-size: cover;
+    background-position: center;
+    .border-radius(4px);
+    opacity: 0.9;
+    border: 1px solid #dddde9;
+    div {
+        background-color: #fff;
+        display: inline-block;
+        padding: (@padding-large-vertical * 6) @padding-large-horizontal;
+        opacity: 0.65;
+        p {
+            font-weight: bold;
+            margin: 0;
+        }
+    }
+    &:hover {
+        border: 1px solid #D0D0E4;
+        cursor: pointer;
+        opacity: 1;
+        div {
+            opacity: 0.85;
+        }
+    }
+}
+
+.eep-panel {
+    .panel-variant(none; inherit; #f6f6f6; inherit;);
+
+    .list-group-item {
+        border-style: dashed;
+    }
+}
+
+#MyWizard {
+    ul.steps {
+        li {
+            color: #878C94;
+            .chevron {
+                border-left: 14px solid #616B7A;
+            }
+            .badge {
+                opacity: 0.75;
+            }
+        }
+        li.active {
+            background: #6B7279;
+            color: #EEEEEE;
+            .badge {
+                background-color: #BBBBBB;
+                color: #666;
+            }
+            .chevron {
+                &:before {
+                    border-left: 14px solid #6B7279;
+                }
+            }
+        }
+    }
+}
+
+.session-discussion-item {
+    margin-top: 10px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #eaebf5;
+    padding-bottom: 0;
+
+    h5 {
+        margin-bottom: 12px;
+    }
+
+    p {
+        margin-top: 8px;
+        margin-bottom: 20px;
+        font-size: 13px;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .col-md-3 {
+        border-right: 1px solid #eaebf5;
+        margin-bottom: 15px;
+    }
+}

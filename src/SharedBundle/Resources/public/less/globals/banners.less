@@ -1,0 +1,46 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+.banner {
+    margin-top: -(@margin-base * 1.5);
+    background-color: @scribe-blue-lighter;
+    margin-bottom: @margin-base * 1.5;
+    padding: (@padding-large-vertical * 2) inherit;
+
+    .eep-wrapper {
+        .make-sm-column(10);
+        .make-sm-column-offset(1);
+        .make-md-column(8);
+        .make-md-column-offset(2);
+        .make-lg-column(6);
+        .make-lg-column-offset(3);
+    }
+
+    .eep-slider-a {
+        text-align: center;
+        background-image: url(/bundles/scribeshared/images/scribe-ebp-banner-normal.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: block;
+        background-position: top;
+        background-position: bottom center;
+        width: 100%;
+
+        &:hover {
+            background-image: url(/bundles/scribeshared/images/scribe-ebp-banner-normal-hover.png);
+        }
+
+        img.eep-slider {
+            opacity: 0;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+    }
+}

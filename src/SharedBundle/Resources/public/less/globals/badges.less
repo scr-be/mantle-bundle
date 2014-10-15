@@ -1,0 +1,22 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+.badge {
+    font-weight: normal;
+    &-important         { background-color: @label-danger-bg; }
+    &-important[href]   { background-color: darken(@label-danger-bg, 10%); }
+    &-warning           { background-color: @label-warning-bg; }
+    &-warning[href]     { background-color: darken(@label-warning-bg, 10%); }
+    &-success           { background-color: @label-success-bg; }
+    &-success[href]     { background-color: darken(@label-success-bg, 10%); }
+    &-info              { background-color: @label-info-bg; }
+    &-info[href]        { background-color: darken(@label-info-bg, 10%); }
+    &-inverse           { background-color: @gray-dark; }
+    &-inverse[href]     { background-color: darken(@gray-dark, 10%); }
+}

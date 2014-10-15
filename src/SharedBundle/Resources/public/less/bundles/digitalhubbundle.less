@@ -1,0 +1,382 @@
+/*
+ * This file is part of the Scribe World Application.
+ *
+ * (c) Scribe Inc. <scribe@scribenet.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+// @ScribeDigitalHubBundle
+// --------------------------------------------------
+
+// Columns & Sections
+// --------------------------------------------------
+
+.hub-full {
+    .make-lg-column(8);
+    .make-lg-column-offset(2);
+}
+
+.hub-split {
+    .make-md-column(6);
+}
+
+.hub-main,
+.hub-support-overview {
+    .make-md-column(7);
+    .make-lg-column(6);
+    margin-top: 20px;
+}
+
+.hub-sidebar,
+.hub-support-info {
+    .make-md-column(4);
+    .make-md-column-offset(1);
+    .make-lg-column(4);
+    .make-lg-column-offset(2);
+    margin-top: 20px;
+}
+
+.hub-docs-main {
+    .make-md-column(6);
+    .make-lg-column(6);
+    margin-top: 20px;
+}
+
+.hub-docs-sidebar {
+    .make-md-column(3);
+    .make-lg-column(3);
+    margin-top: 20px;
+}
+
+.hub-docs-toc {
+    .make-md-column(3);
+    .make-lg-column(3);
+    margin-top: 20px;
+}
+
+.hub-launch-wrapper,
+.hub-header-wrapper {
+    .jumbotron-background;
+}
+
+.hub-launch {
+    margin-top: @margin-base * 1.5;
+    margin-bottom: 0;
+
+    .btn-success {
+        background-color: #44B373;
+        border-color: #D4E9DD;
+        &:hover {
+            color: #fff;
+            background-color: #19924C;
+            border-color: #D4E9DD;
+        }
+    }
+
+    .btn-warning {
+        color: #fff;
+        background-color: #ECA922;
+        border-color: #D4E9DD;
+        &:hover {
+            color: #fff;
+            background-color: #C7880A;
+            border-color: #D4E9DD;
+        }
+    }
+
+    #options {
+        margin-top: 0;
+    }
+
+    .btn-toggle {
+        margin-bottom: @margin-base * 1.5;
+    }
+
+    .panel-heading h3 {
+        padding-top: 4px;
+    }
+
+    .nav-pills > li {
+        &.active {
+            a {
+                color: #fff;
+                background-color: #0C81B8;
+                border: 1px solid transparent;
+            }
+        }
+        &:hover,
+        &:focus {
+            a {
+                
+                color: #fff;
+                background-color: #0C81B8;
+                border: 1px solid #D4E9DD;
+                
+            }
+        }
+        a {
+            color: #004869;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid transparent;
+        }
+        &.right {
+            border-bottom-left-radius: 0px;
+            border-top-left-radius: 0px;
+            a {
+                border-bottom-left-radius: 0px;
+                border-top-left-radius: 0px;
+            }
+        }
+        &.left {
+            border-bottom-right-radius: 0px;
+            border-top-right-radius: 0px;
+            a {
+                border-bottom-right-radius: 0px;
+                border-top-right-radius: 0px;
+            }
+        }
+    }
+}
+
+.node-index {
+    .panel-title {
+        a {
+            display: block;
+            cursor: pointer;
+        }
+    }
+    .panel-content {
+        -moz-column-count: 3;
+        -moz-column-gap: 10px;
+        -webkit-column-count: 3;
+        -webkit-column-gap: 10px;
+        margin-top: @margin-base / 2;
+        margin-bottom: @margin-base / 2;
+        padding-bottom: 0;
+        .list-group {
+            li {
+                margin-top: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+        }
+        .public-services-list-group-item {
+            border:none !important;
+        }
+    }
+}
+
+#scr-hub-start-project {
+    margin-top: @margin-base;
+    margin-bottom: @margin-base * 1.5;
+
+    .form-group {
+        margin-bottom: 0;
+    }
+}
+
+.hub-menu-sidebar {
+    .make-md-column(2);
+}
+
+.hub-content-menu-sidebar {
+    .make-md-column(10);
+
+    .nav-tabs + .tab-content {
+        margin-top: @margin-base;
+    }
+}
+
+
+// Panels
+// --------------------------------------------------
+
+.hub-panel {
+    .panel-variant(@panel-default-border; @panel-default-text; @panel-default-heading-bg; @panel-default-border);
+    overflow: visible !important;
+}
+
+.resources-panel {
+    .public-panel
+}
+
+// Tables
+// --------------------------------------------------
+
+.hub-table {
+    font-size: 14px;
+
+    .label {
+        font-size: 13px;
+    }
+
+    .icons {
+        font-size: 9px;
+
+        .icon-Word {
+
+            .fa-stack-2x {
+                color: @brand-ext-msword;
+            }
+        }
+
+        .icon-ScML {
+
+            .fa-stack-2x {
+                color: @brand-ext-scml;
+            }
+        }
+
+        .icon-Sam {
+            .fa-stack-2x {
+                color: @gray;
+            }
+        }
+
+        .icon-HTML, .icon-CSS, .icon-OPF, .icon-Font, .icon-E-Book {
+
+            .fa-stack-2x {
+                color: @brand-ext-ebook;
+            }
+        }
+
+        .icon-InDesign {
+
+            .fa-stack-2x {
+                color: @brand-ext-indesign;
+            }
+        }
+
+        .icon-Image {
+
+            .fa-stack-2x {
+                color: @brand-ext-image;
+            }
+        }
+    }
+    
+    .actions {
+        min-width: 100px;
+    }
+}
+
+// Labels
+// --------------------------------------------------
+
+.ext-label {
+    display: inline-block;
+    width: 80px;
+    text-transform: uppercase;
+}
+
+.docx-label {
+    .label-variant(@brand-ext-msword;);
+}
+
+.scml-label {
+    .label-variant(@brand-ext-scml;);
+}
+
+.sam-label {
+    .label-variant(@gray;);
+}
+
+.xml-label, .txt-label, .idtt-label {
+    .label-variant(@brand-ext-indesign;);
+}
+
+.epub-label {
+    .label-variant(@brand-ext-ebook;);
+}
+
+#scr-toc .nav > li > a {
+  display: block;
+  padding: 4px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #999;
+}
+
+#scr-toc .nav > li > a:hover,
+#scr-toc .nav > li > a:focus {
+  padding-left: 16px;
+  color: @scribe-blue;
+  text-decoration: none;
+  background-color: transparent;
+  //border-left: 1px solid @scribe-blue-dark;
+}
+
+#scr-toc .nav > .active > a,
+#scr-toc .nav > .active:hover > a,
+#scr-toc .nav > .active:focus > a {
+  padding-left: 14px;
+  font-weight: bold;
+  color: @brand-primary;
+  background-color: transparent;
+  border-left: 2px solid @brand-primary;
+}
+
+#scr-toc .nav .nav {
+  display: none;
+  padding-bottom: 10px;
+}
+
+#scr-toc .nav > .active .nav {
+    display: block;
+}
+
+#scr-toc .nav .nav > li > a {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 26px;
+  font-size: 12px;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+#scr-toc .nav .nav > li > a:hover,
+#scr-toc .nav .nav > li > a:focus {
+  padding-left: 26px;
+}
+
+#scr-toc .nav .nav > .active > a,
+#scr-toc .nav .nav > .active:hover > a,
+#scr-toc .nav .nav > .active:focus > a {
+  padding-left: 24px;
+  font-weight: 500;
+}
+
+#scr-toc .nav .nav .nav {
+  display: none;
+  padding-bottom: 10px;
+}
+
+#scr-toc .nav .nav > .active .nav {
+    display: block;
+}
+
+#scr-toc .nav .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+}
+
+#scr-toc .nav .nav .nav > li > a:hover,
+#scr-toc .nav .nav .nav > li > a:focus {
+  padding-left: 40px;
+}
+
+#scr-toc .nav .nav .nav > .active > a,
+#scr-toc .nav .nav .nav > .active:hover > a,
+#scr-toc .nav .nav .nav > .active:focus > a {
+  padding-left: 38px;
+  font-weight: 500;
+}
+
+#scr-toc .nav .nav .nav .nav {
+    display: none;
+}
