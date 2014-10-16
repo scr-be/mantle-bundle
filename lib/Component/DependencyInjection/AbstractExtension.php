@@ -243,7 +243,6 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     /**
      * Builds peramiter index
      *
-     * @param  string $indices,... index value
      * @param string|null $indices
      * @return string
      */

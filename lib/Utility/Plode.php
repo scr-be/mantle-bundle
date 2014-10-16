@@ -110,7 +110,7 @@ class Plode implements PlodeInterface
     /**
      * Implode array using default separator ({@see DEFAULT_SEPARATOR})
      *
-     * @param  array  $toImplode An array to implode into a string
+     * @param  string[]  $toImplode An array to implode into a string
      * @param  string $separator A string used to separate the imploded array values
      *
      * @return string
@@ -123,7 +123,7 @@ class Plode implements PlodeInterface
     /**
      * Explode string using default separator ({@see DEFAULT_SEPARATOR})
      *
-     * @param  mixed  $toExplode A value to explode into an array (will be cast
+     * @param  string  $toExplode A value to explode into an array (will be cast
      *                           to string prior explosion)
      * @param  string $separator The string used to separate the provided value
      *                           into an array
