@@ -12,121 +12,275 @@
 namespace Scribe\Component\Bundle;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Request;
+use Scribe\Component\DependencyInjection\RequestAwareTrait;
+use Scribe\Exception\InvalidArgumentException;
+use Scribe\Exception\RuntimeException;
 
 /**
- * Class BundleInformation
+ * BundleInformation
+ * Parses the org, bundle, controller, and action from the Request's _controller
+ * attribute based on the provided specified regular expression.
  *
- * @package Scribe\SharedBundle\Component\Symfony
+ * @package Scribe\Component\Bundle
  */
-class BundleInformation
+class BundleInformation implements BundleInformationInterface
 {
+    use RequestAwareTrait;
+
     /**
      * @var string
      */
-    private $org = null;
+    const CONTROLLER_SERVICEID_REGEX = '#([^\.]*)\.([^\.]*)\.([^\.]*)\.controller:(.*?)Action#i';
 
     /**
-     * @var Request
+     * @var string
      */
-    private $request = null;
+    const CONTROLLER_NAMESPACE_REGEX = '#(.*?)\\\(.*?)Bundle\\\Controller\\\(.*?)Controller::(.*?)Action#i';
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $bundle = null;
+    private $regex;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $controller = null;
+    private $bundle;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $action = null;
+    private $controller;
 
     /**
+     * @var string
+     */
+    private $action;
+
+    /**
+     * @var string
+     */
+    private $org;
+
+    /**
+     * Construct the object and obtain the symfony object information
+     *
+     * @param  RequestStack $requestStack Instance of the Symfony Request Stack
+     *
+     * @return $this
      */
     public function __construct(RequestStack $requestStack)
     {
-        $this->request = $requestStack->getCurrentRequest();
+        if (false === ($requestStack->getCurrentRequest() instanceof Request)) {
+            throw new InvalidArgumentException;
+        }
 
-        $this->handleBundleInformationExtraction();
-    }
+        $this->setRegex(self::CONTROLLER_SERVICEID_REGEX);
 
-    public function getFullBundleName()
-    {
-        return $this->getOrg() . $this->getBundle() . 'bundle';
+        return $this;
     }
 
     /**
-     * @return string|null
+     * Setter for regex property
+     *
+     * @param  string $regex The regex to parse bundle info from request _controller paramiter
+     *
+     * @return $this
      */
-    public function getBundle()
+    public function setRegex($regex)
     {
-        return $this->bundle;
+        $this->regex = (string) $regex;
+
+        return $this;
     }
 
     /**
-     * @return string|null
+     * Getter for regex property
+     *
+     * @return string
      */
-    public function getController()
+    public function getRegex()
     {
-        return $this->controller;
+        return (string) $this->regex;
     }
 
     /**
-     * @return string|null
+     * Setter for org property
+     *
+     * @param  string $org An org name
+     *
+     * @return $this
      */
-    public function getAction()
+    public function setOrg($org)
     {
-        return $this->action;
+        $this->org = (string) $org;
+
+        return $this;
     }
 
     /**
+     * Getter for org property
+     *
      * @return string
      */
     public function getOrg()
     {
-        if ($this->org === 's') {
-            return 'scribe';
-        }
-        else {
-            return $this->org;
-        }
+        return (string) $this->org;
     }
 
     /**
-     * @return array
+     * Setter for bundle property
+     *
+     * @param  string $bundle A bundle name
+     *
+     * @return $this
      */
-    private function handleBundleInformationExtraction()
+    public function setBundle($bundle)
     {
-        if ($this->request === null) {
-            return ['', '', ''];
-        }
+        $this->bundle = (string) $bundle;
 
-        $controller = $this->request
+        return $this;
+    }
+
+    /**
+     * Getter for bundle property
+     *
+     * @return string
+     */
+    public function getBundle()
+    {
+        return (string) $this->bundle;
+    }
+
+    /**
+     * Setter for controller property
+     *
+     * @param  string $controller A controller name
+     *
+     * @return $this
+     */
+    public function setController($controller)
+    {
+        $this->controller = (string) $controller;
+
+        return $this;
+    }
+
+    /**
+     * Getter for controller property
+     *
+     * @return string
+     */
+    public function getController()
+    {
+        return (string) $this->controller;
+    }
+
+    /**
+     * Setter for action property
+     *
+     * @param  string $action An action name
+     *
+     * @return $this
+     */
+    public function setAction($action)
+    {
+        $this->action = (string) $action;
+
+        return $this;
+    }
+
+    /**
+     * Getter for action property
+     *
+     * @return string|null
+     */
+    public function getAction()
+    {
+        return (string) $this->action;
+    }
+
+    /**
+     * Getter for the full bundle name
+     *
+     * @return string
+     */
+    public function getFullBundleName()
+    {
+        return (string) $this->getOrg() . $this->getBundle() . 'bundle';
+    }
+
+    /**
+     * Get all bundle-related property elements as an array
+     *
+     * @return string[]
+     */
+    public function getAll()
+    {
+        return (array) [
+            $this->getOrg(),
+            $this->getBundle(),
+            $this->getController(),
+            $this->getAction(),
+            $this->getFullBundleName()
+        ];
+    }
+
+    /**
+     * Parse the Request _controller parameter using the provided regex to populate
+     * the org, bundle, controller, and action properties.
+     *
+     * @return $this
+     */
+    public function parse()
+    {
+        $requestController = $this->getRequestControllerParameter();
+
+        list($org, $bundle, $controller, $action) =
+            $this->parseRequestControllerParts($requestController)
+        ;
+
+        return (object) $this;
+    }
+
+    /**
+     * Get the request _controller paramiter
+     *
+     * @return string
+     */
+    private function getRequestControllerParameter()
+    {
+        return (string) $this
+            ->request
             ->attributes
             ->get('_controller')
         ;
+    }
 
-        preg_match('#([^\.]*)\.([^\.]*)\.([^\.]*)\.controller:(.*?)Action#i', $controller, $matches);
+    /**
+     * Handle the actual parsing of the _controller Request parameter
+     *
+     * @param  string $requestController Value of the _controller Request parameter
+     * @return string[]
+     */
+    private function parseRequestControllerParts($requestController)
+    {
+        $matchResult = preg_match($this->getRegex(), $requestController, $matches);
 
-        if (!isset($matches[1]) and !isset($matches[2]) and !isset($matches[3])) {
-            $matches = [];
-            preg_match('#(.*?)\\\(.*?\\\)?(.*?)Bundle\\\Controller\\\(.*?)Controller::(.*?)Action#i', $controller, $matches);
+        if (false === $matchResult) {
+            throw new RuntimeException('Encountered an error running preg_match.');
+        }
+        elseif (0 === $matchResult) {
+            throw new RuntimeException('Invalid regular expression provided.');
+        }
+        elseif (5 === count($matches)) {
+            throw new RuntimeException('Regular expression did not contain four sub expressions.');
         }
 
-        if (sizeof($matches) == 6) {
-            $offset = 1;
-        }
-        else {
-            $offset = 0;
-        }
+        array_walk($matches, function(&$v, $i) { $v = strtolower($v); });
+        unset($matches[0]);
 
-        $this->bundle     = isset($matches[2+$offset]) ? strtolower($matches[2+$offset]) : null;
-        $this->controller = isset($matches[3+$offset]) ? strtolower($matches[3+$offset]) : null;
-        $this->action     = isset($matches[4+$offset]) ? strtolower($matches[4+$offset]) : null;
-        $this->org        = isset($matches[1])         ? strtolower($matches[1])         : null;
+        return (array) array_values($matches);
     }
 }

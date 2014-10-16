@@ -17,11 +17,11 @@ use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 use Scribe\Exception\RuntimeException;
 
 /**
- * Class ScribeSharedExtension
+ * Class AbstractExtension
  *
  * @package Scribe\Component\DependencyInjection
  */
-abstract class ScribeExtension extends Extension implements ContainerAwareInterface
+abstract class AbstractExtension extends Extension implements ContainerAwareInterface
 {
     /**
      * Import container aware properties/functions

@@ -68,10 +68,10 @@
             "Scribe\\": "lib/"
         },
         "classmap": [
-            "stubs"
+            "stub"
         ],
         "files"   : [
-            "stubs/functions.php"
+            "stub/functions.php"
         ]
     },
     "config"          : {
