@@ -48,9 +48,9 @@ class Call implements CallInterface
     /**
      * Call an object method (if exists) with specified arguments
      *
-     * @param  \Exception     $object    An object instance or a fully-qualified class name
-     * @param  string    $method    An accessable object method name
-     * @param  mixed,... $arguments Arguments to pass to the object method
+     * @param  object|string $object    An object instance or a fully-qualified class name
+     * @param  string        $method    An accessable object method name
+     * @param  mixed,...     $arguments Arguments to pass to the object method
      *
      * @return mixed
      */
@@ -64,7 +64,7 @@ class Call implements CallInterface
     /**
      * Call an static object method (if exists) with specified arguments
      *
-     * @param  string     $object    An object instance or a class name
+     * @param  string    $object    An object instance or a class name
      * @param  string    $method    An accessable object method name
      * @param  mixed,... $arguments Arguments to pass to the object method
      *
@@ -113,7 +113,8 @@ class Call implements CallInterface
     /**
      * Throws an exception on an invalid {@see __callStatic} call
      *
-     * @param string $functionOrMethod
+     * @param  string $functionOrMethod
+     *
      * @return void
      *
      * @throws Scribe\Exception\BadFunctionCallException
