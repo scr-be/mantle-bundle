@@ -41,7 +41,7 @@
         "phpoption/phpoption"                   : "~1.4"
     },
     "require-dev"      : {
-        "sami/sami"                             : "~2.0",
+        "sami/sami"                             : "master-dev",
         "phpunit/phpunit"                       : "~4.0",
         "scrutinizer/ocular"                    : "~1.1"
     },
@@ -60,6 +60,12 @@
         "scribe/yuicompressor-library"          : "YUI Compresser compiler built.",
         "scribe/cssembed-library"               : "CSS Embed compiler built."
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:scribenet/Sami.git"
+        }
+    ],
     "autoload"         : {
         "psr-0": {
             "Scribe\\": "src/"
