@@ -34,7 +34,7 @@ class System
      */
     public static function getLoadAverages($precision = 2)
     {
-        $loadAverages  = sys_getloadavg();
+        $loadAverages = sys_getloadavg();
 
         return [
             time(),

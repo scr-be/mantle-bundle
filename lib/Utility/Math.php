@@ -11,6 +11,9 @@
 
 namespace Scribe\Utility;
 
+use Scribe\Utility\StaticClass\StaticClassTrait;
+use Scribe\Exception\InvalidArgumentException;
+
 /**
  * Class Math
  *
@@ -19,25 +22,39 @@ namespace Scribe\Utility;
 class Math
 {
     /**
-     * @param float $integer
-     * @param float $base
-     * @param float $newBase
-     * @param bool $newBaseMax
-     * @param int $precision
-     * @return float
+     * disallow instantiation
      */
-    public static function convertToBase($integer, $base, $newBase, $newBaseMax = true, $precision = 2)
+    use StaticClassTrait;
+
+    /**
+     * Convert an integer from one base to another with optional prevision
+     *
+     * @param  int      $integer      Integer value to convert
+     * @param  int      $base         Current base of integer
+     * @param  int      $newBase      New base of integer
+     * @param  int|null $precision    Optionally round converted integer to specified precision
+     * @param  bool     $newBaseAsMax If set to true the converted integer will not be allowed to exceed the new base
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return int
+     */
+    public static function toBase($integer, $base, $newBase, $precision = null, $newBaseAsMax = false)
     {
-        if (0 === (int)$base) {
-            return $integer;
+        if (0 === (int) $base) {
+            throw new InvalidArgumentException('Cannot convert to a base of zero.');
         }
 
-        $integer = round(($integer * $newBase) / $base, $precision);
+        $convertedInteger = $integer * $newBase / $base;
 
-        if (true === $newBaseMax && $integer > $newBase) {
-            return $newBase;
+        if (null !== $precision) {
+            $convertedInteger = round($convertedInteger, $precision);
         }
 
-        return $integer;
+        if (true === $newBaseAsMax && $convertedInteger > $newBase) {
+            $convertedInteger = $newBase;
+        }
+
+        return $convertedInteger;
     }
 }
