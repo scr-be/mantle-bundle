@@ -59,7 +59,7 @@ class Security
     }
 
     /**
-     * @param $password
+     * @param string $password
      * @param string $pattern
      * @return bool
      */
