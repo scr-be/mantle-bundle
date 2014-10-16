@@ -243,7 +243,6 @@ abstract class ScribeExtension extends Extension implements ContainerAwareInterf
     /**
      * Builds peramiter index
      *
-     * @param  string $indices,... index value
      * @param string|null $indices
      * @return string
      */
