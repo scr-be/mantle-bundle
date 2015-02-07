@@ -11,9 +11,9 @@
 
 namespace Scribe\Component\Bundle;
 
+use Scribe\Component\DependencyInjection\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
-use Scribe\Component\DependencyInjection\RequestAwareTrait;
 use Scribe\Exception\InvalidArgumentException;
 use Scribe\Exception\RuntimeException;
 
@@ -26,7 +26,10 @@ use Scribe\Exception\RuntimeException;
  */
 class BundleInformation implements BundleInformationInterface
 {
-    use RequestAwareTrait;
+    /**
+     * Use the RequestStack trait
+     */
+    use RequestStackAwareTrait;
 
     /**
      * @var string
@@ -37,6 +40,11 @@ class BundleInformation implements BundleInformationInterface
      * @var string
      */
     const CONTROLLER_NAMESPACE_REGEX = '#(.*?)\\\(.*?)Bundle\\\Controller\\\(.*?)Controller::(.*?)Action#i';
+
+    /**
+     * @var string
+     */
+    private $controllerAttributeValue;
 
     /**
      * @var string
@@ -64,28 +72,57 @@ class BundleInformation implements BundleInformationInterface
     private $org;
 
     /**
-     * Construct the object and obtain the symfony object information
-     *
-     * @param  RequestStack $requestStack Instance of the Symfony Request Stack
-     *
-     * @return $this
+     * Set's up the request environment and then parses the controller request string
+     * 
+     * @param   RequestStack $requestStack
+     * @throws  InvalidArgumentException
      */
     public function __construct(RequestStack $requestStack)
     {
-        if (false === ($requestStack->getCurrentRequest() instanceof Request)) {
-            //throw new InvalidArgumentException;
+        $this
+            ->setRequestStack($requestStack)
+            ->determineRequestMasterFromRequestStack()
+        ;
+
+        if (false === ($this->requestStack instanceof RequestStack)) {
+            throw new InvalidArgumentException('Invalid Request Stack provided in '.__CLASS__);
         }
 
-        $this->setRegex(self::CONTROLLER_SERVICEID_REGEX);
+        $this
+            ->setRegex(self::CONTROLLER_SERVICEID_REGEX)
+            ->handle()
+        ;
 
         return $this;
     }
 
     /**
+     * Set the controller string derrived from the request object variable
+     * 
+     * @param  $controllerAttributeValue string
+     * @return $this
+     */
+    public function setControllerAttributeValue($controllerAttributeValue)
+    {
+        $this->controllerAttributeValue = $controllerAttributeValue;
+
+        return $this;
+    }
+
+    /**
+     * Get the request controller string
+     * 
+     * @return string
+     */
+    public function getControllerAttributeValue()
+    {
+        return (string) $this->controllerAttributeValue;
+    }
+
+    /**
      * Setter for regex property
-     *
-     * @param  string $regex The regex to parse bundle info from request _controller paramiter
-     *
+     * 
+     * @param  string $regex The regex to parse bundle info from request _controller parameter
      * @return $this
      */
     public function setRegex($regex)
@@ -97,7 +134,7 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Getter for regex property
-     *
+     * 
      * @return string
      */
     public function getRegex()
@@ -107,9 +144,8 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Setter for org property
-     *
+     * 
      * @param  string $org An org name
-     *
      * @return $this
      */
     public function setOrg($org)
@@ -121,7 +157,7 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Getter for org property
-     *
+     * 
      * @return string
      */
     public function getOrg()
@@ -131,9 +167,8 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Setter for bundle property
-     *
+     * 
      * @param  string $bundle A bundle name
-     *
      * @return $this
      */
     public function setBundle($bundle)
@@ -145,7 +180,7 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Getter for bundle property
-     *
+     * 
      * @return string
      */
     public function getBundle()
@@ -155,9 +190,8 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Setter for controller property
-     *
+     * 
      * @param  string $controller A controller name
-     *
      * @return $this
      */
     public function setController($controller)
@@ -169,7 +203,7 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Getter for controller property
-     *
+     * 
      * @return string
      */
     public function getController()
@@ -179,9 +213,8 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Setter for action property
-     *
+     * 
      * @param  string $action An action name
-     *
      * @return $this
      */
     public function setAction($action)
@@ -193,7 +226,7 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Getter for action property
-     *
+     * 
      * @return string|null
      */
     public function getAction()
@@ -203,7 +236,7 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Getter for the full bundle name
-     *
+     * 
      * @return string
      */
     public function getFullBundleName()
@@ -213,12 +246,12 @@ class BundleInformation implements BundleInformationInterface
 
     /**
      * Get all bundle-related property elements as an array
-     *
+     * 
      * @return string[]
      */
     public function getAll()
     {
-        return (array) [
+        return (array)[
             $this->getOrg(),
             $this->getBundle(),
             $this->getController(),
@@ -228,45 +261,87 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
+     * Handle determining the bundle information, or bailing if no request is present
+     * @return $this
+     */
+    public function handle()
+    {
+        if (false === $this->hasRequestMaster()) {
+            return $this;
+        }
+
+        $this
+            ->determineControllerAttributeValue()
+            ->parseControllerAttributeValue()
+        ;
+
+        return $this;
+    }
+
+    /**
      * Parse the Request _controller parameter using the provided regex to populate
      * the org, bundle, controller, and action properties.
-     *
+     * 
+     * @return $this
+     */
+    public function parseControllerAttributeValue()
+    {
+        list($org, $bundle, $controller, $action) =
+            $this->parseRequestControllerParts()
+        ;
+
+        $this
+            ->setOrg($org)
+            ->setBundle($bundle)
+            ->setController($controller)
+            ->setAction($action)
+        ;
+
+        return $this;
+    }
+
+    /**
+     * Alias for {@see $this->parseRequestController()} for backwards comparability
+     * 
+     * @todo   Remove in v2.0.0
      * @return $this
      */
     public function parse()
     {
-        $requestController = $this->getRequestControllerParameter();
-
-        list($org, $bundle, $controller, $action) =
-            $this->parseRequestControllerParts($requestController)
-        ;
-
-        return (object) $this;
+        $this->parseControllerAttributeValue();
+        
+        return $this;
     }
 
     /**
-     * Get the request _controller paramiter
-     *
-     * @return string
+     * Get the request _controller parameter
+     * @return $this
      */
-    private function getRequestControllerParameter()
+    private function determineControllerAttributeValue()
     {
-        return (string) $this
-            ->request
-            ->attributes
-            ->get('_controller')
+        $this->setControllerAttributeValue(
+            $this
+                ->requestMaster
+                ->attributes
+                ->get('_controller')
+            )
         ;
+
+        return $this;
     }
 
     /**
      * Handle the actual parsing of the _controller Request parameter
-     *
-     * @param  string $requestController Value of the _controller Request parameter
+     * 
      * @return string[]
      */
-    private function parseRequestControllerParts($requestController)
+    private function parseRequestControllerParts()
     {
-        $matchResult = preg_match($this->getRegex(), $requestController, $matches);
+        $matchResult = preg_match($this->getRegex(), $this->getControllerAttributeValue(), $matches);
+
+        if (empty($this->getControllerAttributeValue())) {
+            return ['ukn', 'ukn', 'ukn', 'ukn'];
+        }
 
         if (false === $matchResult) {
             throw new RuntimeException('Encountered an error running preg_match.');
@@ -274,7 +349,7 @@ class BundleInformation implements BundleInformationInterface
         elseif (0 === $matchResult) {
             throw new RuntimeException('Invalid regular expression provided.');
         }
-        elseif (5 === count($matches)) {
+        elseif (4 === count($matches)) {
             throw new RuntimeException('Regular expression did not contain four sub expressions.');
         }
 

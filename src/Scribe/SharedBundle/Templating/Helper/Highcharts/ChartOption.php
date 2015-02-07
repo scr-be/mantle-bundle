@@ -10,6 +10,8 @@
 
 namespace Scribe\SharedBundle\Templating\Helper\Highcharts;
 
+use stdClass;
+
 /**
  * Class ChartOption
  */

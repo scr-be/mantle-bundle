@@ -32,10 +32,13 @@ trait EntityManagerAwareTrait
      * Setter for entity manager property from container
      *
      * @param ContainerInterface $container container object
+     * @return $this
      */
     public function setEntityManagerFromContainer(ContainerInterface $container)
     {
         $this->setEntityManager($container->get('doctrine.orm.default_entity_manager'));
+
+        return $this;
     }
 
     /**

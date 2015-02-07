@@ -10,14 +10,14 @@
 
 namespace Scribe\SharedBundle\Templating\Helper\Timeline;
 
-use Scribe\SharedBundle\Utility\ContainerAbstract;
+use Scribe\Utility\AbstractContainer;
 use Zend\Json\Expr;
 use Zend\Json\Json;
 
 /**
  * Class Jqtimeline
  */
-class Chronoline extends ContainerAbstract
+class Chronoline extends AbstractContainer
 {
     /**
      * @var string

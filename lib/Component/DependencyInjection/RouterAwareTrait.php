@@ -32,10 +32,13 @@ trait RouterAwareTrait
      * Setter for router property from container
      *
      * @param ContainerInterface $container container object
+     * @return $this
      */
     public function setRouterFromContainer(ContainerInterface $container)
     {
         $this->setRouter($container->get('router'));
+
+        return $this;
     }
 
     /**

@@ -32,10 +32,13 @@ trait RequestAwareTrait
      * Setter for request property from container
      *
      * @param ContainerInterface $container container object
+     * @return $this
      */
     public function setRequestFromContainer(ContainerInterface $container)
     {
-        $this->setRequest($container->get('request'));
+        $this->request = $container->get('request');
+
+        return $this;
     }
 
     /**

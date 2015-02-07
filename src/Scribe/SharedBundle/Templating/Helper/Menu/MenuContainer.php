@@ -101,7 +101,7 @@ class MenuContainer
     public function renderHeader()
     {
         return $this->engine->render(
-            'ScribeSharedBundle:Menu:main.html.twig',
+            'ScribePublicBundle:Menu:main.html.twig',
             [
                 'main'     => $this->menuHeader,
                 'security' => $this->menuSecurity,
@@ -119,7 +119,7 @@ class MenuContainer
         ;
 
         return $this->engine->render(
-            'ScribeSharedBundle:Menu:foot.html.twig',
+            'ScribePublicBundle:Menu:foot.html.twig',
             [
                 'foot'     => $this->menuFooter,
                 'entries'  => $entries,

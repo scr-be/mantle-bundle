@@ -10,7 +10,7 @@
 
 namespace Scribe\SharedBundle\Templating\Helper\Timeline;
 
-use Scribe\SharedBundle\Utility\ContainerAbstract;
+use Scribe\Utility\AbstractContainer;
 use Zend\Json\Expr;
 use Zend\Json\Json;
 use Datetime;
@@ -18,7 +18,7 @@ use Datetime;
 /**
  * Class Jqtimeline
  */
-class Jqtimeline extends ContainerAbstract implements TimelineInterface
+class Jqtimeline extends AbstractContainer implements TimelineInterface
 {
     /**
      * @var string

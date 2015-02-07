@@ -11,12 +11,12 @@
 namespace Scribe\SharedBundle\Templating\Helper\Highcharts;
 
 use Zend\Json\Json;
-use Scribe\SharedBundle\Utility\ContainerAbstract;
+use Scribe\Utility\AbstractContainer;
 
 /**
  * Class Highchart
  */
-class Highchart extends ContainerAbstract
+class Highchart extends AbstractContainer
 {
     /**
      * graph type: line

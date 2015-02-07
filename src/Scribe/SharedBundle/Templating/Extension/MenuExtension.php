@@ -44,6 +44,7 @@ class MenuExtension extends Twig_Extension
             ->get('s.tpl.helper.menu')
         ;
 
+
         switch ($which) {
             case 'main':
                 return $menu->renderHeader();

@@ -16,7 +16,7 @@ use ArrayAccess;
 /**
  * Class ContainerAbstract
  */
-abstract class ContainerAbstract implements ArrayAccess
+abstract class AbstractContainer implements ArrayAccess
 {
     /**
      * @var array

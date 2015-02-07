@@ -70,7 +70,7 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
         ContainerInterface       $container = null,
         NavMenuItemRepository    $navMenuItemRepo = null,
         NavMenuSettingRepository $navMenuSettingRepo = null,
-        BundleInformation        $bundleInformation,
+        BundleInformation        $bundleInformation = null,
         SecurityContext          $securityContext = null)
     {
         $this->setContainer($container);

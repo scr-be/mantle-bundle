@@ -32,10 +32,13 @@ trait SessionAwareTrait
      * Setter for session property from container
      *
      * @param ContainerInterface $container container object
+     * @return $this
      */
     public function setSessionFromContainer(ContainerInterface $container)
     {
         $this->setSession($container->get('request')->getSession());
+
+        return $this;
     }
 
     /**
