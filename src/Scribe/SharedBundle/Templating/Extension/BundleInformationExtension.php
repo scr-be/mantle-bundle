@@ -11,7 +11,7 @@
 namespace Scribe\SharedBundle\Templating\Extension;
 
 use Scribe\SharedBundle\Templating\Extension\Part\AdvancedExtensionTrait;
-use Scribe\SharedBundle\Component\Symfony\BundleInformation;
+use Scribe\Component\Bundle\BundleInformation;
 use Twig_Extension;
 
 /**

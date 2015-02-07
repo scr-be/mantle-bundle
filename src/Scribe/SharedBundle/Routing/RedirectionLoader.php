@@ -7,8 +7,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use Scribe\SharedBundle\Component\DependencyInjection\ContainerAwareTrait;
-use Scribe\SharedBundle\Utility\Filters\String;
+use Scribe\Component\DependencyInjection\ContainerAwareTrait;
+use Scribe\Filter\String;
 
 /**
  * loader service to handle redirection urls

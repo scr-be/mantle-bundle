@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Scribe\SharedBundle\Entity\Interfaces\EntityInterface;
-use Scribe\DependencyInjection\ContainerAwareTrait;
+use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 use Scribe\SharedBundle\Utility\Exception\InvalidArgumentException;
 
 /**

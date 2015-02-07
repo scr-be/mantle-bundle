@@ -73,7 +73,7 @@ class BundleInformation implements BundleInformationInterface
     public function __construct(RequestStack $requestStack)
     {
         if (false === ($requestStack->getCurrentRequest() instanceof Request)) {
-            throw new InvalidArgumentException;
+            //throw new InvalidArgumentException;
         }
 
         $this->setRegex(self::CONTROLLER_SERVICEID_REGEX);

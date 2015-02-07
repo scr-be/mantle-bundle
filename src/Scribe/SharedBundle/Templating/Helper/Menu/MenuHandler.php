@@ -13,7 +13,7 @@ namespace Scribe\SharedBundle\Templating\Helper\Menu;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\SecurityContext;
-use Scribe\SharedBundle\Component\Symfony\BundleInformation;
+use Scribe\Component\Bundle\BundleInformation;
 use Scribe\SharedBundle\Entity\NavMenuItem;
 use Scribe\SharedBundle\Entity\NavMenuItemRepository;
 use Scribe\SharedBundle\Entity\NavMenuSettingRepository;

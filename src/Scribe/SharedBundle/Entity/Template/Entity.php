@@ -11,6 +11,7 @@
 namespace Scribe\SharedBundle\Entity\Template;
 
 use Serializable;
+use Scribe\SharedBundle\Entity\Interfaces\EntityInterface;
 
 /**
  * Class Entity
@@ -24,7 +25,7 @@ abstract class Entity implements EntityInterface, Serializable
      *
      * @var id
      */
-    private $id;
+    protected $id;
 
     /**
      * set the default value for entity id

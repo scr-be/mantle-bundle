@@ -13,8 +13,8 @@ namespace Scribe\SharedBundle\Templating\Helper\Search;
 use Datetime;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Scribe\SharedBundle\Component\DependencyInjection\ContainerAwareTrait;
-use Scribe\SharedBundle\Component\Symfony\BundleInformation;
+use Scribe\Component\DependencyInjection\ContainerAwareTrait;
+use Scribe\Component\Bundle\BundleInformation;
 
 /**
  * Class Search

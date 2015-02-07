@@ -10,7 +10,7 @@
 
 namespace Scribe\SharedBundle\Controller;
 
-use Scribe\SharedBundle\Utility\Controller\ControllerUtils;
+use Scribe\Component\Controller\ControllerUtils;
 
 /**
  * Class MaintenanceController

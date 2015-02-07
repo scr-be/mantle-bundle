@@ -12,29 +12,35 @@ namespace Scribe\SharedBundle\Entity\Interfaces;
 
 /**
  * Interface EntityInterface
- * Provides the basic requirements of an Entity within the world application
- *
- * @package Scribe\SharedBundle\Entity\Interfaces
+ * @package Scribe\SharedBundle\Entity\Template
  */
 interface EntityInterface
 {
     /**
-     * A constructor to setup any class properties
+     * Should have a constructor to setup entity properties
      * @return void
      */
     public function __construct();
 
     /**
-     * Allows for casting from object to string
+     * Support casting from object type to string type
      *
      * @return string
      */
     public function __toString();
 
     /**
+     * Support standardized and extended output when object instance
+     * is passed to {@see var_dump()}
+     *
+     * @return array
+     */
+    public function __debugInfo();
+
+    /**
      * Get entity id
      *
-     * @return int
+     * @return int|null
      */
     public function getId();
 }

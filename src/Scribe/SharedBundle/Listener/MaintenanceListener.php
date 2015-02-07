@@ -12,8 +12,8 @@ namespace Scribe\SharedBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Scribe\SharedBundle\Controller\MaintenanceController;
-use Scribe\SharedBundle\Utility\Controller\ControllerUtils;
-use Scribe\SharedBundle\Component\Symfony\BundleInformation;
+use Scribe\Component\Controller\ControllerUtils;
+use Scribe\Component\Bundle\BundleInformation;
 
 /**
  * Class MaintenanceListener

@@ -2,8 +2,8 @@
 ## PARAMETER DEFINITIONS
 ##
 parameters:
-    s.utils.controller.class:                       Scribe\SharedBundle\Utility\Controller\ControllerUtils
-    s.symfony.bundleinfo.class:                     Scribe\SharedBundle\Component\Symfony\BundleInformation
+    s.utils.controller.class:                       Scribe\Component\Controller\ControllerUtils
+    s.symfony.bundleinfo.class:                     Scribe\Component\Bundle\BundleInformation
     s.loader.redirection.class:                     Scribe\SharedBundle\Routing\RedirectionLoader
 
     s.config.yml.class:                             Scribe\Utility\Config\ConfigContainer
