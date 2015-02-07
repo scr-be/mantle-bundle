@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\SharedBundle\Command;
+namespace Scribe\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand,
     Symfony\Component\Console\Output\OutputInterface,

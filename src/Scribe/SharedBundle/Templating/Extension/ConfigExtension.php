@@ -12,7 +12,7 @@ namespace Scribe\SharedBundle\Templating\Extension;
 
 use Scribe\SharedBundle\Templating\Extension\Part\ConfigExtensionTrait;
 use Scribe\SharedBundle\Templating\Extension\Part\SimpleExtensionTrait;
-use Scribe\SharedBundle\Utility\Config\ConfigInterface;
+use Scribe\Utility\Config\ConfigInterface;
 use Twig_Extension;
 
 /**

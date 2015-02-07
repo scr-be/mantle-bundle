@@ -10,7 +10,7 @@
 
 namespace Scribe\SharedBundle\Templating\Extension\Part;
 
-use Scribe\SharedBundle\Utility\Config\ConfigInterface;
+use Scribe\Utility\Config\ConfigInterface;
 
 /**
  * Class ConfigExtensionTrait

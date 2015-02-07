@@ -6,7 +6,7 @@ parameters:
     s.symfony.bundleinfo.class:                     Scribe\SharedBundle\Component\Symfony\BundleInformation
     s.loader.redirection.class:                     Scribe\SharedBundle\Routing\RedirectionLoader
 
-    s.config.yml.class:                             Scribe\SharedBundle\Utility\Config\ConfigContainer
+    s.config.yml.class:                             Scribe\Utility\Config\ConfigContainer
     s.search.class:                                 Scribe\SharedBundle\Templating\Helper\Search\Search
 
     s.menu.main.class:                              Scribe\SharedBundle\Templating\Helper\Bootstrap\Menu\MenuMain
