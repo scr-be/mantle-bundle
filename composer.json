@@ -68,14 +68,9 @@
     ],
     "autoload"         : {
         "psr-4": {
-            "Scribe\\SharedBundle\\": "src/Scribe/SharedBundle/"
-        },
-        "psr-4": {
+            "Scribe\\SharedBundle\\": "src/Scribe/SharedBundle/",
             "Scribe\\": "lib/"
         },
-        "classmap": [
-            "stub"
-        ],
         "files"   : [
             "stub/functions.php"
         ]
