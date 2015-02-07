@@ -12,15 +12,15 @@ namespace Scribe\SharedBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Scribe\Component\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
+use Scribe\DependencyInjection\AbstractExtension;
 
 /**
  * Class ScribeSharedExtension
  *
  * @package Scribe\SharedBundle\DependencyInjection
  */
-class ScribeSharedExtension extends Extension
+class ScribeSharedExtension extends AbstractExtension
 {
     /**
      * Load the configuration from the yaml config based on definitions defined

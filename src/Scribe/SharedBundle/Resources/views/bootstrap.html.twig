@@ -2,80 +2,123 @@
 
 {% block htmlHead %}
 
-    <!-- character encoding and view-port -->
+    <!-- character encoding -->
     <meta charset="utf-8">
+
+    <!-- set the bootstrap viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- page title -->
-    <title>{{ get_config_yml('scribe.html.title_pre') }}{% block titlePre %}Home{% endblock %}{{ get_config_yml('scribe.html.title_post') }}</title>
+    <title>{{ get_config_yml('scribe.html_title_pre') }}{% block titlePre %}Home{% endblock %}{{ get_config_yml('scribe.html_title_post') }}</title>
 
-    <!-- general meta info -->
-    <meta name="description" content="{% block description  %}{{ get_config('scribe.html.title_pre') }}{% endblock %}">
-    <meta name="keywords"    content="{% block metaKeywords %}{{ get_config('scribe.meta.keywords')  }}{% endblock %}">
-    <meta name="author"      content="{% block metaAuthor   %}{{ get_config('scribe.meta.author')    }}{% endblock %}">
+    <!-- meta info -->
+    <meta name="description" content="{% block description %}{{ get_config('scribe.html_description') }}{% endblock %}">
+    <meta name="keywords"    content="{% block metaKeywords %}{{ get_config('scribe.html_keywords')   }}{% endblock %}">
+    <meta name="author"      content="{% block metaAuthor %}{{ get_config('scribe.html_author')       }}{% endblock %}">
 
     <!-- Google+ publisher data -->
-    <link rel="publisher" href="{{ get_config('scribe.meta.gplus.profile') }}">
+    <link rel="publisher" href="https://plus.google.com/+Scribenet">
 
     <!-- Twitter card info -->
     {% block metaTwitter %}
-        <meta name="twitter:card"        content="{% block metaTwitterCard    %}{{ get_config('scribe.meta.twitter.card')   }}{% endblock %}">
-        <meta name="twitter:creator"     content="{% block metaTwitterCreator %}{{ get_config('scribe.meta.twitter.site')   }}{% endblock %}">
-        <meta name="twitter:image"       content="{% block metaTwitterImage   %}{{ get_config('scribe.meta.twitter.image')  }}{% endblock %}">
-        <meta name="twitter:title"       content="{{ block('titlePre')        }}{{ get_config_yml('scribe.html.title_post') }}">
-        <meta name="twitter:description" content="{{ block('description')     }}">
-        <meta name="twitter:site"        content="{{ get_config('scribe.meta.twitter.site') }}">
+        <meta name="twitter:card"        content="{% block metaTwitterCard %}{{ get_config('scribe.twitter_card') }}{% endblock %}">
+        <meta name="twitter:site"        content="{{ get_config('scribe.twitter_site') }}">
+        <meta name="twitter:title"       content="{{ block('titlePre') }}{{ get_config_yml('scribe.html_title_post') }}">
+        <meta name="twitter:description" content="{{ block('description') }}">
+        <meta name="twitter:creator"     content="{% block metaTwitterCreator %}{{ get_config('scribe.twitter_site') }}{% endblock %}">
+        <meta name="twitter:image"       content="{% block metaTwitterImage %}{{ get_config('scribe.twitter_image') }}{% endblock %}">
     {% endblock %}
 
     <!-- Open Graph data -->
     {% block metaOG %}
-        <meta property="og:type"        content="{% block metaOGType  %}{{ get_config('scribe.meta.open_graph.type')  }}{% endblock %}">
-        <meta property="og:image"       content="{% block metaOGImage %}{{ get_config('scribe.meta.open_graph.image') }}{% endblock %}">
-        <meta property="og:title"       content="{{ block('titlePre') }}{{ get_config_yml('scribe.html.title_post')   }}">
-        <meta property="og:locale"      content="{{ get_config('scribe.meta.open_graph.locale') }}">
-        <meta property="og:site_name"   content="{{ get_config('scribe.meta.author')            }}">
-        <meta property="og:description" content="{{ block('description')                        }}">
-        <meta property="og:url"         content="{{ app.request.uri                             }}">
+        <meta property="og:title"       content="{{ block('titlePre') }}{{ get_config_yml('scribe.html_title_post') }}">
+        <meta property="og:type"        content="{% block metaOGType %}{{ get_config('scribe.og_type') }}{% endblock %}">
+        <meta property="og:description" content="{{ block('description') }}">
+        <meta property="og:image"       content="{% block metaOGImage %}{{ get_config('scribe.og_image') }}{% endblock %}">
+        <meta property="og:site_name"   content="{{ get_config('scribe.html_author') }}">
+        <meta property="og:url"         content="{{ app.request.uri }}">
     {% endblock %}
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="bundles/scribeshared/images/favicon.ico">
+    {% image
+        output='/favicon.ico'
+            '@ScribeSharedBundle/Resources/public/images/favicon.ico'
+    %}
+        <link rel="shortcut icon" href="{{ asset_url }}">
+    {% endimage %}
 
     <!-- google fonts! -->
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bitter:400,700,400italic|Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Ubuntu+Mono|Roboto+Condensed:300italic,400italic,400,300,700">
+    <link href="//fonts.googleapis.com/css?family=Bitter:400,700,400italic|Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Ubuntu+Mono|Roboto+Condensed:300italic,400italic,400,300,700" rel="stylesheet">
+
 
     <!-- BLOCK: internal css stylesheets -->
     {% block stylesheetsInternal %}
 
-        <!-- scribe core css -->
+        <!-- all shared css resources -->
         {% stylesheets
-            output='assets/css/scribe_core.css'
-            filter='less,cssrewrite,?uglifycss'
-                'bundles/scribeshared/less/scribe-v2.less'
+            output='assets/css/shared.css'
+            filter='less'
+            filter='cssrewrite'
+            filter='?uglifycss'
+                '@scribe_less'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
-        <!-- scribe plugin css -->
+        <!-- all shared css plugin resources -->
         {% stylesheets
-            output='assets/css/scribe_plugins.css'
-            filter='cssrewrite,?uglifycss'
-                'bower/font-awesome/css/font-awesome.css'
-                'bower/chosen/chosen.css'
-                'bower/jqtimeline/css/jquery.jqtimeline.css'
-                'bower/lightbox2/css/lightbox.css'
-                'bower/icheck/skins/line/blue.css'
-                'bower/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css'
-                'bower/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
-                'bower/bootstrap-daterangepicker/daterangepicker-bs3.css'
-                'bower/qtip2/jquery.qtip.css'
-                'bower/jquery-chronoline/dist/chronoline.css'
-                'bower/messenger/build/css/messenger.css'
-                'bower/messenger/build/css/messenger-theme-flat.css'
-                'bower/messenger/build/css/messenger-spinner.css'
+            output='assets/css/plugins.css'
+            filter='cssrewrite'
+            filter='?uglifycss'
+                '@chosen_css'
+                '@jqtimeline_css'
+                '@simanek_hugrid_css'
+                '@lightbox2_css'
+                '@datetimepicker_css'
+                '@icheck_css'
+                '@xeditable_css'
+                '@daterangepicker_css'
+                '@qtip_css'
+                '@chronoline_css'
+                '@messenger_css'
+                '@font_awesome_css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+
+        {% image '@font_awesome_font_otf'  output='assets/fonts/FontAwesome.otf' %}                  {% endimage %}
+        {% image '@font_awesome_font_eot'  output='assets/fonts/fontawesome-webfont.eot' %}          {% endimage %}
+        {% image '@font_awesome_font_svg'  output='assets/fonts/fontawesome-webfont.svg' %}          {% endimage %}
+        {% image '@font_awesome_font_ttf'  output='assets/fonts/fontawesome-webfont.ttf' %}          {% endimage %}
+        {% image '@font_awesome_font_woff' output='assets/fonts/fontawesome-webfont.woff' %}         {% endimage %}
+
+        {% image '@glyphicons_font_eot'    output='assets/fonts/glyphicons-halflings-regular.eot' %} {% endimage %}
+        {% image '@glyphicons_font_svg'    output='assets/fonts/glyphicons-halflings-regular.svg' %} {% endimage %}
+        {% image '@glyphicons_font_ttf'    output='assets/fonts/glyphicons-halflings-regular.ttf' %} {% endimage %}
+        {% image '@glyphicons_font_woff'   output='assets/fonts/glyphicons-halflings-regular.woff' %}{% endimage %}
+
+        {% image '@fuelux_eot_font'        output='assets/fonts/fuelux.eot' %}                       {% endimage %}
+        {% image '@fuelux_svg_font'        output='assets/fonts/fuelux.svg' %}                       {% endimage %}
+        {% image '@fuelux_ttf_font'        output='assets/fonts/fuelux.ttf' %}                       {% endimage %}
+        {% image '@fuelux_woff_font'       output='assets/fonts/fuelux.woff' %}                      {% endimage %}
+
+        {% image '@lightbox2_loading_img'  output='assets/img/loading.gif' %}                        {% endimage %}
+        {% image '@lightbox2_next_img'     output='assets/img/next.png' %}                           {% endimage %}
+        {% image '@lightbox2_prev_img'     output='assets/img/prev.png' %}                           {% endimage %}
+        {% image '@lightbox2_close_img'    output='assets/img/close.png' %}                          {% endimage %}
+
+        {% image '@chosen_sprite_img'      output='chosen-sprite.png' %}                             {% endimage %}
+        {% image '@chosen_sprite2x_img'    output='chosen-sprite@2x.png' %}                          {% endimage %}
+
+        {% image '@icheck_line_img'        output='line.png' %}                                      {% endimage %}
+        {% image '@icheck_line_img2x'      output='line@2x.png' %}                                   {% endimage %}
+
+        {% image '@xeditable_clear_img'    output='assets/img/clear.png' %}                          {% endimage %}
+        {% image '@xeditable_loading_img'  output='assets/img/loading.gif' %}                        {% endimage %}
+
+        {% image '@chronoline_sprites_img' output='assets/images/chronoline-sprites.png' %}          {% endimage %}
+
+        {% image '@jqtimeline_img'         output='assets/img/main_img.png' %}                       {% endimage %}
 
     {% endblock %}
 
@@ -170,7 +213,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             <h3 id="myModalLabel"><i class="fa fa-user"></i> Scribe Account</h3>
                         </div>
-
+                        
                         <form class="form-signin" action="/security/login_check" method="post">
                             <div class="modal-body">
                                 <h4 style="margin-top:0px;">Please sign in:</h4>
@@ -213,18 +256,18 @@
                     </div>
                 </div>
             {% endif %}
-
+            
         {% endblock %}
 
         <a id="to-top" href="#Top"><i class="fa fa-angle-up"></i></a>
 
-        <!-- BLOCK: all javascript resources -->
+        <!-- BLOCK: all javascripts resources -->
         {% block javascripts %}
 
             <!-- all shared javascript resources compiled with closure -->
             {% javascripts
-                output='assets/js/scribe-plugins.js'
-                filter='?closure'
+                output='assets/js/plugins.js'
+                filter='?yui_js'
                     '@modernizr_js'
                     '@jquery_js'
                     '@hotkeys_js'
@@ -265,8 +308,8 @@
 
             <!-- general shared scribe javascript functionality -->
             {% javascripts
-                output='assets/js/scribe-core.js'
-                filter='?closure'
+                output='assets/js/scribe.js'
+                filter='?yui_js'
                     'bundles/scribeshared/js/scribe/functions.js'
                     'bundles/scribeshared/js/scribe/general.js'
                     'bundles/scribeshared/js/scribe/ajax.js'
@@ -291,9 +334,8 @@
             {% if scribe_security_tos_required() and scribe_security_tos_not_accepted() %}
 
                 {% javascripts
-                    combine=true
-                    output='assets/js/scribe-core-tos.js'
-                    filter='?closure'
+                    output='assets/js/scribe-tos.js'
+                    filter='?yui_js'
                         'bundles/scribeshared/js/scribe/tos.js'
                 %}
                     <script src="{{ asset_url }}"></script>

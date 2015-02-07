@@ -29,7 +29,7 @@ Scribe\SharedBundle\Entity\IconFamily:
 
         templates:
             targetEntity: IconTemplate
-            mappedBy:     iconFamily
+            mappedBy:     family
 
         icons:
             targetEntity: Icon

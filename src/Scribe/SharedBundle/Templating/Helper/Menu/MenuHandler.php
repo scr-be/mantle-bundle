@@ -268,6 +268,10 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
             if ($this->securityContext->isGranted($r)) {
                 return true;
             }
+            $user = $this->securityContext->getToken()->getUser() ?: false;
+            if ($user !== false && $user !== 'anon.' && strtolower($user->getOrg()->getCode()) == strtolower($r)) {
+                return true;
+            }
         }
 
         return false;

@@ -10,9 +10,10 @@
 
 namespace Scribe\SharedBundle\Entity;
 
-use Scribe\SharedBundle\Entity\Template\Entity;
-use Scribe\SharedBundle\Entity\Template\HasName;
-use Scribe\SharedBundle\Entity\Template\HasDescription;
+use Doctrine\ORM\Mapping as ORM;
+use Scribe\SharedBundle\Entity\Template\Entity,
+    Scribe\SharedBundle\Entity\Template\HasName,
+    Scribe\SharedBundle\Entity\Template\HasDescription;
 
 /**
  * Class Icon
@@ -31,6 +32,26 @@ class Icon extends Entity
      * @type string
      */
     private $family;
+
+    /**
+     * @type string
+     */
+    private $slug;
+
+    /**
+     * @var string 
+     */
+    private $unicode;
+
+    /**
+     * @var jsonArray 
+     */
+    private $aliases;
+
+    /**
+     * @var jsonArray 
+     */
+    private $categories;
 
     /**
      * perform any entity setup
