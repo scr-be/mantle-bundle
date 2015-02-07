@@ -1,6 +1,6 @@
 {
-    "name"             : "scribe/symfony-foundation",
-    "type"             : "project",
+    "name"             : "scribe/foundation",
+    "type"             : "library",
     "description"      : "The Symfony PHP framework used within Scribe with utilities and extras.",
     "keywords"         : ["scribe", "symfony", "framework"],
     "homepage"         : "https://github.com/scribenet/ScribeSymfony",
