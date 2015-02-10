@@ -339,15 +339,17 @@ class BundleInformation implements BundleInformationInterface
     {
         $matchResult = preg_match($this->getRegex(), $this->getControllerAttributeValue(), $matches);
 
+        $errorReturnArray = ['ukn', 'ukn', 'ukn', 'ukn'];
+
         if (empty($this->getControllerAttributeValue())) {
-            return ['ukn', 'ukn', 'ukn', 'ukn'];
+            return $errorReturnArray;
         }
 
         if (false === $matchResult) {
             throw new RuntimeException('Encountered an error running preg_match.');
         }
         elseif (0 === $matchResult) {
-            throw new RuntimeException('Invalid regular expression provided.');
+            return $errorReturnArray;
         }
         elseif (4 === count($matches)) {
             throw new RuntimeException('Regular expression did not contain four sub expressions.');
