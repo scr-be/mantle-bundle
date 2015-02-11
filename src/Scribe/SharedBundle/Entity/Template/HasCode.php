@@ -54,7 +54,7 @@ trait HasCode
      */
     public function hasCode()
     {
-        return (bool)$this->getCode() !== null;
+        return (bool) ($this->getCode() !== null);
     }
 
     /**

@@ -76,7 +76,7 @@ class Route extends Entity
      */
     public function hasReferenceType()
     {
-        return (bool)$this->referenceType !== null;
+        return (bool) ($this->referenceType !== null);
     }
 
     /**

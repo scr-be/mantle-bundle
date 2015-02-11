@@ -54,7 +54,7 @@ trait HasValueAsString
      */
     public function hasValue()
     {
-        return (bool)$this->getValue() !== null;
+        return (bool) ($this->getValue() !== null);
     }
 
     /**

@@ -49,7 +49,7 @@ trait HasDescription
      */
     public function hasDescription()
     {
-        return (bool)$this->description !== null;
+        return (bool) ($this->description !== null);
     }
 
     /**

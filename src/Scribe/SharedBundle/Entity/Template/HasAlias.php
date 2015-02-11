@@ -54,7 +54,7 @@ trait HasAlias
      */
     public function hasAlias()
     {
-        return (bool)$this->getAlias() !== null;
+        return (bool) ($this->getAlias() !== null);
     }
 
     /**

@@ -54,7 +54,7 @@ trait HasSlug
      */
     public function hasSlug()
     {
-        return (bool)$this->slug !== null;
+        return (bool) ($this->slug !== null);
     }
 
     /**

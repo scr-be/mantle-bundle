@@ -54,7 +54,7 @@ trait HasVersionAsInteger
      */
     public function hasVersion()
     {
-        return (bool)$this->getVersion() !== null;
+        return (bool) ($this->getVersion() !== null);
     }
 
     /**
