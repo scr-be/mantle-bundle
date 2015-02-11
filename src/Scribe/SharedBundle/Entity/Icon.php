@@ -94,7 +94,7 @@ class Icon extends Entity
      */
     public function hasFamily()
     {
-        return (bool)$this->family !== null;
+        return (bool) ($this->family !== null);
     }
 
     /**

@@ -41,6 +41,6 @@ trait HasParentInverseSide
      */
     public function hasParent()
     {
-        return (bool)$this->getParent() !== null;
+        return (bool) ($this->getParent() !== null);
     }
 }

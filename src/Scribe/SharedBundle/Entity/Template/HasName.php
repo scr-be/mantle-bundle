@@ -54,7 +54,7 @@ trait HasName
      */
     public function hasName()
     {
-        return (bool)$this->name !== null;
+        return (bool) ($this->name !== null);
     }
 
     /**

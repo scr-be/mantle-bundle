@@ -53,7 +53,7 @@ trait HasTitle
      */
     public function hasTitle()
     {
-        return (bool)$this->getTitle() !== null;
+        return (bool) ($this->getTitle() !== null);
     }
 
     /**
