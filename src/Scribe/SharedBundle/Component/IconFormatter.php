@@ -36,4 +36,20 @@ class IconFormatter
         $this->iconRepo = $iconRepo;
         $this->iconFamilyRepo = $iconFamilyRepo;
     }
+
+    public function render($family, $name, $template = null)
+    {
+        $name = $this->getIconByName($name);
+        var_dump($this->iconRepo); 
+    }
+
+    public function getIconByName($name)
+    {
+        try {
+            $icon = $this->iconRepo->findOneByName($name);
+            return $icon;
+        } 
+        catch(Exception $e) {
+        }
+    }
 }
