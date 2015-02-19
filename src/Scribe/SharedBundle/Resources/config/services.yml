@@ -16,6 +16,9 @@ parameters:
     s.tpl.helper.menu.class:                        Scribe\SharedBundle\Templating\Helper\Menu\Menu
     s.shared.navmenuitem.repo.class:                Scribe\SharedBundle\Entity\NavMenuItemRepository
     s.shared.navmenusetting.repo.class:             Scribe\SharedBundle\Entity\NavMenuSettingRepository
+    s.shared.icon.repo.class:                       Scribe\SharedBundle\Entity\IconRepository
+    s.shared.icontemplate.repo.class:               Scribe\SharedBundle\Entity\IconTemplateRepository
+    s.shared.iconfamily.repo.class:                 Scribe\SharedBundle\Entity\IconFamilyRepository
 
     s.twig.config.yml.class:                        Scribe\SharedBundle\Templating\Extension\ConfigExtension
     s.twig.zoom.class:                              Scribe\SharedBundle\Templating\Extension\ZoomExtension
@@ -86,6 +89,27 @@ services:
         factory_method:  getRepository
         arguments:
             - Scribe\SharedBundle\Entity\NavMenuSetting
+
+    s.shared.icon.repo:
+        class:           %s.shared.icon.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - Scribe\SharedBundle\Entity\Icon
+
+    s.shared.icontemplate.repo:
+        class:           %s.shared.icontemplate.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - Scribe\SharedBundle\Entity\IconTemplate
+
+    s.shared.iconfamily.repo:
+        class:           %s.shared.iconfamily.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - Scribe\SharedBundle\Entity\IconFamily
 
     s.loader.redirection:
         class: "%s.loader.redirection.class%"
