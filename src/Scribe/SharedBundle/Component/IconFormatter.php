@@ -37,19 +37,38 @@ class IconFormatter
         $this->iconFamilyRepo = $iconFamilyRepo;
     }
 
-    public function render($family, $name, $template = null)
+    public function render($familyName, $iconName, $template = null)
     {
-        $name = $this->getIconByName($name);
-        var_dump($this->iconRepo); 
+        $famly = $this->getIconFamilyByName($familyName);
+        $icon = $this->getIconByName($iconName);
     }
 
-    public function getIconByName($name)
+    public function renderTemplate($template, $args)
+    {
+        $engine = $template->getEngine();
+        if($engine == 'twig') {
+
+        }
+        else {
+            Throw new Exception("Unkown template engine called, {$engine}.");
+        }
+    }
+
+    public function getIconByName($iconName)
     {
         try {
-            $icon = $this->iconRepo->findOneByName($name);
+            $icon = $this->iconRepo->findOneByName($iconName);
             return $icon;
-        } 
-        catch(Exception $e) {
+        } catch(Exception $e) {
+        }
+    }
+
+    public function getIconFamilyByName($familyName)
+    {
+        try {
+            $iconFamily = $this->iconFamilyRepo->findOneByName($familyName);
+            return $iconFamily;
+        } catch(Exception $e) {
         }
     }
 }

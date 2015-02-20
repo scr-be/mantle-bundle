@@ -64,4 +64,12 @@ class IconFamily extends Entity
     {
         $this->getName();
     }
+
+    /**
+     * @return string
+     */
+    public function getPrefix()
+    {
+        $this->prefix;
+    }
 }

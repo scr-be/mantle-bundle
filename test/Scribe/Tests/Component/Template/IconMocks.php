@@ -19,11 +19,10 @@ trait IconMocks
 {
     private $iconRepo;
     private $iconFamilyRepo;
-
+    
     public function mockIcon()
     {
-        $icon = $this->getMockBuilder('Scribe\SharedBundle\Entity\Icon')
-                     ->getMock();
+        $icon = $this->getMock('Scribe\SharedBundle\Entity\Icon');
         $icon->method('getSlug')
              ->willReturn('house');
         $icon->method('getUnicode')
@@ -32,16 +31,15 @@ trait IconMocks
              ->willReturn('House');
         $icon->method('getAliases')
              ->willReturn(['hus', 'abode', 'dwelling']);
-        $icon->method('getAliases')
+        $icon->method('getCategories')
              ->willReturn(['Residential', 'Architectural']);
-        $icon->method('getFamily')
-             ->willReturn('font awesome');
         return $icon;
     }
 
     public function mockIconRepo($icon)
     {
         $iconRepo = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconRepository')
+                         ->setMethods(array('findOneByName'))
                          ->disableOriginalConstructor()
                          ->getMock();
         $iconRepo->method('findOneByName')
@@ -51,11 +49,10 @@ trait IconMocks
 
     public function mockIconFamily()
     {
-        $iconFamily = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconFamily')
-                           ->getMock();
+        $iconFamily = $this->getMock('Scribe\SharedBundle\Entity\IconFamily');
         $iconFamily->method('getName')
                    ->willReturn('Font Awesome');
-        $iconFamily->method('prefix')
+        $iconFamily->method('getPrefix')
                    ->willReturn('fa');
         return $iconFamily;
     }
@@ -63,6 +60,7 @@ trait IconMocks
     public function mockIconFamilyRepo($iconFamily)
     {
         $iconFamilyRepo = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconFamilyRepository')
+                               ->setMethods(array('findOneByName'))
                                ->disableOriginalConstructor()
                                ->getMock();
         $iconFamilyRepo->method('findOneByName')
@@ -72,8 +70,7 @@ trait IconMocks
 
     public function mockIconTemplate()
     {
-        $iconTemplate = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconTemplate')
-                             ->getMock();
+        $iconTemplate = $this->getMock('Scribe\SharedBundle\Entity\IconTemplate');
         $iconTemplate->method('getSlug')
                      ->willReturn('fa-italic');
         $iconTemplate->method('getDescription')
