@@ -30,7 +30,7 @@ class IconFormatterTest extends PHPUnit_Framework_TestCase
 
     public function testFormatter()
     {
-        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo); 
+        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
         $formatter->render('house', 'fa'); 
     }
 }

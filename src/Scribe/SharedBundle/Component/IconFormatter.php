@@ -11,8 +11,10 @@
 
 namespace Scribe\SharedBundle\Component;
 
+use Doctrine\ORM\EntityNotFoundException;
 use Scribe\SharedBundle\Entity\IconRepository,
-    Scribe\SharedBundle\Entity\IconFamilyRepository;
+    Scribe\SharedBundle\Entity\IconFamilyRepository,
+    Scribe\SharedBundle\Entity\IconTemplateRepository;
 
 /**
  * IconFormatter
@@ -30,17 +32,28 @@ class IconFormatter
      * @var IconFamilyRepository 
      */
     private $iconFamilyRepo;
+
+    /**
+     * @var IconTemplateRepository 
+     */
+    private $iconTemplateRepo;
     
-    public function __construct(IconRepository $iconRepo, IconFamilyRepository $iconFamilyRepo) 
+    public function __construct(IconRepository $iconRepo, IconFamilyRepository $iconFamilyRepo, IconTemplateRepository $iconTemplateRepo) 
     {
         $this->iconRepo = $iconRepo;
         $this->iconFamilyRepo = $iconFamilyRepo;
     }
 
-    public function render($familyName, $iconName, $template = null)
+    public function render($familyName, $iconName, $templateSlug = null)
     {
-        $famly = $this->getIconFamilyByName($familyName);
+        $family = $this->getIconFamilyByName($familyName);
         $icon = $this->getIconByName($iconName);
+        if($templateSlug) {
+            $template = getTemplateBySlug($templateSlug);
+        }
+        else {
+            $template = $family->getTemplates()[0];
+        }
     }
 
     public function renderTemplate($template, $args)
@@ -50,7 +63,7 @@ class IconFormatter
 
         }
         else {
-            Throw new Exception("Unkown template engine called, {$engine}.");
+            Throw new Exception("Unkown template engine called: {$engine}.");
         }
     }
 
@@ -59,7 +72,8 @@ class IconFormatter
         try {
             $icon = $this->iconRepo->findOneByName($iconName);
             return $icon;
-        } catch(Exception $e) {
+        } catch(ORMException $e) {
+            throw new Exception("Failed to find Icon entity by name {$iconName}.", 0, $e);
         }
     }
 
@@ -68,7 +82,18 @@ class IconFormatter
         try {
             $iconFamily = $this->iconFamilyRepo->findOneByName($familyName);
             return $iconFamily;
-        } catch(Exception $e) {
+        } catch(ORMException $e) {
+            throw new Exception("Failed to find IconFamily entity by name {$familyName}.", 0, $e);
+        }
+    }
+
+    public function getTemplateBySlug($templateSlug)
+    {
+        try {
+            $iconTemplate = $this->iconTemplateRepo->findOneBySlug($templateSlug);
+            return $iconTemplate;
+        } catch(ORMException $e) {
+            throw new Exception("Failed to find IconTemplate entity by slug {$templateSlug}.", 0, $e);
         }
     }
 }

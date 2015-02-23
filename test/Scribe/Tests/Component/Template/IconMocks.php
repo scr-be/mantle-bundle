@@ -19,6 +19,7 @@ trait IconMocks
 {
     private $iconRepo;
     private $iconFamilyRepo;
+    private $iconTemplateRepo;
     
     public function mockIcon()
     {
@@ -84,6 +85,17 @@ trait IconMocks
         return $iconTemplate;
     }
 
+    public function mockIconTemplateRepo($iconTemplate)
+    {
+        $iconTemplateRepo = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconTemplateRepository')
+                               ->setMethods(array('findOneBySlug'))
+                               ->disableOriginalConstructor()
+                               ->getMock();
+        $iconTemplateRepo->method('findOneBySlug')
+                         ->willReturn($iconTemplate);
+        return $iconTemplateRepo;
+    }
+
     public function mockIconEntities()
     {
         $icon = $this->mockIcon();
@@ -99,5 +111,6 @@ trait IconMocks
                      ->willReturn([$iconFamily]);
         $this->iconRepo = $this->mockIconRepo($icon);
         $this->iconFamilyRepo = $this->mockIconFamilyRepo($iconFamily);
+        $this->iconTemplateRepo = $this->mockIconTemplateRepo($iconTemplate);
     }
 }
