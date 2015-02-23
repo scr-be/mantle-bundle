@@ -31,6 +31,7 @@ Scribe\SharedBundle\Entity\IconFamily:
             targetEntity: IconTemplate
             mappedBy:     family
 
+    manyToMany:
         icons:
             targetEntity: Icon
-            mappedBy:     family
+            mappedBy:     families

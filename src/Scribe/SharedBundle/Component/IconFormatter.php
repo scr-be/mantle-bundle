@@ -12,6 +12,7 @@
 namespace Scribe\SharedBundle\Component;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Twig_Extension;
 use Scribe\SharedBundle\Entity\IconRepository,
     Scribe\SharedBundle\Entity\IconFamilyRepository,
     Scribe\SharedBundle\Entity\IconTemplateRepository;
@@ -37,53 +38,62 @@ class IconFormatter
      * @var IconTemplateRepository 
      */
     private $iconTemplateRepo;
+
+    /**
+     * @var Twig_Environment 
+     */
+    private $twig;
     
     public function __construct(IconRepository $iconRepo, IconFamilyRepository $iconFamilyRepo, IconTemplateRepository $iconTemplateRepo) 
     {
         $this->iconRepo = $iconRepo;
         $this->iconFamilyRepo = $iconFamilyRepo;
+        $this->iconTemplateRepo = $iconTemplateRepo;
+        $this->twig = new \Twig_Environment(new \Twig_Loader_String());
     }
 
-    public function render($familyName, $iconName, $templateSlug = null)
+    public function render($familySlug, $iconSlug, $templateSlug = null, ...$optionalClasses)
     {
-        $family = $this->getIconFamilyByName($familyName);
-        $icon = $this->getIconByName($iconName);
+        $family = $this->getIconFamilyBySlug($familySlug);
+        $icon = $this->getIconBySlug($iconSlug);
         if($templateSlug) {
-            $template = getTemplateBySlug($templateSlug);
+            $templateEnt = getTemplateBySlug($templateSlug);
         }
         else {
-            $template = $family->getTemplates()[0];
+            $templateEnt = $family->getTemplates()[0];
         }
+        return $this->renderTemplate($templateEnt, $family, $icon);
     }
 
-    public function renderTemplate($template, $args)
+    public function renderTemplate($templateEnt, $family, $icon)
     {
-        $engine = $template->getEngine();
+        $engine = $templateEnt->getEngine();
         if($engine == 'twig') {
-
+            $template = $templateEnt->getTemplate();
+            return $this->twig->render($template, array('family' => $family, 'icon' => $icon));
         }
         else {
             Throw new Exception("Unkown template engine called: {$engine}.");
         }
     }
 
-    public function getIconByName($iconName)
+    public function getIconBySlug($iconSlug)
     {
         try {
-            $icon = $this->iconRepo->findOneByName($iconName);
+            $icon = $this->iconRepo->findOneBySlug($iconSlug);
             return $icon;
         } catch(ORMException $e) {
-            throw new Exception("Failed to find Icon entity by name {$iconName}.", 0, $e);
+            throw new Exception("Failed to find Icon entity by name {$iconSlug}.", 0, $e);
         }
     }
 
-    public function getIconFamilyByName($familyName)
+    public function getIconFamilyBySlug($familySlug)
     {
         try {
-            $iconFamily = $this->iconFamilyRepo->findOneByName($familyName);
+            $iconFamily = $this->iconFamilyRepo->findOneBySlug($familySlug);
             return $iconFamily;
         } catch(ORMException $e) {
-            throw new Exception("Failed to find IconFamily entity by name {$familyName}.", 0, $e);
+            throw new Exception("Failed to find IconFamily entity by name {$familySlug}.", 0, $e);
         }
     }
 

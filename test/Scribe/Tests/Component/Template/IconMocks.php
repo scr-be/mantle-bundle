@@ -25,25 +25,25 @@ trait IconMocks
     {
         $icon = $this->getMock('Scribe\SharedBundle\Entity\Icon');
         $icon->method('getSlug')
-             ->willReturn('house');
+             ->willReturn('glass');
         $icon->method('getUnicode')
-             ->willReturn('U+2014');
+             ->willReturn('f000');
         $icon->method('getName')
-             ->willReturn('House');
+             ->willReturn('Glass');
         $icon->method('getAliases')
-             ->willReturn(['hus', 'abode', 'dwelling']);
+             ->willReturn(null);
         $icon->method('getCategories')
-             ->willReturn(['Residential', 'Architectural']);
+             ->willReturn(['Web Application Icons']);
         return $icon;
     }
 
     public function mockIconRepo($icon)
     {
         $iconRepo = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconRepository')
-                         ->setMethods(array('findOneByName'))
+                         ->setMethods(array('findOneBySlug'))
                          ->disableOriginalConstructor()
                          ->getMock();
-        $iconRepo->method('findOneByName')
+        $iconRepo->method('findOneBySlug')
                  ->willReturn($icon);
         return $iconRepo;
     }
@@ -55,16 +55,24 @@ trait IconMocks
                    ->willReturn('Font Awesome');
         $iconFamily->method('getPrefix')
                    ->willReturn('fa');
+        $iconFamily->method('getSlug')
+                   ->willReturn('fa');
+        $iconFamily->method('getRequiredClasses')
+                   ->willReturn(array('fa'));
+        $iconFamily->method('getRequiredClassesFormatted')
+                   ->willReturn('fa');
+        $iconFamily->method('getOptionalClasses')
+                   ->willReturn(array('fa-fw', 'fa-lg', 'fa-2x'));
         return $iconFamily;
     }
 
     public function mockIconFamilyRepo($iconFamily)
     {
         $iconFamilyRepo = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconFamilyRepository')
-                               ->setMethods(array('findOneByName'))
+                               ->setMethods(array('findOneBySlug'))
                                ->disableOriginalConstructor()
                                ->getMock();
-        $iconFamilyRepo->method('findOneByName')
+        $iconFamilyRepo->method('findOneBySlug')
                        ->willReturn($iconFamily);
         return $iconFamilyRepo;
     }
@@ -73,15 +81,19 @@ trait IconMocks
     {
         $iconTemplate = $this->getMock('Scribe\SharedBundle\Entity\IconTemplate');
         $iconTemplate->method('getSlug')
-                     ->willReturn('fa-italic');
+                     ->willReturn('fa-basic');
         $iconTemplate->method('getDescription')
-                     ->willReturn('renders icon as italic elements');
-        $iconTemplate->method('getVariables')
-                     ->willReturn(['size', 'name']);
-        $iconTemplate->method('engine')
+                     ->willReturn('Basic Font Awesome markup using span html tag.');
+        $iconTemplate->method('getEngine')
                      ->willReturn('twig');
-        $iconTemplate->method('template')
-                     ->willReturn('<i class="fa {{name}} {{size}}><i/>');
+        $template = <<<EOT
+<span class="
+  {{ family.getRequiredClassesFormatted() }}
+  {{ family.getPrefix() }}-{{ icon.getSlug() }}">
+</span>
+EOT;
+        $iconTemplate->method('getTemplate')
+          ->willReturn($template);
         return $iconTemplate;
     }
 
@@ -101,8 +113,8 @@ trait IconMocks
         $icon = $this->mockIcon();
         $iconFamily = $this->mockIconFamily();
         $iconTemplate = $this->mockIconTemplate();
-        $icon->method('getFamily')
-             ->willReturn($iconFamily);
+        $icon->method('getFamilies')
+             ->willReturn([$iconFamily]);
         $iconFamily->method('getIcons')
                    ->willReturn([$icon]);
         $iconFamily->method('getTemplates')

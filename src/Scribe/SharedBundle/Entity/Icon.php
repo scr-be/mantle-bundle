@@ -29,10 +29,10 @@ class Icon extends Entity
         HasDescription;
 
     /**
-     * The name of the font library family (ex: "fa" for font awesome)
-     * @type string
+     * The associated families 
+     * @type IconFamilies
      */
-    private $family;
+    private $families;
 
     /**
      * @type string
@@ -57,7 +57,10 @@ class Icon extends Entity
     /**
      * perform any entity setup
      */
-    public function __construct() {}
+    public function __construct()
+    {
+        $this->families = new ArrayCollection;
+    }
 
     /**
      * Support for casting from object type to string type
@@ -65,46 +68,46 @@ class Icon extends Entity
      */
     public function __toString()
     {
-        return $this->getFamily() . ':' . $this->getName();
+        return $this->getFamilies() . ':' . $this->getName();
     }
 
     /**
-     * Setter for family property
-     * @param $family entity
+     * Setter for families property
+     * @param $families entity
      * @return $this
      */
-    public function setFamily(IconFamily $family = null)
+    public function setFamilies(ArrayCollection $families = null)
     {
-        $this->family = $family;
+        $this->families = $families;
 
         return $this;
     }
 
     /**
-     * Getter for family property
-     * @return IconFamily 
+     * Getter for families property
+     * @return IconFamilies 
      */
-    public function getFamily()
+    public function getFamilies()
     {
-        return $this->family;
+        return $this->families;
     }
 
     /**
-     * Checker for family property
+     * Checker for families property
      * @return bool
      */
-    public function hasFamily()
+    public function hasFamilies()
     {
-        return (bool) ($this->family !== null);
+        return (bool) ($this->families !== null);
     }
 
     /**
-     * Nullify family property
+     * Nullify families property
      * @return $this
      */
-    public function clearFamily()
+    public function clearFamilies()
     {
-        $this->family = null;
+        $this->families = new ArrayCollection;
 
         return $this;
     }

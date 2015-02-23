@@ -31,11 +31,16 @@ Scribe\SharedBundle\Entity\Icon:
             type:     json_array
             nullable: true
 
-    manyToOne:
+    manyToMany:
 
-        family:
+        families:
             targetEntity: IconFamily
             inversedBy:   icons
-            joinColumn:
-                name:              iconFamilyId
-                referencedColummn: id
+            joinTable: 
+                name: Icons_Mapto_IconFamilies
+                joinColumns:
+                    iconId:
+                        referencedColummnName: id
+                inverseJoinColumn:
+                    iconFamilyId:
+                        referencedColummnName: id
