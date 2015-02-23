@@ -43,6 +43,11 @@ class IconFamily extends Entity
     private $optionalClasses;
 
     /**
+     * @type jsonArray 
+     */
+    private $attributes;
+
+    /**
      * @var IconTemplate[]
      */
     private $templates;
@@ -145,6 +150,49 @@ class IconFamily extends Entity
     public function getOptionalClasses()
     {
         return $this->optionalClasses;
+    }
+
+    /**
+     * Checker for optionalClasses property 
+     *
+     * @return array 
+     */
+    public function hasOptionalClasses()
+    {
+        return (bool) ($this->optionalClasses !== null);
+    }
+
+    /**
+     * Setter for attributes property 
+     *
+     * @param array 
+     * @return $this
+     */
+    public function setAttributes($attributes = null)
+    {
+        $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    /**
+     * Getter for attributes property 
+     *
+     * @return array 
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Checker for attributes property 
+     *
+     * @return array 
+     */
+    public function hasAttributes()
+    {
+        return (bool) ($this->attributes !== null);
     }
 
     /**

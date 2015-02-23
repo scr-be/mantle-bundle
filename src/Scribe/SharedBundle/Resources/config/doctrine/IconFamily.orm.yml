@@ -24,6 +24,11 @@ Scribe\SharedBundle\Entity\IconFamily:
 
         optionalClasses:
             type: json_array
+            nullable: true
+
+        attributes:
+            type: json_array
+            nullable: true
 
     oneToMany:
 
