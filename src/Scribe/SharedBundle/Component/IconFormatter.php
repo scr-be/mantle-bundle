@@ -62,6 +62,7 @@ class IconFormatter
         else {
             $templateEnt = $family->getTemplates()[0];
         }
+        $optionalClasses = $this->validatedOptionalClasses($optionalClasses, $family);
         return $this->renderTemplate($templateEnt, $family, $icon);
     }
 
@@ -104,6 +105,19 @@ class IconFormatter
             return $iconTemplate;
         } catch(ORMException $e) {
             throw new Exception("Failed to find IconTemplate entity by slug {$templateSlug}.", 0, $e);
+        }
+    }
+
+    public function validatedOptionalClasses($optionalClasses, $family)
+    {
+        if(empty($optionalClasses) || !$family->hasOptionalClasses()) {
+            return null;
+        }
+        else {
+            $valid = array();
+            foreach($optionalClasses as $opt) {
+                // check if exists in families optionals
+            }
         }
     }
 }

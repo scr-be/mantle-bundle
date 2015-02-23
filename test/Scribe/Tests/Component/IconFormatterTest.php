@@ -40,4 +40,18 @@ EOT;
         $html = $formatter->render('glass', 'fa'); 
         $this->assertSame($html, $expected);
     }
+
+    public function testFormatterCanAcceptOptionalClasses()
+    {
+        $expected = <<<EOT
+<span class="
+  fa
+  fa-fw fa-lg
+  fa-glass">
+</span>
+EOT;
+        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
+        $html = $formatter->render('glass', 'fa', null, 'fa-fw', 'fa-lg'); 
+        $this->assertSame($html, $expected);
+    }
 }

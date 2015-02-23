@@ -63,6 +63,8 @@ trait IconMocks
                    ->willReturn('fa');
         $iconFamily->method('getOptionalClasses')
                    ->willReturn(array('fa-fw', 'fa-lg', 'fa-2x'));
+        $iconFamily->method('hasOptionalClasses')
+                   ->willReturn(true);
         return $iconFamily;
     }
 
