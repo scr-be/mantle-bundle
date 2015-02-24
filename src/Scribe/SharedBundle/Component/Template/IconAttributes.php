@@ -11,6 +11,8 @@
 
 namespace Scribe\SharedBundle\Component\Template;
 
+use Scribe\SharedBundle\Component\Exceptions\IconFormatterException;
+
 /**
  * Class HasCode
  *

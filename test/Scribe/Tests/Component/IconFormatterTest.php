@@ -119,4 +119,16 @@ EOT;
         $html = $formatter->render(); 
         $this->assertSame($html, $expected);
     }
+
+    public function testCanUseFormatterInstanceMultipleTimes()
+    {
+        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
+        $formatter->setFamily('fa')
+                  ->setIcon('glass')
+                  ->setOptionalClasses(array('fa-fw', 'fa-lg'));
+        $html = $formatter->render(); 
+        $this->assertSame(null, $formatter->getFamily());
+        $this->assertSame(null, $formatter->getIcon());
+        $this->assertSame(null, $formatter->getOptionalClasses());
+    }
 }

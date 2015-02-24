@@ -68,7 +68,9 @@ class IconFormatter
         $this->ensureArgumentSet('iconSlug', $iconSlug, 'hasIcon', 'setIcon');
         $this->ensureTemplateSet($templateSlug);
         $this->verifyOptionalClasses($optionalClasses);
-        return $this->renderTemplate();
+        $html = $this->renderTemplate();
+        $this->clearAttributes();
+        return $html;
     }
 
     private function ensureArgumentSet($argumentType, $argument, $checker, $setter)
@@ -132,19 +134,13 @@ class IconFormatter
         }
     }
 
-    private function validateOptionalClasses($optionalClasses)
+    public function clearAttributes()
     {
-        if(empty($optionalClasses) || !$this->getFamily()->hasOptionalClasses()) {
-            return true;
-        }
-        else {
-            $opts = $this->getFamily()->getOptionalClasses();
-            foreach($optionalClasses as $opt) {
-                if(!in_array($opt, $opts)) {
-                    throw new IconFormatterException("Unable to find {$opt} among optionalClasses of IconFamily {$this->getFamily()->getName()}.");
-                }
-            }
-            return true;
-        }
+        $this->clearFamily();
+        $this->clearIcon();
+        $this->clearTemplateEntity();
+        $this->clearOptionalClasses();
+
+        return $this;
     }
 }
