@@ -91,7 +91,8 @@ trait IconMocks
         $template = <<<EOT
 <span class="
   {{ family.getRequiredClassesFormatted() }}
-  {{ family.getPrefix() }}-{{ icon.getSlug() }}">
+{% if optionalClasses %}  {{ optionalClasses|join(' ') }}
+{% endif %}  {{ family.getPrefix() }}-{{ icon.getSlug() }}">
 </span>
 EOT;
         $iconTemplate->method('getTemplate')

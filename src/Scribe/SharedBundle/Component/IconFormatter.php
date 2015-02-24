@@ -62,16 +62,16 @@ class IconFormatter
         else {
             $templateEnt = $family->getTemplates()[0];
         }
-        $optionalClasses = $this->validatedOptionalClasses($optionalClasses, $family);
-        return $this->renderTemplate($templateEnt, $family, $icon);
+        $this->validateOptionalClasses($optionalClasses, $family);
+        return $this->renderTemplate($templateEnt, $family, $icon, $optionalClasses);
     }
 
-    public function renderTemplate($templateEnt, $family, $icon)
+    public function renderTemplate($templateEnt, $family, $icon, $optionalClasses)
     {
         $engine = $templateEnt->getEngine();
         if($engine == 'twig') {
             $template = $templateEnt->getTemplate();
-            return $this->twig->render($template, array('family' => $family, 'icon' => $icon));
+            return $this->twig->render($template, array('family' => $family, 'icon' => $icon, 'optionalClasses' => $optionalClasses));
         }
         else {
             Throw new Exception("Unkown template engine called: {$engine}.");
@@ -108,16 +108,19 @@ class IconFormatter
         }
     }
 
-    public function validatedOptionalClasses($optionalClasses, $family)
+    public function validateOptionalClasses($optionalClasses, $family)
     {
         if(empty($optionalClasses) || !$family->hasOptionalClasses()) {
-            return null;
+            return true;
         }
         else {
-            $valid = array();
+            $opts = $family->getOptionalClasses();
             foreach($optionalClasses as $opt) {
-                // check if exists in families optionals
+                if(!in_array($opt, $opts)) {
+                    throw new Exception("Unable to find {$opt} among optionalClasses of IconFamily {$family->getSlug()}.");
+                }
             }
+            return true;
         }
     }
 }
