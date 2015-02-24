@@ -99,7 +99,7 @@ class IconFormatter
 
     private function verifyOptionalClasses($optionalClasses)
     {
-        if($optionalClasses) {
+        if(!empty($optionalClasses)) {
             $this->setOptionalClasses($optionalClasses);
         }
         else if($this->hasOptionalClasses()) {

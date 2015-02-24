@@ -35,6 +35,8 @@ trait IconAttributes
     {
         $family = $this->getIconFamilyBySlug($familySlug);
         $this->family = $family;
+
+        return $this;
     }
 
     public function hasFamily()
@@ -58,6 +60,8 @@ trait IconAttributes
     {
         $icon = $this->getIconBySlug($iconSlug);
         $this->icon = $icon;
+
+        return $this;
     }
 
     public function hasIcon()
@@ -81,6 +85,8 @@ trait IconAttributes
     {
         $template = $this->getIconTemplateEntityBySlug($templateSlug);
         $this->template = $template;
+
+        return $this;
     }
 
     public function hasTemplateEntity()
@@ -114,6 +120,8 @@ trait IconAttributes
     {
         $this->validateOptionalClasses($optionalClasses);
         $this->optionalClasses = $optionalClasses;
+
+        return $this;
     }
 
     public function hasOptionalClasses()

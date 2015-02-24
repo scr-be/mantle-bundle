@@ -107,14 +107,15 @@ EOT;
     public function testCanSetFormatterExternally()
     {
         $expected = <<<EOT
-<span class="fa fa-glass"
+<span class="fa fa-fw fa-lg fa-glass"
       aria-hidden="false"
       aria-label="Icon: Glass (Category: Web Application Icons)">
 </span>
 EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
-        $formatter->setFamily('fa');
-        $formatter->setIcon('glass');
+        $formatter->setFamily('fa')
+                  ->setIcon('glass')
+                  ->setOptionalClasses(array('fa-fw', 'fa-lg'));
         $html = $formatter->render(); 
         $this->assertSame($html, $expected);
     }
