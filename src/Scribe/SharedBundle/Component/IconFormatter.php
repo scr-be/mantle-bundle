@@ -140,6 +140,8 @@ class IconFormatter
         $this->clearIcon();
         $this->clearTemplateEntity();
         $this->clearOptionalClasses();
+        $this->clearAccessibilityText();
+        $this->setPresentationOnly(false);
 
         return $this;
     }

@@ -44,12 +44,14 @@ trait IconAccessibility
 
     public function getAccessibilityText()
     {
-        return (string) $this->accessibilityText;
+        return $this->accessibilityText;
     }
 
     public function setAccessibilityText($accessibilityText = null)
     {
         $this->accessibilityText = (string) $accessibilityText;
+
+        return $this;
     }
 
     public function hasAccessibilityText()
@@ -57,4 +59,8 @@ trait IconAccessibility
         return (bool) ($this->accessibilityText !== null);
     }
 
+    public function clearAccessibilityText()
+    {
+        $this->accessibilityText = null;
+    }
 }

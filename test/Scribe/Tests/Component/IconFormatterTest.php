@@ -122,13 +122,23 @@ EOT;
 
     public function testCanUseFormatterInstanceMultipleTimes()
     {
+        $expected = <<<EOT
+<span class="fa fa-fw fa-lg fa-glass"
+      aria-hidden="true"
+      aria-label="Foo!">
+</span>
+EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
-        $formatter->setFamily('fa')
+        $formatter->setPresentationOnly(true)
+                  ->setFamily('fa')
                   ->setIcon('glass')
+                  ->setAccessibilityText("Foo!")
                   ->setOptionalClasses(array('fa-fw', 'fa-lg'));
         $html = $formatter->render(); 
         $this->assertSame(null, $formatter->getFamily());
         $this->assertSame(null, $formatter->getIcon());
         $this->assertSame(null, $formatter->getOptionalClasses());
+        $this->assertSame(null, $formatter->getAccessibilityText());
+        $this->assertSame(false, $formatter->isPresentationOnly());
     }
 }
