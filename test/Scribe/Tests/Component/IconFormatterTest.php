@@ -76,7 +76,7 @@ EOT;
         $html = $formatter->render('fa', 'glass', null, 'fa-foo'); 
     }
 
-    public function testFormatterCanUnsetAccessibilityText()
+    public function testFormatterCanHideAccessibilityText()
     {
         $expected = <<<EOT
 <span class="fa fa-fw fa-lg fa-glass"
@@ -86,6 +86,20 @@ EOT;
 EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
         $formatter->setPresentationOnly(true);
+        $html = $formatter->render('fa', 'glass', null, 'fa-fw', 'fa-lg'); 
+        $this->assertSame($html, $expected);
+    }
+
+    public function testFormatterCanSetAccessibilityText()
+    {
+        $expected = <<<EOT
+<span class="fa fa-fw fa-lg fa-glass"
+      aria-hidden="false"
+      aria-label="Glass is half full!">
+</span>
+EOT;
+        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
+        $formatter->setAccessibilityText("Glass is half full!");
         $html = $formatter->render('fa', 'glass', null, 'fa-fw', 'fa-lg'); 
         $this->assertSame($html, $expected);
     }
