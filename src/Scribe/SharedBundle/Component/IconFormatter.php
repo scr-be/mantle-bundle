@@ -13,6 +13,7 @@ namespace Scribe\SharedBundle\Component;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Twig_Extension;
+use Scribe\SharedBundle\Component\Exceptions\IconFormatterException;
 use Scribe\SharedBundle\Entity\IconRepository,
     Scribe\SharedBundle\Entity\IconFamilyRepository,
     Scribe\SharedBundle\Entity\IconTemplateRepository;
@@ -74,7 +75,7 @@ class IconFormatter
             return $this->twig->render($template, array('family' => $family, 'icon' => $icon, 'optionalClasses' => $optionalClasses));
         }
         else {
-            Throw new Exception("Unkown template engine called: {$engine}.");
+            Throw new IconFormatterException("Unkown template engine called: {$engine}.");
         }
     }
 
@@ -84,7 +85,7 @@ class IconFormatter
             $icon = $this->iconRepo->findOneBySlug($iconSlug);
             return $icon;
         } catch(ORMException $e) {
-            throw new Exception("Failed to find Icon entity by name {$iconSlug}.", 0, $e);
+            throw new IconFormatterException("Failed to find Icon entity by name {$iconSlug}.", 0, $e);
         }
     }
 
@@ -94,7 +95,7 @@ class IconFormatter
             $iconFamily = $this->iconFamilyRepo->findOneBySlug($familySlug);
             return $iconFamily;
         } catch(ORMException $e) {
-            throw new Exception("Failed to find IconFamily entity by name {$familySlug}.", 0, $e);
+            throw new IconFormatterException("Failed to find IconFamily entity by name {$familySlug}.", 0, $e);
         }
     }
 
@@ -103,8 +104,8 @@ class IconFormatter
         try {
             $iconTemplate = $this->iconTemplateRepo->findOneBySlug($templateSlug);
             return $iconTemplate;
-        } catch(ORMException $e) {
-            throw new Exception("Failed to find IconTemplate entity by slug {$templateSlug}.", 0, $e);
+        } catch(ORMIconFormatterException $e) {
+            throw new IconFormatterException("Failed to find IconTemplate entity by slug {$templateSlug}.", 0, $e);
         }
     }
 
@@ -117,7 +118,7 @@ class IconFormatter
             $opts = $family->getOptionalClasses();
             foreach($optionalClasses as $opt) {
                 if(!in_array($opt, $opts)) {
-                    throw new Exception("Unable to find {$opt} among optionalClasses of IconFamily {$family->getSlug()}.");
+                    throw new IconFormatterException("Unable to find {$opt} among optionalClasses of IconFamily {$family->getName()}.");
                 }
             }
             return true;

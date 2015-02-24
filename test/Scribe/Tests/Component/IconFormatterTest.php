@@ -54,4 +54,13 @@ EOT;
         $html = $formatter->render('glass', 'fa', null, 'fa-fw', 'fa-lg'); 
         $this->assertSame($html, $expected);
     }
+
+    /**
+      * @expectedException Scribe\SharedBundle\Component\Exceptions\IconFormatterException 
+      */
+    public function testFormatterThrowsErrorGivenInvalidOptionalClasses()
+    {
+        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
+        $html = $formatter->render('glass', 'fa', null, 'fa-foo'); 
+    }
 }
