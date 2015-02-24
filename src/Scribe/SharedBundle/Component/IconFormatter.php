@@ -56,6 +56,7 @@ class IconFormatter
     public function render($familySlug, $iconSlug, $templateSlug = null, ...$optionalClasses)
     {
         $family = $this->getIconFamilyBySlug($familySlug);
+        $iconSlug = $this->filterIconSlug($iconSlug, $family->getPrefix());
         $icon = $this->getIconBySlug($iconSlug);
         if($templateSlug) {
             $templateEnt = getTemplateBySlug($templateSlug);
@@ -77,6 +78,12 @@ class IconFormatter
         else {
             Throw new IconFormatterException("Unkown template engine called: {$engine}.");
         }
+    }
+
+    public function filterIconSlug($iconSlug, $prefix)
+    {
+        $pattern = "/^{$prefix}-/";
+        return preg_replace($pattern, '', $iconSlug);
     }
 
     public function getIconBySlug($iconSlug)

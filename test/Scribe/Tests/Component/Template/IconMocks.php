@@ -44,6 +44,7 @@ trait IconMocks
                          ->disableOriginalConstructor()
                          ->getMock();
         $iconRepo->method('findOneBySlug')
+                 ->with($icon->getSlug())
                  ->willReturn($icon);
         return $iconRepo;
     }

@@ -37,7 +37,20 @@ class IconFormatterTest extends PHPUnit_Framework_TestCase
 </span>
 EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
-        $html = $formatter->render('glass', 'fa'); 
+        $html = $formatter->render('fa', 'glass'); 
+        $this->assertSame($html, $expected);
+    }
+
+    public function testFormatterAllowsFamilyPrefixOnName()
+    {
+        $expected = <<<EOT
+<span class="
+  fa
+  fa-glass">
+</span>
+EOT;
+        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
+        $html = $formatter->render('fa', 'fa-glass'); 
         $this->assertSame($html, $expected);
     }
 
@@ -51,7 +64,7 @@ EOT;
 </span>
 EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
-        $html = $formatter->render('glass', 'fa', null, 'fa-fw', 'fa-lg'); 
+        $html = $formatter->render('fa', 'glass', null, 'fa-fw', 'fa-lg'); 
         $this->assertSame($html, $expected);
     }
 
@@ -61,6 +74,6 @@ EOT;
     public function testFormatterThrowsErrorGivenInvalidOptionalClasses()
     {
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
-        $html = $formatter->render('glass', 'fa', null, 'fa-foo'); 
+        $html = $formatter->render('fa', 'glass', null, 'fa-foo'); 
     }
 }
