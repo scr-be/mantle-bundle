@@ -120,16 +120,6 @@ class IconFamily extends Entity
     }
 
     /**
-     * Getter for requiredClasses property 
-     *
-     * @return array 
-     */
-    public function getRequiredClassesFormatted()
-    {
-        return $this->requiredClasses->join(' ');
-    }
-
-    /**
      * Setter for optionalClasses property 
      *
      * @param array 

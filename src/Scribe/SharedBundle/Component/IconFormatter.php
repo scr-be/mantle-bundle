@@ -64,58 +64,66 @@ class IconFormatter
         $family = $this->getIconFamilyBySlug($familySlug);
         $iconSlug = $this->filterIconSlug($iconSlug, $family->getPrefix());
         $icon = $this->getIconBySlug($iconSlug);
-        if($templateSlug) {
-            $templateEnt = getTemplateBySlug($templateSlug);
-        }
-        else {
-            $templateEnt = $family->getTemplates()[0];
-        }
+        $templateEnt = $this->getTemplateEntity($templateSlug, $family);
         $this->validateOptionalClasses($optionalClasses, $family);
         return $this->renderTemplate($templateEnt, $family, $icon, $optionalClasses);
     }
 
-    public function renderTemplate($templateEnt, $family, $icon, $optionalClasses)
+    private function getTemplateEntity($templateSlug, $family)
+    {
+        if($templateSlug) {
+            return getTemplateBySlug($templateSlug);
+        }
+        else {
+            return $family->getTemplates()[0];
+        }
+    }
+
+    private function renderTemplate($templateEnt, $family, $icon, $optionalClasses)
     {
         $engine = $templateEnt->getEngine();
         if($engine == 'twig') {
             $template = $templateEnt->getTemplate();
-            return $this->twig->render($template, array('family' => $family, 
-                                                        'icon' => $icon, 
-                                                        'optionalClasses' => $optionalClasses,
-                                                        'helper' => $this));
+            $twigArgs =  array('family' => $family, 
+                               'icon' => $icon, 
+                               'optionalClasses' => $optionalClasses,
+                               'helper' => $this);
+            return $this
+                        ->twig
+                        ->render($template, $twigArgs);
         }
         else {
             Throw new IconFormatterException("Unkown template engine called: {$engine}.");
         }
     }
 
-    public function filterIconSlug($iconSlug, $prefix)
+    private function filterIconSlug($iconSlug, $prefix)
     {
         $pattern = "/^{$prefix}-/";
         return preg_replace($pattern, '', $iconSlug);
     }
 
-    public function getIconBySlug($iconSlug)
+    private function getIconBySlug($iconSlug)
     {
         try {
             $icon = $this->iconRepo->findOneBySlug($iconSlug);
             return $icon;
         } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find Icon entity by name {$iconSlug}.", 0, $e);
+            throw new IconFormatterException("Failed to find Icon entity by slug {$iconSlug}.", 0, $e);
         }
     }
 
-    public function getIconFamilyBySlug($familySlug)
+    private function getIconFamilyBySlug($familySlug)
     {
         try {
             $iconFamily = $this->iconFamilyRepo->findOneBySlug($familySlug);
             return $iconFamily;
         } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find IconFamily entity by name {$familySlug}.", 0, $e);
+            throw new IconFormatterException("Failed to find IconFamily entity by slug {$familySlug}.", 0, $e);
         }
     }
 
-    public function getTemplateBySlug($templateSlug)
+    private function getTemplateBySlug($templateSlug)
     {
         try {
             $iconTemplate = $this->iconTemplateRepo->findOneBySlug($templateSlug);
@@ -125,7 +133,7 @@ class IconFormatter
         }
     }
 
-    public function validateOptionalClasses($optionalClasses, $family)
+    private function validateOptionalClasses($optionalClasses, $family)
     {
         if(empty($optionalClasses) || !$family->hasOptionalClasses()) {
             return true;
