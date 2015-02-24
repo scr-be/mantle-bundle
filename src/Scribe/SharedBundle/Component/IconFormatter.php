@@ -14,7 +14,8 @@ namespace Scribe\SharedBundle\Component;
 use Doctrine\ORM\EntityNotFoundException;
 use Twig_Extension;
 use Scribe\SharedBundle\Component\Exceptions\IconFormatterException;
-use Scribe\SharedBundle\Component\Template\IconAccessibility;
+use Scribe\SharedBundle\Component\Template\IconAccessibility,
+    Scribe\SharedBundle\Component\Template\IconAttributes;
 use Scribe\SharedBundle\Entity\IconRepository,
     Scribe\SharedBundle\Entity\IconFamilyRepository,
     Scribe\SharedBundle\Entity\IconTemplateRepository;
@@ -29,7 +30,8 @@ class IconFormatter
     /**
      * import traits 
      */
-    use IconAccessibility;
+    use IconAccessibility,
+        IconAttributes;
     
     /**
      * @type IconRepositoy 
@@ -59,41 +61,49 @@ class IconFormatter
         $this->twig = new \Twig_Environment(new \Twig_Loader_String());
     }
 
-    public function render($familySlug, $iconSlug, $templateSlug = null, ...$optionalClasses)
+    public function render($familySlug = null, $iconSlug = null, $templateSlug = null, ...$optionalClasses)
     {
-        $family = $this->getIconFamilyBySlug($familySlug);
-        $iconSlug = $this->filterIconSlug($iconSlug, $family->getPrefix());
-        $icon = $this->getIconBySlug($iconSlug);
-        $templateEnt = $this->getTemplateEntity($templateSlug, $family);
-        $this->validateOptionalClasses($optionalClasses, $family);
-        return $this->renderTemplate($templateEnt, $family, $icon, $optionalClasses);
+        $this->ensureArgumentSet('familySlug', $familySlug, 'hasFamily', 'setFamily');
+        $iconSlug = $this->filterIconSlug($iconSlug, $this->getFamily()->getPrefix());
+        $this->ensureArgumentSet('iconSlug', $iconSlug, 'hasIcon', 'setIcon');
+        $this->ensureTemplateSet($templateSlug);
+        $this->verifyOptionalClasses($optionalClasses);
+        return $this->renderTemplate();
     }
 
-    private function getTemplateEntity($templateSlug, $family)
+    private function ensureArgumentSet($argumentType, $argument, $checker, $setter)
+    {
+        if($argument) {
+            $this->{$setter}($argument);
+        }
+        else if($this->{$checker}()) {
+            return true;
+        }
+        else {
+            throw new IconFormatterException("{$argumentType} is not given to IconFormatter::render and {$checker} returns null.");
+        }
+    }
+
+    private function ensureTemplateSet($templateSlug)
     {
         if($templateSlug) {
-            return getTemplateBySlug($templateSlug);
+            $this->setTemplateEntity($templateSlug);
+        }
+        else if($this->hasTemplateEntity()) {
+            return true;
         }
         else {
-            return $family->getTemplates()[0];
+            $this->template = $this->getFamily()->getTemplates()[0];
         }
     }
 
-    private function renderTemplate($templateEnt, $family, $icon, $optionalClasses)
+    private function verifyOptionalClasses($optionalClasses)
     {
-        $engine = $templateEnt->getEngine();
-        if($engine == 'twig') {
-            $template = $templateEnt->getTemplate();
-            $twigArgs =  array('family' => $family, 
-                               'icon' => $icon, 
-                               'optionalClasses' => $optionalClasses,
-                               'helper' => $this);
-            return $this
-                        ->twig
-                        ->render($template, $twigArgs);
+        if($optionalClasses) {
+            $this->setOptionalClasses($optionalClasses);
         }
-        else {
-            Throw new IconFormatterException("Unkown template engine called: {$engine}.");
+        else if($this->hasOptionalClasses()) {
+            return true;
         }
     }
 
@@ -103,46 +113,35 @@ class IconFormatter
         return preg_replace($pattern, '', $iconSlug);
     }
 
-    private function getIconBySlug($iconSlug)
+    private function renderTemplate()
     {
-        try {
-            $icon = $this->iconRepo->findOneBySlug($iconSlug);
-            return $icon;
-        } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find Icon entity by slug {$iconSlug}.", 0, $e);
+        if($this->isTwigBased()) {
+            $twigArgs =  array('family' => $this->getFamily(), 
+                               'icon' => $this->getIcon(), 
+                               'optionalClasses' => $this->getOptionalClasses(),
+                               'helper' => $this);
+            $template = $this
+                             ->getTemplateEntity()
+                             ->getTemplate();
+            return $this
+                        ->twig
+                        ->render($template, $twigArgs);
+        }
+        else {
+            Throw new IconFormatterException("Unkown template engine referenced.");
         }
     }
 
-    private function getIconFamilyBySlug($familySlug)
+    private function validateOptionalClasses($optionalClasses)
     {
-        try {
-            $iconFamily = $this->iconFamilyRepo->findOneBySlug($familySlug);
-            return $iconFamily;
-        } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find IconFamily entity by slug {$familySlug}.", 0, $e);
-        }
-    }
-
-    private function getTemplateBySlug($templateSlug)
-    {
-        try {
-            $iconTemplate = $this->iconTemplateRepo->findOneBySlug($templateSlug);
-            return $iconTemplate;
-        } catch(ORMIconFormatterException $e) {
-            throw new IconFormatterException("Failed to find IconTemplate entity by slug {$templateSlug}.", 0, $e);
-        }
-    }
-
-    private function validateOptionalClasses($optionalClasses, $family)
-    {
-        if(empty($optionalClasses) || !$family->hasOptionalClasses()) {
+        if(empty($optionalClasses) || !$this->getFamily()->hasOptionalClasses()) {
             return true;
         }
         else {
-            $opts = $family->getOptionalClasses();
+            $opts = $this->getFamily()->getOptionalClasses();
             foreach($optionalClasses as $opt) {
                 if(!in_array($opt, $opts)) {
-                    throw new IconFormatterException("Unable to find {$opt} among optionalClasses of IconFamily {$family->getName()}.");
+                    throw new IconFormatterException("Unable to find {$opt} among optionalClasses of IconFamily {$this->getFamily()->getName()}.");
                 }
             }
             return true;
