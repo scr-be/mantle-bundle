@@ -14,6 +14,7 @@ namespace Scribe\SharedBundle\Component;
 use Doctrine\ORM\EntityNotFoundException;
 use Twig_Extension;
 use Scribe\SharedBundle\Component\Exceptions\IconFormatterException;
+use Scribe\SharedBundle\Component\Template\IconAccessibility;
 use Scribe\SharedBundle\Entity\IconRepository,
     Scribe\SharedBundle\Entity\IconFamilyRepository,
     Scribe\SharedBundle\Entity\IconTemplateRepository;
@@ -25,6 +26,11 @@ use Scribe\SharedBundle\Entity\IconRepository,
  */
 class IconFormatter 
 {
+    /**
+     * import traits 
+     */
+    use IconAccessibility;
+    
     /**
      * @type IconRepositoy 
      */
@@ -73,7 +79,10 @@ class IconFormatter
         $engine = $templateEnt->getEngine();
         if($engine == 'twig') {
             $template = $templateEnt->getTemplate();
-            return $this->twig->render($template, array('family' => $family, 'icon' => $icon, 'optionalClasses' => $optionalClasses));
+            return $this->twig->render($template, array('family' => $family, 
+                                                        'icon' => $icon, 
+                                                        'optionalClasses' => $optionalClasses,
+                                                        'helper' => $this));
         }
         else {
             Throw new IconFormatterException("Unkown template engine called: {$engine}.");

@@ -34,6 +34,8 @@ trait IconMocks
              ->willReturn(null);
         $icon->method('getCategories')
              ->willReturn(['Web Application Icons']);
+        $icon->method('hasCategories')
+             ->willReturn(true);
         return $icon;
     }
 
@@ -90,10 +92,9 @@ trait IconMocks
         $iconTemplate->method('getEngine')
                      ->willReturn('twig');
         $template = <<<EOT
-<span class="
-  {{ family.getRequiredClassesFormatted() }}
-{% if optionalClasses %}  {{ optionalClasses|join(' ') }}
-{% endif %}  {{ family.getPrefix() }}-{{ icon.getSlug() }}">
+<span class="{{ family.getRequiredClassesFormatted() }}{% if optionalClasses %} {{ optionalClasses|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
+      aria-hidden="{% if helper.isPresentationOnly %}true{% else %}false{% endif %}"
+      aria-label="{% if helper.hasAccessabilityText %}{{ helper.getAccessabilityText }}{% else %}Icon: {{ icon.getName }}{% if icon.hasCategories %} (Category: {{ icon.getCategories[0] }}){% endif %}{% endif %}">
 </span>
 EOT;
         $iconTemplate->method('getTemplate')

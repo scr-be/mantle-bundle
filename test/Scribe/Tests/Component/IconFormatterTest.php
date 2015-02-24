@@ -31,9 +31,9 @@ class IconFormatterTest extends PHPUnit_Framework_TestCase
     public function testFormatter()
     {
         $expected = <<<EOT
-<span class="
-  fa
-  fa-glass">
+<span class="fa fa-glass"
+      aria-hidden="false"
+      aria-label="Icon: Glass (Category: Web Application Icons)">
 </span>
 EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
@@ -44,9 +44,9 @@ EOT;
     public function testFormatterAllowsFamilyPrefixOnName()
     {
         $expected = <<<EOT
-<span class="
-  fa
-  fa-glass">
+<span class="fa fa-glass"
+      aria-hidden="false"
+      aria-label="Icon: Glass (Category: Web Application Icons)">
 </span>
 EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
@@ -57,10 +57,9 @@ EOT;
     public function testFormatterCanAcceptOptionalClasses()
     {
         $expected = <<<EOT
-<span class="
-  fa
-  fa-fw fa-lg
-  fa-glass">
+<span class="fa fa-fw fa-lg fa-glass"
+      aria-hidden="false"
+      aria-label="Icon: Glass (Category: Web Application Icons)">
 </span>
 EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
@@ -75,5 +74,19 @@ EOT;
     {
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
         $html = $formatter->render('fa', 'glass', null, 'fa-foo'); 
+    }
+
+    public function testFormatterCanUnsetAccessibilityText()
+    {
+        $expected = <<<EOT
+<span class="fa fa-fw fa-lg fa-glass"
+      aria-hidden="true"
+      aria-label="Icon: Glass (Category: Web Application Icons)">
+</span>
+EOT;
+        $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
+        $formatter->setPresentationOnly(true);
+        $html = $formatter->render('fa', 'glass', null, 'fa-fw', 'fa-lg'); 
+        $this->assertSame($html, $expected);
     }
 }
