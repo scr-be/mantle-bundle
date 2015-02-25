@@ -158,7 +158,7 @@ trait IconAttributes
             $icon = $this->iconRepo->findOneBySlug($iconSlug);
             return $icon;
         } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find Icon entity by slug {$iconSlug}.", 0, $e);
+            throw new IconFormatterException("Failed to find Icon entity by slug {$iconSlug}.", IconFormatterException::MISSING_ENTITY, $e);
         }
     }
 
@@ -168,7 +168,7 @@ trait IconAttributes
             $iconFamily = $this->iconFamilyRepo->findOneBySlug($familySlug);
             return $iconFamily;
         } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find IconFamily entity by slug {$familySlug}.", 0, $e);
+            throw new IconFormatterException("Failed to find IconFamily entity by slug {$familySlug}.", IconFormatterException::MISSING_ENTITY, $e);
         }
     }
 
@@ -178,7 +178,7 @@ trait IconAttributes
             $iconTemplateEntity = $this->iconTemplateRepo->findOneBySlug($templateSlug);
             return $iconTemplateEntity;
         } catch(ORMIconFormatterException $e) {
-            throw new IconFormatterException("Failed to find IconTemplate entity by slug {$templateSlug}.", 0, $e);
+            throw new IconFormatterException("Failed to find IconTemplate entity by slug {$templateSlug}.", IconFormatterException::MISSING_ENTITY, $e);
         }
     }
 
@@ -191,7 +191,7 @@ trait IconAttributes
             $opts = $this->getFamily()->getOptionalClasses();
             foreach($styles as $opt) {
                 if(!in_array($opt, $opts)) {
-                    throw new IconFormatterException("Unable to find {$opt} among styles of IconFamily {$this->getFamily()->getName()}.");
+                    throw new IconFormatterException("Unable to find {$opt} among styles of IconFamily {$this->getFamily()->getName()}.", IconFormatterException::INVALID_STYLE);
                 }
             }
             return true;

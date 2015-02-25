@@ -81,7 +81,7 @@ class IconFormatter
             return true;
         }
         else {
-            throw new IconFormatterException("{$argumentType} is not given to IconFormatter::render and {$checker} returns null.");
+            throw new IconFormatterException("{$argumentType} is not given to IconFormatter::render and {$checker} returns null.", IconFormatterException::MISSING_ARGS);
         }
     }
 
@@ -101,7 +101,7 @@ class IconFormatter
     private function verifyStyles($styles)
     {
         if(!empty($styles)) {
-            call_user_func_array(array($this, 'setStyles'), $styles);
+            $this->setStyles(...$styles);
         }
         else if($this->hasStyles()) {
             return true;
