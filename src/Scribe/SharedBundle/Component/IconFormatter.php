@@ -94,7 +94,9 @@ class IconFormatter
             return true;
         }
         else {
-            $this->template = $this->getFamily()->getTemplates()[0];
+            $this->template = $this
+                                   ->iconTemplateRepo
+                                   ->loadHighestPriorityByFamily($this->getFamily());
         }
     }
 
