@@ -1,6 +1,9 @@
 /bin/
 /vendor/
 /docs/build/
-*.DS_Store*
+/phpunit.coverage.html/
 phpunit.coverage.clover
+/.idea/
+atlassian-ide-plugin.xml
+*.DS_Store*
 *.rb
