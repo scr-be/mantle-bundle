@@ -64,7 +64,6 @@ class IconFormatter
     public function render($familySlug = null, $iconSlug = null, $templateSlug = null, ...$styles)
     {
         $this->ensureArgumentSet('familySlug', $familySlug, 'hasFamily', 'setFamily');
-        $iconSlug = $this->filterIconSlug($iconSlug, $this->getFamily()->getPrefix());
         $this->ensureArgumentSet('iconSlug', $iconSlug, 'hasIcon', 'setIcon');
         $this->ensureTemplateSet($templateSlug);
         $this->verifyStyles($styles);
@@ -107,12 +106,6 @@ class IconFormatter
         else if($this->hasStyles()) {
             return true;
         }
-    }
-
-    private function filterIconSlug($iconSlug, $prefix)
-    {
-        $pattern = "/^{$prefix}-/";
-        return preg_replace($pattern, '', $iconSlug);
     }
 
     private function renderTemplate()

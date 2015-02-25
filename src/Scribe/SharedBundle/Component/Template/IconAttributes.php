@@ -60,10 +60,23 @@ trait IconAttributes
 
     public function setIcon($iconSlug)
     {
+        $iconSlug = $this->filterIconSlug($iconSlug);
         $icon = $this->getIconBySlug($iconSlug);
         $this->icon = $icon;
 
         return $this;
+    }
+
+    private function filterIconSlug($iconSlug)
+    {
+        if($this->hasFamily()) {
+            $prefix = $this->getFamily()->getPrefix();
+            $pattern = "/^{$prefix}-/";
+            return preg_replace($pattern, '', $iconSlug);
+        }
+        else {
+            return preg_replace('/^[^-]*-/', '', $iconSlug);
+        }
     }
 
     public function hasIcon()
