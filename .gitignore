@@ -1,4 +1,5 @@
 /bin/
 /vendor/
+/docs/build/
 *.DS_Store*
 phpunit.coverage.clover
