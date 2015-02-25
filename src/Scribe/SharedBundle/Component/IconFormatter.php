@@ -63,8 +63,8 @@ class IconFormatter
 
     public function render($familySlug = null, $iconSlug = null, $templateSlug = null, ...$styles)
     {
-        $this->ensureArgumentSet('familySlug', $familySlug, 'hasFamily', 'setFamily');
-        $this->ensureArgumentSet('iconSlug', $iconSlug, 'hasIcon', 'setIcon');
+        $this->ensureFamilySet($familySlug);
+        $this->ensureIconSet($iconSlug);
         $this->ensureTemplateSet($templateSlug);
         $this->verifyStyles($styles);
         $html = $this->renderTemplate();
@@ -72,16 +72,30 @@ class IconFormatter
         return $html;
     }
 
-    private function ensureArgumentSet($argumentType, $argument, $checker, $setter)
+    private function ensureFamilySet($familySlug)
     {
-        if($argument) {
-            $this->{$setter}($argument);
+        if($familySlug) {
+            $this->setFamily($familySlug);
         }
-        else if($this->{$checker}()) {
+        else if($this->hasFamily()) {
             return true;
         }
         else {
-            throw new IconFormatterException("{$argumentType} is not given to IconFormatter::render and {$checker} returns null.", IconFormatterException::MISSING_ARGS);
+            throw new IconFormatterException("familySlug is not given to IconFormatter::render and hasFamily returns false.", IconFormatterException::MISSING_ARGS);
+        }
+    }
+
+    private function ensureIconSet($iconSlug)
+    {
+        if($iconSlug) {
+            $this->setIcon($iconSlug);
+            $this->setIconEntity();
+        }
+        else if(!$iconSlug && $this->iconSlug) {
+            $this->setIconEntity();
+        }
+        else {
+            throw new IconFormatterException("iconSlug is not given to IconFormatter::render and iconSlug is not set.", IconFormatterException::MISSING_ARGS);
         }
     }
 

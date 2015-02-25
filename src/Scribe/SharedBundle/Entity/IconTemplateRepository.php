@@ -28,7 +28,7 @@ class IconTemplateRepository extends EntityRepository
         ;
 
         try {
-            return $q->getSingleResult();
+            return $q->getResult();
         }
         catch(NonUniqueResultException $e) {
             return null;

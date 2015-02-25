@@ -11,4 +11,33 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class IconRepository extends EntityRepository
-{}
+{
+    /**
+     * @param  IconFamily    $family
+     * @param  string        $iconSlug
+     * @return IconTemplate 
+     */
+    public function loadIconByFamilyAndSlug(IconFamily $family, $iconSlug)
+    {
+        $q = $this
+          ->createQueryBuilder('i')
+          ->where('i.slug = :slug')
+          ->setParameter('slug', $iconSlug)
+          ->getQuery()
+        ;
+
+        try {
+            $results = $q->getResult();
+            foreach($results as $icon) {
+                $fams = $icon->getFamilies();
+                if(in_array($family, $fams)) {
+                    return $icon;
+                }
+            }
+            return null;
+        }
+        catch(\Exception $e) {
+            throw $e;
+        }
+    }
+}

@@ -42,11 +42,13 @@ trait IconMocks
     public function mockIconRepo($icon)
     {
         $iconRepo = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconRepository')
-                         ->setMethods(array('findOneBySlug'))
+                         ->setMethods(array('findOneBySlug', 'loadIconByFamilyAndSlug'))
                          ->disableOriginalConstructor()
                          ->getMock();
         $iconRepo->method('findOneBySlug')
                  ->with($icon->getSlug())
+                 ->willReturn($icon);
+        $iconRepo->method('loadIconByFamilyAndSlug')
                  ->willReturn($icon);
         return $iconRepo;
     }

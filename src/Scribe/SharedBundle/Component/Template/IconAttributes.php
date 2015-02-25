@@ -24,6 +24,8 @@ trait IconAttributes
 
     private $icon = null;
 
+    private $iconSlug = null;
+
     private $template = null;
 
     private $styles = null;
@@ -58,11 +60,30 @@ trait IconAttributes
         return $this->icon;
     }
 
+    /*
+     * This actually sets the iconSlug variable; the icon 
+     * is checked and set upon rendering
+     */
     public function setIcon($iconSlug)
     {
-        $iconSlug = $this->filterIconSlug($iconSlug);
-        $icon = $this->getIconBySlug($iconSlug);
-        $this->icon = $icon;
+        $this->iconSlug = $iconSlug;
+
+        return $this;
+    }
+
+    /*
+     * Sets icon entity when render function is called
+     */
+    private function setIconEntity()
+    {
+        $iconSlug = $this->filterIconSlug($this->iconSlug);
+        try {
+            $icon = $this->iconRepo->loadIconByFamilyAndSlug($this->getFamily(), $iconSlug);
+            $this->icon = $icon;
+        }
+        catch(\Exception $e) {
+            throw new IconFormatterException("Failed to find Icon entity with slug {$iconSlug} and {$this->getFamily()->getName()}.", IconFormatterException::MISSING_ENTITY, $e);
+        }
 
         return $this;
     }
@@ -75,7 +96,7 @@ trait IconAttributes
             return preg_replace($pattern, '', $iconSlug);
         }
         else {
-            return preg_replace('/^[^-]*-/', '', $iconSlug);
+            throw new IconFormatterException("Expected IconFamily to be set for formatter.", IconFormatterException::MISSING_ARGS);
         }
     }
 
@@ -149,17 +170,6 @@ trait IconAttributes
         $this->styles = null;
 
         return $this;
-    }
-
-
-    private function getIconBySlug($iconSlug)
-    {
-        try {
-            $icon = $this->iconRepo->findOneBySlug($iconSlug);
-            return $icon;
-        } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find Icon entity by slug {$iconSlug}.", IconFormatterException::MISSING_ENTITY, $e);
-        }
     }
 
     private function getIconFamilyBySlug($familySlug)
