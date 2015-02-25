@@ -115,7 +115,7 @@ EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
         $formatter->setFamily('fa')
                   ->setIcon('glass')
-                  ->setStyles(array('fa-fw', 'fa-lg'));
+                  ->setStyles('fa-fw', 'fa-lg');
         $html = $formatter->render(); 
         $this->assertSame($html, $expected);
     }
@@ -133,7 +133,7 @@ EOT;
                   ->setFamily('fa')
                   ->setIcon('glass')
                   ->setAccessibilityText("Foo!")
-                  ->setStyles(array('fa-fw', 'fa-lg'));
+                  ->setStyles('fa-fw', 'fa-lg');
         $html = $formatter->render(); 
         $this->assertSame(null, $formatter->getFamily());
         $this->assertSame(null, $formatter->getIcon());

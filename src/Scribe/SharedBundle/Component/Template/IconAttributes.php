@@ -118,7 +118,7 @@ trait IconAttributes
         return $this->styles;
     }
 
-    public function setStyles($styles)
+    public function setStyles(...$styles)
     {
         $this->validateStyles($styles);
         $this->styles = $styles;

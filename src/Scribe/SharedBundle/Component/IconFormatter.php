@@ -102,7 +102,7 @@ class IconFormatter
     private function verifyStyles($styles)
     {
         if(!empty($styles)) {
-            $this->setStyles($styles);
+            call_user_func_array(array($this, 'setStyles'), $styles);
         }
         else if($this->hasStyles()) {
             return true;
