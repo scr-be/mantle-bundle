@@ -119,8 +119,8 @@ class IconFormatter
         if(!empty($styles)) {
             $this->setStyles(...$styles);
         }
-        else if($this->hasStyles()) {
-            return true;
+        if($this->hasStyles()) {
+            $this->validateStyles($styles);
         }
     }
 
