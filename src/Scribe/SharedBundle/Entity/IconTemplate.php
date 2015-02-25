@@ -53,6 +53,11 @@ class IconTemplate extends Entity
     private $family;
 
     /**
+     * @var integer 
+     */
+    private $priority;
+
+    /**
      * perform any entity setup
      */
     public function __construct() {}
@@ -223,5 +228,28 @@ class IconTemplate extends Entity
         $this->family = null;
 
         return $this;
+    }
+
+    /**
+     * Setter for priority property 
+     *
+     * @param integer
+     * @return $this
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * Getter for priority property 
+     *
+     * @return integer 
+     */
+    public function getPriority()
+    {
+        return $this->priority;
     }
 }

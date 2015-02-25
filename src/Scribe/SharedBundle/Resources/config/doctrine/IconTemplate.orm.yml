@@ -31,6 +31,9 @@ Scribe\SharedBundle\Entity\IconTemplate:
             type:   string
             length: 400
 
+        priority:
+            type:   integer
+
     manyToOne:
 
         family:
