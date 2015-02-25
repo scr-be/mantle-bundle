@@ -37,8 +37,13 @@ trait IconAttributes
 
     public function setFamily($familySlug)
     {
-        $family = $this->getIconFamilyBySlug($familySlug);
-        $this->family = $family;
+        try {
+            $family = $this->iconFamilyRepo->loadIconFamilyBySlug($familySlug);
+            $this->family = $family;
+        }
+        catch(\Exception $e) {
+            throw new IconFormatterException("Failed to find IconFamily entity with slug {$familySlug}.", IconFormatterException::MISSING_ENTITY, $e);
+        }
 
         return $this;
     }
@@ -169,16 +174,6 @@ trait IconAttributes
         $this->styles = null;
 
         return $this;
-    }
-
-    private function getIconFamilyBySlug($familySlug)
-    {
-        try {
-            $iconFamily = $this->iconFamilyRepo->findOneBySlug($familySlug);
-            return $iconFamily;
-        } catch(ORMException $e) {
-            throw new IconFormatterException("Failed to find IconFamily entity by slug {$familySlug}.", IconFormatterException::MISSING_ENTITY, $e);
-        }
     }
 
     private function getTemplateEntityBySlug($templateSlug)

@@ -147,6 +147,7 @@ class IconFormatter
     {
         $this->clearFamily();
         $this->clearIcon();
+        $this->iconSlug = null;
         $this->clearTemplateEntity();
         $this->clearStyles();
         $this->clearAccessibilityText();
