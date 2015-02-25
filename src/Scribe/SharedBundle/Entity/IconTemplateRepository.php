@@ -34,4 +34,26 @@ class IconTemplateRepository extends EntityRepository
             return null;
         }
     }
+
+    /**
+     * @param  string        $iconTemplateSlug
+     * @return IconTemplate 
+     */
+    public function loadIconTemplateBySlug($iconTemplateSlug)
+    {
+        $q = $this
+          ->createQueryBuilder('i')
+          ->where('i.slug = :slug')
+          ->setParameter('slug', $iconTemplateSlug)
+          ->setMaxResults(1)
+          ->getQuery()
+        ;
+
+        try {
+            return $q->getSingleResult();
+        }
+        catch(\Exception $e) {
+            throw $e;
+        }
+    }
 }

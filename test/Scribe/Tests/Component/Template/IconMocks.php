@@ -109,12 +109,14 @@ EOT;
     public function mockIconTemplateRepo($iconTemplate)
     {
         $iconTemplateRepo = $this->getMockBuilder('Scribe\SharedBundle\Entity\IconTemplateRepository')
-                               ->setMethods(array('findOneBySlug', 'loadHighestPriorityByFamily'))
-                               ->disableOriginalConstructor()
-                               ->getMock();
+                                 ->setMethods(array('findOneBySlug', 'loadHighestPriorityByFamily', 'loadIconTemplateBySlug'))
+                                 ->disableOriginalConstructor()
+                                 ->getMock();
         $iconTemplateRepo->method('findOneBySlug')
                          ->willReturn($iconTemplate);
         $iconTemplateRepo->method('loadHighestPriorityByFamily')
+                         ->willReturn($iconTemplate);
+        $iconTemplateRepo->method('loadIconTemplateBySlug')
                          ->willReturn($iconTemplate);
         return $iconTemplateRepo;
     }

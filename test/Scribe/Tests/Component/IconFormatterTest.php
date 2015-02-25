@@ -115,7 +115,8 @@ EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
         $formatter->setFamily('fa')
                   ->setIcon('glass')
-                  ->setStyles('fa-fw', 'fa-lg');
+                  ->setStyles('fa-fw', 'fa-lg')
+                  ->setTemplate('fa-basic');
         $html = $formatter->render(); 
         $this->assertSame($html, $expected);
     }

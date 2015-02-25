@@ -122,10 +122,26 @@ trait IconAttributes
         return $this->template;
     }
 
+    /*
+     * This is a convenience for the API; internally,
+     * the template entity has its own 'setTemplate', 'getTemplate', etc.
+     * functions, so the other functions in this context refer
+     * to 'templateEntity' to alleviate confusion
+     */
+    public function setTemplate($templateSlug)
+    {
+        $this->setTemplateEntity($templateSlug);
+    }
+
     public function setTemplateEntity($templateSlug)
     {
-        $template = $this->getIconTemplateEntityBySlug($templateSlug);
-        $this->template = $template;
+        try {
+            $iconTemplate = $this->iconTemplateRepo->loadIconTemplateBySlug($templateSlug);
+            $this->template = $iconTemplate;
+        }
+        catch(\Exception $e) {
+            throw new IconFormatterException("Failed to find IconTemplate entity with slug {$templateSlug}.", IconFormatterException::MISSING_ENTITY, $e);
+        }
 
         return $this;
     }
@@ -174,16 +190,6 @@ trait IconAttributes
         $this->styles = null;
 
         return $this;
-    }
-
-    private function getTemplateEntityBySlug($templateSlug)
-    {
-        try {
-            $iconTemplateEntity = $this->iconTemplateRepo->findOneBySlug($templateSlug);
-            return $iconTemplateEntity;
-        } catch(ORMIconFormatterException $e) {
-            throw new IconFormatterException("Failed to find IconTemplate entity by slug {$templateSlug}.", IconFormatterException::MISSING_ENTITY, $e);
-        }
     }
 
     private function validateStyles($styles)
