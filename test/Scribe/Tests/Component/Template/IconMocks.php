@@ -92,7 +92,7 @@ trait IconMocks
         $iconTemplate->method('getEngine')
                      ->willReturn('twig');
         $template = <<<EOT
-<span class="{{ family.getRequiredClasses()|join(' ') }}{% if optionalClasses %} {{ optionalClasses|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
+<span class="{{ family.getRequiredClasses()|join(' ') }}{% if styles %} {{ styles|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
       aria-hidden="{% if helper.isPresentationOnly %}true{% else %}false{% endif %}"
       aria-label="{% if helper.hasAccessibilityText %}{{ helper.getAccessibilityText }}{% else %}Icon: {{ icon.getName }}{% if icon.hasCategories %} (Category: {{ icon.getCategories[0] }}){% endif %}{% endif %}">
 </span>

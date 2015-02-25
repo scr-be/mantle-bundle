@@ -61,13 +61,13 @@ class IconFormatter
         $this->twig = new \Twig_Environment(new \Twig_Loader_String());
     }
 
-    public function render($familySlug = null, $iconSlug = null, $templateSlug = null, ...$optionalClasses)
+    public function render($familySlug = null, $iconSlug = null, $templateSlug = null, ...$styles)
     {
         $this->ensureArgumentSet('familySlug', $familySlug, 'hasFamily', 'setFamily');
         $iconSlug = $this->filterIconSlug($iconSlug, $this->getFamily()->getPrefix());
         $this->ensureArgumentSet('iconSlug', $iconSlug, 'hasIcon', 'setIcon');
         $this->ensureTemplateSet($templateSlug);
-        $this->verifyOptionalClasses($optionalClasses);
+        $this->verifyStyles($styles);
         $html = $this->renderTemplate();
         $this->clearAttributes();
         return $html;
@@ -99,12 +99,12 @@ class IconFormatter
         }
     }
 
-    private function verifyOptionalClasses($optionalClasses)
+    private function verifyStyles($styles)
     {
-        if(!empty($optionalClasses)) {
-            $this->setOptionalClasses($optionalClasses);
+        if(!empty($styles)) {
+            $this->setStyles($styles);
         }
-        else if($this->hasOptionalClasses()) {
+        else if($this->hasStyles()) {
             return true;
         }
     }
@@ -120,7 +120,7 @@ class IconFormatter
         if($this->isTwigBased()) {
             $twigArgs =  array('family' => $this->getFamily(), 
                                'icon' => $this->getIcon(), 
-                               'optionalClasses' => $this->getOptionalClasses(),
+                               'styles' => $this->getStyles(),
                                'helper' => $this);
             $template = $this
                              ->getTemplateEntity()
@@ -139,7 +139,7 @@ class IconFormatter
         $this->clearFamily();
         $this->clearIcon();
         $this->clearTemplateEntity();
-        $this->clearOptionalClasses();
+        $this->clearStyles();
         $this->clearAccessibilityText();
         $this->setPresentationOnly(false);
 

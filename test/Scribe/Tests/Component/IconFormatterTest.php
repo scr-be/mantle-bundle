@@ -54,7 +54,7 @@ EOT;
         $this->assertSame($html, $expected);
     }
 
-    public function testFormatterCanAcceptOptionalClasses()
+    public function testFormatterCanAcceptStyles()
     {
         $expected = <<<EOT
 <span class="fa fa-fw fa-lg fa-glass"
@@ -70,7 +70,7 @@ EOT;
     /**
       * @expectedException Scribe\SharedBundle\Component\Exceptions\IconFormatterException 
       */
-    public function testFormatterThrowsErrorGivenInvalidOptionalClasses()
+    public function testFormatterThrowsErrorGivenInvalidStyles()
     {
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
         $html = $formatter->render('fa', 'glass', null, 'fa-foo'); 
@@ -115,7 +115,7 @@ EOT;
         $formatter = new IconFormatter($this->iconRepo, $this->iconFamilyRepo, $this->iconTemplateRepo); 
         $formatter->setFamily('fa')
                   ->setIcon('glass')
-                  ->setOptionalClasses(array('fa-fw', 'fa-lg'));
+                  ->setStyles(array('fa-fw', 'fa-lg'));
         $html = $formatter->render(); 
         $this->assertSame($html, $expected);
     }
@@ -133,11 +133,11 @@ EOT;
                   ->setFamily('fa')
                   ->setIcon('glass')
                   ->setAccessibilityText("Foo!")
-                  ->setOptionalClasses(array('fa-fw', 'fa-lg'));
+                  ->setStyles(array('fa-fw', 'fa-lg'));
         $html = $formatter->render(); 
         $this->assertSame(null, $formatter->getFamily());
         $this->assertSame(null, $formatter->getIcon());
-        $this->assertSame(null, $formatter->getOptionalClasses());
+        $this->assertSame(null, $formatter->getStyles());
         $this->assertSame(null, $formatter->getAccessibilityText());
         $this->assertSame(false, $formatter->isPresentationOnly());
     }

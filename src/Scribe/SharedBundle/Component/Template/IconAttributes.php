@@ -26,7 +26,7 @@ trait IconAttributes
 
     private $template = null;
 
-    private $optionalClasses = null;
+    private $styles = null;
 
     public function getFamily()
     {
@@ -113,27 +113,27 @@ trait IconAttributes
         }
     }
 
-    public function getOptionalClasses()
+    public function getStyles()
     {
-        return $this->optionalClasses;
+        return $this->styles;
     }
 
-    public function setOptionalClasses($optionalClasses)
+    public function setStyles($styles)
     {
-        $this->validateOptionalClasses($optionalClasses);
-        $this->optionalClasses = $optionalClasses;
+        $this->validateStyles($styles);
+        $this->styles = $styles;
 
         return $this;
     }
 
-    public function hasOptionalClasses()
+    public function hasStyles()
     {
-        return (bool) ($this->optionalClasses !== null);
+        return (bool) ($this->styles !== null);
     }
 
-    public function clearOptionalClasses()
+    public function clearStyles()
     {
-        $this->optionalClasses = null;
+        $this->styles = null;
 
         return $this;
     }
@@ -169,16 +169,16 @@ trait IconAttributes
         }
     }
 
-    private function validateOptionalClasses($optionalClasses)
+    private function validateStyles($styles)
     {
-        if(empty($optionalClasses) || !$this->getFamily()->hasOptionalClasses()) {
+        if(empty($styles) || !$this->getFamily()->hasOptionalClasses()) {
             return true;
         }
         else {
             $opts = $this->getFamily()->getOptionalClasses();
-            foreach($optionalClasses as $opt) {
+            foreach($styles as $opt) {
                 if(!in_array($opt, $opts)) {
-                    throw new IconFormatterException("Unable to find {$opt} among optionalClasses of IconFamily {$this->getFamily()->getName()}.");
+                    throw new IconFormatterException("Unable to find {$opt} among styles of IconFamily {$this->getFamily()->getName()}.");
                 }
             }
             return true;
