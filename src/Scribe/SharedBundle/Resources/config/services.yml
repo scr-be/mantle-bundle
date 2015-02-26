@@ -1,24 +1,30 @@
-##
-## PARAMETER DEFINITIONS
-##
 parameters:
+
+    templating.stringloader.class:                  Twig_Loader_String
+
+    s.shared.navmenuitem.repo.class:                Scribe\SharedBundle\EntityRepository\NavMenuItemRepository
+    s.shared.navmenusetting.repo.class:             Scribe\SharedBundle\EntityRepository\NavMenuSettingRepository
+    s.shared.icon.repo.class:                       Scribe\SharedBundle\EntityRepository\IconRepository
+    s.shared.icontemplate.repo.class:               Scribe\SharedBundle\EntityRepository\IconTemplateRepository
+    s.shared.iconfamily.repo.class:                 Scribe\SharedBundle\EntityRepository\IconFamilyRepository
+    s.shared.cachedfilesystementrysize.repo.class:  Scribe\SharedBundle\EntityRepository\CachedFilesystemEntrySizeRepository
+
     s.utils.controller.class:                       Scribe\Component\Controller\ControllerUtils
     s.symfony.bundleinfo.class:                     Scribe\Component\Bundle\BundleInformation
-    s.loader.redirection.class:                     Scribe\SharedBundle\Routing\RedirectionLoader
 
     s.config.yml.class:                             Scribe\Utility\Config\ConfigContainer
-    s.search.class:                                 Scribe\SharedBundle\Templating\Helper\Search\Search
 
+    s.loader.redirection.class:                     Scribe\SharedBundle\Routing\RedirectionLoader
+
+    s.listener.maintenance.class:                   Scribe\SharedBundle\Listener\MaintenanceListener
+    s.listener.newsletter.class:                    Scribe\SharedBundle\Listener\NewsletterListener
+
+    s.search.class:                                 Scribe\SharedBundle\Templating\Helper\Search\Search
     s.menu.main.class:                              Scribe\SharedBundle\Templating\Helper\Bootstrap\Menu\MenuMain
     s.menu.foot.class:                              Scribe\SharedBundle\Templating\Helper\Bootstrap\Menu\MenuFoot
     s.tpl.helper.menu.handler.class:                Scribe\SharedBundle\Templating\Helper\Menu\MenuHandler
     s.tpl.helper.menu.factory.class:                Scribe\SharedBundle\Templating\Helper\Menu\MenuFactory
     s.tpl.helper.menu.class:                        Scribe\SharedBundle\Templating\Helper\Menu\Menu
-    s.shared.navmenuitem.repo.class:                Scribe\SharedBundle\Entity\NavMenuItemRepository
-    s.shared.navmenusetting.repo.class:             Scribe\SharedBundle\Entity\NavMenuSettingRepository
-    s.shared.icon.repo.class:                       Scribe\SharedBundle\Entity\IconRepository
-    s.shared.icontemplate.repo.class:               Scribe\SharedBundle\Entity\IconTemplateRepository
-    s.shared.iconfamily.repo.class:                 Scribe\SharedBundle\Entity\IconFamilyRepository
 
     s.twig.config.yml.class:                        Scribe\SharedBundle\Templating\Extension\ConfigExtension
     s.twig.zoom.class:                              Scribe\SharedBundle\Templating\Extension\ZoomExtension
@@ -34,47 +40,12 @@ parameters:
     s.twig.getlastusername.class:                   Scribe\SharedBundle\Templating\Extension\GetLastUsernameExtension
     s.twig.bundleinformation.class:                 Scribe\SharedBundle\Templating\Extension\BundleInformationExtension
 
-    s.listener.maintenance.class:                   Scribe\SharedBundle\Listener\MaintenanceListener
-    s.listener.newsletter.class:                    Scribe\SharedBundle\Listener\NewsletterListener
-    s.listener.searchreplace.class:                 Scribe\SharedBundle\Listener\SearchReplaceListener
-
-    s.shared.cachedfilesystementrysize.repo.class:  Scribe\SharedBundle\Entity\CachedFilesystemEntrySizeRepository
-
-##
-## SERVICE DEFINITIONS
-##
 services:
 
-    s.utils.controller:
-        class: "%s.utils.controller.class%"
-        arguments:
-            - @service_container
-
-    s.symfony.bundleinfo:
-        class: "%s.symfony.bundleinfo.class%"
-        arguments:
-            - @request_stack
-
-    s.tpl.helper.menu.handler:
-        class: "%s.tpl.helper.menu.handler.class%"
-        arguments:
-            - @service_container
-            - @s.shared.navmenuitem.repo
-            - @s.shared.navmenusetting.repo
-            - @s.symfony.bundleinfo
-            - @security.context
-
-    s.tpl.helper.menu.factory:
-        class: "%s.tpl.helper.menu.factory.class%"
-        arguments:
-            - @service_container
-
-    s.tpl.helper.menu:
-        class: "%s.tpl.helper.menu.class%"
-        factory_service: s.tpl.helper.menu.factory
-        factory_method: getMenu
-        arguments:
-            - @service_container
+    templating.stringloader:
+        class: %templating.stringloader.class%
+        tags:
+            - { name: twig.loader }
 
     s.shared.navmenuitem.repo:
         class:           %s.shared.navmenuitem.repo.class%
@@ -111,6 +82,27 @@ services:
         arguments:
             - Scribe\SharedBundle\Entity\IconFamily
 
+    s.shared.cachedfilesystementrysize.repo:
+        class:           %s.shared.cachedfilesystementrysize.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - Scribe\SharedBundle\Entity\CachedFilesystemEntrySize
+
+    s.utils.controller:
+        class: "%s.utils.controller.class%"
+        arguments:
+            - @service_container
+
+    s.symfony.bundleinfo:
+        class: "%s.symfony.bundleinfo.class%"
+        arguments:
+            - @request_stack
+
+    s.config.yml:
+        class: "%s.config.yml.class%"
+        arguments: [ "@service_container" ]
+
     s.loader.redirection:
         class: "%s.loader.redirection.class%"
         arguments:
@@ -138,16 +130,26 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
-    #s.listener.searchreplace:
-    #    class: "%s.listener.searchreplace.class%"
-    #    arguments:
-    #        - @service_container
-    #    tags:
-    #        - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+    s.tpl.helper.menu.handler:
+        class: "%s.tpl.helper.menu.handler.class%"
+        arguments:
+            - @service_container
+            - @s.shared.navmenuitem.repo
+            - @s.shared.navmenusetting.repo
+            - @s.symfony.bundleinfo
+            - @security.context
 
-    s.config.yml:
-        class: "%s.config.yml.class%"
-        arguments: [ "@service_container" ]
+    s.tpl.helper.menu.factory:
+        class: "%s.tpl.helper.menu.factory.class%"
+        arguments:
+            - @service_container
+
+    s.tpl.helper.menu:
+        class: "%s.tpl.helper.menu.class%"
+        factory_service: s.tpl.helper.menu.factory
+        factory_method: getMenu
+        arguments:
+            - @service_container
 
     s.twig.config:
         class: "%s.twig.config.yml.class%"
@@ -235,10 +237,3 @@ services:
             - @s.symfony.bundleinfo
         tags:
             - { name: twig.extension }
-
-    s.shared.cachedfilesystementrysize.repo:
-        class:           %s.shared.cachedfilesystementrysize.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
-        arguments:
-            - Scribe\SharedBundle\Entity\CachedFilesystemEntrySize

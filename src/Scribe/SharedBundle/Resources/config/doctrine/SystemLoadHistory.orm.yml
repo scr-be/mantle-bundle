@@ -1,7 +1,7 @@
 Scribe\SharedBundle\Entity\SystemLoadHistory:
     type: entity
     table: null
-    repositoryClass: Scribe\SharedBundle\Entity\SystemLoadHistoryRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\SystemLoadHistoryRepository
     fields:
         id:
             type: integer

@@ -2,7 +2,7 @@ Scribe\SharedBundle\Entity\Route:
 
     type:            entity
     table:           null
-    repositoryClass: Scribe\SharedBundle\Entity\RouteRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\RouteRepository
 
     fields:
 
