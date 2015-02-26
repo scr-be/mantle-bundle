@@ -12,6 +12,7 @@ namespace Scribe\SharedBundle\Tests\Templating\Generator\Icon;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\SharedBundle\Templating\Generator\Icon\IconCreator;
+use Scribe\SharedBundle\Templating\Generator\Icon\IconCreatorCache;
 
 /**
  * Class IconMocks
@@ -269,9 +270,14 @@ EOT;
         $this->engine                       = $this->mockEngineInterface();
     }
 
-    protected function instantiateClass()
+    protected function instantiateClass($cache = false)
     {
-        return new IconCreator($this->iconFamilyRepo, $this->engine);
+        if($cache) {
+            return new IconCreatorCache($this->iconFamilyRepo, $this->engine);
+        } 
+        else {
+            return new IconCreator($this->iconFamilyRepo, $this->engine);
+        }
     }
 
     protected function sanitizeHtml($html)
