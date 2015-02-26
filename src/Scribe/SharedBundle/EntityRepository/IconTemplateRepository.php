@@ -1,6 +1,6 @@
 <?php
 
-namespace Scribe\SharedBundle\Entity;
+namespace Scribe\SharedBundle\EntityRepository;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -2,7 +2,7 @@ Scribe\SharedBundle\Entity\Icon:
 
     type:            entity
     table:           null
-    repositoryClass: Scribe\SharedBundle\Entity\IconRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\IconRepository
 
     fields:
 

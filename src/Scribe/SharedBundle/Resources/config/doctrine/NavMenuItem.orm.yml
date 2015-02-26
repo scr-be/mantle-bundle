@@ -1,7 +1,7 @@
 Scribe\SharedBundle\Entity\NavMenuItem:
     type: entity
     table: null
-    repositoryClass: Scribe\SharedBundle\Entity\NavMenuItemRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\NavMenuItemRepository
     fields:
         id:
             type: integer

@@ -11,9 +11,19 @@
          syntaxCheck="true"
          bootstrap="test/bootstrap.php"
 >
+    <php>
+        <server name="KERNEL_DIR" value="./app/" />
+    </php>
+
     <testsuites>
-        <testsuite name="Scribe Symfony Library Test Suite">
+        <testsuite name="Scribe Foundation Bundle Test Suite">
             <directory>./test/Scribe/</directory>
+            <directory>./src/*/*Bundle/Tests</directory>
+            <directory>./src/*/Bundle/*Bundle/Tests</directory>
+            <directory>./src/*Bundle/Tests</directory>
+            <exclude>
+                <directory>../lib/tests</directory>
+            </exclude>
         </testsuite>
     </testsuites>
 
@@ -27,6 +37,12 @@
         <whitelist>
             <directory suffix=".php">./lib</directory>
             <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./test/Scribe/</directory>
+                <directory>./src/*/*Bundle/Tests</directory>
+                <directory>./src/*/Bundle/*Bundle/Tests</directory>
+                <directory>./src/*Bundle/Tests</directory>
+            </exclude>
         </whitelist>
     </filter>
 

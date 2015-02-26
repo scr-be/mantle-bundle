@@ -2,7 +2,7 @@ Scribe\SharedBundle\Entity\IconFamily:
 
     type:            entity
     table:           null
-    repositoryClass: Scribe\SharedBundle\Entity\IconFamilyRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\IconFamilyRepository
 
     fields:
 
@@ -35,6 +35,8 @@ Scribe\SharedBundle\Entity\IconFamily:
         templates:
             targetEntity: IconTemplate
             mappedBy:     family
+            orderBy:
+                priority: ASC
 
     manyToMany:
         icons:

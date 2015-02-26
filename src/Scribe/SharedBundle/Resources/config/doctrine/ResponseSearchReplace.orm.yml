@@ -1,7 +1,7 @@
 Scribe\SharedBundle\Entity\ResponseSearchReplace:
     type: entity
     table: null
-    repositoryClass: Scribe\SharedBundle\Entity\ResponseSearchReplaceRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\ResponseSearchReplaceRepository
     fields:
         id:
             type: integer

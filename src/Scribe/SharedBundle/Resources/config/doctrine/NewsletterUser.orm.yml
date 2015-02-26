@@ -1,7 +1,7 @@
 Scribe\SharedBundle\Entity\NewsletterUser:
     type: entity
     table: null
-    repositoryClass: Scribe\SharedBundle\Entity\NewsletterUserRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\NewsletterUserRepository
     fields:
         id:
             type: integer

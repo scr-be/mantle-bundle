@@ -1,7 +1,7 @@
 Scribe\SharedBundle\Entity\CachedFilesystemEntrySize:
     type: entity
     table: null
-    repositoryClass: Scribe\SharedBundle\Entity\CachedFilesystemEntrySizeRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\CachedFilesystemEntrySizeRepository
     fields:
         id:
             type: integer

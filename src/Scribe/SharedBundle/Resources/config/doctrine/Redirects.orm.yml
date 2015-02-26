@@ -1,7 +1,7 @@
 Scribe\SharedBundle\Entity\Redirects:
     type: entity
     table: null
-    repositoryClass: Scribe\SharedBundle\Entity\RedirectsRepository
+    repositoryClass: Scribe\SharedBundle\EntityRepository\RedirectsRepository
     fields:
         id:
             type: integer
