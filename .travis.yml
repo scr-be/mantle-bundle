@@ -10,6 +10,7 @@ branches:
 
 php:
   - 5.6
+  - 5.5
   - hhvm
   - hhvm-nightly
 
@@ -17,10 +18,12 @@ matrix:
     allow_failures:
         - php: hhvm
         - php: hhvm-nightly
+        - php: 5.5
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source --dev
+  - travis_retry curl -s http://getcomposer.org/installer | php
+  - travis_retry php composer.phar install --dev --no-interaction
+  - mkdir -p build/logs
 
 script:
   - bin/phpunit --verbose

@@ -22,54 +22,40 @@
     "require": {
         "php"                                   : ">=5.6",
         "symfony/symfony"                       : "~2.6",
-        "symfony/yaml"                          : "~2.5",
-        "doctrine/orm"                          : "~2.2,>=2.2.3",
-        "doctrine/doctrine-bundle"              : "~1.2",
-        "doctrine/doctrine-fixtures-bundle"     : "~2.2",
-        "twig/extensions"                       : "~1.0",
-        "symfony/filesystem"                    : "~2.5",
-        "symfony/finder"                        : "~2.5",
+        "symfony/yaml"                          : "~2.6",
+        "doctrine/orm"                          : "~2.4",
+        "doctrine/dbal"                         : "<2.5",
+        "doctrine/doctrine-bundle"              : "*",
+        "doctrine/doctrine-fixtures-bundle"     : "*",
+        "twig/twig"                             : "~1.18",
+        "twig/extensions"                       : "~1.2",
+        "symfony/filesystem"                    : "~2.6",
+        "symfony/finder"                        : "~2.6",
         "symfony/swiftmailer-bundle"            : "~2.3",
-        "symfony/monolog-bundle"                : "~2.5",
-        "symfony/assetic-bundle"                : "~2.4",
-        "kriswallsmith/assetic"                 : "~1.2@dev",
+        "symfony/monolog-bundle"                : "~2.7",
+        "symfony/assetic-bundle"                : "~2.6",
+        "kriswallsmith/assetic"                 : "~1.2",
         "sensio/distribution-bundle"            : "~3.0",
-        "sensio/framework-extra-bundle"         : "~3.0",
-        "sensio/generator-bundle"               : "~2.4",
+        "sensio/framework-extra-bundle"         : "~3.0,>=3.0.2",
+        "sensio/generator-bundle"               : "~2.5",
         "incenteev/composer-parameter-handler"  : "~2.1",
         "zendframework/zend-json"               : "~2.3",
         "phpoption/phpoption"                   : "~1.4"
     },
     "require-dev"      : {
-        "sami/sami"                             : "master-dev",
-        "phpunit/phpunit"                       : "~4.0",
-        "scrutinizer/ocular"                    : "~1.1"
+        "sami/sami"                             : "~3.0",
+        "phpunit/phpunit"                       : "~4.5",
+        "symfony/phpunit-bridge"                : "~2.7@dev",
+        "scrutinizer/ocular"                    : "~1.1",
+        "satooshi/php-coveralls"                : "dev-master"
     },
     "suggest"          : {
-        "scribe/syslog-bundle"                  : "Import systemlog entries into a database.",
-        "scribe/swim-bundle"                    : "Scribe Simple WIki Markup",
-        "scribe/cache-bundle"                   : "Simple caching abstraction layer for APCu.",
-        "scribe/clockwork-bundle"               : "Library for Clockwork API",
-        "scribe/file-uploader-bundle"           : "Blueimp file uploader handler.",
-        "scribe/stripe-bundle"                  : "Library for Stripe payment API.",
-        "scribe/imagemagick-bundle"             : "Imagemagick abstraction library.",
-        "scribe/github-api-bundle"              : "Library for GitHub API requests.",
-        "scribe/pygments-bundle"                : "Support for pygments (syntax highlighting) within markdown.",
-        "scribe/markdown-bundle"                : "Support for markdown.",
-        "scribe/closurecompiler-library"        : "Closure compiler built.",
-        "scribe/yuicompressor-library"          : "YUI Compresser compiler built.",
-        "scribe/cssembed-library"               : "CSS Embed compiler built."
+        "scribe/cache-bundle"                   : "Simple caching abstraction layer for APCu."
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:scribenet/Sami.git"
-        }
-    ],
     "autoload"         : {
         "psr-4": {
             "Scribe\\SharedBundle\\": "src/Scribe/SharedBundle/",
-            "Scribe\\": "lib/"
+            "Scribe\\"              : "lib/"
         },
         "files"   : [
             "stub/functions.php"

@@ -1,4 +1,4 @@
-# ScribeSymfony
+# Scribe Foundation Bundle
 
 [![Build Status](https://img.shields.io/travis/scribenet/ScribeSymfony/master.svg?style=flat-square)](https://travis-ci.org/scribenet/ScribeSymfony)
 [![Quality Score](http://img.shields.io/scrutinizer/g/scribenet/ScribeSymfony/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/scribenet/ScribeSymfony/)
@@ -7,7 +7,14 @@
 [![Latest Version](http://img.shields.io/packagist/v/scribe/symfony.svg?style=flat-square)](https://packagist.org/packages/scribe/symfony)
 [![Software License](http://img.shields.io/packagist/l/scribe/symfony.svg?style=flat-square)](LICENSE.md)
 
-The base Symfony framework, dependencies, and shared utilities used for [Scribe Inc.](https://scribenet.com/) internal Symfony projects. We also maintain a [collection of open-source projects](https://github.com/scribenet) related to Symfony, Sublime Text, jQuery, and more.
+The base Symfony framework, dependencies, shared utilities, dependency injectable 
+helpers, and other function stubs used as the [Scribe Inc.](https://scribenet.com/) 
+core-dependency on our internal Symfony-based projects, including our public 
+website as well as our primary commercial web application.
+
+The base Symfony framework, dependencies, and shared utilities used for [Scribe Inc.](https://scribenet.com/) 
+internal Symfony projects. We also maintain a [collection of open-source projects](https://github.com/scribenet) related 
+to Symfony, Sublime Text, jQuery, and more.
 
 ## Quality
 

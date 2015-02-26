@@ -271,7 +271,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             ->getPrefix()
         ;
 
-        if (substr($slug, 0, strlen($prefix)) == $prefix) {
+        if (substr($slug, 0, strlen($prefix) + 1) == $prefix . '-') {
 
             return substr($slug, strlen($prefix) + 1);
         }
