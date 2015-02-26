@@ -35,7 +35,7 @@ trait IconAttributesTrait
     /**
      * @var null|string
      */
-    private $iconSlug = null;
+    protected $iconSlug = null;
 
     /**
      * @var null|IconTemplate
@@ -45,12 +45,12 @@ trait IconAttributesTrait
     /**
      * @var null|string
      */
-    private $templateSlug = null;
+    protected $templateSlug = null;
 
     /**
      * @var array
      */
-    private $optionalStyles = [];
+    protected $optionalStyles = [];
 
     /**
      * Getter for icon family entity

@@ -13,7 +13,7 @@ namespace Scribe\SharedBundle\Templating\Generator\Icon;
 use Scribe\SharedBundle\Templating\Generator\Icon\IconCreatorCached;
 
 /**
- * Icon
+ * Class: IconCreatorCache
  *
  * @package Scribe\SharedBundle\Templating\Generator\Icon
  */
@@ -34,6 +34,13 @@ class IconCreatorCache extends IconCreator
     private $currentState = null;
 
     /**
+     * IconFamily slug property 
+     *
+     * @var string
+     */
+    protected $familySlug = null;
+
+    /**
      * Render the requested icon
      *
      * @param  string|null $family
@@ -45,9 +52,14 @@ class IconCreatorCache extends IconCreator
      */
     public function render($family = null, $icon = null, $template = null, ...$styles)
     {
-        $this->currentState = $this->serializedState();
+        $this->setCurrentState($family, $icon, $template, ...$styles);
         if($this->isCached()) {
-            return $this->cachedResponse();
+            var_dump("\nhooray!\n"); 
+            $html = $this->cachedResponse();
+            
+            $this->resetState();
+
+            return $html;
         }
         else {
             $html = parent::render($family, $icon, $template, ...$styles);
@@ -60,6 +72,7 @@ class IconCreatorCache extends IconCreator
 
     /**
      * Checks if current state has been cached 
+     *
      * @return bool
      */
     public function isCached()
@@ -69,6 +82,7 @@ class IconCreatorCache extends IconCreator
 
     /**
      * Fetches cached HTML for current state 
+     *
      * @return string 
      */
     protected function cachedResponse()
@@ -78,6 +92,7 @@ class IconCreatorCache extends IconCreator
 
     /**
      * Set cache for current state to HTML string 
+     *
      * @param HTML string
      * @return $this 
      */
@@ -90,10 +105,87 @@ class IconCreatorCache extends IconCreator
 
     /**
      * Serializes current context into md5 hash 
+     *
+     * @param  string|null $family
+     * @param  string|null $icon
+     * @param  string|null $template
+     * @param  string[]    $styles
+     * @return $this
      */
-    protected function serializedState()
+    protected function setCurrentState($family, $icon, $template, ...$styles)
     {
-        return md5(serialize($this));
+        $this
+             ->checkAndSetSlug($family, 'setFamilySlug')
+             ->checkAndSetSlug($icon, 'setIconSlug')
+             ->checkAndSetSlug($template, 'setTemplateSlug')
+             ->checkAndSetSlug($styles, 'setStyles')
+             ->currentState = $this->currentAttributesToMd5();
+
+        return $this;
+    }
+
+    /**
+     * Checks if slug value given and sets relevant property if so
+     *
+     * @param string $slugVal
+     * @param string $slugSetter
+     * @return $this
+     */
+    protected function checkAndSetSlug($slugVal, $slugSetter)
+    {
+        if($slugVal) {
+            $this->{$slugSetter}($slugVal);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Iterates available object variables and returns and md5
+     * string of their values, used for caching state
+     *
+     * @return string
+     */
+    protected function currentAttributesToMd5()
+    {
+        $keyString = '';
+        foreach(get_object_vars($this) as $property => $value) {
+            if($this->nonCacheableProperty($property)) { continue; }
+            $value = (is_array($value)) ? implode($value) : $value;
+            $keyString .= (string) $value;
+        }
+        return md5($keyString);
+    }
+
+    /**
+     * Determines whether property should be cached (i.e., slugs)
+     *
+     * @param string $property
+     * @return bool
+     */
+    private function nonCacheableProperty($property)
+    {
+        if (substr($property, -6, 6) == 'Entity' ||
+              substr($property, -5, 5) == 'Cache' ||
+              substr($property, -5, 5) == 'State') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * Set the icon family slug; not validated
+     *
+     * @param string|null $slug
+     * @return $this
+     */
+    protected function setFamilySlug($slug = null)
+    {
+        $this->familySlug = $slug;
+
+        return $this;
     }
 }
 
