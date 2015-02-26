@@ -54,17 +54,22 @@ class IconCreatorCache extends IconCreator
     {
         $this->setCurrentState($family, $icon, $template, ...$styles);
         if($this->isCached()) {
-            var_dump("\nhooray!\n"); 
             $html = $this->cachedResponse();
-            
             $this->resetState();
 
             return $html;
         }
         else {
+            if($family == null && $this->hasFamilySlug()) {
+                $family = $this->getFamilySlug();
+            }            
+
             $html = parent::render($family, $icon, $template, ...$styles);
+
             $this->setCache($html);
+
             $this->currentState = null;
+            $this->resetFamilySlug();
 
             return $html;
         }
@@ -184,6 +189,52 @@ class IconCreatorCache extends IconCreator
     protected function setFamilySlug($slug = null)
     {
         $this->familySlug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Check the icon family slug
+     *
+     * @return bool
+     */
+    protected function hasFamilySlug()
+    {
+        return (bool) ($this->familySlug !== null);
+    }
+
+    /**
+     * Get the icon family slug
+     *
+     * @return string
+     */
+    protected function getFamilySlug()
+    {
+        return $this->familySlug;
+    }
+
+    /**
+     * Reset the icon family slug to null
+     *
+     * @return $this
+     */
+    protected function resetFamilySlug()
+    {
+        $this->familySlug = null;
+
+        return $this;
+    }
+
+    /**
+     * Set the icon family slug; not validated, overwrites
+     * behavior of parent class
+     *
+     * @param  string $slug
+     * @return $this
+     */
+    public function setFamily($slug)
+    {
+        $this->setFamilySlug($slug);
 
         return $this;
     }

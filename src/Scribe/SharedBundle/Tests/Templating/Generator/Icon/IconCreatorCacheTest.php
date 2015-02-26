@@ -47,14 +47,6 @@ class IconCreatorCacheTest extends PHPUnit_Framework_TestCase
 
     public function testCanCache()
     {
-        $expected = $this->sanitizeHtml('
-            <span class="fa fa-glass"
-                  role="presentation"
-                  aria-hidden="true"
-                  aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
-
         $reflector = new \ReflectionClass('Scribe\SharedBundle\Templating\Generator\Icon\IconCreatorCache');
 
         $stateSetter = $reflector->getMethod('setCurrentState');
@@ -73,6 +65,67 @@ class IconCreatorCacheTest extends PHPUnit_Framework_TestCase
         $stateSetter->invoke($formatter, 'fa', 'glass', null);
 
         $this->assertTrue($cacheChecker->invoke($formatter));
+    }
+
+    public function testCanCachePresetValues()
+    {
+        $reflector = new \ReflectionClass('Scribe\SharedBundle\Templating\Generator\Icon\IconCreatorCache');
+
+        $stateSetter = $reflector->getMethod('setCurrentState');
+        $stateSetter->setAccessible(true);
+
+        $cacheChecker = $reflector->getMethod('isCached');
+        $cacheChecker->setAccessible(true);
+
+        $formatter = $this->instantiateClass(true);
+        $formatter->setStyles('fa-lg')
+                  ->setFamily('fa')
+                  ->setIcon('glass')
+                  ->setTemplate('fa-basic')
+                  ->setAriaHidden(true)
+                  ->setAriaLabel('Glass!')
+                  ->setAriaRole("img");
+        $formatter->render();
+
+        $this->assertTrue(!$cacheChecker->invoke($formatter));
+
+        $formatter->setStyles('fa-lg')
+                  ->setFamily('fa')
+                  ->setIcon('glass')
+                  ->setTemplate('fa-basic')
+                  ->setAriaHidden(true)
+                  ->setAriaLabel('Glass!')
+                  ->setAriaRole("img");
+        
+        $stateSetter->invoke($formatter, null, null, null);
+
+        $this->assertTrue($cacheChecker->invoke($formatter));
+    }
+
+    public function testCanDoesNotCacheIncorrectly()
+    {
+        $formatter = $this->instantiateClass(true);
+        $formatter->setStyles('fa-lg')
+                  ->setFamily('fa')
+                  ->setIcon('glass')
+                  ->setTemplate('fa-basic')
+                  ->setAriaHidden(true)
+                  ->setAriaLabel('Glass!')
+                  ->setAriaRole("img");
+        $html1      = $formatter->render();
+        $html1      = $this->sanitizeHtml($html1);
+
+        $formatter->setStyles('fa-lg', 'fa-fw')
+                  ->setFamily('fa')
+                  ->setIcon('glass')
+                  ->setTemplate('fa-basic')
+                  ->setAriaHidden(true)
+                  ->setAriaLabel('Glass!')
+                  ->setAriaRole("img");
+        $html2      = $formatter->render();
+        $html2      = $this->sanitizeHtml($html2);
+
+        $this->assertTrue($html1 != $html2);
     }
 }
 
