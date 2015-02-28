@@ -34,7 +34,7 @@ trait IconAccessibilityTrait
     private $ariaLabel = null;
 
     /**
-     * The role the icon plans within the document
+     * The role the icon plays within the document
      *
      * @var string
      */
