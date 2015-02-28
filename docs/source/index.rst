@@ -4,16 +4,15 @@ Scribe Foundation Bundle
 |docs-status| |build-status| |scrutinizer-status| |coverage-status| |dependency-status|
 
 :Release:       |version|
-:Source:		https://scribe-foundation-bundle.phps.git.scribe.tools
-:Documentation: https://scribe-foundation-bundle.scribe.tools
-:Packagist:     https://scribe-foundation-bundle.packagist.scribe.tools
-:Keywords:      scribe-foundation-bundle, scribe inc, symfony2 bundle
+:Source:		https://mantle.phps.git.scribe.tools
+:Documentation: https://mantle.docs.scribe.tools
+:Keywords:      mantle, foundation, scribe inc, symfony2 bundle
 :Copyright:     2014–2015 `Scribe Inc. <https://scribe.software>`_ All rights reserved.
 :License:       `The MIT License (MIT) <http://scribe.mit-license.org>`_
 
-The Scribe Symfony Foundation is an MIT licensed internal dependency used by
-Scribe Inc for our public and internal website applications as well as our client
-web projects.
+The Scribe Mantle Bundle is an MIT licensed internal dependency used by
+Scribe Inc as the foundation for our public and internal website applications,
+as well as our client web projects.
 
 In addition to Symfony, this package also includes a collection of
 additional Symfony bundles, Doctrine, Assetic, PHPOption, and a collection of
@@ -42,12 +41,27 @@ Content
     license
 
 
-.. |docs-status| image:: https://readthedocs.org/projects/scribe-foundation-bundle/badge/?version=latest&style=flat-square
-:target: https://scribe-foundation-bundle.docs.scribe.tools/
-
+.. |docs-status| image:: https://readthedocs.org/projects/mantle/badge/?version=latest&style=flat-square
+   :target: https://mantle.docs.scribe.tools/
+   :alt: Read the Docs Build Status
+.. |build-status| image:: http://img.shields.io/travis/scribenet/mantle/master.svg?style=flat-square
+   :target: https://travis-ci.org/scribenet/mantle
+   :alt: Travis Build Status
+.. |scrutinizer-status| image:: http://img.shields.io/scrutinizer/g/scribenet/mantle/master.svg?style=flat-square
+   :target: https://scrutinizer-ci.com/g/scribenet/mantle/?branch=master
+   :alt: Scrutinizer Code Quality Metrics
+.. |coverage-status| image:: http://img.shields.io/scrutinizer/coverage/g/scribenet/mantle.svg?style=flat-square
+   :target: https://scrutinizer-ci.com/g/scribenet/mantle/?branch=master
+   :alt: Test Coverage Metrics
+.. |dependency-status| image:: http://img.shields.io/gemnasium/scribenet/mantle.svg?style=flat-square
+   :target: https://gemnasium.com/scribenet/mantle
+   :alt: Dependency Health/Status
+.. |license-type| image:: http://img.shields.io/packagist/l/scribe/mantle.svg?style=flat-square
+   :target: LICENSE.md
+   :alt: Dependency Health/Status
 [![Build Status](https://img.shields.io/travis/scribenet/ScribeFoundationBundle/master.svg?style=flat-square)](https://travis-ci.org/scribenet/ScribeSymfony)
 [![Quality Score](http://img.shields.io/scrutinizer/g/scribenet/ScribeSymfony/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/scribenet/ScribeSymfony/)
 [![Coverage Status](http://img.shields.io/scrutinizer/coverage/g/scribenet/ScribeSymfony.svg?style=flat-square)](https://scrutinizer-ci.com/g/scribenet/ScribeSymfony/)
 [![Dependency Status](http://img.shields.io/gemnasium/scribenet/ScribeSymfony.svg?style=flat-square)](https://gemnasium.com/scribenet/ScribeSymfony)
 [![Latest Version](http://img.shields.io/packagist/v/scribe/symfony.svg?style=flat-square)](https://packagist.org/packages/scribe/symfony)
-[![Software License](http://img.shields.io/packagist/l/scribe/symfony.svg?style=flat-square)](LICENSE.md)
+[![Software License]()](LICENSE.md)

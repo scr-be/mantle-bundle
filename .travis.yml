@@ -26,7 +26,8 @@ before_script:
   - mkdir -p build/logs
 
 script:
-  - bin/phpunit --verbose
+  - bin/phpunit --verbose -c phpunit.travis.xml
 
 after_script:
-  - bin/ocular code-coverage:upload --format=php-clover phpunit.coverage.clover
+  - php bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
+  - php bin/coveralls -v

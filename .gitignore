@@ -1,8 +1,8 @@
 /bin/
 /vendor/
 /docs/build/
-/phpunit.coverage.html/
-phpunit.coverage.clover
+/build/logs/coverage-html/
+/build/logs/clover.xml
 /.idea/
 atlassian-ide-plugin.xml
 *.DS_Store*
