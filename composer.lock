@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "53825354021042df9cc408c2382c1ea5",
+    "hash": "6748f10c06179ebd9cd3b52c820307a0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1165,12 +1165,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "a434187d30eb8e26647296fa76a988406f97fbe7"
+                "reference": "d190d04d37da01583f397cc88ee68ae922ace078"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/a434187d30eb8e26647296fa76a988406f97fbe7",
-                "reference": "a434187d30eb8e26647296fa76a988406f97fbe7",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/d190d04d37da01583f397cc88ee68ae922ace078",
+                "reference": "d190d04d37da01583f397cc88ee68ae922ace078",
                 "shasum": ""
             },
             "require": {
@@ -1192,7 +1192,7 @@
                 "ext-apcu": "Required to use APCu caching service.",
                 "ext-memcached": "Required to use Memcached caching service."
             },
-            "type": "project",
+            "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.0-dev"
@@ -1224,7 +1224,7 @@
                 "memcached",
                 "userland cache"
             ],
-            "time": "2015-03-01 14:23:07"
+            "time": "2015-03-01 15:32:06"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2361,16 +2361,16 @@
         },
         {
             "name": "michelf/php-markdown",
-            "version": "1.4.1",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/michelf/php-markdown.git",
-                "reference": "de9a19c7bf352d41cc99ed86c3c0ef17e87394b6"
+                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/de9a19c7bf352d41cc99ed86c3c0ef17e87394b6",
-                "reference": "de9a19c7bf352d41cc99ed86c3c0ef17e87394b6",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/e1aabe18173231ebcefc90e615565742fc1c7fd9",
+                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9",
                 "shasum": ""
             },
             "require": {
@@ -2393,22 +2393,22 @@
             ],
             "authors": [
                 {
-                    "name": "Michel Fortin",
-                    "email": "michel.fortin@michelf.ca",
-                    "homepage": "http://michelf.ca/",
-                    "role": "Developer"
-                },
-                {
                     "name": "John Gruber",
                     "homepage": "http://daringfireball.net/"
+                },
+                {
+                    "name": "Michel Fortin",
+                    "email": "michel.fortin@michelf.ca",
+                    "homepage": "https://michelf.ca/",
+                    "role": "Developer"
                 }
             ],
             "description": "PHP Markdown",
-            "homepage": "http://michelf.ca/projects/php-markdown/",
+            "homepage": "https://michelf.ca/projects/php-markdown/",
             "keywords": [
                 "markdown"
             ],
-            "time": "2014-05-05 02:43:50"
+            "time": "2015-03-01 12:03:08"
         },
         {
             "name": "nikic/php-parser",
