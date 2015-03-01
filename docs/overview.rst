@@ -73,7 +73,7 @@ own project.
 .. |dependencies| image:: https://img.shields.io/gemnasium/scribenet/symfony-mantle-bundle.svg?style=flat-square
    :target: https://symfony-mantle-bundle.docs.scribe.tools/deps
    :alt: Dependency Health/Status
-.. |packagist| image:: https://img.shields.io/packagist/v/scribe/mantle-bundle.svg?style=flat-square
+.. |packagist| image:: https://img.shields.io/badge/packagist-none-blue.svg?style=flat-square
    :target: https://symfony-mantle-bundle.docs.scribe.tools/pkg/mantle-bundle
    :alt: Packagist Stable Info
 .. |packagistd| image:: https://img.shields.io/packagist/vpre/scribe/mantle-bundle.svg?style=flat-square
