@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d048cd33cccf8e6d940ba75783c386b",
+    "hash": "53825354021042df9cc408c2382c1ea5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1165,12 +1165,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "998c39ea4f7630ecaed250dabb8d01fe05f143e6"
+                "reference": "22a68fae78f612c469216b05ed64f05b353fbbd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/998c39ea4f7630ecaed250dabb8d01fe05f143e6",
-                "reference": "998c39ea4f7630ecaed250dabb8d01fe05f143e6",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/22a68fae78f612c469216b05ed64f05b353fbbd1",
+                "reference": "22a68fae78f612c469216b05ed64f05b353fbbd1",
                 "shasum": ""
             },
             "require": {
@@ -1192,6 +1192,11 @@
                 "ext-memcached": "Required to use Memcached caching service."
             },
             "type": "project",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Scribe\\CacheBundle\\": "src/"
@@ -1208,7 +1213,7 @@
                 }
             ],
             "description": "Simple and extensible userland caching abstraction layer with built-in support for APUu and Memcached.",
-            "homepage": "https://github.com/scribenet/symfony-cache-bundle",
+            "homepage": "https://symfony-cache-bundle.docs.scribe.tools/",
             "keywords": [
                 "Symfony2",
                 "apc",
@@ -1218,7 +1223,7 @@
                 "memcached",
                 "userland cache"
             ],
-            "time": "2015-03-01 08:41:11"
+            "time": "2015-03-01 14:13:26"
         },
         {
             "name": "sensio/distribution-bundle",
