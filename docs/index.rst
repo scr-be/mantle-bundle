@@ -43,7 +43,7 @@ More documentation to follow soon...
 .. |docs-status| image:: https://readthedocs.org/projects/symfony-mantle-bundle/badge/?version=latest&style=flat-square
    :target: https://symfony-mantle-bundle.docs.scribe.tools/docs
    :alt: Read the Docs Build Status
-.. |api-status| image:: https://img.shields.io/badge/api-latest-green.svg?style=flat-square
+.. |api-status| image:: https://img.shields.io/badge/api-latest-ff69b4.svg?style=flat-square
    :target: https://symfony-mantle-bundle.docs.scribe.tools/api
    :alt: Sami API Reference
 .. |build-status| image:: https://img.shields.io/travis/scribenet/symfony-mantle-bundle.svg?style=flat-square

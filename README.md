@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/packagist/l/scribe/mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/license)
 [![RTD](https://readthedocs.org/projects/symfony-mantle-bundle/badge/?version=latest&style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/docs)
-[![API](https://img.shields.io/badge/api-latest-green.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/api)
+[![API](https://img.shields.io/badge/api-latest-ff69b4.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/api)
 [![Travis](https://img.shields.io/travis/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/ci) 
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/quality)
 [![Coveralls](https://img.shields.io/coveralls/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/coverage)
