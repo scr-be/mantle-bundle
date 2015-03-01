@@ -1,0 +1,17 @@
+Scribe\MantleBundle\Entity\Redirects:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\EntityRepository\RedirectsRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        pattern:
+            type: string
+            length: 510
+        destination:
+            type: string
+            length: 510
+    lifecycleCallbacks: {  }

@@ -1,0 +1,14 @@
+Scribe\MantleBundle\Entity\NewsletterUser:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\EntityRepository\NewsletterUserRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        email:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

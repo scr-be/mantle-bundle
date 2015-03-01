@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManager;
 /**
  * Class EntityManagerAwareTrait
  *
- * @package Scribe\SharedBundle\DependencyInjection
+ * @package Scribe\MantleBundle\DependencyInjection
  */
 trait EntityManagerAwareTrait
 {

@@ -1,22 +1,22 @@
 {
-    "name"             : "scribe/foundation",
-    "type"             : "library",
-    "description"      : "The Symfony PHP framework used within Scribe with utilities and extras.",
-    "keywords"         : ["scribe", "symfony", "framework"],
-    "homepage"         : "https://github.com/scribenet/ScribeSymfony",
+    "name"             : "scribe/mantle-bundle",
+    "description"      : "The Scribe Mantle Bundle is a dependency used by Scribe Inc for our internal web applications as well as our client web projects. It provides the foundation, or 'mantle' for our work with Symfony.",
+    "keywords"         : ["mantle", "foundation", "bundle", "scribe", "symfony", "framework"],
+    "type"             : "project",
+    "homepage"         : "https://github.com/scribenet/symfony-mantle-bundle",
     "license"          : "MIT",
     "authors"          : [
         {
-            "name" : "Rob Frawley 2nd",
-            "email": "rfrawley@scribenet.com"
+            "name"  : "Rob Frawley 2nd",
+            "email" : "rmf@scribe.software"
         },
         {
-            "name" : "Andrew Thomas",
-            "email": "athomas@scribenet.com"
+            "name"  : "Andrew Thomas",
+            "email" : "aht@scribe.software"
         },
         {
-            "name" : "Dan Corrigan",
-            "email": "dcorrigan@scribenet.com"
+            "name"  : "Dan Corrigan",
+            "email" : "dfc@scribe.software"
         }
     ],
     "require": {
@@ -40,21 +40,22 @@
         "sensio/generator-bundle"               : "~2.5",
         "incenteev/composer-parameter-handler"  : "~2.1",
         "zendframework/zend-json"               : "~2.3",
-        "phpoption/phpoption"                   : "~1.4"
+        "phpoption/phpoption"                   : "~1.4",
+        "scribe/cache-bundle"                   : "dev-master"
     },
     "require-dev"      : {
-        "sami/sami"                             : "~3.0",
-        "phpunit/phpunit"                       : "~4.5",
-        "symfony/phpunit-bridge"                : "~2.7@dev",
-        "scrutinizer/ocular"                    : "~1.1",
-        "satooshi/php-coveralls"                : "dev-master"
+        "phpunit/phpunit"                  : "~4.5",
+        "scrutinizer/ocular"               : "~1.1",
+        "satooshi/php-coveralls"           : "~0.6",
+        "codeclimate/php-test-reporter"    : "~0.1.2",
+        "sami/sami"                        : "~3.0"
     },
     "suggest"          : {
-        "scribe/cache-bundle"                   : "Simple caching abstraction layer for APCu."
+        "scribe/cache-bundle"                   : "Required to use caching mechanisms for specific generators and other components of class."
     },
     "autoload"         : {
         "psr-4": {
-            "Scribe\\SharedBundle\\": "src/Scribe/SharedBundle/",
+            "Scribe\\MantleBundle\\": "src/",
             "Scribe\\"              : "lib/"
         },
         "files"   : [

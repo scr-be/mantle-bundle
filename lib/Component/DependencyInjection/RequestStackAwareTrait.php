@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class RequestAwareTrait
  *
- * @package Scribe\SharedBundle\DependencyInjection
+ * @package Scribe\MantleBundle\DependencyInjection
  */
 trait RequestStackAwareTrait
 {

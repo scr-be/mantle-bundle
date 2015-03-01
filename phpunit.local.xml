@@ -13,9 +13,9 @@
         <server name="KERNEL_DIR" value="./app/" />
     </php>
     <testsuites>
-        <testsuite name="Scribe Foundation Bundle Test Suite">
+        <testsuite name="Scribe Mantle Bundle Test Suite">
             <directory>./test/Scribe/</directory>
-            <directory>./src/Scribe/SharedBundle/Tests</directory>
+            <directory>./src/Tests</directory>
         </testsuite>
     </testsuites>
     <groups>
@@ -29,11 +29,11 @@
             <directory suffix=".php">./src</directory>
             <exclude>
                 <directory>./test/Scribe/</directory>
-                <directory>./src/Scribe/SharedBundle/Tests</directory>
+                <directory>./src/Tests</directory>
             </exclude>
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="build/logs/coverage-html/"/>
+        <log type="coverage-html" target="build/logs/coverage/"/>
     </logging>
 </phpunit>

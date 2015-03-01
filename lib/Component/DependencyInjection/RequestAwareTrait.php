@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class RequestAwareTrait
  *
- * @package Scribe\SharedBundle\DependencyInjection
+ * @package Scribe\MantleBundle\DependencyInjection
  */
 trait RequestAwareTrait
 {

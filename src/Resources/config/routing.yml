@@ -1,0 +1,7 @@
+scribe_search:
+    pattern:  /_search
+    defaults: { _controller: ScribeMantleBundle:Search:Query }
+
+scribe_contact:
+    pattern:  /contact
+    defaults: { _controller: ScribeMantleBundle:Contact:Index }

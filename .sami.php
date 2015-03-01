@@ -1,9 +1,10 @@
 <?php
-
 /*
- * This file is part of the ScribeSymfony project.
+ * This file is part of the Scribe Mantle Bundle.
  *
- * For the full copyright and license information, please view the LICENSE
+ * (c) Scribe Inc. <source@scribe.software>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
 
@@ -13,15 +14,17 @@ use Symfony\Component\Finder\Finder;
 $projectRootPath = realpath(__DIR__ . DIRECTORY_SEPARATOR);
 
 $iterator = Finder::create()
-    ->files()
-    ->name('*.php')
-    ->in($projectRootPath . DIRECTORY_SEPARATOR . 'src')
+                  ->files()
+                  ->name('*.php')
+                  ->exclude('Resources')
+                  ->exclude('Tests')
+                  ->in($projectRootPath . DIRECTORY_SEPARATOR . 'src')
 ;
 
 return new Sami($iterator, [
-    'theme'                => 'enhanced',
-    'title'                => 'Scribe Symfony Utility Library',
-    'build_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'ScribeSymfontDocs',
-    'cache_dir'            => '/tmp/sami/scribe-symfony',
+    'theme'                => 'default',
+    'title'                => 'scribe/symfony-cache-bundle',
+    'build_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'api',
+    'cache_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'sami',
     'default_opened_level' => 2,
 ]);

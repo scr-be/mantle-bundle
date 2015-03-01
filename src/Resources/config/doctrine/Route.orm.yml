@@ -1,0 +1,30 @@
+Scribe\MantleBundle\Entity\Route:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\MantleBundle\EntityRepository\RouteRepository
+
+    fields:
+
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+        name:
+            type:   string
+            length: 120
+
+        parameters:
+            type:     json_array
+            nullable: true
+
+        referenceType:
+            type:     string
+            length:   40
+            nullable: true
+
+        description:
+            type:     string
+            length:   400
+            nullable: true

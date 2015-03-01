@@ -1,8 +1,7 @@
-/bin/
 /vendor/
-/docs/build/
-/build/logs/coverage-html/
-/build/logs/clover.xml
+/bin/
+/build/
+/docs/_build/
 /.idea/
 atlassian-ide-plugin.xml
 *.DS_Store*

@@ -1,0 +1,20 @@
+Scribe\MantleBundle\Entity\NavMenuSetting:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\EntityRepository\NavMenuSettingRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        context:
+            type: string
+            length: '40'
+        k:
+            type: string
+            length: '40'
+        v:
+            type: string
+            length: '120'
+    lifecycleCallbacks: {  }
