@@ -2,11 +2,11 @@
 
 [![License](https://img.shields.io/packagist/l/scribe/mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/license)
 [![RTD](https://readthedocs.org/projects/symfony-mantle-bundle/badge/?version=latest&style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/docs)
+[![API](https://img.shields.io/badge/api-latest-green.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/api)
 [![Travis](https://img.shields.io/travis/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/ci) 
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/quality)
 [![Coveralls](https://img.shields.io/coveralls/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/coverage)
 [![Gemnasium](https://img.shields.io/gemnasium/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/deps)
-[![Packagist](https://img.shields.io/packagist/v/scribe/mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/pkg/mantle-bundle)
 
 *Scribe / Mantle Bundle* is an MIT licensed internal dependency used by
 Scribe Inc for our public and internal website applications as well as our client
