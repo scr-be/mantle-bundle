@@ -27,11 +27,6 @@ a standard Symfony install. lso included is a library of the base exceptions,
 abstract components, new Response types, and a large assortment of generally
 statically called utility methods.
 
-In addition, we maintain a collection of packages that are marked as suggested
-installs that range from a Stripe API library (that interfaces with the moble
-payment website and allows basic operations) to a Swim library (that is our own
-personal extension of Markdown).
-
 Content
 ========
 

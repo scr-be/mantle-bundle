@@ -8,7 +8,16 @@
 [![Gemnasium](https://img.shields.io/gemnasium/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/deps)
 [![Packagist](https://img.shields.io/packagist/v/scribe/mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/pkg/mantle-bundle)
 
-*Scribe / Cache Bundle* is a simple and extensible caching abstraction layer with built-in support for APUu and Memcached.
+*Scribe / Mantle Bundle* is an MIT licensed internal dependency used by
+Scribe Inc for our public and internal website applications as well as our client
+web projects.
+
+In addition to Symfony, this package also includes a collection of
+additional Symfony bundles, Doctrine, Assetic, PHPOption, and a collection of
+Sensio dependencies. You'll notice our composer.json isn't vastly different from
+a standard Symfony install. lso included is a library of the base exceptions,
+abstract components, new Response types, and a large assortment of generally
+statically called utility methods.
 
 ## Our Standards
 
