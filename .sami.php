@@ -14,16 +14,17 @@ use Symfony\Component\Finder\Finder;
 $projectRootPath = realpath(__DIR__ . DIRECTORY_SEPARATOR);
 
 $iterator = Finder::create()
-                  ->files()
-                  ->name('*.php')
-                  ->exclude('Resources')
-                  ->exclude('Tests')
-                  ->in($projectRootPath . DIRECTORY_SEPARATOR . 'src')
+    ->files()
+    ->name('*.php')
+    ->exclude('Resources')
+    ->exclude('Tests')
+    ->in($projectRootPath . DIRECTORY_SEPARATOR . 'src')
+    ->in($projectRootPath . DIRECTORY_SEPARATOR . 'lib')
 ;
 
 return new Sami($iterator, [
     'theme'                => 'default',
-    'title'                => 'scribe/symfony-cache-bundle',
+    'title'                => 'scribe/mantle-bundle',
     'build_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'api',
     'cache_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'sami',
     'default_opened_level' => 2,

@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
+namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
 
 /**
- * Class IconMocks
+ * Class IconCreatorMocksTrait
  *
- * @package Scribe\MantleBundle\Tests\Templating\Generator\Icon
+ * @package Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks
  */
-trait IconMocks
+trait IconCreatorMocksTrait
 {
     private $iconFamilyRepo;
 
@@ -122,6 +122,41 @@ trait IconMocks
         return $iconFamily;
     }
 
+    protected function mockIconFamilyNoOptionalClasses()
+    {
+        $iconFamily = $this->getMock('Scribe\MantleBundle\Entity\IconFamily');
+        $iconFamily
+            ->method('getName')
+            ->willReturn('Font Awesome')
+        ;
+        $iconFamily
+            ->method('getPrefix')
+            ->willReturn('fa')
+        ;
+        $iconFamily
+            ->method('getSlug')
+            ->willReturn('fa')
+        ;
+        $iconFamily
+            ->method('getRequiredClasses')
+            ->willReturn(['fa'])
+        ;
+        $iconFamily
+            ->method('getRequiredClassesFormatted')
+            ->willReturn('fa')
+        ;
+        $iconFamily
+            ->method('getOptionalClasses')
+            ->willReturn([])
+        ;
+        $iconFamily
+            ->method('hasOptionalClasses')
+            ->willReturn(true)
+        ;
+
+        return $iconFamily;
+    }
+
     protected function mockIconFamilyRepo($iconFamily)
     {
         $iconFamilyRepo = $this
@@ -162,6 +197,37 @@ trait IconMocks
         return $iconFamilyRepo;
     }
 
+    protected function mockIconTemplateUnknownEngine()
+    {
+        $iconTemplate = $this->getMock('Scribe\MantleBundle\Entity\IconTemplate');
+        $iconTemplate
+            ->method('getSlug')
+            ->willReturn('fa-basic')
+        ;
+        $iconTemplate
+            ->method('getDescription')
+            ->willReturn('Basic Font Awesome markup using span html tag.')
+        ;
+        $iconTemplate
+            ->method('getEngine')
+            ->willReturn('this-is-not-a-valid-engine')
+        ;
+        $template =
+            <<<EOT
+            <span class="{{ family.getRequiredClasses()|join(' ') }} {% if styles %}{{ styles|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
+      {% if helper.hasAriaRole %}role="{{ helper.getAriaRole }}"{% endif %}
+      {% if helper.isAriaHidden %}aria-hidden="true"{% endif %}
+      aria-label="{% if helper.hasAriaLabel %}{{ helper.getAriaLabel }}{% else %}Icon: {{ icon.getName }}{% if icon.hasCategories %} (Category: {{ icon.getCategories[0] }}){% endif %}{% endif %}">
+</span>
+EOT;
+        $iconTemplate
+            ->method('getTemplate')
+            ->willReturn($template)
+        ;
+
+        return $iconTemplate;
+    }
+
     protected function mockIconTemplate1()
     {
         $iconTemplate = $this->getMock('Scribe\MantleBundle\Entity\IconTemplate');
@@ -177,7 +243,8 @@ trait IconMocks
             ->method('getEngine')
             ->willReturn('twig')
         ;
-        $template = <<<EOT
+        $template =
+<<<EOT
 <span class="{{ family.getRequiredClasses()|join(' ') }} {% if styles %}{{ styles|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
       {% if helper.hasAriaRole %}role="{{ helper.getAriaRole }}"{% endif %}
       {% if helper.isAriaHidden %}aria-hidden="true"{% endif %}
@@ -268,44 +335,6 @@ EOT;
         $this->iconFamilyRepo               = $this->mockIconFamilyRepo($iconFamily);
         $this->iconFamilyRepoNoFamilyResult = $this->mockIconFamilyRepoNoFamilyResult($iconFamily);
         $this->engine                       = $this->mockEngineInterface();
-    }
-
-    protected function instantiateClass($cached = false)
-    {
-        if(true === $cached) {
-            return new IconCreatorCached($this->iconFamilyRepo, $this->engine);
-        } 
-        else {
-            return new IconCreator($this->iconFamilyRepo, $this->engine);
-        }
-    }
-
-    protected function sanitizeHtml($html)
-    {
-        $config = [
-            'clean'          => true,
-            'output-xhtml'   => true,
-            'show-body-only' => true,
-            'wrap'           => 0,
-        ];
-
-        $tidy = new \Tidy;
-        $tidy->parseString($html, $config, 'utf8');
-        $tidy->cleanRepair();
-
-        return (string) $tidy;
-    }
-
-    protected function getReflectionOfIconCreatorForMethod($method)
-    {
-        $refFormat = new \ReflectionClass('Scribe\MantleBundle\Templating\Generator\Icon\IconCreator');
-        $method = $refFormat->getMethod($method);
-        $method->setAccessible(true);
-
-        return [
-            $this->instantiateClass(),
-            $method
-        ];
     }
 }
 

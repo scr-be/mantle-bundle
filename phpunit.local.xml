@@ -14,8 +14,7 @@
     </php>
     <testsuites>
         <testsuite name="Scribe Mantle Bundle Test Suite">
-            <directory>./test/Scribe/</directory>
-            <directory>./src/Tests</directory>
+            <directory>./*/Tests/</directory>
         </testsuite>
     </testsuites>
     <groups>
@@ -28,8 +27,7 @@
             <directory suffix=".php">./lib</directory>
             <directory suffix=".php">./src</directory>
             <exclude>
-                <directory>./test/Scribe/</directory>
-                <directory>./src/Tests</directory>
+                <directory>./*/Tests/</directory>
             </exclude>
         </whitelist>
     </filter>

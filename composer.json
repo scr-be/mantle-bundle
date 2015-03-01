@@ -1,11 +1,11 @@
 {
-    "name"             : "scribe/mantle-bundle",
-    "description"      : "The Scribe Mantle Bundle is a dependency used by Scribe Inc for our internal web applications as well as our client web projects. It provides the foundation, or 'mantle' for our work with Symfony.",
-    "keywords"         : ["mantle", "foundation", "bundle", "scribe", "symfony", "framework"],
-    "type"             : "project",
-    "homepage"         : "https://github.com/scribenet/symfony-mantle-bundle",
-    "license"          : "MIT",
-    "authors"          : [
+    "name"        : "scribe/mantle-bundle",
+    "description" : "The Scribe Mantle Bundle is a dependency used by Scribe Inc for our internal web applications as well as our client web projects. It provides the foundation, or 'mantle' for our work with Symfony.",
+    "keywords"    : ["mantle", "foundation", "bundle", "scribe", "symfony", "framework"],
+    "type"        : "project",
+    "homepage"    : "https://github.com/scribenet/symfony-mantle-bundle",
+    "license"     : "MIT",
+    "authors"     : [
         {
             "name"  : "Rob Frawley 2nd",
             "email" : "rmf@scribe.software"
@@ -20,51 +20,51 @@
         }
     ],
     "require": {
-        "php"                                   : ">=5.6",
-        "symfony/symfony"                       : "~2.6",
-        "symfony/yaml"                          : "~2.6",
-        "doctrine/orm"                          : "~2.4",
-        "doctrine/dbal"                         : "<2.5",
-        "doctrine/doctrine-bundle"              : "*",
-        "doctrine/doctrine-fixtures-bundle"     : "*",
-        "twig/twig"                             : "~1.18",
-        "twig/extensions"                       : "~1.2",
-        "symfony/filesystem"                    : "~2.6",
-        "symfony/finder"                        : "~2.6",
-        "symfony/swiftmailer-bundle"            : "~2.3",
-        "symfony/monolog-bundle"                : "~2.7",
-        "symfony/assetic-bundle"                : "~2.6",
-        "kriswallsmith/assetic"                 : "~1.2",
-        "sensio/distribution-bundle"            : "~3.0",
-        "sensio/framework-extra-bundle"         : "~3.0,>=3.0.2",
-        "sensio/generator-bundle"               : "~2.5",
-        "incenteev/composer-parameter-handler"  : "~2.1",
-        "zendframework/zend-json"               : "~2.3",
-        "phpoption/phpoption"                   : "~1.4",
-        "scribe/cache-bundle"                   : "dev-master"
+        "php"                                  : ">=5.6",
+        "symfony/symfony"                      : "~2.6",
+        "symfony/yaml"                         : "~2.6",
+        "doctrine/orm"                         : "~2.4",
+        "doctrine/dbal"                        : "<2.5",
+        "doctrine/doctrine-bundle"             : "*",
+        "doctrine/doctrine-fixtures-bundle"    : "*",
+        "twig/twig"                            : "~1.18",
+        "twig/extensions"                      : "~1.2",
+        "symfony/filesystem"                   : "~2.6",
+        "symfony/finder"                       : "~2.6",
+        "symfony/swiftmailer-bundle"           : "~2.3",
+        "symfony/monolog-bundle"               : "~2.7",
+        "symfony/assetic-bundle"               : "~2.6",
+        "kriswallsmith/assetic"                : "~1.2",
+        "sensio/distribution-bundle"           : "~3.0",
+        "sensio/framework-extra-bundle"        : "~3.0,>=3.0.2",
+        "sensio/generator-bundle"              : "~2.5",
+        "incenteev/composer-parameter-handler" : "~2.1",
+        "zendframework/zend-json"              : "~2.3",
+        "phpoption/phpoption"                  : "~1.4",
+        "scribe/cache-bundle"                  : "dev-master"
     },
-    "require-dev"      : {
-        "phpunit/phpunit"                  : "~4.5",
-        "scrutinizer/ocular"               : "~1.1",
-        "satooshi/php-coveralls"           : "~0.6",
-        "codeclimate/php-test-reporter"    : "~0.1.2",
-        "sami/sami"                        : "~3.0"
+    "require-dev" : {
+        "phpunit/phpunit"               : "~4.5",
+        "scrutinizer/ocular"            : "~1.1",
+        "satooshi/php-coveralls"        : "~0.6",
+        "codeclimate/php-test-reporter" : "~0.1.2",
+        "sami/sami"                     : "~3.0"
     },
     "suggest"          : {
-        "scribe/cache-bundle"                   : "Required to use caching mechanisms for specific generators and other components of class."
+        "scribe/cache-bundle" : "Required to use caching mechanisms for specific generators and other components of class."
     },
-    "autoload"         : {
-        "psr-4": {
-            "Scribe\\MantleBundle\\": "src/",
-            "Scribe\\"              : "lib/"
+    "autoload" : {
+        "psr-4" : {
+            "Scribe\\MantleBundle\\" : "src/",
+            "Scribe\\"               : "lib/"
         },
-        "files"   : [
+        "files" : [
             "stub/functions.php"
         ]
     },
-    "config"          : {
+    "config" : {
         "bin-dir": "bin"
     },
-    "preferred-install": "dist",
-    "minimum-stability": "stable"
+    "preferred-install" : "dist",
+    "minimum-stability" : "stable"
 }

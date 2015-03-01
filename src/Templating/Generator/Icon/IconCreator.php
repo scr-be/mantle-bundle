@@ -382,7 +382,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      */
     private function lookupStyles()
     {
-        if (true === (count($this->getFamilyEntity()->getOptionalClasses()) == 0) &&
+        if (false === (count($this->getFamilyEntity()->getOptionalClasses()) > 0) &&
             true === (count($this->getOptionalStyles()) > 0))
         {
             throw new IconException(

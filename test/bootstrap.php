@@ -24,6 +24,6 @@ if (false === ($loader = includeIfExists(__DIR__.'/../vendor/autoload.php'))) {
     );
 }
 
-$loader->add('Scribe\Tests', __DIR__);
+//$loader->add('Scribe\Tests', __DIR__);
 
 return $loader;

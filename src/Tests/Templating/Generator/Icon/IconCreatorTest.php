@@ -10,8 +10,11 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit_Framework_TestCase;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
+use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
+use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 
 /**
  * Class IconCreatorTest
@@ -20,168 +23,176 @@ use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
  */
 class IconCreatorTest extends PHPUnit_Framework_TestCase
 {
-    use IconMocks;
+    use IconCreatorMocksTrait,
+        IconCreatorHelperTrait;
+
+    const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\EntityRepository\IconFamilyRepository';
+
+    const FULLY_QUALIFIED_CLASS_NAME_ENGINE_INTERFACE = 'Symfony\Component\Templating\EngineInterface';
+
+    const FULLY_QUALIFIED_CLASS_NAME_SELF = 'Scribe\MantleBundle\Templating\Generator\Icon\IconCreator';
 
     public function setUp()
     {
         $this->mockIconEntities();
     }
 
-    public function testCanRender_ShortForm()
+    public function testRenderShortForm()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter->render('fa', 'glass');
-        $html      = $this->sanitizeHtml($html);
+        $html = $this
+            ->getNewIconCreator()
+            ->render('fa', 'glass')
+        ;
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
-    public function testCanRender_LongForm()
+    public function testRenderLongForm()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setFamily('fa')
             ->setIcon('glass')
             ->render()
         ;
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setIcon('glass')
             ->setFamily('fa')
             ->render()
         ;
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testAcceptsPrefixedAndNonPrefixIconSlug_ShortForm()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter->render('fa', 'fa-glass');
-        $html      = $this->sanitizeHtml($html);
+        $html = $this
+            ->getNewIconCreator()
+            ->render('fa', 'fa-glass');
+        ;
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter->render('fa', 'glass');
-        $html      = $this->sanitizeHtml($html);
+        $html = $this
+            ->getNewIconCreator()
+            ->render('fa', 'glass');
+        ;
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testAcceptsPrefixedAndNonPrefixIconSlug_LongForm()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+
+        $html = $this
+            ->getNewIconCreator()
             ->setFamily('fa')
             ->setIcon('fa-glass')
             ->render()
         ;
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setFamily('fa')
             ->setIcon('glass')
             ->render()
         ;
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testSupportForOptionalStyles_ShortForm()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter->render('fa', 'glass', null, 'fa-fw', 'fa-lg');
-        $html      = $this->sanitizeHtml($html);
+        $html = $this
+            ->getNewIconCreator()
+            ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
+        ;
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testSupportForOptionalStyles_LongForm()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setStyles('fa-fw', 'fa-lg')
-            ->render('fa', 'glass');
-        $html      = $this->sanitizeHtml($html);
+            ->render('fa', 'glass')
+        ;
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testSupportForOptionalStylesOverwrittenByRender_LongForm()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-5x fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setStyles('fa-fw', 'fa-lg')
-            ->render('fa', 'glass', null, 'fa-5x');
-        $html      = $this->sanitizeHtml($html);
+            ->render('fa', 'glass', null, 'fa-5x')
+        ;
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     /**
@@ -191,8 +202,10 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
       */
     public function testThrowsExceptionOnInvalidOptionalStyles_ShortForm()
     {
-        $formatter = $this->instantiateClass();
-        $html      = $formatter->render('fa', 'glass', null, 'fa-foo');
+        $this
+            ->getNewIconCreator()
+            ->render('fa', 'glass', null, 'fa-foo')
+        ;
     }
 
     /**
@@ -202,8 +215,8 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
      */
     public function testThrowsExceptionOnInvalidOptionalStyles_LongForm()
     {
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $this
+            ->getNewIconCreator()
             ->setFamily('fa')
             ->setIcon('glass')
             ->setStyles('fa-bad-style')
@@ -213,61 +226,58 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
 
     public function testAriaHiddenPropertyCanBeDisabled()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="presentation"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setAriaHidden(false)
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testAriaLabelCanBeSetExplicitly()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label=Glass is half full!">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setAriaLabel("Glass is half full!")
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testAriaRoleCanBeSetExplicitly()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="img"
                   aria-hidden="true"
                   aria-label=Glass is half full!">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setAriaRole("img")
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     /**
@@ -277,34 +287,33 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
      */
     public function testThrowsExceptionOnInvalidAriaRoleValue()
     {
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $this
+            ->getNewIconCreator()
             ->setAriaRole("does-not-exists")
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
-        $html      = $this->sanitizeHtml($html);
-
-        $this->assertSame($html, $expected);
     }
 
     public function testSettingTemplate_Long()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $formatter->setFamily('fa')
-                  ->setIcon('glass')
-                  ->setStyles('fa-fw', 'fa-lg')
-                  ->setTemplate('fa-basic');
-        $html = $formatter->render();
-        $html = $this->sanitizeHtml($html);
-        $this->assertSame($html, $expected);
+        $html = $this
+            ->getNewIconCreator()
+            ->setFamily('fa')
+            ->setIcon('glass')
+            ->setStyles('fa-fw', 'fa-lg')
+            ->setTemplate('fa-basic')
+            ->render()
+        ;
+
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testOtherIconInFamilyCanBeAccessed()
@@ -316,8 +325,8 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             </span>'
         );
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setAriaHidden(false)
             ->setAriaRole('button')
             ->setAriaLabel("Its a PHOTO ICON!!!")
@@ -327,22 +336,21 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->setTemplate('fa-basic')
             ->render()
         ;
-        $html = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testObjectIsClearedAfterReaderForFreshRun_RealWorldTest()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="img"
                   aria-label="Foo!">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setAriaHidden(false)
             ->setAriaRole('img')
             ->setAriaLabel("Foo!")
@@ -350,53 +358,51 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->setIcon('glass')
             ->setStyles('fa-fw', 'fa-lg')
             ->render();
-        $html = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
 
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="img"
                   aria-hidden="true"
                   aria-label="Icon: Photo (Category: Cat 1)">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $html = $this
+            ->getNewIconCreator()
             ->setAriaHidden(true)
             ->setIcon('photo')
             ->setStyles('fa-5x')
             ->render('fa');
-        $html = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertSameHtml($html, $expected);
     }
 
     public function testObjectIsClearedAfterReaderForFreshRun_PropertyInspectionTest()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-fw fa-lg fa-glass"
                   role="img"
                   aria-label="Foo!">
-            </span>'
-        );
+            </span>
+        ';
 
-        $formatter = $this->instantiateClass();
-        $html      = $formatter
+        $validRoles = [ 'img', 'link', 'button', 'presentation'];
+
+        $formatter = $this->getNewIconCreator();
+
+        $html = $formatter
             ->setAriaHidden(false)
             ->setAriaRole('img')
             ->setAriaLabel("Foo!")
             ->setFamily('fa')
             ->setIcon('glass')
             ->setStyles('fa-fw', 'fa-lg')
-            ->render();
-        $html = $this->sanitizeHtml($html);
+            ->render()
+        ;
 
-        $this->assertSame($html, $expected);
-
-        $validRoles = [ 'img', 'link', 'button', 'presentation'];
-
+        $this->assertSameHtml($html, $expected);
         $this->assertAttributeEquals(null,           'familyEntity',   $formatter);
         $this->assertAttributeEquals(null,           'iconEntity',     $formatter);
         $this->assertAttributeEquals(null,           'iconSlug',       $formatter);
@@ -408,9 +414,9 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals('presentation', 'ariaRole',       $formatter);
         $this->assertAttributeEquals($validRoles,    'validAriaRoles', $formatter);
         $this->assertAttributeInstanceOf(
-            'Scribe\MantleBundle\EntityRepository\IconFamilyRepository', 'iconFamilyRepo', $formatter);
+            self::FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO, 'iconFamilyRepo', $formatter);
         $this->assertAttributeInstanceOf(
-            'Symfony\Component\Templating\EngineInterface',              'engine',         $formatter);
+            self::FULLY_QUALIFIED_CLASS_NAME_ENGINE_INTERFACE, 'engine',         $formatter);
     }
 
     /**
@@ -420,8 +426,10 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCanValidateInvalidMissingFontFamilies()
     {
-        $formatter = new IconCreator($this->iconFamilyRepoNoFamilyResult, $this->engine);
-        $html = $formatter->setIcon('glass')->render();
+        (new IconCreator($this->iconFamilyRepoNoFamilyResult, $this->engine))
+            ->setIcon('glass')
+            ->render()
+        ;
     }
 
     /**
@@ -431,8 +439,9 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCanValidateInvalidFontFamilies()
     {
-        $formatter = new IconCreator($this->iconFamilyRepoNoFamilyResult, $this->engine);
-        $html = $formatter->render('not-valid', 'glass');
+        (new IconCreator($this->iconFamilyRepoNoFamilyResult, $this->engine))
+            ->render('not-valid', 'glass')
+        ;
     }
 
     /**
@@ -442,8 +451,10 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCanValidateInvalidFontTemplates()
     {
-        $formatter = $this->instantiateClass();
-        $html = $formatter->render('fa', 'glass', 'bad-template');
+        $this
+            ->getNewIconCreator()
+            ->render('fa', 'glass', 'bad-template')
+        ;
     }
 
     /**
@@ -504,5 +515,223 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
 
         $badArgument = new \stdClass;
         $method->invokeArgs($obj, [$badArgument]);
+    }
+
+    public function testAttributesHasIconEntity()
+    {
+        list($obj, $hasIconEntity, $setIconEntity) = $this->getReflectionOfIconCreatorForMethods('hasIconEntity', 'setIconEntity');
+
+        $this->assertFalse($hasIconEntity->invokeArgs($obj, []));
+        $setIconEntity->invokeArgs($obj, [$this->mockIcon_Photo()]);
+
+        $this->assertTrue($hasIconEntity->invokeArgs($obj, []));
+    }
+
+    public function testAttributesHasTemplateEntity()
+    {
+        list($obj, $hasTemplateEntity, $setTemplateEntity) = $this->getReflectionOfIconCreatorForMethods('hasTemplateEntity', 'setTemplateEntity');
+
+        $this->assertFalse($hasTemplateEntity->invokeArgs($obj, []));
+        $setTemplateEntity->invokeArgs($obj, [$this->mockIconTemplate1()]);
+
+        $this->assertTrue($hasTemplateEntity->invokeArgs($obj, []));
+    }
+
+    public function testAttributesHasTemplateSlug()
+    {
+        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('hasTemplateSlug');
+
+        $this->assertFalse($method->invokeArgs($obj, []));
+
+        $obj->setTemplate('fa-basic');
+        $this->assertTrue($method->invokeArgs($obj, []));
+    }
+
+    public function testAttributesHasOptionalStyles()
+    {
+        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('hasOptionalStyles');
+
+        $this->assertFalse($method->invokeArgs($obj, []));
+
+        $obj->setStyles('style1', 'style2');
+        $this->assertTrue($method->invokeArgs($obj, []));
+    }
+
+    public function testAccessibilityGetAriaHidden()
+    {
+        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('getAriaHidden');
+
+        $this->assertTrue($method->invokeArgs($obj, []));
+
+        $obj->setAriaHidden(false);
+        $this->assertFalse($method->invokeArgs($obj, []));
+
+        $obj->setAriaHidden();
+        $this->assertTrue($method->invokeArgs($obj, []));
+    }
+
+    public function testAccessibilityIsAriaHidden()
+    {
+        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('isAriaHidden');
+
+        $this->assertTrue($method->invokeArgs($obj, []));
+
+        $obj->setAriaHidden(false);
+        $this->assertFalse($method->invokeArgs($obj, []));
+
+        $obj->setAriaHidden();
+        $this->assertTrue($method->invokeArgs($obj, []));
+    }
+
+    public function testAccessibilityIsAriaLabel()
+    {
+        list($obj, $has, $get) = $this->getReflectionOfIconCreatorForMethods('hasAriaLabel', 'getAriaLabel');
+
+        $this->assertFalse($has->invokeArgs($obj, []));
+
+        $obj->setAriaLabel('A label');
+        $this->assertTrue($has->invokeArgs($obj, []));
+        $this->assertEquals('A label', $get->invokeArgs($obj, []));
+
+        $obj->setAriaLabel();
+        $this->assertFalse($has->invokeArgs($obj, []));
+    }
+
+    public function testAccessibilityIsAriaRole()
+    {
+        list($obj, $has, $get) = $this->getReflectionOfIconCreatorForMethods('hasAriaRole', 'getAriaRole');
+
+        $this->assertTrue($has->invokeArgs($obj, []));
+
+        $obj->setAriaRole('button');
+        $this->assertTrue($has->invokeArgs($obj, []));
+        $this->assertEquals('button', $get->invokeArgs($obj, []));
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage An icon type was not provided.
+     * @expectedExceptionCode    100
+     */
+    public function testValidateIconExceptionHandling()
+    {
+        list($obj, $v) = $this->getReflectionOfIconCreatorForMethods('validateIcon');
+
+        $v->invokeArgs($obj, []);
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage Could not validate/lookup icon entity without a valid icon family entity.
+     * @expectedExceptionCode    52
+     */
+    public function testLookupIconNoFontFamilyExceptionHandling()
+    {
+        list($obj, $l) = $this->getReflectionOfIconCreatorForMethods('lookupIcon');
+
+        $l->invokeArgs($obj, []);
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage Could not find icon slug  in icon family Font Awesome.
+     * @expectedExceptionCode    101
+     */
+    public function testLookupIconNoFontFamilyIconsExceptionHandling()
+    {
+        list($obj, $l, $g, $s) = $this->getReflectionOfIconCreatorForMethods('lookupIcon', 'getFamilyEntity', 'setFamilyEntity');
+
+        $family = $this->mockIconFamily();
+        $family
+            ->method('getIcons')
+            ->willReturn(new ArrayCollection)
+        ;
+
+        $s->invokeArgs($obj, [ $family ]);
+        $l->invokeArgs($obj, []);
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage Could not validate/lookup icon template entity without a valid icon family entity.
+     * @expectedExceptionCode    52
+     */
+    public function testLookupTemplateNoFontFamilyExceptionHandling()
+    {
+        list($obj, $l) = $this->getReflectionOfIconCreatorForMethods('lookupTemplate');
+
+        $l->invokeArgs($obj, []);
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage No icon templates are associated with the Font Awesome icon family.
+     * @expectedExceptionCode    101
+     */
+    public function testLookupTemplateNoFontFamilyTemplatesExceptionHandling()
+    {
+        list($obj, $l, $g, $s) = $this->getReflectionOfIconCreatorForMethods('lookupTemplate', 'getFamilyEntity', 'setFamilyEntity');
+
+        $family = $this->mockIconFamily();
+        $family
+            ->method('getTemplates')
+            ->willReturn(new ArrayCollection)
+        ;
+
+        $s->invokeArgs($obj, [ $family ]);
+        $l->invokeArgs($obj, []);
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage No available optional styles to select for Font Awesome font family.
+     * @expectedExceptionCode    51
+     */
+    public function testLookupStylesUserSpecifiedByNoFontFamilySpecifiedOptionalStylesExceptionHandling()
+    {
+        list($obj, $l, $o, $s) = $this->getReflectionOfIconCreatorForMethods('lookupStyles', 'setOptionalStyles', 'setFamilyEntity');
+
+        $family = $this->mockIconFamilyNoOptionalClasses();
+
+        $s->invokeArgs($obj, [ $family ]);
+
+        $o->invokeArgs($obj, ['one', 'two', 'three']);
+        $l->invokeArgs($obj, []);
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage Template engine type could not be determined, support cannot be verified.
+     * @expectedExceptionCode    50
+     */
+    public function testValidateEngineUnknownTypeExceptionHandling()
+    {
+        $engine = $this->getMock('Symfony\Component\Templating\EngineInterface');
+        $obj = new IconCreator($this->iconFamilyRepo, $engine);
+        $refFormat = new \ReflectionClass(IconCreatorTest::FULLY_QUALIFIED_CLASS_NAME_SELF);
+
+        $validateEngine = $refFormat->getMethod('validateEngine');
+        $validateEngine->setAccessible(true);
+        $validateEngine->invokeArgs($obj, []);
+    }
+
+    /**
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage The icon template requested this-is-not-a-valid-engine engine, but we are running the twig engine.
+     * @expectedExceptionCode    50
+     */
+    public function testValidateEngineInvalidTypeExceptionHandling()
+    {
+        $obj = new IconCreator($this->iconFamilyRepo, $this->engine);
+        $refFormat = new \ReflectionClass(IconCreatorTest::FULLY_QUALIFIED_CLASS_NAME_SELF);
+
+        $setTemplateEntity = $refFormat->getMethod('setTemplateEntity');
+        $setTemplateEntity->setAccessible(true);
+        $setTemplateEntity->invokeArgs($obj, [$this->mockIconTemplateUnknownEngine()]);
+
+        $validateEngine = $refFormat->getMethod('validateEngine');
+        $validateEngine->setAccessible(true);
+        $validateEngine->invokeArgs($obj, []);
+
     }
 }

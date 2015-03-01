@@ -10,15 +10,15 @@
 
 namespace Scribe\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand,
-    Symfony\Component\Console\Output\OutputInterface,
-    Symfony\Component\Console\Input\InputInterface,
-    Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console\Formatter\OutputFormatterStyle,
-    Symfony\Component\Console\Output\OutputInterface as OI,
-    Symfony\Component\Console\Input\InputInterface as II,
-    Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Output\OutputInterface as OI;
+use Symfony\Component\Console\Input\InputInterface as II;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
  * Class ScribeCommand
