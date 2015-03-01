@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * Class SessionAwareTrait
  *
- * @package Scribe\SharedBundle\DependencyInjection\Traits
+ * @package Scribe\MantleBundle\DependencyInjection\Traits
  */
 trait SessionAwareTrait
 {

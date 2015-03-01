@@ -1,24 +1,45 @@
-# Scribe Foundation Bundle
+# Scribe / Mantle Bundle
 
-[![Build Status](https://img.shields.io/travis/scribenet/ScribeSymfony/master.svg?style=flat-square)](https://travis-ci.org/scribenet/ScribeSymfony)
-[![Quality Score](http://img.shields.io/scrutinizer/g/scribenet/ScribeSymfony/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/scribenet/ScribeSymfony/)
-[![Coverage Status](http://img.shields.io/scrutinizer/coverage/g/scribenet/ScribeSymfony.svg?style=flat-square)](https://scrutinizer-ci.com/g/scribenet/ScribeSymfony/)
-[![Dependency Status](http://img.shields.io/gemnasium/scribenet/ScribeSymfony.svg?style=flat-square)](https://gemnasium.com/scribenet/ScribeSymfony)
-[![Latest Version](http://img.shields.io/packagist/v/scribe/symfony.svg?style=flat-square)](https://packagist.org/packages/scribe/symfony)
-[![Software License](http://img.shields.io/packagist/l/scribe/symfony.svg?style=flat-square)](LICENSE.md)
+[![License](https://img.shields.io/packagist/l/scribe/mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/license)
+[![RTD](https://readthedocs.org/projects/symfony-mantle-bundle/badge/?version=latest&style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/docs)
+[![Travis](https://img.shields.io/travis/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/ci) 
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/quality)
+[![Coveralls](https://img.shields.io/coveralls/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/coverage)
+[![Gemnasium](https://img.shields.io/gemnasium/scribenet/symfony-mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/deps)
+[![Packagist](https://img.shields.io/packagist/v/scribe/mantle-bundle.svg?style=flat-square)](https://symfony-mantle-bundle.docs.scribe.tools/pkg/mantle-bundle)
 
-The base Symfony framework, dependencies, shared utilities, dependency injectable 
-helpers, and other function stubs used as the [Scribe Inc.](https://scribenet.com/) 
-core-dependency on our internal Symfony-based projects, including our public 
-website as well as our primary commercial web application.
+*Scribe / Cache Bundle* is a simple and extensible caching abstraction layer with built-in support for APUu and Memcached.
 
-The base Symfony framework, dependencies, and shared utilities used for [Scribe Inc.](https://scribenet.com/) 
-internal Symfony projects. We also maintain a [collection of open-source projects](https://github.com/scribenet) related 
-to Symfony, Sublime Text, jQuery, and more.
+## Our Standards
 
-## Quality
+- *Auto-loading*: Conformance with the [PS4-4](http://www.php-fig.org/psr/psr-4/) 
+  standard, allowing for seamless inclusion in any [composer](https://getcomposer.org/)
+  project or any PSR-4 aware auto-loader implementation.
+- *Continuous Integration*: Utilization of [Travis CI](https://symfony-mantle-bundle.docs.scribe.tools/ci)
+  to provide per-commit reports on the success or failure status of our builds.
+- *Tests and Coverage*: Automated testing against our comprehensive 
+  [PHPUnit](https://phpunit.de/) test suite, resulting code-coverage metrics
+  dispatched to [Coveralls](https://symfony-mantle-bundle.docs.scribe.tools/coverage).
+- *Reports and Metrics*: Automated metrics pertaining to the defined code-styling
+  guidelines, general code quality reports, and other statistics using 
+  [Scrutinizer-CI](https://symfony-mantle-bundle.docs.scribe.tools/quality).
+- *API and Documentation*: Comprehensive [API reference](https://symfony-mantle-bundle.docs.scribe.tools/api) 
+  generated automatically using [Sami](https://github.com/fabpot/sami), as well 
+  as [documentation and examples](https://symfony-mantle-bundle.docs.scribe.tools/docs)
+  compiled using [Read the Docs](https://readthedocs.org/).
 
-* **Code Standards**: Implements a combination of [PSR-0](http://www.php-fig.org/psr/psr-0/) and [PSR-4](http://www.php-fig.org/psr/psr-4/) structured file layouts to enable automatic lazy auto-loading using [Composer](https://getcomposer.org/).
-* **Tests and Continuous Integration**: Our shared bundle and utility classes have extensive [PHPUnit](https://phpunit.de/) tests and [Travis CI](https://travis-ci.org/scribenet/ScribeSymfony) provides our continuous integration service.
-* **Coverage, Quality, Standards**: Reports are generated using [Scrutinizer](https://scrutinizer-ci.com/) that check for bugs, documentation errors, code style guidelines, and [additional parameters](.scrutinizer.yml). Coverage reports are also submitted to Scrutinizer after each Travis CI run.
-* **Documentation and Examples**: Comprehensive [API documentationn](https://scribenet.github.io/ScribeSymfony/) is automatically generated using [Sami](https://github.com/fabpot/sami).
+## Installation
+
+To include this bundle in your project, simply add it as a dependency to your `composer.json` file within the `require` block.
+
+```json
+    "require" : {
+        "scribe/mantle-bundle" : "dev-master"
+    }
+```
+
+After adding Scribe's Cache Bundle as a dependency, simply run composer to update your vendor files and composer auto-loader includes.
+
+```bash
+composer.phar update
+```

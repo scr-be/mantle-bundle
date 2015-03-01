@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait as SymfonyContaine
 /**
  * Class ContainerAwareTrait
  *
- * @package Scribe\SharedBundle\DependencyInjection
+ * @package Scribe\MantleBundle\DependencyInjection
  */
 trait ContainerAwareTrait
 {

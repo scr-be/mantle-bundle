@@ -16,7 +16,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Class RouterAwareTrait
  *
- * @package Scribe\SharedBundle\DependencyInjection\Traits
+ * @package Scribe\MantleBundle\DependencyInjection\Traits
  */
 trait RouterAwareTrait
 {
