@@ -16,11 +16,11 @@ use Symfony\Component\Config\FileLocator;
 use Scribe\Component\DependencyInjection\AbstractExtension;
 
 /**
- * Class ScribeSharedExtension
+ * Class ScribeMantleExtension
  *
  * @package Scribe\MantleBundle\DependencyInjection
  */
-class ScribeSharedExtension extends AbstractExtension
+class ScribeMantleExtension extends AbstractExtension
 {
     /**
      * Load the configuration from the yaml config based on definitions defined
