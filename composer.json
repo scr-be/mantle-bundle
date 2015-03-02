@@ -2,7 +2,7 @@
     "name"        : "scribe/mantle-bundle",
     "description" : "The Scribe Mantle Bundle is a dependency used by Scribe Inc for our internal web applications as well as our client web projects. It provides the foundation, or 'mantle' for our work with Symfony.",
     "keywords"    : ["mantle", "foundation", "bundle", "scribe", "symfony", "framework"],
-    "type"        : "symfony-bundle",
+    "type"        : "project",
     "homepage"    : "https://symfony-mantle-bundle.docs.scribe.tools/",
     "license"     : "MIT",
     "authors"     : [
