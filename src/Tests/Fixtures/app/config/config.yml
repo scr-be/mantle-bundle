@@ -8,23 +8,11 @@ framework:
     templating:
         engines:
             - "twig"
-security:
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-    providers:
-        my_in_memory_provider:
-            memory:
-                users:
-                    foo:
-                        password:           foo
-                        roles:              ROLE_USER
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
 
-    firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
 doctrine:
     dbal:
         driver:   pdo_mysql
@@ -33,9 +21,7 @@ doctrine:
         password: null
     orm:
         auto_mapping: true
-twig:
-    debug:            %kernel.debug%
-    strict_variables: %kernel.debug%
+
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
@@ -46,9 +32,10 @@ security:
 
     providers:
         in_memory:
-            users:
-                user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+            memory:
+                users:
+                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
         dev:
