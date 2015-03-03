@@ -5,6 +5,9 @@ framework:
     default_locale:  en
     translator:      { fallback: en }
     profiler:        { only_exceptions: false }
+    templating:
+        engines:
+            - "twig"
 security:
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -22,4 +25,43 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        dbname:   Symfony2
+        user:     root
+        password: null
+    orm:
+        auto_mapping: true
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        in_memory:
+            users:
+                user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            security: false
+
+        secured_area:
+            anonymous: ~
+
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
 

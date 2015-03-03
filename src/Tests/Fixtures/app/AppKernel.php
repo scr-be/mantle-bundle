@@ -28,6 +28,9 @@ class AppKernel extends Kernel
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new \Symfony\Bundle\TwigBundle\TwigBundle(),
+            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new \Scribe\CacheBundle\ScribeCacheBundle(),
             new \Scribe\MantleBundle\ScribeMantleBundle()
         ];

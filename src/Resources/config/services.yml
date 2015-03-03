@@ -8,6 +8,7 @@ parameters:
     s.shared.icontemplate.repo.class:               Scribe\MantleBundle\EntityRepository\IconTemplateRepository
     s.shared.iconfamily.repo.class:                 Scribe\MantleBundle\EntityRepository\IconFamilyRepository
     s.shared.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
+    s.shared.iconcreator.class:                     Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
 
     s.utils.controller.class:                       Scribe\Component\Controller\ControllerUtils
     s.symfony.bundleinfo.class:                     Scribe\Component\Bundle\BundleInformation
@@ -88,6 +89,12 @@ services:
         factory_method:  getRepository
         arguments:
             - Scribe\MantleBundle\Entity\CachedFilesystemEntrySize
+
+    s.shared.iconcreator:
+        class:           %s.shared.iconcreator.class%
+        arguments:
+            - @s.shared.iconfamily.repo
+            - @templating
 
     s.utils.controller:
         class: "%s.utils.controller.class%"

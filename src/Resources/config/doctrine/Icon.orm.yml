@@ -41,6 +41,6 @@ Scribe\MantleBundle\Entity\Icon:
                 joinColumns:
                     iconId:
                         referencedColummnName: id
-                inverseJoinColumn:
+                inverseJoinColumns:
                     iconFamilyId:
                         referencedColummnName: id

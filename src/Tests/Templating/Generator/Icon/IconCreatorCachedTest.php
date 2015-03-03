@@ -126,6 +126,22 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
 
         $this->assertXmlStringNotEqualsXmlString($html1, $html2);
     }
+
+    private $container;
+
+    protected function setupContainer()
+    {
+        $kernel = new \AppKernel('test', true);
+        $kernel->boot();
+
+        $this->container = $kernel->getContainer();
+    }
+
+    public function testCanGetCacheGeneratorAsService()
+    {
+        $this->setupContainer();
+        $formatter = $this->container->get('s.shared.iconcreator');
+    }
 }
 
 /* EOF */

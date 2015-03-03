@@ -39,6 +39,7 @@ Scribe\MantleBundle\Entity\IconFamily:
                 priority: ASC
 
     manyToMany:
+
         icons:
             targetEntity: Icon
             mappedBy:     families

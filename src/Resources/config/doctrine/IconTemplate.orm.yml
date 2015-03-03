@@ -41,4 +41,4 @@ Scribe\MantleBundle\Entity\IconTemplate:
             inversedBy:   templates
             joinColumn:
                 name:              iconFamilyId
-                referencedColummn: id
+                referencedColumn:  id
