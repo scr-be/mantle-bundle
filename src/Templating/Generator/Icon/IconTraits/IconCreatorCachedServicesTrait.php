@@ -10,7 +10,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
 
-use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
+use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainAwareTrait;
 
 /**
  * Trait IconCreatorCachedServicesTrait
@@ -19,35 +19,8 @@ use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
  */
 trait IconCreatorCachedServicesTrait
 {
-    /**
-     * Instance of the icon family repository service
-     *
-     * @var IconFamilyRepository
-     */
-    private $iconFamilyRepo;
-
-    /**
-     * Setter for icon family repository
-     *
-     * @param  IconFamilyRepository $iconFamilyRepo
-     * @return $this
-     */
-    protected function setIconFamilyRepo(IconFamilyRepository $iconFamilyRepo)
-    {
-        $this->iconFamilyRepo = $iconFamilyRepo;
-
-        return $this;
-    }
-
-    /**
-     * Getter for icon family repository
-     *
-     * @return IconFamilyRepository
-     */
-    protected function getIconFamilyRepo()
-    {
-        return $this->iconFamilyRepo;
-    }
+    use IconCreatorServicesTrait,
+        HandlerChainAwareTrait;
 }
 
 /* EOF */

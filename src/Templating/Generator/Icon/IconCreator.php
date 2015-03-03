@@ -125,7 +125,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      * @return string
      * @throws IconException
      */
-    public function render($family = null, $icon = null, $template = null, ...$styles)
+    public function render($icon = null, $family = null, $template = null, ...$styles)
     {
         $html = $this
             ->validateFamily($family)
@@ -393,7 +393,6 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
 
         foreach ($this->getOptionalStyles() as $style) {
             if (false === in_array($style, $this->getFamilyEntity()->getOptionalClasses())) {
-
                 throw new IconException(
                     sprintf("The requested optional style %s is not compatible with the %s font family.", $style, $this->getFamilyEntity()->getName()),
                     IconException::CODE_INVALID_STYLE
