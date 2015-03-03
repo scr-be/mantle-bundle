@@ -21,33 +21,48 @@ use Scribe\MantleBundle\Tests\Templating\Generator\Icon\IconCreatorTest;
  */
 trait IconCreatorHelperTrait
 {
-    protected function assertSameHtml($resulted, $expected)
+    protected function getNewIconCreator($cached = false)
     {
-        $this->assertSame(
-            $this->sanitizeHtml($resulted),
-            $this->sanitizeHtml($expected)
-        );
+        if($cached) {
+            return new IconCreatorCached($this->iconFamilyRepo, $this->engine);
+        }
+        else {
+            return new IconCreator($this->iconFamilyRepo, $this->engine);
+        }
     }
 
-    protected function getNewIconCreator()
+    /**
+     * Overwrites PHPUnit_Framework_Assert method to clean whitespace 
+     * between elements before comparison.
+     * Asserts that two XML documents are equal.
+     *
+     * @param string $expectedXml
+     * @param string $actualXml
+     * @param string $message
+     */
+    public static function assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message = '')
     {
-        return new IconCreator($this->iconFamilyRepo, $this->engine);
+        $expectedXml = preg_replace ('/>[\s\n]*</', '><', $expectedXml);
+        $actualXml = preg_replace ('/>[\s\n]*</', '><', $actualXml);
+
+        parent::assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message);
     }
 
-    protected function sanitizeHtml($html)
+    /**
+     * Overwrites PHPUnit_Framework_Assert method to clean whitespace 
+     * between elements before comparison.
+     * Asserts that two XML documents are not equal.
+     *
+     * @param string $expectedXml
+     * @param string $actualXml
+     * @param string $message
+     */
+    public static function assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message = '')
     {
-        $config = [
-            'clean'          => true,
-            'output-xhtml'   => true,
-            'show-body-only' => true,
-            'wrap'           => 0,
-        ];
+        $expectedXml = preg_replace ('/>[\s\n]*</', '><', $expectedXml);
+        $actualXml = preg_replace ('/>[\s\n]*</', '><', $actualXml);
 
-        $tidy = new \Tidy;
-        $tidy->parseString($html, $config, 'utf8');
-        $tidy->cleanRepair();
-
-        return (string) $tidy;
+        parent::assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message);
     }
 
     protected function getReflectionOfIconCreatorForMethod($method)

@@ -12,16 +12,19 @@ namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
 use MyProject\Proxies\__CG__\stdClass;
 use PHPUnit_Framework_TestCase;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCachedd;
+use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
+use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
+use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
 
 /**
  * Class IconCreatorCacheddTest
  *
  * @package Scribe\MantleBundle\Tests\Templating\Generator\Icon
  */
-class IconCreatorCacheddTest extends PHPUnit_Framework_TestCase
+class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
 {
-    use IconMocks;
+    use IconCreatorMocksTrait;
+    use IconCreatorHelperTrait;
 
     public function setUp()
     {
@@ -30,19 +33,18 @@ class IconCreatorCacheddTest extends PHPUnit_Framework_TestCase
 
     public function testCanRender()
     {
-        $expected = $this->sanitizeHtml('
+        $expected = '
             <span class="fa fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
             </span>'
-        );
+        ;
 
-        $formatter = $this->instantiateClass(true);
+        $formatter = $this->getNewIconCreator(true);
         $html      = $formatter->render('fa', 'glass');
-        $html      = $this->sanitizeHtml($html);
 
-        $this->assertSame($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanCache()
@@ -55,9 +57,8 @@ class IconCreatorCacheddTest extends PHPUnit_Framework_TestCase
         $cacheChecker = $reflector->getMethod('isCached');
         $cacheChecker->setAccessible(true);
 
-        $formatter = $this->instantiateClass(true);
+        $formatter = $this->getNewIconCreator(true);
         $html      = $formatter->render('fa', 'glass');
-        $html      = $this->sanitizeHtml($html);
         
         // ensure $formatter->isCached() returns false before we set new state
         $this->assertTrue(!$cacheChecker->invoke($formatter));
@@ -77,7 +78,7 @@ class IconCreatorCacheddTest extends PHPUnit_Framework_TestCase
         $cacheChecker = $reflector->getMethod('isCached');
         $cacheChecker->setAccessible(true);
 
-        $formatter = $this->instantiateClass(true);
+        $formatter = $this->getNewIconCreator(true);
         $formatter->setStyles('fa-lg')
                   ->setFamily('fa')
                   ->setIcon('glass')
@@ -102,9 +103,9 @@ class IconCreatorCacheddTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($cacheChecker->invoke($formatter));
     }
 
-    public function testCanDoesNotCacheIncorrectly()
+    public function testDoesNotCacheIncorrectly()
     {
-        $formatter = $this->instantiateClass(true);
+        $formatter = $this->getNewIconCreator(true);
         $formatter->setStyles('fa-lg')
                   ->setFamily('fa')
                   ->setIcon('glass')
@@ -113,7 +114,6 @@ class IconCreatorCacheddTest extends PHPUnit_Framework_TestCase
                   ->setAriaLabel('Glass!')
                   ->setAriaRole("img");
         $html1      = $formatter->render();
-        $html1      = $this->sanitizeHtml($html1);
 
         $formatter->setStyles('fa-lg', 'fa-fw')
                   ->setFamily('fa')
@@ -123,9 +123,8 @@ class IconCreatorCacheddTest extends PHPUnit_Framework_TestCase
                   ->setAriaLabel('Glass!')
                   ->setAriaRole("img");
         $html2      = $formatter->render();
-        $html2      = $this->sanitizeHtml($html2);
 
-        $this->assertTrue($html1 != $html2);
+        $this->assertXmlStringNotEqualsXmlString($html1, $html2);
     }
 }
 

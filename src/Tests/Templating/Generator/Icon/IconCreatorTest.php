@@ -52,7 +52,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render('fa', 'glass')
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testRenderLongForm()
@@ -72,7 +72,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render()
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
@@ -81,7 +81,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render()
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAcceptsPrefixedAndNonPrefixIconSlug_ShortForm()
@@ -99,14 +99,14 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render('fa', 'fa-glass');
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
             ->render('fa', 'glass');
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAcceptsPrefixedAndNonPrefixIconSlug_LongForm()
@@ -127,7 +127,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render()
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
@@ -136,7 +136,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render()
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testSupportForOptionalStyles_ShortForm()
@@ -154,7 +154,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testSupportForOptionalStyles_LongForm()
@@ -173,7 +173,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render('fa', 'glass')
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testSupportForOptionalStylesOverwrittenByRender_LongForm()
@@ -192,7 +192,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render('fa', 'glass', null, 'fa-5x')
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     /**
@@ -239,7 +239,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAriaLabelCanBeSetExplicitly()
@@ -248,7 +248,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             <span class="fa fa-fw fa-lg fa-glass"
                   role="presentation"
                   aria-hidden="true"
-                  aria-label=Glass is half full!">
+                  aria-label="Glass is half full!">
             </span>
         ';
 
@@ -258,7 +258,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAriaRoleCanBeSetExplicitly()
@@ -267,17 +267,18 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             <span class="fa fa-fw fa-lg fa-glass"
                   role="img"
                   aria-hidden="true"
-                  aria-label=Glass is half full!">
+                  aria-label="Glass is half full!">
             </span>
         ';
 
         $html = $this
             ->getNewIconCreator()
             ->setAriaRole("img")
+            ->setAriaLabel('Glass is half full!')
             ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     /**
@@ -313,17 +314,17 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render()
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testOtherIconInFamilyCanBeAccessed()
     {
-        $expected  = $this->sanitizeHtml('
+        $expected  = '
             <span class="fa fa-5x fa-photo"
                   role="button"
                   aria-label="Its a PHOTO ICON!!!">
             </span>'
-        );
+        ;
 
         $html = $this
             ->getNewIconCreator()
@@ -337,7 +338,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render()
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testObjectIsClearedAfterReaderForFreshRun_RealWorldTest()
@@ -359,11 +360,11 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->setStyles('fa-fw', 'fa-lg')
             ->render();
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
 
         $expected = '
-            <span class="fa fa-fw fa-lg fa-glass"
-                  role="img"
+            <span class="fa fa-5x fa-photo"
+                  role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Photo (Category: Cat 1)">
             </span>
@@ -376,7 +377,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->setStyles('fa-5x')
             ->render('fa');
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testObjectIsClearedAfterReaderForFreshRun_PropertyInspectionTest()
@@ -402,7 +403,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->render()
         ;
 
-        $this->assertSameHtml($html, $expected);
+        $this->assertXmlStringEqualsXmlString($expected, $html);
         $this->assertAttributeEquals(null,           'familyEntity',   $formatter);
         $this->assertAttributeEquals(null,           'iconEntity',     $formatter);
         $this->assertAttributeEquals(null,           'iconSlug',       $formatter);

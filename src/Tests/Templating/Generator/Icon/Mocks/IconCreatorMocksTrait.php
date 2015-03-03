@@ -214,7 +214,7 @@ trait IconCreatorMocksTrait
         ;
         $template =
             <<<EOT
-            <span class="{{ family.getRequiredClasses()|join(' ') }} {% if styles %}{{ styles|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
+<span class="{{ family.getRequiredClasses()|join(' ') }} {% if styles %}{{ styles|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
       {% if helper.hasAriaRole %}role="{{ helper.getAriaRole }}"{% endif %}
       {% if helper.isAriaHidden %}aria-hidden="true"{% endif %}
       aria-label="{% if helper.hasAriaLabel %}{{ helper.getAriaLabel }}{% else %}Icon: {{ icon.getName }}{% if icon.hasCategories %} (Category: {{ icon.getCategories[0] }}){% endif %}{% endif %}">
@@ -245,7 +245,7 @@ EOT;
         ;
         $template =
 <<<EOT
-<span class="{{ family.getRequiredClasses()|join(' ') }} {% if styles %}{{ styles|join(' ') }}{% endif %} {{ family.getPrefix() }}-{{ icon.getSlug() }}"
+<span class="{{ family.getRequiredClasses()|join(' ') }} {% if styles %}{{ styles|join(' ') }} {% endif %}{{ family.getPrefix() }}-{{ icon.getSlug() }}"
       {% if helper.hasAriaRole %}role="{{ helper.getAriaRole }}"{% endif %}
       {% if helper.isAriaHidden %}aria-hidden="true"{% endif %}
       aria-label="{% if helper.hasAriaLabel %}{{ helper.getAriaLabel }}{% else %}Icon: {{ icon.getName }}{% if icon.hasCategories %} (Category: {{ icon.getCategories[0] }}){% endif %}{% endif %}">
@@ -292,7 +292,8 @@ EOT;
 
     protected function mockEngineInterface()
     {
-        $twigEnv                      = new \Twig_Environment(new \Twig_Loader_String());
+        $twigEnv                      = new \Twig_Environment(new \Twig_Loader_String(), array('debug' => true));
+        $twigEnv->addExtension(new \Twig_Extension_Debug());
         $templateNamedParserInterface = $this->getMock('Symfony\Component\Templating\TemplateNameParserInterface');
         $templating                   = new \Symfony\Bridge\Twig\TwigEngine($twigEnv, $templateNamedParserInterface);
 

@@ -433,6 +433,25 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
+     * Creates helper object to expose accessibility data
+     * to template 
+     *
+     * @return stdClass 
+     */
+    protected function templateHelper()
+    {
+        $helper = new \stdClass;
+        $helper->hasAriaRole = $this->hasAriaRole();
+        $helper->getAriaRole = $this->getAriaRole();
+        $helper->isAriaHidden = $this->isAriaHidden();
+        $helper->hasAriaLabel = $this->hasAriaLabel();
+        $helper->getAriaLabel = $this->getAriaLabel();
+
+        return $helper;
+    }
+    
+
+    /**
      * Render the template and return the resulting output
      *
      * @return string
@@ -447,7 +466,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             'family' => $this->getFamilyEntity(),
             'icon'   => $this->getIconEntity(),
             'styles' => $this->getOptionalStyles(),
-            'helper' => $this
+            'helper' => $this->templateHelper()
         ];
 
         return $this

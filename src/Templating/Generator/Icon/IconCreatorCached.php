@@ -26,6 +26,13 @@ class IconCreatorCached extends IconCreator
         IconCreatorCachedAttributesTrait;
 
     /**
+     * Cache for the icon creators 
+     *
+     * @var array
+     */
+    private $iconCreatorCache = array();
+
+    /**
      * Setup the object instance
      *
      * @param IconFamilyRepository   $iconFamilyRepo
@@ -122,7 +129,7 @@ class IconCreatorCached extends IconCreator
              ->checkAndSetSlug($family,   'setFamilySlug')
              ->checkAndSetSlug($icon,     'setIconSlug')
              ->checkAndSetSlug($template, 'setTemplateSlug')
-             ->checkAndSetSlug($styles,   'setStyles')
+             ->checkAndSetStyles($styles)
              ->currentState = $this->currentAttributesToMd5();
 
         return $this;
@@ -139,6 +146,21 @@ class IconCreatorCached extends IconCreator
     {
         if(null !== $slugVal) {
             $this->{$slugSetter}($slugVal);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Checks if styles values given and sets relevant property if so
+     *
+     * @param  null|array ...$slugVal
+     * @return $this
+     */
+    protected function checkAndSetStyles($slugVal)
+    {
+        if(!empty($slugVal)) {
+            $this->setStyles(...$slugVal);
         }
 
         return $this;
@@ -174,6 +196,7 @@ class IconCreatorCached extends IconCreator
     private function nonCacheableProperty($property)
     {
         if (substr($property, -6, 6) == 'Entity' ||
+            substr($property, -4, 4) == 'Repo' ||
             substr($property, -5, 5) == 'Cache' ||
             substr($property, -5, 5) == 'State')
         {
@@ -198,6 +221,16 @@ class IconCreatorCached extends IconCreator
         $this->setFamilySlug($slug);
 
         return $this;
+    }
+
+    /**
+     * Gets the value of familySlug
+     *
+     * @return string $familySlug
+     */
+    public function getFamilySlug()
+    {
+        return $this->familySlug;
     }
 }
 
