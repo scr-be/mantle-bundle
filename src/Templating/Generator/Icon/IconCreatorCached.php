@@ -11,8 +11,6 @@
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Symfony\Component\Templating\EngineInterface;
-use Scribe\CacheBundle\Traits\IconUserlandCacheTrait;
-use Scribe\CacheBundle\Component\Caching\UserlandCacheInterface;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedServicesTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedAttributesTrait;
