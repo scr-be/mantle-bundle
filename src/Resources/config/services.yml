@@ -214,12 +214,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    ss.twig.node:
-        class: "%s.twig.node.class%"
-        arguments: [ "@s.docs.node.repo" ]
-        tags:
-            - { name: twig.extension }
-
     s.twig.getlastusername:
         class: "%s.twig.getlastusername.class%"
         arguments: [ "@service_container" ]
