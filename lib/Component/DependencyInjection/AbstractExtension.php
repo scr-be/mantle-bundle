@@ -13,7 +13,6 @@ namespace Scribe\Component\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 use Scribe\Exception\RuntimeException;
 
 /**
@@ -117,6 +116,9 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
             if (is_array($value) && false === $this->isHash($value)) {
                 $this->handleConfigAsIntArrayToParameter($builtIndex, $value);
             }
+            elseif (is_array($value) && true === (substr($index, 0, 4) === '!a::')) {
+                $this->handleConfigAsHashArrayToParameter($builtIndex, $index, $value);
+            }
             elseif (is_array($value)) {
                 $this->processConfigToParameter($value, $outerIndex . '.' . $index);
             }
@@ -150,6 +152,13 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
         }
 
         $this->setContainerParameter($index, $value);
+    }
+
+    public function handleConfigAsHashArrayToParameter($builtIndex, $index, $value)
+    {
+        $builtIndex = str_replace(substr($index, 1), substr($index, 4), $builtIndex);
+        
+        $this->setContainerParameter($builtIndex, $value);
     }
 
     /**
