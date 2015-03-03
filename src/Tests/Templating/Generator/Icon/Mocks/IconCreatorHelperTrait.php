@@ -10,6 +10,10 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks;
 
+use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChain;
+use Scribe\CacheBundle\Cache\Handler\Type\HandlerTypeFilesystem;
+use Scribe\CacheBundle\KeyGenerator\KeyGenerator;
+use Scribe\CacheBundle\KeyGenerator\KeyGeneratorInterface;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\IconCreatorTest;
@@ -24,11 +28,60 @@ trait IconCreatorHelperTrait
     protected function getNewIconCreator($cached = false)
     {
         if($cached) {
-            return new IconCreatorCached($this->iconFamilyRepo, $this->engine);
+            $iconGenerator = new IconCreatorCached($this->iconFamilyRepo, $this->engine);
+            $iconGenerator->setCacheHandlerChain($this->cacheChain);
         }
         else {
-            return new IconCreator($this->iconFamilyRepo, $this->engine);
+            $iconGenerator = new IconCreator($this->iconFamilyRepo, $this->engine);
         }
+
+        return $iconGenerator;
+    }
+
+    protected function getNewKeyGenerator()
+    {
+        $keyGenerator = new KeyGenerator;
+        $keyGenerator->setKeyPrefix('scribe_mantle');
+
+        return $keyGenerator;
+    }
+
+    protected function getNewCacheHandlerTypeFilesystem(KeyGeneratorInterface $keyGenerator, $tempDirectory = null)
+    {
+        if (null === $tempDirectory) {
+            $tempDirectory = sys_get_temp_dir();
+        }
+
+        $filesystemCacheType = new HandlerTypeFilesystem($keyGenerator, 1800, 20);
+        $filesystemCacheType->proposeCacheDirectory($tempDirectory);
+
+        return $filesystemCacheType;
+    }
+
+    protected function getNewCacheHandlerChain($disabled = false)
+    {
+        return new HandlerChain($disabled);
+    }
+
+    protected function setHandlerTypesToCacheChain($chain, ...$types)
+    {
+        foreach ($types as $priority => $type) {
+            $chain->addHandler($type, $priority);
+        }
+    }
+
+    protected function getNewHandlerChainWithAllHandlerTypes($disabled = false)
+    {
+        $this->keyGenerator        = $this->getNewKeyGenerator();
+        $this->cacheTypeFilesystem = $this->getNewCacheHandlerTypeFilesystem($this->keyGenerator);
+        $this->cacheChain          = $this->getNewCacheHandlerChain($disabled);
+
+        $this->setHandlerTypesToCacheChain(
+            $this->cacheChain,
+            $this->cacheTypeFilesystem
+        );
+
+        return $this->cacheChain;
     }
 
     /**

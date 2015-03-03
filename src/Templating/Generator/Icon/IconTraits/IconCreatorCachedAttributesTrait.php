@@ -50,6 +50,16 @@ trait IconCreatorCachedAttributesTrait
     }
 
     /**
+     * Gets the value of familySlug
+     *
+     * @return string $familySlug
+     */
+    public function getFamilySlug()
+    {
+        return $this->familySlug;
+    }
+
+    /**
      * Checker for icon family slug
      *
      * @return bool

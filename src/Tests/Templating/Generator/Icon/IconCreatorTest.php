@@ -49,7 +49,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
 
         $html = $this
             ->getNewIconCreator()
-            ->render('fa', 'glass')
+            ->render('glass', 'fa')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -96,14 +96,14 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
 
         $html = $this
             ->getNewIconCreator()
-            ->render('fa', 'fa-glass');
+            ->render('fa-glass', 'fa');
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
-            ->render('fa', 'glass');
+            ->render('glass', 'fa');
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -151,7 +151,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
 
         $html = $this
             ->getNewIconCreator()
-            ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -170,7 +170,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $html = $this
             ->getNewIconCreator()
             ->setStyles('fa-fw', 'fa-lg')
-            ->render('fa', 'glass')
+            ->render('glass', 'fa')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -189,7 +189,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $html = $this
             ->getNewIconCreator()
             ->setStyles('fa-fw', 'fa-lg')
-            ->render('fa', 'glass', null, 'fa-5x')
+            ->render('glass', 'fa', null, 'fa-5x')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -204,7 +204,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->getNewIconCreator()
-            ->render('fa', 'glass', null, 'fa-foo')
+            ->render('glass', 'fa', null, 'fa-foo')
         ;
     }
 
@@ -236,7 +236,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $html = $this
             ->getNewIconCreator()
             ->setAriaHidden(false)
-            ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -255,7 +255,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $html = $this
             ->getNewIconCreator()
             ->setAriaLabel("Glass is half full!")
-            ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -275,7 +275,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->getNewIconCreator()
             ->setAriaRole("img")
             ->setAriaLabel('Glass is half full!')
-            ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -291,7 +291,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $this
             ->getNewIconCreator()
             ->setAriaRole("does-not-exists")
-            ->render('fa', 'glass', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
     }
 
@@ -373,9 +373,9 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $html = $this
             ->getNewIconCreator()
             ->setAriaHidden(true)
-            ->setIcon('photo')
+            ->setFamily('fa')
             ->setStyles('fa-5x')
-            ->render('fa');
+            ->render('photo');
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
@@ -441,7 +441,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     public function testCanValidateInvalidFontFamilies()
     {
         (new IconCreator($this->iconFamilyRepoNoFamilyResult, $this->engine))
-            ->render('not-valid', 'glass')
+            ->render('glass', 'not-valid')
         ;
     }
 
@@ -454,7 +454,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     {
         $this
             ->getNewIconCreator()
-            ->render('fa', 'glass', 'bad-template')
+            ->render('glass', 'fa', 'bad-template')
         ;
     }
 

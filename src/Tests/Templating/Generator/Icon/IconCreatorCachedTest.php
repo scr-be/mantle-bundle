@@ -29,6 +29,7 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->mockIconEntities();
+        $this->getNewHandlerChainWithAllHandlerTypes();
     }
 
     public function testCanRender()
@@ -42,65 +43,17 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
         ;
 
         $formatter = $this->getNewIconCreator(true);
-        $html      = $formatter->render('fa', 'glass');
+        $html      = $formatter->render('glass', 'fa');
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanCache()
     {
-        $reflector = new \ReflectionClass('Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached');
-
-        $stateSetter = $reflector->getMethod('setCurrentState');
-        $stateSetter->setAccessible(true);
-
-        $cacheChecker = $reflector->getMethod('isCached');
-        $cacheChecker->setAccessible(true);
-
         $formatter = $this->getNewIconCreator(true);
-        $html      = $formatter->render('fa', 'glass');
-        
-        // ensure $formatter->isCached() returns false before we set new state
-        $this->assertTrue(!$cacheChecker->invoke($formatter));
+        $html      = $formatter->render('glass', 'fa');
 
-        $stateSetter->invoke($formatter, 'fa', 'glass', null);
-
-        $this->assertTrue($cacheChecker->invoke($formatter));
-    }
-
-    public function testCanCachePresetValues()
-    {
-        $reflector = new \ReflectionClass('Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached');
-
-        $stateSetter = $reflector->getMethod('setCurrentState');
-        $stateSetter->setAccessible(true);
-
-        $cacheChecker = $reflector->getMethod('isCached');
-        $cacheChecker->setAccessible(true);
-
-        $formatter = $this->getNewIconCreator(true);
-        $formatter->setStyles('fa-lg')
-                  ->setFamily('fa')
-                  ->setIcon('glass')
-                  ->setTemplate('fa-basic')
-                  ->setAriaHidden(true)
-                  ->setAriaLabel('Glass!')
-                  ->setAriaRole("img");
-        $formatter->render();
-
-        $this->assertTrue(!$cacheChecker->invoke($formatter));
-
-        $formatter->setStyles('fa-lg')
-                  ->setFamily('fa')
-                  ->setIcon('glass')
-                  ->setTemplate('fa-basic')
-                  ->setAriaHidden(true)
-                  ->setAriaLabel('Glass!')
-                  ->setAriaRole("img");
-        
-        $stateSetter->invoke($formatter, null, null, null);
-
-        $this->assertTrue($cacheChecker->invoke($formatter));
+        $this->assertTrue($formatter->getCacheHandlerChain()->has());
     }
 
     public function testDoesNotCacheIncorrectly()

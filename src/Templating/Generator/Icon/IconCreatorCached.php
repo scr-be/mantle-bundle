@@ -26,111 +26,65 @@ class IconCreatorCached extends IconCreator
         IconCreatorCachedAttributesTrait;
 
     /**
-     * Cache for the icon creators 
-     *
-     * @var array
-     */
-    private $iconCreatorCache = array();
-
-    /**
      * Setup the object instance
      *
      * @param IconFamilyRepository   $iconFamilyRepo
      * @param EngineInterface        $engine
-     * @param UserlandCacheInterface $userlandCache
      */
     public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine)
     {
-        //$this->setUserlandCache($cache);
         parent::__construct($iconFamilyRepo, $engine);
     }
 
     /**
      * Render the requested icon
      *
-     * @param  string|null $family
      * @param  string|null $icon
+     * @param  string|null $family
      * @param  string|null $template
      * @param  string[]    $styles
      * @return string
      * @throws IconException
      */
-    public function render($family = null, $icon = null, $template = null, ...$styles)
+    public function render($icon = null, $family = null, $template = null, ...$styles)
     {
-        $this->setCurrentState($family, $icon, $template, ...$styles);
+        $this->setCurrentStateAndCacheKey($icon, $family, $template, ...$styles);
 
-        if($this->isCached()) {
-            $html = $this->cachedResponse();
-            $this->resetState();
+        if (null === ($renderedHtml = $this->getCacheHandlerChain()->get())) {
 
-            return $html;
-        }
-        else {
-            if($family == null && $this->hasFamilySlug()) {
+            if(null === $family && true === $this->hasFamilySlug()) {
                 $family = $this->getFamilySlug();
-            }            
+            }
 
-            $html = parent::render($family, $icon, $template, ...$styles);
-
-            $this->setCache($html);
-
-            $this->currentState = null;
-            $this->resetFamilySlug();
-
-            return $html;
+            $renderedHtml = parent::render($icon, $family, $template, ...$styles);
+            $this->getCacheHandlerChain()->set($renderedHtml);
         }
-    }
 
-    /**
-     * Checks if current state has been cached 
-     *
-     * @return bool
-     */
-    public function isCached()
-    {
-        return array_key_exists($this->currentState, $this->iconCreatorCache);
-    }
+        $this->resetFamilySlug();
+        $this->resetState();
 
-    /**
-     * Fetches cached HTML for current state 
-     *
-     * @return string 
-     */
-    protected function cachedResponse()
-    {
-        return (string) $this->iconCreatorCache[$this->currentState];
-    }
-
-    /**
-     * Set cache for current state to HTML string 
-     *
-     * @param HTML string
-     * @return $this 
-     */
-    protected function setCache($html)
-    {
-        $this->iconCreatorCache[$this->currentState] = $html;
-         
-        return $this;
+        return $renderedHtml;
     }
 
     /**
      * Serializes current context into md5 hash 
      *
-     * @param  string|null $family
      * @param  string|null $icon
+     * @param  string|null $family
      * @param  string|null $template
      * @param  string[]    $styles
      * @return $this
      */
-    protected function setCurrentState($family, $icon, $template, ...$styles)
+    protected function setCurrentStateAndCacheKey($icon, $family, $template, ...$styles)
     {
         $this
              ->checkAndSetSlug($family,   'setFamilySlug')
              ->checkAndSetSlug($icon,     'setIconSlug')
              ->checkAndSetSlug($template, 'setTemplateSlug')
-             ->checkAndSetStyles($styles)
-             ->currentState = $this->currentAttributesToMd5();
+             ->checkAndSetStyles(...$styles)
+        ;
+
+        $this->getCacheHandlerChain()->setKey(...$this->getCachableProperties());
 
         return $this;
     }
@@ -138,8 +92,8 @@ class IconCreatorCached extends IconCreator
     /**
      * Checks if slug value given and sets relevant property if so
      *
-     * @param  null|string $slugVal
-     * @param  string $slugSetter
+     * @param  string|null $slugVal
+     * @param  string      $slugSetter
      * @return $this
      */
     protected function checkAndSetSlug($slugVal, $slugSetter)
@@ -154,37 +108,38 @@ class IconCreatorCached extends IconCreator
     /**
      * Checks if styles values given and sets relevant property if so
      *
-     * @param  null|array ...$slugVal
+     * @param  ...string $styles
      * @return $this
      */
-    protected function checkAndSetStyles($slugVal)
+    protected function checkAndSetStyles(...$styles)
     {
-        if(!empty($slugVal)) {
-            $this->setStyles(...$slugVal);
+        if(false === empty($styles)) {
+            $this->setStyles(...$styles);
         }
 
         return $this;
     }
 
     /**
-     * Iterates available object variables and returns and md5
-     * string of their values, used for caching state
+     * Iterates available object variables and returns an array of the cachable
+     * attributes applicable.
      *
-     * @return string
+     * @return mixed[]
      */
-    protected function currentAttributesToMd5()
+    protected function getCachableProperties()
     {
-        $keyString = '';
+        $keyValues = [ ];
         foreach(get_object_vars($this) as $property => $value) {
-            if($this->nonCacheableProperty($property)) {
+
+            if(true === $this->isNonCachableProperty($property)) {
                 continue;
             }
 
-            $value      = (true === is_array($value)) ? implode($value) : $value;
-            $keyString .= (string) $value;
+            $keyValues[ ] = $property;
+            $keyValues[ ] = $value;
         }
 
-        return md5($keyString);
+        return $keyValues;
     }
 
     /**
@@ -193,44 +148,14 @@ class IconCreatorCached extends IconCreator
      * @param string $property
      * @return bool
      */
-    private function nonCacheableProperty($property)
+    protected function isNonCachableProperty($property)
     {
-        if (substr($property, -6, 6) == 'Entity' ||
-            substr($property, -4, 4) == 'Repo' ||
-            substr($property, -5, 5) == 'Cache' ||
-            substr($property, -5, 5) == 'State')
-        {
+        if (substr($property, -17, 17) == 'cacheHandlerChain') {
 
             return true;
         }
-        else {
 
-            return false;
-        }
-    }
-
-    /**
-     * Set the icon family slug; not validated, overwrites
-     * behavior of parent class
-     *
-     * @param  string $slug
-     * @return $this
-     */
-    public function setFamily($slug)
-    {
-        $this->setFamilySlug($slug);
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of familySlug
-     *
-     * @return string $familySlug
-     */
-    public function getFamilySlug()
-    {
-        return $this->familySlug;
+        return false;
     }
 }
 
