@@ -12,6 +12,7 @@ namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
 use MyProject\Proxies\__CG__\stdClass;
 use PHPUnit_Framework_TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
@@ -140,7 +141,32 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
     public function testCanGetCacheGeneratorAsService()
     {
         $this->setupContainer();
-        $formatter = $this->container->get('s.shared.iconcreator');
+        $formatter = $this->container->get('s.mantle.iconcreator');
+
+        $this->assertInstanceOf('Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached', $formatter);
+    }
+
+    protected function tearDown()
+    {
+        if (!$this->container instanceof ContainerInterface) {
+            return;
+        }
+
+        $cacheDir = $this->container->getParameter('kernel.cache_dir');
+
+        if (true === is_dir($cacheDir)) {
+            $this->removeDirectoryRecursive($cacheDir);
+        }
+    }
+
+    protected function removeDirectoryRecursive($path)
+    {
+        $files = glob($path . '/*');
+        foreach ($files as $file) {
+            is_dir($file) ? $this->removeDirectoryRecursive($file) : unlink($file);
+        }
+
+        rmdir($path);
     }
 }
 

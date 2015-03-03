@@ -2,13 +2,13 @@ parameters:
 
     templating.stringloader.class:                  Twig_Loader_String
 
-    s.shared.navmenuitem.repo.class:                Scribe\MantleBundle\EntityRepository\NavMenuItemRepository
-    s.shared.navmenusetting.repo.class:             Scribe\MantleBundle\EntityRepository\NavMenuSettingRepository
-    s.shared.icon.repo.class:                       Scribe\MantleBundle\EntityRepository\IconRepository
-    s.shared.icontemplate.repo.class:               Scribe\MantleBundle\EntityRepository\IconTemplateRepository
-    s.shared.iconfamily.repo.class:                 Scribe\MantleBundle\EntityRepository\IconFamilyRepository
-    s.shared.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
-    s.shared.iconcreator.class:                     Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
+    s.mantle.navmenuitem.repo.class:                Scribe\MantleBundle\EntityRepository\NavMenuItemRepository
+    s.mantle.navmenusetting.repo.class:             Scribe\MantleBundle\EntityRepository\NavMenuSettingRepository
+    s.mantle.icon.repo.class:                       Scribe\MantleBundle\EntityRepository\IconRepository
+    s.mantle.icontemplate.repo.class:               Scribe\MantleBundle\EntityRepository\IconTemplateRepository
+    s.mantle.iconfamily.repo.class:                 Scribe\MantleBundle\EntityRepository\IconFamilyRepository
+    s.mantle.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
+    s.mantle.iconcreator.class:                     Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
 
     s.utils.controller.class:                       Scribe\Component\Controller\ControllerUtils
     s.symfony.bundleinfo.class:                     Scribe\Component\Bundle\BundleInformation
@@ -48,52 +48,52 @@ services:
         tags:
             - { name: twig.loader }
 
-    s.shared.navmenuitem.repo:
-        class:           %s.shared.navmenuitem.repo.class%
+    s.mantle.navmenuitem.repo:
+        class:           %s.mantle.navmenuitem.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
             - Scribe\MantleBundle\Entity\NavMenuItem
 
-    s.shared.navmenusetting.repo:
-        class:           %s.shared.navmenusetting.repo.class%
+    s.mantle.navmenusetting.repo:
+        class:           %s.mantle.navmenusetting.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
             - Scribe\MantleBundle\Entity\NavMenuSetting
 
-    s.shared.icon.repo:
-        class:           %s.shared.icon.repo.class%
+    s.mantle.icon.repo:
+        class:           %s.mantle.icon.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
             - Scribe\MantleBundle\Entity\Icon
 
-    s.shared.icontemplate.repo:
-        class:           %s.shared.icontemplate.repo.class%
+    s.mantle.icontemplate.repo:
+        class:           %s.mantle.icontemplate.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
             - Scribe\MantleBundle\Entity\IconTemplate
 
-    s.shared.iconfamily.repo:
-        class:           %s.shared.iconfamily.repo.class%
+    s.mantle.iconfamily.repo:
+        class:           %s.mantle.iconfamily.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
             - Scribe\MantleBundle\Entity\IconFamily
 
-    s.shared.cachedfilesystementrysize.repo:
-        class:           %s.shared.cachedfilesystementrysize.repo.class%
+    s.mantle.cachedfilesystementrysize.repo:
+        class:           %s.mantle.cachedfilesystementrysize.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
             - Scribe\MantleBundle\Entity\CachedFilesystemEntrySize
 
-    s.shared.iconcreator:
-        class:           %s.shared.iconcreator.class%
+    s.mantle.iconcreator:
+        class:           %s.mantle.iconcreator.class%
         arguments:
-            - @s.shared.iconfamily.repo
+            - @s.mantle.iconfamily.repo
             - @templating
 
     s.utils.controller:
@@ -141,8 +141,8 @@ services:
         class: "%s.tpl.helper.menu.handler.class%"
         arguments:
             - @service_container
-            - @s.shared.navmenuitem.repo
-            - @s.shared.navmenusetting.repo
+            - @s.mantle.navmenuitem.repo
+            - @s.mantle.navmenusetting.repo
             - @s.symfony.bundleinfo
             - @security.context
 
