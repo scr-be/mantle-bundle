@@ -4,7 +4,11 @@ php:
     - 5.6
 
 before_script:
+    - sh .travis-build-igbinary.sh
+    - sh .travis-build-memcached.sh
     - phpenv config-add .travis-php.ini
+    - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - echo "extension = igbinary.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - phpenv rehash
     - mkdir -p build/logs
     - mkdir -p bin
