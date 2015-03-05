@@ -22,8 +22,7 @@ use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedAt
  */
 class IconCreatorCached extends IconCreator
 {
-    use IconCreatorCachedServicesTrait,
-        IconCreatorCachedAttributesTrait;
+    use IconCreatorCachedServicesTrait;
 
     /**
      * Setup the object instance
@@ -31,7 +30,7 @@ class IconCreatorCached extends IconCreator
      * @param IconFamilyRepository   $iconFamilyRepo
      * @param EngineInterface        $engine
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null)
     {
         parent::__construct($iconFamilyRepo, $engine);
     }
@@ -51,16 +50,10 @@ class IconCreatorCached extends IconCreator
         $this->setCurrentStateAndCacheKey($icon, $family, $template, ...$styles);
 
         if (null === ($renderedHtml = $this->getCacheHandlerChain()->get())) {
-
-            if(null === $family && true === $this->hasFamilySlug()) {
-                $family = $this->getFamilySlug();
-            }
-
             $renderedHtml = parent::render($icon, $family, $template, ...$styles);
             $this->getCacheHandlerChain()->set($renderedHtml);
         }
 
-        $this->resetFamilySlug();
         $this->resetState();
 
         return $renderedHtml;
@@ -77,8 +70,11 @@ class IconCreatorCached extends IconCreator
      */
     protected function setCurrentStateAndCacheKey($icon, $family, $template, ...$styles)
     {
+        if ($family !== null) {
+            $this->validateFamily($family);
+        }
+
         $this
-             ->checkAndSetSlug($family,   'setFamilySlug')
              ->checkAndSetSlug($icon,     'setIconSlug')
              ->checkAndSetSlug($template, 'setTemplateSlug')
              ->checkAndSetStyles(...$styles)
@@ -113,7 +109,7 @@ class IconCreatorCached extends IconCreator
      */
     protected function checkAndSetStyles(...$styles)
     {
-        if(false === empty($styles)) {
+        if (true === (count($styles) > 0)) {
             $this->setStyles(...$styles);
         }
 

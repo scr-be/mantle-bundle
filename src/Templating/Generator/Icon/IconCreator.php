@@ -35,7 +35,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      * @param IconFamilyRepository   $iconFamilyRepo
      * @param EngineInterface        $engine
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null)
     {
         $this->setIconFamilyRepo($iconFamilyRepo);
         parent::__construct($engine);

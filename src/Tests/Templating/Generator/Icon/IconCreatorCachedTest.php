@@ -27,10 +27,20 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
     use IconCreatorMocksTrait;
     use IconCreatorHelperTrait;
 
+    private $container;
+
     public function setUp()
     {
         $this->mockIconEntities();
         $this->getNewHandlerChainWithAllHandlerTypes();
+    }
+
+    public function setupContainer()
+    {
+        $kernel = new \AppKernel('test', true);
+        $kernel->boot();
+
+        $this->container = $kernel->getContainer();
     }
 
     public function testCanRender()
@@ -67,7 +77,7 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
                   ->setAriaHidden(true)
                   ->setAriaLabel('Glass!')
                   ->setAriaRole("img");
-        $html1      = $formatter->render();
+        $html1 = $formatter->render();
 
         $formatter->setStyles('fa-lg', 'fa-fw')
                   ->setFamily('fa')
@@ -76,25 +86,46 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
                   ->setAriaHidden(true)
                   ->setAriaLabel('Glass!')
                   ->setAriaRole("img");
-        $html2      = $formatter->render();
+        $html2 = $formatter->render();
 
         $this->assertXmlStringNotEqualsXmlString($html1, $html2);
     }
 
-    private $container;
-
-    protected function setupContainer()
+    public function testShortFormWorksCorrectly()
     {
-        $kernel = new \AppKernel('test', true);
-        $kernel->boot();
+        $formatter = $this->getNewIconCreator(true);
+        $html1 = $formatter->render('photo', 'fa', 'fa-basic', 'fa-lg', 'fa-fw');
+        $html2 = $formatter->render('photo', 'fa', 'fa-basic', 'fa-lg', 'fa-fw');
 
-        $this->container = $kernel->getContainer();
+        $this->assertXmlStringEqualsXmlString($html1, $html2);
+    }
+
+    public function testCanDetermineFamilyEntityLastMinute()
+    {
+        $expected = '
+            <span class="fa fa-fw fa-lg fa-glass"
+                  role="img"
+                  aria-label="Foo!">
+            </span>
+        ';
+
+        $formatter = $this->getNewIconCreator(true);
+        $formatter
+            ->setAriaHidden(false)
+            ->setAriaRole('img')
+            ->setAriaLabel("Foo!")
+            ->setFamily('fa')
+            ->setStyles('fa-fw', 'fa-lg')
+        ;
+        $html = $formatter->render('glass');
+
+        $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanGetCacheGeneratorAsService()
     {
         $this->setupContainer();
-        $formatter = $this->container->get('s.mantle.iconcreator');
+        $formatter = $this->container->get('s.mantle.icon_creator');
 
         $this->assertInstanceOf('Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached', $formatter);
     }
@@ -115,6 +146,11 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
     protected function removeDirectoryRecursive($path)
     {
         $files = glob($path . '/*');
+
+        if (false === is_array($files)) {
+            return;
+        }
+
         foreach ($files as $file) {
             is_dir($file) ? $this->removeDirectoryRecursive($file) : unlink($file);
         }

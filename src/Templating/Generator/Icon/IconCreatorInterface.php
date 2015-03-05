@@ -10,6 +10,9 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
+use Symfony\Component\Templating\EngineInterface;
+use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
+
 /**
  * Interface IconInterface
  *
@@ -17,6 +20,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon;
  */
 interface IconCreatorInterface
 {
+    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null);
     public function setFamily($slug);
     public function setIcon($slug);
     public function setTemplate($slug = null);

@@ -8,7 +8,7 @@ parameters:
     s.mantle.icontemplate.repo.class:               Scribe\MantleBundle\EntityRepository\IconTemplateRepository
     s.mantle.iconfamily.repo.class:                 Scribe\MantleBundle\EntityRepository\IconFamilyRepository
     s.mantle.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
-    s.mantle.iconcreator.class:                     Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
+    s.mantle.icon_creator.class:                    Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
 
     s.utils.controller.class:                       Scribe\Component\Controller\ControllerUtils
     s.symfony.bundleinfo.class:                     Scribe\Component\Bundle\BundleInformation
@@ -40,11 +40,11 @@ parameters:
     s.twig.node.class:                              Scribe\MantleBundle\Templating\Extension\NodeExtension
     s.twig.getlastusername.class:                   Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
     s.twig.bundleinformation.class:                 Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
-    s.twig.icon.class:                              Scribe\MantleBundle\Templating\Extension\IconExtension
+    s.twig.icon_creator.class:                      Scribe\MantleBundle\Templating\Extension\IconCreatorExtension
 
 services:
 
-    templating.stringloader:
+    twig.loader.string:
         class: %templating.stringloader.class%
         tags:
             - { name: twig.loader }
@@ -91,11 +91,16 @@ services:
         arguments:
             - Scribe\MantleBundle\Entity\CachedFilesystemEntrySize
 
-    s.mantle.iconcreator:
-        class:           %s.mantle.iconcreator.class%
+    s.mantle.icon_creator:
+        class:           %s.mantle.icon_creator.class%
         arguments:
             - @s.mantle.iconfamily.repo
             - @templating
+
+    s.mantle.icon_creator.notemplating:
+            class:       %s.mantle.icon_creator.class%
+            arguments:
+                - @s.mantle.iconfamily.repo
 
     s.utils.controller:
         class: "%s.utils.controller.class%"
@@ -240,9 +245,9 @@ services:
         tags:
             - { name: twig.extension }
 
-    s.twig.icon:
-        class: "%s.twig.icon.class%"
+    s.twig.icon_creator:
+        class: "%s.twig.icon_creator.class%"
         arguments:
-            - @service_container
+            - @s.mantle.icon_creator.notemplating
         tags:
             - { name: twig.extension }

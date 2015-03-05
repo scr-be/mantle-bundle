@@ -1,22 +1,14 @@
 language: php
 
-branches:
-    except:
-        - gh-pages
-
 php:
     - 5.6
-    - hhvm
-    - hhvm-nightly
-
-matrix:
-    allow_failures:
-        - php: hhvm
-        - php: hhvm-nightly
 
 before_script:
-    - travis_retry echo "no" | pecl install apcu-beta
+    - sh .travis-build-igbinary.sh
+    - sh .travis-build-memcached.sh
     - phpenv config-add .travis-php.ini
+    - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - echo "extension = igbinary.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - phpenv rehash
     - mkdir -p build/logs
     - mkdir -p bin

@@ -62,6 +62,16 @@ trait EngineAwareTrait
     }
 
     /**
+     * Checker for templating engine
+     *
+     * @return bool
+     */
+    public function hasEngine()
+    {
+        return (bool) ($this->engine instanceof EngineInterface);
+    }
+
+    /**
      * Attempt to determine the engine type
      *
      * @return string|false

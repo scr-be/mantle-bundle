@@ -38,6 +38,19 @@ trait IconCreatorHelperTrait
         return $iconGenerator;
     }
 
+    protected function getNewIconCreatorNoEngine($cached = false)
+    {
+        if($cached) {
+            $iconGenerator = new IconCreatorCached($this->iconFamilyRepo);
+            $iconGenerator->setCacheHandlerChain($this->cacheChain);
+        }
+        else {
+            $iconGenerator = new IconCreator($this->iconFamilyRepo);
+        }
+
+        return $iconGenerator;
+    }
+
     protected function getNewKeyGenerator()
     {
         $keyGenerator = new KeyGenerator;
@@ -85,7 +98,7 @@ trait IconCreatorHelperTrait
     }
 
     /**
-     * Overwrites PHPUnit_Framework_Assert method to clean whitespace 
+     * Overwrites PHPUnit_Framework_Assert method to clean whitespace
      * between elements before comparison.
      * Asserts that two XML documents are equal.
      *
