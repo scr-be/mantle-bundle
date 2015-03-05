@@ -14,7 +14,7 @@ use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 use Scribe\MantleBundle\ScribeMantleBundle;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use AppKernel;
 
 /**
  * Class ScribeMantleBundleTest
@@ -29,7 +29,7 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $kernel = new \AppKernel('test', true);
+        $kernel = new AppKernel('test', true);
         $kernel->boot();
 
         $this->container = $kernel->getContainer();
