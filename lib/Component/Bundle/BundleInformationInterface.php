@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Scribe Foundation Bundle.
+ * This file is part of the Scribe Mantle Bundle.
  *
  * (c) Scribe Inc. <source@scribe.software>
  *

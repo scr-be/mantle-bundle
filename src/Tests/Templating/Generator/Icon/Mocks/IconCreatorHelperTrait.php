@@ -162,6 +162,55 @@ trait IconCreatorHelperTrait
 
         return array_merge([ $obj ], $returnedMethods);
     }
+
+    protected function clearFilesystemCache()
+    {
+        $tempDirBase = sys_get_temp_dir();
+        $tempDir     = $tempDirBase . DIRECTORY_SEPARATOR . 'scribe_cache';
+
+        if (false === is_dir($tempDir)) {
+
+            return;
+        }
+        $kg = new KeyGenerator;
+        $files = glob($tempDir . '/scribe*');
+        foreach ($files as $f) {
+            if (substr($f, 0, 1) == '.') {
+                continue;
+            }
+            unlink($f);
+        }
+
+        rmdir($tempDir);
+    }
+
+    protected function clearKernelCache()
+    {
+        if (!$this->container instanceof ContainerInterface) {
+            return;
+        }
+
+        $cacheDir = $this->container->getParameter('kernel.cache_dir');
+
+        if (true === is_dir($cacheDir)) {
+            $this->removeDirectoryRecursive($cacheDir);
+        }
+    }
+
+    protected function removeDirectoryRecursive($path)
+    {
+        $files = glob($path . '/*');
+
+        if (false === is_array($files)) {
+            return;
+        }
+
+        foreach ($files as $file) {
+            is_dir($file) ? $this->removeDirectoryRecursive($file) : unlink($file);
+        }
+
+        rmdir($path);
+    }
 }
 
 /* EOF */

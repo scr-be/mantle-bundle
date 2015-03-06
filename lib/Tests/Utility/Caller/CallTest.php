@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Tests\Utility;
+namespace Scribe\Tests\Utility\Caller;
 
 use PHPUnit_Framework_TestCase;
-use Scribe\Utility\Call;
+use Scribe\Utility\Caller\Call;
 use Scribe\Exception\BadFunctionCallException;
 use Scribe\Exception\RuntimeException;
 
@@ -21,7 +21,7 @@ class CallTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException        RuntimeException
-     * @expectedExceptionMessage Cannot instantiate static class Scribe\Utility\Call.
+     * @expectedExceptionMessage Cannot instantiate static class Scribe\Utility\Caller\Call.
      */
     public function shouldThrowExceptionOnInstantiation()
     {

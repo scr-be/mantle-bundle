@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Scribe Foundation Bundle.
+ * This file is part of the Scribe Mantle Bundle.
  *
  * (c) Scribe Inc. <source@scribe.software>
  *
@@ -10,10 +10,16 @@
 
 namespace Scribe\Component\DependencyInjection;
 
+use Scribe\Utility\Arrays;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Scribe\Utility\String;
 use Scribe\Exception\RuntimeException;
+use Scribe\Component\DependencyInjection\Loader\XmlFileLoader;
+use Scribe\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Class AbstractExtension
@@ -26,6 +32,15 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * Import container aware properties/functions
      */
     use ContainerAwareTrait;
+
+    /**
+     * Service files to load
+     *
+     * @var string[]
+     */
+    private $serviceFiles = [
+        'services.yml'
+    ];
 
     /**
      * Index prefix property
@@ -42,14 +57,38 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     private $indexSeparator = '.';
 
     /**
-     * Setter for index prefix
+     * Set the service files to load
      *
-     * @param  string $indexPrefix prefix for paramiter keys (indexes)
+     * @param array $files
      * @return $this
      */
-    protected function setIndexPrefix($indexPrefix)
+    protected function setServiceFiles(array $files = [ ])
     {
-        $this->indexPrefix = (string)$indexPrefix;
+        $this->serviceFiles = $files;
+
+        return $this;
+    }
+
+    /**
+     * Get the service files to load
+     *
+     * @return string[]
+     */
+    protected function getServiceFiles()
+    {
+        return $this->serviceFiles;
+    }
+
+    /**
+     * Setter for index prefix
+     *
+     * @param  string $prefix prefix for parameter keys (indexes)
+     * @return $this
+     */
+    protected function setIndexPrefix($prefix)
+    {
+        String::isLongerThan($prefix, 0);
+        $this->indexPrefix = (string) $prefix;
 
         return $this;
     }
@@ -61,18 +100,19 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      */
     protected function getIndexPrefix()
     {
-        return (string)$this->indexPrefix;
+        return (string) $this->indexPrefix;
     }
 
     /**
      * Setter for index parts separator
      *
-     * @param  string $indexSeparator prefix for paramiter index separator
+     * @param  string $separator parameter index separator
      * @return $this
      */
-    protected function setIndexSeparator($indexSeparator)
+    protected function setIndexSeparator($separator)
     {
-        $this->indexSeparator = (string)$indexSeparator;
+        String::isLongerThan($separator, 0);
+        $this->indexSeparator = (string) $separator;
 
         return $this;
     }
@@ -84,46 +124,160 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      */
     protected function getIndexSeparator()
     {
-        return (string)$this->indexSeparator;
+        return (string) $this->indexSeparator;
     }
 
     /**
-     * Loads the configuration as defined in {@see Configuration.php}
+     * Loads the configuration (builds the container)
      *
      * @param  array            $configs   collection of configs to load
      * @param  ContainerBuilder $container symfony config container
-     * @return void
      */
     abstract public function load(array $configs, ContainerBuilder $container);
 
     /**
-     * Process config array to container perameter key=>values
+     * Helper method to be called from load method ({@see load}) that automates
+     * the tedious task of parsing the config tree to container parameter as well
+     * as loading any required service definition files.
      *
-     * @param  array  $config      configuration array
-     * @param  string $outerIndex  concatinated index
+     * @param array                  $configs
+     * @param ContainerBuilder       $container
+     * @param ConfigurationInterface $configuration
+     * @param string|null            $prefix
+     */
+    final protected function autoLoad(array $configs, ContainerBuilder $container, ConfigurationInterface $configuration, $prefix = null)
+    {
+        $this->setContainer($container);
+
+        $this
+            ->autoLoadConfiguration($configs, $configuration, $prefix)
+            ->autoLoadServices($container);
+        ;
+    }
+
+    /**
+     * Process the configuration and then load the resulting multi-dimensional
+     * {@see $configs} array to useful container parameter indexes with their
+     * respective values set.
+     *
+     * @param  array                  $configs
+     * @param  ConfigurationInterface $configuration
+     * @param  string|null            $prefix
      * @return $this
      */
-    protected function processConfigToParameter(array $config = [], $outerIndex = null)
+    final protected function autoLoadConfiguration(array $configs, ConfigurationInterface $configuration, $prefix = null)
     {
-        if (0 === sizeof($config)) {
-            $this->handleConfigAsEmptyToParameter($outerIndex, $config);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        if (null !== $prefix) {
+            $this->setIndexPrefix($prefix);
+        }
+
+        $this->processConfigsToParameters($config);
+
+        return $this;
+    }
+
+    /**
+     * Load all the services by iterating over the {@see $this->serviceFiles}
+     * defined at runtime; either Yaml or XML based.
+     *
+     * @param  ContainerBuilder $container
+     * @return $this
+     */
+    final protected function autoLoadServices(ContainerBuilder $container)
+    {
+        $resolvedDirectory = $this->resolveBundleDirectory($container);
+
+        foreach ($this->getServiceFiles() as $file) {
+
+            $loader = $this->resolveServiceFileLoader($file);
+
+            $loader->setup(
+                $container,
+                new FileLocator($resolvedDirectory . '/../Resources/config')
+            );
+
+            $loader->load($file);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Normally, the {@see FileLocator} would be given the constant __DIR__ when
+     * such configuration is defined within each explicit bundle. As {@see autoLoadService}
+     * moves such functionality into this abstraction class, __DIR__ would return
+     * the wrong result. Instead, we utilize the first FileResource attached to
+     * the container to determine the path to the correct /Scribe[A-Z][a-z]*Bundle\.php/
+     * file, allowing us to load the correct services and/or additional config files.
+     *
+     * @param  ContainerBuilder $container
+     * @return string
+     */
+    protected function resolveBundleDirectory(ContainerBuilder $container)
+    {
+        $resources = $container->getResources();
+
+        if (true === (count($resources) > 0)) {
+            $bundleFilePath = (string) current($resources);
+
+            return (string) dirname($bundleFilePath);
+        }
+
+        return (string) __DIR__;
+    }
+
+    /**
+     * Based on the file extension, resolve the correct FileLoader object to
+     * instantiate and return for the passed file argument.
+     *
+     * @param  string $file
+     * @return XmlFileLoader|YamlFileLoader
+     */
+    protected function resolveServiceFileLoader($file)
+    {
+        switch (pathinfo($file, PATHINFO_EXTENSION)) {
+            case 'xml':
+
+                return new XmlFileLoader;
+
+            case 'yml':
+            case 'yaml':
+
+                return new YamlFileLoader;
+
+            default:
+
+                throw new RuntimeException(
+                    sprintf('No available service file loader for %s file with %s extension type.', $file, $extension)
+                );
+        }
+    }
+
+    /**
+     * Process config array to container parameter key=>values
+     *
+     * @param  array  $config Configs multi-dimensional array
+     * @param  string $outer  Built parameter index,
+     * @return $this
+     */
+    protected function processConfigsToParameters(array $config = [], $outer = null)
+    {
+        if (true === (sizeof($config) === 0)) {
+            $this->handleConfigsToParameterWhenEmpty($outer, $config);
+
             return $this;
         }
 
-        foreach ($config as $index => $value) {
-            $builtIndex = $this->buildParameterIndex($outerIndex, $index);
+        foreach ($config as $i => $v) {
+            $built = $this->buildConfigParameterIndex($outer, $i);
 
-            if (is_array($value) && false === $this->isHash($value)) {
-                $this->handleConfigAsIntArrayToParameter($builtIndex, $value);
-            }
-            elseif (is_array($value) && true === (substr($index, 0, 4) === '!a::')) {
-                $this->handleConfigAsHashArrayToParameter($builtIndex, $index, $value);
-            }
-            elseif (is_array($value)) {
-                $this->processConfigToParameter($value, $outerIndex . '.' . $index);
+            if (true === is_array($v)) {
+                $this->handleConfigsToParameterWhenArray($built, $outer, $i, $v);
             }
             else {
-                $this->handleConfigToParameter($builtIndex, $value);
+                $this->handleConfigsToParameterWhenNotArray($built, $v);
             }
         }
 
@@ -131,133 +285,141 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
+     * handleConfigsToParametersWhenArray
+     *
+     * @param string $built Final index (with prefix)
+     * @param string $outer Final index
+     * @param string $i     Current index
+     * @param mixed  $v     Parameter value
+     */
+    protected function handleConfigsToParameterWhenArray($built, $outer, $i, $v)
+    {
+        if (false === Arrays::isHash($v, false)) {
+            $this->handleConfigsToParameterWhenArrayInt($built, $v);
+        }
+        else if (true === (substr($i, 0, 4) === '!a::')) {
+            $this->handleConfigsToParameterWhenArrayHash($built, $i, $v);
+        }
+        else {
+            $this->processConfigsToParameters($v, $outer . $this->getIndexSeparator() . $i);
+        }
+    }
+
+    /**
      * Process and assign a parameter config value when it is a yaml list, which
      * is translated to a non-hash (integer-key-based) array and assign the
      * parameter value, merging any previous entries in the array.
      *
-     * @param  string $index fully-qualified index
-     * @param  mixed  $value value of parameter
-     * @return void
+     * @param string $built Final index (with prefix)
+     * @param mixed  $v     Parameter value
      */
-    public function handleConfigAsIntArrayToParameter($index, $value)
+    public function handleConfigsToParameterWhenArrayInt($built, $v)
     {
-        if ($mergedValue = $this->hasContainerParameter($index)) {
-            $value = array_merge(
-                (array)$this->getContainerParameter($index),
-                (array)$value
+        if (true === $this->hasContainerParameter($built)) {
+            $v = array_merge(
+                (array) $this->getContainerParameter($built),
+                (array) $v
             );
         }
-        else {
-            $value = (array)$value;
-        }
 
-        $this->setContainerParameter($index, $value);
+        $this->setContainerParameter($built, (array) $v);
     }
 
-    public function handleConfigAsHashArrayToParameter($builtIndex, $index, $value)
+    /**
+     * Process and assign a parameter config value when it is a yaml list that
+     * is specifically configured not to handle using the default means of treating
+     * it as an integer list, as {@see handleConfigsToParameterSetAsIntArray} would.
+     *
+     * @param string $built Final index (with prefix)
+     * @param string $i     Current index
+     * @param mixed  $v     Parameter value
+     */
+    public function handleConfigsToParameterWhenArrayHash($built, $i, $v)
     {
-        $builtIndex = str_replace(substr($index, 1), substr($index, 4), $builtIndex);
-        
-        $this->setContainerParameter($builtIndex, $value);
+        $this->setContainerParameter(
+            str_replace(substr($i, 1), substr($i, 4), $built),
+            $v
+        );
     }
 
     /**
      * Process and assign a parameter key=>value pair when it has reached a
      * singular value state (non-array).
      *
-     * @param  string $index fully-qualified parameter index
-     * @param  mixed  $value value of parameter
-     * @return void
+     * @param string $built Final index (with prefix)
+     * @param mixed  $v     Parameter value
      */
-    public function handleConfigToParameter($index, $value)
+    public function handleConfigsToParameterWhenNotArray($built, $v)
     {
-        $this->setContainerParameter($index, $value);
+        $this->setContainerParameter($built, $v);
     }
 
     /**
-     * @param string|null $index
+     *
+     *
+     * @param string|array $indicies Index/indicies
+     * @param mixed        $v        Parameter value
      */
-    public function handleConfigAsEmptyToParameter($index, $value)
+    public function handleConfigsToParameterWhenEmpty($indicies, $v)
     {
         $this->setContainerParameter(
-            $index = $this->buildParameterIndex($index),
-            $value = $this->sanitizeParameterValue($value)
+            $this->buildConfigParameterIndex($indicies),
+            $this->sanitizeConfigParameterValue($v)
         );
     }
 
     /**
-     * Sets new paramiter bag value
+     * Assigns a parameter and corresponding value to the container
      *
-     * @param string $index parameter key
-     * @param mixed  $value parameter value
+     * @param string $built Final index (with prefix)
+     * @param mixed  $v     Parameter value
      */
-    private function setContainerParameter($index, $value)
+    private function setContainerParameter($built, $v)
     {
-        $this->getContainer()->setParameter($index, $value);
+        $this
+            ->getContainer()
+            ->setParameter($built, $v)
+        ;
     }
 
     /**
-     * Checks for perameter bag index existance
+     * Checks if parameter exists in container
      *
-     * @param string $index parameter key
-     */
-    private function hasContainerParameter($index)
-    {
-        return (bool)$this->getContainer()->hasParameter($index);
-    }
-
-    /**
-     * Gets perameter bag value
-     *
-     * @param string $index parameter key
-     */
-    private function getContainerParameter($index)
-    {
-        return $this->getContainer()->getParameter($index);
-    }
-
-    /**
-     * Checks to see if array is a hash or not
-     *
-     * @param  array $array array to check against
+     * @param  string $built Final index (with prefix)
      * @return bool
      */
-    private function isHash(array $array = [])
+    private function hasContainerParameter($built)
     {
-        $keys    = array_keys($array);
-        $keyKeys = array_keys($keys);
-        $result  = $keyKeys !== $keys;
-
-        return $keyKeys !== $keys;
+        return (bool) $this
+            ->getContainer()
+            ->hasParameter($built)
+        ;
     }
 
     /**
-     * Sanitize parameter value by trimming extra white space from beginning
-     * and end of value.
+     * Gets parameter from container
      *
-     * @param  string $value parameter value to be sanitized
-     * @return string
+     * @param  string $built Final index (with prefix)
+     * @return mixed
      */
-    private function sanitizeParameterValue($value)
+    private function getContainerParameter($built)
     {
-        switch(gettype($value)) {
-            case 'string':
-                return trim($value);
-            default:
-                return $value;
-        }
-
+        return $this
+            ->getContainer()
+            ->getParameter($built)
+        ;
     }
 
     /**
-     * Builds peramiter index
+     * Builds a final parameter index via the configured prefix and supplied
+     * indicies concatenated using the configured separator.
      *
-     * @param  string,... $indices index value
+     * @param  ...string $indices The index parts
      * @return string
      */
-    private function buildParameterIndex(...$indices)
+    private function buildConfigParameterIndex(...$indices)
     {
-        return (string)$this->sanitizeParameterIndex(
+        return (string) $this->sanitizeConfigParameterIndex(
             $this->getIndexPrefix() .
             $this->getIndexSeparator() .
             implode($this->getIndexSeparator(), $indices)
@@ -266,18 +428,47 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
 
     /**
      * Sanitize index by only allowing alphanumeric, dashes, underscores, and
-     * not consecutive periods which may have been added during paramiter index
-     * build process.
+     * not consecutive periods which may have been added during the index
+     * build process. DI parameters must also begin with a letter; exeption throw
+     * otherwise.
      *
-     * @param  string $index index string to sanitize
+     * @param  string $built Final index (with prefix)
      * @return string
+     * @throws RuntimeException
      */
-    private function sanitizeParameterIndex($index)
+    private function sanitizeConfigParameterIndex($built)
     {
-        if (preg_match('#^[a-z]#i', $index) === 0) {
-            throw new RuntimeException('Dependency injection parameter indeces must begin with a letter.');
+        if (preg_match('#^[a-z]#i', $built) === 0) {
+            throw new RuntimeException(
+                'Dependency injection parameter indexes must begin with a letter.'
+            );
         }
 
-        return (string)preg_replace('#\.+#', '.', preg_replace('#[^a-z0-0\._:\+-]#i', '', $index));
+        return (string) preg_replace(
+            '#\.+#', '.',
+            preg_replace('#[^a-z0-0\._:\+-]#i', '', $built)
+        );
+    }
+
+    /**
+     * Sanitize parameter value; if string whitespace is trimmed from both the
+     * beginning and end; otherwise, value is returned as-is.
+     *
+     * @param  mixed $v Parameter value
+     * @return mixed
+     */
+    private function sanitizeConfigParameterValue($v)
+    {
+        switch(gettype($v)) {
+            case 'string':
+
+                return trim($v);
+
+            default:
+
+                return $v;
+        }
     }
 }
+
+/* EOF */

@@ -11,8 +11,6 @@
 namespace Scribe\MantleBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Config\FileLocator;
 use Scribe\Component\DependencyInjection\AbstractExtension;
 
 /**
@@ -28,25 +26,11 @@ class ScribeMantleExtension extends AbstractExtension
      *
      * @param  array            $configs   the configs to load
      * @param  ContainerBuilder $container symfony container for configurations
-     * @return void
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->setContainer($container);
-
-        $configuration = new Configuration();
-        $config = $this->processConfiguration(
-            $configuration,
-            $configs
-        );
-
-        $this->processConfigToParameter($config);
-
-        $loader = new YamlFileLoader(
-            $container,
-            new FileLocator(__DIR__.'/../Resources/config')
-        );
-
-        $loader->load('services.yml');
+        $this->autoLoad($configs, $container, new Configuration, 'scribe');
     }
 }
+
+/* EOF */

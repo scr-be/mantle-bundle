@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Scribe Foundation Bundle.
+ * This file is part of the Scribe Mantle Bundle.
  *
  * (c) Scribe Inc. <source@scribe.software>
  *
@@ -10,6 +10,7 @@
 
 namespace Scribe\Component\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait as SymfonyContainerAwareTrait;
 
 /**
@@ -19,6 +20,12 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait as SymfonyContaine
  */
 trait ContainerAwareTrait
 {
+    /**
+     * Build off Symfony's build-in Container aware trait and include methods to
+     * both get the container and check if a container has been set.
+     *
+     * @see Symfony\Component\DependencyInjection\ContainerAwareTrait
+     */
     use SymfonyContainerAwareTrait;
 
     /**
@@ -30,4 +37,16 @@ trait ContainerAwareTrait
     {
         return $this->container;
     }
+
+    /**
+     * Checker for container property
+     *
+     * @return bool
+     */
+    public function hasContainer()
+    {
+        return (bool) ($this->container instanceof ContainerInterface);
+    }
 }
+
+/* EOF */

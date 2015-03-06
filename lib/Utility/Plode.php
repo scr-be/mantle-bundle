@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Scribe Foundation Bundle.
+ * This file is part of the Scribe Mantle Bundle.
  *
  * (c) Scribe Inc. <source@scribe.software>
  *
@@ -11,18 +11,19 @@
 namespace Scribe\Utility;
 
 use Scribe\Utility\StaticClass\StaticClassTrait;
+use Scribe\Utility\Caller\Call;
 use Scribe\Exception\BadFunctionCallException;
 
 /**
  * Plode
- * Helper methods for common [ex/im]plode functionality.
+ * Helper functions for common [ex/im]plode functionality.
  *
  * @package Scribe\Utility
  */
 class Plode implements PlodeInterface
 {
     /**
-     * disallow instantiation
+     * Trait to disallow class instantiation
      */
     use StaticClassTrait;
 
@@ -47,13 +48,12 @@ class Plode implements PlodeInterface
      *
      * @param  string $methodName Static method name called
      * @param  mixed  $arguments  Static method arguments passed
-     *
      * @return string|array
      */
     public static function __callStatic($methodName, $arguments)
     {
         if (strlen($methodName) <= 4 || count($arguments) !== 1) {
-            self::__invalidCallStatic(
+            self::__callStaticInvalid(
                 'Expected method format is "[im|ex]OnSeparator" for example "imOnComma".'
             );
         }
@@ -65,12 +65,12 @@ class Plode implements PlodeInterface
         $constantSeparator = __CLASS__ . '::SEPARATOR_' . strtoupper($plodeSeparator);
 
         if ('im' !== $plodeType && 'ex' !== $plodeType) {
-            self::__invalidCallStatic(
+            self::__callStaticInvalid(
                 'Valid method prefixes are "im" for "implode" and "ex" for "explode".'
             );
         }
         elseif ('on' !== $plodeOn) {
-            self::__invalidCallStatic(
+            self::__callStaticInvalid(
                 sprintf(
                     'Expected method format is "[im|ex]OnSeparator" for example "imOnComma" but %s%s%s was provided.',
                     $plodeType,
@@ -80,7 +80,7 @@ class Plode implements PlodeInterface
             );
         }
         elseif (false === defined($constantSeparator)) {
-            self::__invalidCallStatic(
+            self::__callStaticInvalid(
                 sprintf('Invalid separator type of %s provided.', $plodeSeparator)
             );
         }
@@ -92,12 +92,9 @@ class Plode implements PlodeInterface
      * Throws an exception on an invalid {@see __callStatic} call
      *
      * @param  string|null $message The message to be provided to the exception
-     *
-     * @return void
-     *
-     * @throws Scribe\Exception\BadFunctionCallException
+     * @throws BadFunctionCallException
      */
-    public static function __invalidCallStatic($message = null)
+    public static function __callStaticInvalid($message = null)
     {
         $message = $message !== null ?
             $message :
@@ -133,3 +130,5 @@ class Plode implements PlodeInterface
         return (array) explode($separator, $toExplode);
     }
 }
+
+/* EOF */

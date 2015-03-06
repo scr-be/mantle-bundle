@@ -132,30 +132,8 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        if (!$this->container instanceof ContainerInterface) {
-            return;
-        }
-
-        $cacheDir = $this->container->getParameter('kernel.cache_dir');
-
-        if (true === is_dir($cacheDir)) {
-            $this->removeDirectoryRecursive($cacheDir);
-        }
-    }
-
-    protected function removeDirectoryRecursive($path)
-    {
-        $files = glob($path . '/*');
-
-        if (false === is_array($files)) {
-            return;
-        }
-
-        foreach ($files as $file) {
-            is_dir($file) ? $this->removeDirectoryRecursive($file) : unlink($file);
-        }
-
-        rmdir($path);
+        $this->clearFilesystemCache();
+        $this->clearKernelCache();
     }
 }
 

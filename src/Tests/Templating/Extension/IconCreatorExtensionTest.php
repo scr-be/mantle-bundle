@@ -97,4 +97,10 @@ class IconCreatorExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expected, $html1);
         $this->assertXmlStringEqualsXmlString($expected, $html2);
     }
+
+    protected function tearDown()
+    {
+        $this->clearFilesystemCache();
+        $this->clearKernelCache();
+    }
 }

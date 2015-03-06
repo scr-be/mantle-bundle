@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Scribe Foundation Bundle.
+ * This file is part of the Scribe Mantle Bundle.
  *
  * (c) Scribe Inc. <source@scribe.software>
  *
@@ -22,22 +22,27 @@ use Scribe\Utility\StaticClass\StaticClassTrait;
 interface PlodeInterface
 {
     /**
+     * [Ex/Im]plode a [string/array] based on the separator specified in the
+     * method name and the value passed as an argument
+     *
      * @param  string $methodName Static method name called
      * @param  mixed  $arguments  Static method arguments passed
-     *
      * @return string|array
      */
     public static function __callStatic($methodName, $arguments);
 
     /**
-     * @return void
+     * Throws an exception on an invalid {@see __callStatic} call
      *
-     * @throws Scribe\Exception\BadFunctionCallException
+     * @param  string|null $message The message to be provided to the exception
+     * @throws BadFunctionCallException
      */
-    public static function __invalidCallStatic();
+    public static function __callStaticInvalid();
 
     /**
-     * @param  array  $toImplode An array to implode into a string
+     * Implode array using default separator ({@see DEFAULT_SEPARATOR})
+     *
+     * @param  string[]  $toImplode An array to implode into a string
      * @param  string $separator A string used to separate the imploded array values
      *
      * @return string
@@ -45,10 +50,15 @@ interface PlodeInterface
     static public function im(array $toImplode, $separator = self::SEPARATOR_DEFAULT);
 
     /**
-     * @param  mixed  $toExplode A value to explode into an array (will be cast to string prior explosion)
-     * @param  string $separator The string used to separate the provided value into an array
+     * Explode string using default separator ({@see DEFAULT_SEPARATOR})
+     *
+     * @param  string $toExplode A value to explode into an array
+     * @param  string $separator The string used to separate the provided value
+     *                           into an array
      *
      * @return array
      */
     static public function ex($toExplode, $separator = self::SEPARATOR_DEFAULT);
 }
+
+/* EOF */
