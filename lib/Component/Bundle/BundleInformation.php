@@ -360,3 +360,5 @@ class BundleInformation implements BundleInformationInterface
         return (array) array_values($matches);
     }
 }
+
+/* EOF */
