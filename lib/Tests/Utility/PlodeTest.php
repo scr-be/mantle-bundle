@@ -124,3 +124,5 @@ class PlodeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($result, 'one:two:three');
     }
 }
+
+/* EOF */

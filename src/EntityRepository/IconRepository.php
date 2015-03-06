@@ -52,3 +52,5 @@ class IconRepository extends EntityRepository
         }
     }
 }
+
+/* EOF */

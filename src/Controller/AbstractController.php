@@ -79,3 +79,5 @@ abstract class AbstractController extends Controller
         return $this->container->get('form.factory')->createNamed($name, $type, $data, $options);
     }
 }
+
+/* EOF */

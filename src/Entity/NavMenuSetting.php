@@ -106,3 +106,5 @@ class NavMenuSetting
         return $this->v;
     }
 }
+
+/* EOF */

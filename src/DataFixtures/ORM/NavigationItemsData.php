@@ -848,3 +848,5 @@ class NavigationItemsData extends AbstractFixture implements OrderedFixtureInter
         return 1001;
     }
 }
+
+/* EOF */

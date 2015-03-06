@@ -19,3 +19,5 @@ class BadFunctionCallException extends \BadFunctionCallException implements Exce
 {
 
 }
+
+/* EOF */

@@ -95,3 +95,5 @@ class ResponseSearchReplace
         return $this->v;
     }
 }
+
+/* EOF */

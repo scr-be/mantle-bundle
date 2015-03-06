@@ -71,3 +71,5 @@ trait HasRoute
         return $this;
     }
 }
+
+/* EOF */

@@ -184,3 +184,5 @@ abstract class AbstractContainer implements ArrayAccess
         return $this->getItem($key);
     }
 }
+
+/* EOF */

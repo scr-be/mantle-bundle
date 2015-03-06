@@ -83,3 +83,5 @@ trait HasParameters
         return $this;
     }
 }
+
+/* EOF */

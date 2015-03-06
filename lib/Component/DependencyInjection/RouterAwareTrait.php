@@ -63,3 +63,5 @@ trait RouterAwareTrait
         return $this->router;
     }
 }
+
+/* EOF */

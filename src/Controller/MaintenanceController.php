@@ -47,3 +47,5 @@ class MaintenanceController
         return $this->utils->renderResponse('ScribeMantleBundle:Static:down.html.twig');
     }
 }
+
+/* EOF */

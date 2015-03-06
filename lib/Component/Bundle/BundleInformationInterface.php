@@ -95,3 +95,5 @@ interface BundleInformationInterface
      */
     public function parse();
 }
+
+/* EOF */

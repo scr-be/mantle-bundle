@@ -22,3 +22,5 @@ abstract class ObserverContainerAware extends Observer implements ContainerAware
 {
     use ContainerAwareTrait;
 }
+
+/* EOF */

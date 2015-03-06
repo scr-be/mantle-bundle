@@ -54,3 +54,5 @@ trait ControllerUtilsTrait
         return $this->getUtils();
     }
 }
+
+/* EOF */

@@ -274,3 +274,5 @@ class IconFamily extends Entity
         return $this;
     }
 }
+
+/* EOF */

@@ -70,3 +70,5 @@ trait HasUpdatedOn
         return $this;
     }
 }
+
+/* EOF */

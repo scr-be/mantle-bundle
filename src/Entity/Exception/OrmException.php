@@ -107,3 +107,5 @@ class OrmException extends RuntimeException implements OrmExceptionInterface
         ];
     }
 }
+
+/* EOF */

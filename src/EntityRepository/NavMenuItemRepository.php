@@ -68,3 +68,5 @@ class NavMenuItemRepository extends EntityRepository
         return $entries;
     }
 }
+
+/* EOF */

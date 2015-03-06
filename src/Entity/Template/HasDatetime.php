@@ -70,3 +70,5 @@ trait HasDatetime
         return $this;
     }
 }
+
+/* EOF */

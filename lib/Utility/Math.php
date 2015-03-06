@@ -57,3 +57,5 @@ class Math
         return $convertedInteger;
     }
 }
+
+/* EOF */

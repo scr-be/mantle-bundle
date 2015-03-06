@@ -46,3 +46,5 @@ class LoadRedirectData extends AbstractYamlFixture
         return 10000;
     }
 }
+
+/* EOF */

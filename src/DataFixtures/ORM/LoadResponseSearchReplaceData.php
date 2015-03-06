@@ -65,3 +65,5 @@ class LoadResponseSearchReplaceData extends AbstractFixture implements OrderedFi
         return 1000;
     }
 }
+
+/* EOF */

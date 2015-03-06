@@ -34,3 +34,5 @@ class IconFamilyRepository extends EntityRepository
         }
     }
 }
+
+/* EOF */

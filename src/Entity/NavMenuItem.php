@@ -358,3 +358,5 @@ class NavMenuItem
         return $this->attr[$index];
     }
 }
+
+/* EOF */

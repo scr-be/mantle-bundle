@@ -71,3 +71,5 @@ class SearchReplaceListener implements ContainerAwareInterface
         $response->setContent($content);
     }
 }
+
+/* EOF */

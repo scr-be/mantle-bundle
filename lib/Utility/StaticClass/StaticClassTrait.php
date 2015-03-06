@@ -32,3 +32,5 @@ trait StaticClassTrait
         );
     }
 }
+
+/* EOF */

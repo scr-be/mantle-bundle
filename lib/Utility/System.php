@@ -149,3 +149,5 @@ class System
         return (int)$result;
     }
 }
+
+/* EOF */

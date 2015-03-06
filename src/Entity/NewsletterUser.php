@@ -50,3 +50,5 @@ class NewsletterUser
         return $this->email;
     }
 }
+
+/* EOF */

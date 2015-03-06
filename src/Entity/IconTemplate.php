@@ -253,3 +253,5 @@ class IconTemplate extends Entity
         return $this->priority;
     }
 }
+
+/* EOF */

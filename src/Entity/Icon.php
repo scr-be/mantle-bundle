@@ -248,3 +248,5 @@ class Icon extends Entity
         return $this;
     }
 }
+
+/* EOF */

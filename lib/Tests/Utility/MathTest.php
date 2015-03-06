@@ -66,3 +66,5 @@ class MathTest extends PHPUnit_Framework_TestCase
         Math::toBase(5, 0, 100);
     }
 }
+
+/* EOF */

@@ -164,3 +164,5 @@ class NewsletterListener implements ContainerAwareInterface
         ;
     }
 }
+
+/* EOF */

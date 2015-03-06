@@ -67,3 +67,5 @@ trait EntityDebuggable
         return $string;
     }
 }
+
+/* EOF */

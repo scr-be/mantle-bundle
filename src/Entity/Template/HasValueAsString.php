@@ -69,3 +69,5 @@ trait HasValueAsString
         return $this;
     }
 }
+
+/* EOF */

@@ -179,3 +179,5 @@ class CachedFilesystemEntrySize extends Entity
         return (bool) is_array($this->attributes) && sizeof($this->attributes) > 0;
     }
 }
+
+/* EOF */

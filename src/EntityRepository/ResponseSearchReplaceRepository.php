@@ -13,3 +13,5 @@ use Doctrine\ORM\EntityRepository;
 class ResponseSearchReplaceRepository extends EntityRepository
 {
 }
+
+/* EOF */

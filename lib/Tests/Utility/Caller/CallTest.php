@@ -132,3 +132,5 @@ class CallTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($result, \Datetime::createFromFormat('Y', $time));
     }
 }
+
+/* EOF */

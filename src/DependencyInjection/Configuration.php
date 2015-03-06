@@ -250,3 +250,5 @@ class Configuration implements ConfigurationInterface
         ;
     }
 }
+
+/* EOF */

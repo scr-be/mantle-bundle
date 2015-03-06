@@ -62,3 +62,5 @@ trait EntitySerializable
         return $properties;
     }
 }
+
+/* EOF */

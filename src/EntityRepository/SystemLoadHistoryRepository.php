@@ -35,3 +35,5 @@ class SystemLoadHistoryRepository extends EntityRepository
         return $loadHistory;
     }
 }
+
+/* EOF */

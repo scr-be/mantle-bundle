@@ -60,3 +60,5 @@ trait HasChildrenInverseSide
         ;
     }
 }
+
+/* EOF */

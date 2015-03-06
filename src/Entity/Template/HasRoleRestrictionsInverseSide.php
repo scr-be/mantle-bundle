@@ -61,3 +61,5 @@ trait HasRoleRestrictionsInverseSide
         ;
     }
 }
+
+/* EOF */

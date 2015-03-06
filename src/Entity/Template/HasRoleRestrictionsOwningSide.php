@@ -91,3 +91,5 @@ trait HasRoleRestrictionsOwningSide
         return $this;
     }
 }
+
+/* EOF */

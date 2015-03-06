@@ -61,3 +61,5 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
         throw new RuntimeException('Cannot set YAML config');
     }
 }
+
+/* EOF */

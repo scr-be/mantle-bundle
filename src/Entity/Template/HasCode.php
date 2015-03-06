@@ -69,3 +69,5 @@ trait HasCode
         return $this;
     }
 }
+
+/* EOF */

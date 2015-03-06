@@ -62,3 +62,5 @@ trait EntityEquatable
         return true;
     }
 }
+
+/* EOF */

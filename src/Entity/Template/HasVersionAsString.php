@@ -69,3 +69,5 @@ trait HasVersionAsString
         return $this;
     }
 }
+
+/* EOF */

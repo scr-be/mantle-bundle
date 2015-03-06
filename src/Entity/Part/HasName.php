@@ -65,3 +65,5 @@ trait HasName
         return strtoupper(substr($this->getIndexName(), 0, 1));
     }
 }
+
+/* EOF */

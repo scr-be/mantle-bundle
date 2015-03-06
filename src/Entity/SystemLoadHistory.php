@@ -133,3 +133,5 @@ class SystemLoadHistory
         return $this->load15;
     }
 }
+
+/* EOF */

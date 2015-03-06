@@ -88,3 +88,5 @@ trait HasChildrenOwningSide
         return $this;
     }
 }
+
+/* EOF */

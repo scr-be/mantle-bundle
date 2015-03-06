@@ -63,3 +63,5 @@ trait HasDescription
         return $this;
     }
 }
+
+/* EOF */

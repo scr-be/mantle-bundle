@@ -416,3 +416,5 @@ abstract class AbstractCommand extends ContainerAwareCommand
         }
     }
 }
+
+/* EOF */

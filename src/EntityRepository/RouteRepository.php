@@ -10,3 +10,5 @@ use Doctrine\ORM\EntityRepository;
 class RouteRepository extends EntityRepository
 {
 }
+
+/* EOF */

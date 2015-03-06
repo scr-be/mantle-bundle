@@ -49,3 +49,5 @@ interface EntityEquatableInterface
      */
     public function isEqualToProperties(Entity $entity);
 }
+
+/* EOF */

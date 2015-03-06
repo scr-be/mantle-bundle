@@ -34,3 +34,5 @@ interface EntityDebuggableInterface
      */
     public function __debugInfoToString();
 }
+
+/* EOF */

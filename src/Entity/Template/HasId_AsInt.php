@@ -34,3 +34,5 @@ trait HasId_AsInt
         return $this->id;
     }
 }
+
+/* EOF */

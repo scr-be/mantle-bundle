@@ -35,3 +35,5 @@ class SearchController extends AbstractController
         return $response;
     }
 }
+
+/* EOF */

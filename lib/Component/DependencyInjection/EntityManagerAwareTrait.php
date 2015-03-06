@@ -73,3 +73,5 @@ trait EntityManagerAwareTrait
         return $this->getEntityManager();
     }
 }
+
+/* EOF */

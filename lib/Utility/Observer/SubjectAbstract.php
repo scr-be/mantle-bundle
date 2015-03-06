@@ -119,3 +119,5 @@ class SubjectAbstract implements SplSubject
         return false;
     }
 }
+
+/* EOF */

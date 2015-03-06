@@ -78,3 +78,5 @@ class Redirects
         return $this->destination;
     }
 }
+
+/* EOF */

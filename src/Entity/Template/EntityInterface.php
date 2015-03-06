@@ -44,3 +44,5 @@ interface EntityInterface
      */
     public function getId();
 }
+
+/* EOF */

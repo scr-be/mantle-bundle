@@ -191,3 +191,5 @@ class BaseFeatureContext extends MinkContext implements Context
          }
      }
 }
+
+/* EOF */

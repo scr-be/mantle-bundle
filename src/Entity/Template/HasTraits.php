@@ -125,3 +125,5 @@ trait HasTraits
         return $this;
     }
 }
+
+/* EOF */

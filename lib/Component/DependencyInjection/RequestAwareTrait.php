@@ -78,3 +78,5 @@ trait RequestAwareTrait
         ;
     }
 }
+
+/* EOF */

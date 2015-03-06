@@ -45,3 +45,5 @@ abstract class Entity implements
      */
     abstract public function __toString();
 }
+
+/* EOF */

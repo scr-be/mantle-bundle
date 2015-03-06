@@ -71,3 +71,5 @@ trait HasIcon
         return $this;
     }
 }
+
+/* EOF */

@@ -69,3 +69,5 @@ trait HasVersionAsInteger
         return $this;
     }
 }
+
+/* EOF */

@@ -83,3 +83,5 @@ class AjaxResponse
         return self::getStandardizedResponse($message, 400, $httpStatusCode, $jsonDataAppend);
     }
 }
+
+/* EOF */

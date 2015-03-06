@@ -185,3 +185,5 @@ trait RequestStackAwareTrait
         return $this;
     }
 }
+
+/* EOF */

@@ -33,3 +33,5 @@ interface OrmExceptionInterface
      */
     public function getEntityDebugArray();
 }
+
+/* EOF */

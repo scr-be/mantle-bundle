@@ -63,3 +63,5 @@ trait SessionAwareTrait
         return $this->session;
     }
 }
+
+/* EOF */

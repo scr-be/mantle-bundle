@@ -69,3 +69,5 @@ trait HasAlias
         return $this;
     }
 }
+
+/* EOF */

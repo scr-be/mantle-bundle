@@ -44,3 +44,5 @@ class RedirectController extends Controller
         return $this->redirect($destination, 301);
     }
 }
+
+/* EOF */

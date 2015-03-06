@@ -79,3 +79,5 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
         return $array;
     }
 }
+
+/* EOF */

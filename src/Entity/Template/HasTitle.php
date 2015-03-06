@@ -68,3 +68,5 @@ trait HasTitle
         return $this;
     }
 }
+
+/* EOF */

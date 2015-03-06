@@ -44,3 +44,5 @@ trait HasParentInverseSide
         return (bool) ($this->getParent() !== null);
     }
 }
+
+/* EOF */

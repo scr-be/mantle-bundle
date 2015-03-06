@@ -50,3 +50,5 @@ trait HasDate
         return $this->getDate()->format($format);
     }
 }
+
+/* EOF */

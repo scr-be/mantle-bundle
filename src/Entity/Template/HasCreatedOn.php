@@ -70,3 +70,5 @@ trait HasCreatedOn
         return $this;
     }
 }
+
+/* EOF */

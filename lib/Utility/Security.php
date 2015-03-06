@@ -89,3 +89,5 @@ class Security
         return $password;
     }
 }
+
+/* EOF */

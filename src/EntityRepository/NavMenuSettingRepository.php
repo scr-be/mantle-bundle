@@ -13,3 +13,5 @@ use Doctrine\ORM\EntityRepository;
 class NavMenuSettingRepository extends EntityRepository
 {
 }
+
+/* EOF */

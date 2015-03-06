@@ -296,3 +296,5 @@ class NavMenuSubItem
         return $this;
     }
 }
+
+/* EOF */

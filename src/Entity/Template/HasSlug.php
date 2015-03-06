@@ -69,3 +69,5 @@ trait HasSlug
         return $this;
     }
 }
+
+/* EOF */

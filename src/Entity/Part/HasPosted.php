@@ -50,3 +50,5 @@ trait HasPosted
         return $this->getPosted()->format($format);
     }
 }
+
+/* EOF */

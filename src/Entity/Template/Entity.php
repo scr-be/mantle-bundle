@@ -131,3 +131,5 @@ abstract class Entity implements EntityInterface, Serializable
         }
     }
 }
+
+/* EOF */

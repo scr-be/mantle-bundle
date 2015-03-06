@@ -34,3 +34,5 @@ class ScribeMantleExtension extends AbstractExtension
 }
 
 /* EOF */
+
+/* EOF */

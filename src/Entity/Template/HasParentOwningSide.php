@@ -47,3 +47,5 @@ trait HasParentOwningSide
         return $this;
     }
 }
+
+/* EOF */
