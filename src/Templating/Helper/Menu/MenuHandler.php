@@ -15,8 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Scribe\Component\Bundle\BundleInformation;
 use Scribe\MantleBundle\Entity\NavMenuItem;
-use Scribe\MantleBundle\Entity\NavMenuItemRepository;
-use Scribe\MantleBundle\Entity\NavMenuSettingRepository;
+use Scribe\MantleBundle\EntityRepository\NavMenuItemRepository;
+use Scribe\MantleBundle\EntityRepository\NavMenuSettingRepository;
 
 /**
  * Class MenuHandler
