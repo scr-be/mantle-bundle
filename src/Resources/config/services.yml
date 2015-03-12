@@ -107,9 +107,11 @@ services:
             - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
 
     s.mantle.icon_creator.notemplating:
-            class:       %s.mantle.icon_creator.class%
+            class:       %s.mantle.icon_creator_cached.class%
             arguments:
                 - @s.mantle.iconfamily.repo
+            call:
+                - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
 
     s.utils.controller:
         class: "%s.utils.controller.class%"
