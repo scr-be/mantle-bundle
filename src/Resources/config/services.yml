@@ -8,8 +8,10 @@ parameters:
     s.mantle.icontemplate.repo.class:               Scribe\MantleBundle\EntityRepository\IconTemplateRepository
     s.mantle.iconfamily.repo.class:                 Scribe\MantleBundle\EntityRepository\IconFamilyRepository
     s.mantle.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
-    s.mantle.icon_creator.class:                    Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
-
+    s.mantle.icon_creator.class:                    Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
+    s.mantle.icon_creator_cached.class:             Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
+    s.mantle.navigation_registrar.class:            Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
+    s.mantle.navigation_member.content_nodes.class: Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember;
     s.utils.controller.class:                       Scribe\Component\Controller\ControllerUtils
     s.symfony.bundleinfo.class:                     Scribe\Component\Bundle\BundleInformation
 
@@ -43,6 +45,11 @@ parameters:
     s.twig.icon_creator.class:                      Scribe\MantleBundle\Templating\Extension\IconCreatorExtension
 
 services:
+
+    s.mantle.navigation_registrar:
+        class: %s.mantle.navigation_registrar.class%
+        arguments:
+            - @s.symfony.bundleinfo
 
     twig.loader.string:
         class: %templating.stringloader.class%
@@ -92,10 +99,12 @@ services:
             - Scribe\MantleBundle\Entity\CachedFilesystemEntrySize
 
     s.mantle.icon_creator:
-        class:           %s.mantle.icon_creator.class%
+        class:           %s.mantle.icon_creator_cached.class%
         arguments:
             - @s.mantle.iconfamily.repo
             - @templating
+        call:
+            - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
 
     s.mantle.icon_creator.notemplating:
             class:       %s.mantle.icon_creator.class%

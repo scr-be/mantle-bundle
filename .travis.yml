@@ -1,23 +1,27 @@
 language: php
 
 php:
-    - 5.6
+  - 5.6
 
 before_script:
-    - sh .travis-build-igbinary.sh
-    - sh .travis-build-memcached.sh
-    - phpenv config-add .travis-php.ini
-    - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - echo "extension = igbinary.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - phpenv rehash
-    - mkdir -p build/logs
-    - mkdir -p bin
-    - travis_retry curl -s http://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
-    - travis_retry php bin/composer install --no-interaction
+  - sh .travis-build-igbinary.sh
+  - sh .travis-build-memcached.sh
+  - phpenv config-add .travis-php.ini
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = igbinary.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - phpenv rehash
+  - mkdir -p build/logs
+  - mkdir -p bin
+  - travis_retry curl -s http://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
+  - travis_retry php bin/composer install --no-interaction
 
 script:
-    - bin/phpunit --verbose -c phpunit.travis.xml
+  - bin/phpunit --verbose -c phpunit.travis.xml
 
 after_script:
-    - bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
-    - bin/coveralls -vvv
+  - bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
+  - bin/coveralls -vvv
+
+notifications:
+  slack:
+    secure: fQJkH85f60YbHu0y3y7lptnouX3IULkX9f8wrEq4+SFI7n7Uy6RLRhz1wRioOR0gjRcX4dH+40ZZit3GpLB0M781cOwuBAcnobrU6coE8YdbFLrK/EFD/qXM/6RlwRik/3TA3ZX5C1WQfrBxnxq3jvuTFDplrXoxThS3lIl/KCo=

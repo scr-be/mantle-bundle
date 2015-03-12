@@ -10,6 +10,8 @@
 
 namespace Scribe\Utility;
 
+use Scribe\Utility\Caller\Call;
+
 /**
  * Class System
  *
@@ -85,7 +87,7 @@ class System
      */
     public static function isSystemName($value, $filterValueFunction = 'strtolower')
     {
-        $value = Core::callFunctionOnValue($value, $filterValueFunction);
+        $value = Call::func($filterValueFunction, $value);
 
         if (System::getSystemName() == $value) {
             return true;
@@ -101,7 +103,7 @@ class System
      */
     public static function isNotSystemName($value, $filterValueFunction = 'strtolower')
     {
-        $value = Core::callFunctionOnValue($value, $filterValueFunction);
+        $value = Call::func($filterValueFunction, $value);
 
         if (System::getSystemName() == $value) {
             return true;
@@ -118,7 +120,7 @@ class System
     public static function getSystemUname($mode = 'a', $filterValueFunction = 'strtolower')
     {
         $result = php_uname($mode);
-        $result = Core::callFunctionOnValue($result, $filterValueFunction);
+        $result = Call::func($filterValueFunction, $result);
 
         return $result;
     }
