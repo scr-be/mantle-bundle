@@ -1,0 +1,26 @@
+Scribe\MantleBundle\Entity\Asset:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Entity\AssetRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: text
+        embeddedCode:
+            type: text
+        height:
+            type: integer
+        width:
+            type: integer
+        altText:
+            type: text
+        assetType:
+            type: object
+        descriptor:
+            type: object
+    lifecycleCallbacks: {  }

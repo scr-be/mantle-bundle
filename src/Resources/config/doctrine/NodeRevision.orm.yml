@@ -1,0 +1,25 @@
+Scribe\MantleBundle\Entity\NodeRevision:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Entity\NodeRevisionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        createdOn:
+            type: datetime
+            column: created_on
+        content:
+            type: text
+        author:
+            type: object
+        renderEngine:
+            type: object
+        embeddedNodes:
+            type: object
+        embeddedAssets:
+            type: object
+    lifecycleCallbacks: {  }

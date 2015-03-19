@@ -1,0 +1,17 @@
+Scribe\MantleBundle\Entity\NodeRenderEngine:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Entity\NodeRenderEngineRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        slug:
+            type: string
+            length: 255
+        closure:
+            type: text
+    lifecycleCallbacks: {  }

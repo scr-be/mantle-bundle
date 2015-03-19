@@ -1,0 +1,373 @@
+<?php
+/*
+ * This file is part of the Scribe Mantle Bundle.
+ *
+ * (c) Scribe Inc. <source@scribe.software>
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
+namespace Scribe\MantleBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Node
+ * @package Scribe\MantleBundle\Entity
+ */
+class Node
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var boolean
+     */
+    private $locked;
+
+    /**
+     * @var \DateTime
+     */
+    private $createdOn;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedOn;
+
+    /**
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * @var integer
+     */
+    private $weight;
+
+    /**
+     * @var \stdClass
+     */
+    private $author;
+
+    /**
+     * @var \stdClass
+     */
+    private $context;
+
+    /**
+     * @var \stdClass
+     */
+    private $revisions;
+
+    /**
+     * @var \stdClass
+     */
+    private $latestRevision;
+
+    /**
+     * @var \stdClass
+     */
+    private $parents;
+
+    /**
+     * @var \stdClass
+     */
+    private $children;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set locked
+     *
+     * @param boolean $locked
+     * @return Node
+     */
+    public function setLocked($locked)
+    {
+        $this->locked = $locked;
+
+        return $this;
+    }
+
+    /**
+     * Get locked
+     *
+     * @return boolean 
+     */
+    public function getLocked()
+    {
+        return $this->locked;
+    }
+
+    /**
+     * Set createdOn
+     *
+     * @param \DateTime $createdOn
+     * @return Node
+     */
+    public function setCreatedOn($createdOn)
+    {
+        $this->createdOn = $createdOn;
+
+        return $this;
+    }
+
+    /**
+     * Get createdOn
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
+
+    /**
+     * Set updatedOn
+     *
+     * @param \DateTime $updatedOn
+     * @return Node
+     */
+    public function setUpdatedOn($updatedOn)
+    {
+        $this->updatedOn = $updatedOn;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedOn
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedOn()
+    {
+        return $this->updatedOn;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Node
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Node
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set weight
+     *
+     * @param integer $weight
+     * @return Node
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return integer 
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \stdClass $author
+     * @return Node
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \stdClass 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set context
+     *
+     * @param \stdClass $context
+     * @return Node
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
+
+        return $this;
+    }
+
+    /**
+     * Get context
+     *
+     * @return \stdClass 
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * Set revisions
+     *
+     * @param \stdClass $revisions
+     * @return Node
+     */
+    public function setRevisions($revisions)
+    {
+        $this->revisions = $revisions;
+
+        return $this;
+    }
+
+    /**
+     * Get revisions
+     *
+     * @return \stdClass 
+     */
+    public function getRevisions()
+    {
+        return $this->revisions;
+    }
+
+    /**
+     * Set latestRevision
+     *
+     * @param \stdClass $latestRevision
+     * @return Node
+     */
+    public function setLatestRevision($latestRevision)
+    {
+        $this->latestRevision = $latestRevision;
+
+        return $this;
+    }
+
+    /**
+     * Get latestRevision
+     *
+     * @return \stdClass 
+     */
+    public function getLatestRevision()
+    {
+        return $this->latestRevision;
+    }
+
+    /**
+     * Set parents
+     *
+     * @param \stdClass $parents
+     * @return Node
+     */
+    public function setParents($parents)
+    {
+        $this->parents = $parents;
+
+        return $this;
+    }
+
+    /**
+     * Get parents
+     *
+     * @return \stdClass 
+     */
+    public function getParents()
+    {
+        return $this->parents;
+    }
+
+    /**
+     * Set children
+     *
+     * @param \stdClass $children
+     * @return Node
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
+
+        return $this;
+    }
+
+    /**
+     * Get children
+     *
+     * @return \stdClass 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+}

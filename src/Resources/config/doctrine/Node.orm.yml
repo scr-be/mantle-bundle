@@ -1,0 +1,40 @@
+Scribe\MantleBundle\Entity\Node:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Entity\NodeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        locked:
+            type: boolean
+        createdOn:
+            type: datetime
+            column: created_on
+        updatedOn:
+            type: datetime
+            column: updated_on
+        slug:
+            type: string
+            length: 255
+        title:
+            type: string
+            length: '500'
+        weight:
+            type: integer
+        author:
+            type: object
+        context:
+            type: object
+        revisions:
+            type: object
+        latestRevision:
+            type: object
+        parents:
+            type: object
+        children:
+            type: object
+    lifecycleCallbacks: {  }

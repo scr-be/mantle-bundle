@@ -1,0 +1,20 @@
+Scribe\MantleBundle\Entity\NodeContextType:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Entity\NodeContextTypeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        slug:
+            type: string
+            length: 255
+        name:
+            type: string
+            length: 255
+        nodes:
+            type: object
+    lifecycleCallbacks: {  }

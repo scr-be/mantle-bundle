@@ -1,0 +1,16 @@
+Scribe\MantleBundle\Entity\NodeRevisionDiff:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Entity\NodeRevisionDiffRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        diff:
+            type: text
+        nodeRevision:
+            type: object
+    lifecycleCallbacks: {  }
