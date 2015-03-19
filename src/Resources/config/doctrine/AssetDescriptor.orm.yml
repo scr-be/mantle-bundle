@@ -11,10 +11,18 @@ Scribe\MantleBundle\Entity\AssetDescriptor:
     fields:
         binContent:
             type: blob
+            nullable: true
         markup:
             type: text
+            nullable: true
         height:
             type: integer
+            nullable: true
         width:
             type: integer
+            nullable: true
+    oneToMany:
+        assets:
+            targetEntity: Scribe\MantleBundle\Entity\Asset
+            mappedBy: assetDescriptor
     lifecycleCallbacks: {  }

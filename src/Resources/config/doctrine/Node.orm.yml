@@ -25,16 +25,46 @@ Scribe\MantleBundle\Entity\Node:
             length: '500'
         weight:
             type: integer
+    manyToOne:
         author:
-            type: object
+            targetEntity: User
+            inversedBy: nodes 
+            joinColumn:
+                name: authorId
+                referenceColumn: id
         context:
-            type: object
-        revisions:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\NodeContextType 
+            inversedBy: nodes 
+            joinColumn:
+                name: nodeContextTypeId
+                referenceColumn: id
+    oneToOne:
         latestRevision:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            inversedBy: owningNode
+            joinColumn:
+                name: latestRevisionId
+                referenceColumn: id
+    oneToMany:
+        revisions:
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            mappedBy: node
+    manyToMany:
         parents:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\Node 
+            inversedBy:  children 
+            joinTable:
+                name: ParentNodeMapToChildNode 
+                joinColumns:
+                    parentNodeId:
+                        referencedColumnId: id
+                inverseJoinColumns:
+                    childNodeId:
+                        referencedColumnId: id
         children:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\Node
+            mappedBy: parents
+        containerNodeRevisions:
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            mappedBy: embeddedNodes
     lifecycleCallbacks: {  }

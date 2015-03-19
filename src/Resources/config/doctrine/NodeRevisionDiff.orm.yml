@@ -11,6 +11,11 @@ Scribe\MantleBundle\Entity\NodeRevisionDiff:
     fields:
         diff:
             type: text
+    oneToOne:
         nodeRevision:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision 
+            inversedBy:  diff 
+            joinColumn:
+                name:            nodeRevisionId 
+                referencedColumn: id
     lifecycleCallbacks: {  }

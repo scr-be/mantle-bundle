@@ -14,12 +14,53 @@ Scribe\MantleBundle\Entity\NodeRevision:
             column: created_on
         content:
             type: text
+    oneToOne:
+        diff:
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevisionDiff
+            mappedBy: nodeRevision
+        owningNode:
+            targetEntity: Scribe\MantleBundle\Entity\Node
+            mappedBy: latestRevision
+    manyToOne:
         author:
-            type: object
+            targetEntity: User
+            inversedBy: nodeRevisions
+            joinColumn:
+                name: authorId
+                referenceColumn: id
+        node:
+            targetEntity: Scribe\MantleBundle\Entity\Node
+            inversedBy: nodeRevisions
+            joinColumn:
+                name: nodeId
+                referenceColumn: id
         renderEngine:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\NodeRenderEngine 
+            inversedBy: nodeRevisions
+            joinColumn:
+                name: nodeRenderEngineId 
+                referenceColumn: id
+    manyToMany:
         embeddedNodes:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\Node 
+            inversedBy:  containerNodeRevisions 
+            joinTable:
+                name: NodeRevisionMapToEmbeddedNode 
+                joinColumns:
+                    nodeRevisionId:
+                        referencedColumnId: id
+                inverseJoinColumns:
+                    nodeId:
+                        referencedColumnId: id
         embeddedAssets:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\Asset 
+            inversedBy:  containerNodeRevisions 
+            joinTable:
+                name: NodeRevisionMapToAsset 
+                joinColumns:
+                    nodeRevisionId:
+                        referencedColumnId: id
+                inverseJoinColumns:
+                    assetId:
+                        referencedColumnId: id
     lifecycleCallbacks: {  }

@@ -14,4 +14,8 @@ Scribe\MantleBundle\Entity\AssetType:
             length: 255
         attributes:
             type: json_array
+    oneToMany:
+        assets:
+            targetEntity: Scribe\MantleBundle\Entity\Asset
+            mappedBy: assetType
     lifecycleCallbacks: {  }

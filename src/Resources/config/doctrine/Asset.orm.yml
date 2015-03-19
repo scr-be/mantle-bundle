@@ -11,16 +11,34 @@ Scribe\MantleBundle\Entity\Asset:
     fields:
         path:
             type: text
+            nullable: true
         embeddedCode:
             type: text
+            nullable: true
         height:
             type: integer
+            nullable: true
         width:
             type: integer
+            nullable: true
         altText:
             type: text
+            nullable: true
+    manyToOne:
         assetType:
-            type: object
-        descriptor:
-            type: object
+            targetEntity: Scribe\MantleBundle\Entity\AssetType
+            inversedBy: assets
+            joinColumn:
+                name: assetTypeId
+                referenceColumn: id
+        assetDescriptor:
+            targetEntity: Scribe\MantleBundle\Entity\AssetDescriptor
+            inversedBy: assets
+            joinColumn:
+                name: assetDescriptorId
+                referenceColumn: id
+    manyToMany:
+        containerNodeRevisions:
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            mappedBy: embeddedAssets
     lifecycleCallbacks: {  }

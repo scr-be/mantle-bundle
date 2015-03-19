@@ -14,4 +14,8 @@ Scribe\MantleBundle\Entity\NodeRenderEngine:
             length: 255
         closure:
             type: text
+    oneToMany:
+        nodeRevisions:
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            mappedBy: engine
     lifecycleCallbacks: {  }
