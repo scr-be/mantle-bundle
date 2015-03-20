@@ -257,7 +257,7 @@ class NodeRevision
      *
      * @return $this 
      */
-    public function setOwningNode(Scribe\MantleBundle\Entity\Node $owningNode)
+    public function setOwningNode(Node $owningNode)
     {
         $this->owningNode = $owningNode;
         return $this;
@@ -280,7 +280,7 @@ class NodeRevision
      *
      * @return $this
      */
-    public function setNode(Scribe\MantleBundle\Entity\Node $node)
+    public function setNode(Node $node)
     {
         $this->node = $node;
 

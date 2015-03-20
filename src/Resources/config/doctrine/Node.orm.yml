@@ -27,7 +27,7 @@ Scribe\MantleBundle\Entity\Node:
             type: integer
     manyToOne:
         author:
-            targetEntity: User
+            targetEntity: Scribe\MantleBundle\Model\AuthorInterface 
             inversedBy: nodes 
             joinColumn:
                 name: authorId

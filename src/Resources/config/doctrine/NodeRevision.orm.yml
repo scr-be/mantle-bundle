@@ -23,7 +23,7 @@ Scribe\MantleBundle\Entity\NodeRevision:
             mappedBy: latestRevision
     manyToOne:
         author:
-            targetEntity: User
+            targetEntity: Scribe\MantleBundle\Model\AuthorInterface 
             inversedBy: nodeRevisions
             joinColumn:
                 name: authorId
