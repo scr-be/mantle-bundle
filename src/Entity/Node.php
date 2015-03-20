@@ -55,39 +55,50 @@ class Node
     private $weight;
 
     /**
-     * @var \stdClass
+     * @var Scribe\MantleBundle\Model\AuthorInterface
      */
     private $author;
 
     /**
-     * @var \stdClass
+     * @var NodeContextType
      */
     private $context;
 
     /**
-     * @var \stdClass
+     * @var ArrayCollection 
      */
     private $revisions;
 
     /**
-     * @var \stdClass
+     * @var NodeRevision
      */
     private $latestRevision;
 
     /**
-     * @var \stdClass
+     * @var ArrayCollection
      */
     private $parents;
 
     /**
-     * @var \stdClass
+     * @var ArrayCollection
      */
     private $children;
 
     /**
-     * @var string
+     * @var ArrayCollection 
      */
     private $containerNodeRevisions;
+
+    /**
+     * perform any entity setup
+     */
+    public function __construct()
+    {
+        $this->revisions              = new ArrayCollection;
+        $this->parents                = new ArrayCollection;
+        $this->children               = new ArrayCollection;
+        $this->containerNodeRevisions = new ArrayCollection;
+    }
 
     /**
      * Get id

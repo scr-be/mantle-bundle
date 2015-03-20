@@ -34,9 +34,17 @@ class AssetType
     private $attributes;
 
     /**
-     * @var string
+     * @var ArrayCollection 
      */
     private $assets;
+
+    /**
+     * perform any entity setup
+     */
+    public function __construct()
+    {
+        $this->assets = new ArrayCollection;
+    }
 
     /**
      * Get id

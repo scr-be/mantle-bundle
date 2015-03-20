@@ -29,10 +29,14 @@ class NodeRevisionDiff
     private $diff;
 
     /**
-     * @var \stdClass
+     * @var NodeRevision
      */
     private $nodeRevision;
 
+    /**
+     * perform any entity setup
+     */
+    public function __construct() {}
 
     /**
      * Get id

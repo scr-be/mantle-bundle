@@ -39,6 +39,14 @@ class NodeRenderEngine
     private $revisions;
 
     /**
+     * perform any entity setup
+     */
+    public function __construct()
+    {
+        $this->revisions = new ArrayCollection;
+    }
+
+    /**
      * Get id
      *
      * @return integer 

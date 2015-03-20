@@ -35,10 +35,17 @@ class NodeContextType
     private $name;
 
     /**
-     * @var \stdClass
+     * @var ArrayCollection
      */
     private $nodes;
 
+    /**
+     * perform any entity setup
+     */
+    public function __construct()
+    {
+        $this->nodes = new ArrayCollection;
+    }
 
     /**
      * Get id

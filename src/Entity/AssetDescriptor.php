@@ -49,6 +49,14 @@ class AssetDescriptor
     private $assets;
 
     /**
+     * perform any entity setup
+     */
+    public function __construct()
+    {
+        $this->assets = new ArrayCollection;
+    }
+
+    /**
      * Get id
      *
      * @return integer 

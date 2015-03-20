@@ -49,24 +49,27 @@ class Asset
     private $altText;
 
     /**
-     * @var \stdClass
+     * @var AssetType
      */
     private $assetType;
 
     /**
-     * @var \stdClass
-     */
-    private $descriptor;
-
-    /**
-     * @var string
+     * @var AssetDescriptor 
      */
     private $assetDescriptor;
 
     /**
-     * @var string
+     * @var ArrayCollection 
      */
     private $containerNodeRevisions;
+
+    /**
+     * perform any entity setup
+     */
+    public function __construct()
+    {
+        $this->containerNodeRevisions = new ArrayCollection;
+    }
 
     /**
      * Get id
@@ -214,29 +217,6 @@ class Asset
     public function getAssetType()
     {
         return $this->assetType;
-    }
-
-    /**
-     * Set descriptor
-     *
-     * @param \stdClass $descriptor
-     * @return Asset
-     */
-    public function setDescriptor($descriptor)
-    {
-        $this->descriptor = $descriptor;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptor
-     *
-     * @return \stdClass 
-     */
-    public function getDescriptor()
-    {
-        return $this->descriptor;
     }
 
     /**

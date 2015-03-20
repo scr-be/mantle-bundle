@@ -35,22 +35,22 @@ class NodeRevision
     private $content;
 
     /**
-     * @var \stdClass
+     * @var Scribe\MantleBundle\Model\AuthorInterface
      */
     private $author;
 
     /**
-     * @var \stdClass
+     * @var NodeRenderEngine 
      */
     private $renderEngine;
 
     /**
-     * @var \stdClass
+     * @var ArrayCollection 
      */
     private $embeddedNodes;
 
     /**
-     * @var \stdClass
+     * @var ArrayCollection 
      */
     private $embeddedAssets;
 
@@ -60,14 +60,23 @@ class NodeRevision
     private $diff;
 
     /**
-     * @var Scribe\MantleBundle\Entity\Node 
+     * @var Node 
      */
     private $owningNode;
 
     /**
-     * @var Scribe\MantleBundle\Entity\Node 
+     * @var Node 
      */
     private $node;
+
+    /**
+     * perform any entity setup
+     */
+    public function __construct()
+    {
+        $this->embeddedNodes  = new ArrayCollection;
+        $this->embeddedAssets = new ArrayCollection;
+    }
 
     /**
      * Get id
