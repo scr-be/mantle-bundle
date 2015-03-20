@@ -15,7 +15,7 @@ Scribe\MantleBundle\Entity\NodeRenderEngine:
         closure:
             type: text
     oneToMany:
-        nodeRevisions:
+        revisions:
             targetEntity: Scribe\MantleBundle\Entity\NodeRevision
-            mappedBy: engine
+            mappedBy: renderEngine
     lifecycleCallbacks: {  }

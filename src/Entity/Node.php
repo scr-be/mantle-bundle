@@ -84,6 +84,10 @@ class Node
      */
     private $children;
 
+    /**
+     * @var string
+     */
+    private $containerNodeRevisions;
 
     /**
      * Get id
@@ -369,5 +373,29 @@ class Node
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Gets the value of containerNodeRevisions
+     *
+     * @return $containerNodeRevisions
+     */
+    public function getContainerNodeRevisions()
+    {
+        return $this->containerNodeRevisions;
+    }
+
+    /**
+     * Sets the value of containerNodeRevisions
+     *
+     * @param ArrayCollection
+     *
+     * @return $this
+     */
+    public function setContainerNodeRevisions(ArrayCollection $containerNodeRevisions)
+    {
+        $this->containerNodeRevisions = $containerNodeRevisions;
+
+        return $this;
     }
 }

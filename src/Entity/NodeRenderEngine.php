@@ -32,7 +32,11 @@ class NodeRenderEngine
      * @var string
      */
     private $closure;
-
+    
+    /**
+     * @var ArrayCollection 
+     */
+    private $revisions;
 
     /**
      * Get id
@@ -88,5 +92,29 @@ class NodeRenderEngine
     public function getClosure()
     {
         return $this->closure;
+    }
+
+    /**
+     * Gets the value of revisions
+     *
+     * @return revisions
+     */
+    public function getRevisions()
+    {
+        return $this->revisions;
+    }
+
+    /**
+     * Sets the value of revisions
+     *
+     * @param ArrayCollection 
+     *
+     * @return $this
+     */
+    public function setRevisions(ArrayCollection $revisions)
+    {
+        $this->revisions = $revisions;
+
+        return $this;
     }
 }

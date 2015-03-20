@@ -54,6 +54,20 @@ class NodeRevision
      */
     private $embeddedAssets;
 
+    /**
+     * @var NodeRevisionDiff 
+     */
+    private $diff;
+
+    /**
+     * @var Scribe\MantleBundle\Entity\Node 
+     */
+    private $owningNode;
+
+    /**
+     * @var Scribe\MantleBundle\Entity\Node 
+     */
+    private $node;
 
     /**
      * Get id
@@ -201,5 +215,75 @@ class NodeRevision
     public function getEmbeddedAssets()
     {
         return $this->embeddedAssets;
+    }
+
+    /**
+     * Gets the value of diff
+     *
+     * @return NodeRevisionDiff|null 
+     */
+    public function getdiff()
+    {
+        return $this->diff;
+    }
+
+    /**
+     * Sets the value of diff
+     *
+     * @param NodeRevisionDiff
+     *
+     * @return $this 
+     */
+    public function setDiff(NodeRevisionDiff $diff)
+    {
+        $this->diff = $diff;
+        return $this;
+    }
+
+    /**
+     * Gets the value of owningNode
+     *
+     * @return Scribe\MantleBundle\Entity\Node 
+     */
+    public function getOwningNode()
+    {
+        return $this->owningNode;
+    }
+
+    /**
+     * Sets the value of owningNode
+     *
+     * @param Scribe\MantleBundle\Entity\Node
+     *
+     * @return $this 
+     */
+    public function setOwningNode(Scribe\MantleBundle\Entity\Node $owningNode)
+    {
+        $this->owningNode = $owningNode;
+        return $this;
+    }
+
+    /**
+     * Gets the value of node
+     *
+     * @return Scribe\MantleBundle\Entity\Node
+     */
+    public function getNode()
+    {
+        return $this->node;
+    }
+
+    /**
+     * Sets the value of node
+     *
+     * @param Scribe\MantleBundle\Entity\Node
+     *
+     * @return $this
+     */
+    public function setNode(Scribe\MantleBundle\Entity\Node $node)
+    {
+        $this->node = $node;
+
+        return $this;
     }
 }

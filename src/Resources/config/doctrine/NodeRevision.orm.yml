@@ -30,13 +30,13 @@ Scribe\MantleBundle\Entity\NodeRevision:
                 referenceColumn: id
         node:
             targetEntity: Scribe\MantleBundle\Entity\Node
-            inversedBy: nodeRevisions
+            inversedBy: revisions
             joinColumn:
                 name: nodeId
                 referenceColumn: id
         renderEngine:
             targetEntity: Scribe\MantleBundle\Entity\NodeRenderEngine 
-            inversedBy: nodeRevisions
+            inversedBy: revisions
             joinColumn:
                 name: nodeRenderEngineId 
                 referenceColumn: id

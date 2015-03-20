@@ -33,6 +33,10 @@ class AssetType
      */
     private $attributes;
 
+    /**
+     * @var string
+     */
+    private $assets;
 
     /**
      * Get id
@@ -88,5 +92,29 @@ class AssetType
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * Gets the value of assets
+     *
+     * @return assets
+     */
+    public function getAssets()
+    {
+        return $this->assets;
+    }
+
+    /**
+     * Sets the value of assets
+     *
+     * @param ArrayCollection
+     *
+     * @return $this
+     */
+    public function setAssets(ArrayCollection $assets)
+    {
+        $this->assets = $assets;
+
+        return $this;
     }
 }

@@ -58,6 +58,15 @@ class Asset
      */
     private $descriptor;
 
+    /**
+     * @var string
+     */
+    private $assetDescriptor;
+
+    /**
+     * @var string
+     */
+    private $containerNodeRevisions;
 
     /**
      * Get id
@@ -228,5 +237,53 @@ class Asset
     public function getDescriptor()
     {
         return $this->descriptor;
+    }
+
+    /**
+     * Gets the value of assetDescriptor
+     *
+     * @return $assetDescriptor
+     */
+    public function getAssetDescriptor()
+    {
+        return $this->assetDescriptor;
+    }
+
+    /**
+     * Sets the value of assetDescriptor
+     *
+     * @param AssetDescriptor
+     *
+     * @return $this
+     */
+    public function setAssetDescriptor(AssetDescriptor $assetDescriptor)
+    {
+        $this->assetDescriptor = $assetDescriptor;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of containerNodeRevisions
+     *
+     * @return containerNodeRevisions
+     */
+    public function getContainerNodeRevisions()
+    {
+        return $this->containerNodeRevisions;
+    }
+
+    /**
+     * Sets the value of containerNodeRevisions
+     *
+     * @param ArrayCollection
+     *
+     * @return $this
+     */
+    public function setContainerNodeRevisions(ArrayCollection $containerNodeRevisions)
+    {
+        $this->containerNodeRevisions = $containerNodeRevisions;
+
+        return $this;
     }
 }

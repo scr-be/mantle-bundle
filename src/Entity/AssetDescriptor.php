@@ -43,6 +43,10 @@ class AssetDescriptor
      */
     private $width;
 
+    /**
+     * @var ArrayCollection 
+     */
+    private $assets;
 
     /**
      * Get id
@@ -144,5 +148,29 @@ class AssetDescriptor
     public function getWidth()
     {
         return $this->width;
+    }
+
+    /**
+     * Gets the value of assets
+     *
+     * @return assets
+     */
+    public function getAssets()
+    {
+        return $this->assets;
+    }
+
+    /**
+     * Sets the value of assets
+     *
+     * @param ArrayCollection
+     *
+     * @return $this
+     */
+    public function setAssets(ArrayCollection $assets)
+    {
+        $this->assets = $assets;
+
+        return $this;
     }
 }
