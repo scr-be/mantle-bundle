@@ -10,7 +10,6 @@
 
 namespace Scribe\Utility\Caller;
 
-
 /**
  * CallInterface.
  */

@@ -10,7 +10,6 @@
 
 namespace Scribe\MantleBundle\Features\Context;
 
-
 /**
  * Class FeatureContext.
  */

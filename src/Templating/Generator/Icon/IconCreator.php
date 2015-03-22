@@ -271,7 +271,8 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     /**
      * If the icon slug isn't valid, perhaps one of the icon aliases is...
      *
-     * @param  string $alias
+     * @param string $alias
+     *
      * @return bool|ArrayCollection
      */
     private function lookupIconByAlias($alias)

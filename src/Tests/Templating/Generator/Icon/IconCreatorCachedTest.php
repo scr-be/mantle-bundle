@@ -55,12 +55,108 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
+    public function testCanRenderByAlias()
+    {
+        $expected = '
+            <span class="fa fa-glass"
+                  role="presentation"
+                  aria-hidden="true"
+                  aria-label="Icon: Glass (Category: Web Application Icons)">
+            </span>'
+        ;
+
+        $formatter = $this->getNewIconCreator(true);
+        $html      = $formatter->render('glass-half-empty', 'fa');
+
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+    }
+
     public function testCanCache()
     {
+        $expected = '
+            <span class="fa fa-glass"
+                  role="presentation"
+                  aria-hidden="true"
+                  aria-label="Icon: Glass (Category: Web Application Icons)">
+            </span>'
+        ;
+
         $formatter = $this->getNewIconCreator(true);
         $html      = $formatter->render('glass', 'fa');
 
         $this->assertTrue($formatter->getCacheHandlerChain()->has());
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+        $this->assertXmlStringEqualsXmlString($expected, $formatter->getCacheHandlerChain()->get());
+    }
+
+    public function testCanCacheByAlias()
+    {
+        $expected = '
+            <span class="fa fa-glass"
+                  role="presentation"
+                  aria-hidden="true"
+                  aria-label="Icon: Glass (Category: Web Application Icons)">
+            </span>'
+        ;
+
+        $formatter = $this->getNewIconCreator(true);
+        $html      = $formatter->render('glass-half-empty', 'fa');
+
+        $this->assertTrue($formatter->getCacheHandlerChain()->has());
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+        $this->assertXmlStringEqualsXmlString($expected, $formatter->getCacheHandlerChain()->get());
+    }
+
+    public function testCanAdvanced()
+    {
+        $expected = '
+            <span class="fa fa-glass"
+                  role="presentation"
+                  aria-hidden="true"
+                  aria-label="Icon: Glass (Category: Web Application Icons)">
+            </span>'
+        ;
+        $expected2 = '
+            <span class="fa fa-glass"
+                  role="presentation"
+                  aria-label="Icon: Glass (Category: Web Application Icons)">
+            </span>'
+        ;
+        $expected3 = '
+            <span class="fa fa-5x fa-photo"
+                  role="presentation"
+                  aria-label="Icon: Photo (Category: Cat 1)">
+            </span>
+        ';
+
+        $formatter = $this->getNewIconCreator(true);
+
+        $html  = $formatter->render('glass', 'fa');
+        $html2 = $formatter->setAriaHidden(false)->render('glass-half-empty', 'fa');
+        $html3 = $formatter
+            ->setAriaHidden(false)
+            ->setFamily('fa')
+            ->setStyles('fa-5x')
+            ->render('photograph')
+        ;
+
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+        $this->assertXmlStringEqualsXmlString($expected2, $html2);
+        $this->assertXmlStringEqualsXmlString($expected3, $html3);
+
+        $formatter->render('glass', 'fa');
+        $this->assertXmlStringEqualsXmlString($expected, $formatter->getCacheHandlerChain()->get());
+
+        $formatter->setAriaHidden(false)->render('glass-half-empty', 'fa');
+        $this->assertXmlStringEqualsXmlString($expected2, $formatter->getCacheHandlerChain()->get());
+
+        $formatter
+            ->setAriaHidden(false)
+            ->setFamily('fa')
+            ->setStyles('fa-5x')
+            ->render('photograph')
+        ;
+        $this->assertXmlStringEqualsXmlString($expected3, $formatter->getCacheHandlerChain()->get());
     }
 
     public function testDoesNotCacheIncorrectly()

@@ -34,7 +34,7 @@ interface SerializerInterface
      *
      * @var string
      */
-    const SERIALISE_METHOD_NATIVE = 'native';
+    const SERIALIZE_METHOD_NATIVE = 'native';
 
     /**
      * Serializer default.

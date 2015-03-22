@@ -19,6 +19,8 @@ use Scribe\Utility\Extension;
 class Serializer extends AbstractSerializer
 {
     /**
+     * Perform serialization
+     *
      * @param mixed  $mixed
      * @param string $method
      *
@@ -32,6 +34,8 @@ class Serializer extends AbstractSerializer
     }
 
     /**
+     * Perform unserialization
+     *
      * @param mixed  $mixed
      * @param string $method
      *
@@ -62,7 +66,7 @@ class Serializer extends AbstractSerializer
 
                 return 'json_encode';
 
-            case self::SERIALISE_METHOD_NATIVE;
+            case self::SERIALIZE_METHOD_NATIVE;
             default:
                 return 'serialize';
         }
@@ -86,7 +90,7 @@ class Serializer extends AbstractSerializer
 
                 return 'json_decode';
 
-            case self::SERIALISE_METHOD_NATIVE;
+            case self::SERIALIZE_METHOD_NATIVE;
             default:
                 return 'unserialize';
         }
@@ -107,7 +111,7 @@ class Serializer extends AbstractSerializer
             return $method;
         }
 
-        return self::SERIALISE_METHOD_NATIVE;
+        return self::SERIALIZE_METHOD_NATIVE;
     }
 }
 
