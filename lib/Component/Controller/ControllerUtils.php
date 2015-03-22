@@ -18,9 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Scribe\SharedBundle\Entity\Interfaces\EntityInterface;
+use Scribe\Entity\AbstractEntity;
 use Scribe\Component\DependencyInjection\ContainerAwareTrait;
-use Scribe\SharedBundle\Utility\Exception\InvalidArgumentException;
+use Scribe\Exception\InvalidArgumentException;
 
 /**
  * Class ControllerUtils.
@@ -168,12 +168,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Persist an orm entity and optionally flush the transaction.
      *
-     * @param EntityInterface $entity   an orm entity instance
+     * @param AbstractEntity $entity   an orm entity instance
      * @param bool            $flushNow whether to flush transaction
      *
      * @return bool
      */
-    public function entityPersist(EntityInterface $entity, $flushNow = true)
+    public function entityPersist(AbstractEntity $entity, $flushNow = true)
     {
         return $this->entityAction('persist', $entity, $flushNow);
     }
@@ -181,12 +181,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Remove an orm entity and optionally flush the transaction.
      *
-     * @param EntityInterface $entity   an orm entity instance
+     * @param AbstractEntity $entity   an orm entity instance
      * @param bool            $flushNow whether to flush transaction
      *
      * @return bool
      */
-    public function entityRemove(EntityInterface $entity, $flushNow = true)
+    public function entityRemove(AbstractEntity $entity, $flushNow = true)
     {
         return $this->entityAction('remove', $entity, $flushNow);
     }
@@ -195,12 +195,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
      * Perform an orm entity action and optionally flush the transaction.
      *
      * @param string          $action   entity action to perform
-     * @param EntityInterface $entity   an orm entity instance
+     * @param AbstractEntity $entity   an orm entity instance
      * @param bool            $flushNow whether to flush transaction
      *
      * @return bool
      */
-    private function entityAction($action, EntityInterface $entity, $flushNow = true)
+    private function entityAction($action, AbstractEntity $entity, $flushNow = true)
     {
         if (!in_array($action, ['remove', 'persist'])) {
             throw new RuntimeException('Invalud entity action '.$action);
@@ -349,16 +349,15 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
      */
     public function jsonResponse(array $data = null, $status = Response::HTTP_OK, array $headers = null, $protocol = '1.1')
     {
-        $response = (new JsonResponse())
-            ->setContent($data)
+        $response = (new JsonResponse($data))
             ->setProtocolVersion($protocol)
             ->setDate(new \DateTime(null, new \DateTimeZone('UTC')))
         ;
 
         if (is_array($status)) {
-            $response->setStatus(reset($status), key($status));
+            $response->setStatusCode(reset($status), key($status));
         } else {
-            $response->setStatus($status);
+            $response->setStatusCode($status);
         }
 
         if (is_array($headers)) {

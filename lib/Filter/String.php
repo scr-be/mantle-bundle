@@ -10,7 +10,7 @@
 
 namespace Scribe\Filter;
 
-use Scribe\Utility\Core;
+use Scribe\Utility\Caller\Call;
 
 /**
  * Class Filters.
@@ -58,7 +58,7 @@ class String
         $s = self::spacesToDashes($s);
         $s = self::alphanumericOnly($s);
         if (null !== $function) {
-            $s = Core::callFunctionOnValue($s, $function);
+            $s = Call::func($function, $s);
         }
 
         return $s;

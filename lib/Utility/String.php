@@ -16,7 +16,7 @@ use Scribe\Utility\StaticClass\StaticClassTrait;
 /**
  * Class String.
  */
-class String
+class String extends \Scribe\Filter\String
 {
     /*
      * Trait to disallow class instantiation

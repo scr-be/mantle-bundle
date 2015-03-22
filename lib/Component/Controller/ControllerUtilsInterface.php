@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Scribe\SharedBundle\Entity\Interfaces\EntityInterface;
+use Scribe\Entity\AbstractEntity;
 use Exception;
 
 /**
@@ -73,22 +73,22 @@ interface ControllerUtilsInterface
     /**
      * Persist an orm entity and optionally flush the transaction.
      *
-     * @param EntityInterface $entity   an orm entity instance
+     * @param AbstractEntity $entity   an orm entity instance
      * @param bool            $flushNow whether to flush transaction
      *
      * @return bool
      */
-    public function entityPersist(EntityInterface $entity, $flushNow = true);
+    public function entityPersist(AbstractEntity $entity, $flushNow = true);
 
     /**
      * Remove an orm entity and optionally flush the transaction.
      *
-     * @param EntityInterface $entity   an orm entity instance
+     * @param AbstractEntity $entity   an orm entity instance
      * @param bool            $flushNow whether to flush transaction
      *
      * @return bool
      */
-    public function entityRemove(EntityInterface $entity, $flushNow = true);
+    public function entityRemove(AbstractEntity $entity, $flushNow = true);
 
     /**
      * Create a not found exception with option to throw.
