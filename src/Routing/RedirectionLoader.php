@@ -45,7 +45,7 @@ class RedirectionLoader extends Loader implements ContainerAwareInterface
         ;
 
         $repo = $em
-            ->getRepository('ScribeMantleBundle:Redirects')
+            ->getRepository('ScribeMantleBundle:Redirect')
         ;
 
         $redirects = $repo->findAll();
@@ -54,12 +54,12 @@ class RedirectionLoader extends Loader implements ContainerAwareInterface
 
         foreach ($redirects as $i => $r) {
 
-            $routeName = '__redirection_'.$i.'_'.String::alphanumericOnly($r->getPattern());
+            $routeName = '__redirection_'.$i.'_'.String::alphanumericOnly($r->getPathFrom());
 
-            $pattern = $r->getPattern();
+            $pattern = $r->getPathFrom();
             $defaults = [
                 '_controller' => 'ScribeMantleBundle:Redirect:Handle',
-                'destination' => $r->getDestination()
+                'destination' => $r->getPathTo()
             ];
 
             $route = new Route($pattern, $defaults);

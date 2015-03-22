@@ -12,32 +12,34 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Entity\Template\Entity;
-use Scribe\MantleBundle\Entity\Template\HasName;
-use Scribe\MantleBundle\Entity\Template\HasDescription;
+use Scribe\EntityTrait\HasName;
+use Scribe\EntityTrait\HasSlug;
+use Scribe\EntityTrait\HasAliases;
+use Scribe\EntityTrait\HasCategories;
+use Scribe\EntityTrait\HasAttributes;
+use Scribe\EntityTrait\HasDescription;
+use Scribe\Entity\AbstractEntity;
 
 /**
  * Class Icon
  * @package Scribe\MantleBundle\Entity
  */
-class Icon extends Entity
+class Icon extends AbstractEntity
 {
     /**
      * import name and description entity property traits
      */
     use HasName,
+        HasSlug,
+        HasAliases,
+        HasCategories,
+        HasAttributes,
         HasDescription;
 
     /**
-     * The associated families 
-     * @type IconFamilies
+     * @type ArrayCollection|IconFamily[]
      */
     private $families;
-
-    /**
-     * @type string
-     */
-    private $slug;
 
     /**
      * @var string 
@@ -45,20 +47,14 @@ class Icon extends Entity
     private $unicode;
 
     /**
-     * @var jsonArray 
-     */
-    private $aliases;
-
-    /**
-     * @var jsonArray 
-     */
-    private $categories;
-
-    /**
      * perform any entity setup
      */
     public function __construct()
     {
+        $this->initAliases();
+        $this->initAttributes();
+        $this->initCategories();
+
         $this->families = new ArrayCollection;
     }
 
@@ -68,12 +64,21 @@ class Icon extends Entity
      */
     public function __toString()
     {
-        return $this->getFamilies() . ':' . $this->getName();
+        if (false === $this->hasFamilies()) {
+            return $this->getSlug();
+        }
+
+        $string = '';
+        foreach ($this->getFamilies() as $f) {
+            $string .= $f->getSlug().'-'.$this->getSlug().';';
+        }
+
+        return $string;
     }
 
     /**
      * Setter for families property
-     * @param $families entity
+     * @param  ArrayCollection|IconFamily[] $families
      * @return $this
      */
     public function setFamilies(ArrayCollection $families = null)
@@ -85,7 +90,7 @@ class Icon extends Entity
 
     /**
      * Getter for families property
-     * @return IconFamilies 
+     * @return ArrayCollection|IconFamily[]
      */
     public function getFamilies()
     {
@@ -98,7 +103,7 @@ class Icon extends Entity
      */
     public function hasFamilies()
     {
-        return (bool) ($this->families !== null);
+        return (bool) ($this->families !== null && $this->families->count() > 0);
     }
 
     /**
@@ -110,29 +115,6 @@ class Icon extends Entity
         $this->families = new ArrayCollection;
 
         return $this;
-    }
-
-    /**
-     * Setter for slug property 
-     *
-     * @param string|null 
-     * @return $this
-     */
-    public function setSlug($slug = null)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Getter for slug property 
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**
@@ -156,96 +138,6 @@ class Icon extends Entity
     public function getUnicode()
     {
         return $this->unicode;
-    }
-
-    /**
-     * Setter for aliases property 
-     *
-     * @param array 
-     * @return $this
-     */
-    public function setAliases($aliases = null)
-    {
-        $this->aliases = $aliases;
-
-        return $this;
-    }
-
-    /**
-     * Getter for aliases property 
-     *
-     * @return array 
-     */
-    public function getAliases()
-    {
-        return $this->aliases;
-    }
-
-    /**
-     * Checker for aliases property 
-     *
-     * @return bool
-     */
-    public function hasAliases()
-    {
-        return (bool) ($this->getAliases() !== null);
-    }
-
-    /**
-     * Nullify aliases property 
-     *
-     * @return $this
-     */
-    public function clearAliases()
-    {
-        $this->aliases = null;
-
-        return $this;
-    }
-
-    /**
-     * Setter for categories property 
-     *
-     * @param array 
-     * @return $this
-     */
-    public function setCategories($categories = null)
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
-    /**
-     * Getter for categories property 
-     *
-     * @return array 
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Checker for categories property 
-     *
-     * @return bool
-     */
-    public function hasCategories()
-    {
-        return (bool) ($this->getCategories() !== null);
-    }
-
-    /**
-     * Nullify categories property 
-     *
-     * @return $this
-     */
-    public function clearCategories()
-    {
-        $this->setCategories(null);
-
-        return $this;
     }
 }
 

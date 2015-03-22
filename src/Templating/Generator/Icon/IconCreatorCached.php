@@ -10,10 +10,11 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
+use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainInterface;
 use Symfony\Component\Templating\EngineInterface;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedServicesTrait;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedAttributesTrait;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Class: IconCreatorCached
@@ -126,13 +127,8 @@ class IconCreatorCached extends IconCreator
     {
         $keyValues = [ ];
         foreach(get_object_vars($this) as $property => $value) {
-
-            if(true === $this->isNonCachableProperty($property)) {
-                continue;
-            }
-
             $keyValues[ ] = $property;
-            $keyValues[ ] = $value;
+            $keyValues[ ] = $this->getCachablePropertyValue($value);
         }
 
         return $keyValues;
@@ -141,17 +137,18 @@ class IconCreatorCached extends IconCreator
     /**
      * Determines whether property should be cached (i.e., slugs)
      *
-     * @param string $property
+     * @param  mixed $value
      * @return bool
      */
-    protected function isNonCachableProperty($property)
+    protected function getCachablePropertyValue($value)
     {
-        if (substr($property, -17, 17) == 'cacheHandlerChain') {
-
-            return true;
+        if ($value instanceof HandlerChainInterface) {
+            return 'handlerChainInstance';
+        } elseif ($value instanceof EntityRepository) {
+            return 'entityRepository';
         }
 
-        return false;
+        return $value;
     }
 }
 

@@ -12,19 +12,32 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Entity\Template\Entity;
-use Scribe\MantleBundle\Entity\Template\HasName;
+use Scribe\EntityTrait\HasAttributes;
+use Scribe\EntityTrait\HasIconsOwningSide;
+use Scribe\EntityTrait\HasSlug;
+use Scribe\EntityTrait\HasName;
+use Scribe\EntityTrait\HasVersionAsString;
+use Scribe\Entity\AbstractEntity;
 
 /**
  * Class Icon
  * @package Scribe\MantleBundle\Entity
  */
-class IconFamily extends Entity
+class IconFamily extends AbstractEntity
 {
     /**
      * import name and description entity property traits
      */
-    use HasName;
+    use HasSlug,
+        HasName,
+        HasVersionAsString,
+        HasAttributes,
+        HasIconsOwningSide;
+
+    /**
+     * @var string
+     */
+    private $url;
 
     /**
      * @type string
@@ -32,29 +45,19 @@ class IconFamily extends Entity
     private $prefix;
 
     /**
-     * @type jsonArray 
+     * @type array
      */
     private $requiredClasses;
 
     /**
-     * @type jsonArray 
+     * @type array
      */
     private $optionalClasses;
-
-    /**
-     * @type jsonArray 
-     */
-    private $attributes;
 
     /**
      * @var IconTemplate[]
      */
     private $templates;
-
-    /**
-     * @var Icon[] 
-     */
-    private $icons;
 
     /**
      * perform any entity setup
@@ -77,9 +80,28 @@ class IconFamily extends Entity
     /**
      * @return string
      */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param  string $url
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getPrefix()
     {
-        $this->prefix;
+        return $this->prefix;
     }
 
     /**
@@ -119,6 +141,14 @@ class IconFamily extends Entity
     }
 
     /**
+     * @return bool
+     */
+    public function hasRequiredClasses()
+    {
+        return (bool) (count($this->requiredClasses) > 0 ? true : false);
+    }
+
+    /**
      * Setter for optionalClasses property 
      *
      * @param array 
@@ -152,42 +182,9 @@ class IconFamily extends Entity
     }
 
     /**
-     * Setter for attributes property 
-     *
-     * @param array 
-     * @return $this
-     */
-    public function setAttributes($attributes = null)
-    {
-        $this->attributes = $attributes;
-
-        return $this;
-    }
-
-    /**
-     * Getter for attributes property 
-     *
-     * @return array 
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * Checker for attributes property 
-     *
-     * @return array 
-     */
-    public function hasAttributes()
-    {
-        return (bool) ($this->attributes !== null);
-    }
-
-    /**
      * Setter for templates property 
      *
-     * @param ArrayCollection 
+     * @param  ArrayCollection $templates
      * @return $this
      */
     public function setTemplates(ArrayCollection $templates = null)
@@ -214,7 +211,7 @@ class IconFamily extends Entity
      */
     public function hasTemplates()
     {
-        return (bool) ($this->templates()->count() > 0);
+        return (bool) ($this->getTemplates()->count() > 0);
     }
 
     /**
@@ -225,51 +222,6 @@ class IconFamily extends Entity
     public function clearTemplates()
     {
         $this->templates = new ArrayCollection;
-
-        return $this;
-    }
-
-    /**
-     * Setter for icons collection 
-     *
-     * @param ArrayCollection 
-     * @return $this
-     */
-    public function setIcons(ArrayCollection $icons = null)
-    {
-        $this->icons = $icons;
-
-        return $this;
-    }
-
-    /**
-     * Getter for icons collection 
-     *
-     * @return ArrayCollection 
-     */
-    public function getIcons()
-    {
-        return $this->icons;
-    }
-
-    /**
-     * Checker for icons collection 
-     *
-     * @return bool
-     */
-    public function hasIcons()
-    {
-        return (bool) ($this->icons() > 0); 
-    }
-
-    /**
-     * Nullify icons collection 
-     *
-     * @return $this
-     */
-    public function clearIcons()
-    {
-        $this->icons = new ArrayCollection;
 
         return $this;
     }

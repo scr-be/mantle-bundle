@@ -16,3 +16,5 @@ namespace Scribe\MantleBundle\Entity\Exception;
  * @package Scribe\MantleBundle\Entity\Exception
  */
 class InvalidOrmDataStateException extends OrmException {}
+
+/* EOF */

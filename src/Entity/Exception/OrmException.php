@@ -12,7 +12,7 @@ namespace Scribe\MantleBundle\Entity\Exception;
 
 use Exception;
 use RuntimeException;
-use Scribe\MantleBundle\Entity\Template\Entity;
+use Scribe\Entity\AbstractEntity;
 
 /**
  * Class OrmException
@@ -23,26 +23,26 @@ class OrmException extends RuntimeException implements OrmExceptionInterface
 {
     /**
      * The entity where this exception was thrown from
-     * @type Entity
+     * @type AbstractEntity
      */
     protected $entity;
 
     /**
      * The namespace and class name where this exception was thrown from
-     * @type Entity
+     * @type AbstractEntity
      */
     protected $namespace;
 
     /**
      * Constructor initializes exception arguments
      *
-     * @param Entity         $entity    optional orm entity
+     * @param AbstractEntity         $entity    optional orm entity
      * @param string|null    $namespace optional full classpath, including namespace
      * @param string|null    $message   optional error message
      * @param int            $code      optional error code
      * @param Exception|null $previous  previous exception, if applicable
      */
-    public function __construct(Entity $entity = null, $namespace = null, $message = null, $code = 0, Exception $previous = null)
+    public function __construct(AbstractEntity $entity = null, $namespace = null, $message = null, $code = 0, Exception $previous = null)
     {
         $this->entity    = $entity;
         $this->namespace = $namespace;
@@ -63,7 +63,7 @@ class OrmException extends RuntimeException implements OrmExceptionInterface
     /**
      * Returns entity object
      *
-     * @return Entity
+     * @return AbstractEntity
      */
     public function getEntity()
     {
@@ -77,7 +77,7 @@ class OrmException extends RuntimeException implements OrmExceptionInterface
      */
     public function getEntityDebugArray()
     {
-        if (($this->getEntity() instanceof Entity) === false) {
+        if (($this->getEntity() instanceof AbstractEntity) === false) {
             return print_r($this->getEntity(), true);
         }
 

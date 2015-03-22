@@ -11,275 +11,63 @@
 namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasSlug;
+use Scribe\EntityTrait\HasTitle;
+use Scribe\EntityTrait\HasWeight;
+use Scribe\EntityTrait\HasContext;
+use Scribe\EntityTrait\HasIconAsString;
+use Scribe\EntityTrait\HasAttrs;
+use Scribe\EntityTrait\HasRouteName;
+use Scribe\EntityTrait\HasRouteParameters;
+use Scribe\EntityTrait\HasRoleRestrictionsAsArrayOwningSide;
+use Scribe\EntityTrait\HasReverseRoleRestrictionsAsArrayOwningSide;
 
 /**
  * Entity NavMenuItem
  */
-class NavMenuItem
+class NavMenuItem extends AbstractEntity
 {
-    /**
-     * @var integer
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $context;
-
-    /**
-     * @var string
-     */
-    private $title;
-
-    /**
-     * @var string
-     */
-    private $routeName;
-
-    /**
-     * @var array
-     */
-    private $routeParameters;
-
-    /**
-     * @var string
-     */
-    private $icon;
-
-    /**
-     * @var array
-     */
-    private $roleRestrictions;
-
-    /**
-     * @var array
-     */
-    private $reverseRoleRestrictions;
-
-    /**
-     * @var integer
-     */
-    private $weight;
-
-    /**
-     * @var array
-     */
-    private $attr;
+    use HasSlug,
+        HasTitle,
+        HasWeight,
+        HasContext,
+        HasIconAsString,
+        HasAttrs,
+        HasRouteName,
+        HasRouteParameters,
+        HasRoleRestrictionsAsArrayOwningSide,
+        HasReverseRoleRestrictionsAsArrayOwningSide;
 
     /**
      * @var NavMenuSubItem
      */
     private $subItems;
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return __CLASS__ . ':' . $this->routeName;
+    }
+
+    /**
+     * Setup entity
+     */
     public function __construct()
     {
+        parent::__construct();
+
+        $this->initSlug();
+        $this->initIcon();
+        $this->initAttrs();
+        $this->initRouteName();
+        $this->initRouteParameters();
+        $this->initRoleRestrictionsAsArray();
+        $this->initReverseRoleRestrictionsAsArray();
+
         $this->subItems = new ArrayCollection;
-        $this->attr     = [];
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set context
-     *
-     * @param string $context
-     * @return NavMenuItem
-     */
-    public function setContext($context)
-    {
-        $this->context = $context;
-
-        return $this;
-    }
-
-    /**
-     * Get context
-     *
-     * @return string
-     */
-    public function getContext()
-    {
-        return $this->context;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return NavMenuItem
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set routeName
-     *
-     * @param string $routeName
-     * @return NavMenuItem
-     */
-    public function setRouteName($routeName)
-    {
-        $this->routeName = $routeName;
-
-        return $this;
-    }
-
-    /**
-     * Get routeName
-     *
-     * @return string
-     */
-    public function getRouteName()
-    {
-        return $this->routeName;
-    }
-
-    /**
-     * Set routeParameters
-     *
-     * @param array $routeParameters
-     * @return NavMenuItem
-     */
-    public function setRouteParameters(array $routeParameters = array())
-    {
-        $this->routeParameters = $routeParameters;
-
-        return $this;
-    }
-
-    /**
-     * Get routeParameters
-     *
-     * @return array
-     */
-    public function getRouteParameters()
-    {
-        return $this->routeParameters;
-    }
-
-    /**
-     * Set icon
-     *
-     * @param string $icon
-     * @return NavMenuItem
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-
-        return $this;
-    }
-
-    /**
-     * Get icon
-     *
-     * @return string
-     */
-    public function getIcon()
-    {
-        return $this->icon;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function hasIcon()
-    {
-        return $this->icon ?
-            true : false
-        ;
-    }
-
-    /**
-     * Set roleRestrictions
-     *
-     * @param array $roleRestrictions
-     * @return NavMenuItem
-     */
-    public function setRoleRestrictions(array $roleRestrictions = array())
-    {
-        $this->roleRestrictions = $roleRestrictions;
-
-        return $this;
-    }
-
-    /**
-     * Get roleRestrictions
-     *
-     * @return array
-     */
-    public function getRoleRestrictions()
-    {
-        return $this->roleRestrictions;
-    }
-
-    /**
-     * Set reverseRoleRestrictions
-     *
-     * @param string $reverseRoleRestrictions
-     * @return NavMenuItem
-     */
-    public function setReverseRoleRestrictions(array $reverseRoleRestrictions = array())
-    {
-        $this->reverseRoleRestrictions = $reverseRoleRestrictions;
-
-        return $this;
-    }
-
-    /**
-     * Get reverseRoleRestrictions
-     *
-     * @return string
-     */
-    public function getReverseRoleRestrictions()
-    {
-        return $this->reverseRoleRestrictions;
-    }
-
-    /**
-     * Set weight
-     *
-     * @param integer $weight
-     * @return NavMenuItem
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-
-        return $this;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return integer
-     */
-    public function getWeight()
-    {
-        return $this->weight;
     }
 
     /**
@@ -334,28 +122,11 @@ class NavMenuItem
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isHeader()
     {
         return false;
-    }
-
-    public function setAttrValue($index, $value)
-    {
-        $this->attr[(string)$index] = $value;
-    }
-
-    /**
-     * @param string $index
-     */
-    public function getAttrValue($index)
-    {
-        if ($this->attr === null || !array_key_exists($index, $this->attr)) {
-            return null;
-        }
-
-        return $this->attr[$index];
     }
 }
 

@@ -10,7 +10,7 @@
 
 namespace Scribe\MantleBundle\Entity\Exception;
 
-use Scribe\MantleBundle\Entity\Template\Entity;
+use Scribe\Entity\AbstractEntity;
 
 /**
  * Class OrmExceptionInterface
@@ -22,7 +22,7 @@ interface OrmExceptionInterface
     /**
      * Returns entity object
      *
-     * @return Entity
+     * @return AbstractEntity
      */
     public function getEntity();
 

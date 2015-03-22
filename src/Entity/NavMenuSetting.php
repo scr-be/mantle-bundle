@@ -1,21 +1,15 @@
 <?php
 
 namespace Scribe\MantleBundle\Entity;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasContext;
 
 /**
  * NavMenuSetting
  */
-class NavMenuSetting
+class NavMenuSetting extends AbstractEntity
 {
-    /**
-     * @var integer
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $context;
+    use HasContext;
 
     /**
      * @var string
@@ -28,36 +22,11 @@ class NavMenuSetting
     private $v;
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set context
-     *
-     * @param string $context
-     * @return NavMenuSetting
-     */
-    public function setContext($context)
-    {
-        $this->context = $context;
-
-        return $this;
-    }
-
-    /**
-     * Get context
-     *
      * @return string
      */
-    public function getContext()
+    public function __toString()
     {
-        return $this->context;
+        return __CLASS__ . ':' . $this->k;
     }
 
     /**

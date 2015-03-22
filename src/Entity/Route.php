@@ -10,16 +10,16 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Scribe\MantleBundle\Entity\Template\Entity;
-use Scribe\MantleBundle\Entity\Template\HasName;
-use Scribe\MantleBundle\Entity\Template\HasDescription;
-use Scribe\MantleBundle\Entity\Template\HasParameters;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasName;
+use Scribe\EntityTrait\HasDescription;
+use Scribe\EntityTrait\HasParameters;
 
 /**
  * Class Route
  * @package Scribe\MantleBundle\Entity
  */
-class Route extends Entity
+class Route extends AbstractEntity
 {
     /**
      * import name, description, and parameters traits

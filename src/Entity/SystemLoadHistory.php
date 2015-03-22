@@ -10,20 +10,15 @@
 
 namespace Scribe\MantleBundle\Entity;
 
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasDate;
+
 /**
  * Class SystemLoadHistory
  */
-class SystemLoadHistory
+class SystemLoadHistory extends AbstractEntity
 {
-    /**
-     * @var integer
-     */
-    private $id;
-
-    /**
-     * @var \DateTime
-     */
-    private $date;
+    use HasDate;
 
     /**
      * @var float
@@ -40,34 +35,9 @@ class SystemLoadHistory
      */
     private $load15;
 
-    /**
-     * Get id
-     * @return integer
-     */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set date
-     * @param \DateTime $date
-     * @return SystemLoadHistory
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
+        return __CLASS__ . '::id(' . $this->id . ')';
     }
 
     /**

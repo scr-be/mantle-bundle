@@ -11,6 +11,18 @@ Scribe\MantleBundle\Entity\IconFamily:
             id:        true
             generator: { strategy: AUTO }
 
+        slug:
+            type:   string
+            length: 40
+
+        version:
+            type:   string
+            length: 40
+
+        url:
+            type:   string
+            length: 255
+
         name:
             type:   string
             length: 40
@@ -21,6 +33,7 @@ Scribe\MantleBundle\Entity\IconFamily:
 
         requiredClasses:
             type: json_array
+            nullable: true
 
         optionalClasses:
             type: json_array

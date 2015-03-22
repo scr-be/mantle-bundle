@@ -242,8 +242,12 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             ->getIcons()
             ->filter(
                 function($familyIcon) use ($slug) {
-
-                    return (bool) ($familyIcon->getSlug() == $slug);
+                    if ($familyIcon->getSlug() == $slug) {
+                        return true;
+                    } elseif (in_array($slug, $familyIcon->getAliases())) {
+                        return true;
+                    }
+                    return false;
                 }
             )
         ;
@@ -461,6 +465,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             ->getTemplateEntity()
             ->getTemplate()
         ;
+
         $arguments = [
             'family' => $this->getFamilyEntity(),
             'icon'   => $this->getIconEntity(),

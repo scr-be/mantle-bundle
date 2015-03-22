@@ -11,29 +11,26 @@
 namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Scribe\MantleBundle\Entity\Template\Entity;
-use Scribe\MantleBundle\Entity\Template\HasName;
-use Scribe\MantleBundle\Entity\Template\HasDescription;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasName;
+use Scribe\EntityTrait\HasDescription;
+use Scribe\EntityTrait\HasSlug;
 
 /**
  * Class Icon
  * @package Scribe\MantleBundle\Entity
  */
-class IconTemplate extends Entity
+class IconTemplate extends AbstractEntity
 {
     /**
      * import name and description entity property traits
      */
     use HasName,
+        HasSlug,
         HasDescription;
 
     /**
-     * @type string
-     */
-    private $slug;
-
-    /**
-     * @var jsonArray 
+     * @var array
      */
     private $variables;
 
@@ -69,29 +66,6 @@ class IconTemplate extends Entity
     public function __toString()
     {
         $this->getName();
-    }
-
-    /**
-     * Setter for slug property 
-     *
-     * @param string 
-     * @return $this
-     */
-    public function setSlug($slug = null)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Getter for slug property 
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**

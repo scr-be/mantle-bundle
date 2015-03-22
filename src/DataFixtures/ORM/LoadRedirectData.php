@@ -10,40 +10,24 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
-use Scribe\MantleBundle\Entity\Redirects;
 
 /**
- * LoadProjectSettingTypeData
+ * LoadRedirectData
+ *
+ * @package Scribe\MantleBundle\DataFixtures\ORM
  */
 class LoadRedirectData extends AbstractYamlFixture
 {
     /**
-     * {@inheritDoc}
+     * Init fixture
      */
-    public function load(ObjectManager $manager)
+    public function init()
     {
-        foreach ($this->getFixtures('Redirects') as $i => $f) {
-            $entity = new Redirects;
-            $entity
-                ->setPattern($f['pattern'])
-                ->setDestination($f['destination'])
-            ;
-
-            $this->addReference('Redirects'.':'.$i, $entity);
-            $manager->persist($entity);
-        }
-
-        $manager->flush();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getOrder()
-    {
-        return 10000;
+        $this
+            ->setOrmFixtureName('Redirect')
+            ->loadOrmFixtureData()
+        ;
     }
 }
 
