@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Twig_Extension;
 
 /**
- * Class MenuExtension
+ * Class MenuExtension.
  */
 class MenuExtension extends Twig_Extension
 {
@@ -25,7 +25,7 @@ class MenuExtension extends Twig_Extension
         ContainerAwareExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct(ContainerInterface $container)
     {
@@ -35,6 +35,7 @@ class MenuExtension extends Twig_Extension
 
     /**
      * @param string $which
+     *
      * @return mixed
      */
     public function menu($which)
@@ -43,7 +44,6 @@ class MenuExtension extends Twig_Extension
             ->getContainer()
             ->get('s.tpl.helper.menu')
         ;
-
 
         switch ($which) {
             case 'main':
@@ -55,7 +55,7 @@ class MenuExtension extends Twig_Extension
                 break;
 
             default:
-                throw new InvalidArgumentException;
+                throw new InvalidArgumentException();
         }
     }
 }

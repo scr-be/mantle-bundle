@@ -10,7 +10,6 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\EntityTrait\HasName;
 use Scribe\EntityTrait\HasSlug;
@@ -21,12 +20,11 @@ use Scribe\EntityTrait\HasDescription;
 use Scribe\Entity\AbstractEntity;
 
 /**
- * Class Icon
- * @package Scribe\MantleBundle\Entity
+ * Class Icon.
  */
 class Icon extends AbstractEntity
 {
-    /**
+    /*
      * import name and description entity property traits
      */
     use HasName,
@@ -37,17 +35,17 @@ class Icon extends AbstractEntity
         HasDescription;
 
     /**
-     * @type ArrayCollection|IconFamily[]
+     * @var ArrayCollection|IconFamily[]
      */
     private $families;
 
     /**
-     * @var string 
+     * @var string
      */
     private $unicode;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
@@ -55,11 +53,12 @@ class Icon extends AbstractEntity
         $this->initAttributes();
         $this->initCategories();
 
-        $this->families = new ArrayCollection;
+        $this->families = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object type to string type
+     * Support for casting from object type to string type.
+     *
      * @return string
      */
     public function __toString()
@@ -77,8 +76,10 @@ class Icon extends AbstractEntity
     }
 
     /**
-     * Setter for families property
-     * @param  ArrayCollection|IconFamily[] $families
+     * Setter for families property.
+     *
+     * @param ArrayCollection|IconFamily[] $families
+     *
      * @return $this
      */
     public function setFamilies(ArrayCollection $families = null)
@@ -89,7 +90,8 @@ class Icon extends AbstractEntity
     }
 
     /**
-     * Getter for families property
+     * Getter for families property.
+     *
      * @return ArrayCollection|IconFamily[]
      */
     public function getFamilies()
@@ -98,7 +100,8 @@ class Icon extends AbstractEntity
     }
 
     /**
-     * Checker for families property
+     * Checker for families property.
+     *
      * @return bool
      */
     public function hasFamilies()
@@ -107,20 +110,22 @@ class Icon extends AbstractEntity
     }
 
     /**
-     * Nullify families property
+     * Nullify families property.
+     *
      * @return $this
      */
     public function clearFamilies()
     {
-        $this->families = new ArrayCollection;
+        $this->families = new ArrayCollection();
 
         return $this;
     }
 
     /**
-     * Setter for unicode property 
+     * Setter for unicode property.
      *
-     * @param string 
+     * @param string
+     *
      * @return $this
      */
     public function setUnicode($unicode = null)
@@ -131,9 +136,9 @@ class Icon extends AbstractEntity
     }
 
     /**
-     * Getter for unicode property 
+     * Getter for unicode property.
      *
-     * @return string 
+     * @return string
      */
     public function getUnicode()
     {

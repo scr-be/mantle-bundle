@@ -11,10 +11,10 @@
 namespace Scribe\MantleBundle\Entity\Exception;
 
 /**
- * Class InvalidOrmAssociationException
- *
- * @package Scribe\MantleBundle\Entity\Exception
+ * Class InvalidOrmAssociationException.
  */
-class InvalidOrmAssociationException extends OrmException {}
+class InvalidOrmAssociationException extends OrmException
+{
+}
 
 /* EOF */

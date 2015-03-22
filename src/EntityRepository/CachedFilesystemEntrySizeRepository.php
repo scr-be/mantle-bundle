@@ -13,7 +13,8 @@ namespace Scribe\MantleBundle\EntityRepository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class CachedFilesystemEntrySizeRepository
- * @package Scribe\MantleBundle\Entity
+ * Class CachedFilesystemEntrySizeRepository.
  */
-class CachedFilesystemEntrySizeRepository extends EntityRepository {}
+class CachedFilesystemEntrySizeRepository extends EntityRepository
+{
+}

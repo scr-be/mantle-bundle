@@ -13,16 +13,14 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon;
 use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorException;
 
 /**
- * Class IconException
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon
+ * Class IconException.
  */
 class IconException extends TemplatingGeneratorException
 {
     /**
-     * Exception code for validation occurring in the incorrect order
+     * Exception code for validation occurring in the incorrect order.
      *
-     * @type int
+     * @var int
      */
     const CODE_INVALID_VALIDATION_ORDER = 52;
 }

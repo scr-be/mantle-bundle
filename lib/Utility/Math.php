@@ -14,25 +14,23 @@ use Scribe\Utility\StaticClass\StaticClassTrait;
 use Scribe\Exception\InvalidArgumentException;
 
 /**
- * Class Math
- *
- * @package Scribe\Utility
+ * Class Math.
  */
 class Math
 {
-    /**
+    /*
      * disallow instantiation
      */
     use StaticClassTrait;
 
     /**
-     * Convert an integer from one base to another with optional prevision
+     * Convert an integer from one base to another with optional prevision.
      *
-     * @param  int      $integer      Integer value to convert
-     * @param  int      $base         Current base of integer
-     * @param  int      $newBase      New base of integer
-     * @param  int|null $precision    Optionally round converted integer to specified precision
-     * @param  bool     $newBaseAsMax If set to true the converted integer will not be allowed to exceed the new base
+     * @param int      $integer      Integer value to convert
+     * @param int      $base         Current base of integer
+     * @param int      $newBase      New base of integer
+     * @param int|null $precision    Optionally round converted integer to specified precision
+     * @param bool     $newBaseAsMax If set to true the converted integer will not be allowed to exceed the new base
      *
      * @throws InvalidArgumentException
      *

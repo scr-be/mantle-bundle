@@ -15,14 +15,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 
 /**
- * Class MenuExtension
+ * Class MenuExtension.
  */
 class MenuMainExtension extends Twig_Extension
 {
     use ContainerAwareExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct(ContainerInterface $container)
     {
@@ -44,7 +44,7 @@ class MenuMainExtension extends Twig_Extension
                 $this,
                 'renderMenuFoot',
                 ['is_safe' => ['html']]
-            )
+            ),
 
         ];
     }

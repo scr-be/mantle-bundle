@@ -15,75 +15,82 @@ use Scribe\Exception\InvalidArgumentException;
 use Scribe\SharedBundle\Entity\CachedFilesystemEntrySizeRepository;
 
 /**
- * Class Filesystem
- *
- * @package Scribe\Utility
+ * Class Filesystem.
  */
 class Filesystem
 {
-
     /**
-     * Bytes string representation
-     * @type string
+     * Bytes string representation.
+     *
+     * @var string
      */
     const UNIT_TYPE_BYTE = 'B';
 
     /**
-     * Kilobyte string representation
-     * @type string
+     * Kilobyte string representation.
+     *
+     * @var string
      */
     const UNIT_TYPE_KILOBYTE = 'KB';
 
     /**
-     * Megabyte string representation
-     * @type string
+     * Megabyte string representation.
+     *
+     * @var string
      */
     const UNIT_TYPE_MEGABYTE = 'MB';
 
     /**
-     * Gigabyte string representation
-     * @type string
+     * Gigabyte string representation.
+     *
+     * @var string
      */
     const UNIT_TYPE_GIGABYTE = 'GB';
 
     /**
-     * Terabyte string representation
-     * @type string
+     * Terabyte string representation.
+     *
+     * @var string
      */
     const UNIT_TYPE_TERABYTE = 'TB';
 
     /**
-     * Petabyte string representation
-     * @type string
+     * Petabyte string representation.
+     *
+     * @var string
      */
     const UNIT_TYPE_PETABYTE = 'PB';
 
     /**
-     * Conversion divisor for base-10 sizes
-     * @type string
+     * Conversion divisor for base-10 sizes.
+     *
+     * @var string
      */
     const UNIT_BASE_10 = 1000;
 
     /**
-     * Conversion divisor for base-02 sizes
-     * @type string
+     * Conversion divisor for base-02 sizes.
+     *
+     * @var string
      */
     const UNIT_BASE_02 = 1024;
 
     /**
-     * General purpose utility class shared between all controllers
-     * @type ControllerUtils
+     * General purpose utility class shared between all controllers.
+     *
+     * @var ControllerUtils
      */
     private $utils;
 
     /**
-     * Repo class for cached filesystem directory sizes
-     * @type CachedFilesystemEntrySizeRepository
+     * Repo class for cached filesystem directory sizes.
+     *
+     * @var CachedFilesystemEntrySizeRepository
      */
     private $cachedFilesystemEntrySizeRepository;
 
     /**
-     * Initialize and setup this object instance
+     * Initialize and setup this object instance.
      *
      * @param ControllerUtils                     $utils
      * @param CachedFilesystemEntrySizeRepository $cachedFilesystemEntrySizeRepository
@@ -108,7 +115,7 @@ class Filesystem
     /**
      * Ingests a directory path with optional assignment of the directory
      * separator and returns the path parts (read: folders) as either a
-     * single= or multi-dimensional array
+     * single= or multi-dimensional array.
      *
      * @param string $path                   a path string to parse
      * @param bool   $singleDimensionalArray if set to true, this functions return value reverts back to
@@ -128,7 +135,7 @@ class Filesystem
         $rootPath = empty($pathParts[0]) ? true : false;
 
         // filter array for empty values (example: double directory separators would cause this)
-        $pathParts = array_values(array_filter($pathParts, function($part) {
+        $pathParts = array_values(array_filter($pathParts, function ($part) {
                     return (bool) !empty($part);
                 }));
 
@@ -148,7 +155,7 @@ class Filesystem
             }
 
             $incrementalPath = $rootPath === true ?
-                DIRECTORY_SEPARATOR . implode($directorySeparator, $pathBuilder) :
+                DIRECTORY_SEPARATOR.implode($directorySeparator, $pathBuilder) :
                 implode($directorySeparator, $pathBuilder);
 
             // push the temp built path onto part of returned array
@@ -164,19 +171,19 @@ class Filesystem
         return [
             $pathParts,
             $pathIncrementalParts,
-            count($pathParts)
+            count($pathParts),
         ];
     }
 
     /**
      * Ingests an arbitrary size of either base-02 or base-10 and converts it to the largest size that
      * results in a whole number, before returning an array with two objects - one with the original
-     * size information, and a second with the converted size information
+     * size information, and a second with the converted size information.
      *
      * @param integer $sizeToConvert    the size value to convert
      * @param string  $providedUnitType the unit type provided
      * @param string  $maxUnitType      an optional max unit type for the conversion
-     * @param integer  $unitBase         an optional specifier of either a base-02 or base-10 number
+     * @param integer $unitBase         an optional specifier of either a base-02 or base-10 number
      *
      * @return array
      */
@@ -189,12 +196,12 @@ class Filesystem
             self::UNIT_TYPE_MEGABYTE,
             self::UNIT_TYPE_GIGABYTE,
             self::UNIT_TYPE_TERABYTE,
-            self::UNIT_TYPE_PETABYTE
+            self::UNIT_TYPE_PETABYTE,
         ];
 
         // check for a valid provided and max unit type
         if (!in_array($providedUnitType, $units) || !in_array($maxUnitType, $units)) {
-            throw new InvalidArgumentException('Invalid unit type specified: ' . $unitBase);
+            throw new InvalidArgumentException('Invalid unit type specified: '.$unitBase);
         }
 
         // use the unit-type array position (its key) to determine the starting step and max depth
@@ -219,7 +226,7 @@ class Filesystem
             'type' => 'provided',
             'size' => $sizeToConvert,
             'unit' => $providedUnitType,
-            'base' => $unitBase
+            'base' => $unitBase,
         ];
 
         // compile an object of the new size info
@@ -227,13 +234,13 @@ class Filesystem
             'type' => 'converted',
             'size' => $size,
             'unit' => $units[$step],
-            'base' => $unitBase
+            'base' => $unitBase,
         ];
 
         // return an array with both original and new size info objects
         return [
             $convertedSizeInfo,
-            $originalSizeInfo
+            $originalSizeInfo,
         ];
     }
 }

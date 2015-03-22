@@ -11,21 +11,19 @@
 namespace Scribe\Component\Controller;
 
 /**
- * Class ControllerUtilsTrait
- *
- * @package Scribe\Component\Controller
+ * Class ControllerUtilsTrait.
  */
 trait ControllerUtilsTrait
 {
     /**
-     * Instance of controller utils
+     * Instance of controller utils.
      *
      * @var ControllerUtils
      */
     protected $utils;
 
     /**
-     * Setter for utils instance
+     * Setter for utils instance.
      *
      * @param ControllerUtils $utils object instance
      */
@@ -35,7 +33,7 @@ trait ControllerUtilsTrait
     }
 
     /**
-     * Getter for utils instance
+     * Getter for utils instance.
      *
      * @return ControllerUtils
      */
@@ -45,7 +43,7 @@ trait ControllerUtilsTrait
     }
 
     /**
-     * Short-hand alias for {@see getUtils}
+     * Short-hand alias for {@see getUtils}.
      *
      * @return ControllerUtils
      */

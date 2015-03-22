@@ -11,21 +11,19 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasRoleRestrictionsAsArrayInverseSide
- *
- * @package Scribe\EntityTrait
+ * Class HasRoleRestrictionsAsArrayInverseSide.
  */
 trait HasRoleRestrictionsAsArrayInverseSide
 {
     /**
-     * Role restrictions property
+     * Role restrictions property.
      *
-     * @type string[]
+     * @var string[]
      */
     protected $roleRestrictions;
 
     /**
-     * Getter for roleRestrictions property
+     * Getter for roleRestrictions property.
      *
      * @return string[]
      */
@@ -35,7 +33,7 @@ trait HasRoleRestrictionsAsArrayInverseSide
     }
 
     /**
-     * Checker for roleRestrictions property
+     * Checker for roleRestrictions property.
      *
      * @return bool
      */
@@ -45,9 +43,10 @@ trait HasRoleRestrictionsAsArrayInverseSide
     }
 
     /**
-     * Checker for specific role within roleRestrictions property
+     * Checker for specific role within roleRestrictions property.
      *
-     * @param  string $role
+     * @param string $role
+     *
      * @return bool
      */
     public function hasRoleRestriction($role)

@@ -11,23 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasContext
- *
- * @package Scribe\EntityTrait
+ * Class HasContext.
  */
 trait HasContext
 {
     /**
-     * The context property
+     * The context property.
      *
-     * @type string
+     * @var string
      */
     protected $context;
 
     /**
-     * Setter for context property
+     * Setter for context property.
      *
      * @param string|null $context the context string
+     *
      * @return $this
      */
     public function setContext($context = null)
@@ -38,7 +37,7 @@ trait HasContext
     }
 
     /**
-     * Getter for context property
+     * Getter for context property.
      *
      * @return string|null
      */
@@ -48,7 +47,7 @@ trait HasContext
     }
 
     /**
-     * Checker for context property
+     * Checker for context property.
      *
      * @return bool
      */
@@ -58,7 +57,7 @@ trait HasContext
     }
 
     /**
-     * Nullify the context property
+     * Nullify the context property.
      *
      * @return $this
      */

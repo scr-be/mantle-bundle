@@ -11,21 +11,19 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasAttributes
- *
- * @package Scribe\EntityTrait
+ * Class HasAttributes.
  */
 trait HasAttributes
 {
     /**
-     * The attributes property
+     * The attributes property.
      *
-     * @type array
+     * @var array
      */
     protected $attributes;
 
     /**
-     * Should be called from constructor of entity using this trait
+     * Should be called from constructor of entity using this trait.
      *
      * @return $this
      */
@@ -37,9 +35,10 @@ trait HasAttributes
     }
 
     /**
-     * Setter for attributes property
+     * Setter for attributes property.
      *
      * @param array|null $attributes array of attributes
+     *
      * @return $this
      */
     public function setAttributes(array $attributes = null)
@@ -50,7 +49,7 @@ trait HasAttributes
     }
 
     /**
-     * Getter for attributes property
+     * Getter for attributes property.
      *
      * @return array|null
      */
@@ -60,41 +59,44 @@ trait HasAttributes
     }
 
     /**
-     * Checker for attributes property
+     * Checker for attributes property.
      *
      * @return bool
      */
     public function hasAttributes()
     {
-        return (bool) (count( (array) $this->getAttributes()) > 0);
+        return (bool) (count((array) $this->getAttributes()) > 0);
     }
 
     /**
-     * Check for value in attributes array
+     * Check for value in attributes array.
      *
      * @param mixed $value value needle to look for
+     *
      * @return bool
      */
     public function hasAttributeValue($value)
     {
-        return (bool) (in_array($value, (array)$this->getAttributes()));
+        return (bool) (in_array($value, (array) $this->getAttributes()));
     }
 
     /**
-     * Check for key in attributes array
+     * Check for key in attributes array.
      *
      * @param string $key key needle to look for
+     *
      * @return bool
      */
     public function hasAttributeKey($key)
     {
-        return (bool) (array_key_exists($key, (array)$this->getAttributes()));
+        return (bool) (array_key_exists($key, (array) $this->getAttributes()));
     }
 
     /**
-     * Retrieve a single attribute array value
+     * Retrieve a single attribute array value.
      *
      * @param string $key the array key to get the value of
+     *
      * @return string|null
      */
     public function getAttributeValue($key)
@@ -103,20 +105,21 @@ trait HasAttributes
             return $this->getAttributes()[$key];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Set a key->value attributes property pair
+     * Set a key->value attributes property pair.
      *
      * @param string $key       assignment array key
      * @param mixed  $value     new array item value
      * @param bool   $overwrite overwrite a row if the key already exists
+     *
      * @return $this
      */
     public function setAttributeValue($key, $value, $overwrite = true)
     {
-        $key = (string)$key;
+        $key = (string) $key;
 
         if ($this->hasAttributeKey($key) !== true || $overwrite === true) {
             $this->getAttributes()[ $key ] = $value;
@@ -126,7 +129,7 @@ trait HasAttributes
     }
 
     /**
-     * Nullify the attributes property
+     * Nullify the attributes property.
      *
      * @return $this
      */

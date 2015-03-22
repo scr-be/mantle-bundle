@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 
 /**
- * Class SearchExtension
+ * Class SearchExtension.
  */
 class SearchExtension extends Twig_Extension
 {
@@ -40,11 +40,12 @@ class SearchExtension extends Twig_Extension
         ;
 
         $this->addFunctionMethod('search',     'search');
-        $this->addFunctionMethod('searchText', 'search_text' );
+        $this->addFunctionMethod('searchText', 'search_text');
     }
 
     /**
-     * @param  string $what
+     * @param string $what
+     *
      * @return string
      */
     public function searchText($what = 'Bundle')
@@ -60,7 +61,7 @@ class SearchExtension extends Twig_Extension
         if (method_exists($bundleInfo, $method)) {
             $return = ucwords($bundleInfo->$method());
 
-            switch($return) {
+            switch ($return) {
                 case 'Eep':
                     $return = 'E-book Project';
                     break;

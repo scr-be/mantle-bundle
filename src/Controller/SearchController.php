@@ -10,16 +10,16 @@
 
 namespace Scribe\MantleBundle\Controller;
 
-use Scribe\MantleBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class SearchController
+ * Class SearchController.
  */
 class SearchController extends AbstractController
 {
     /**
      * @param $name
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function queryAction()

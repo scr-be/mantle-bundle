@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class MenuItem
+ * Class MenuItem.
  */
 class MenuItem implements MenuInterface, ContainerAwareInterface
 {
@@ -75,7 +75,8 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string $title
+     * @param string $title
+     *
      * @return MenuItem
      */
     public function setTitle($title)
@@ -94,12 +95,13 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string $forceActive
+     * @param string $forceActive
+     *
      * @return MenuItem
      */
     public function setForceActive($forceActive)
     {
-        $this->forceActive = (boolean)$forceActive;
+        $this->forceActive = (boolean) $forceActive;
 
         return $this;
     }
@@ -113,7 +115,8 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string $icon
+     * @param string $icon
+     *
      * @return MenuItem
      */
     public function setIcon($icon)
@@ -142,7 +145,8 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string|null $routeName
+     * @param string|null $routeName
+     *
      * @return MenuItem
      */
     public function setRouteName($routeName = null)
@@ -161,7 +165,8 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  array $routeParameters
+     * @param array $routeParameters
+     *
      * @return MenuItem
      */
     public function setRouteParameters(array $routeParameters = array())
@@ -176,12 +181,13 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
      */
     public function getRouteParameters()
     {
-        return (array)$this->routeParameters;
+        return (array) $this->routeParameters;
     }
 
     /**
-     * @param  string|null $routeName
-     * @param  array       $routeParameters
+     * @param string|null $routeName
+     * @param array       $routeParameters
+     *
      * @return MenuItem
      */
     public function setRoute($routeName = null, array $routeParameters = array())
@@ -193,7 +199,8 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  array $subMenus
+     * @param array $subMenus
+     *
      * @return MenuItem
      */
     public function setSubMenus(array $subMenus = array())
@@ -222,7 +229,8 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  boolean $header
+     * @param boolean $header
+     *
      * @return MenuItem
      */
     public function setHeader($header = false)
@@ -297,5 +305,4 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
             )
         ;
     }
-
 }

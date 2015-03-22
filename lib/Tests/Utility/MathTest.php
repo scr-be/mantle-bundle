@@ -24,7 +24,7 @@ class MathTest extends PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionOnInstantiation()
     {
-        new Math;
+        new Math();
     }
 
     /**
@@ -43,7 +43,7 @@ class MathTest extends PHPUnit_Framework_TestCase
             [1,     10, 100, null, false, 10  ],
             [50,    50, 200, null, false, 200 ],
             [1.333, 10, 50,  2,    false, 6.67],
-            [20,    10, 100, null, true,  100 ]
+            [20,    10, 100, null, true,  100 ],
         ];
     }
 

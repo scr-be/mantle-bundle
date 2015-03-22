@@ -11,23 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasTraits
- *
- * @package Scribe\EntityTrait
+ * Class HasTraits.
  */
 trait HasTraits
 {
     /**
-     * The traits property
+     * The traits property.
      *
-     * @type array
+     * @var array
      */
     protected $traits;
 
     /**
-     * Setter for traits property
+     * Setter for traits property.
      *
      * @param array|null $traits array of traits
+     *
      * @return $this
      */
     public function setTraits(array $traits = null)
@@ -38,7 +37,7 @@ trait HasTraits
     }
 
     /**
-     * Getter for traits property
+     * Getter for traits property.
      *
      * @return array|null
      */
@@ -48,41 +47,44 @@ trait HasTraits
     }
 
     /**
-     * Checker for traits property
+     * Checker for traits property.
      *
      * @return bool
      */
     public function hasTraits()
     {
-        return (bool)sizeof((array)$this->getTraits()) > 0;
+        return (bool) sizeof((array) $this->getTraits()) > 0;
     }
 
     /**
-     * Check for value in traits array
+     * Check for value in traits array.
      *
      * @param mixed $value value needle to look for
+     *
      * @return bool
      */
     public function hasTraitsValue($value)
     {
-        return (bool)in_array($value, (array)$this->getTraits());
+        return (bool) in_array($value, (array) $this->getTraits());
     }
 
     /**
-     * Check for key in traits array
+     * Check for key in traits array.
      *
      * @param string $key key needle to look for
+     *
      * @return bool
      */
     public function hasTraitsKey($key)
     {
-        return (bool)array_key_exists($key, (array)$this->getTraits());
+        return (bool) array_key_exists($key, (array) $this->getTraits());
     }
 
     /**
-     * Retrieve a single attribute array value
+     * Retrieve a single attribute array value.
      *
      * @param string $key the array key to get the value of
+     *
      * @return string|null
      */
     public function getAttributeValue($key)
@@ -91,20 +93,21 @@ trait HasTraits
             return $this->getTraits()[$key];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Set a key->value traits property pair
+     * Set a key->value traits property pair.
      *
      * @param string $key       assignment array key
      * @param mixed  $value     new array item value
      * @param bool   $overwrite overwrite a row if the key already exists
+     *
      * @return $this
      */
     public function setTraitsValue($key, $value, $overwrite = true)
     {
-        $key = (string)$key;
+        $key = (string) $key;
 
         if ($this->hasTraitsKey($key) !== true || $overwrite === true) {
             $this->getTraits()[ $key ] = $value;
@@ -114,7 +117,7 @@ trait HasTraits
     }
 
     /**
-     * Nullify the traits property
+     * Nullify the traits property.
      *
      * @return $this
      */

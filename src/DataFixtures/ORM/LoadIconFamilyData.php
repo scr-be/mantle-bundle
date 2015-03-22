@@ -13,14 +13,12 @@ namespace Scribe\MantleBundle\DataFixtures\ORM;
 use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 
 /**
- * LoadIconFamilyData
- *
- * @package Scribe\MantleBundle\DataFixtures\ORM
+ * LoadIconFamilyData.
  */
 class LoadIconFamilyData extends AbstractYamlFixture
 {
     /**
-     * Init fixture
+     * Init fixture.
      */
     public function init()
     {

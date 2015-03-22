@@ -11,21 +11,19 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasSlug
- *
- * @package Scribe\EntityTrait
+ * Class HasSlug.
  */
 trait HasSlug
 {
     /**
-     * The slug property
+     * The slug property.
      *
-     * @type string
+     * @var string
      */
     protected $slug;
 
     /**
-     * init trait
+     * init trait.
      */
     protected function initSlug()
     {
@@ -33,9 +31,10 @@ trait HasSlug
     }
 
     /**
-     * Setter for slug property
+     * Setter for slug property.
      *
      * @param string|null $slug the slug string
+     *
      * @return $this
      */
     public function setSlug($slug = null)
@@ -46,7 +45,7 @@ trait HasSlug
     }
 
     /**
-     * Getter for slug property
+     * Getter for slug property.
      *
      * @return string|null
      */
@@ -56,7 +55,7 @@ trait HasSlug
     }
 
     /**
-     * Checker for slug property
+     * Checker for slug property.
      *
      * @return bool
      */
@@ -66,7 +65,7 @@ trait HasSlug
     }
 
     /**
-     * Nullify the slug property
+     * Nullify the slug property.
      *
      * @return $this
      */

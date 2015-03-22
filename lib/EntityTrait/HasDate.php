@@ -13,7 +13,7 @@ namespace Scribe\EntityTrait;
 use DateTime;
 
 /**
- * Class HasDate
+ * Class HasDate.
  */
 trait HasDate
 {
@@ -32,6 +32,7 @@ trait HasDate
 
     /**
      * @param DateTime $datetime
+     *
      * @return $this
      */
     public function setDate(DateTime $datetime)
@@ -43,9 +44,10 @@ trait HasDate
 
     /**
      * @param string $format
+     *
      * @return string
      */
-    public function getDateFormatted($format='r')
+    public function getDateFormatted($format = 'r')
     {
         return $this->getDate()->format($format);
     }

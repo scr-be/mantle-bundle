@@ -11,9 +11,7 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasAlias
- *
- * @package Scribe\EntityTrait
+ * Class HasAlias.
  */
 trait HasRouteName
 {
@@ -23,7 +21,7 @@ trait HasRouteName
     private $routeName;
 
     /**
-     * init trait
+     * init trait.
      */
     public function initRouteName()
     {
@@ -31,9 +29,10 @@ trait HasRouteName
     }
 
     /**
-     * Set routeName
+     * Set routeName.
      *
      * @param string $routeName
+     *
      * @return $this
      */
     public function setRouteName($routeName)
@@ -44,7 +43,7 @@ trait HasRouteName
     }
 
     /**
-     * Get routeName
+     * Get routeName.
      *
      * @return string
      */

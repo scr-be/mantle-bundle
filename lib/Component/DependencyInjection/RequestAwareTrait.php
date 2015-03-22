@@ -14,23 +14,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class RequestAwareTrait
- *
- * @package Scribe\MantleBundle\DependencyInjection
+ * Class RequestAwareTrait.
  */
 trait RequestAwareTrait
 {
     /**
-     * request instance
+     * request instance.
      *
      * @var Request|null
      */
     protected $request = null;
 
     /**
-     * Setter for request property from container
+     * Setter for request property from container.
      *
      * @param ContainerInterface $container container object
+     *
      * @return $this
      */
     public function setRequestFromContainer(ContainerInterface $container)
@@ -41,9 +40,10 @@ trait RequestAwareTrait
     }
 
     /**
-     * Setter for request
+     * Setter for request.
      *
-     * @param  Request|null $request request instance
+     * @param Request|null $request request instance
+     *
      * @return $this
      */
     public function setRequest(Request $request = null)
@@ -54,7 +54,7 @@ trait RequestAwareTrait
     }
 
     /**
-     * Getter for request
+     * Getter for request.
      *
      * @return Request|null
      */
@@ -64,9 +64,10 @@ trait RequestAwareTrait
     }
 
     /**
-     * Get request referer
+     * Get request referer.
      *
-     * @param  string $default the default referer to return if none found
+     * @param string $default the default referer to return if none found
+     *
      * @return string|null
      */
     public function getReferer($default = null)

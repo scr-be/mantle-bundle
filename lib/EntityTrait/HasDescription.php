@@ -11,20 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasDescription
- * @package Scribe\EntityTrait
+ * Class HasDescription.
  */
 trait HasDescription
 {
     /**
-     * The entity description property
-     * @type string
+     * The entity description property.
+     *
+     * @var string
      */
     protected $description;
 
     /**
-     * Setter for description property
+     * Setter for description property.
+     *
      * @param string|null $description description for entity
+     *
      * @return $this
      */
     public function setDescription($description = null)
@@ -35,7 +37,8 @@ trait HasDescription
     }
 
     /**
-     * Getter for description property
+     * Getter for description property.
+     *
      * @return string|null
      */
     public function getDescription()
@@ -44,7 +47,8 @@ trait HasDescription
     }
 
     /**
-     * Checker for description property
+     * Checker for description property.
+     *
      * @return bool
      */
     public function hasDescription()
@@ -53,7 +57,8 @@ trait HasDescription
     }
 
     /**
-     * Nullify the description property
+     * Nullify the description property.
+     *
      * @return $this
      */
     public function clearDescription()

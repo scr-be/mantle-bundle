@@ -1,10 +1,11 @@
 <?php
 
 namespace Scribe\MantleBundle\Entity;
+
 use Scribe\Entity\AbstractEntity;
 
 /**
- * NewsletterUser
+ * NewsletterUser.
  */
 class NewsletterUser extends AbstractEntity
 {
@@ -22,9 +23,10 @@ class NewsletterUser extends AbstractEntity
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return NewsletterUser
      */
     public function setEmail($email)
@@ -35,7 +37,7 @@ class NewsletterUser extends AbstractEntity
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */

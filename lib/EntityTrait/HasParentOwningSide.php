@@ -13,19 +13,17 @@ namespace Scribe\EntityTrait;
 use Scribe\Entity\AbstractEntity;
 
 /**
- * Class HasParentInverseSide
- *
- * @package Scribe\EntityTrait
+ * Class HasParentInverseSide.
  */
 trait HasParentOwningSide
 {
-    /**
+    /*
      * Import inverse-side trait (read functions)
      */
     use HasParentInverseSide;
 
     /**
-     * init trait
+     * init trait.
      */
     protected function initParent()
     {
@@ -33,9 +31,10 @@ trait HasParentOwningSide
     }
 
     /**
-     * Setter for parent
+     * Setter for parent.
      *
      * @param AbstractEntity|null $parent a parent entity instance
+     *
      * @return $this
      */
     public function setParent(AbstractEntity $parent = null)
@@ -46,7 +45,7 @@ trait HasParentOwningSide
     }
 
     /**
-     * Nullify parent property
+     * Nullify parent property.
      *
      * @return $this
      */

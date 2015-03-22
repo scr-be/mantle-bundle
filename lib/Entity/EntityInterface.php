@@ -11,18 +11,17 @@
 namespace Scribe\Entity;
 
 /**
- * Interface EntityInterface
- * @package Scribe\Entity
+ * Interface EntityInterface.
  */
 interface EntityInterface
 {
     /**
-     * Should have a constructor to setup entity properties
+     * Should have a constructor to setup entity properties.
      */
     public function __construct();
 
     /**
-     * Get entity id
+     * Get entity id.
      *
      * @return int|null
      */

@@ -11,8 +11,7 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasId
- * @package Scribe\EntityTrait
+ * Class HasId.
  */
 trait HasId
 {

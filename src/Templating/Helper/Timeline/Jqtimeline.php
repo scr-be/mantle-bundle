@@ -16,7 +16,7 @@ use Zend\Json\Json;
 use Datetime;
 
 /**
- * Class Jqtimeline
+ * Class Jqtimeline.
  */
 class Jqtimeline extends AbstractContainer implements TimelineInterface
 {
@@ -57,30 +57,31 @@ class Jqtimeline extends AbstractContainer implements TimelineInterface
 
     /**
      * @param string $target
-     * @param null $startYear
-     * @param int $numYears
-     * @param int $gap
-     * @param bool $showToolTip
-     * @param int $groupEventWithinPx
+     * @param null   $startYear
+     * @param int    $numYears
+     * @param int    $gap
+     * @param bool   $showToolTip
+     * @param int    $groupEventWithinPx
      */
     public function __construct($target, $startYear = null, $numYears = 1, $gap = 60, $showToolTip = true, $groupEventWithinPx = 5)
     {
         $this->target = $target;
         $this->startYear = $startYear !== null ?
-            $startYear : (integer)date('Y')
+            $startYear : (integer) date('Y')
         ;
-        $this->numYears = (integer)$numYears;
-        $this->gap = (integer)$gap;
-        $this->showToolTip = (boolean)$showToolTip;
-        $this->groupEventWithinPx = (integer)$groupEventWithinPx;
-        $this->endYear = (integer)date('Y');
+        $this->numYears = (integer) $numYears;
+        $this->gap = (integer) $gap;
+        $this->showToolTip = (boolean) $showToolTip;
+        $this->groupEventWithinPx = (integer) $groupEventWithinPx;
+        $this->endYear = (integer) date('Y');
     }
 
     /**
-     * @param int $id
-     * @param string $name
+     * @param int      $id
+     * @param string   $name
      * @param Datetime $on
-     * @param string $url
+     * @param string   $url
+     *
      * @return mixed|void
      */
     public function addEvent($id, $name, Datetime $on, $url)
@@ -89,7 +90,7 @@ class Jqtimeline extends AbstractContainer implements TimelineInterface
             'id' => $id,
             'name' => htmlentities($name),
             'on' => new Expr('new Date('.$on->format('Y,n,j').')'),
-            'url' => $url
+            'url' => $url,
         ];
 
         $this->setItem(null, $event);

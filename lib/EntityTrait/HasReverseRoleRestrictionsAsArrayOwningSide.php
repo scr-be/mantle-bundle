@@ -11,19 +11,17 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasReverseReverseRoleRestrictionsAsArrayOwningSide
- *
- * @package Scribe\EntityTrait
+ * Class HasReverseReverseRoleRestrictionsAsArrayOwningSide.
  */
 trait HasReverseRoleRestrictionsAsArrayOwningSide
 {
-    /**
+    /*
      * import reading methods for reverseRoleRestrictions property
      */
     use HasReverseRoleRestrictionsAsArrayInverseSide;
 
     /**
-     * Init this trait
+     * Init this trait.
      */
     protected function initReverseRoleRestrictionsAsArray()
     {
@@ -31,9 +29,10 @@ trait HasReverseRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Setter for revisions property
+     * Setter for revisions property.
      *
      * @param array|null $roles
+     *
      * @return $this
      */
     public function setReverseRoleRestrictions(array $roles = [])
@@ -44,7 +43,7 @@ trait HasReverseRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Destroyer for reverseRoleRestrictions property
+     * Destroyer for reverseRoleRestrictions property.
      *
      * @return $this
      */
@@ -56,11 +55,12 @@ trait HasReverseRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Add role to reverseRoleRestrictions array
+     * Add role to reverseRoleRestrictions array.
      *
      * @param string $role   a role instance to add to the reverseRoleRestrictions array
      * @param bool   $unique requires the passed role instance not already exist within
      *                       the reverseRoleRestrictions array
+     *
      * @return $this
      */
     public function addReverseRoleRestrictions($role, $unique = true)
@@ -68,8 +68,8 @@ trait HasReverseRoleRestrictionsAsArrayOwningSide
         if ($this->hasReverseRoleRestriction($role) === false || $unique === false) {
             $this->setReverseRoleRestrictions(
                 array_merge(
-                    (array)$this->getReverseRoleRestrictions(),
-                    (array)$role
+                    (array) $this->getReverseRoleRestrictions(),
+                    (array) $role
                 )
             );
         }
@@ -78,9 +78,10 @@ trait HasReverseRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Collections remover for reverseRoleRestrictions property
+     * Collections remover for reverseRoleRestrictions property.
      *
-     * @param  string $role
+     * @param string $role
+     *
      * @return $this
      */
     public function removeReverseRoleRestriction($role)

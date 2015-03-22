@@ -15,9 +15,7 @@ use Scribe\MantleBundle\Entity\IconFamily;
 use Scribe\MantleBundle\Entity\IconTemplate;
 
 /**
- * Class IconCreatorAttributesTrait
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon\IconTraits
+ * Class IconCreatorAttributesTrait.
  */
 trait IconCreatorAttributesTrait
 {
@@ -52,7 +50,7 @@ trait IconCreatorAttributesTrait
     protected $optionalStyles = [];
 
     /**
-     * Getter for icon family entity
+     * Getter for icon family entity.
      *
      * @return null|IconFamily
      */
@@ -62,9 +60,10 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Setter for icon family entity
+     * Setter for icon family entity.
      *
-     * @param  IconFamily|null $family
+     * @param IconFamily|null $family
+     *
      * @return $this
      */
     protected function setFamilyEntity(IconFamily $family = null)
@@ -75,7 +74,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Checker for icon family entity
+     * Checker for icon family entity.
      *
      * @return bool
      */
@@ -85,7 +84,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Reset icon family instance property
+     * Reset icon family instance property.
      *
      * @return $this
      */
@@ -97,7 +96,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Getter for icon entity
+     * Getter for icon entity.
      *
      * @return null|Icon
      */
@@ -107,9 +106,10 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Setter for icon entity
+     * Setter for icon entity.
      *
-     * @param  Icon $icon
+     * @param Icon $icon
+     *
      * @return $this
      */
     protected function setIconEntity(Icon $icon)
@@ -120,7 +120,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Checker for icon entity
+     * Checker for icon entity.
      *
      * @return bool
      */
@@ -130,7 +130,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Reset icon entity instance property
+     * Reset icon entity instance property.
      *
      * @return $this
      */
@@ -142,7 +142,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Getter for icon slug
+     * Getter for icon slug.
      *
      * @return null|string
      */
@@ -152,9 +152,10 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Setter for icon slug
+     * Setter for icon slug.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return $this
      */
     protected function setIconSlug($slug)
@@ -165,7 +166,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Checker for icon slug
+     * Checker for icon slug.
      *
      * @return bool
      */
@@ -175,7 +176,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Reset icon slug instance property
+     * Reset icon slug instance property.
      *
      * @return $this
      */
@@ -187,7 +188,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Getter for icon template entity
+     * Getter for icon template entity.
      *
      * @return null|IconTemplate
      */
@@ -197,9 +198,10 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Setter for icon template entity
+     * Setter for icon template entity.
      *
-     * @param  IconTemplate $template
+     * @param IconTemplate $template
+     *
      * @return $this
      */
     protected function setTemplateEntity(IconTemplate $template)
@@ -210,7 +212,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Checker for icon template entity
+     * Checker for icon template entity.
      *
      * @return bool
      */
@@ -220,7 +222,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Reset icon template entity instance property
+     * Reset icon template entity instance property.
      *
      * @return $this
      */
@@ -242,9 +244,10 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Setter for icon template slug
+     * Setter for icon template slug.
      *
-     * @param  null|string $slug
+     * @param null|string $slug
+     *
      * @return $this
      */
     protected function setTemplateSlug($slug = null)
@@ -255,7 +258,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Checker for icon template slug
+     * Checker for icon template slug.
      *
      * @return bool
      */
@@ -265,7 +268,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Reset icon template slug instance property
+     * Reset icon template slug instance property.
      *
      * @return $this
      */
@@ -277,7 +280,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Getter for additional styles
+     * Getter for additional styles.
      *
      * @return array
      */
@@ -287,9 +290,10 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Setter for additional styles
+     * Setter for additional styles.
      *
-     * @param  string[] $styles
+     * @param string[] $styles
+     *
      * @return $this
      */
     protected function setOptionalStyles(...$styles)
@@ -300,7 +304,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Check if additional styles have been requested
+     * Check if additional styles have been requested.
      *
      * @return bool
      */
@@ -310,7 +314,7 @@ trait IconCreatorAttributesTrait
     }
 
     /**
-     * Reset icon styles instance property
+     * Reset icon styles instance property.
      *
      * @return $this
      */

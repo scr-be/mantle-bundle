@@ -13,14 +13,13 @@ namespace Scribe\Entity;
 /**
  * Trait EntityCastableTrait
  * Enable casting entity to string.
- *
- * @package Scribe\Entity
  */
 interface EntityCastableInterface
 {
     /**
      * Support for casting from object type to string type must be implemented
-     * in all classes inheriting from this base-class
+     * in all classes inheriting from this base-class.
+     *
      * @return string
      */
     public function __toString();

@@ -24,7 +24,7 @@ use Scribe\EntityTrait\HasRoleRestrictionsAsArrayOwningSide;
 use Scribe\EntityTrait\HasReverseRoleRestrictionsAsArrayOwningSide;
 
 /**
- * Entity NavMenuItem
+ * Entity NavMenuItem.
  */
 class NavMenuItem extends AbstractEntity
 {
@@ -49,11 +49,11 @@ class NavMenuItem extends AbstractEntity
      */
     public function __toString()
     {
-        return __CLASS__ . ':' . $this->routeName;
+        return __CLASS__.':'.$this->routeName;
     }
 
     /**
-     * Setup entity
+     * Setup entity.
      */
     public function __construct()
     {
@@ -67,11 +67,12 @@ class NavMenuItem extends AbstractEntity
         $this->initRoleRestrictionsAsArray();
         $this->initReverseRoleRestrictionsAsArray();
 
-        $this->subItems = new ArrayCollection;
+        $this->subItems = new ArrayCollection();
     }
 
     /**
-     * @param  ArrayCollection $subItems
+     * @param ArrayCollection $subItems
+     *
      * @return NavMenuItem
      */
     public function setSubItems(ArrayCollection $subItems)
@@ -100,7 +101,8 @@ class NavMenuItem extends AbstractEntity
     }
 
     /**
-     * @param  NavMenuSubItem $subItem
+     * @param NavMenuSubItem $subItem
+     *
      * @return NavMenuItem
      */
     public function addSubItem(NavMenuSubItem $subItem)
@@ -111,7 +113,8 @@ class NavMenuItem extends AbstractEntity
     }
 
     /**
-     * @param  NavMenuSubItem $subItem
+     * @param NavMenuSubItem $subItem
+     *
      * @return NavMenuItem
      */
     public function removeSubItem(NavMenuSubItem $subItem)

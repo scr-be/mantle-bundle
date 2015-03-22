@@ -11,13 +11,10 @@
 namespace Scribe\MantleBundle\Templating\Generator\Navigation\Member;
 
 /**
- * NavigationAttendeeInterface
- *
- * @package Scribe\MantleBundle\Templating\Generator\Navigation\Member
+ * NavigationAttendeeInterface.
  */
 interface NavigationMemberInterface
 {
-
 }
 
 /* EOF */

@@ -14,21 +14,19 @@ namespace Scribe\Entity;
  * Interface EntityDebuggableInterface
  * Provides basic functionality to utalize {@see var_dump()} on an entity that
  * would otherwise recurse into Symfony's DI component and become useless.
- *
- * @package Scribe\MantleBundle\Entity\Interfaces
  */
 interface EntityDebuggableInterface
 {
     /**
      * Support standardized and extended output when object instance
-     * is passed to {@see var_dump()}
+     * is passed to {@see var_dump()}.
      *
      * @return array
      */
     public function __debugInfo();
 
     /**
-     * Call {@see __debugInfo()} and implode into a string prior to output
+     * Call {@see __debugInfo()} and implode into a string prior to output.
      *
      * @return string
      */

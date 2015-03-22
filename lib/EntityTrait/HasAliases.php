@@ -11,21 +11,19 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasAliases
- *
- * @package Scribe\EntityTrait
+ * Class HasAliases.
  */
 trait HasAliases
 {
     /**
-     * The aliases property
+     * The aliases property.
      *
-     * @type array
+     * @var array
      */
     protected $aliases;
 
     /**
-     * Should be called from constructor of entity using this trait
+     * Should be called from constructor of entity using this trait.
      *
      * @return $this
      */
@@ -37,9 +35,10 @@ trait HasAliases
     }
 
     /**
-     * Setter for aliases property
+     * Setter for aliases property.
      *
-     * @param  array|null $aliases
+     * @param array|null $aliases
+     *
      * @return $this
      */
     public function setAliases(array $aliases = null)
@@ -50,7 +49,7 @@ trait HasAliases
     }
 
     /**
-     * Getter for aliases property
+     * Getter for aliases property.
      *
      * @return string|null
      */
@@ -60,7 +59,7 @@ trait HasAliases
     }
 
     /**
-     * Checker for aliases property
+     * Checker for aliases property.
      *
      * @return bool
      */
@@ -70,9 +69,10 @@ trait HasAliases
     }
 
     /**
-     * Check for a specific alias
+     * Check for a specific alias.
      *
-     * @param  string $alias
+     * @param string $alias
+     *
      * @return bool
      */
     public function hasAlias($alias)
@@ -87,7 +87,8 @@ trait HasAliases
     }
 
     /**
-     * @param  string $alias
+     * @param string $alias
+     *
      * @return string|null
      */
     public function getAlias($alias)
@@ -96,11 +97,11 @@ trait HasAliases
             return $this->aliases[$alias];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Clear the aliases property
+     * Clear the aliases property.
      *
      * @return $this
      */

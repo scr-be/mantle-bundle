@@ -25,7 +25,7 @@ class CallTest extends PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionOnInstantiation()
     {
-        new Call;
+        new Call();
     }
 
     /**

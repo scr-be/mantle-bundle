@@ -11,23 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasAlias
- *
- * @package Scribe\EntityTrait
+ * Class HasAlias.
  */
 trait HasAlias
 {
     /**
-     * The alias property
+     * The alias property.
      *
-     * @type string
+     * @var string
      */
     protected $alias;
 
     /**
-     * Setter for alias property
+     * Setter for alias property.
      *
      * @param string|null $alias the alias string
+     *
      * @return $this
      */
     public function setAlias($alias = null)
@@ -38,7 +37,7 @@ trait HasAlias
     }
 
     /**
-     * Getter for alias property
+     * Getter for alias property.
      *
      * @return string|null
      */
@@ -48,7 +47,7 @@ trait HasAlias
     }
 
     /**
-     * Checker for alias property
+     * Checker for alias property.
      *
      * @return bool
      */
@@ -58,7 +57,7 @@ trait HasAlias
     }
 
     /**
-     * Nullify the alias property
+     * Nullify the alias property.
      *
      * @return $this
      */

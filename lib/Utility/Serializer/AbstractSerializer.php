@@ -13,13 +13,11 @@ namespace Scribe\Utility\Serializer;
 use Scribe\Utility\StaticClass\StaticClassTrait;
 
 /**
- * Class AbstractSerializer
- *
- * @package Scribe\Utility\Serializer
+ * Class AbstractSerializer.
  */
 abstract class AbstractSerializer implements SerializerInterface
 {
-    /**
+    /*
      * Trait to disallow class instantiation
      */
     use StaticClassTrait;

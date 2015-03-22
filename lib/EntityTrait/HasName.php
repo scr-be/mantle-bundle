@@ -11,23 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasName
- *
- * @package Scribe\EntityTrait
+ * Class HasName.
  */
 trait HasName
 {
     /**
-     * The name property
+     * The name property.
      *
-     * @type string
+     * @var string
      */
     protected $name;
 
     /**
-     * Setter for name property
+     * Setter for name property.
      *
      * @param string|null $name the name string
+     *
      * @return $this
      */
     public function setName($name = null)
@@ -38,7 +37,7 @@ trait HasName
     }
 
     /**
-     * Getter for name property
+     * Getter for name property.
      *
      * @return string|null
      */
@@ -48,7 +47,7 @@ trait HasName
     }
 
     /**
-     * Checker for name property
+     * Checker for name property.
      *
      * @return bool
      */
@@ -58,7 +57,7 @@ trait HasName
     }
 
     /**
-     * Nullify the name property
+     * Nullify the name property.
      *
      * @return $this
      */

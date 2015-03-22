@@ -11,19 +11,17 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasRoleRestrictionsAsArrayOwningSide
- *
- * @package Scribe\EntityTrait
+ * Class HasRoleRestrictionsAsArrayOwningSide.
  */
 trait HasRoleRestrictionsAsArrayOwningSide
 {
-    /**
+    /*
      * import reading methods for roleRestrictions property
      */
     use HasRoleRestrictionsAsArrayInverseSide;
 
     /**
-     * Init this trait
+     * Init this trait.
      */
     protected function initRoleRestrictionsAsArray()
     {
@@ -31,9 +29,10 @@ trait HasRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Setter for revisions property
+     * Setter for revisions property.
      *
      * @param array|null $roles
+     *
      * @return $this
      */
     public function setRoleRestrictions(array $roles = [])
@@ -44,7 +43,7 @@ trait HasRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Destroyer for roleRestrictions property
+     * Destroyer for roleRestrictions property.
      *
      * @return $this
      */
@@ -56,11 +55,12 @@ trait HasRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Add role to roleRestrictions array
+     * Add role to roleRestrictions array.
      *
      * @param string $role   a role instance to add to the roleRestrictions array
      * @param bool   $unique requires the passed role instance not already exist within
      *                       the roleRestrictions array
+     *
      * @return $this
      */
     public function addRoleRestrictions($role, $unique = true)
@@ -68,8 +68,8 @@ trait HasRoleRestrictionsAsArrayOwningSide
         if ($this->hasRoleRestriction($role) === false || $unique === false) {
             $this->setRoleRestrictions(
                 array_merge(
-                    (array)$this->getRoleRestrictions(),
-                    (array)$role
+                    (array) $this->getRoleRestrictions(),
+                    (array) $role
                 )
             );
         }
@@ -78,9 +78,10 @@ trait HasRoleRestrictionsAsArrayOwningSide
     }
 
     /**
-     * Collections remover for roleRestrictions property
+     * Collections remover for roleRestrictions property.
      *
-     * @param  string $role
+     * @param string $role
+     *
      * @return $this
      */
     public function removeRoleRestriction($role)

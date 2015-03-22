@@ -22,7 +22,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * AbstractYamlFixture
+ * AbstractYamlFixture.
  */
 abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -76,12 +76,15 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     }
 
     /**
-     * Init fixture
+     * Init fixture.
      */
-    public function init() {}
+    public function init()
+    {
+    }
 
     /**
-     * @param  string $name
+     * @param string $name
+     *
      * @return $this
      */
     protected function setOrmFixtureName($name)
@@ -92,7 +95,8 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     }
 
     /**
-     * Forces flush on each iteration
+     * Forces flush on each iteration.
+     *
      * @param bool $cannibal
      */
     protected function setOrmFixtureAsCannibal($cannibal = true)
@@ -109,7 +113,8 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     }
 
     /**
-     * @param  int $priority
+     * @param int $priority
+     *
      * @return $this
      */
     protected function setOrmFixturePriority($priority)
@@ -120,18 +125,19 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     }
 
     /**
-     * @param  object $entity
-     * @param  array  $f
+     * @param object $entity
+     * @param array  $f
+     *
      * @return object
      */
     protected function setNewFixtureDataForEntity($entity, $f)
     {
-        foreach($f as $name => $value) {
-            $setter = 'set' . ucfirst($name);
+        foreach ($f as $name => $value) {
+            $setter = 'set'.ucfirst($name);
             $data   = $this->getFixtureDataValue($name, $f);
             try {
                 $entity->$setter($data);
-            } catch(ContextErrorException $e) {
+            } catch (ContextErrorException $e) {
                 $dataCollection = new ArrayCollection($data);
                 $entity->$setter($dataCollection);
             }
@@ -143,6 +149,7 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     /**
      * @param string $i
      * @param array  $f
+     *
      * @return array
      */
     protected function getFixtureDataValue($i, array $f = null)
@@ -155,12 +162,13 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     }
 
     /**
-     * @param  array $values
+     * @param array $values
+     *
      * @return array
      */
     protected function getFixtureValueAsArrayWithRefs(array $values = [])
     {
-        foreach($values as &$value) {
+        foreach ($values as &$value) {
             $value = $this->getFixtureValueWithRefs($value);
         }
 
@@ -168,7 +176,8 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     }
 
     /**
-     * @param  mixed $value
+     * @param mixed $value
+     *
      * @return mixed
      */
     protected function getFixtureValueWithRefs($value)
@@ -199,7 +208,7 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
             $depRepo = $this->container->get($dep['repository']);
         }
 
-        $findMethod = 'findOneBy' . ucwords($depCol);
+        $findMethod = 'findOneBy'.ucwords($depCol);
         $result = $depRepo->$findMethod($depSch);
 
         return $result;
@@ -226,6 +235,7 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
 
     /**
      * @return $this
+     *
      * @throws RuntimeException
      */
     public function loadOrmFixtureData()
@@ -242,9 +252,9 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
             ->getRootDir()
         ;
 
-        $baseDir     = $kernelRoot . '/config/knowledge/shared/fixtures/';
-        $yamlPath    = $baseDir . $this->buildYamlFileName($name);
-        $yaml        = new Parser;
+        $baseDir     = $kernelRoot.'/config/knowledge/shared/fixtures/';
+        $yamlPath    = $baseDir.$this->buildYamlFileName($name);
+        $yaml        = new Parser();
 
         try {
             $fixture = $yaml->parse(@file_get_contents($yamlPath));
@@ -260,10 +270,8 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
 
         if (!isset($fixtureRoot['orm'])) {
             throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'orm', $yamlPath));
-
         } elseif (!isset($fixtureRoot['data'])) {
             throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'data', $yamlPath));
-
         } elseif (!array_key_exists('dependencies', $fixtureRoot)) {
             throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'dependencies', $yamlPath));
         }
@@ -283,7 +291,6 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     public function load(ObjectManager $manager)
     {
         foreach ($this->data as $i => $f) {
-
             $entity = $this->getNewFixtureEntity();
             $entity = $this->setNewFixtureDataForEntity($entity, $f);
 
@@ -298,7 +305,8 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     }
 
     /**
-     * @param  string $fixtureName
+     * @param string $fixtureName
+     *
      * @return string
      */
     public function buildYamlFileName($fixtureName)

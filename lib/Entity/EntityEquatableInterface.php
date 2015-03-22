@@ -13,8 +13,6 @@ namespace Scribe\Entity;
 /**
  * Interface EntityEquatableInterface
  * Used to test if two objects are equal in orm and entity contexts.
- *
- * @package Scribe\MantleBundle\Entity\Interfaces
  */
 interface EntityEquatableInterface
 {
@@ -22,8 +20,9 @@ interface EntityEquatableInterface
      * Simple check to see if the passed Entity is of the same type as the
      * current object using {@see get_class()} or a similar method.
      *
-     * @param  AbstractEntity $entity the entity object to check against
-     * @param bool            $strict should the entity id be compared or not
+     * @param AbstractEntity $entity the entity object to check against
+     * @param bool           $strict should the entity id be compared or not
+     *
      * @return bool
      */
     public function isEqualTo(AbstractEntity $entity, $strict = true);
@@ -33,7 +32,8 @@ interface EntityEquatableInterface
      * {@see $this->id} value as the current object. This should not allow a
      * comparison of two null id values to return true.
      *
-     * @param  AbstractEntity $entity the entity object to check against
+     * @param AbstractEntity $entity the entity object to check against
+     *
      * @return bool
      */
     public function isEqualToId(AbstractEntity $entity);
@@ -43,7 +43,8 @@ interface EntityEquatableInterface
      * as the current object. This includes id, as well as all other class
      * properties.
      *
-     * @param  AbstractEntity $entity the entity object to check against
+     * @param AbstractEntity $entity the entity object to check against
+     *
      * @return bool
      */
     public function isEqualToProperties(AbstractEntity $entity);

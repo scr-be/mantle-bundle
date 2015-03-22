@@ -13,41 +13,43 @@ namespace Scribe\Utility;
 use Scribe\Utility\StaticClass\StaticClassTrait;
 
 /**
- * Class Extension
- *
- * @package Scribe\Utility
+ * Class Extension.
  */
 class Extension
 {
-    /**
+    /*
      * Trait to disallow class instantiation
      */
     use StaticClassTrait;
 
     /**
      * Check if an extension is loaded or not.
-     * @param  string $extension
+     *
+     * @param string $extension
+     *
      * @return bool
      */
-    static public function isEnabled($extension)
+    public static function isEnabled($extension)
     {
         return (bool) (true === extension_loaded((string) $extension));
     }
 
     /**
-     * Check if igbinary is enabled
+     * Check if igbinary is enabled.
+     *
      * @return bool
      */
-    static public function hasIgbinary()
+    public static function hasIgbinary()
     {
         return self::isEnabled('igbinary');
     }
 
     /**
-     * Check if json is enabled
+     * Check if json is enabled.
+     *
      * @return bool
      */
-    static public function hasJson()
+    public static function hasJson()
     {
         return self::isEnabled('json');
     }

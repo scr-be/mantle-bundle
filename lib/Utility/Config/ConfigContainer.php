@@ -16,19 +16,17 @@ use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 use Scribe\Exception\RuntimeException;
 
 /**
- * Class ConfigContainer
- *
- * @package Scribe\Utility\Config
+ * Class ConfigContainer.
  */
 class ConfigContainer implements ConfigInterface, ContainerAwareInterface
 {
-    /**
+    /*
      * import container property and get/set functions
      */
     use ContainerAwareTrait;
 
     /**
-     * setup with container instance
+     * setup with container instance.
      */
     public function __construct(ContainerInterface $container)
     {
@@ -36,9 +34,10 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
     }
 
     /**
-     * Getter for YAML config value
+     * Getter for YAML config value.
      *
-     * @param  string $key   config key
+     * @param string $key config key
+     *
      * @throws bool
      */
     public function get($key)
@@ -50,10 +49,11 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
     }
 
     /**
-     * Setter for YAML config cannot occur
+     * Setter for YAML config cannot occur.
      *
-     * @param  string $key   config key
-     * @param  mixed  $value config value
+     * @param string $key   config key
+     * @param mixed  $value config value
+     *
      * @throws RuntimeException
      */
     public function set($key, $value)

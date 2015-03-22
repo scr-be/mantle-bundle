@@ -10,7 +10,6 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\EntityTrait\HasAttributes;
 use Scribe\EntityTrait\HasIconsOwningSide;
@@ -20,12 +19,11 @@ use Scribe\EntityTrait\HasVersionAsString;
 use Scribe\Entity\AbstractEntity;
 
 /**
- * Class Icon
- * @package Scribe\MantleBundle\Entity
+ * Class Icon.
  */
 class IconFamily extends AbstractEntity
 {
-    /**
+    /*
      * import name and description entity property traits
      */
     use HasSlug,
@@ -40,17 +38,17 @@ class IconFamily extends AbstractEntity
     private $url;
 
     /**
-     * @type string
+     * @var string
      */
     private $prefix;
 
     /**
-     * @type array
+     * @var array
      */
     private $requiredClasses;
 
     /**
-     * @type array
+     * @var array
      */
     private $optionalClasses;
 
@@ -60,16 +58,17 @@ class IconFamily extends AbstractEntity
     private $templates;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
-    public function __construct() 
+    public function __construct()
     {
-        $this->templates = new ArrayCollection;
-        $this->icons     = new ArrayCollection;
+        $this->templates = new ArrayCollection();
+        $this->icons     = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object type to string type
+     * Support for casting from object type to string type.
+     *
      * @return string
      */
     public function __toString()
@@ -86,7 +85,8 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * @param  string $url
+     * @param string $url
+     *
      * @return $this
      */
     public function setUrl($url)
@@ -105,9 +105,10 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Setter for prefix property 
+     * Setter for prefix property.
      *
-     * @param string 
+     * @param string
+     *
      * @return $this
      */
     public function setPrefix($prefix = null)
@@ -118,9 +119,10 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Setter for requiredClasses property 
+     * Setter for requiredClasses property.
      *
-     * @param array 
+     * @param array
+     *
      * @return $this
      */
     public function setRequiredClasses($requiredClasses = null)
@@ -131,9 +133,9 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Getter for requiredClasses property 
+     * Getter for requiredClasses property.
      *
-     * @return array 
+     * @return array
      */
     public function getRequiredClasses()
     {
@@ -149,9 +151,10 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Setter for optionalClasses property 
+     * Setter for optionalClasses property.
      *
-     * @param array 
+     * @param array
+     *
      * @return $this
      */
     public function setOptionalClasses($optionalClasses = null)
@@ -162,9 +165,9 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Getter for optionalClasses property 
+     * Getter for optionalClasses property.
      *
-     * @return array 
+     * @return array
      */
     public function getOptionalClasses()
     {
@@ -172,9 +175,9 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Checker for optionalClasses property 
+     * Checker for optionalClasses property.
      *
-     * @return array 
+     * @return array
      */
     public function hasOptionalClasses()
     {
@@ -182,9 +185,10 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Setter for templates property 
+     * Setter for templates property.
      *
-     * @param  ArrayCollection $templates
+     * @param ArrayCollection $templates
+     *
      * @return $this
      */
     public function setTemplates(ArrayCollection $templates = null)
@@ -195,9 +199,9 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Getter for templates collection 
+     * Getter for templates collection.
      *
-     * @return ArrayCollection 
+     * @return ArrayCollection
      */
     public function getTemplates()
     {
@@ -205,7 +209,7 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Checker for templates collection 
+     * Checker for templates collection.
      *
      * @return bool
      */
@@ -215,13 +219,13 @@ class IconFamily extends AbstractEntity
     }
 
     /**
-     * Nullify templates collection 
+     * Nullify templates collection.
      *
      * @return $this
      */
     public function clearTemplates()
     {
-        $this->templates = new ArrayCollection;
+        $this->templates = new ArrayCollection();
 
         return $this;
     }

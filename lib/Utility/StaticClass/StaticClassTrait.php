@@ -14,14 +14,12 @@ use Scribe\Exception\RuntimeException;
 
 /**
  * StaticClassTrait
- * Disallows class instantiation by throwing an exception within the constructor
- *
- * @package Scribe\Utility\StaticClass
+ * Disallows class instantiation by throwing an exception within the constructor.
  */
 trait StaticClassTrait
 {
     /**
-     * Disallow class instantiation by issuing an exception for classes with only static methods
+     * Disallow class instantiation by issuing an exception for classes with only static methods.
      *
      * @param mixed ...$values Any values that may be passed are ignored.
      */

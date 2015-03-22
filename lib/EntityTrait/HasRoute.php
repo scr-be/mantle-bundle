@@ -13,23 +13,22 @@ namespace Scribe\EntityTrait;
 use Scribe\MantleBundle\Entity\Route;
 
 /**
- * Class HasRoute
- *
- * @package Scribe\EntityTrait
+ * Class HasRoute.
  */
 trait HasRoute
 {
     /**
-     * The route property
+     * The route property.
      *
-     * @type Route
+     * @var Route
      */
     protected $route;
 
     /**
-     * Setter for route property
+     * Setter for route property.
      *
      * @param Route $route any Route object instance
+     *
      * @return $this
      */
     public function setRoute(Route $route = null)
@@ -40,7 +39,7 @@ trait HasRoute
     }
 
     /**
-     * Getter for route property
+     * Getter for route property.
      *
      * @return Route|null
      */
@@ -50,17 +49,17 @@ trait HasRoute
     }
 
     /**
-     * Checker for route property
+     * Checker for route property.
      *
      * @return bool
      */
     public function hasRoute()
     {
-        return (bool)$this->route instanceof Route;
+        return (bool) $this->route instanceof Route;
     }
 
     /**
-     * Nullify the route property
+     * Nullify the route property.
      *
      * @return $this
      */

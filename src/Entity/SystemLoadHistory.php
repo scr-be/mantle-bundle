@@ -14,7 +14,7 @@ use Scribe\Entity\AbstractEntity;
 use Scribe\EntityTrait\HasDate;
 
 /**
- * Class SystemLoadHistory
+ * Class SystemLoadHistory.
  */
 class SystemLoadHistory extends AbstractEntity
 {
@@ -37,12 +37,14 @@ class SystemLoadHistory extends AbstractEntity
 
     public function __toString()
     {
-        return __CLASS__ . '::id(' . $this->id . ')';
+        return __CLASS__.'::id('.$this->id.')';
     }
 
     /**
-     * Set load01
+     * Set load01.
+     *
      * @param float $load01
+     *
      * @return SystemLoadHistory
      */
     public function setLoad01($load01)
@@ -53,7 +55,8 @@ class SystemLoadHistory extends AbstractEntity
     }
 
     /**
-     * Get load01
+     * Get load01.
+     *
      * @return float
      */
     public function getLoad01()
@@ -62,8 +65,10 @@ class SystemLoadHistory extends AbstractEntity
     }
 
     /**
-     * Set load05
+     * Set load05.
+     *
      * @param float $load05
+     *
      * @return SystemLoadHistory
      */
     public function setLoad05($load05)
@@ -74,7 +79,8 @@ class SystemLoadHistory extends AbstractEntity
     }
 
     /**
-     * Get load05
+     * Get load05.
+     *
      * @return float
      */
     public function getLoad05()
@@ -83,8 +89,10 @@ class SystemLoadHistory extends AbstractEntity
     }
 
     /**
-     * Set load15
+     * Set load15.
+     *
      * @param float $load15
+     *
      * @return SystemLoadHistory
      */
     public function setLoad15($load15)
@@ -95,7 +103,8 @@ class SystemLoadHistory extends AbstractEntity
     }
 
     /**
-     * Get load15
+     * Get load15.
+     *
      * @return float
      */
     public function getLoad15()

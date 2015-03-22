@@ -14,9 +14,7 @@ use Scribe\MantleBundle\Entity\Icon;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class HasIcon
- *
- * @package Scribe\EntityTrait
+ * Class HasIcon.
  */
 trait HasIconsOwningSide
 {
@@ -26,9 +24,10 @@ trait HasIconsOwningSide
     private $icons;
 
     /**
-     * Setter for icons collection
+     * Setter for icons collection.
      *
-     * @param  ArrayCollection $icons
+     * @param ArrayCollection $icons
+     *
      * @return $this
      */
     public function setIcons(ArrayCollection $icons = null)
@@ -39,7 +38,7 @@ trait HasIconsOwningSide
     }
 
     /**
-     * Getter for icons collection
+     * Getter for icons collection.
      *
      * @return ArrayCollection
      */
@@ -49,7 +48,7 @@ trait HasIconsOwningSide
     }
 
     /**
-     * Checker for icons collection
+     * Checker for icons collection.
      *
      * @return bool
      */
@@ -59,13 +58,13 @@ trait HasIconsOwningSide
     }
 
     /**
-     * Nullify icons collection
+     * Nullify icons collection.
      *
      * @return $this
      */
     public function clearIcons()
     {
-        $this->icons = new ArrayCollection;
+        $this->icons = new ArrayCollection();
 
         return $this;
     }

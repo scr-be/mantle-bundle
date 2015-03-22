@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 
 /**
- * Class BsButtonExtension
+ * Class BsButtonExtension.
  */
 class BsButtonExtension extends Twig_Extension
 {
@@ -24,7 +24,7 @@ class BsButtonExtension extends Twig_Extension
         ContainerAwareExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct(ContainerInterface $container)
     {
@@ -56,7 +56,7 @@ class BsButtonExtension extends Twig_Extension
             $icon = 'icon-minus-sign';
         }
 
-        $desc = $title . ' ' . $what;
+        $desc = $title.' '.$what;
         array_push($btnClasses, 'btn-danger');
 
         $out = $engine->render(
@@ -69,7 +69,7 @@ class BsButtonExtension extends Twig_Extension
                 'url' => $url,
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses
+                'btnClasses' => $btnClasses,
             ]
         );
 
@@ -92,7 +92,7 @@ class BsButtonExtension extends Twig_Extension
             $icon = 'icon-minus-sign';
         }
 
-        $desc = $title . ' ' . $what;
+        $desc = $title.' '.$what;
         array_push($btnClasses, 'btn-danger');
 
         $out = $engine->render(
@@ -225,7 +225,7 @@ class BsButtonExtension extends Twig_Extension
                 'url' => $url,
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses
+                'btnClasses' => $btnClasses,
             ]
         );
 
@@ -282,7 +282,7 @@ class BsButtonExtension extends Twig_Extension
                 $this,
                 'bs_btn_next',
                 ['is_safe' => ['html']]
-            )
+            ),
         ];
     }
 }

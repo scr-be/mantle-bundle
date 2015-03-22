@@ -12,10 +12,10 @@ namespace Scribe\Entity;
 
 /**
  * Interface EntitySerializableInterface
- * Allows an entity to be serialized
- *
- * @package Scribe\Entity
+ * Allows an entity to be serialized.
  */
-interface EntitySerializableInterface extends \Serializable {}
+interface EntitySerializableInterface extends \Serializable
+{
+}
 
 /* EOF */

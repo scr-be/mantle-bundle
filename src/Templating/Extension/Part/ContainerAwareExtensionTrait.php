@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Extension\Part;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class ContainerAwareExtensionTrait
+ * Class ContainerAwareExtensionTrait.
  */
 trait ContainerAwareExtensionTrait
 {
@@ -24,6 +24,7 @@ trait ContainerAwareExtensionTrait
 
     /**
      * @param ContainerInterface $container
+     *
      * @return $this
      */
     public function setContainer(ContainerInterface $container = null)

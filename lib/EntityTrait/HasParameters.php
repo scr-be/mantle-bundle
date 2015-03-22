@@ -11,20 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasParameters
- * @package Scribe\EntityTrait
+ * Class HasParameters.
  */
 trait HasParameters
 {
     /**
-     * The entity parameters property
-     * @type array
+     * The entity parameters property.
+     *
+     * @var array
      */
     protected $parameters;
 
     /**
-     * Setter for parameters property
+     * Setter for parameters property.
+     *
      * @param array|null $parameters array of parameters for entity
+     *
      * @return $this
      */
     public function setParameters(array $parameters = null)
@@ -35,7 +37,8 @@ trait HasParameters
     }
 
     /**
-     * Getter for parameters property
+     * Getter for parameters property.
+     *
      * @return array|null
      */
     public function getParameters()
@@ -44,36 +47,42 @@ trait HasParameters
     }
 
     /**
-     * Checker for parameters property
+     * Checker for parameters property.
+     *
      * @return bool
      */
     public function hasParameters()
     {
-        return (bool)sizeof((array)$this->parameters) > 0;
+        return (bool) sizeof((array) $this->parameters) > 0;
     }
 
     /**
-     * Check for value existing in parameters array
+     * Check for value existing in parameters array.
+     *
      * @param mixed $value needle to look for in parameters array values
+     *
      * @return bool
      */
     public function hasParameterValue($value)
     {
-        return (bool)in_array($value, (array)$this->parameters);
+        return (bool) in_array($value, (array) $this->parameters);
     }
 
     /**
-     * Check for key existing in parameters array
+     * Check for key existing in parameters array.
+     *
      * @param string $key needle to look for in parameters array keys
+     *
      * @return bool
      */
     public function hasParameterKey($key)
     {
-        return (bool)array_key_exists($key, (array)$this->parameters);
+        return (bool) array_key_exists($key, (array) $this->parameters);
     }
 
     /**
-     * Nullify the parameters property
+     * Nullify the parameters property.
+     *
      * @return $this
      */
     public function clearParameters()

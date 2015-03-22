@@ -11,7 +11,7 @@
 namespace Scribe\MantleBundle\Templating\Helper\Menu;
 
 /**
- * Interface MenuHandlerInterface
+ * Interface MenuHandlerInterface.
  */
 interface MenuHandlerInterface
 {

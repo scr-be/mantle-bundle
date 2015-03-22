@@ -13,9 +13,7 @@ namespace Scribe\Entity;
 use Scribe\EntityTrait\HasId;
 
 /**
- * Class Entity
- *
- * @package Scribe\Entity
+ * Class Entity.
  */
 abstract class AbstractEntity implements
     EntityInterface, EntityCastableInterface, EntityDebuggableInterface, EntityEquatableInterface,
@@ -28,7 +26,7 @@ abstract class AbstractEntity implements
         EntitySerializableTrait;
 
     /**
-     * set the default value for entity id
+     * set the default value for entity id.
      */
     public function __construct()
     {

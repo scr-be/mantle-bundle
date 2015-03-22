@@ -5,7 +5,7 @@ namespace Scribe\MantleBundle\Entity;
 use Scribe\Entity\AbstractEntity;
 
 /**
- * Redirect
+ * Redirect.
  */
 class Redirect extends AbstractEntity
 {
@@ -26,16 +26,17 @@ class Redirect extends AbstractEntity
 
     public function __toString()
     {
-        return $this->pathFrom . ' -> ' . $this->pathTo;
+        return $this->pathFrom.' -> '.$this->pathTo;
     }
 
     /**
-     * @param  bool $regex
+     * @param bool $regex
+     *
      * @return $this
      */
     public function setRegex($regex)
     {
-        $this->regex = (bool)$regex;
+        $this->regex = (bool) $regex;
 
         return $this;
     }
@@ -49,9 +50,10 @@ class Redirect extends AbstractEntity
     }
 
     /**
-     * Set pathFrom
+     * Set pathFrom.
      *
      * @param string $pathFrom
+     *
      * @return Redirect
      */
     public function setPathFrom($pathFrom)
@@ -62,7 +64,7 @@ class Redirect extends AbstractEntity
     }
 
     /**
-     * Get pathFrom
+     * Get pathFrom.
      *
      * @return string
      */
@@ -72,9 +74,10 @@ class Redirect extends AbstractEntity
     }
 
     /**
-     * Set pathTo
+     * Set pathTo.
      *
      * @param string $pathTo
+     *
      * @return Redirect
      */
     public function setPathTo($pathTo)
@@ -85,7 +88,7 @@ class Redirect extends AbstractEntity
     }
 
     /**
-     * Get pathTo
+     * Get pathTo.
      *
      * @return string
      */

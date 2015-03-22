@@ -11,22 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasCount
- * @package Scribe\EntityTrait
+ * Class HasCount.
  */
 trait HasCount
 {
     /**
-     * The count property
+     * The count property.
      *
-     * @type int|null
+     * @var int|null
      */
     protected $count;
 
     /**
-     * Setter for count property
+     * Setter for count property.
      *
      * @param int|null $count the integer number
+     *
      * @return $this
      */
     public function setCount($count = null)
@@ -37,7 +37,7 @@ trait HasCount
     }
 
     /**
-     * Getter for count property
+     * Getter for count property.
      *
      * @return int|null
      */
@@ -47,17 +47,17 @@ trait HasCount
     }
 
     /**
-     * Checker for count property
+     * Checker for count property.
      *
      * @return bool
      */
     public function hasCount()
     {
-        return (bool)is_int($this->getCount());
+        return (bool) is_int($this->getCount());
     }
 
     /**
-     * Nullify the count property
+     * Nullify the count property.
      *
      * @return $this
      */
@@ -69,9 +69,10 @@ trait HasCount
     }
 
     /**
-     * Increment the counter
+     * Increment the counter.
      *
      * @param int $by number to increment the count by
+     *
      * @return $this
      */
     public function incrementCount($by = 1)
@@ -84,9 +85,10 @@ trait HasCount
     }
 
     /**
-     * Decrement the counter
+     * Decrement the counter.
      *
      * @param int $by number to decrement the count by
+     *
      * @return $this
      */
     public function decrementCount($by = 1)

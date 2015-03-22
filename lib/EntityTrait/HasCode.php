@@ -11,23 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasCode
- *
- * @package Scribe\EntityTrait
+ * Class HasCode.
  */
 trait HasCode
 {
     /**
-     * The code property
+     * The code property.
      *
-     * @type string
+     * @var string
      */
     protected $code;
 
     /**
-     * Setter for code property
+     * Setter for code property.
      *
      * @param string|null $code the code string
+     *
      * @return $this
      */
     public function setCode($code = null)
@@ -38,7 +37,7 @@ trait HasCode
     }
 
     /**
-     * Getter for code property
+     * Getter for code property.
      *
      * @return string|null
      */
@@ -48,7 +47,7 @@ trait HasCode
     }
 
     /**
-     * Checker for code property
+     * Checker for code property.
      *
      * @return bool
      */
@@ -58,7 +57,7 @@ trait HasCode
     }
 
     /**
-     * Nullify the code property
+     * Nullify the code property.
      *
      * @return $this
      */

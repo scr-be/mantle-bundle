@@ -13,21 +13,19 @@ namespace Scribe\EntityTrait;
 use Scribe\Entity\AbstractEntity;
 
 /**
- * Class HasParentInverseSide
- *
- * @package Scribe\EntityTrait
+ * Class HasParentInverseSide.
  */
 trait HasParentInverseSide
 {
     /**
-     * Parent entity
+     * Parent entity.
      *
-     * @type AbstractEntity
+     * @var AbstractEntity
      */
     protected $parent;
 
     /**
-     * Getter for parent
+     * Getter for parent.
      *
      * @return AbstractEntity
      */
@@ -37,7 +35,7 @@ trait HasParentInverseSide
     }
 
     /**
-     * Checker for parent
+     * Checker for parent.
      *
      * @return bool
      */

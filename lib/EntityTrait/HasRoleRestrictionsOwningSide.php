@@ -14,21 +14,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\SecurityBundle\Entity\Role;
 
 /**
- * Class HasRoleRestrictionsOwningSide
- *
- * @package Scribe\EntityTrait
+ * Class HasRoleRestrictionsOwningSide.
  */
 trait HasRoleRestrictionsOwningSide
 {
-    /**
+    /*
      * import reading methods for roleRestrictions property
      */
     use HasRoleRestrictionsInverseSide;
 
     /**
-     * Setter for revisions property
+     * Setter for revisions property.
      *
      * @param ArrayCollection|null $roleRestrictions collection of roles
+     *
      * @return $this
      */
     public function setRoleRestrictions(ArrayCollection $roleRestrictions = null)
@@ -39,7 +38,7 @@ trait HasRoleRestrictionsOwningSide
     }
 
     /**
-     * Destroyer for roleRestrictions property
+     * Destroyer for roleRestrictions property.
      *
      * @return $this
      */
@@ -54,11 +53,12 @@ trait HasRoleRestrictionsOwningSide
     }
 
     /**
-     * Collections adder for roleRestrictions property
+     * Collections adder for roleRestrictions property.
      *
      * @param Role $roleRestriction a role instance to add to the roleRestrictions collection
      * @param bool $unique          requires the passed role instance not already exist within
      *                              the roleRestrictions collection
+     *
      * @return $this
      */
     public function addRoleRestrictions(Role $roleRestriction, $unique = true)
@@ -74,9 +74,10 @@ trait HasRoleRestrictionsOwningSide
     }
 
     /**
-     * Collections remover for roleRestrictions property
+     * Collections remover for roleRestrictions property.
      *
      * @param Role $roleRestriction a role instance to remove from collection
+     *
      * @return $this
      */
     public function removeRoleRestriction(Role $roleRestriction)

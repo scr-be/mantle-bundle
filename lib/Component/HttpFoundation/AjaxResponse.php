@@ -13,9 +13,7 @@ namespace Scribe\Component\HttpFoundation;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class AjaxResponse
- *
- * @package Scribe\Component\HttpFoundation
+ * Class AjaxResponse.
  */
 class AjaxResponse
 {
@@ -31,10 +29,10 @@ class AjaxResponse
     }
 
     /**
-     * @param string $message
+     * @param string  $message
      * @param integer $statusTextCode
-     * @param int    $httpStatusCode
-     * @param array  $jsonDataAppend
+     * @param int     $httpStatusCode
+     * @param array   $jsonDataAppend
      *
      * @return JsonResponse
      */
@@ -43,7 +41,7 @@ class AjaxResponse
         $jsonData = [
             'status-http' => $httpStatusCode,
             'message'     => $message,
-            'msg'         => $message
+            'msg'         => $message,
         ];
 
         if ($statusTextCode === 200) {

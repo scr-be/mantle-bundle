@@ -13,20 +13,22 @@ namespace Scribe\EntityTrait;
 use Datetime;
 
 /**
- * Class HasUpdatedOn
- * @package Scribe\EntityTrait
+ * Class HasUpdatedOn.
  */
 trait HasUpdatedOn
 {
     /**
-     * The entity updated_on property
-     * @type Datetime
+     * The entity updated_on property.
+     *
+     * @var Datetime
      */
     protected $updated_on;
 
     /**
-     * Setter for updated_on property
+     * Setter for updated_on property.
+     *
      * @param Datetime $updated_on any datetime object instance
+     *
      * @return $this
      */
     public function setUpdatedOn(Datetime $updated_on = null)
@@ -37,8 +39,10 @@ trait HasUpdatedOn
     }
 
     /**
-     * Getter (or formatter) for updated_on property
+     * Getter (or formatter) for updated_on property.
+     *
      * @param string|null $format optional string to format updated_on
+     *
      * @return Datetime|string|null
      */
     public function getUpdatedOn($format = null)
@@ -51,16 +55,18 @@ trait HasUpdatedOn
     }
 
     /**
-     * Checker for updated_on property
+     * Checker for updated_on property.
+     *
      * @return bool
      */
     public function hasUpdatedOn()
     {
-        return (bool)$this->updated_on instanceof Datetime;
+        return (bool) $this->updated_on instanceof Datetime;
     }
 
     /**
-     * Nullify the updated_on property
+     * Nullify the updated_on property.
+     *
      * @return $this
      */
     public function clearUpdatedOn()

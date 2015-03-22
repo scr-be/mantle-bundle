@@ -11,23 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasValueAsString
- *
- * @package Scribe\EntityTrait
+ * Class HasValueAsString.
  */
 trait HasValueAsString
 {
     /**
-     * The value property
+     * The value property.
      *
-     * @type string
+     * @var string
      */
     protected $value;
 
     /**
-     * Setter for value property
+     * Setter for value property.
      *
      * @param string|null $value the value string
+     *
      * @return $this
      */
     public function setValue($value = null)
@@ -38,7 +37,7 @@ trait HasValueAsString
     }
 
     /**
-     * Getter for value property
+     * Getter for value property.
      *
      * @return string|null
      */
@@ -48,7 +47,7 @@ trait HasValueAsString
     }
 
     /**
-     * Checker for value property
+     * Checker for value property.
      *
      * @return bool
      */
@@ -58,7 +57,7 @@ trait HasValueAsString
     }
 
     /**
-     * Nullify the value property
+     * Nullify the value property.
      *
      * @return $this
      */

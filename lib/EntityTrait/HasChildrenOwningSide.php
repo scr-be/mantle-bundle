@@ -13,21 +13,20 @@ namespace Scribe\EntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class HasChildrenOwningSide
- *
- * @package Scribe\EntityTrait
+ * Class HasChildrenOwningSide.
  */
 trait HasChildrenOwningSide
 {
-    /**
+    /*
      * Import inverse-side trait (read functions)
      */
     use HasChildrenInverseSide;
 
     /**
-     * Setter for children property
+     * Setter for children property.
      *
      * @param ArrayCollection $children collection of children objects
+     *
      * @return $this
      */
     public function setChildren(ArrayCollection $children = null)
@@ -38,7 +37,7 @@ trait HasChildrenOwningSide
     }
 
     /**
-     * Empty children collection
+     * Empty children collection.
      *
      * @return $this
      */
@@ -53,11 +52,12 @@ trait HasChildrenOwningSide
     }
 
     /**
-     * Element adder for children collection
+     * Element adder for children collection.
      *
      * @param Entity $child  an entity instance to add to the collection
      * @param bool   $unique requires the passed object instance does not already exist within
      *                       the collection
+     *
      * @return $this
      */
     public function addChild(Entity $child, $unique = true)
@@ -71,9 +71,10 @@ trait HasChildrenOwningSide
     }
 
     /**
-     * Element remover for children collection
+     * Element remover for children collection.
      *
      * @param Entity $child an entity instance to remove from the collection
+     *
      * @return $this
      */
     public function removeChild(Entity $child)

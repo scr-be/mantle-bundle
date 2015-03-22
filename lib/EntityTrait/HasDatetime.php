@@ -13,20 +13,22 @@ namespace Scribe\EntityTrait;
 use Datetime;
 
 /**
- * Class HasDatetime
- * @package Scribe\EntityTrait
+ * Class HasDatetime.
  */
 trait HasDatetime
 {
     /**
-     * The entity datetime property
-     * @type Datetime
+     * The entity datetime property.
+     *
+     * @var Datetime
      */
     protected $datetime;
 
     /**
-     * Setter for datetime property
+     * Setter for datetime property.
+     *
      * @param Datetime $datetime any datetime object instance
+     *
      * @return $this
      */
     public function setDatetime(Datetime $datetime = null)
@@ -37,8 +39,10 @@ trait HasDatetime
     }
 
     /**
-     * Getter (or formatter) for datetime property
+     * Getter (or formatter) for datetime property.
+     *
      * @param string|null $format optional string to format datetime
+     *
      * @return Datetime|string|null
      */
     public function getDatetime($format = null)
@@ -51,16 +55,18 @@ trait HasDatetime
     }
 
     /**
-     * Checker for datetime property
+     * Checker for datetime property.
+     *
      * @return bool
      */
     public function hasDatetime()
     {
-        return (bool)$this->datetime instanceof Datetime;
+        return (bool) $this->datetime instanceof Datetime;
     }
 
     /**
-     * Nullify the datetime property
+     * Nullify the datetime property.
+     *
      * @return $this
      */
     public function clearDatetime()

@@ -14,15 +14,13 @@ namespace Scribe\Entity;
  * Trait EntityDebuggable
  * Provides basic functionality to utilize {@see var_dump()} on an entity that
  * would otherwise recurse into Symfony's DI component and become useless.
- *
- * @package Scribe\Entity
  */
 trait EntityDebuggableTrait
 {
     /**
      * Support standardized and extended output when object instance is passed
      * to {@see var_dump()}, including class name, parent name (if applicable),
-     * and a list of properties and methods
+     * and a list of properties and methods.
      *
      * @return array
      */
@@ -52,17 +50,17 @@ trait EntityDebuggableTrait
     }
 
     /**
-     * Provides output of {@see __debugInfo()} as string instead of array
+     * Provides output of {@see __debugInfo()} as string instead of array.
      *
      * @return string
      */
     public function __debugInfoToString()
     {
         $debug  = $this->__debugInfo();
-        $string = 'self:'       . $debug['self']                     . '; ' .
-                  'parent:'     . $debug['parent']                   . '; ' .
-                  'properties:' . implode(',', $debug['properties']) . '; ' .
-                  'methods:'    . implode(',', $debug['methods'])    . ';';
+        $string = 'self:'.$debug['self'].'; '.
+                  'parent:'.$debug['parent'].'; '.
+                  'properties:'.implode(',', $debug['properties']).'; '.
+                  'methods:'.implode(',', $debug['methods']).';';
 
         return $string;
     }

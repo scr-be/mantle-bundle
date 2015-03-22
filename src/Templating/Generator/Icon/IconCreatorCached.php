@@ -17,19 +17,17 @@ use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedSe
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class: IconCreatorCached
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon
+ * Class: IconCreatorCached.
  */
 class IconCreatorCached extends IconCreator
 {
     use IconCreatorCachedServicesTrait;
 
     /**
-     * Setup the object instance
+     * Setup the object instance.
      *
-     * @param IconFamilyRepository   $iconFamilyRepo
-     * @param EngineInterface        $engine
+     * @param IconFamilyRepository $iconFamilyRepo
+     * @param EngineInterface      $engine
      */
     public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null)
     {
@@ -37,13 +35,15 @@ class IconCreatorCached extends IconCreator
     }
 
     /**
-     * Render the requested icon
+     * Render the requested icon.
      *
-     * @param  string|null $icon
-     * @param  string|null $family
-     * @param  string|null $template
-     * @param  string[]    $styles
+     * @param string|null $icon
+     * @param string|null $family
+     * @param string|null $template
+     * @param string[]    $styles
+     *
      * @return string
+     *
      * @throws IconException
      */
     public function render($icon = null, $family = null, $template = null, ...$styles)
@@ -61,12 +61,13 @@ class IconCreatorCached extends IconCreator
     }
 
     /**
-     * Serializes current context into md5 hash 
+     * Serializes current context into md5 hash.
      *
-     * @param  string|null $icon
-     * @param  string|null $family
-     * @param  string|null $template
-     * @param  string[]    $styles
+     * @param string|null $icon
+     * @param string|null $family
+     * @param string|null $template
+     * @param string[]    $styles
+     *
      * @return $this
      */
     protected function setCurrentStateAndCacheKey($icon, $family, $template, ...$styles)
@@ -87,15 +88,16 @@ class IconCreatorCached extends IconCreator
     }
 
     /**
-     * Checks if slug value given and sets relevant property if so
+     * Checks if slug value given and sets relevant property if so.
      *
-     * @param  string|null $slugVal
-     * @param  string      $slugSetter
+     * @param string|null $slugVal
+     * @param string      $slugSetter
+     *
      * @return $this
      */
     protected function checkAndSetSlug($slugVal, $slugSetter)
     {
-        if(null !== $slugVal) {
+        if (null !== $slugVal) {
             $this->{$slugSetter}($slugVal);
         }
 
@@ -103,9 +105,10 @@ class IconCreatorCached extends IconCreator
     }
 
     /**
-     * Checks if styles values given and sets relevant property if so
+     * Checks if styles values given and sets relevant property if so.
      *
-     * @param  ...string $styles
+     * @param ...string $styles
+     *
      * @return $this
      */
     protected function checkAndSetStyles(...$styles)
@@ -126,7 +129,7 @@ class IconCreatorCached extends IconCreator
     protected function getCachableProperties()
     {
         $keyValues = [ ];
-        foreach(get_object_vars($this) as $property => $value) {
+        foreach (get_object_vars($this) as $property => $value) {
             $keyValues[ ] = $property;
             $keyValues[ ] = $this->getCachablePropertyValue($value);
         }
@@ -135,9 +138,10 @@ class IconCreatorCached extends IconCreator
     }
 
     /**
-     * Determines whether property should be cached (i.e., slugs)
+     * Determines whether property should be cached (i.e., slugs).
      *
-     * @param  mixed $value
+     * @param mixed $value
+     *
      * @return bool
      */
     protected function getCachablePropertyValue($value)

@@ -23,19 +23,17 @@ use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 use Scribe\SharedBundle\Utility\Exception\InvalidArgumentException;
 
 /**
- * Class ControllerUtils
- *
- * @package Scribe\Component\Controller
+ * Class ControllerUtils.
  */
 class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterface
 {
-    /**
+    /*
      * Import container aware property and methods
      */
     use ContainerAwareTrait;
 
     /**
-     * Handle setting up the object instance
+     * Handle setting up the object instance.
      *
      * @param ContainerInterface|null $container
      */
@@ -45,9 +43,10 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Get an array of container services by passing a list of services to fetch
+     * Get an array of container services by passing a list of services to fetch.
      *
-     * @param  string,... $serviceKeys the container service keys to get
+     * @param string,... $serviceKeys the container service keys to get
+     *
      * @return array
      */
     public function getServices(...$serviceKeys)
@@ -62,9 +61,10 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Get a single container service by passing the service key
+     * Get a single container service by passing the service key.
      *
-     * @param  string $serviceKey the container service key to get
+     * @param string $serviceKey the container service key to get
+     *
      * @return mixed
      */
     public function getService($serviceKey)
@@ -73,9 +73,10 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Get a container service with available helper shortcut keys
+     * Get a container service with available helper shortcut keys.
      *
-     * @param  string $serviceKey the container service key to get
+     * @param string $serviceKey the container service key to get
+     *
      * @return object
      */
     private function getServiceHelper($serviceKey)
@@ -114,24 +115,27 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Set container peramiter value
+     * Set container peramiter value.
      *
-     * @param  string $key parameter reference key to check for
+     * @param string $key parameter reference key to check for
+     *
      * @return bool
      */
     public function hasParameter($key)
     {
-        return (bool)$this
+        return (bool) $this
             ->getContainer()
             ->hasParameter($key)
         ;
     }
 
     /**
-     * Get container perameter value
+     * Get container perameter value.
      *
-     * @param  string $key key reference to parameter
+     * @param string $key key reference to parameter
+     *
      * @throws InvalidArgumentException
+     *
      * @return mixed
      */
     public function getParameter($key)
@@ -143,9 +147,10 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Flush the orm entity to the database
+     * Flush the orm entity to the database.
      *
-     * @param  bool $flushNow should this action actually take place now?
+     * @param bool $flushNow should this action actually take place now?
+     *
      * @return bool
      */
     public function entityManagerFlush($flushNow = true)
@@ -154,17 +159,18 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
             return false;
         }
 
-        return (bool)$this
+        return (bool) $this
             ->getService('em')
             ->flush()
         ;
     }
 
     /**
-     * Persist an orm entity and optionally flush the transaction
+     * Persist an orm entity and optionally flush the transaction.
      *
-     * @param  EntityInterface $entity   an orm entity instance
-     * @param  bool            $flushNow whether to flush transaction
+     * @param EntityInterface $entity   an orm entity instance
+     * @param bool            $flushNow whether to flush transaction
+     *
      * @return bool
      */
     public function entityPersist(EntityInterface $entity, $flushNow = true)
@@ -173,10 +179,11 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Remove an orm entity and optionally flush the transaction
+     * Remove an orm entity and optionally flush the transaction.
      *
-     * @param  EntityInterface $entity   an orm entity instance
-     * @param  bool            $flushNow whether to flush transaction
+     * @param EntityInterface $entity   an orm entity instance
+     * @param bool            $flushNow whether to flush transaction
+     *
      * @return bool
      */
     public function entityRemove(EntityInterface $entity, $flushNow = true)
@@ -185,17 +192,18 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Perform an orm entity action and optionally flush the transaction
+     * Perform an orm entity action and optionally flush the transaction.
      *
-     * @param  string          $action entity action to perform
-     * @param  EntityInterface $entity an orm entity instance
-     * @param  bool            $flushNow  whether to flush transaction
+     * @param string          $action   entity action to perform
+     * @param EntityInterface $entity   an orm entity instance
+     * @param bool            $flushNow whether to flush transaction
+     *
      * @return bool
      */
     private function entityAction($action, EntityInterface $entity, $flushNow = true)
     {
         if (!in_array($action, ['remove', 'persist'])) {
-            throw new RuntimeException('Invalud entity action ' . $action);
+            throw new RuntimeException('Invalud entity action '.$action);
         }
 
         if (false === ($result = $this->getService('em')->$action($entity))) {
@@ -204,14 +212,15 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
 
         $this->entityManagerFlush($flushNow);
 
-        return (bool)$result;
+        return (bool) $result;
     }
 
     /**
-     * Create a not found exception with option to throw
+     * Create a not found exception with option to throw.
      *
-     * @param  string    $message           exception error message
-     * @param  Exception $previousException an optional previous exception (for casacading catches)
+     * @param string    $message           exception error message
+     * @param Exception $previousException an optional previous exception (for casacading catches)
+     *
      * @return NotFoundHttpException
      */
     public function createNotFoundException($message = 'Not Found', Exception $previousException = null)
@@ -220,10 +229,11 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Renders a template view
+     * Renders a template view.
      *
-     * @param  string $view       The path to the template view
-     * @param  array  $parameters An array of paramiters to pass to the template renderer
+     * @param string $view       The path to the template view
+     * @param array  $parameters An array of paramiters to pass to the template renderer
+     *
      * @return string
      */
     public function renderView($view, array $parameters = [])
@@ -238,11 +248,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Return a response object from the provided string
+     * Return a response object from the provided string.
      *
-     * @param  string $string  A string value to return as the response
-     * @param  int    $status  HTTP status code to return
-     * @param  array  $headers Additional headers to return
+     * @param string $string  A string value to return as the response
+     * @param int    $status  HTTP status code to return
+     * @param array  $headers Additional headers to return
+     *
      * @return Response
      */
     public function response($string = '', $status = 200, array $headers = [])
@@ -251,11 +262,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Return a response object from the provided string as plain text
+     * Return a response object from the provided string as plain text.
      *
-     * @param  string $string A string value to return as the response
-     * @param  int    $status  HTTP status code to return
-     * @param  array  $headers Additional headers to return
+     * @param string $string  A string value to return as the response
+     * @param int    $status  HTTP status code to return
+     * @param array  $headers Additional headers to return
+     *
      * @return Response
      */
     public function plainTextResponse($string = '', $status = 200, array $headers = [])
@@ -266,11 +278,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Return a response object from the provided string, alias for {@see htmlResponse}
+     * Return a response object from the provided string, alias for {@see htmlResponse}.
      *
-     * @param  string $string A string value to return as the response
-     * @param  int    $status  HTTP status code to return
-     * @param  array  $headers Additional headers to return
+     * @param string $string  A string value to return as the response
+     * @param int    $status  HTTP status code to return
+     * @param array  $headers Additional headers to return
+     *
      * @return Response
      */
     public function returnResponse($string = '', $status = 200, array $headers = [])
@@ -279,10 +292,11 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Return a response object from the generated view
+     * Return a response object from the generated view.
      *
-     * @param  string $view       The path to the template view
-     * @param  array  $parameters An array of paramiters to pass to the template renderer
+     * @param string $view       The path to the template view
+     * @param array  $parameters An array of paramiters to pass to the template renderer
+     *
      * @return Response
      */
     public function renderResponse($view, array $parameters = [])
@@ -291,11 +305,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * return redirect response from a provided symfony route and its (optional) arguments
+     * return redirect response from a provided symfony route and its (optional) arguments.
      *
-     * @param  string $uri      uri to redirect to
-     * @param  int    $status   http status code to return
-     * @param  array  $headers  additional headers to return
+     * @param string $uri     uri to redirect to
+     * @param int    $status  http status code to return
+     * @param array  $headers additional headers to return
+     *
      * @return RedirectResponse
      */
     public function redirectResponse($uri, $status = 302, array $headers = [])
@@ -304,12 +319,13 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * return redirect response from a provided symfony route and its (optional) arguments
+     * return redirect response from a provided symfony route and its (optional) arguments.
      *
-     * @param  string $routeName      name of the symfony route
-     * @param  array  $routeArguments optional arguments array for route
-     * @param  int    $status         http status code to return
-     * @param  array  $headers        additional headers to return
+     * @param string $routeName      name of the symfony route
+     * @param array  $routeArguments optional arguments array for route
+     * @param int    $status         http status code to return
+     * @param array  $headers        additional headers to return
+     *
      * @return RedirectResponse
      */
     public function routeRedirectResponse($routeName, array $routeArguments = [], $status = 302, array $headers = [])
@@ -322,17 +338,18 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Return JSON response object instance
+     * Return JSON response object instance.
      *
-     * @param  array  $data     JSON data to return
-     * @param  int    $status   HTTP status code
-     * @param  array  $headers  Additional HTTP headers to return with response
-     * @param  string $protocol HTTP protocol to use
+     * @param array  $data     JSON data to return
+     * @param int    $status   HTTP status code
+     * @param array  $headers  Additional HTTP headers to return with response
+     * @param string $protocol HTTP protocol to use
+     *
      * @return JsonResponse
      */
     public function jsonResponse(array $data = null, $status = Response::HTTP_OK, array $headers = null, $protocol = '1.1')
     {
-        $response = (new JsonResponse)
+        $response = (new JsonResponse())
             ->setContent($data)
             ->setProtocolVersion($protocol)
             ->setDate(new \DateTime(null, new \DateTimeZone('UTC')))
@@ -340,8 +357,7 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
 
         if (is_array($status)) {
             $response->setStatus(reset($status), key($status));
-        }
-        else {
+        } else {
             $response->setStatus($status);
         }
 
@@ -353,11 +369,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Generate a url from a routename and route args
+     * Generate a url from a routename and route args.
      *
-     * @param  string $route         route name
-     * @param  array  $parameters    route parameters
-     * @param  string $referenceType the url reference type
+     * @param string $route         route name
+     * @param array  $parameters    route parameters
+     * @param string $referenceType the url reference type
+     *
      * @return string
      */
     public function generateUrl($route, array $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
@@ -373,11 +390,12 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Create a form
+     * Create a form.
      *
-     * @param  FormTypeInterface|null $type    form type to create
-     * @param  mixed                  $data    form data
-     * @param  array                  $options form options
+     * @param FormTypeInterface|null $type    form type to create
+     * @param mixed                  $data    form data
+     * @param array                  $options form options
+     *
      * @return Form
      */
     public function createForm($type, $data = null, array $options = array())
@@ -393,12 +411,13 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     }
 
     /**
-     * Create a named form
+     * Create a named form.
      *
-     * @param  string                 $name    name for the form
-     * @param  FormTypeInterface|null $type    form type to create
-     * @param  mixed                  $data    form data
-     * @param  array                  $options form options
+     * @param string                 $name    name for the form
+     * @param FormTypeInterface|null $type    form type to create
+     * @param mixed                  $data    form data
+     * @param array                  $options form options
+     *
      * @return Form
      */
     public function createNamedForm($name, $type, $data = null, array $options = array())
@@ -417,9 +436,8 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Add session message to flashbag.
      *
-     * @param  string $type    flashbag category (type) to add message to
-     * @param  string $message message to display
-     * @return void
+     * @param string $type    flashbag category (type) to add message to
+     * @param string $message message to display
      */
     public function sessionMessage($type, $message)
     {
@@ -433,8 +451,7 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Add session success message to flashbag.
      *
-     * @param  string $message message to display
-     * @return void
+     * @param string $message message to display
      */
     public function sessionMessageSuccess($message)
     {
@@ -444,8 +461,7 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Add session error message to flashbag.
      *
-     * @param  string $message message to display
-     * @return void
+     * @param string $message message to display
      */
     public function sessionMessageError($message)
     {
@@ -455,8 +471,7 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Add session info to flashbag.
      *
-     * @param  string $message message to display
-     * @return void
+     * @param string $message message to display
      */
     public function sessionMessageInfo($message)
     {
@@ -466,7 +481,8 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Get translation string.
      *
-     * @param  string $key translation index
+     * @param string $key translation index
+     *
      * @return string
      */
     public function getTranslation($key)

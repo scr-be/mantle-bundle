@@ -14,9 +14,7 @@ use Scribe\Exception\RuntimeException;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * Trait EngineAwareTrait
- *
- * @package Scribe\Templating\Engine
+ * Trait EngineAwareTrait.
  */
 trait EngineAwareTrait
 {
@@ -29,11 +27,11 @@ trait EngineAwareTrait
      * @var array
      */
     private $engineTypeDefinitions = [
-        'twig' => '\Symfony\Bridge\Twig\TwigEngine'
+        'twig' => '\Symfony\Bridge\Twig\TwigEngine',
     ];
 
     /**
-     * Getter for templating engine
+     * Getter for templating engine.
      *
      * @return EngineInterface
      *
@@ -49,9 +47,10 @@ trait EngineAwareTrait
     }
 
     /**
-     * Setter for templating engine
+     * Setter for templating engine.
      *
      * @param EngineInterface $engine
+     *
      * @return $this
      */
     public function setEngine(EngineInterface $engine)
@@ -62,7 +61,7 @@ trait EngineAwareTrait
     }
 
     /**
-     * Checker for templating engine
+     * Checker for templating engine.
      *
      * @return bool
      */
@@ -72,7 +71,7 @@ trait EngineAwareTrait
     }
 
     /**
-     * Attempt to determine the engine type
+     * Attempt to determine the engine type.
      *
      * @return string|false
      */

@@ -10,19 +10,17 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Scribe\Entity\AbstractEntity;
 use Scribe\EntityTrait\HasName;
 use Scribe\EntityTrait\HasDescription;
 use Scribe\EntityTrait\HasSlug;
 
 /**
- * Class Icon
- * @package Scribe\MantleBundle\Entity
+ * Class Icon.
  */
 class IconTemplate extends AbstractEntity
 {
-    /**
+    /*
      * import name and description entity property traits
      */
     use HasName,
@@ -35,32 +33,35 @@ class IconTemplate extends AbstractEntity
     private $variables;
 
     /**
-     * @var string 
+     * @var string
      */
     private $engine;
 
     /**
-     * @var string 
+     * @var string
      */
     private $template;
 
     /**
-     * @var IconFamily 
+     * @var IconFamily
      */
     private $family;
 
     /**
-     * @var integer 
+     * @var integer
      */
     private $priority;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     /**
-     * Support for casting from object type to string type
+     * Support for casting from object type to string type.
+     *
      * @return string
      */
     public function __toString()
@@ -69,9 +70,10 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Setter for variables property 
+     * Setter for variables property.
      *
-     * @param array 
+     * @param array
+     *
      * @return $this
      */
     public function setVariables($variables = null)
@@ -82,9 +84,9 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Getter for variables property 
+     * Getter for variables property.
      *
-     * @return array 
+     * @return array
      */
     public function getVariables()
     {
@@ -92,7 +94,7 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Checker for variables property 
+     * Checker for variables property.
      *
      * @return bool
      */
@@ -102,7 +104,7 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Nullify variables property 
+     * Nullify variables property.
      *
      * @return $this
      */
@@ -114,9 +116,10 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Setter for engine property 
+     * Setter for engine property.
      *
-     * @param string 
+     * @param string
+     *
      * @return $this
      */
     public function setEngine($engine = null)
@@ -127,9 +130,9 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Getter for engine property 
+     * Getter for engine property.
      *
-     * @return string 
+     * @return string
      */
     public function getEngine()
     {
@@ -137,9 +140,10 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Setter for template property 
+     * Setter for template property.
      *
-     * @param string 
+     * @param string
+     *
      * @return $this
      */
     public function setTemplate($template = null)
@@ -150,9 +154,9 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Getter for template property 
+     * Getter for template property.
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {
@@ -160,9 +164,10 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Setter for family property 
+     * Setter for family property.
      *
-     * @param IconFamily 
+     * @param IconFamily
+     *
      * @return $this
      */
     public function setFamily(IconFamily $family = null)
@@ -173,9 +178,9 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Getter for family property 
+     * Getter for family property.
      *
-     * @return IconFamily 
+     * @return IconFamily
      */
     public function getFamily()
     {
@@ -183,7 +188,7 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Checker for family property 
+     * Checker for family property.
      *
      * @return bool
      */
@@ -193,7 +198,7 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Nullify family 
+     * Nullify family.
      *
      * @return $this
      */
@@ -205,9 +210,10 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Setter for priority property 
+     * Setter for priority property.
      *
      * @param integer
+     *
      * @return $this
      */
     public function setPriority($priority)
@@ -218,9 +224,9 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Getter for priority property 
+     * Getter for priority property.
      *
-     * @return integer 
+     * @return integer
      */
     public function getPriority()
     {

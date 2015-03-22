@@ -16,12 +16,11 @@ use Scribe\EntityTrait\HasDescription;
 use Scribe\EntityTrait\HasParameters;
 
 /**
- * Class Route
- * @package Scribe\MantleBundle\Entity
+ * Class Route.
  */
 class Route extends AbstractEntity
 {
-    /**
+    /*
      * import name, description, and parameters traits
      */
     use HasName,
@@ -31,17 +30,21 @@ class Route extends AbstractEntity
     /**
      * A routing reference type for the Symfony routing components. Reference the constants within
      * {@see Symfony\Component\Routing\Generator\UrlGeneratorInterface} for available values.
-     * @type string
+     *
+     * @var string
      */
     private $referenceType;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     /**
-     * Support for casting from object type to string type
+     * Support for casting from object type to string type.
+     *
      * @return string
      */
     public function __toString()
@@ -50,8 +53,10 @@ class Route extends AbstractEntity
     }
 
     /**
-     * Setter for referenceType property
+     * Setter for referenceType property.
+     *
      * @param string $referenceType reference type for symfony route generator
+     *
      * @return $this
      */
     public function setReferenceType($referenceType)
@@ -62,7 +67,8 @@ class Route extends AbstractEntity
     }
 
     /**
-     * Getter for referenceType property
+     * Getter for referenceType property.
+     *
      * @return string
      */
     public function getReferenceType()
@@ -71,7 +77,8 @@ class Route extends AbstractEntity
     }
 
     /**
-     * Checker for referenceType property
+     * Checker for referenceType property.
+     *
      * @return bool
      */
     public function hasReferenceType()
@@ -80,7 +87,8 @@ class Route extends AbstractEntity
     }
 
     /**
-     * Nullify referenceType property
+     * Nullify referenceType property.
+     *
      * @return $this
      */
     public function clearReferenceType()

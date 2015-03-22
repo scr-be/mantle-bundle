@@ -11,21 +11,19 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasCategories
- *
- * @package Scribe\EntityTrait
+ * Class HasCategories.
  */
 trait HasCategories
 {
     /**
-     * The categories property
+     * The categories property.
      *
-     * @type array
+     * @var array
      */
     protected $categories;
 
     /**
-     * Should be called from constructor of entity using this trait
+     * Should be called from constructor of entity using this trait.
      *
      * @return $this
      */
@@ -37,9 +35,10 @@ trait HasCategories
     }
 
     /**
-     * Setter for categories property
+     * Setter for categories property.
      *
-     * @param  array|null $categories
+     * @param array|null $categories
+     *
      * @return $this
      */
     public function setCategories(array $categories = null)
@@ -50,7 +49,7 @@ trait HasCategories
     }
 
     /**
-     * Getter for categories property
+     * Getter for categories property.
      *
      * @return array|null
      */
@@ -60,7 +59,7 @@ trait HasCategories
     }
 
     /**
-     * Checker for categories property
+     * Checker for categories property.
      *
      * @return bool
      */
@@ -70,9 +69,10 @@ trait HasCategories
     }
 
     /**
-     * Check for a specific category
+     * Check for a specific category.
      *
-     * @param  string $category
+     * @param string $category
+     *
      * @return bool
      */
     public function hasCategory($category)
@@ -87,7 +87,8 @@ trait HasCategories
     }
 
     /**
-     * @param  string $category
+     * @param string $category
+     *
      * @return string|null
      */
     public function getCategory($category)
@@ -96,11 +97,11 @@ trait HasCategories
             return $this->categories[$category];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Clear the categories property
+     * Clear the categories property.
      *
      * @return $this
      */

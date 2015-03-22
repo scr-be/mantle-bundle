@@ -18,7 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig_Environment;
 
 /**
- * Class ExceptionController
+ * Class ExceptionController.
+ *
  * @author Rob Frawley <rfrawley@scribenet.com>
  * @author Fabien Potencier <fabien@symfony.com>
  */
@@ -45,10 +46,11 @@ class ExceptionController
     }
 
     /**
-     * @param Request $request
-     * @param FlattenException $exception
+     * @param Request              $request
+     * @param FlattenException     $exception
      * @param DebugLoggerInterface $logger
-     * @param string $format
+     * @param string               $format
+     *
      * @return Response
      */
     public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null, $format = 'html')
@@ -117,7 +119,7 @@ class ExceptionController
     /**
      * @param Request $request
      * @param string  $format
-     * @param integer $code       An HTTP response status code
+     * @param integer $code    An HTTP response status code
      * @param Boolean $debug
      *
      * @return TemplateReference

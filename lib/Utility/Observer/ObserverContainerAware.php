@@ -14,9 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
- * Class ObserverContainerAware
- *
- * @package Scribe\Utility\Observer
+ * Class ObserverContainerAware.
  */
 abstract class ObserverContainerAware extends Observer implements ContainerAwareInterface
 {

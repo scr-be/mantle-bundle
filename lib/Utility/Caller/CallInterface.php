@@ -10,43 +10,43 @@
 
 namespace Scribe\Utility\Caller;
 
-use Scribe\Exception\BadFunctionCallException;
 
 /**
- * CallInterface
- *
- * @package Scribe\Utility\Caller
+ * CallInterface.
  */
 interface CallInterface
 {
     /**
-     * Call a global function (if exists) with specified arguments
+     * Call a global function (if exists) with specified arguments.
      *
-     * @param  string   $function  A global function name
-     * @param  ...mixed $arguments Arguments to pass to the global function
+     * @param string   $function  A global function name
+     * @param ...mixed $arguments Arguments to pass to the global function
+     *
      * @return mixed
      */
-    static public function func($function, ...$arguments);
+    public static function func($function, ...$arguments);
 
     /**
-     * Call an object method (if exists) with specified arguments
+     * Call an object method (if exists) with specified arguments.
      *
-     * @param  string|object $object    An object instance or a class name
-     * @param  string        $method    An accessible object method name
-     * @param  ...mixed      $arguments Arguments to pass to the object method
+     * @param string|object $object    An object instance or a class name
+     * @param string        $method    An accessible object method name
+     * @param ...mixed      $arguments Arguments to pass to the object method
+     *
      * @return mixed
      */
-    static public function method($object, $method, ...$arguments);
+    public static function method($object, $method, ...$arguments);
 
     /**
-     * Call an static object method (if exists) with specified arguments
+     * Call an static object method (if exists) with specified arguments.
      *
-     * @param  string|object $object    An object instance or a class name
-     * @param  string        $method    An accessible object method name
-     * @param  ...mixed      $arguments Arguments to pass to the object method
+     * @param string|object $object    An object instance or a class name
+     * @param string        $method    An accessible object method name
+     * @param ...mixed      $arguments Arguments to pass to the object method
+     *
      * @return mixed
      */
-    static public function staticMethod($object, $method, ...$arguments);
+    public static function staticMethod($object, $method, ...$arguments);
 }
 
 /* EOF */

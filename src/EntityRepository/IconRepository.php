@@ -11,21 +11,18 @@
 namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Scribe\MantleBundle\Entity\IconFamily;
 
 /**
- * NavMenuItemRepository
- *
- * @package Scribe\MantleBundle\Entity
+ * NavMenuItemRepository.
  */
 class IconRepository extends EntityRepository
 {
     /**
-     * loadIconByFamilyAndSlug
+     * loadIconByFamilyAndSlug.
      *
      * @param IconFamily $family
      * @param            $iconSlug
-     * @return null
+     *
      * @throws \Exception
      */
     public function loadIconByFamilyAndSlug(IconFamily $family, $iconSlug)
@@ -39,15 +36,15 @@ class IconRepository extends EntityRepository
 
         try {
             $results = $q->getResult();
-            foreach($results as $icon) {
+            foreach ($results as $icon) {
                 $fams = $icon->getFamilies();
-                if(in_array($family, $fams)) {
+                if (in_array($family, $fams)) {
                     return $icon;
                 }
             }
-            return null;
-        }
-        catch(\Exception $e) {
+
+            return;
+        } catch (\Exception $e) {
             throw $e;
         }
     }

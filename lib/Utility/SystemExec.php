@@ -11,9 +11,7 @@
 namespace Scribe\Utility;
 
 /**
- * Class SystemExec
- *
- * @package Scribe\Utility
+ * Class SystemExec.
  */
 class SystemExec
 {

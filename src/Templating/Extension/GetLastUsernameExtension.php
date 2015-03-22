@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Twig_Extension;
 
 /**
- * Class GetLastUsernameExtension
+ * Class GetLastUsernameExtension.
  */
 class GetLastUsernameExtension extends Twig_Extension
 {
@@ -25,7 +25,7 @@ class GetLastUsernameExtension extends Twig_Extension
         ContainerAwareExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct(ContainerInterface $container)
     {

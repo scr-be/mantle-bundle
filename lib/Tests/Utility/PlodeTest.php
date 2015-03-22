@@ -24,7 +24,7 @@ class PlodeTest extends PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionOnInstantiation()
     {
-        new Plode;
+        new Plode();
     }
 
     /**

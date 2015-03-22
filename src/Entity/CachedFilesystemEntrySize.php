@@ -7,8 +7,7 @@ use Scribe\EntityTrait\HasAttributes;
 use Scribe\EntityTrait\HasDatetime;
 
 /**
- * Class CachedFilesystemEntrySize
- * @package Scribe\MantleBundle\Entity
+ * Class CachedFilesystemEntrySize.
  */
 class CachedFilesystemEntrySize extends AbstractEntity
 {
@@ -36,7 +35,8 @@ class CachedFilesystemEntrySize extends AbstractEntity
     private $typeHuman;
 
     /**
-     * Cast to string
+     * Cast to string.
+     *
      * @return string
      */
     public function __toString()

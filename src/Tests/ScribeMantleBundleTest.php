@@ -17,9 +17,7 @@ use Symfony\Component\DependencyInjection\Container;
 use AppKernel;
 
 /**
- * Class ScribeMantleBundleTest
- *
- * @package Scribe\MantleBundle\Tests
+ * Class ScribeMantleBundleTest.
  */
 class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 {
@@ -37,7 +35,7 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 
     protected function getNewBundle()
     {
-        return new ScribeMantleBundle;
+        return new ScribeMantleBundle();
     }
 
     protected function getReflection()

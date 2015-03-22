@@ -11,21 +11,19 @@
 namespace Scribe\EntityTrait;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\SecurityBundle\Entity\Role;
 
 /**
- * Class HasRoleRestrictionsInverseSide
- *
- * @package Scribe\EntityTrait
+ * Class HasRoleRestrictionsInverseSide.
  */
 trait HasReverseRoleRestrictionsOwningSide
 {
     use HasReverseRoleRestrictionsInverseSide;
 
     /**
-     * Set reverseRoleRestrictions
+     * Set reverseRoleRestrictions.
      *
-     * @param  ArrayCollection $reverseRoleRestrictions
+     * @param ArrayCollection $reverseRoleRestrictions
+     *
      * @return $this
      */
     public function setReverseRoleRestrictions(ArrayCollection $reverseRoleRestrictions = null)

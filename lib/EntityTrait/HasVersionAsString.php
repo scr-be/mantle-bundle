@@ -11,23 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasVersionAsString
- *
- * @package Scribe\EntityTrait
+ * Class HasVersionAsString.
  */
 trait HasVersionAsString
 {
     /**
-     * The version property
+     * The version property.
      *
-     * @type string
+     * @var string
      */
     protected $version;
 
     /**
-     * Setter for version property
+     * Setter for version property.
      *
      * @param string|null $version the version integer value
+     *
      * @return $this
      */
     public function setVersion($version = null)
@@ -38,7 +37,7 @@ trait HasVersionAsString
     }
 
     /**
-     * Getter for version property
+     * Getter for version property.
      *
      * @return string|null
      */
@@ -48,7 +47,7 @@ trait HasVersionAsString
     }
 
     /**
-     * Checker for version property
+     * Checker for version property.
      *
      * @return bool
      */
@@ -58,7 +57,7 @@ trait HasVersionAsString
     }
 
     /**
-     * Nullify the version property
+     * Nullify the version property.
      *
      * @return $this
      */

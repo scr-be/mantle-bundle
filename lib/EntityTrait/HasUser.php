@@ -13,20 +13,22 @@ namespace Scribe\EntityTrait;
 use Scribe\SecurityBundle\Entity\User;
 
 /**
- * Class HasUser
- * @package Scribe\EntityTrait
+ * Class HasUser.
  */
 trait HasUser
 {
     /**
-     * The entity user property
-     * @type User
+     * The entity user property.
+     *
+     * @var User
      */
     protected $user;
 
     /**
-     * Setter for user property
+     * Setter for user property.
+     *
      * @param User|null $user a user entity object instance
+     *
      * @return $this
      */
     public function setUser(User $user = null)
@@ -37,7 +39,8 @@ trait HasUser
     }
 
     /**
-     * Getter for user property
+     * Getter for user property.
+     *
      * @return User|null
      */
     public function getUser()
@@ -46,16 +49,18 @@ trait HasUser
     }
 
     /**
-     * Checker for user property
+     * Checker for user property.
+     *
      * @return bool
      */
     public function hasUser()
     {
-        return (bool)$this->user instanceof User;
+        return (bool) $this->user instanceof User;
     }
 
     /**
-     * Nullify the user property
+     * Nullify the user property.
+     *
      * @return $this
      */
     public function clearUser()

@@ -17,7 +17,7 @@ use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 use Scribe\Component\Bundle\BundleInformation;
 
 /**
- * Class Search
+ * Class Search.
  */
 class Search implements ContainerAwareInterface
 {
@@ -69,7 +69,7 @@ class Search implements ContainerAwareInterface
     protected $bundleInfo = null;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct(ContainerInterface $container, $formSelector = '#form-search-input')
     {
@@ -79,7 +79,7 @@ class Search implements ContainerAwareInterface
             ->setFormSelector($formSelector)
             ->setTemplateEngine('Hogan')
             ->setTemplate('<span class="label label-info pull-right">{{ type }}</span><p>{{ value }} <span class="mute">{{more}}</span></p>')
-            ->setDatetime(new Datetime)
+            ->setDatetime(new Datetime())
             ->setBundleInfo($container->get('s.symfony.bundleinfo'))
         ;
     }
@@ -160,36 +160,38 @@ class Search implements ContainerAwareInterface
 
     public function setTimeToLive($ttl = 120)
     {
-        $this->timeToLive = (int)$ttl;
+        $this->timeToLive = (int) $ttl;
 
         return $this;
     }
 
     public function getTimeToLive()
     {
-        return (int)$this->timeToLive;
+        return (int) $this->timeToLive;
     }
 
     public function setLimit($limit = 12)
     {
-        $this->limit = (int)$limit;
+        $this->limit = (int) $limit;
 
         return $this;
     }
 
-    public function getLimit() {
-        return (int)$this->limit;
+    public function getLimit()
+    {
+        return (int) $this->limit;
     }
 
     public function setCache($boolean = true)
     {
-        $this->cache = (boolean)$boolean;
+        $this->cache = (boolean) $boolean;
 
         return $this;
     }
 
-    public function getCache() {
-        return (boolean)$this->cache;
+    public function getCache()
+    {
+        return (boolean) $this->cache;
     }
 
     public function setSearchPath($search_path)
@@ -217,7 +219,7 @@ class Search implements ContainerAwareInterface
         $out = $engine->render(
             'ScribeMantleBundle:Search:typeahead.js.twig',
             [
-                'search' => $this
+                'search' => $this,
             ]
         );
 

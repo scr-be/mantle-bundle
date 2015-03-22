@@ -14,23 +14,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * Class SessionAwareTrait
- *
- * @package Scribe\MantleBundle\DependencyInjection\Traits
+ * Class SessionAwareTrait.
  */
 trait SessionAwareTrait
 {
     /**
-     * Session property
+     * Session property.
      *
      * @var SessionInterface|null
      */
     protected $session = null;
 
     /**
-     * Setter for session property from container
+     * Setter for session property from container.
      *
      * @param ContainerInterface $container container object
+     *
      * @return $this
      */
     public function setSessionFromContainer(ContainerInterface $container)
@@ -41,9 +40,10 @@ trait SessionAwareTrait
     }
 
     /**
-     * Setter for session
+     * Setter for session.
      *
-     * @param  SessionInterface $session session instance
+     * @param SessionInterface $session session instance
+     *
      * @return $this
      */
     public function setSession(SessionInterface $session = null)
@@ -54,7 +54,7 @@ trait SessionAwareTrait
     }
 
     /**
-     * Getter for session
+     * Getter for session.
      *
      * @return SessionInterface|null
      */

@@ -41,7 +41,7 @@ Scribe\MantleBundle\Entity\Icon:
         families:
             targetEntity: IconFamily
             inversedBy:   icons
-            joinTable: 
+            joinTable:
                 name: Icons_Mapto_IconFamilies
                 joinColumns:
                     iconId:

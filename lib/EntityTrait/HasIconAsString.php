@@ -13,21 +13,19 @@ namespace Scribe\EntityTrait;
 use Scribe\MantleBundle\Entity\Icon;
 
 /**
- * Class HasIcon
- *
- * @package Scribe\EntityTrait
+ * Class HasIcon.
  */
 trait HasIconAsString
 {
     /**
-     * The icon property
+     * The icon property.
      *
-     * @type Icon
+     * @var Icon
      */
     protected $icon;
 
     /**
-     * init trait
+     * init trait.
      */
     protected function initIcon()
     {
@@ -35,9 +33,10 @@ trait HasIconAsString
     }
 
     /**
-     * Set icon
+     * Set icon.
      *
      * @param string $icon
+     *
      * @return $this
      */
     public function setIcon($icon)
@@ -48,7 +47,7 @@ trait HasIconAsString
     }
 
     /**
-     * Get icon
+     * Get icon.
      *
      * @return string|null
      */

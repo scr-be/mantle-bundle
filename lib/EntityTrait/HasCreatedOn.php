@@ -13,20 +13,22 @@ namespace Scribe\EntityTrait;
 use Datetime;
 
 /**
- * Class HasCreatedOn
- * @package Scribe\EntityTrait
+ * Class HasCreatedOn.
  */
 trait HasCreatedOn
 {
     /**
-     * The entity created_on property
-     * @type Datetime
+     * The entity created_on property.
+     *
+     * @var Datetime
      */
     protected $created_on;
 
     /**
-     * Setter for created_on property
+     * Setter for created_on property.
+     *
      * @param Datetime $created_on any datetime object instance
+     *
      * @return $this
      */
     public function setCreatedOn(Datetime $created_on = null)
@@ -37,8 +39,10 @@ trait HasCreatedOn
     }
 
     /**
-     * Getter (or formatter) for created_on property
+     * Getter (or formatter) for created_on property.
+     *
      * @param string|null $format optional string to format created_on
+     *
      * @return Datetime|string|null
      */
     public function getCreatedOn($format = null)
@@ -51,16 +55,18 @@ trait HasCreatedOn
     }
 
     /**
-     * Checker for created_on property
+     * Checker for created_on property.
+     *
      * @return bool
      */
     public function hasCreatedOn()
     {
-        return (bool)$this->created_on instanceof Datetime;
+        return (bool) $this->created_on instanceof Datetime;
     }
 
     /**
-     * Nullify the created_on property
+     * Nullify the created_on property.
+     *
      * @return $this
      */
     public function clearCreatedOn()

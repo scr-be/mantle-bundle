@@ -11,8 +11,8 @@
 namespace Scribe\Exception;
 
 /**
- * Class InvalidArgumentException
- *
- * @package Scribe\Exception
+ * Class InvalidArgumentException.
  */
-class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface {}
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
+{
+}

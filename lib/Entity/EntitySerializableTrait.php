@@ -9,13 +9,12 @@
  */
 
 namespace Scribe\Entity;
+
 use Scribe\Utility\Serializer\Serializer;
 
 /**
  * Class EntitySerializable
- * Provides basic serializable functionality for any entity that extends from it
- *
- * @package Scribe\Entity
+ * Provides basic serializable functionality for any entity that extends from it.
  */
 trait EntitySerializableTrait
 {
@@ -24,7 +23,9 @@ trait EntitySerializableTrait
      * entities that inherit from this class can define their own
      * interpretation.
      */
-    final public function __clone() {}
+    final public function __clone()
+    {
+    }
 
     /**
      * To serialize object, get its properties or, if it has none, provide an
@@ -49,7 +50,8 @@ trait EntitySerializableTrait
      * it, after which each key=>value pair of the returned array is assigned
      * back as propertyName=>value within the class.
      *
-     * @param  string $serialized serialized object properties
+     * @param string $serialized serialized object properties
+     *
      * @return array
      */
     public function unserialize($serialized)

@@ -13,10 +13,10 @@ namespace Scribe\MantleBundle\Templating\Helper\Highcharts;
 use stdClass;
 
 /**
- * Class ChartOption
+ * Class ChartOption.
  */
-class ChartOption {
-
+class ChartOption
+{
     /**
      * @var string
      */
@@ -33,7 +33,8 @@ class ChartOption {
 
     /**
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return $this
      */
     public function __call($name, $value)
@@ -45,6 +46,7 @@ class ChartOption {
 
     /**
      * @param string $name
+     *
      * @return mixed
      */
     public function __get($name)

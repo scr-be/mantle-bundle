@@ -13,14 +13,12 @@ namespace Scribe\MantleBundle\DataFixtures\ORM;
 use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 
 /**
- * LoadNavMenuSubItemData
- *
- * @package Scribe\MantleBundle\DataFixtures\ORM
+ * LoadNavMenuSubItemData.
  */
 class LoadNavMenuSubItemData extends AbstractYamlFixture
 {
     /**
-     * Init fixture
+     * Init fixture.
      */
     public function init()
     {

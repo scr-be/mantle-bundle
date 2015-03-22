@@ -14,18 +14,17 @@ use Scribe\Utility\Caller\Call;
 use Scribe\Utility\Extension;
 
 /**
- * Class Serializer
- *
- * @package Scribe\Utility\Serializer
+ * Class Serializer.
  */
 class Serializer extends AbstractSerializer
 {
     /**
      * @param mixed  $mixed
      * @param string $method
+     *
      * @return mixed
      */
-    static public function sleep($mixed, $method = self::SERIALIZE_METHOD_DEFAULT)
+    public static function sleep($mixed, $method = self::SERIALIZE_METHOD_DEFAULT)
     {
         $serializeMethod = self::determineSerializer($method);
 
@@ -35,9 +34,10 @@ class Serializer extends AbstractSerializer
     /**
      * @param mixed  $mixed
      * @param string $method
+     *
      * @return mixed
      */
-    static public function wake($mixed, $method = self::SERIALIZE_METHOD_DEFAULT)
+    public static function wake($mixed, $method = self::SERIALIZE_METHOD_DEFAULT)
     {
         $unSerializeMethod = self::determineUnSerializer($method);
 
@@ -45,17 +45,21 @@ class Serializer extends AbstractSerializer
     }
 
     /**
-     * Handle determining the correct function call for serialization
-     * @param  string $method
+     * Handle determining the correct function call for serialization.
+     *
+     * @param string $method
+     *
      * @return string
      */
-    static public function determineSerializer($method)
+    public static function determineSerializer($method)
     {
-        switch(self::sanitizeSerializerMethod($method)) {
+        switch (self::sanitizeSerializerMethod($method)) {
             case self::SERIALIZE_METHOD_IGBINARY;
+
                 return 'igbinary_serialize';
 
             case self::SERIALIZE_METHOD_JSON;
+
                 return 'json_encode';
 
             case self::SERIALISE_METHOD_NATIVE;
@@ -65,17 +69,21 @@ class Serializer extends AbstractSerializer
     }
 
     /**
-     * Handle determining the correct function call for unserialization
-     * @param  string $method
+     * Handle determining the correct function call for unserialization.
+     *
+     * @param string $method
+     *
      * @return string
      */
-    static public function determineUnSerializer($method)
+    public static function determineUnSerializer($method)
     {
-        switch(self::sanitizeSerializerMethod($method)) {
+        switch (self::sanitizeSerializerMethod($method)) {
             case self::SERIALIZE_METHOD_IGBINARY;
+
                 return 'igbinary_unserialize';
 
             case self::SERIALIZE_METHOD_JSON;
+
                 return 'json_decode';
 
             case self::SERIALISE_METHOD_NATIVE;
@@ -85,11 +93,13 @@ class Serializer extends AbstractSerializer
     }
 
     /**
-     * Determine the serialization method (as available)
-     * @param  string $method
+     * Determine the serialization method (as available).
+     *
+     * @param string $method
+     *
      * @return string
      */
-    static public function sanitizeSerializerMethod($method)
+    public static function sanitizeSerializerMethod($method)
     {
         if ($method == self::SERIALIZE_METHOD_IGBINARY && Extension::hasIgbinary()) {
             return $method;

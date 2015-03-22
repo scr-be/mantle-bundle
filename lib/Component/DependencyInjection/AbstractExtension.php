@@ -22,44 +22,43 @@ use Scribe\Component\DependencyInjection\Loader\XmlFileLoader;
 use Scribe\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Class AbstractExtension
- *
- * @package Scribe\Component\DependencyInjection
+ * Class AbstractExtension.
  */
 abstract class AbstractExtension extends Extension implements ContainerAwareInterface
 {
-    /**
+    /*
      * Import container aware properties/functions
      */
     use ContainerAwareTrait;
 
     /**
-     * Service files to load
+     * Service files to load.
      *
      * @var string[]
      */
     private $serviceFiles = [
-        'services.yml'
+        'services.yml',
     ];
 
     /**
-     * Index prefix property
+     * Index prefix property.
      *
      * @var string
      */
     private $indexPrefix = 'scribe';
 
     /**
-     * Index parts separator
+     * Index parts separator.
      *
      * @var string
      */
     private $indexSeparator = '.';
 
     /**
-     * Set the service files to load
+     * Set the service files to load.
      *
      * @param array $files
+     *
      * @return $this
      */
     protected function setServiceFiles(array $files = [ ])
@@ -70,7 +69,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Get the service files to load
+     * Get the service files to load.
      *
      * @return string[]
      */
@@ -80,9 +79,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Setter for index prefix
+     * Setter for index prefix.
      *
-     * @param  string $prefix prefix for parameter keys (indexes)
+     * @param string $prefix prefix for parameter keys (indexes)
+     *
      * @return $this
      */
     protected function setIndexPrefix($prefix)
@@ -94,7 +94,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Getter for index prefix
+     * Getter for index prefix.
      *
      * @return string
      */
@@ -104,9 +104,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Setter for index parts separator
+     * Setter for index parts separator.
      *
-     * @param  string $separator parameter index separator
+     * @param string $separator parameter index separator
+     *
      * @return $this
      */
     protected function setIndexSeparator($separator)
@@ -118,7 +119,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Getter for index parts separator
+     * Getter for index parts separator.
      *
      * @return string
      */
@@ -128,10 +129,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Loads the configuration (builds the container)
+     * Loads the configuration (builds the container).
      *
-     * @param  array            $configs   collection of configs to load
-     * @param  ContainerBuilder $container symfony config container
+     * @param array            $configs   collection of configs to load
+     * @param ContainerBuilder $container symfony config container
      */
     abstract public function load(array $configs, ContainerBuilder $container);
 
@@ -152,7 +153,6 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
         $this
             ->autoLoadConfiguration($configs, $configuration, $prefix)
             ->autoLoadServices($container);
-        ;
     }
 
     /**
@@ -160,9 +160,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * {@see $configs} array to useful container parameter indexes with their
      * respective values set.
      *
-     * @param  array                  $configs
-     * @param  ConfigurationInterface $configuration
-     * @param  string|null            $prefix
+     * @param array                  $configs
+     * @param ConfigurationInterface $configuration
+     * @param string|null            $prefix
+     *
      * @return $this
      */
     final protected function autoLoadConfiguration(array $configs, ConfigurationInterface $configuration, $prefix = null)
@@ -182,7 +183,8 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * Load all the services by iterating over the {@see $this->serviceFiles}
      * defined at runtime; either Yaml or XML based.
      *
-     * @param  ContainerBuilder $container
+     * @param ContainerBuilder $container
+     *
      * @return $this
      */
     final protected function autoLoadServices(ContainerBuilder $container)
@@ -190,12 +192,11 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
         $resolvedDirectory = $this->resolveBundleDirectory($container);
 
         foreach ($this->getServiceFiles() as $file) {
-
             $loader = $this->resolveServiceFileLoader($file);
 
             $loader->setup(
                 $container,
-                new FileLocator($resolvedDirectory . '/../Resources/config')
+                new FileLocator($resolvedDirectory.'/../Resources/config')
             );
 
             $loader->load($file);
@@ -212,7 +213,8 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * the container to determine the path to the correct /Scribe[A-Z][a-z]*Bundle\.php/
      * file, allowing us to load the correct services and/or additional config files.
      *
-     * @param  ContainerBuilder $container
+     * @param ContainerBuilder $container
+     *
      * @return string
      */
     protected function resolveBundleDirectory(ContainerBuilder $container)
@@ -232,7 +234,8 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * Based on the file extension, resolve the correct FileLoader object to
      * instantiate and return for the passed file argument.
      *
-     * @param  string $file
+     * @param string $file
+     *
      * @return XmlFileLoader|YamlFileLoader
      */
     protected function resolveServiceFileLoader($file)
@@ -240,12 +243,12 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
         switch (pathinfo($file, PATHINFO_EXTENSION)) {
             case 'xml':
 
-                return new XmlFileLoader;
+                return new XmlFileLoader();
 
             case 'yml':
             case 'yaml':
 
-                return new YamlFileLoader;
+                return new YamlFileLoader();
 
             default:
 
@@ -256,10 +259,11 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Process config array to container parameter key=>values
+     * Process config array to container parameter key=>values.
      *
-     * @param  array  $config Configs multi-dimensional array
-     * @param  string $outer  Built parameter index,
+     * @param array  $config Configs multi-dimensional array
+     * @param string $outer  Built parameter index,
+     *
      * @return $this
      */
     protected function processConfigsToParameters(array $config = [], $outer = null)
@@ -275,8 +279,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
 
             if (true === is_array($v)) {
                 $this->handleConfigsToParameterWhenArray($built, $outer, $i, $v);
-            }
-            else {
+            } else {
                 $this->handleConfigsToParameterWhenNotArray($built, $v);
             }
         }
@@ -285,7 +288,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * handleConfigsToParametersWhenArray
+     * handleConfigsToParametersWhenArray.
      *
      * @param string $built Final index (with prefix)
      * @param string $outer Final index
@@ -296,12 +299,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     {
         if (false === Arrays::isHash($v, false)) {
             $this->handleConfigsToParameterWhenArrayInt($built, $v);
-        }
-        else if (true === (substr($i, 0, 4) === '!a::')) {
+        } elseif (true === (substr($i, 0, 4) === '!a::')) {
             $this->handleConfigsToParameterWhenArrayHash($built, $i, $v);
-        }
-        else {
-            $this->processConfigsToParameters($v, $outer . $this->getIndexSeparator() . $i);
+        } else {
+            $this->processConfigsToParameters($v, $outer.$this->getIndexSeparator().$i);
         }
     }
 
@@ -355,8 +356,6 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     *
-     *
      * @param string|array $indicies Index/indicies
      * @param mixed        $v        Parameter value
      */
@@ -369,7 +368,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Assigns a parameter and corresponding value to the container
+     * Assigns a parameter and corresponding value to the container.
      *
      * @param string $built Final index (with prefix)
      * @param mixed  $v     Parameter value
@@ -383,9 +382,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Checks if parameter exists in container
+     * Checks if parameter exists in container.
      *
-     * @param  string $built Final index (with prefix)
+     * @param string $built Final index (with prefix)
+     *
      * @return bool
      */
     private function hasContainerParameter($built)
@@ -397,9 +397,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
     }
 
     /**
-     * Gets parameter from container
+     * Gets parameter from container.
      *
-     * @param  string $built Final index (with prefix)
+     * @param string $built Final index (with prefix)
+     *
      * @return mixed
      */
     private function getContainerParameter($built)
@@ -414,14 +415,15 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * Builds a final parameter index via the configured prefix and supplied
      * indicies concatenated using the configured separator.
      *
-     * @param  ...string $indices The index parts
+     * @param ...string $indices The index parts
+     *
      * @return string
      */
     private function buildConfigParameterIndex(...$indices)
     {
         return (string) $this->sanitizeConfigParameterIndex(
-            $this->getIndexPrefix() .
-            $this->getIndexSeparator() .
+            $this->getIndexPrefix().
+            $this->getIndexSeparator().
             implode($this->getIndexSeparator(), $indices)
         );
     }
@@ -432,8 +434,10 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * build process. DI parameters must also begin with a letter; exeption throw
      * otherwise.
      *
-     * @param  string $built Final index (with prefix)
+     * @param string $built Final index (with prefix)
+     *
      * @return string
+     *
      * @throws RuntimeException
      */
     private function sanitizeConfigParameterIndex($built)
@@ -454,12 +458,13 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * Sanitize parameter value; if string whitespace is trimmed from both the
      * beginning and end; otherwise, value is returned as-is.
      *
-     * @param  mixed $v Parameter value
+     * @param mixed $v Parameter value
+     *
      * @return mixed
      */
     private function sanitizeConfigParameterValue($v)
     {
-        switch(gettype($v)) {
+        switch (gettype($v)) {
             case 'string':
 
                 return trim($v);

@@ -11,17 +11,13 @@
 namespace Scribe\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\OutputInterface as OI;
 use Symfony\Component\Console\Input\InputInterface as II;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
- * Class ScribeCommand
+ * Class ScribeCommand.
  */
 abstract class AbstractCommand extends ContainerAwareCommand
 {
@@ -38,7 +34,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
             $this->getServices([
                 'templating',
                 'progress',
-                'dialog'
+                'dialog',
             ])
         ;
 
@@ -62,6 +58,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
     /**
      * @param array $which
+     *
      * @return array
      */
     final protected function getServices(array $which = [])
@@ -76,6 +73,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
     /**
      * @param string $service_key
+     *
      * @return object
      */
     final protected function getServiceSelector($service_key)
@@ -135,7 +133,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
         return $lines;
     }
 
-    final protected function createBlock($lines = [], $fg = 'black', $bg = 'white', array $attr = [], $pad_type = STR_PAD_BOTH, $leadAndEndEmptyLine = true, $width = 120, $padding = 3) 
+    final protected function createBlock($lines = [], $fg = 'black', $bg = 'white', array $attr = [], $pad_type = STR_PAD_BOTH, $leadAndEndEmptyLine = true, $width = 120, $padding = 3)
     {
         $out = '<fg='.$fg.';bg='.$bg;
         if (count($attr) > 0) {
@@ -203,7 +201,6 @@ abstract class AbstractCommand extends ContainerAwareCommand
             $lines = $string;
         }
 
-
         if ($title !== null) {
             array_unshift($lines, '');
             array_unshift($lines, strtoupper($title));
@@ -219,7 +216,6 @@ abstract class AbstractCommand extends ContainerAwareCommand
         } else {
             $lines = $string;
         }
-
 
         if ($title !== null) {
             array_unshift($lines, '');
@@ -330,8 +326,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         if (count($this->writeIndentLog) > 0) {
             $this->previous_indent_i = $this->writeIndentLog[count($this->writeIndentLog)-1];
-        }
-        else {
+        } else {
             $this->previous_indent_i = 0;
         }
         $this->writeIndentLog[] = $indent_i;
@@ -343,7 +338,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         $indent_string = '    ';
 
-        for($i = 2; $i < $indent_i; $i++) {
+        for ($i = 2; $i < $indent_i; $i++) {
             $indent_string .= '    ';
         }
 

@@ -14,16 +14,15 @@ use SplObserver;
 use SplSubject;
 
 /**
- * Class Observer
- *
- * @package Scribe\Utility\Observer
+ * Class Observer.
  */
-abstract class Observer implements SplObserver
+abstract class ObserverAbstract implements SplObserver
 {
     /**
-     * Called when subject observer update occures
+     * Called when subject observer update occures.
      *
-     * @param  SplSubject $subject an instance of a subject
+     * @param SplSubject $subject an instance of a subject
+     *
      * @return $this
      */
     abstract public function update(SplSubject $subject);

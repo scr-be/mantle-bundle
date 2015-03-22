@@ -13,23 +13,22 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
 
 /**
- * Trait IconCreatorServicesTrait
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon\IconTraits
+ * Trait IconCreatorServicesTrait.
  */
 trait IconCreatorServicesTrait
 {
     /**
-     * Instance of the icon family repository service
+     * Instance of the icon family repository service.
      *
      * @var IconFamilyRepository
      */
     private $iconFamilyRepo;
 
     /**
-     * Setter for icon family repository
+     * Setter for icon family repository.
      *
-     * @param  IconFamilyRepository $iconFamilyRepo
+     * @param IconFamilyRepository $iconFamilyRepo
+     *
      * @return $this
      */
     protected function setIconFamilyRepo(IconFamilyRepository $iconFamilyRepo)
@@ -40,7 +39,7 @@ trait IconCreatorServicesTrait
     }
 
     /**
-     * Getter for icon family repository
+     * Getter for icon family repository.
      *
      * @return IconFamilyRepository
      */

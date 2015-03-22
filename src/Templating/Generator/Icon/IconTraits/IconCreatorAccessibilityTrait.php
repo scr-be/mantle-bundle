@@ -13,9 +13,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconException;
 
 /**
- * Class IconCreatorAccessibilityTrait
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon\IconTraits
+ * Class IconCreatorAccessibilityTrait.
  */
 trait IconCreatorAccessibilityTrait
 {
@@ -27,30 +25,30 @@ trait IconCreatorAccessibilityTrait
     private $ariaHidden = true;
 
     /**
-     * Descriptive text for an icon to improve accessibility
+     * Descriptive text for an icon to improve accessibility.
      *
      * @var null|string
      */
     private $ariaLabel = null;
 
     /**
-     * The role the icon plays within the document
+     * The role the icon plays within the document.
      *
      * @var string
      */
     private $ariaRole = 'presentation';
 
     /**
-     * Short list of the role values supported at this time
+     * Short list of the role values supported at this time.
      *
      * @var array
      */
     private $validAriaRoles = [
-        'img', 'link', 'button', 'presentation'
+        'img', 'link', 'button', 'presentation',
     ];
 
     /**
-     * Getter for aria hidden accessibility value
+     * Getter for aria hidden accessibility value.
      *
      * @return bool
      */
@@ -60,9 +58,10 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Setter for aria hidden accessibility value
+     * Setter for aria hidden accessibility value.
      *
-     * @param  bool $hidden
+     * @param bool $hidden
+     *
      * @return $this
      */
     public function setAriaHidden($hidden = true)
@@ -73,7 +72,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Checker for aria hidden accessibility value
+     * Checker for aria hidden accessibility value.
      *
      * @return bool
      */
@@ -83,7 +82,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Reset icon aria hidden accessibility value
+     * Reset icon aria hidden accessibility value.
      *
      * @return $this
      */
@@ -95,7 +94,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Getter for aria label accessibility value
+     * Getter for aria label accessibility value.
      *
      * @return null|string
      */
@@ -105,9 +104,10 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Setter for aria label accessibility value
+     * Setter for aria label accessibility value.
      *
-     * @param  null|string $label
+     * @param null|string $label
+     *
      * @return $this
      */
     public function setAriaLabel($label = null)
@@ -118,7 +118,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Checker for aria label accessibility value
+     * Checker for aria label accessibility value.
      *
      * @return bool
      */
@@ -128,7 +128,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Reset aria label accessibility value
+     * Reset aria label accessibility value.
      *
      * @return $this
      */
@@ -140,7 +140,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Getter for aria role accessibility value
+     * Getter for aria role accessibility value.
      *
      * @return null|string
      */
@@ -150,17 +150,17 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Setter for aria role accessibility value
+     * Setter for aria role accessibility value.
      *
-     * @param  string $role
+     * @param string $role
+     *
      * @return $this
      */
     public function setAriaRole($role)
     {
         if (true !== in_array($role, $this->validAriaRoles)) {
-
             throw new IconException(
-                'You attempted to set an invalid aria role attribute. Valid values: ' . implode(',', $this->validAriaRoles),
+                'You attempted to set an invalid aria role attribute. Valid values: '.implode(',', $this->validAriaRoles),
                 IconException::CODE_INVALID_ARGS
             );
         }
@@ -171,7 +171,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Checker for aria role accessibility value
+     * Checker for aria role accessibility value.
      *
      * @return bool
      */
@@ -181,7 +181,7 @@ trait IconCreatorAccessibilityTrait
     }
 
     /**
-     * Reset aria role accessibility value
+     * Reset aria role accessibility value.
      *
      * @return $this
      */

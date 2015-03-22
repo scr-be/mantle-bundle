@@ -15,30 +15,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Class RequestAwareTrait
- *
- * @package Scribe\MantleBundle\DependencyInjection
+ * Class RequestAwareTrait.
  */
 trait RequestStackAwareTrait
 {
     use RequestAwareTrait;
 
     /**
-     * request stack instance
+     * request stack instance.
      *
      * @var RequestStack|null
      */
     protected $requestStack = null;
 
     /**
-     * master request instance
+     * master request instance.
      *
      * @var Request|null
      */
     protected $requestMaster = null;
 
     /**
-     * Set the request stack and determine the master and current requests
+     * Set the request stack and determine the master and current requests.
+     *
      * @param RequestStack $requestStack
      */
     public function setRequestStackAndDetermineMasterAndCurrentRequest(RequestStack $requestStack)
@@ -51,9 +50,10 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * set request stack
+     * set request stack.
      *
      * @param  $requestStack RequestStack
+     *
      * @return $this
      */
     public function setRequestStack(RequestStack $requestStack)
@@ -64,7 +64,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * get request stack
+     * get request stack.
      *
      * @return RequestStack|null
      */
@@ -74,7 +74,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * checks if request stack is set
+     * checks if request stack is set.
      *
      * @return bool
      */
@@ -84,9 +84,10 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * set request master
+     * set request master.
      *
      * @param  $requestMaster Request
+     *
      * @return $this
      */
     public function setRequestMaster(Request $requestMaster)
@@ -97,7 +98,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * get request master
+     * get request master.
      *
      * @return Request|null
      */
@@ -107,7 +108,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * checks if request master is set
+     * checks if request master is set.
      *
      * @return bool
      */
@@ -117,9 +118,10 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * set request current
+     * set request current.
      *
      * @param  $request Request
+     *
      * @return $this
      */
     public function setRequestCurrent(Request $request)
@@ -130,7 +132,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * get request current
+     * get request current.
      *
      * @return Request|null
      */
@@ -140,7 +142,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * checks if request current is set
+     * checks if request current is set.
      *
      * @return bool
      */
@@ -150,7 +152,8 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * Determine the master request from the request stack
+     * Determine the master request from the request stack.
+     *
      * @return $this
      */
     public function determineRequestMasterFromRequestStack()
@@ -161,7 +164,8 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * Determine the current request from the request stack
+     * Determine the current request from the request stack.
+     *
      * @return $this
      */
     public function determineRequestCurrentFromRequestStack()
@@ -171,11 +175,11 @@ trait RequestStackAwareTrait
         return $this;
     }
 
-
     /**
-     * Sets the request stack from a passed service container object
+     * Sets the request stack from a passed service container object.
      *
      * @param ContainerInterface $container container object
+     *
      * @return $this
      */
     public function setRequestStackFromContainer(ContainerInterface $container)

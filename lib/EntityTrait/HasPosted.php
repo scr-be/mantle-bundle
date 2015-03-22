@@ -13,7 +13,7 @@ namespace Scribe\EntityTrait;
 use DateTime;
 
 /**
- * Class HasPosted
+ * Class HasPosted.
  */
 trait HasPosted
 {
@@ -32,6 +32,7 @@ trait HasPosted
 
     /**
      * @param DateTime $datetime
+     *
      * @return $this
      */
     public function setPosted(DateTime $datetime)
@@ -43,9 +44,10 @@ trait HasPosted
 
     /**
      * @param string $format
+     *
      * @return string
      */
-    public function getPostedFormatted($format='r')
+    public function getPostedFormatted($format = 'r')
     {
         return $this->getPosted()->format($format);
     }

@@ -15,26 +15,25 @@ use Scribe\Exception\RuntimeException;
 /**
  * Interface EntityEquatableInterface
  * Used to test if two objects are equal in orm and entity contexts.
- *
- * @package Scribe\Entity
  */
 trait EntityEquatableTrait
 {
     /**
      * Perform check to determining if the passed entity instance is equal
-     * to self object instance
+     * to self object instance.
      *
      * @param AbstractEntity $entity entity to test against
-     * @param bool            $strict should the entity id be compared or not
+     * @param bool           $strict should the entity id be compared or not
+     *
      * @return boolean
      */
     public function isEqualTo(AbstractEntity $entity, $strict = true)
     {
         if ($strict === false) {
-            return (bool)$this == $entity;
+            return (bool) $this == $entity;
         }
 
-        return (bool)$this === $entity;
+        return (bool) $this === $entity;
     }
 
     /**
@@ -43,11 +42,14 @@ trait EntityEquatableTrait
      * comparison of two null id values to return true.
      *
      * @todo   Implement this function
-     * @param  AbstractEntity $entity the entity object to check against
+     *
+     * @param AbstractEntity $entity the entity object to check against
+     *
      * @return bool
      */
-    public function isEqualToId(AbstractEntity $entity) {
-        throw new RuntimeException('Not implemented ' . __CLASS__ . '::' . __FUNCTION__);
+    public function isEqualToId(AbstractEntity $entity)
+    {
+        throw new RuntimeException('Not implemented '.__CLASS__.'::'.__FUNCTION__);
     }
 
     /**
@@ -56,11 +58,14 @@ trait EntityEquatableTrait
      * properties.
      *
      * @todo   Implement this function
-     * @param  AbstractEntity $entity the entity object to check against
+     *
+     * @param AbstractEntity $entity the entity object to check against
+     *
      * @return bool
      */
-    public function isEqualToProperties(AbstractEntity $entity) {
-        throw new RuntimeException('Not implemented ' . __CLASS__ . '::' . __FUNCTION__);
+    public function isEqualToProperties(AbstractEntity $entity)
+    {
+        throw new RuntimeException('Not implemented '.__CLASS__.'::'.__FUNCTION__);
     }
 }
 

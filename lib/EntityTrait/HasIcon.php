@@ -13,23 +13,22 @@ namespace Scribe\EntityTrait;
 use Scribe\MantleBundle\Entity\Icon;
 
 /**
- * Class HasIcon
- *
- * @package Scribe\EntityTrait
+ * Class HasIcon.
  */
 trait HasIcon
 {
     /**
-     * The icon property
+     * The icon property.
      *
-     * @type Icon
+     * @var Icon
      */
     protected $icon;
 
     /**
-     * Setter for icon property
+     * Setter for icon property.
      *
      * @param Icon $icon any Icon object instance
+     *
      * @return $this
      */
     public function setIcon(Icon $icon = null)
@@ -40,7 +39,7 @@ trait HasIcon
     }
 
     /**
-     * Getter for icon property
+     * Getter for icon property.
      *
      * @return Icon|null
      */
@@ -50,17 +49,17 @@ trait HasIcon
     }
 
     /**
-     * Checker for icon property
+     * Checker for icon property.
      *
      * @return bool
      */
     public function hasIcon()
     {
-        return (bool)$this->icon instanceof Icon;
+        return (bool) $this->icon instanceof Icon;
     }
 
     /**
-     * Nullify the icon property
+     * Nullify the icon property.
      *
      * @return $this
      */

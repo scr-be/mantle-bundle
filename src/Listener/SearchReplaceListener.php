@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 /**
  * SearchReplaceListener
- * handles accepting newsletter signup posts from any page
+ * handles accepting newsletter signup posts from any page.
  */
 class SearchReplaceListener implements ContainerAwareInterface
 {
@@ -35,6 +35,7 @@ class SearchReplaceListener implements ContainerAwareInterface
 
     /**
      * @param $container ContainerInterface
+     *
      * @return $this
      */
     public function setContainer(ContainerInterface $container = null)

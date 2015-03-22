@@ -14,21 +14,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\SecurityBundle\Entity\Role;
 
 /**
- * Class HasRoleRestrictionsInverseSide
- *
- * @package Scribe\EntityTrait
+ * Class HasRoleRestrictionsInverseSide.
  */
 trait HasRoleRestrictionsInverseSide
 {
     /**
-     * Role restrictions property
+     * Role restrictions property.
      *
-     * @type ArrayCollection
+     * @var ArrayCollection
      */
     protected $roleRestrictions;
 
     /**
-     * Getter for roleRestrictions property
+     * Getter for roleRestrictions property.
      *
      * @return ArrayCollection
      */
@@ -38,19 +36,20 @@ trait HasRoleRestrictionsInverseSide
     }
 
     /**
-     * Checker for roleRestrictions property
+     * Checker for roleRestrictions property.
      *
      * @return bool
      */
     public function hasRoleRestrictions()
     {
-        return (bool)$this->roleRestrictions->count() > 0;
+        return (bool) $this->roleRestrictions->count() > 0;
     }
 
     /**
-     * Checker for specific role within roleRestrictions property
+     * Checker for specific role within roleRestrictions property.
      *
      * @param Role $roleRestriction a Role entity instance to check against the restricted collection of roles
+     *
      * @return bool
      */
     public function hasRoleRestriction(Role $roleRestriction)

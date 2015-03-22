@@ -22,7 +22,7 @@ use Scribe\EntityTrait\HasRoleRestrictionsAsArrayOwningSide;
 use Scribe\EntityTrait\HasReverseRoleRestrictionsAsArrayOwningSide;
 
 /**
- * Entity NavMenuSubItem
+ * Entity NavMenuSubItem.
  */
 class NavMenuSubItem extends AbstractEntity
 {
@@ -46,11 +46,11 @@ class NavMenuSubItem extends AbstractEntity
      */
     public function __toString()
     {
-        return __CLASS__ . ':' . $this->routeName;
+        return __CLASS__.':'.$this->routeName;
     }
 
     /**
-     * Setup entity
+     * Setup entity.
      */
     public function __construct()
     {
@@ -68,7 +68,8 @@ class NavMenuSubItem extends AbstractEntity
     }
 
     /**
-     * @param  boolean $header
+     * @param boolean $header
+     *
      * @return NavMenuSubItem
      */
     public function setHeader($header = null)

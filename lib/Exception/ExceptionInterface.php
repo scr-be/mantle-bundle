@@ -11,13 +11,10 @@
 namespace Scribe\Exception;
 
 /**
- * Interface ExceptionInterface
- *
- * @package Scribe\Exception
+ * Interface ExceptionInterface.
  */
 interface ExceptionInterface
 {
-
 }
 
 /* EOF */

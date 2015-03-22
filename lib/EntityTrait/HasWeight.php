@@ -11,9 +11,7 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasAlias
- *
- * @package Scribe\EntityTrait
+ * Class HasAlias.
  */
 trait HasWeight
 {
@@ -23,9 +21,10 @@ trait HasWeight
     private $weight;
 
     /**
-     * Set weight
+     * Set weight.
      *
      * @param integer $weight
+     *
      * @return $this
      */
     public function setWeight($weight)
@@ -36,7 +35,7 @@ trait HasWeight
     }
 
     /**
-     * Get weight
+     * Get weight.
      *
      * @return integer
      */

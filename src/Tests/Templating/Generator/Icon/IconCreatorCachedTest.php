@@ -10,17 +10,13 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
-use MyProject\Proxies\__CG__\stdClass;
 use PHPUnit_Framework_TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
 
 /**
- * Class IconCreatorCacheddTest
- *
- * @package Scribe\MantleBundle\Tests\Templating\Generator\Icon
+ * Class IconCreatorCacheddTest.
  */
 class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
 {

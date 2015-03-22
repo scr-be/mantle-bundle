@@ -13,21 +13,19 @@ namespace Scribe\EntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class HasChildrenInverseSide
- *
- * @package Scribe\EntityTrait
+ * Class HasChildrenInverseSide.
  */
 trait HasChildrenInverseSide
 {
     /**
-     * Children collections
+     * Children collections.
      *
-     * @type ArrayCollection
+     * @var ArrayCollection
      */
     protected $children;
 
     /**
-     * Getter for children
+     * Getter for children.
      *
      * @return ArrayCollection
      */
@@ -37,19 +35,20 @@ trait HasChildrenInverseSide
     }
 
     /**
-     * Checker for children
+     * Checker for children.
      *
      * @return bool
      */
     public function hasChildren()
     {
-        return (bool)$this->getChildren()->count() > 0;
+        return (bool) $this->getChildren()->count() > 0;
     }
 
     /**
-     * Checker for specific child within children
+     * Checker for specific child within children.
      *
      * @param Entity $child entity object to search of in collection of children
+     *
      * @return bool
      */
     public function hasChild(Entity $child)

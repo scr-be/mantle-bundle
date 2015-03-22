@@ -11,21 +11,19 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasAttrs
- *
- * @package Scribe\EntityTrait
+ * Class HasAttrs.
  */
 trait HasAttrs
 {
     /**
-     * The attrs property
+     * The attrs property.
      *
-     * @type array
+     * @var array
      */
     protected $attrs;
 
     /**
-     * Should be called from constructor of entity using this trait
+     * Should be called from constructor of entity using this trait.
      *
      * @return $this
      */
@@ -37,9 +35,10 @@ trait HasAttrs
     }
 
     /**
-     * Setter for attrs property
+     * Setter for attrs property.
      *
      * @param array|null $attrs array of attrs
+     *
      * @return $this
      */
     public function setAttrs(array $attrs = null)
@@ -50,7 +49,7 @@ trait HasAttrs
     }
 
     /**
-     * Getter for attrs property
+     * Getter for attrs property.
      *
      * @return array|null
      */
@@ -60,41 +59,44 @@ trait HasAttrs
     }
 
     /**
-     * Checker for attrs property
+     * Checker for attrs property.
      *
      * @return bool
      */
     public function hasAttrs()
     {
-        return (bool) (count( (array) $this->getAttrs()) > 0);
+        return (bool) (count((array) $this->getAttrs()) > 0);
     }
 
     /**
-     * Check for value in attrs array
+     * Check for value in attrs array.
      *
      * @param mixed $value value needle to look for
+     *
      * @return bool
      */
     public function hasAttrValue($value)
     {
-        return (bool) (in_array($value, (array)$this->getAttrs()));
+        return (bool) (in_array($value, (array) $this->getAttrs()));
     }
 
     /**
-     * Check for key in attrs array
+     * Check for key in attrs array.
      *
      * @param string $key key needle to look for
+     *
      * @return bool
      */
     public function hasAttrKey($key)
     {
-        return (bool) (array_key_exists($key, (array)$this->getAttrs()));
+        return (bool) (array_key_exists($key, (array) $this->getAttrs()));
     }
 
     /**
-     * Retrieve a single attr array value
+     * Retrieve a single attr array value.
      *
      * @param string $key the array key to get the value of
+     *
      * @return string|null
      */
     public function getAttrValue($key)
@@ -103,20 +105,21 @@ trait HasAttrs
             return $this->getAttrs()[$key];
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Set a key->value attrs property pair
+     * Set a key->value attrs property pair.
      *
      * @param string $key       assignment array key
      * @param mixed  $value     new array item value
      * @param bool   $overwrite overwrite a row if the key already exists
+     *
      * @return $this
      */
     public function setAttrValue($key, $value, $overwrite = true)
     {
-        $key = (string)$key;
+        $key = (string) $key;
 
         if ($this->hasAttrKey($key) !== true || $overwrite === true) {
             $this->getAttrs()[ $key ] = $value;
@@ -126,7 +129,7 @@ trait HasAttrs
     }
 
     /**
-     * Nullify the attrs property
+     * Nullify the attrs property.
      *
      * @return $this
      */

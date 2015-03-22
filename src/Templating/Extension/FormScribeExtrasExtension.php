@@ -16,36 +16,37 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig_Extension;
 
 /**
- * Class FormScribeExtrasExtension
+ * Class FormScribeExtrasExtension.
  */
 class FormScribeExtrasExtension extends Twig_Extension
 {
     use AdvancedExtensionTrait, ContainerAwareExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct(ContainerInterface $container = null)
     {
         $this->setContainer($container);
-        $this->addFunctionMethod('formSubmit',          'form_scribe_submit'          );
-        $this->addFunctionMethod('formSubmitNoWrap',    'form_scribe_submit_no_wrap'  );
-        $this->addFunctionMethod('formLabel',           'form_scribe_label'           );
-        $this->addFunctionMethod('formWidget',          'form_scribe_widget'          );
-        $this->addFunctionMethod('formItemNoLabel',     'form_scribe_item_no_label'   );
+        $this->addFunctionMethod('formSubmit',          'form_scribe_submit');
+        $this->addFunctionMethod('formSubmitNoWrap',    'form_scribe_submit_no_wrap');
+        $this->addFunctionMethod('formLabel',           'form_scribe_label');
+        $this->addFunctionMethod('formWidget',          'form_scribe_widget');
+        $this->addFunctionMethod('formItemNoLabel',     'form_scribe_item_no_label');
         $this->addFunctionMethod('formItemNoLabelOrGroup', 'form_scribe_item_no_label_or_group');
-        $this->addFunctionMethod('formItem',            'form_scribe_item'            );
-        $this->addFunctionMethod('formItemHorizontal',  'form_scribe_item_horizontal' );
-        $this->addFunctionMethod('formStart',           'form_scribe_start'           );
+        $this->addFunctionMethod('formItem',            'form_scribe_item');
+        $this->addFunctionMethod('formItemHorizontal',  'form_scribe_item_horizontal');
+        $this->addFunctionMethod('formStart',           'form_scribe_start');
         $this->addFunctionMethod('formStartHorizontal', 'form_scribe_start_horizontal');
-        $this->addFunctionMethod('formEnd',             'form_scribe_end'             );
-        $this->addFunctionMethod('formSubmitOld',       'form_make_submit'            );
-        $this->addFunctionMethod('formError',           'form_scribe_error'           );
+        $this->addFunctionMethod('formEnd',             'form_scribe_end');
+        $this->addFunctionMethod('formSubmitOld',       'form_make_submit');
+        $this->addFunctionMethod('formError',           'form_scribe_error');
     }
 
     /**
-     * @param  FormType $form
-     * @param  string   $defaultRoute
+     * @param FormType $form
+     * @param string   $defaultRoute
+     *
      * @return mixed
      */
     public function formSubmitNoWrap($form, $title, $defaultRoute = null, $btnClasses = [])
@@ -63,8 +64,9 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType $form
-     * @param  string   $defaultRoute
+     * @param FormType $form
+     * @param string   $defaultRoute
+     *
      * @return mixed
      */
     public function formSubmit($form, $title, $defaultRoute = null, $btnClasses = [])
@@ -82,8 +84,9 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType $form
-     * @param  string   $label
+     * @param FormType $form
+     * @param string   $label
+     *
      * @return mixed
      */
     public function formLabel($form, $label = null, $classes = [])
@@ -101,8 +104,9 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType $form
-     * @param  string   $placeholder
+     * @param FormType $form
+     * @param string   $placeholder
+     *
      * @return mixed
      */
     public function formWidget($form, $placeholder, array $attributes = array())
@@ -118,7 +122,8 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType $form
+     * @param FormType $form
+     *
      * @return mixed
      */
     public function formError($form)
@@ -132,10 +137,11 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType     $form
-     * @param  string       $label
-     * @param  string       $placeholder
-     * @param  null|integer $cols
+     * @param FormType     $form
+     * @param string       $label
+     * @param string       $placeholder
+     * @param null|integer $cols
+     *
      * @return mixed
      */
     public function formItem($form, $label, $placeholder, $cols = null, array $attributes = array())
@@ -152,10 +158,11 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType     $form
-     * @param  string       $label
-     * @param  string       $placeholder
-     * @param  null|integer $cols
+     * @param FormType     $form
+     * @param string       $label
+     * @param string       $placeholder
+     * @param null|integer $cols
+     *
      * @return mixed
      */
     public function formItemHorizontal($form, $label, $placeholder, $cols = null, array $attributes = array())
@@ -172,10 +179,11 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType     $form
-     * @param  string       $label
-     * @param  string       $placeholder
-     * @param  null|integer $cols
+     * @param FormType     $form
+     * @param string       $label
+     * @param string       $placeholder
+     * @param null|integer $cols
+     *
      * @return mixed
      */
     public function formItemNoLabel($form, $label, $placeholder, $cols = null, array $attributes = array())
@@ -192,10 +200,11 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  FormType     $form
-     * @param  string       $label
-     * @param  string       $placeholder
-     * @param  null|integer $cols
+     * @param FormType     $form
+     * @param string       $label
+     * @param string       $placeholder
+     * @param null|integer $cols
+     *
      * @return mixed
      */
     public function formItemNoLabelOrGroup($form, $label, $placeholder, $cols = null, array $attributes = array())
@@ -212,7 +221,8 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  Form $form
+     * @param Form $form
+     *
      * @return string
      */
     public function formStart($form, $classes = [], $attr = [])
@@ -229,17 +239,20 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param  Form $form
+     * @param Form $form
+     *
      * @return string
      */
     public function formStartHorizontal($form, $classes = [], $attr = [])
     {
         $classes = array_merge(['form-horizontal'], $classes);
+
         return $this->formStart($form, $classes, $attr);
     }
 
     /**
-     * @param  Form $form
+     * @param Form $form
+     *
      * @return string
      */
     public function formEnd($form)
@@ -247,13 +260,14 @@ class FormScribeExtrasExtension extends Twig_Extension
         return $this->getEngine()->render(
             'ScribeMantleBundle:Form:end.html.twig',
             [
-                'form' => $form
+                'form' => $form,
             ]
         );
     }
 
     /**
-     * @param  null|string $defaultRoute
+     * @param null|string $defaultRoute
+     *
      * @return string
      */
     private function getReferer($defaultRoute = null)

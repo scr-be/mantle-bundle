@@ -20,9 +20,7 @@ use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorServices
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorAttributesTrait;
 
 /**
- * IconCreator
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon
+ * IconCreator.
  */
 class IconCreator extends AbstractGenerator implements IconCreatorInterface
 {
@@ -31,10 +29,10 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
         IconCreatorAttributesTrait;
 
     /**
-     * Setup the object instance
+     * Setup the object instance.
      *
-     * @param IconFamilyRepository   $iconFamilyRepo
-     * @param EngineInterface        $engine
+     * @param IconFamilyRepository $iconFamilyRepo
+     * @param EngineInterface      $engine
      */
     public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null)
     {
@@ -43,9 +41,10 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Set the icon family slug; this can be validated immediately
+     * Set the icon family slug; this can be validated immediately.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return $this
      */
     public function setFamily($slug)
@@ -56,9 +55,10 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Set the icon slug; validation must be postponed until rendering
+     * Set the icon slug; validation must be postponed until rendering.
      *
-     * @param  string $slug
+     * @param string $slug
+     *
      * @return $this
      */
     public function setIcon($slug)
@@ -69,9 +69,10 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Set the icon template slug; validation must be postponed until rendering
+     * Set the icon template slug; validation must be postponed until rendering.
      *
      * @param $slug
+     *
      * @return $this
      */
     public function setTemplate($slug = null)
@@ -82,9 +83,10 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Set additional styles for icon; validation must be postpones until rendering
+     * Set additional styles for icon; validation must be postpones until rendering.
      *
-     * @param  string[] $styles
+     * @param string[] $styles
+     *
      * @return $this
      */
     public function setStyles(...$styles)
@@ -95,7 +97,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Reset the instance properties of object to default/undefined state
+     * Reset the instance properties of object to default/undefined state.
      *
      * @return $this
      */
@@ -117,13 +119,15 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Render the requested icon
+     * Render the requested icon.
      *
-     * @param  string|null $family
-     * @param  string|null $icon
-     * @param  string|null $template
-     * @param  string[]    $styles
+     * @param string|null $family
+     * @param string|null $icon
+     * @param string|null $template
+     * @param string[]    $styles
+     *
      * @return string
+     *
      * @throws IconException
      */
     public function render($icon = null, $family = null, $template = null, ...$styles)
@@ -143,10 +147,12 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Assign and/or validate the icon family entity
+     * Assign and/or validate the icon family entity.
      *
-     * @param  string|null $slug
+     * @param string|null $slug
+     *
      * @return $this
+     *
      * @throws IconException
      */
     protected function validateFamily($slug = null)
@@ -156,7 +162,6 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
         }
 
         if (true !== $this->hasFamilyEntity()) {
-
             throw new IconException(
                 "An icon family type was not provided.",
                 IconException::CODE_MISSING_ARGS
@@ -167,10 +172,12 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Query doctrine for the requested icon family entity
+     * Query doctrine for the requested icon family entity.
      *
-     * @param  string|null $slug
+     * @param string|null $slug
+     *
      * @return $this
+     *
      * @throws IconException
      */
     protected function lookupFamily($slug = null)
@@ -182,9 +189,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             ;
 
             $this->setFamilyEntity($family);
-        }
-        catch(\Exception $e) {
-
+        } catch (\Exception $e) {
             throw new IconException(
                 sprintf("IconFamily with slug %s could not be found.", $slug),
                 IconException::CODE_MISSING_ENTITY,
@@ -196,10 +201,12 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * validateIcon
+     * validateIcon.
      *
-     * @param  null|string $slug
+     * @param null|string $slug
+     *
      * @return $this
+     *
      * @throws IconException
      */
     protected function validateIcon($slug = null)
@@ -220,17 +227,16 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
         return $this;
     }
 
-
     /**
-     * Check if the icon slug is valid or not
+     * Check if the icon slug is valid or not.
      *
      * @return $this
+     *
      * @throws IconException
      */
     private function lookupIcon()
     {
         if (true !== $this->hasFamilyEntity()) {
-
             throw new IconException(
                 "Could not validate/lookup icon entity without a valid icon family entity.",
                 IconException::CODE_INVALID_VALIDATION_ORDER
@@ -242,11 +248,8 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             ->getFamilyEntity()
             ->getIcons()
             ->filter(
-                function($familyIcon) use ($slug) {
-                    if ($familyIcon->getSlug() == $slug) {
-                        return true;
-                    }
-                    return false;
+                function ($familyIcon) use ($slug) {
+                    return (bool) ((string) $familyIcon->getSlug() === (string) $slug);
                 }
             )
         ;
@@ -265,6 +268,12 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
         return $this;
     }
 
+    /**
+     * If the icon slug isn't valid, perhaps one of the icon aliases is...
+     *
+     * @param  string $alias
+     * @return bool|ArrayCollection
+     */
     private function lookupIconByAlias($alias)
     {
         foreach ($this->getFamilyEntity()->getIcons() as $icon) {
@@ -277,7 +286,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Get the icon slug; filter the prefix off if it exists
+     * Get the icon slug; filter the prefix off if it exists.
      *
      * @return string
      */
@@ -289,8 +298,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             ->getPrefix()
         ;
 
-        if (substr($slug, 0, strlen($prefix) + 1) == $prefix . '-') {
-
+        if (substr($slug, 0, strlen($prefix) + 1) == $prefix.'-') {
             return substr($slug, strlen($prefix) + 1);
         }
 
@@ -301,7 +309,8 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      * Check if the supplied template slug is valid or select one for the icon
      * family based on priority.
      *
-     * @param  string|null $slug
+     * @param string|null $slug
+     *
      * @return $this
      */
     protected function validateTemplate($slug = null)
@@ -316,15 +325,15 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Check if the icon template slug is valid or not, or select one
+     * Check if the icon template slug is valid or not, or select one.
      *
      * @return $this
+     *
      * @throws IconException
      */
     private function lookupTemplate()
     {
         if (true !== $this->hasFamilyEntity()) {
-
             throw new IconException(
                 "Could not validate/lookup icon template entity without a valid icon family entity.",
                 IconException::CODE_INVALID_VALIDATION_ORDER
@@ -338,7 +347,6 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
         ;
 
         if (true !== ($templates->count() > 0)) {
-
             throw new IconException(
                 sprintf("No icon templates are associated with the %s icon family.", $this->getFamilyEntity()->getName()),
                 IconException::CODE_MISSING_ENTITY
@@ -347,14 +355,13 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
 
         if (null !== $slug) {
             $templates = $templates->filter(
-                function($familyTemplate) use ($slug) {
+                function ($familyTemplate) use ($slug) {
 
                     return (bool) ($familyTemplate->getSlug() == $slug);
                 }
             );
 
             if (false === ($templates instanceof ArrayCollection) || 1 !== $templates->count()) {
-
                 throw new IconException(
                     sprintf("Could not find icon template slug %s in icon family %s.", $slug, $this->getFamilyEntity()->getName()),
                     IconException::CODE_MISSING_ENTITY
@@ -371,7 +378,8 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      * Provides final opportunity to set optional styles and then performs
      * validation against them.
      *
-     * @param  string[] $styles
+     * @param string[] $styles
+     *
      * @return $this
      */
     protected function validateStyles(...$styles)
@@ -393,13 +401,13 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      * given font family specified.
      *
      * @return $this
+     *
      * @throws IconException
      */
     private function lookupStyles()
     {
         if (false === (count($this->getFamilyEntity()->getOptionalClasses()) > 0) &&
-            true === (count($this->getOptionalStyles()) > 0))
-        {
+            true === (count($this->getOptionalStyles()) > 0)) {
             throw new IconException(
                 sprintf("No available optional styles to select for %s font family.", $this->getFamilyEntity()->getName()),
                 IconException::CODE_INVALID_STYLE
@@ -419,14 +427,13 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
     }
 
     /**
-     * Confirms we have the correct templating engine for the selected icon template
+     * Confirms we have the correct templating engine for the selected icon template.
      *
      * @return $this
      */
     protected function validateEngine()
     {
         if (false === ($type = $this->getEngineType())) {
-
             throw new IconException(
                 "Template engine type could not be determined, support cannot be verified.",
                 IconException::CODE_INVALID_ARGS
@@ -434,7 +441,6 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
         }
 
         if ($this->getTemplateEntity()->getEngine() !== $type) {
-
             throw new IconException(
                 sprintf(
                     "The icon template requested %s engine, but we are running the %s engine.",
@@ -448,13 +454,13 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
 
     /**
      * Creates helper object to expose accessibility data
-     * to template 
+     * to template.
      *
-     * @return stdClass 
+     * @return stdClass
      */
     protected function templateHelper()
     {
-        $helper = new \stdClass;
+        $helper = new \stdClass();
         $helper->hasAriaRole = $this->hasAriaRole();
         $helper->getAriaRole = $this->getAriaRole();
         $helper->isAriaHidden = $this->isAriaHidden();
@@ -463,10 +469,9 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
 
         return $helper;
     }
-    
 
     /**
-     * Render the template and return the resulting output
+     * Render the template and return the resulting output.
      *
      * @return string
      */
@@ -481,7 +486,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             'family' => $this->getFamilyEntity(),
             'icon'   => $this->getIconEntity(),
             'styles' => $this->getOptionalStyles(),
-            'helper' => $this->templateHelper()
+            'helper' => $this->templateHelper(),
         ];
 
         return $this

@@ -15,14 +15,14 @@ use Scribe\MantleBundle\Templating\Helper\Timeline\TimelineInterface;
 use Twig_Extension;
 
 /**
- * Class JqtimelineExtension
+ * Class JqtimelineExtension.
  */
 class JqtimelineExtension extends Twig_Extension
 {
     use SimpleExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct()
     {
@@ -31,6 +31,7 @@ class JqtimelineExtension extends Twig_Extension
 
     /**
      * @param TimelineInterface $timeline
+     *
      * @return string
      */
     public function timeline(TimelineInterface $timeline)

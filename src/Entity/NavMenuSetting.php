@@ -1,11 +1,12 @@
 <?php
 
 namespace Scribe\MantleBundle\Entity;
+
 use Scribe\Entity\AbstractEntity;
 use Scribe\EntityTrait\HasContext;
 
 /**
- * NavMenuSetting
+ * NavMenuSetting.
  */
 class NavMenuSetting extends AbstractEntity
 {
@@ -26,13 +27,14 @@ class NavMenuSetting extends AbstractEntity
      */
     public function __toString()
     {
-        return __CLASS__ . ':' . $this->k;
+        return __CLASS__.':'.$this->k;
     }
 
     /**
-     * Set k
+     * Set k.
      *
      * @param string $k
+     *
      * @return NavMenuSetting
      */
     public function setK($k)
@@ -43,7 +45,7 @@ class NavMenuSetting extends AbstractEntity
     }
 
     /**
-     * Get k
+     * Get k.
      *
      * @return string
      */
@@ -53,9 +55,10 @@ class NavMenuSetting extends AbstractEntity
     }
 
     /**
-     * Set v
+     * Set v.
      *
      * @param string $v
+     *
      * @return NavMenuSetting
      */
     public function setV($v)
@@ -66,7 +69,7 @@ class NavMenuSetting extends AbstractEntity
     }
 
     /**
-     * Get v
+     * Get v.
      *
      * @return string
      */

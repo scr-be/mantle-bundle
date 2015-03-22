@@ -11,22 +11,22 @@
 namespace Scribe\EntityTrait;
 
 /**
- * Class HasTitle
- * @package Scribe\EntityTrait
+ * Class HasTitle.
  */
 trait HasTitle
 {
     /**
-     * The title property
+     * The title property.
      *
-     * @type string
+     * @var string
      */
     protected $title;
 
     /**
-     * Setter for title property
+     * Setter for title property.
      *
      * @param string|null $title your title string
+     *
      * @return $this
      */
     public function setTitle($title = null)
@@ -37,7 +37,7 @@ trait HasTitle
     }
 
     /**
-     * Getter for title property
+     * Getter for title property.
      *
      * @return string|null
      */
@@ -47,7 +47,7 @@ trait HasTitle
     }
 
     /**
-     * Checker for title property
+     * Checker for title property.
      *
      * @return bool
      */
@@ -57,7 +57,7 @@ trait HasTitle
     }
 
     /**
-     * Nullify the title property
+     * Nullify the title property.
      *
      * @return $this
      */

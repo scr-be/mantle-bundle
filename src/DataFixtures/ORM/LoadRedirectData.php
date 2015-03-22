@@ -13,14 +13,12 @@ namespace Scribe\MantleBundle\DataFixtures\ORM;
 use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 
 /**
- * LoadRedirectData
- *
- * @package Scribe\MantleBundle\DataFixtures\ORM
+ * LoadRedirectData.
  */
 class LoadRedirectData extends AbstractYamlFixture
 {
     /**
-     * Init fixture
+     * Init fixture.
      */
     public function init()
     {
