@@ -15,18 +15,6 @@ use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 /**
  * LoadRedirectData.
  */
-class LoadRedirectData extends AbstractYamlFixture
-{
-    /**
-     * Init fixture.
-     */
-    public function init()
-    {
-        $this
-            ->setOrmFixtureName('Redirect')
-            ->loadOrmFixtureData()
-        ;
-    }
-}
+class LoadRedirectData extends AbstractYamlFixture {}
 
 /* EOF */

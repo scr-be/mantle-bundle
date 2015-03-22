@@ -15,18 +15,6 @@ use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 /**
  * LoadIconData.
  */
-class LoadIconData extends AbstractYamlFixture
-{
-    /**
-     * Init fixture.
-     */
-    public function init()
-    {
-        $this
-            ->setOrmFixtureName('Icon')
-            ->loadOrmFixtureData()
-        ;
-    }
-}
+class LoadIconData extends AbstractYamlFixture {}
 
 /* EOF */

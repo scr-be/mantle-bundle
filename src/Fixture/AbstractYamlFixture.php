@@ -15,6 +15,7 @@ use Symfony\Component\Debug\Exception\ContextErrorException;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Scribe\Exception\RuntimeException;
+use Scribe\Utility\ClassName;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Yaml\Parser;
@@ -80,6 +81,23 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
      */
     public function init()
     {
+        $this
+            ->setOrmFixtureName($this->getFixtureNameFromClassName())
+            ->loadOrmFixtureData()
+        ;
+    }
+
+    protected function getFixtureNameFromClassName()
+    {
+        return preg_replace(
+            '#^Load#',
+            '',
+            preg_replace(
+                '#Data$#',
+                '',
+                ClassName::getClassNameString(get_class($this))
+            )
+        );
     }
 
     /**

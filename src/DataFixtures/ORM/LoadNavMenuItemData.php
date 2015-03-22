@@ -15,18 +15,6 @@ use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 /**
  * LoadNavMenuItemData.
  */
-class LoadNavMenuItemData extends AbstractYamlFixture
-{
-    /**
-     * Init fixture.
-     */
-    public function init()
-    {
-        $this
-            ->setOrmFixtureName('NavMenuItem')
-            ->loadOrmFixtureData()
-        ;
-    }
-}
+class LoadNavMenuItemData extends AbstractYamlFixture {}
 
 /* EOF */
