@@ -11,6 +11,7 @@
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\MantleBundle\Entity\Icon;
 use Symfony\Component\Templating\EngineInterface;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\AbstractGenerator;
@@ -244,8 +245,6 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
                 function($familyIcon) use ($slug) {
                     if ($familyIcon->getSlug() == $slug) {
                         return true;
-                    } elseif (in_array($slug, $familyIcon->getAliases())) {
-                        return true;
                     }
                     return false;
                 }
@@ -253,16 +252,28 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
         ;
 
         if (false === ($icons instanceof ArrayCollection) || 1 !== $icons->count()) {
-
-            throw new IconException(
-                sprintf("Could not find icon slug %s in icon family %s.", $slug, $this->getFamilyEntity()->getName()),
-                IconException::CODE_MISSING_ENTITY
-            );
+            if (false === ($icons = $this->lookupIconByAlias($slug)) || 1 !== $icons->count()) {
+                throw new IconException(
+                    sprintf("Could not find icon slug %s in icon family %s.", $slug, $this->getFamilyEntity()->getName()),
+                    IconException::CODE_MISSING_ENTITY
+                );
+            }
         }
 
         $this->setIconEntity($icons->first());
 
         return $this;
+    }
+
+    private function lookupIconByAlias($alias)
+    {
+        foreach ($this->getFamilyEntity()->getIcons() as $icon) {
+            if (in_array($alias, $icon->getAliases())) {
+                return new ArrayCollection([$icon]);
+            }
+        }
+
+        return false;
     }
 
     /**

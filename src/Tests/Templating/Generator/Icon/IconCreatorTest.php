@@ -281,6 +281,46 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
+    public function testIconLookupByAlias()
+    {
+        $expected = '
+            <span class="fa fa-fw fa-lg fa-glass"
+                  role="img"
+                  aria-hidden="true"
+                  aria-label="Glass is half full!">
+            </span>
+        ';
+
+        $html = $this
+            ->getNewIconCreator()
+            ->setAriaRole("img")
+            ->setAriaLabel('Glass is half full!')
+            ->render('glass-half-full', 'fa', null, 'fa-fw', 'fa-lg')
+        ;
+
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+    }
+
+    public function testIconLookupByAlias2()
+    {
+        $expected = '
+            <span class="fa fa-fw fa-lg fa-photo"
+                  role="img"
+                  aria-hidden="true"
+                  aria-label="Photo label!">
+            </span>
+        ';
+
+        $html = $this
+            ->getNewIconCreator()
+            ->setAriaRole('img')
+            ->setAriaLabel('Photo label!')
+            ->render('photograph', 'fa', null, 'fa-fw', 'fa-lg')
+        ;
+
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+    }
+
     /**
      * @expectedException             Scribe\MantleBundle\Templating\Generator\Icon\IconException
      * @expectedExceptionMessageRegex #You attempted to set an invalid aria role attribute. Valid values:.*#

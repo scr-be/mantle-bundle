@@ -42,7 +42,7 @@ trait IconCreatorMocksTrait
         ;
         $icon
             ->method('getAliases')
-            ->willReturn(null)
+            ->willReturn(['glass-half-full', 'glass-half-empty'])
         ;
         $icon
             ->method('getCategories')
@@ -73,7 +73,7 @@ trait IconCreatorMocksTrait
         ;
         $icon
             ->method('getAliases')
-            ->willReturn(['Photograph'])
+            ->willReturn(['photograph'])
         ;
         $icon
             ->method('getCategories')

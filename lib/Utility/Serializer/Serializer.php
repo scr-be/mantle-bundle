@@ -18,7 +18,7 @@ use Scribe\Utility\Extension;
  *
  * @package Scribe\Utility\Serializer
  */
-class Serialize extends AbstractSerializer
+class Serializer extends AbstractSerializer
 {
     /**
      * @param mixed  $mixed

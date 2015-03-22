@@ -9,7 +9,7 @@
  */
 
 namespace Scribe\Entity;
-use Scribe\Utility\Serializer\Serialize;
+use Scribe\Utility\Serializer\Serializer;
 
 /**
  * Class EntitySerializable
@@ -41,7 +41,7 @@ trait EntitySerializableTrait
             $properties = [ ];
         }
 
-        return Serialize::sleep($properties);
+        return Serializer::sleep($properties);
     }
 
     /**
@@ -54,7 +54,7 @@ trait EntitySerializableTrait
      */
     public function unserialize($serialized)
     {
-        $properties = Serialize::wake($serialized);
+        $properties = Serializer::wake($serialized);
 
         foreach ($properties as $property => $value) {
             $this->$property = $value;
