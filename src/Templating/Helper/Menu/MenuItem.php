@@ -59,6 +59,11 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     private $forceActive = false;
 
     /**
+     * @var null|string
+     */
+    private $description = null;
+
+    /**
      * @param ContainerInterface|null $container
      */
     public function __construct(ContainerInterface $container = null)
@@ -92,6 +97,33 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @param  null|string $desc
+     * @return $this
+     */
+    public function setDescription($desc)
+    {
+        $this->description = $desc;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDescription()
+    {
+        return (bool) ($this->description !== null);
     }
 
     /**

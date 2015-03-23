@@ -12,6 +12,7 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasDescription;
 use Scribe\EntityTrait\HasSlug;
 use Scribe\EntityTrait\HasTitle;
 use Scribe\EntityTrait\HasWeight;
@@ -32,6 +33,7 @@ class NavMenuItem extends AbstractEntity
         HasTitle,
         HasWeight,
         HasContext,
+        HasDescription,
         HasIconAsString,
         HasAttrs,
         HasRouteName,
@@ -61,6 +63,7 @@ class NavMenuItem extends AbstractEntity
 
         $this->initSlug();
         $this->initIcon();
+        $this->initDescription();
         $this->initAttrs();
         $this->initRouteName();
         $this->initRouteParameters();

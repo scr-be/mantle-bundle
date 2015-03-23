@@ -23,9 +23,7 @@ trait EntitySerializableTrait
      * entities that inherit from this class can define their own
      * interpretation.
      */
-    final public function __clone()
-    {
-    }
+    public function __clone() {}
 
     /**
      * To serialize object, get its properties or, if it has none, provide an

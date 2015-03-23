@@ -24,6 +24,11 @@ Scribe\MantleBundle\Entity\NavMenuItem:
             type:   string
             length: 40
 
+        description:
+            type:     string
+            length:   200
+            nullable: true
+
         icon:
             type:     string
             length:   40

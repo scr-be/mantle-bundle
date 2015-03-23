@@ -97,7 +97,7 @@ services:
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
-            - %s.mantle.icon.repo.class%
+            - %s.mantle.icon.entity.class%
 
     s.mantle.icontemplate.repo:
         class:           %s.mantle.icontemplate.repo.class%

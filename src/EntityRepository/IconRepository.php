@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Entity;
+namespace Scribe\MantleBundle\EntityRepository;
 
 use Doctrine\ORM\EntityRepository;
 

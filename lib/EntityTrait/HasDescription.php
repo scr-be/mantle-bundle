@@ -23,6 +23,14 @@ trait HasDescription
     protected $description;
 
     /**
+     * Init trait
+     */
+    protected function initDescription()
+    {
+        $this->description = null;
+    }
+
+    /**
      * Setter for description property.
      *
      * @param string|null $description description for entity

@@ -11,6 +11,7 @@
 namespace Scribe\MantleBundle\Fixture;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Util\Debug;
 use Symfony\Component\Debug\Exception\ContextErrorException;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -27,6 +28,34 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
+    /**
+     * Operational mode: truncate table
+     *
+     * @var int
+     */
+    const MODE_TRUNCATE = -1;
+
+    /**
+     * Operational mode: merge entries into table
+     *
+     * @var int
+     */
+    const MODE_MERGE = 0;
+
+    /**
+     * Operational mode: append to table
+     *
+     * @var int
+     */
+    const MODE_APPEND = 1;
+
+    /**
+     * Default operational mode: truncate
+     *
+     * @var int
+     */
+    const MODE_DEFAULT = self::MODE_TRUNCATE;
+
     /**
      * @var array
      */
@@ -66,6 +95,11 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
      * @var ContainerInterface
      */
     protected $container;
+
+    /**
+     * @var string
+     */
+    protected $mode = self::MODE_DEFAULT;
 
     /**
      * @param ContainerInterface $container
@@ -201,11 +235,29 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
     protected function getFixtureValueWithRefs($value)
     {
         $matches = null;
+        if (0 !== preg_match('#^@([A-Za-z]*)\?([^=]*)=([^&]*)$#', $value, $matches)) {
+            return $this->getFixtureValueBySearchRef($value, $matches);
+        }
 
-        if (0 === preg_match('#@([A-Za-z]*)\?([^=]*)=([^&]*)#', $value, $matches)) {
+        $matches = null;
+        if (0 !== preg_match('#^\+([a-zA-Z]*:[0-9]+)$#', $value, $matches)) {
+            return $this->getFixtureValueByInternalRef($value, $matches);
+        }
+
+        return $value;
+    }
+
+    protected function getFixtureValueByInternalRef($value, $matches)
+    {
+        if (count($matches) !== 2) {
             return $value;
         }
 
+        return $this->getReference($matches[1]);
+    }
+
+    protected function getFixtureValueBySearchRef($value, $matches)
+    {
         if (count($matches) !== 4) {
             return $value;
         }
@@ -298,9 +350,27 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
         $this->orm          = $fixtureRoot['orm'];
         $this->data         = $fixtureRoot['data'];
         $this->priority     = (array_key_exists('priority', $this->orm) ? $this->orm['priority'] : 0);
+        $this->cannibal     = (bool) (array_key_exists('cannibal', $this->orm) ? $this->orm['cannibal'] : false);
+        $this->mode         = (int) $this->determineMode();
         $this->dependencies = $fixtureRoot['dependencies'];
 
         return $this;
+    }
+
+    protected function determineMode()
+    {
+        if (false === array_key_exists('mode', $this->orm) ||
+            false === ($mode = $this->orm['mode'])) {
+            return self::MODE_DEFAULT;
+        }
+
+        $modeRequest = 'self::MODE_'.strtoupper($mode);
+
+        if (true !== defined($modeRequest)) {
+            return self::MODE_DEFAULT;
+        }
+
+        return constant($modeRequest);
     }
 
     /**
@@ -313,6 +383,8 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
             $entity = $this->setNewFixtureDataForEntity($entity, $f);
 
             $manager->persist($entity);
+
+            $this->addReference($this->name.':'.$i, $entity);
 
             if ($this->cannibal === true) {
                 $manager->flush();

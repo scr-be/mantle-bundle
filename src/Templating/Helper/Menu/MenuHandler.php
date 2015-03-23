@@ -64,7 +64,11 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     private $securityContext;
 
     /**
-     * @param ContainerInterface|null $container
+     * @param ContainerInterface $container
+     * @param NavMenuItemRepository $navMenuItemRepo
+     * @param NavMenuSettingRepository $navMenuSettingRepo
+     * @param BundleInformation $bundleInformation
+     * @param SecurityContext $securityContext
      */
     public function __construct(
         ContainerInterface       $container = null,
@@ -238,6 +242,10 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
             ->setIcon($entity->getIcon())
             ->setRoute($entity->getRouteName(), (array) $routeParameters)
         ;
+
+        if (method_exists($entity, 'hasDescription') && method_exists($entity, 'getDescription') && $entity->hasDescription()) {
+            $item->setDescription($entity->getDescription());
+        }
 
         if ($entity->isHeader()) {
             $item->setHeader(true);
