@@ -75,16 +75,6 @@ class Node
     private $latestRevision;
 
     /**
-     * @var ArrayCollection
-     */
-    private $parents;
-
-    /**
-     * @var ArrayCollection
-     */
-    private $children;
-
-    /**
      * @var ArrayCollection 
      */
     private $containerNodeRevisions;
@@ -95,8 +85,6 @@ class Node
     public function __construct()
     {
         $this->revisions              = new ArrayCollection;
-        $this->parents                = new ArrayCollection;
-        $this->children               = new ArrayCollection;
         $this->containerNodeRevisions = new ArrayCollection;
     }
 
@@ -338,52 +326,6 @@ class Node
     public function getLatestRevision()
     {
         return $this->latestRevision;
-    }
-
-    /**
-     * Set parents
-     *
-     * @param \stdClass $parents
-     * @return Node
-     */
-    public function setParents($parents)
-    {
-        $this->parents = $parents;
-
-        return $this;
-    }
-
-    /**
-     * Get parents
-     *
-     * @return \stdClass 
-     */
-    public function getParents()
-    {
-        return $this->parents;
-    }
-
-    /**
-     * Set children
-     *
-     * @param \stdClass $children
-     * @return Node
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
-
-        return $this;
-    }
-
-    /**
-     * Get children
-     *
-     * @return \stdClass 
-     */
-    public function getChildren()
-    {
-        return $this->children;
     }
 
     /**

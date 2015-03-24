@@ -1,7 +1,7 @@
 Scribe\MantleBundle\Entity\NodeRevision:
     type: entity
     table: null
-    repositoryClass: Scribe\MantleBundle\Entity\NodeRevisionRepository
+    repositoryClass: Scribe\MantleBundle\EntityRepository\NodeRevisionRepository
     id:
         id:
             type: integer

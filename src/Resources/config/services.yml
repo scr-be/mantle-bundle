@@ -15,6 +15,8 @@ parameters:
     s.mantle.icontemplate.repo.class:               Scribe\MantleBundle\EntityRepository\IconTemplateRepository
     s.mantle.iconfamily.entity.class:               Scribe\MantleBundle\Entity\IconFamily
     s.mantle.iconfamily.repo.class:                 Scribe\MantleBundle\EntityRepository\IconFamilyRepository
+    s.mantle.node.entity.class:                     Scribe\MantleBundle\Entity\Node
+    s.mantle.node.repo.class:                       Scribe\MantleBundle\EntityRepository\NodeRepository
     s.mantle.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
     s.mantle.icon_creator.class:                    Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
     s.mantle.icon_creator_cached.class:             Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
@@ -112,6 +114,13 @@ services:
         factory_method:  getRepository
         arguments:
             - %s.mantle.iconfamily.entity.class%
+
+    s.mantle.node.repo:
+        class:           %s.mantle.node.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - %s.mantle.node.entity.class%
 
     s.mantle.cachedfilesystementrysize.repo:
         class:           %s.mantle.cachedfilesystementrysize.repo.class%

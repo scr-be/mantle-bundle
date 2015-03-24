@@ -1,0 +1,8 @@
+---
+node:
+    table: Node 
+    service: s.mantle.node.repo
+    data: 
+        title: 'SCR Post $n'
+        slug: 'auto$n'
+    assocs: []

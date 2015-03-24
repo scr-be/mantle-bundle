@@ -1,7 +1,11 @@
 Scribe\MantleBundle\Entity\Node:
     type: entity
     table: null
-    repositoryClass: Scribe\MantleBundle\Entity\NodeRepository
+    repositoryClass: Scribe\MantleBundle\EntityRepository\NodeRepository
+    actAs:
+        NestedSet:
+            hasManyRoots: true
+            rootColumnName: root_id
     id:
         id:
             type: integer
@@ -50,20 +54,6 @@ Scribe\MantleBundle\Entity\Node:
             targetEntity: Scribe\MantleBundle\Entity\NodeRevision
             mappedBy: node
     manyToMany:
-        parents:
-            targetEntity: Scribe\MantleBundle\Entity\Node 
-            inversedBy:  children 
-            joinTable:
-                name: ParentNodeMapToChildNode 
-                joinColumns:
-                    parentNodeId:
-                        referencedColumnId: id
-                inverseJoinColumns:
-                    childNodeId:
-                        referencedColumnId: id
-        children:
-            targetEntity: Scribe\MantleBundle\Entity\Node
-            mappedBy: parents
         containerNodeRevisions:
             targetEntity: Scribe\MantleBundle\Entity\NodeRevision
             mappedBy: embeddedNodes

@@ -1,7 +1,7 @@
 Scribe\MantleBundle\Entity\AssetType:
     type: entity
     table: null
-    repositoryClass: Scribe\MantleBundle\Entity\AssetTypeRepository
+    repositoryClass: Scribe\MantleBundle\EntityRepository\AssetTypeRepository
     id:
         id:
             type: integer

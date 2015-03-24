@@ -1,3 +1,6 @@
+imports:
+  - { resource: parameters.php }
+
 framework:
     secret:          "Secret for tests!"
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -8,6 +11,14 @@ framework:
     templating:
         engines:
             - "twig"
+
+parameters:
+    database_driver: pdo_mysql
+    database_host: %mantle.host% 
+    database_port: null
+    database_name: %mantle.db_name%
+    database_user: %mantle.user% 
+    database_password: %mantle.password% 
 
 twig:
     debug:            %kernel.debug%
