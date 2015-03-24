@@ -15,14 +15,14 @@ use Scribe\MantleBundle\Templating\Extension\Part\SimpleExtensionTrait;
 use Twig_Extension;
 
 /**
- * Class HighchartExtension
+ * Class HighchartExtension.
  */
 class HighchartExtension extends Twig_Extension
 {
     use SimpleExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct()
     {
@@ -31,6 +31,7 @@ class HighchartExtension extends Twig_Extension
 
     /**
      * @param Highchart $chart
+     *
      * @return string
      */
     public function chart(Highchart $chart)

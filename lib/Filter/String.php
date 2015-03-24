@@ -10,16 +10,16 @@
 
 namespace Scribe\Filter;
 
-use Scribe\Utility\Core;
+use Scribe\Utility\Caller\Call;
 
 /**
- * Class Filters
- *
- * @package Scribe\Filter
+ * Class Filters.
  */
-class String {
+class String
+{
     /**
      * @param string $s
+     *
      * @return string
      */
     public static function alphanumericOnly($s)
@@ -29,6 +29,7 @@ class String {
 
     /**
      * @param string $s
+     *
      * @return string
      */
     public static function spacesToDashes($s)
@@ -38,6 +39,7 @@ class String {
 
     /**
      * @param string $s
+     *
      * @return string
      */
     public static function dashedToSpaces($s)
@@ -48,6 +50,7 @@ class String {
     /**
      * @param string $s
      * @param string $function
+     *
      * @return mixed
      */
     public static function alphanumericAndDashesOnly($s, $function = 'strtolower')
@@ -55,7 +58,7 @@ class String {
         $s = self::spacesToDashes($s);
         $s = self::alphanumericOnly($s);
         if (null !== $function) {
-            $s = Core::callFunctionOnValue($s, $function);
+            $s = Call::func($function, $s);
         }
 
         return $s;
@@ -63,6 +66,7 @@ class String {
 
     /**
      * @param string $phone
+     *
      * @return string
      */
     public static function parsePhoneString($phone)
@@ -87,6 +91,7 @@ class String {
 
     /**
      * @param string $phone
+     *
      * @return string
      */
     public static function formatPhoneString($phone)
@@ -107,7 +112,7 @@ class String {
     }
 
     /**
-     * Function to attempt proper title case rules for a given string
+     * Function to attempt proper title case rules for a given string.
      *
      * @author John Gruber <daringfireball.net>
      * @author David Gouch <individed.com>
@@ -117,6 +122,7 @@ class String {
      * @see http://camendesign.com/code/title-case
      *
      * @param string $title
+     *
      * @return mixed|string
      */
     public static function titleCase($title)
@@ -146,7 +152,7 @@ class String {
         foreach ($m1[0] as &$m2) {
 
             /* get the match and offset values in from matches array */
-            list ($m, $i) = $m2;
+            list($m, $i) = $m2;
 
             /* correct the string offset value to support *multi*-byte characters, as the PREG_OFFSET_CAPTURE preg
                 value returns the *byte*-offset, this is fixed by re-counting using the *multi*-byte aware strlen */
@@ -160,16 +166,16 @@ class String {
                     mb_substr($title, max(0, $i-2), 1, 'UTF-8') !== ':' &&
                     !preg_match('/[\x{2014}\x{2013}] ?/u', mb_substr($title, max(0, $i-2), 2, 'UTF-8')) &&
                     preg_match('/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|t(he|o)|vs?\.?|via)[ \-]/i', $m)
-            ) ?	(
+            ) ?    (
                     /* change characters that are *always* lowercase */
                     mb_strtolower($m, 'UTF-8')
             ) : (
                     (
                             preg_match('/[\'"_{(\[‘“]/u', mb_substr($title, max(0, $i-1), 3, 'UTF-8')
-                    ) ?	(
+                    ) ?    (
                             /* convert first letter within brackets and other wrappers to uppercase */
                             mb_substr($m, 0, 1, 'UTF-8').
-                            mb_strtoupper(mb_substr ($m, 1, 1, 'UTF-8'), 'UTF-8').
+                            mb_strtoupper(mb_substr($m, 1, 1, 'UTF-8'), 'UTF-8').
                             mb_substr($m, 2, mb_strlen($m, 'UTF-8')-2, 'UTF-8')
                     ) : (
                             (
@@ -206,12 +212,13 @@ class String {
     }
 
     /**
-     * @param string $str1
-     * @param string $str2
+     * @param string      $str1
+     * @param string      $str2
      * @param null|string $encoding
+     *
      * @return int
      */
-    static public function mb_strnatcasecmp($str1, $str2, $encoding = null)
+    public static function mb_strnatcasecmp($str1, $str2, $encoding = null)
     {
         if (null === $encoding) {
             $encoding = mb_internal_encoding();

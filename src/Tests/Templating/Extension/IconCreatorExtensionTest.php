@@ -18,9 +18,7 @@ use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTr
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 
 /**
- * Class IconCreatorExtensionTest
- *
- * @package Scribe\MantleBundle\Tests\Templating\Extension
+ * Class IconCreatorExtensionTest.
  */
 class IconCreatorExtensionTest extends PHPUnit_Framework_TestCase
 {

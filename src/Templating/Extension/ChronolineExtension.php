@@ -15,14 +15,14 @@ use Scribe\MantleBundle\Templating\Helper\Timeline\Chronoline;
 use Twig_Extension;
 
 /**
- * Class ChronolineExtension
+ * Class ChronolineExtension.
  */
 class ChronolineExtension extends Twig_Extension
 {
     use SimpleExtensionTrait;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct()
     {

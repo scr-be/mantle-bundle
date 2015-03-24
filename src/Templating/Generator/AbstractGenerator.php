@@ -14,16 +14,14 @@ use Symfony\Component\Templating\EngineInterface;
 use Scribe\Templating\Engine\EngineAwareTrait;
 
 /**
- * Class AbstractGenerator
- *
- * @package Scribe\MantleBundle\Templating\Generator
+ * Class AbstractGenerator.
  */
 abstract class AbstractGenerator
 {
     use EngineAwareTrait;
 
     /**
-     * Setup the object instance
+     * Setup the object instance.
      *
      * @param EngineInterface $engine
      */

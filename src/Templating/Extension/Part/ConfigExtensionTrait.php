@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Extension\Part;
 use Scribe\Utility\Config\ConfigInterface;
 
 /**
- * Class ConfigExtensionTrait
+ * Class ConfigExtensionTrait.
  */
 trait ConfigExtensionTrait
 {
@@ -25,6 +25,7 @@ trait ConfigExtensionTrait
     /**
      * @param $key
      * @param bool $container
+     *
      * @return mixed
      */
     public function getConfig($key, $container = false)

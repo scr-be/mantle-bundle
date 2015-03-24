@@ -14,9 +14,7 @@ use SplObserver;
 use SplSubject;
 
 /**
- * Class Subject
- *
- * @package Scribe\Utility\Observer
+ * Class Subject.
  */
 class SubjectAbstract implements SplSubject
 {
@@ -41,7 +39,7 @@ class SubjectAbstract implements SplSubject
 
     public function setNotify($notify = true)
     {
-        $this->notify = (bool)$notify;
+        $this->notify = (bool) $notify;
     }
 
     /**
@@ -61,6 +59,7 @@ class SubjectAbstract implements SplSubject
 
     /**
      * @param $observer SplObserver
+     *
      * @return SubjectAbstract
      */
     public function attach(SplObserver $observer)
@@ -72,6 +71,7 @@ class SubjectAbstract implements SplSubject
 
     /**
      * @param $observer SplObserver
+     *
      * @return SubjectAbstract
      */
     public function detach(SplObserver $observer)
@@ -95,6 +95,7 @@ class SubjectAbstract implements SplSubject
 
     /**
      * @param $observer SplObserver
+     *
      * @return bool
      */
     public function has(SplObserver $observer)
@@ -108,6 +109,7 @@ class SubjectAbstract implements SplSubject
 
     /**
      * @param $observer mixed
+     *
      * @return bool
      */
     protected function isObserver($observer)

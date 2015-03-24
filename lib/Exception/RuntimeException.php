@@ -11,13 +11,10 @@
 namespace Scribe\Exception;
 
 /**
- * Class RuntimeException
- *
- * @package Scribe\Exception
+ * Class RuntimeException.
  */
 class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
-
 }
 
 /* EOF */

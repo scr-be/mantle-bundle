@@ -11,25 +11,25 @@
 namespace Scribe\Utility\Config;
 
 /**
- * Class ConfigInterface
- *
- * @package Scribe\Utility\Config
+ * Class ConfigInterface.
  */
 interface ConfigInterface
 {
     /**
-     * Getter for config value
+     * Getter for config value.
      *
-     * @param  string $key   config key
+     * @param string $key config key
+     *
      * @throws mixed
      */
     public function get($key);
 
     /**
-     * Setter for config value
+     * Setter for config value.
      *
-     * @param  string $key   config key
-     * @param  mixed  $value config value
+     * @param string $key   config key
+     * @param mixed  $value config value
+     *
      * @return bool
      */
     public function set($key, $value);

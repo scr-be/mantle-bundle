@@ -1,44 +1,61 @@
 Scribe\MantleBundle\Entity\NavMenuSubItem:
-    type: entity
-    table: null
+
+    type:            entity
+    table:           null
     repositoryClass: Scribe\MantleBundle\EntityRepository\NavMenuSubItemRepository
+
     fields:
+
         id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
         title:
             type: string
             length: 40
+
         icon:
-            type: string
+            type:     string
+            length:   40
             nullable: true
-            length: 40
+
         weight:
-            type: integer
+            type:     integer
             nullable: true
+
         header:
-            type: boolean
+            type:     boolean
             nullable: true
+
         routeName:
-            type: string
+            type:     string
+            length:   85
             nullable: true
-            length: 85
+
         routeParameters:
-            type: array
+            type:     json_array
             nullable: true
+
         roleRestrictions:
-            type: array
+            type:     json_array
             nullable: true
+
         reverseRoleRestrictions:
-            type: array
+            type:     json_array
             nullable: true
+
+        attrs:
+            type:     json_array
+            nullable: true
+
     manyToOne:
+
         parent:
             targetEntity: NavMenuItem
+            inversedBy:   subItems
             joinColumn:
-                name: parentId
+                name:                 parentId
                 referencedColumnName: id
-            inversedBy: subItems
+
     lifecycleCallbacks: {  }

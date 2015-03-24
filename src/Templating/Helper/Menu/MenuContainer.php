@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Class Menu
+ * Class Menu.
  */
 class MenuContainer
 {
@@ -127,5 +127,4 @@ class MenuContainer
             ]
         );
     }
-
 }

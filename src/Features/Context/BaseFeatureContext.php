@@ -18,8 +18,6 @@ use Behat\MinkExtension\Context\MinkContext;
  * Abstract class BaseFeatureContext
  * Defines basic contexts, helper functions, and global constants for use within
  * each bundle featurecontext definitions.
- *
- * @package Scribe\MantleBundle\Features\Contact
  */
 class BaseFeatureContext extends MinkContext implements Context
 {
@@ -62,8 +60,7 @@ class BaseFeatureContext extends MinkContext implements Context
      */
     public function theAppKernelIsAvailable()
     {
-        if(! $this->kernel instanceof KernelInterface)
-        {
+        if (! $this->kernel instanceof KernelInterface) {
             throw new \Exception('The App Kernel is not available');
         }
     }
@@ -73,8 +70,7 @@ class BaseFeatureContext extends MinkContext implements Context
      */
     public function theContainerIsAvailable()
     {
-        if(! $this->kernel->getContainer() instanceof \appTestDebugProjectContainer)
-        {
+        if (! $this->kernel->getContainer() instanceof \appTestDebugProjectContainer) {
             throw new \Exception('The App Debug Project Container is not available');
         }
     }
@@ -87,7 +83,7 @@ class BaseFeatureContext extends MinkContext implements Context
         $page = $this->getSession()->getPage();
         $anchors = $page->findAll('css', $target);
         foreach ($anchors as $a) {
-            if($a->getText() == $text) {
+            if ($a->getText() == $text) {
                 return $a;
             }
         }
@@ -105,6 +101,7 @@ class BaseFeatureContext extends MinkContext implements Context
         $myRoute = $route['_route'];
         $myRoute = ($myRoute == 'security_dashboard' ? 'login' : $myRoute); # hard-code the redirect...
         $url = $router->generate($myRoute, [], true);
+
         return $url;
     }
 
@@ -148,25 +145,25 @@ class BaseFeatureContext extends MinkContext implements Context
      */
     public function spill($something)
     {
-        var_dump(eval('return ' . $something . ';'));
+        var_dump(eval('return '.$something.';'));
     }
 
     // below are basic feature context actions for use in hooks
 
     public function makeUserCommand()
     {
-         exec(
-            'app/console scribe:security:user:make ' .
-            self::SECURITY_BASIC_USER_NAME . ' ' .
-            self::SECURITY_BASIC_USER_PASS . ' ' .
+        exec(
+            'app/console scribe:security:user:make '.
+            self::SECURITY_BASIC_USER_NAME.' '.
+            self::SECURITY_BASIC_USER_PASS.' '.
             self::SECURITY_BASIC_USER_ROLE
         );
     }
 
     public function deleteUserProjectsCommand()
     {
-         exec(
-            'app/console scribe:hub:project:clear ' .
+        exec(
+            'app/console scribe:hub:project:clear '.
             self::SECURITY_BASIC_USER_NAME
         );
     }
@@ -180,13 +177,13 @@ class BaseFeatureContext extends MinkContext implements Context
         $page->findAll('css', $cssPattern)[0]->click();
     }
 
-    /**
-     * @Given /^the url should not match "([^"]*)"$/
-     */
+     /**
+      * @Given /^the url should not match "([^"]*)"$/
+      */
      public function theUrlShouldNotMatch($pattern)
      {
          $url = $this->getSession()->getCurrentUrl();
-         if( preg_match("|" . preg_quote($pattern) . "|", $url)  ){
+         if (preg_match("|".preg_quote($pattern)."|", $url)) {
              throw new \Exception('We did not go to a new blog page!');
          }
      }

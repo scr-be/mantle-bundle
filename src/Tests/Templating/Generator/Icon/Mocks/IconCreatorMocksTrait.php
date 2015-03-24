@@ -11,13 +11,9 @@
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
 
 /**
- * Class IconCreatorMocksTrait
- *
- * @package Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks
+ * Class IconCreatorMocksTrait.
  */
 trait IconCreatorMocksTrait
 {
@@ -42,7 +38,7 @@ trait IconCreatorMocksTrait
         ;
         $icon
             ->method('getAliases')
-            ->willReturn(null)
+            ->willReturn(['glass-half-full', 'glass-half-empty'])
         ;
         $icon
             ->method('getCategories')
@@ -73,7 +69,7 @@ trait IconCreatorMocksTrait
         ;
         $icon
             ->method('getAliases')
-            ->willReturn(['Photograph'])
+            ->willReturn(['photograph'])
         ;
         $icon
             ->method('getCategories')
@@ -187,12 +183,10 @@ trait IconCreatorMocksTrait
         ;
         $iconFamilyRepo
             ->method('findOneBySlug')
-            ->will($this->throwException(new \Doctrine\ORM\ORMException));
-        ;
+            ->will($this->throwException(new \Doctrine\ORM\ORMException()));
         $iconFamilyRepo
             ->method('loadIconFamilyBySlug')
-            ->will($this->throwException(new \Doctrine\ORM\ORMException));
-        ;
+            ->will($this->throwException(new \Doctrine\ORM\ORMException()));
 
         return $iconFamilyRepo;
     }

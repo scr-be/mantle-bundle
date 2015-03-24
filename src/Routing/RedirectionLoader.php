@@ -11,7 +11,7 @@ use Scribe\Component\DependencyInjection\ContainerAwareTrait;
 use Scribe\Filter\String;
 
 /**
- * loader service to handle redirection urls
+ * loader service to handle redirection urls.
  */
 class RedirectionLoader extends Loader implements ContainerAwareInterface
 {
@@ -45,7 +45,7 @@ class RedirectionLoader extends Loader implements ContainerAwareInterface
         ;
 
         $repo = $em
-            ->getRepository('ScribeMantleBundle:Redirects')
+            ->getRepository('ScribeMantleBundle:Redirect')
         ;
 
         $redirects = $repo->findAll();
@@ -53,13 +53,12 @@ class RedirectionLoader extends Loader implements ContainerAwareInterface
         $routes = new RouteCollection();
 
         foreach ($redirects as $i => $r) {
+            $routeName = '__redirection_'.$i.'_'.String::alphanumericOnly($r->getPathFrom());
 
-            $routeName = '__redirection_'.$i.'_'.String::alphanumericOnly($r->getPattern());
-
-            $pattern = $r->getPattern();
+            $pattern = $r->getPathFrom();
             $defaults = [
                 '_controller' => 'ScribeMantleBundle:Redirect:Handle',
-                'destination' => $r->getDestination()
+                'destination' => $r->getPathTo(),
             ];
 
             $route = new Route($pattern, $defaults);

@@ -15,7 +15,7 @@ use Scribe\LearningBundle\Entity\NodeRepository;
 use Twig_Extension;
 
 /**
- * Class NodeExtension
+ * Class NodeExtension.
  */
 class NodeExtension extends Twig_Extension
 {
@@ -27,7 +27,7 @@ class NodeExtension extends Twig_Extension
     private $nodeRepo;
 
     /**
-     * constructor
+     * constructor.
      */
     public function __construct(NodeRepository $nodeRepo)
     {
@@ -37,8 +37,9 @@ class NodeExtension extends Twig_Extension
     }
 
     /**
-     * @param  string $k
-     * @param  string $context
+     * @param string $k
+     * @param string $context
+     *
      * @return \Scribe\LearningBundle\Entity\Node|null
      */
     public function getNode($k, $context)
@@ -52,8 +53,9 @@ class NodeExtension extends Twig_Extension
     }
 
     /**
-     * @param  string $k
-     * @param  string $context
+     * @param string $k
+     * @param string $context
+     *
      * @return string
      */
     public function getNodeContent($k, $context)

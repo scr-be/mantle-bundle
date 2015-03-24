@@ -19,7 +19,7 @@ use Scribe\MantleBundle\Entity\NewsletterUser;
 use Swift_Message;
 
 /**
- * handles accepting newsletter signup posts from any page
+ * handles accepting newsletter signup posts from any page.
  */
 class NewsletterListener implements ContainerAwareInterface
 {
@@ -38,6 +38,7 @@ class NewsletterListener implements ContainerAwareInterface
 
     /**
      * @param $container ContainerInterface
+     *
      * @return $this
      */
     public function setContainer(ContainerInterface $container = null)
@@ -49,7 +50,6 @@ class NewsletterListener implements ContainerAwareInterface
 
     /**
      * @param $event FilterControllerEvent
-     * @return void
      */
     public function onKernelController(FilterControllerEvent $event)
     {
@@ -75,7 +75,6 @@ class NewsletterListener implements ContainerAwareInterface
 
     /**
      * @param $event FilterControllerEvent
-     * @return void
      */
     private function handleNewsletterPost(Request $request, FilterControllerEvent $event)
     {
@@ -125,7 +124,6 @@ class NewsletterListener implements ContainerAwareInterface
 
     /**
      * @param $user NewsletterUser
-     * @return void
      */
     private function emailNotification(Request $request, NewsletterUser $user)
     {

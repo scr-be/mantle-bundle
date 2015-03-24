@@ -2,35 +2,31 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-/**
- * NewsletterUser
- */
-class NewsletterUser
-{
-    /**
-     * @var integer
-     */
-    private $id;
+use Scribe\Entity\AbstractEntity;
 
+/**
+ * NewsletterUser.
+ */
+class NewsletterUser extends AbstractEntity
+{
     /**
      * @var string
      */
     private $email;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return $this->email;
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return NewsletterUser
      */
     public function setEmail($email)
@@ -41,7 +37,7 @@ class NewsletterUser
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */

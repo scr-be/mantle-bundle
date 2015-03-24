@@ -16,8 +16,9 @@ Scribe\MantleBundle\Entity\Icon:
             length: 40
 
         unicode:
-            type:   string
-            length: 10
+            type:     string
+            length:   10
+            nullable: true
 
         name:
             type:   string
@@ -31,13 +32,17 @@ Scribe\MantleBundle\Entity\Icon:
             type:     json_array
             nullable: true
 
+        attributes:
+            type:     json_array
+            nullable: true
+
     manyToMany:
 
         families:
             targetEntity: IconFamily
             inversedBy:   icons
-            joinTable: 
-                name: Icons_Mapto_IconFamilies
+            joinTable:
+                name: Icon_MaptoFamilies
                 joinColumns:
                     iconId:
                         referencedColummnName: id

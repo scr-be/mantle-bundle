@@ -15,11 +15,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class NavigationRegistrarCompilerPass
- *
- * @package Scribe\MantleBundle\DependencyInjection\Compiler
+ * Class NavigationRegistrarCompilerPass.
  */
-
 class NavigationRegistrarCompilerPass implements CompilerPassInterface
 {
     /**

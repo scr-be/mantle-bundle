@@ -15,14 +15,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Scribe\MantleBundle\DependencyInjection\Compiler\NavigationRegistrarCompilerPass;
 
 /**
- * Class ScribeMantleBundle
- *
- * @package Scribe\MantleBundle
+ * Class ScribeMantleBundle.
  */
 class ScribeMantleBundle extends Bundle
 {
     /**
-     * Build the container for this bundle
+     * Build the container for this bundle.
      *
      * @param ContainerBuilder $container
      */

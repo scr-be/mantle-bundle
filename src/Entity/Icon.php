@@ -10,70 +10,76 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Entity\Template\Entity;
-use Scribe\MantleBundle\Entity\Template\HasName;
-use Scribe\MantleBundle\Entity\Template\HasDescription;
+use Scribe\EntityTrait\HasName;
+use Scribe\EntityTrait\HasSlug;
+use Scribe\EntityTrait\HasAliases;
+use Scribe\EntityTrait\HasCategories;
+use Scribe\EntityTrait\HasAttributes;
+use Scribe\EntityTrait\HasDescription;
+use Scribe\Entity\AbstractEntity;
 
 /**
- * Class Icon
- * @package Scribe\MantleBundle\Entity
+ * Class Icon.
  */
-class Icon extends Entity
+class Icon extends AbstractEntity
 {
-    /**
+    /*
      * import name and description entity property traits
      */
     use HasName,
+        HasSlug,
+        HasAliases,
+        HasCategories,
+        HasAttributes,
         HasDescription;
 
     /**
-     * The associated families 
-     * @type IconFamilies
+     * @var ArrayCollection|IconFamily[]
      */
     private $families;
 
     /**
-     * @type string
-     */
-    private $slug;
-
-    /**
-     * @var string 
+     * @var string
      */
     private $unicode;
 
     /**
-     * @var jsonArray 
-     */
-    private $aliases;
-
-    /**
-     * @var jsonArray 
-     */
-    private $categories;
-
-    /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
-        $this->families = new ArrayCollection;
+        $this->initAliases();
+        $this->initAttributes();
+        $this->initCategories();
+
+        $this->families = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object type to string type
+     * Support for casting from object type to string type.
+     *
      * @return string
      */
     public function __toString()
     {
-        return $this->getFamilies() . ':' . $this->getName();
+        if (false === $this->hasFamilies()) {
+            return $this->getSlug();
+        }
+
+        $string = '';
+        foreach ($this->getFamilies() as $f) {
+            $string .= $f->getSlug().'-'.$this->getSlug().';';
+        }
+
+        return $string;
     }
 
     /**
-     * Setter for families property
-     * @param $families entity
+     * Setter for families property.
+     *
+     * @param ArrayCollection|IconFamily[] $families
+     *
      * @return $this
      */
     public function setFamilies(ArrayCollection $families = null)
@@ -84,8 +90,9 @@ class Icon extends Entity
     }
 
     /**
-     * Getter for families property
-     * @return IconFamilies 
+     * Getter for families property.
+     *
+     * @return ArrayCollection|IconFamily[]
      */
     public function getFamilies()
     {
@@ -93,52 +100,32 @@ class Icon extends Entity
     }
 
     /**
-     * Checker for families property
+     * Checker for families property.
+     *
      * @return bool
      */
     public function hasFamilies()
     {
-        return (bool) ($this->families !== null);
+        return (bool) ($this->families !== null && $this->families->count() > 0);
     }
 
     /**
-     * Nullify families property
+     * Nullify families property.
+     *
      * @return $this
      */
     public function clearFamilies()
     {
-        $this->families = new ArrayCollection;
+        $this->families = new ArrayCollection();
 
         return $this;
     }
 
     /**
-     * Setter for slug property 
+     * Setter for unicode property.
      *
-     * @param string|null 
-     * @return $this
-     */
-    public function setSlug($slug = null)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Getter for slug property 
+     * @param string
      *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Setter for unicode property 
-     *
-     * @param string 
      * @return $this
      */
     public function setUnicode($unicode = null)
@@ -149,103 +136,13 @@ class Icon extends Entity
     }
 
     /**
-     * Getter for unicode property 
+     * Getter for unicode property.
      *
-     * @return string 
+     * @return string
      */
     public function getUnicode()
     {
         return $this->unicode;
-    }
-
-    /**
-     * Setter for aliases property 
-     *
-     * @param array 
-     * @return $this
-     */
-    public function setAliases($aliases = null)
-    {
-        $this->aliases = $aliases;
-
-        return $this;
-    }
-
-    /**
-     * Getter for aliases property 
-     *
-     * @return array 
-     */
-    public function getAliases()
-    {
-        return $this->aliases;
-    }
-
-    /**
-     * Checker for aliases property 
-     *
-     * @return bool
-     */
-    public function hasAliases()
-    {
-        return (bool) ($this->getAliases() !== null);
-    }
-
-    /**
-     * Nullify aliases property 
-     *
-     * @return $this
-     */
-    public function clearAliases()
-    {
-        $this->aliases = null;
-
-        return $this;
-    }
-
-    /**
-     * Setter for categories property 
-     *
-     * @param array 
-     * @return $this
-     */
-    public function setCategories($categories = null)
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
-    /**
-     * Getter for categories property 
-     *
-     * @return array 
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Checker for categories property 
-     *
-     * @return bool
-     */
-    public function hasCategories()
-    {
-        return (bool) ($this->getCategories() !== null);
-    }
-
-    /**
-     * Nullify categories property 
-     *
-     * @return $this
-     */
-    public function clearCategories()
-    {
-        $this->setCategories(null);
-
-        return $this;
     }
 }
 

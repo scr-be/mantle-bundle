@@ -16,11 +16,11 @@ use Scribe\Utility\Config\ConfigInterface;
 use Twig_Extension;
 
 /**
- * ContainerExtension
+ * ContainerExtension.
  */
 class ConfigExtension extends Twig_Extension
 {
-    /**
+    /*
      * @see ConfigExtensionTrait
      * @see SimpleExtentionTrait
      */
@@ -51,7 +51,7 @@ class ConfigExtension extends Twig_Extension
                 $this,
                 'getConfig',
                 ['is_safe' => ['html']]
-            )
+            ),
 
         ];
     }

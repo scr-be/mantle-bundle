@@ -15,9 +15,7 @@ use Scribe\Component\Bundle\BundleInformation;
 use Twig_Extension;
 
 /**
- * Class BundleInformationExtension
- *
- * @package Scribe\MantleBundle\Templating\Extension
+ * Class BundleInformationExtension.
  */
 class BundleInformationExtension extends Twig_Extension
 {

@@ -18,64 +18,66 @@ use Scribe\Exception\BadFunctionCallException;
  * Class Call
  * Static function collection to call either global functions or object methods
  * indirectly with checks that the requested function/method exists.
- *
- * @package Scribe\Utility\Call
  */
 class Call implements CallInterface
 {
-    /**
+    /*
      * disallow instantiation
      */
     use StaticClassTrait;
 
     /**
-     * Call a global function (if exists) with specified arguments
+     * Call a global function (if exists) with specified arguments.
      *
-     * @param  string   $function  A global function name
-     * @param  ...mixed $arguments Arguments to pass to the global function
+     * @param string   $function  A global function name
+     * @param ...mixed $arguments Arguments to pass to the global function
+     *
      * @return mixed
      */
-    static public function func($function, ...$arguments)
+    public static function func($function, ...$arguments)
     {
         return self::handle($function, null, null, ...$arguments);
     }
 
     /**
-     * Call an object method (if exists) with specified arguments
+     * Call an object method (if exists) with specified arguments.
      *
-     * @param  string|object $object    An object instance or a class name
-     * @param  string        $method    An accessible object method name
-     * @param  ...mixed      $arguments Arguments to pass to the object method
+     * @param string|object $object    An object instance or a class name
+     * @param string        $method    An accessible object method name
+     * @param ...mixed      $arguments Arguments to pass to the object method
+     *
      * @return mixed
      */
-    static public function method($object, $method, ...$arguments)
+    public static function method($object, $method, ...$arguments)
     {
         return self::handle($method, $object, false, ...$arguments);
     }
 
     /**
-     * Call an static object method (if exists) with specified arguments
+     * Call an static object method (if exists) with specified arguments.
      *
-     * @param  string|object $object    An object instance or a class name
-     * @param  string        $method    An accessible object method name
-     * @param  ...mixed      $arguments Arguments to pass to the object method
+     * @param string|object $object    An object instance or a class name
+     * @param string        $method    An accessible object method name
+     * @param ...mixed      $arguments Arguments to pass to the object method
+     *
      * @return mixed
      */
-    static public function staticMethod($object, $method, ...$arguments)
+    public static function staticMethod($object, $method, ...$arguments)
     {
         return self::handle($method, $object, true, ...$arguments);
     }
 
     /**
-     * Handle calling a function/method
+     * Handle calling a function/method.
      *
-     * @param  string|object|null $object    An object instance or a class name
-     * @param  string|null        $method    An available global function or object method name
-     * @param  bool|null          $static    Whether this is a static function or not
-     * @param  ...mixed           $arguments Arguments to pass to the object method
+     * @param string|object|null $object    An object instance or a class name
+     * @param string|null        $method    An available global function or object method name
+     * @param bool|null          $static    Whether this is a static function or not
+     * @param ...mixed           $arguments Arguments to pass to the object method
+     *
      * @return mixed
      */
-    static public function handle($method = null, $object = null, $static = false, ...$arguments)
+    public static function handle($method = null, $object = null, $static = false, ...$arguments)
     {
         $call = self::validateCall($method, $object, $static);
 
@@ -83,15 +85,17 @@ class Call implements CallInterface
     }
 
     /**
-     * Performs validations on request prior to calling it
+     * Performs validations on request prior to calling it.
      *
-     * @param  string|null        $method An available global function or object method name
-     * @param  string|object|null $object An object class name
-     * @param  bool|null          $static Whether this is a static call or not
+     * @param string|null        $method An available global function or object method name
+     * @param string|object|null $object An object class name
+     * @param bool|null          $static Whether this is a static call or not
+     *
      * @return array|string
+     *
      * @throws InvalidArgumentException
      */
-    static protected function validateCall($method = null, $object = null, $static = null)
+    protected static function validateCall($method = null, $object = null, $static = null)
     {
         if (null === $method && null === $object && null === $static) {
             throw new InvalidArgumentException(
@@ -100,7 +104,6 @@ class Call implements CallInterface
         }
 
         if (null !== $method && null === $object && null === $static) {
-
             return self::validateFunction($method);
         }
 
@@ -108,13 +111,15 @@ class Call implements CallInterface
     }
 
     /**
-     * Validates the requested global function name exists
+     * Validates the requested global function name exists.
      *
-     * @param  string $function
+     * @param string $function
+     *
      * @return string
+     *
      * @throws BadFunctionCallException
      */
-    static protected function validateFunction($function)
+    protected static function validateFunction($function)
     {
         if (false === function_exists($function)) {
             throw new BadFunctionCallException(
@@ -128,12 +133,14 @@ class Call implements CallInterface
     /**
      * Validate the requested object instance or class name exists.
      *
-     * @param  string|object $object The object instance or class name
-     * @param  bool          $static Whether this is a static call or not
+     * @param string|object $object The object instance or class name
+     * @param bool          $static Whether this is a static call or not
+     *
      * @return string|object
+     *
      * @throws BadFunctionCallException
      */
-    static protected function validateClass($object, $static)
+    protected static function validateClass($object, $static)
     {
         $class = (string) (true === is_string($object) ? $object : get_class($object));
 
@@ -149,15 +156,17 @@ class Call implements CallInterface
     /**
      * Validate the requested object instance or class name exists.
      *
-     * @param  string        $method The method name
-     * @param  string|object $object The object instance or class name
-     * @param  bool          $static Whether this is a static call or not
+     * @param string        $method The method name
+     * @param string|object $object The object instance or class name
+     * @param bool          $static Whether this is a static call or not
+     *
      * @return string|array
+     *
      * @throws BadFunctionCallException
      */
-    static protected function validateMethod($method, $object, $static)
+    protected static function validateMethod($method, $object, $static)
     {
-        $call = (true === $static ? $object . '::' . $method : [$object, $method]);
+        $call = (true === $static ? $object.'::'.$method : [$object, $method]);
 
         if (false === method_exists($object, $method) || false === is_callable($call)) {
             throw new BadFunctionCallException(

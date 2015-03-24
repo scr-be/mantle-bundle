@@ -13,7 +13,7 @@ namespace Scribe\Utility;
 use ArrayAccess;
 
 /**
- * Class ContainerAbstract
+ * Class ContainerAbstract.
  */
 abstract class AbstractContainer implements ArrayAccess
 {
@@ -24,7 +24,8 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return $this
      */
     public function __set($key, $value)
@@ -34,7 +35,8 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param string $key
-     * @param array $values
+     * @param array  $values
+     *
      * @return $this|mixed|null
      */
     public function __call($key, $values)
@@ -48,6 +50,7 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param string $key
+     *
      * @return null|mixed
      */
     public function __get($key)
@@ -57,14 +60,15 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param string $key
+     *
      * @return bool
      */
     public function __isset($key)
     {
-        if (!isset($this->items[(string)$key])) {
+        if (!isset($this->items[(string) $key])) {
             return false;
         }
-        if (empty($this->items[(string)$key])) {
+        if (empty($this->items[(string) $key])) {
             return false;
         }
 
@@ -76,7 +80,7 @@ abstract class AbstractContainer implements ArrayAccess
      */
     public function __toArray()
     {
-        return (array)$this->items;
+        return (array) $this->items;
     }
 
     /**
@@ -89,7 +93,8 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param string|null $key
-     * @param mixed $value
+     * @param mixed       $value
+     *
      * @return $this
      */
     public function setItem($key, $value)
@@ -97,7 +102,7 @@ abstract class AbstractContainer implements ArrayAccess
         if (is_null($key)) {
             $this->items[] = $value;
         } else {
-            $this->items[(string)$key] = $value;
+            $this->items[(string) $key] = $value;
         }
 
         return $this;
@@ -105,15 +110,16 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param string $key
+     *
      * @return null|mixed
      */
     public function getItem($key)
     {
         if ($this->hasItem($key)) {
-            return $this->items[(string)$key];
+            return $this->items[(string) $key];
         }
 
-        return null;
+        return;
     }
 
     public function getItems()
@@ -126,20 +132,22 @@ abstract class AbstractContainer implements ArrayAccess
      */
     public function unsetItem($key)
     {
-        unset($this->items[(string)$key]);
+        unset($this->items[(string) $key]);
     }
 
     /**
      * @param string $key
+     *
      * @return bool
      */
     public function hasItem($key)
     {
-        return array_key_exists((string)$key, $this->items);
+        return array_key_exists((string) $key, $this->items);
     }
 
     /**
      * @param string $key
+     *
      * @return bool
      */
     public function emptyItem($key)
@@ -168,6 +176,7 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param mixed $key
+     *
      * @return boolean
      */
     public function offsetExists($key)
@@ -177,6 +186,7 @@ abstract class AbstractContainer implements ArrayAccess
 
     /**
      * @param mixed $key
+     *
      * @return mixed|null
      */
     public function offsetGet($key)

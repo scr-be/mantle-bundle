@@ -15,14 +15,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 /**
- * Class Configuration
- *
- * @package Scribe\MantleBundle\DependencyInjection
+ * Class Configuration.
  */
 class Configuration implements ConfigurationInterface
 {
     /**
-     * Create the config tree builder object
+     * Create the config tree builder object.
      *
      * @return TreeBuilder
      */
@@ -45,13 +43,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create maintenance mode node
+     * Create maintenance mode node.
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
     private function getMaintenanceNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('maintenance')
             ->addDefaultsIfNotSet()
             ->children()
@@ -87,13 +85,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create metadata node
+     * Create metadata node.
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
     private function getMetadataNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('meta')
             ->addDefaultsIfNotSet()
             ->children()
@@ -114,13 +112,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create twitter metadata node
+     * Create twitter metadata node.
      *
      * @return NodeDefinition
      */
     private function getMetadataTwitterNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('twitter')
             ->addDefaultsIfNotSet()
             ->children()
@@ -138,13 +136,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create twitter metadata node
+     * Create twitter metadata node.
      *
      * @return NodeDefinition
      */
     private function getMetadataOpenGraphNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('open_graph')
             ->addDefaultsIfNotSet()
             ->children()
@@ -165,13 +163,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create google+ metadata node
+     * Create google+ metadata node.
      *
      * @return NodeDefinition
      */
     private function getMetadataGPlusNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('gplus')
             ->addDefaultsIfNotSet()
             ->children()
@@ -183,13 +181,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create HTML node
+     * Create HTML node.
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
     private function getHTMLNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('html')
             ->addDefaultsIfNotSet()
             ->children()
@@ -209,13 +207,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create date node
+     * Create date node.
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
     private function getDateNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('date')
             ->addDefaultsIfNotSet()
             ->children()
@@ -232,13 +230,13 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Create date node
+     * Create date node.
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
     private function getBootstrapNode()
     {
-        return (new TreeBuilder)
+        return (new TreeBuilder())
             ->root('bs')
             ->addDefaultsIfNotSet()
             ->children()

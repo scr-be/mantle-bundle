@@ -14,21 +14,19 @@ use Scribe\Component\Controller\ControllerUtils;
 
 /**
  * Class MaintenanceController
- * Handles display of a system offline page when maintenance mode if activated
- *
- * @package Scribe\MantleBundle\Controller
+ * Handles display of a system offline page when maintenance mode if activated.
  */
 class MaintenanceController
 {
     /**
-     * Instance of controller utils
+     * Instance of controller utils.
      *
      * @var ControllerUtils
      */
     private $utils;
 
     /**
-     * Constructs the instance with a controller utils property
+     * Constructs the instance with a controller utils property.
      *
      * @param ControllerUtils $utils [description]
      */
@@ -38,7 +36,7 @@ class MaintenanceController
     }
 
     /**
-     * Renders and displays the system offline static page
+     * Renders and displays the system offline static page.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

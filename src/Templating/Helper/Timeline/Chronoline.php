@@ -15,7 +15,7 @@ use Zend\Json\Expr;
 use Zend\Json\Json;
 
 /**
- * Class Jqtimeline
+ * Class Jqtimeline.
  */
 class Chronoline extends AbstractContainer
 {

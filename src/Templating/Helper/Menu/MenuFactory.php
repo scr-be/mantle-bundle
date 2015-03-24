@@ -12,10 +12,9 @@ namespace Scribe\MantleBundle\Templating\Helper\Menu;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Scribe\MantleBundle\Templating\Helper\Menu\MenuContainer;
 
 /**
- * Class MenuFactory
+ * Class MenuFactory.
  */
 class MenuFactory implements ContainerAwareInterface
 {

@@ -10,24 +10,22 @@
 
 namespace Scribe\MantleBundle\Entity\Exception;
 
-use Scribe\MantleBundle\Entity\Template\Entity;
+use Scribe\Entity\AbstractEntity;
 
 /**
- * Class OrmExceptionInterface
- *
- * @package Scribe\MantleBundle\Entity\Exception
+ * Class OrmExceptionInterface.
  */
 interface OrmExceptionInterface
 {
     /**
-     * Returns entity object
+     * Returns entity object.
      *
-     * @return Entity
+     * @return AbstractEntity
      */
     public function getEntity();
 
     /**
-     * Returns entity debug output array
+     * Returns entity debug output array.
      *
      * @return array
      */

@@ -11,49 +11,47 @@
 namespace Scribe\MantleBundle\Templating\Generator\Exceptions;
 
 /**
- * Class TemplatingGeneratorException
- *
- * @package Scribe\MantleBundle\Templating\Generator\Exceptions
+ * Class TemplatingGeneratorException.
  */
 class TemplatingGeneratorException extends \Scribe\Exception\RuntimeException
 {
     /**
-     * Exception code for an unknown/undefined state
+     * Exception code for an unknown/undefined state.
      *
-     * @type int
+     * @var int
      */
     const CODE_UNKNOWN = -1;
 
     /**
-     * Exception code for generic invalid arguments exception
+     * Exception code for generic invalid arguments exception.
      *
-     * @type int
+     * @var int
      */
     const CODE_INVALID_ARGS = 50;
 
     /**
-     * Exception code for an invalid style being passed by user
+     * Exception code for an invalid style being passed by user.
      *
-     * @type int
+     * @var int
      */
     const CODE_INVALID_STYLE = 51;
 
     /**
-     * Exception code for generic missing arguments
+     * Exception code for generic missing arguments.
      *
-     * @type int
+     * @var int
      */
     const CODE_MISSING_ARGS = 100;
 
     /**
-     * Exception code for a missing entity
+     * Exception code for a missing entity.
      *
-     * @type int
+     * @var int
      */
     const CODE_MISSING_ENTITY = 101;
 
     /**
-     * Assign our own default code value to setup the object instance
+     * Assign our own default code value to setup the object instance.
      *
      * @param string     $message
      * @param int        $code

@@ -13,24 +13,23 @@ namespace Scribe\Utility;
 use Scribe\Utility\Caller\Call;
 
 /**
- * Class System
- *
- * @package Scribe\Utility
+ * Class System.
  */
 class System
 {
     /**
-     * osx (darwin) os string
+     * osx (darwin) os string.
      */
     const OS_DARWIN = 'Darwin';
 
     /**
-     * linux os string
+     * linux os string.
      */
     const OS_LINUX = 'Linux';
 
     /**
      * @param int $precision
+     *
      * @return array
      */
     public static function getLoadAverages($precision = 2)
@@ -47,10 +46,11 @@ class System
     }
 
     /**
-     * @param int $precision
-     * @param int $newBase
-     * @param bool $newBaseMax
+     * @param int          $precision
+     * @param int          $newBase
+     * @param bool         $newBaseMax
      * @param null|integer $cpuCount
+     *
      * @return array
      */
     public static function getLoadAveragesAsPercent($precision = 2, $newBase = 100, $newBaseMax = true, $cpuCount = null)
@@ -81,8 +81,9 @@ class System
     }
 
     /**
-     * @param mixed $value
+     * @param mixed  $value
      * @param string $filterValueFunction
+     *
      * @return bool
      */
     public static function isSystemName($value, $filterValueFunction = 'strtolower')
@@ -97,8 +98,9 @@ class System
     }
 
     /**
-     * @param mixed $value
+     * @param mixed  $value
      * @param string $filterValueFunction
+     *
      * @return bool
      */
     public static function isNotSystemName($value, $filterValueFunction = 'strtolower')
@@ -115,6 +117,7 @@ class System
     /**
      * @param string $mode
      * @param string $filterValueFunction
+     *
      * @return mixed
      */
     public static function getSystemUname($mode = 'a', $filterValueFunction = 'strtolower')
@@ -127,6 +130,7 @@ class System
 
     /**
      * @param int $default
+     *
      * @return int
      */
     public static function getCpuCount($default = 4)
@@ -148,7 +152,7 @@ class System
             $result = $default;
         }
 
-        return (int)$result;
+        return (int) $result;
     }
 }
 

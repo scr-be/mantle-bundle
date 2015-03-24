@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Extension\Part;
 use Twig_Function_Method;
 
 /**
- * Class SimpleExtensionTrait
+ * Class SimpleExtensionTrait.
  */
 trait SimpleExtensionTrait
 {
@@ -37,6 +37,7 @@ trait SimpleExtensionTrait
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setInternalTwigMethodName($name)
@@ -56,6 +57,7 @@ trait SimpleExtensionTrait
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setExternalTwigMethodName($name)
@@ -83,13 +85,14 @@ trait SimpleExtensionTrait
                 $this,
                 $this->getInternalTwigMethodName(),
                 ['is_safe' => ['html']]
-            )
+            ),
         ];
     }
 
     /**
-     * @param string $externalTwigMethodName
+     * @param string      $externalTwigMethodName
      * @param null|string $internalTwigMethodName
+     *
      * @return $this
      */
     private function init($externalTwigMethodName, $internalTwigMethodName = null)

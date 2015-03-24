@@ -2,18 +2,17 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Scribe\MantleBundle\Entity\Base\Entity;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasAttributes;
+use Scribe\EntityTrait\HasDatetime;
 
 /**
- * Class CachedFilesystemEntrySize
- * @package Scribe\MantleBundle\Entity
+ * Class CachedFilesystemEntrySize.
  */
-class CachedFilesystemEntrySize extends Entity
+class CachedFilesystemEntrySize extends AbstractEntity
 {
-    /**
-     * @var \DateTime
-     */
-    private $datetime;
+    use HasAttributes,
+        HasDatetime;
 
     /**
      * @var string
@@ -36,39 +35,13 @@ class CachedFilesystemEntrySize extends Entity
     private $typeHuman;
 
     /**
-     * @var array
+     * Cast to string.
+     *
+     * @return string
      */
-    private $attributes;
-
     public function __toString()
     {
         return $this->getIdentifier();
-    }
-
-    /**
-     * @param \Datetime $datetime
-     *
-     * @return $this
-     */
-    public function setDatetime(\Datetime $datetime)
-    {
-        $this->datetime = $datetime;
-
-        return $this;
-    }
-
-    /**
-     * @param string|null $format
-     *
-     * @return \DateTime
-     */
-    public function getDatetime($format = null)
-    {
-        if ($format !== null) {
-            return $this->datetime->format($format);
-        }
-
-        return $this->datetime;
     }
 
     /**
@@ -149,34 +122,6 @@ class CachedFilesystemEntrySize extends Entity
     public function getTypeHuman()
     {
         return (string) $this->typeHuman;
-    }
-
-    /**
-     * @param array $attributes
-     *
-     * @return $this
-     */
-    public function setAttributes(array $attributes)
-    {
-        $this->attributes = (array) $attributes;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return (array) $this->attributes;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasAttributes()
-    {
-        return (bool) is_array($this->attributes) && sizeof($this->attributes) > 0;
     }
 }
 

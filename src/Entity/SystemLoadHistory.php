@@ -10,20 +10,15 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-/**
- * Class SystemLoadHistory
- */
-class SystemLoadHistory
-{
-    /**
-     * @var integer
-     */
-    private $id;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasDate;
 
-    /**
-     * @var \DateTime
-     */
-    private $date;
+/**
+ * Class SystemLoadHistory.
+ */
+class SystemLoadHistory extends AbstractEntity
+{
+    use HasDate;
 
     /**
      * @var float
@@ -40,39 +35,16 @@ class SystemLoadHistory
      */
     private $load15;
 
-    /**
-     * Get id
-     * @return integer
-     */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return __CLASS__.'::id('.$this->id.')';
     }
 
     /**
-     * Set date
-     * @param \DateTime $date
-     * @return SystemLoadHistory
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set load01
+     * Set load01.
+     *
      * @param float $load01
+     *
      * @return SystemLoadHistory
      */
     public function setLoad01($load01)
@@ -83,7 +55,8 @@ class SystemLoadHistory
     }
 
     /**
-     * Get load01
+     * Get load01.
+     *
      * @return float
      */
     public function getLoad01()
@@ -92,8 +65,10 @@ class SystemLoadHistory
     }
 
     /**
-     * Set load05
+     * Set load05.
+     *
      * @param float $load05
+     *
      * @return SystemLoadHistory
      */
     public function setLoad05($load05)
@@ -104,7 +79,8 @@ class SystemLoadHistory
     }
 
     /**
-     * Get load05
+     * Get load05.
+     *
      * @return float
      */
     public function getLoad05()
@@ -113,8 +89,10 @@ class SystemLoadHistory
     }
 
     /**
-     * Set load15
+     * Set load15.
+     *
      * @param float $load15
+     *
      * @return SystemLoadHistory
      */
     public function setLoad15($load15)
@@ -125,7 +103,8 @@ class SystemLoadHistory
     }
 
     /**
-     * Get load15
+     * Get load15.
+     *
      * @return float
      */
     public function getLoad15()

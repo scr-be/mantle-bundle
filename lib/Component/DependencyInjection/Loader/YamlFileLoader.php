@@ -16,9 +16,7 @@ use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as SymfonyYamlFileLoader;
 
 /**
- * Class YamlFileLoader
- *
- * @package Scribe\Component\DependencyInjection\Loader
+ * Class YamlFileLoader.
  */
 class YamlFileLoader extends SymfonyYamlFileLoader
 {
@@ -35,8 +33,9 @@ class YamlFileLoader extends SymfonyYamlFileLoader
      * constructor {@see parent::__construct} to setup the object as it normally
      * would be.
      *
-     * @param  ContainerBuilder $container   The container instance being built
-     * @param  FileLocator      $fileLocator A file locator instance
+     * @param ContainerBuilder $container   The container instance being built
+     * @param FileLocator      $fileLocator A file locator instance
+     *
      * @return FileLoader
      */
     public function setup(ContainerBuilder $container, FileLocator $fileLocator)

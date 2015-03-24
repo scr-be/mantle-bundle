@@ -19,22 +19,22 @@ use Scribe\MantleBundle\EntityRepository\NavMenuItemRepository;
 use Scribe\MantleBundle\EntityRepository\NavMenuSettingRepository;
 
 /**
- * Class MenuHandler
+ * Class MenuHandler.
  */
 class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
 {
     /**
-     * the security menu db context
+     * the security menu db context.
      */
     const MENU_CONTEXT_SECURITY = '__security';
 
     /**
-     * the services menu db context
+     * the services menu db context.
      */
     const MENU_CONTEXT_SERVICES = '__services';
 
     /**
-     * the footer menu db context
+     * the footer menu db context.
      */
     const MENU_CONTEXT_FOOTER = '__footer';
 
@@ -64,7 +64,11 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     private $securityContext;
 
     /**
-     * @param ContainerInterface|null $container
+     * @param ContainerInterface $container
+     * @param NavMenuItemRepository $navMenuItemRepo
+     * @param NavMenuSettingRepository $navMenuSettingRepo
+     * @param BundleInformation $bundleInformation
+     * @param SecurityContext $securityContext
      */
     public function __construct(
         ContainerInterface       $container = null,
@@ -90,7 +94,6 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @return void
      */
     public function getMenus()
     {
@@ -151,7 +154,8 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string $context
+     * @param string $context
+     *
      * @return array
      */
     private function initMenu($context = null)
@@ -163,7 +167,8 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string $context
+     * @param string $context
+     *
      * @return array
      */
     private function getMenuEntities($context = null)
@@ -175,9 +180,10 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  null|string $contextBundle
-     * @param  null|string $contextController
-     * @param  null|string $contextAction
+     * @param null|string $contextBundle
+     * @param null|string $contextController
+     * @param null|string $contextAction
+     *
      * @return array
      */
     private function initMenuFull($contextBundle = null, $contextController = null, $contextAction = null)
@@ -189,9 +195,10 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  null|string $contextBundle
-     * @param  null|string $contextController
-     * @param  null|string $contextAction
+     * @param null|string $contextBundle
+     * @param null|string $contextController
+     * @param null|string $contextAction
+     *
      * @return array
      */
     private function getMenuFullEntities($contextBundle = null, $contextController = null, $contextAction = null)
@@ -203,7 +210,8 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  array $entities
+     * @param array $entities
+     *
      * @return array
      */
     private function getMenuItems(array $entities = array())
@@ -220,19 +228,24 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  NavMenuItem|NavMenuSubItem $entity
+     * @param NavMenuItem|NavMenuSubItem $entity
+     *
      * @return MenuItem
      */
     private function getNewMenuItem($entity)
     {
-        $routeParameters = $this->parametersParser((array)$entity->getRouteParameters());
+        $routeParameters = $this->parametersParser((array) $entity->getRouteParameters());
 
         $item = new MenuItem($this->container);
         $item
             ->setTitle($this->titleParser($entity->getTitle()))
             ->setIcon($entity->getIcon())
-            ->setRoute($entity->getRouteName(), (array)$routeParameters)
+            ->setRoute($entity->getRouteName(), (array) $routeParameters)
         ;
+
+        if (method_exists($entity, 'hasDescription') && method_exists($entity, 'getDescription') && $entity->hasDescription()) {
+            $item->setDescription($entity->getDescription());
+        }
 
         if ($entity->isHeader()) {
             $item->setHeader(true);
@@ -253,7 +266,8 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  NavMenuItem|NavMenuSubItem $entity
+     * @param NavMenuItem|NavMenuSubItem $entity
+     *
      * @return boolean
      */
     private function menuItemIsAllowed($entity)
@@ -278,7 +292,8 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  NavMenuItem|NavMenuSubItem $entity
+     * @param NavMenuItem|NavMenuSubItem $entity
+     *
      * @return boolean
      */
     private function menuItemIsAllowedReverse($entity)
@@ -299,7 +314,8 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string $title
+     * @param string $title
+     *
      * @return string
      */
     private function titleParser($title)
@@ -317,7 +333,8 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  string $string
+     * @param string $string
+     *
      * @return string
      */
     private function runParser($string)
@@ -356,5 +373,4 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
 
         return $string;
     }
-
 }

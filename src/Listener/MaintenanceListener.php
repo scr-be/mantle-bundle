@@ -18,49 +18,47 @@ use Scribe\Component\Bundle\BundleInformation;
 /**
  * Class MaintenanceListener
  * Registered as an event listener that handles detection of a maintenance state
- * on a global or per-bundle basis
- *
- * @package Scribe\MantleBundle\Listener
+ * on a global or per-bundle basis.
  */
 class MaintenanceListener
 {
     /**
-     * Instance of controller utils
+     * Instance of controller utils.
      *
      * @var ControllerUtils
      */
     private $utils;
 
     /**
-     * Instance of bundle info object
+     * Instance of bundle info object.
      *
      * @var BundleInformation
      */
     private $bundleInfo;
 
     /**
-     * The current request object instance
+     * The current request object instance.
      *
      * @var Request
      */
     private $request;
 
     /**
-     * The filter event instance generated pre-controller by the kernel
+     * The filter event instance generated pre-controller by the kernel.
      *
      * @var FilterControllerEvent
      */
     private $event;
 
     /**
-     * The controller instance
+     * The controller instance.
      *
      * @var ControllerInterface
      */
     private $controller;
 
     /**
-     * Represents if maintenance mode is enabled
+     * Represents if maintenance mode is enabled.
      *
      * @var bool
      */
@@ -84,7 +82,7 @@ class MaintenanceListener
 
     /**
      * The URL argument key that can be used to manually override the enabled
-     * state of maintenance mode
+     * state of maintenance mode.
      *
      * @var string
      */
@@ -99,15 +97,14 @@ class MaintenanceListener
     private $overrideValue;
 
     /**
-     * Setup the class instance
-     *
+     * Setup the class instance.
      */
     public function __construct(ControllerUtils $utils, BundleInformation $bundleInfo, $enabled, $bundles, $exempt, $overrideArgument, $overrideValue)
     {
         $this->utils            = $utils;
         $this->bundleInfo       = $bundleInfo;
-        $this->enabled 			= $enabled;
-        $this->bundles 	        = $bundles;
+        $this->enabled            = $enabled;
+        $this->bundles            = $bundles;
         $this->exempt           = $exempt;
         $this->overrideArgument = $overrideArgument;
         $this->overrideValue    = $overrideValue;
@@ -115,10 +112,9 @@ class MaintenanceListener
     }
 
     /**
-     * Called prior to kernel calling default controller
+     * Called prior to kernel calling default controller.
      *
-     * @param  FilterControllerEvent $event filter event
-     * @return void
+     * @param FilterControllerEvent $event filter event
      */
     public function onKernelController(FilterControllerEvent $event)
     {
@@ -139,17 +135,17 @@ class MaintenanceListener
     }
 
     /**
-     * Check if enabled
+     * Check if enabled.
      *
      * @return bool
      */
     private function isDisabled()
     {
-        return (bool)$this->enabled !== true;
+        return (bool) $this->enabled !== true;
     }
 
     /**
-     * Check if controller is exempt
+     * Check if controller is exempt.
      *
      * @return bool
      */
@@ -165,7 +161,7 @@ class MaintenanceListener
     }
 
     /**
-     * Check if overridden url paramiter was passed and is accurate
+     * Check if overridden url paramiter was passed and is accurate.
      *
      * @return bool
      */
@@ -202,9 +198,7 @@ class MaintenanceListener
     }
 
     /**
-     * Handle switching the controller and action to the maintenance state
-     *
-     * @return void
+     * Handle switching the controller and action to the maintenance state.
      */
     private function handleMaintenanceState()
     {

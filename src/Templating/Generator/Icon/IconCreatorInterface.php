@@ -14,9 +14,7 @@ use Symfony\Component\Templating\EngineInterface;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
 
 /**
- * Interface IconInterface
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon
+ * Interface IconInterface.
  */
 interface IconCreatorInterface
 {

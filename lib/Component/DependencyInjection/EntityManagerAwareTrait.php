@@ -14,23 +14,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Class EntityManagerAwareTrait
- *
- * @package Scribe\MantleBundle\DependencyInjection
+ * Class EntityManagerAwareTrait.
  */
 trait EntityManagerAwareTrait
 {
     /**
-     * Instance of entity manager
+     * Instance of entity manager.
      *
      * @var EntityManager|null
      */
     protected $em = null;
 
     /**
-     * Setter for entity manager property from container
+     * Setter for entity manager property from container.
      *
      * @param ContainerInterface $container container object
+     *
      * @return $this
      */
     public function setEntityManagerFromContainer(ContainerInterface $container)
@@ -41,9 +40,10 @@ trait EntityManagerAwareTrait
     }
 
     /**
-     * Setter for entity manager
+     * Setter for entity manager.
      *
-     * @param  EntityManager|null $em entity manager instance
+     * @param EntityManager|null $em entity manager instance
+     *
      * @return $this
      */
     public function setEntityManager(EntityManager $em = null)
@@ -54,7 +54,7 @@ trait EntityManagerAwareTrait
     }
 
     /**
-     * Getter for entity manager
+     * Getter for entity manager.
      *
      * @return EntityManager|null
      */
@@ -64,7 +64,7 @@ trait EntityManagerAwareTrait
     }
 
     /**
-     * Convenience getter for entity manager {@see getEntityManager}
+     * Convenience getter for entity manager {@see getEntityManager}.
      *
      * @return EntityManager|null
      */

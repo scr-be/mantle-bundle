@@ -14,23 +14,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- * Class RouterAwareTrait
- *
- * @package Scribe\MantleBundle\DependencyInjection\Traits
+ * Class RouterAwareTrait.
  */
 trait RouterAwareTrait
 {
     /**
-     * Instance of router object
+     * Instance of router object.
      *
      * @var RouterInterface|null
      */
     protected $router = null;
 
     /**
-     * Setter for router property from container
+     * Setter for router property from container.
      *
      * @param ContainerInterface $container container object
+     *
      * @return $this
      */
     public function setRouterFromContainer(ContainerInterface $container)
@@ -41,9 +40,10 @@ trait RouterAwareTrait
     }
 
     /**
-     * Setter for router property
+     * Setter for router property.
      *
-     * @param  RouterInterface|null $router instance of router object
+     * @param RouterInterface|null $router instance of router object
+     *
      * @return $this
      */
     public function setRouter(RouterInterface $router = null)
@@ -54,7 +54,7 @@ trait RouterAwareTrait
     }
 
     /**
-     * Getter for router property
+     * Getter for router property.
      *
      * @return RouterInterface|null
      */

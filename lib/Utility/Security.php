@@ -13,15 +13,14 @@ namespace Scribe\Utility;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
 /**
- * Class Security
- *
- * @package Scribe\Utility
+ * Class Security.
  */
 class Security
 {
     /**
-     * @param int $bytes
+     * @param int  $bytes
      * @param bool $base64
+     *
      * @return string
      */
     public static function generateRandom($bytes = 10000000, $base64 = false, $limit = null)
@@ -42,8 +41,9 @@ class Security
 
     /**
      * @param string $hashAlgorithm
-     * @param bool $hashReturnRaw
-     * @param int $bytes
+     * @param bool   $hashReturnRaw
+     * @param int    $bytes
+     *
      * @return string
      */
     public static function generateRandomHash($hashAlgorithm = 'sha512', $hashReturnRaw = false, $bytes = 10000000)
@@ -60,6 +60,7 @@ class Security
     /**
      * @param string $password
      * @param string $pattern
+     *
      * @return bool
      */
     public static function doesPasswordMeetRequirements($password, $pattern = '#.*^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$#')
@@ -73,6 +74,7 @@ class Security
 
     /**
      * @param int $length
+     *
      * @return string
      */
     public static function generateRandomPassword($length = 8)

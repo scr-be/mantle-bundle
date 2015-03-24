@@ -2,10 +2,18 @@ parameters:
 
     templating.stringloader.class:                  Twig_Loader_String
 
+    s.mantle.redirect.entity.class:                 Scribe\MantleBundle\Entity\Redirect
+    s.mantle.redirect.repo.class:                   Scribe\MantleBundle\EntityRepository\RedirectRepository
+    s.mantle.navmenuitem.entity.class:              Scribe\MantleBundle\Entity\NavMenuItem
     s.mantle.navmenuitem.repo.class:                Scribe\MantleBundle\EntityRepository\NavMenuItemRepository
+    s.mantle.navmenusubitem.entity.class:           Scribe\MantleBundle\Entity\NavMenuSubItem
+    s.mantle.navmenusubitem.repo.class:             Scribe\MantleBundle\EntityRepository\NavMenuSubItemRepository
     s.mantle.navmenusetting.repo.class:             Scribe\MantleBundle\EntityRepository\NavMenuSettingRepository
+    s.mantle.icon.entity.class:                     Scribe\MantleBundle\Entity\Icon
     s.mantle.icon.repo.class:                       Scribe\MantleBundle\EntityRepository\IconRepository
+    s.mantle.icontemplate.entity.class:             Scribe\MantleBundle\Entity\IconTemplate
     s.mantle.icontemplate.repo.class:               Scribe\MantleBundle\EntityRepository\IconTemplateRepository
+    s.mantle.iconfamily.entity.class:               Scribe\MantleBundle\Entity\IconFamily
     s.mantle.iconfamily.repo.class:                 Scribe\MantleBundle\EntityRepository\IconFamilyRepository
     s.mantle.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
     s.mantle.icon_creator.class:                    Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
@@ -56,12 +64,26 @@ services:
         tags:
             - { name: twig.loader }
 
+    s.mantle.redirect.repo:
+            class:           %s.mantle.redirect.repo.class%
+            factory_service: doctrine
+            factory_method:  getRepository
+            arguments:
+                - %s.mantle.redirect.entity.class%
+
     s.mantle.navmenuitem.repo:
         class:           %s.mantle.navmenuitem.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
-            - Scribe\MantleBundle\Entity\NavMenuItem
+            - %s.mantle.navmenuitem.entity.class%
+
+    s.mantle.navmenusubitem.repo:
+        class:           %s.mantle.navmenusubitem.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - %s.mantle.navmenusubitem.entity.class%
 
     s.mantle.navmenusetting.repo:
         class:           %s.mantle.navmenusetting.repo.class%
@@ -75,21 +97,21 @@ services:
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
-            - Scribe\MantleBundle\Entity\Icon
+            - %s.mantle.icon.entity.class%
 
     s.mantle.icontemplate.repo:
         class:           %s.mantle.icontemplate.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
-            - Scribe\MantleBundle\Entity\IconTemplate
+            - %s.mantle.icontemplate.entity.class%
 
     s.mantle.iconfamily.repo:
         class:           %s.mantle.iconfamily.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
-            - Scribe\MantleBundle\Entity\IconFamily
+            - %s.mantle.iconfamily.entity.class%
 
     s.mantle.cachedfilesystementrysize.repo:
         class:           %s.mantle.cachedfilesystementrysize.repo.class%
@@ -103,15 +125,15 @@ services:
         arguments:
             - @s.mantle.iconfamily.repo
             - @templating
-        call:
+        calls:
             - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
 
     s.mantle.icon_creator.notemplating:
-            class:       %s.mantle.icon_creator_cached.class%
-            arguments:
-                - @s.mantle.iconfamily.repo
-            call:
-                - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
+        class:       %s.mantle.icon_creator_cached.class%
+        arguments:
+            - @s.mantle.iconfamily.repo
+        calls:
+            - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
 
     s.utils.controller:
         class: "%s.utils.controller.class%"

@@ -17,12 +17,10 @@ use Scribe\Exception\BadFunctionCallException;
 /**
  * Plode
  * Helper functions for common [ex/im]plode functionality.
- *
- * @package Scribe\Utility
  */
 class Plode implements PlodeInterface
 {
-    /**
+    /*
      * Trait to disallow class instantiation
      */
     use StaticClassTrait;
@@ -44,10 +42,11 @@ class Plode implements PlodeInterface
 
     /**
      * [Ex/Im]plode a [string/array] based on the separator specified in the
-     * method name and the value passed as an argument
+     * method name and the value passed as an argument.
      *
-     * @param  string $methodName Static method name called
-     * @param  mixed  $arguments  Static method arguments passed
+     * @param string $methodName Static method name called
+     * @param mixed  $arguments  Static method arguments passed
+     *
      * @return string|array
      */
     public static function __callStatic($methodName, $arguments)
@@ -62,14 +61,13 @@ class Plode implements PlodeInterface
         $plodeOn           = strtolower(substr($methodName, 2, 2));
         $plodeSeparator    = strtolower(substr($methodName, 4));
         $plodeValue        = $arguments[0];
-        $constantSeparator = __CLASS__ . '::SEPARATOR_' . strtoupper($plodeSeparator);
+        $constantSeparator = __CLASS__.'::SEPARATOR_'.strtoupper($plodeSeparator);
 
         if ('im' !== $plodeType && 'ex' !== $plodeType) {
             self::__callStaticInvalid(
                 'Valid method prefixes are "im" for "implode" and "ex" for "explode".'
             );
-        }
-        elseif ('on' !== $plodeOn) {
+        } elseif ('on' !== $plodeOn) {
             self::__callStaticInvalid(
                 sprintf(
                     'Expected method format is "[im|ex]OnSeparator" for example "imOnComma" but %s%s%s was provided.',
@@ -78,8 +76,7 @@ class Plode implements PlodeInterface
                     ucwords($plodeSeparator)
                 )
             );
-        }
-        elseif (false === defined($constantSeparator)) {
+        } elseif (false === defined($constantSeparator)) {
             self::__callStaticInvalid(
                 sprintf('Invalid separator type of %s provided.', $plodeSeparator)
             );
@@ -89,25 +86,26 @@ class Plode implements PlodeInterface
     }
 
     /**
-     * Throws an exception on an invalid {@see __callStatic} call
+     * Throws an exception on an invalid {@see __callStatic} call.
      *
-     * @param  string|null $message The message to be provided to the exception
+     * @param string|null $message The message to be provided to the exception
+     *
      * @throws BadFunctionCallException
      */
     public static function __callStaticInvalid($message = null)
     {
         $message = $message !== null ?
             $message :
-            'Invalid static magic call to ' . __CLASS__;
+            'Invalid static magic call to '.__CLASS__;
 
         throw new BadFunctionCallException($message);
     }
 
     /**
-     * Implode array using default separator ({@see DEFAULT_SEPARATOR})
+     * Implode array using default separator ({@see DEFAULT_SEPARATOR}).
      *
-     * @param  string[]  $toImplode An array to implode into a string
-     * @param  string $separator A string used to separate the imploded array values
+     * @param string[] $toImplode An array to implode into a string
+     * @param string   $separator A string used to separate the imploded array values
      *
      * @return string
      */
@@ -117,11 +115,11 @@ class Plode implements PlodeInterface
     }
 
     /**
-     * Explode string using default separator ({@see DEFAULT_SEPARATOR})
+     * Explode string using default separator ({@see DEFAULT_SEPARATOR}).
      *
-     * @param  string $toExplode A value to explode into an array
-     * @param  string $separator The string used to separate the provided value
-     *                           into an array
+     * @param string $toExplode A value to explode into an array
+     * @param string $separator The string used to separate the provided value
+     *                          into an array
      *
      * @return array
      */

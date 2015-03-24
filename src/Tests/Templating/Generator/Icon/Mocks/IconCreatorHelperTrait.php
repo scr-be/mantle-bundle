@@ -19,19 +19,16 @@ use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\IconCreatorTest;
 
 /**
- * Class IconCreatorHelperTrait
- *
- * @package Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks
+ * Class IconCreatorHelperTrait.
  */
 trait IconCreatorHelperTrait
 {
     protected function getNewIconCreator($cached = false)
     {
-        if($cached) {
+        if ($cached) {
             $iconGenerator = new IconCreatorCached($this->iconFamilyRepo, $this->engine);
             $iconGenerator->setCacheHandlerChain($this->cacheChain);
-        }
-        else {
+        } else {
             $iconGenerator = new IconCreator($this->iconFamilyRepo, $this->engine);
         }
 
@@ -40,11 +37,10 @@ trait IconCreatorHelperTrait
 
     protected function getNewIconCreatorNoEngine($cached = false)
     {
-        if($cached) {
+        if ($cached) {
             $iconGenerator = new IconCreatorCached($this->iconFamilyRepo);
             $iconGenerator->setCacheHandlerChain($this->cacheChain);
-        }
-        else {
+        } else {
             $iconGenerator = new IconCreator($this->iconFamilyRepo);
         }
 
@@ -53,7 +49,7 @@ trait IconCreatorHelperTrait
 
     protected function getNewKeyGenerator()
     {
-        $keyGenerator = new KeyGenerator;
+        $keyGenerator = new KeyGenerator();
         $keyGenerator->setKeyPrefix('scribe_mantle');
 
         return $keyGenerator;
@@ -108,14 +104,14 @@ trait IconCreatorHelperTrait
      */
     public static function assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message = '')
     {
-        $expectedXml = preg_replace ('/>[\s\n]*</', '><', $expectedXml);
-        $actualXml = preg_replace ('/>[\s\n]*</', '><', $actualXml);
+        $expectedXml = preg_replace('/>[\s\n]*</', '><', $expectedXml);
+        $actualXml = preg_replace('/>[\s\n]*</', '><', $actualXml);
 
         parent::assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message);
     }
 
     /**
-     * Overwrites PHPUnit_Framework_Assert method to clean whitespace 
+     * Overwrites PHPUnit_Framework_Assert method to clean whitespace
      * between elements before comparison.
      * Asserts that two XML documents are not equal.
      *
@@ -125,8 +121,8 @@ trait IconCreatorHelperTrait
      */
     public static function assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message = '')
     {
-        $expectedXml = preg_replace ('/>[\s\n]*</', '><', $expectedXml);
-        $actualXml = preg_replace ('/>[\s\n]*</', '><', $actualXml);
+        $expectedXml = preg_replace('/>[\s\n]*</', '><', $expectedXml);
+        $actualXml = preg_replace('/>[\s\n]*</', '><', $actualXml);
 
         parent::assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message);
     }
@@ -141,7 +137,7 @@ trait IconCreatorHelperTrait
 
         return [
             $obj,
-            $method
+            $method,
         ];
     }
 
@@ -166,14 +162,13 @@ trait IconCreatorHelperTrait
     protected function clearFilesystemCache()
     {
         $tempDirBase = sys_get_temp_dir();
-        $tempDir     = $tempDirBase . DIRECTORY_SEPARATOR . 'scribe_cache';
+        $tempDir     = $tempDirBase.DIRECTORY_SEPARATOR.'scribe_cache';
 
         if (false === is_dir($tempDir)) {
-
             return;
         }
-        $kg = new KeyGenerator;
-        $files = glob($tempDir . '/scribe*');
+        $kg = new KeyGenerator();
+        $files = glob($tempDir.'/scribe*');
         foreach ($files as $f) {
             if (substr($f, 0, 1) == '.') {
                 continue;
@@ -199,7 +194,7 @@ trait IconCreatorHelperTrait
 
     protected function removeDirectoryRecursive($path)
     {
-        $files = glob($path . '/*');
+        $files = glob($path.'/*');
 
         if (false === is_array($files)) {
             return;

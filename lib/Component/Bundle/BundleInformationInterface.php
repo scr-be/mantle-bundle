@@ -11,79 +11,77 @@
 namespace Scribe\Component\Bundle;
 
 /**
- * BundleInformationInterface
- *
- * @package Scribe\Component\Bundle
+ * BundleInformationInterface.
  */
 interface BundleInformationInterface
 {
     /**
-     * Setter for regex property
+     * Setter for regex property.
      *
-     * @param  string $regex The regex to parse bundle info from request _controller paramiter
+     * @param string $regex The regex to parse bundle info from request _controller paramiter
      */
     public function setRegex($regex);
 
     /**
-     * Getter for regex property
+     * Getter for regex property.
      */
     public function getRegex();
 
     /**
-     * Setter for org property
+     * Setter for org property.
      *
-     * @param  string $org An org name
+     * @param string $org An org name
      */
     public function setOrg($org);
 
     /**
-     * Getter for org property
+     * Getter for org property.
      */
     public function getOrg();
 
     /**
-     * Setter for bundle property
+     * Setter for bundle property.
      *
-     * @param  string $bundle A bundle name
+     * @param string $bundle A bundle name
      */
     public function setBundle($bundle);
 
     /**
-     * Getter for bundle property
+     * Getter for bundle property.
      */
     public function getBundle();
 
     /**
-     * Setter for controller property
+     * Setter for controller property.
      *
-     * @param  string $controller A controller name
+     * @param string $controller A controller name
      */
     public function setController($controller);
 
     /**
-     * Getter for controller property
+     * Getter for controller property.
      */
     public function getController();
 
     /**
-     * Setter for action property
+     * Setter for action property.
      *
-     * @param  string $action An action name
+     * @param string $action An action name
      */
     public function setAction($action);
 
     /**
-     * Getter for action property
+     * Getter for action property.
      */
     public function getAction();
 
     /**
-     * Getter for the full bundle name
+     * Getter for the full bundle name.
      */
     public function getFullBundleName();
 
     /**
-     * Get all bundle-related property elements as an array
+     * Get all bundle-related property elements as an array.
      */
     public function getAll();
 

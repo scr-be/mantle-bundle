@@ -20,12 +20,10 @@ use Scribe\Exception\RuntimeException;
  * BundleInformation
  * Parses the org, bundle, controller, and action from the Request's _controller
  * attribute based on the provided specified regular expression.
- *
- * @package Scribe\Component\Bundle
  */
 class BundleInformation implements BundleInformationInterface
 {
-    /**
+    /*
      * Use the RequestStack trait
      */
     use RequestStackAwareTrait;
@@ -71,10 +69,11 @@ class BundleInformation implements BundleInformationInterface
     private $org;
 
     /**
-     * Set's up the request environment and then parses the controller request string
-     * 
-     * @param   RequestStack $requestStack
-     * @throws  InvalidArgumentException
+     * Set's up the request environment and then parses the controller request string.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(RequestStack $requestStack)
     {
@@ -96,9 +95,10 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Set the controller string derrived from the request object variable
-     * 
+     * Set the controller string derrived from the request object variable.
+     *
      * @param  $controllerAttributeValue string
+     *
      * @return $this
      */
     public function setControllerAttributeValue($controllerAttributeValue)
@@ -109,8 +109,8 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Get the request controller string
-     * 
+     * Get the request controller string.
+     *
      * @return string
      */
     public function getControllerAttributeValue()
@@ -119,9 +119,10 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Setter for regex property
-     * 
-     * @param  string $regex The regex to parse bundle info from request _controller parameter
+     * Setter for regex property.
+     *
+     * @param string $regex The regex to parse bundle info from request _controller parameter
+     *
      * @return $this
      */
     public function setRegex($regex)
@@ -132,8 +133,8 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Getter for regex property
-     * 
+     * Getter for regex property.
+     *
      * @return string
      */
     public function getRegex()
@@ -142,9 +143,10 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Setter for org property
-     * 
-     * @param  string $org An org name
+     * Setter for org property.
+     *
+     * @param string $org An org name
+     *
      * @return $this
      */
     public function setOrg($org)
@@ -155,8 +157,8 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Getter for org property
-     * 
+     * Getter for org property.
+     *
      * @return string
      */
     public function getOrg()
@@ -165,9 +167,10 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Setter for bundle property
-     * 
-     * @param  string $bundle A bundle name
+     * Setter for bundle property.
+     *
+     * @param string $bundle A bundle name
+     *
      * @return $this
      */
     public function setBundle($bundle)
@@ -178,8 +181,8 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Getter for bundle property
-     * 
+     * Getter for bundle property.
+     *
      * @return string
      */
     public function getBundle()
@@ -188,9 +191,10 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Setter for controller property
-     * 
-     * @param  string $controller A controller name
+     * Setter for controller property.
+     *
+     * @param string $controller A controller name
+     *
      * @return $this
      */
     public function setController($controller)
@@ -201,8 +205,8 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Getter for controller property
-     * 
+     * Getter for controller property.
+     *
      * @return string
      */
     public function getController()
@@ -211,9 +215,10 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Setter for action property
-     * 
-     * @param  string $action An action name
+     * Setter for action property.
+     *
+     * @param string $action An action name
+     *
      * @return $this
      */
     public function setAction($action)
@@ -224,8 +229,8 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Getter for action property
-     * 
+     * Getter for action property.
+     *
      * @return string|null
      */
     public function getAction()
@@ -234,33 +239,34 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Getter for the full bundle name
-     * 
+     * Getter for the full bundle name.
+     *
      * @return string
      */
     public function getFullBundleName()
     {
-        return (string) $this->getOrg() . $this->getBundle() . 'bundle';
+        return (string) $this->getOrg().$this->getBundle().'bundle';
     }
 
     /**
-     * Get all bundle-related property elements as an array
-     * 
+     * Get all bundle-related property elements as an array.
+     *
      * @return string[]
      */
     public function getAll()
     {
-        return (array)[
+        return (array) [
             $this->getOrg(),
             $this->getBundle(),
             $this->getController(),
             $this->getAction(),
-            $this->getFullBundleName()
+            $this->getFullBundleName(),
         ];
     }
 
     /**
-     * Handle determining the bundle information, or bailing if no request is present
+     * Handle determining the bundle information, or bailing if no request is present.
+     *
      * @return $this
      */
     public function handle()
@@ -280,7 +286,7 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Parse the Request _controller parameter using the provided regex to populate
      * the org, bundle, controller, and action properties.
-     * 
+     *
      * @return $this
      */
     public function parseControllerAttributeValue()
@@ -300,20 +306,22 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Alias for {@see $this->parseRequestController()} for backwards comparability
-     * 
+     * Alias for {@see $this->parseRequestController()} for backwards comparability.
+     *
      * @todo   Remove in v2.0.0
+     *
      * @return $this
      */
     public function parse()
     {
         $this->parseControllerAttributeValue();
-        
+
         return $this;
     }
 
     /**
-     * Get the request _controller parameter
+     * Get the request _controller parameter.
+     *
      * @return $this
      */
     private function determineControllerAttributeValue()
@@ -330,8 +338,8 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Handle the actual parsing of the _controller Request parameter
-     * 
+     * Handle the actual parsing of the _controller Request parameter.
+     *
      * @return string[]
      */
     private function parseRequestControllerParts()
@@ -346,15 +354,13 @@ class BundleInformation implements BundleInformationInterface
 
         if (false === $matchResult) {
             throw new RuntimeException('Encountered an error running preg_match.');
-        }
-        elseif (0 === $matchResult) {
+        } elseif (0 === $matchResult) {
             return $errorReturnArray;
-        }
-        elseif (4 === count($matches)) {
+        } elseif (4 === count($matches)) {
             throw new RuntimeException('Regular expression did not contain four sub expressions.');
         }
 
-        array_walk($matches, function(&$v, $i) { $v = strtolower($v); });
+        array_walk($matches, function (&$v, $i) { $v = strtolower($v); });
         unset($matches[0]);
 
         return (array) array_values($matches);

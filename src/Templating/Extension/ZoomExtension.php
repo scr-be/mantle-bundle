@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Extension;
 use Twig_Extension;
 
 /**
- * Class ContainerExtension
+ * Class ContainerExtension.
  */
 class ZoomExtension extends Twig_Extension
 {
@@ -30,14 +30,15 @@ class ZoomExtension extends Twig_Extension
      */
     public function getFunctions()
     {
-        return [ 'zoom' => new \Twig_Function_Method($this,'zoom') ];
+        return [ 'zoom' => new \Twig_Function_Method($this, 'zoom') ];
     }
 
     /**
-     * @param int $i
-     * @param string $zero
-     * @param string $one
+     * @param int         $i
+     * @param string      $zero
+     * @param string      $one
      * @param null|string $more
+     *
      * @return string
      */
     public function zoom($i = 0, $zero, $one, $more = null)
@@ -54,5 +55,5 @@ class ZoomExtension extends Twig_Extension
         }
 
         return $more;
-   }
+    }
 }

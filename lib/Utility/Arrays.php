@@ -14,13 +14,11 @@ use Scribe\Exception\RuntimeException;
 use Scribe\Utility\StaticClass\StaticClassTrait;
 
 /**
- * Class Arrays
- *
- * @package Scribe\Utility
+ * Class Arrays.
  */
 class Arrays
 {
-    /**
+    /*
      * Trait to disallow class instantiation
      */
     use StaticClassTrait;
@@ -30,13 +28,15 @@ class Arrays
      * by integer array. This only works if the indexed array consists of
      * consecutive integers, otherwise it will mis-represent such an array as hash.
      *
-     * @param  array $array An array to check against
-     * @param  bool  $throw Should an exception be thrown or the inconsistency
-     *                      ignored?
+     * @param array $array An array to check against
+     * @param bool  $throw Should an exception be thrown or the inconsistency
+     *                     ignored?
+     *
      * @return bool
+     *
      * @throws RuntimeException
      */
-    static public function isHash(array $array, $throw = true)
+    public static function isHash(array $array, $throw = true)
     {
         if (true === (count($array) === 0) && true === $throw) {
             throw new RuntimeException(

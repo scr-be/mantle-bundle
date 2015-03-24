@@ -14,13 +14,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait as SymfonyContainerAwareTrait;
 
 /**
- * Class ContainerAwareTrait
- *
- * @package Scribe\MantleBundle\DependencyInjection
+ * Class ContainerAwareTrait.
  */
 trait ContainerAwareTrait
 {
-    /**
+    /*
      * Build off Symfony's build-in Container aware trait and include methods to
      * both get the container and check if a container has been set.
      *
@@ -29,7 +27,7 @@ trait ContainerAwareTrait
     use SymfonyContainerAwareTrait;
 
     /**
-     * Getter for container property
+     * Getter for container property.
      *
      * @return ContainerInterface
      */
@@ -39,7 +37,7 @@ trait ContainerAwareTrait
     }
 
     /**
-     * Checker for container property
+     * Checker for container property.
      *
      * @return bool
      */

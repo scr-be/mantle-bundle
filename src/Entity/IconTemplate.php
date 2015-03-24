@@ -10,60 +10,58 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Scribe\MantleBundle\Entity\Template\Entity;
-use Scribe\MantleBundle\Entity\Template\HasName;
-use Scribe\MantleBundle\Entity\Template\HasDescription;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasName;
+use Scribe\EntityTrait\HasDescription;
+use Scribe\EntityTrait\HasSlug;
 
 /**
- * Class Icon
- * @package Scribe\MantleBundle\Entity
+ * Class Icon.
  */
-class IconTemplate extends Entity
+class IconTemplate extends AbstractEntity
 {
-    /**
+    /*
      * import name and description entity property traits
      */
     use HasName,
+        HasSlug,
         HasDescription;
 
     /**
-     * @type string
-     */
-    private $slug;
-
-    /**
-     * @var jsonArray 
+     * @var array
      */
     private $variables;
 
     /**
-     * @var string 
+     * @var string
      */
     private $engine;
 
     /**
-     * @var string 
+     * @var string
      */
     private $template;
 
     /**
-     * @var IconFamily 
+     * @var IconFamily
      */
     private $family;
 
     /**
-     * @var integer 
+     * @var integer
      */
     private $priority;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     /**
-     * Support for casting from object type to string type
+     * Support for casting from object type to string type.
+     *
      * @return string
      */
     public function __toString()
@@ -72,32 +70,10 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Setter for slug property 
+     * Setter for variables property.
      *
-     * @param string 
-     * @return $this
-     */
-    public function setSlug($slug = null)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Getter for slug property 
+     * @param array
      *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Setter for variables property 
-     *
-     * @param array 
      * @return $this
      */
     public function setVariables($variables = null)
@@ -108,9 +84,9 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Getter for variables property 
+     * Getter for variables property.
      *
-     * @return array 
+     * @return array
      */
     public function getVariables()
     {
@@ -118,7 +94,7 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Checker for variables property 
+     * Checker for variables property.
      *
      * @return bool
      */
@@ -128,7 +104,7 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Nullify variables property 
+     * Nullify variables property.
      *
      * @return $this
      */
@@ -140,9 +116,10 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Setter for engine property 
+     * Setter for engine property.
      *
-     * @param string 
+     * @param string
+     *
      * @return $this
      */
     public function setEngine($engine = null)
@@ -153,9 +130,9 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Getter for engine property 
+     * Getter for engine property.
      *
-     * @return string 
+     * @return string
      */
     public function getEngine()
     {
@@ -163,9 +140,10 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Setter for template property 
+     * Setter for template property.
      *
-     * @param string 
+     * @param string
+     *
      * @return $this
      */
     public function setTemplate($template = null)
@@ -176,9 +154,9 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Getter for template property 
+     * Getter for template property.
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {
@@ -186,9 +164,10 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Setter for family property 
+     * Setter for family property.
      *
-     * @param IconFamily 
+     * @param IconFamily
+     *
      * @return $this
      */
     public function setFamily(IconFamily $family = null)
@@ -199,9 +178,9 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Getter for family property 
+     * Getter for family property.
      *
-     * @return IconFamily 
+     * @return IconFamily
      */
     public function getFamily()
     {
@@ -209,7 +188,7 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Checker for family property 
+     * Checker for family property.
      *
      * @return bool
      */
@@ -219,7 +198,7 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Nullify family 
+     * Nullify family.
      *
      * @return $this
      */
@@ -231,9 +210,10 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Setter for priority property 
+     * Setter for priority property.
      *
      * @param integer
+     *
      * @return $this
      */
     public function setPriority($priority)
@@ -244,9 +224,9 @@ class IconTemplate extends Entity
     }
 
     /**
-     * Getter for priority property 
+     * Getter for priority property.
      *
-     * @return integer 
+     * @return integer
      */
     public function getPriority()
     {

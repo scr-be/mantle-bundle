@@ -10,9 +10,9 @@
 
 namespace Scribe\MantleBundle\Features\Context;
 
-use Scribe\MantleBundle\Features\Context\ScribeFeatureContext;
-
 /**
- * Class FeatureContext
+ * Class FeatureContext.
  */
-class FeatureContext extends ScribeFeatureContext {}
+class FeatureContext extends ScribeFeatureContext
+{
+}

@@ -17,9 +17,7 @@ use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTr
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 
 /**
- * Class IconCreatorTest
- *
- * @package Scribe\MantleBundle\Tests\Templating\Generator\Icon
+ * Class IconCreatorTest.
  */
 class IconCreatorTest extends PHPUnit_Framework_TestCase
 {
@@ -97,14 +95,12 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $html = $this
             ->getNewIconCreator()
             ->render('fa-glass', 'fa');
-        ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
             ->render('glass', 'fa');
-        ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
@@ -118,7 +114,6 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
                   aria-label="Icon: Glass (Category: Web Application Icons)">
             </span>
         ';
-
 
         $html = $this
             ->getNewIconCreator()
@@ -196,10 +191,10 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-      * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-      * @expectedExceptionMessage The requested optional style fa-foo is not compatible with the Font Awesome font family.
-      * @expectedExceptionCode    51
-      */
+     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
+     * @expectedExceptionMessage The requested optional style fa-foo is not compatible with the Font Awesome font family.
+     * @expectedExceptionCode    51
+     */
     public function testThrowsExceptionOnInvalidOptionalStyles_ShortForm()
     {
         $this
@@ -276,6 +271,46 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
             ->setAriaRole("img")
             ->setAriaLabel('Glass is half full!')
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
+        ;
+
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+    }
+
+    public function testIconLookupByAlias()
+    {
+        $expected = '
+            <span class="fa fa-fw fa-lg fa-glass"
+                  role="img"
+                  aria-hidden="true"
+                  aria-label="Glass is half full!">
+            </span>
+        ';
+
+        $html = $this
+            ->getNewIconCreator()
+            ->setAriaRole("img")
+            ->setAriaLabel('Glass is half full!')
+            ->render('glass-half-full', 'fa', null, 'fa-fw', 'fa-lg')
+        ;
+
+        $this->assertXmlStringEqualsXmlString($expected, $html);
+    }
+
+    public function testIconLookupByAlias2()
+    {
+        $expected = '
+            <span class="fa fa-fw fa-lg fa-photo"
+                  role="img"
+                  aria-hidden="true"
+                  aria-label="Photo label!">
+            </span>
+        ';
+
+        $html = $this
+            ->getNewIconCreator()
+            ->setAriaRole('img')
+            ->setAriaLabel('Photo label!')
+            ->render('photograph', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -409,7 +444,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(null,           'iconSlug',       $formatter);
         $this->assertAttributeEquals(null,           'templateEntity', $formatter);
         $this->assertAttributeEquals(null,           'templateSlug',   $formatter);
-        $this->assertAttributeEquals([]  ,           'optionalStyles', $formatter);
+        $this->assertAttributeEquals([],           'optionalStyles', $formatter);
         $this->assertAttributeEquals(true,           'ariaHidden',     $formatter);
         $this->assertAttributeEquals(null,           'ariaLabel',      $formatter);
         $this->assertAttributeEquals('presentation', 'ariaRole',       $formatter);
@@ -466,7 +501,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setFamilyEntity');
 
-        $badArgument = new \stdClass;
+        $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
@@ -478,7 +513,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setIconEntity');
 
-        $badArgument = new \stdClass;
+        $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
@@ -490,7 +525,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setTemplateEntity');
 
-        $badArgument = new \stdClass;
+        $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
@@ -502,7 +537,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setIconFamilyRepo');
 
-        $badArgument = new \stdClass;
+        $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
@@ -514,7 +549,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setEngine');
 
-        $badArgument = new \stdClass;
+        $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
@@ -645,7 +680,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $family = $this->mockIconFamily();
         $family
             ->method('getIcons')
-            ->willReturn(new ArrayCollection)
+            ->willReturn(new ArrayCollection())
         ;
 
         $s->invokeArgs($obj, [ $family ]);
@@ -676,7 +711,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $family = $this->mockIconFamily();
         $family
             ->method('getTemplates')
-            ->willReturn(new ArrayCollection)
+            ->willReturn(new ArrayCollection())
         ;
 
         $s->invokeArgs($obj, [ $family ]);
@@ -733,6 +768,5 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
         $validateEngine = $refFormat->getMethod('validateEngine');
         $validateEngine->setAccessible(true);
         $validateEngine->invokeArgs($obj, []);
-
     }
 }

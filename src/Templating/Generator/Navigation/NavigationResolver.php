@@ -11,13 +11,10 @@
 namespace Scribe\MantleBundle\Templating\Generator\Navigation;
 
 /**
- * NavigationResolver
- *
- * @package Scribe\MantleBundle\Templating\Generator\Navigation
+ * NavigationResolver.
  */
 class NavigationResolver implements NavigationResolverInterface
 {
-
 }
 
 /* EOF */

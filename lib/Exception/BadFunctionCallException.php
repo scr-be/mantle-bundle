@@ -11,13 +11,10 @@
 namespace Scribe\Exception;
 
 /**
- * Class BadFunctionCallException
- *
- * @package Scribe\Exception
+ * Class BadFunctionCallException.
  */
 class BadFunctionCallException extends \BadFunctionCallException implements ExceptionInterface
 {
-
 }
 
 /* EOF */

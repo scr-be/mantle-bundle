@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Extension\Part;
 use Twig_Function_Method;
 
 /**
- * Class AdvancedExtensionTrait
+ * Class AdvancedExtensionTrait.
  */
 trait AdvancedExtensionTrait
 {
@@ -41,7 +41,8 @@ trait AdvancedExtensionTrait
     }
 
     /**
-     * @param  array $methods
+     * @param array $methods
+     *
      * @return $this
      */
     public function setFunctionMethods(array $methods = array())
@@ -56,12 +57,13 @@ trait AdvancedExtensionTrait
      */
     public function getFunctionMethods()
     {
-        return (array)$this->functionMethods;
+        return (array) $this->functionMethods;
     }
 
     /**
-     * @param  string $internal
-     * @param  string $external
+     * @param string $internal
+     * @param string $external
+     *
      * @return $this
      */
     public function addFunctionMethod($internal, $external)
@@ -77,7 +79,8 @@ trait AdvancedExtensionTrait
     }
 
     /**
-     * @param  array $methods
+     * @param array $methods
+     *
      * @return $this
      */
     public function setFilterMethods(array $methods = array())
@@ -92,12 +95,13 @@ trait AdvancedExtensionTrait
      */
     public function getFilterMethods()
     {
-        return (array)$this->filterMethods;
+        return (array) $this->filterMethods;
     }
 
     /**
-     * @param  string $internal
-     * @param  string $external
+     * @param string $internal
+     * @param string $external
+     *
      * @return $this
      */
     public function addFilterMethod($internal, $external)
@@ -117,11 +121,12 @@ trait AdvancedExtensionTrait
      */
     public function getParameters()
     {
-        return (array)$this->parameters;
+        return (array) $this->parameters;
     }
 
     /**
-     * @param  array $parameters
+     * @param array $parameters
+     *
      * @return $this
      */
     public function setParameters(array $parameters = array())
@@ -140,7 +145,8 @@ trait AdvancedExtensionTrait
     }
 
     /**
-     * @param  array $methods
+     * @param array $methods
+     *
      * @return array
      */
     private function cleanupMethodsArray(array $methods = array())

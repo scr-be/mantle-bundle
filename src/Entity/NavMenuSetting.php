@@ -2,20 +2,15 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-/**
- * NavMenuSetting
- */
-class NavMenuSetting
-{
-    /**
-     * @var integer
-     */
-    private $id;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasContext;
 
-    /**
-     * @var string
-     */
-    private $context;
+/**
+ * NavMenuSetting.
+ */
+class NavMenuSetting extends AbstractEntity
+{
+    use HasContext;
 
     /**
      * @var string
@@ -28,42 +23,18 @@ class NavMenuSetting
     private $v;
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set context
-     *
-     * @param string $context
-     * @return NavMenuSetting
-     */
-    public function setContext($context)
-    {
-        $this->context = $context;
-
-        return $this;
-    }
-
-    /**
-     * Get context
-     *
      * @return string
      */
-    public function getContext()
+    public function __toString()
     {
-        return $this->context;
+        return __CLASS__.':'.$this->k;
     }
 
     /**
-     * Set k
+     * Set k.
      *
      * @param string $k
+     *
      * @return NavMenuSetting
      */
     public function setK($k)
@@ -74,7 +45,7 @@ class NavMenuSetting
     }
 
     /**
-     * Get k
+     * Get k.
      *
      * @return string
      */
@@ -84,9 +55,10 @@ class NavMenuSetting
     }
 
     /**
-     * Set v
+     * Set v.
      *
      * @param string $v
+     *
      * @return NavMenuSetting
      */
     public function setV($v)
@@ -97,7 +69,7 @@ class NavMenuSetting
     }
 
     /**
-     * Get v
+     * Get v.
      *
      * @return string
      */

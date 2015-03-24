@@ -19,17 +19,12 @@ Scribe\MantleBundle\Entity\IconTemplate:
             type:   string
             length: 100
 
-        variables:
-            type:     json_array
-            nullable: true
-
         engine:
             type:   string
             length: 10
 
         template:
-            type:   string
-            length: 400
+            type:   text
 
         priority:
             type:   integer

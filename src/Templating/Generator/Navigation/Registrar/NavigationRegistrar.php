@@ -13,9 +13,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Navigation\Registrar;
 use Scribe\MantleBundle\Templating\Generator\Navigation\Member\NavigationMemberInterface;
 
 /**
- * NavigationRegistrar
- *
- * @package Scribe\MantleBundle\Templating\Generator\Navigation\Registrar
+ * NavigationRegistrar.
  */
 class NavigationRegistrar implements NavigationRegistrarInterface
 {
@@ -25,10 +23,9 @@ class NavigationRegistrar implements NavigationRegistrarInterface
     protected $members = [ ];
 
     /**
-     * Add member to navigation registrar (configured via tagged DI services)
+     * Add member to navigation registrar (configured via tagged DI services).
      *
-     * @param  NavigationMemberInterface $member
-     * @return void
+     * @param NavigationMemberInterface $member
      */
     public function addMember(NavigationMemberInterface $member)
     {

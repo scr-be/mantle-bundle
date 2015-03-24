@@ -13,9 +13,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
 use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainAwareTrait;
 
 /**
- * Trait IconCreatorCachedServicesTrait
- *
- * @package Scribe\MantleBundle\Templating\Generator\Icon\IconTraits
+ * Trait IconCreatorCachedServicesTrait.
  */
 trait IconCreatorCachedServicesTrait
 {

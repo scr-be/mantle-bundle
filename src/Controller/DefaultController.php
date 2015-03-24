@@ -13,12 +13,13 @@ namespace Scribe\MantleBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Class DefaultController
+ * Class DefaultController.
  */
 class DefaultController extends Controller
 {
     /**
      * @param $name
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction($name)

@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Helper\Timeline;
 use Datetime;
 
 /**
- * Class TimelineInterface
+ * Class TimelineInterface.
  */
 interface TimelineInterface
 {
@@ -23,10 +23,11 @@ interface TimelineInterface
     public function render();
 
     /**
-     * @param integer $id
-     * @param string $name
+     * @param integer  $id
+     * @param string   $name
      * @param Datetime $on
-     * @param string $url
+     * @param string   $url
+     *
      * @return mixed
      */
     public function addEvent($id, $name, Datetime $on, $url);

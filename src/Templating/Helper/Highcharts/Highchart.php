@@ -14,41 +14,41 @@ use Zend\Json\Json;
 use Scribe\Utility\AbstractContainer;
 
 /**
- * Class Highchart
+ * Class Highchart.
  */
 class Highchart extends AbstractContainer
 {
     /**
-     * graph type: line
+     * graph type: line.
      */
     const TYPE_LINE = 'line';
 
     /**
-     * graph type: spline
+     * graph type: spline.
      */
     const TYPE_SPLINE = 'spline';
 
     /**
-     * graph type: column
+     * graph type: column.
      */
     const TYPE_COLUMN = 'column';
 
     /**
-     * graph type: pie
+     * graph type: pie.
      */
     const TYPE_PIE = 'pie';
 
     /**
-     * graph type: gauge
+     * graph type: gauge.
      */
     const TYPE_GAUGE = 'gauge';
 
     /**
      * @param string $elementId
      * @param string $type
-     * @param mixed $title
-     * @param bool $credits
-     * @param bool $exporting
+     * @param mixed  $title
+     * @param bool   $credits
+     * @param bool   $exporting
      */
     public function __construct($elementId = 'GraphID', $type = self::TYPE_LINE, $title = null, $credits = false, $exporting = false)
     {
@@ -83,7 +83,8 @@ class Highchart extends AbstractContainer
 
     /**
      * @param string $key
-     * @param array $values
+     * @param array  $values
+     *
      * @return Highchart
      */
     public function __call($key, $values)
@@ -96,45 +97,45 @@ class Highchart extends AbstractContainer
      */
     public function render()
     {
-        $chartJS = "$(function(){\n    var Chart_" . $this->chart->renderTo . " = new Highcharts.Chart({\n";
+        $chartJS = "$(function(){\n    var Chart_".$this->chart->renderTo." = new Highcharts.Chart({\n";
 
         // Chart Option
         if (get_object_vars($this->chart->chart)) {
-            $chartJS .= "        chart: " .
+            $chartJS .= "        chart: ".
                 Json::encode($this->chart->chart,
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // Pane
         if (get_object_vars($this->pane->pane)) {
-            $chartJS .= "        pane: " .
+            $chartJS .= "        pane: ".
                 Json::encode($this->pane->pane,
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // Colors
         if (!empty($this->colors)) {
-            $chartJS .= "        colors: " . json_encode($this->colors) . ",\n";
+            $chartJS .= "        colors: ".json_encode($this->colors).",\n";
         }
 
         // Credits
         if (get_object_vars($this->credits->credits)) {
-            $chartJS .= "        credits: " . json_encode($this->credits->credits) . ",\n";
+            $chartJS .= "        credits: ".json_encode($this->credits->credits).",\n";
         }
 
         // Exporting
         if (get_object_vars($this->exporting->exporting)) {
-            $chartJS .= "        exporting: " .
+            $chartJS .= "        exporting: ".
                 Json::encode($this->exporting->exporting,
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // Global
         if (get_object_vars($this->global->global)) {
-            $chartJS .= "        global: " . json_encode($this->global->global) . ",\n";
+            $chartJS .= "        global: ".json_encode($this->global->global).",\n";
         }
 
         // Labels
@@ -142,10 +143,10 @@ class Highchart extends AbstractContainer
 
         // Legend
         if (get_object_vars($this->legend->legend)) {
-            $chartJS .= "        legend: " .
+            $chartJS .= "        legend: ".
                 Json::encode($this->legend->legend,
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // Loading
@@ -154,67 +155,67 @@ class Highchart extends AbstractContainer
 
         // PlotOptions
         if (get_object_vars($this->plotOptions->plotOptions)) {
-            $chartJS .= "        plotOptions: " .
+            $chartJS .= "        plotOptions: ".
                 Json::encode($this->plotOptions->plotOptions,
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // Series
         if (!empty($this->series)) {
-            $chartJS .= "        series: " .
+            $chartJS .= "        series: ".
                 Json::encode($this->series[0],
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // Subtitle
         if (get_object_vars($this->subtitle->subtitle)) {
-            $chartJS .= "        subtitle: " . json_encode($this->subtitle->subtitle) . ",\n";
+            $chartJS .= "        subtitle: ".json_encode($this->subtitle->subtitle).",\n";
         }
 
         // Symbols
 
         // Title
         if (get_object_vars($this->title->title)) {
-            $chartJS .= "        title: " . json_encode($this->title->title) . ",\n";
+            $chartJS .= "        title: ".json_encode($this->title->title).",\n";
         }
 
         // Tooltip
         if (get_object_vars($this->tooltip->tooltip)) {
-            $chartJS .= "        tooltip: " .
+            $chartJS .= "        tooltip: ".
                 Json::encode($this->tooltip->tooltip,
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // xAxis
         if (get_object_vars($this->xAxis->xAxis)) {
-            $chartJS .= "        xAxis: " .
+            $chartJS .= "        xAxis: ".
                 Json::encode($this->xAxis->xAxis,
                     false,
-                    array('enableJsonExprFinder' => true)) . ",\n";
+                    array('enableJsonExprFinder' => true)).",\n";
         }
 
         // yAxis
         if (gettype($this->yAxis) === 'array') {
             if (!empty($this->yAxis)) {
-                $chartJS .= "        yAxis: " .
+                $chartJS .= "        yAxis: ".
                     Json::encode($this->yAxis[0],
                         false,
-                        array('enableJsonExprFinder' => true)) . ",\n";
+                        array('enableJsonExprFinder' => true)).",\n";
             }
         } elseif (gettype($this->yAxis) === 'object') {
             if (get_object_vars($this->yAxis->yAxis)) {
-                $chartJS .= "        yAxis: " .
+                $chartJS .= "        yAxis: ".
                     Json::encode($this->yAxis->yAxis,
                         false,
-                        array('enableJsonExprFinder' => true)) . ",\n";
+                        array('enableJsonExprFinder' => true)).",\n";
             }
         }
 
         // trim last trailing comma and close parenthesis
-        $chartJS = rtrim($chartJS, ",\n") . "\n    });\n});\n";
+        $chartJS = rtrim($chartJS, ",\n")."\n    });\n});\n";
 
         return trim($chartJS);
     }

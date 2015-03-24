@@ -13,12 +13,13 @@ namespace Scribe\MantleBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Class AbstractController
+ * Class AbstractController.
  */
 abstract class AbstractController extends Controller
 {
     /**
      * @param string[] $which
+     *
      * @return array
      */
     public function getServices(array $which = [])
@@ -33,6 +34,7 @@ abstract class AbstractController extends Controller
 
     /**
      * @param string $service_key
+     *
      * @return object
      */
     protected function getServiceSelector($service_key)
@@ -68,10 +70,12 @@ abstract class AbstractController extends Controller
 
     /**
      * @see Controller::createForm()
+     *
      * @param $name
      * @param $type
-     * @param null $data
+     * @param null  $data
      * @param array $options
+     *
      * @return mixed
      */
     public function createNamedForm($name, $type, $data = null, array $options = array())

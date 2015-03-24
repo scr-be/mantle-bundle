@@ -18,7 +18,7 @@ use Twig_Extension;
 use Twig_Environment;
 
 /**
- * Class IconCreatorExtension
+ * Class IconCreatorExtension.
  */
 class IconCreatorExtension extends Twig_Extension
 {
@@ -38,13 +38,19 @@ class IconCreatorExtension extends Twig_Extension
 
         $this->setParameters([
             'is_safe'           => [ 'html' ],
-            'needs_environment' => true
+            'needs_environment' => true,
         ]);
 
         $this->addFunctionMethod('getIcon', 'get_icon');
     }
 
     /**
+     * @param Twig_Environment $env
+     * @param string           $icon
+     * @param string|null      $family
+     * @param string|null      $template
+     * @param ...string        $styles
+     *
      * @return string
      */
     public function getIcon(Twig_Environment $env, $icon, $family = null, $template = null, ...$styles)
@@ -54,12 +60,17 @@ class IconCreatorExtension extends Twig_Extension
             $this->iconCreator->setEngine($engine);
         }
 
-        return $this->iconCreator->render($icon, $family, $template, ...$styles);
+        return (string) $this->iconCreator->render($icon, $family, $template, ...$styles);
     }
 
+    /**
+     * @param Twig_Environment $env
+     *
+     * @return TwigEngine
+     */
     protected function buildEngineInterfaceFromTwigEnvironment(Twig_Environment $env)
     {
-        $nameParser = new TemplateNameParser;
+        $nameParser = new TemplateNameParser();
         $engine     = new TwigEngine($env, $nameParser);
 
         return $engine;

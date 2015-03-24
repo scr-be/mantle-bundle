@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Class RedirectController
+ * Class RedirectController.
  */
 class RedirectController extends Controller
 {
@@ -37,6 +37,7 @@ class RedirectController extends Controller
 
     /**
      * @param $name
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function handleAction($destination)

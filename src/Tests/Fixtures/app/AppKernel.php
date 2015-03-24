@@ -12,14 +12,12 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 /**
- * Class AppKernel
- *
- * @package Scribe\MantleBundle\Tests
+ * Class AppKernel.
  */
 class AppKernel extends Kernel
 {
     /**
-     * Return array of bundles requires for tests
+     * Return array of bundles requires for tests.
      *
      * @return array
      */
@@ -32,12 +30,12 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new \Scribe\CacheBundle\ScribeCacheBundle(),
-            new \Scribe\MantleBundle\ScribeMantleBundle()
+            new \Scribe\MantleBundle\ScribeMantleBundle(),
         ];
     }
 
     /**
-     * Load the required config file based on the environment
+     * Load the required config file based on the environment.
      *
      * @param LoaderInterface $loader
      */

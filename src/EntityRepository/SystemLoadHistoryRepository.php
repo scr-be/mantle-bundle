@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\EntityRepository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class SystemLoadHistoryRepository
+ * Class SystemLoadHistoryRepository.
  */
 class SystemLoadHistoryRepository extends EntityRepository
 {
