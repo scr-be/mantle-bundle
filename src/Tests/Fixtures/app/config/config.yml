@@ -33,9 +33,15 @@ doctrine:
     orm:
         default_entity_manager: default
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
         mappings:
             ScribeMantleBundle: ~
+            custom:
+                type: yml 
+                prefix: Scribe\MantleBundle\Tests\Fixtures\app\Entity
+                dir: "%kernel.root_dir%/Entity/" 
+                is_bundle: false
+        resolve_target_entities:
+            Scribe\MantleBundle\Model\AuthorInterface: Scribe\MantleBundle\Tests\Fixtures\app\Entity\Author 
 
 security:
     encoders:

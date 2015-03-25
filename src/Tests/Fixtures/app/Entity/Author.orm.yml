@@ -1,0 +1,17 @@
+Scribe\MantleBundle\Tests\Fixtures\app\Entity\Author:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToMany:
+        revisions:
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            mappedBy: author 
+        nodes:
+            targetEntity: Scribe\MantleBundle\Entity\Node
+            mappedBy: author 
+    lifecycleCallbacks: {  }
