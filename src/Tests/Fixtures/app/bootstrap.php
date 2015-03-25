@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\YamlDriver;
 
 $paths = array( realpath(__DIR__.'/../../../Resources/config/doctrine/') );
-$isDevMode = false;
+$isDevMode = true;
 
 // the connection configuration
 $dbParams = array(
@@ -16,19 +16,5 @@ $dbParams = array(
     'dbname'   => getenv('MANTLE_DB'),
 );
 
-$cache = new \Doctrine\Common\Cache\ArrayCache();
-
-$driver = new \Doctrine\ORM\Mapping\Driver\YamlDriver($paths);
-
 $config = Setup::createYAMLMetadataConfiguration($paths, $isDevMode);
-$config->setMetadataCacheImpl( $cache );
-$config->setQueryCacheImpl( $cache );
-$config->setMetadataDriverImpl( $driver );
-
 $entityManager = EntityManager::create($dbParams, $config);
-
-function GetEntityManager() {
-    global $entityManager;
-
-    return $entityManager; 
-}

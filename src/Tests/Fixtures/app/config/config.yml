@@ -27,11 +27,15 @@ twig:
 doctrine:
     dbal:
         driver:   pdo_mysql
-        dbname:   Symfony2
-        user:     root
-        password: null
+        dbname:   %mantle.db_name% 
+        user:     %mantle.user% 
+        password: %mantle.password% 
     orm:
+        default_entity_manager: default
+        auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            ScribeMantleBundle: ~
 
 security:
     encoders:
