@@ -25,6 +25,7 @@ use Scribe\Entity\Lifecycle\EntityLifecycleEventUpdatedInterface;
 use Scribe\Entity\Serializable\EntitySerializableInterface;
 use Scribe\Entity\Serializable\EntitySerializableTrait;
 use Scribe\EntityTrait\HasId;
+use Scribe\MantleBundle\Entity\Exception\OrmException;
 
 /**
  * Class Entity.
@@ -65,6 +66,17 @@ abstract class AbstractEntity implements
         foreach ($initMethods as $method) {
             $this->$method();
         }
+    }
+
+    /**
+     * Throw an ORM exception if an error in processing occurs
+     *
+     * @param string $message
+     * @param int    $code
+     */
+    final protected function __throwOrmException($message, $code = 0)
+    {
+        throw new OrmException($message, $code);
     }
 }
 
