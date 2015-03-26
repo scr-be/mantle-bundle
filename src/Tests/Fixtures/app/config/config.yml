@@ -1,5 +1,6 @@
 imports:
   - { resource: parameters.php }
+  - { resource: ../../../../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }
 
 framework:
     secret:          "Secret for tests!"

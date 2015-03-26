@@ -12,13 +12,16 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Node
  * @package Scribe\MantleBundle\Entity
  */
-class Node
+class Node implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
 {
+    use ORMBehaviors\Tree\Node;
+
     /**
      * @var integer
      */

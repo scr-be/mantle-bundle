@@ -2,25 +2,24 @@ Scribe\MantleBundle\Entity\Node:
     type: entity
     table: null
     repositoryClass: Scribe\MantleBundle\EntityRepository\NodeRepository
-    actAs:
-        NestedSet:
-            hasManyRoots: true
-            rootColumnName: root_id
     id:
         id:
             type: integer
             id: true
             generator:
-                strategy: AUTO
+                strategy: AUTO 
     fields:
         locked:
             type: boolean
+            nullable: true
         createdOn:
             type: datetime
             column: created_on
+            nullable: true
         updatedOn:
             type: datetime
             column: updated_on
+            nullable: true
         slug:
             type: string
             length: 255
@@ -29,6 +28,10 @@ Scribe\MantleBundle\Entity\Node:
             length: '500'
         weight:
             type: integer
+            nullable: true
+        materializedPath:
+            type: string
+            nullable: true
     manyToOne:
         author:
             targetEntity: Scribe\MantleBundle\Model\AuthorInterface 

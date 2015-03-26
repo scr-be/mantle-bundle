@@ -13,6 +13,7 @@ namespace Scribe\MantleBundle\Tests\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Scribe\MantleBundle\Tests\Helper\DefaultEntityTestHelper;
+use Scribe\MantleBundle\Entity\Node;
 
 /**
  * Class NodeTest 
@@ -22,11 +23,89 @@ class NodeTest extends DefaultEntityTestHelper
     /**
      * @var Node 
      */
-    private $node;
+    private $firstNode;
 
-    public function testBasicSetup()
+    /**
+     * @var ArrayCollection 
+     */
+    private $nodes;
+
+    /**
+     * @var string
+     */
+    private $repo;
+
+    public function setUp()
     {
-        $this->makeNodes(1);
-        $this->node = $this->nodeRows()[0];
+        $this->repo = $this->container->get($this->config['node']['service']); 
+    }
+
+    public function setupAndExercise($count = 1)
+    {
+        $this->makeNodes($count);
+        $this->nodes = $this->nodeRows();
+        $this->firstNode = $this->nodeRows()[0];
+    }
+
+    public function testBasicPathRelationsip()
+    {
+        $this->setupAndExercise(2);
+        $secondNode = $this->nodes[1];
+        $secondNode->setChildNodeOf($this->firstNode);
+        $this->assertSame($this->firstNode, $secondNode->getParentNode());
+        $this->assertSame($secondNode, $this->firstNode->getChildNodes()[0]);
+    }
+
+    public function testTree()
+    {
+        $this->setupAndExercise(4);
+        $secondNode = $this->nodes[1];
+        $thirdNode = $this->nodes[2];
+        $fourthNode = $this->nodes[3];
+
+        // have to set path for intended root
+        $this->firstNode->setMaterializedPath('/slug');
+
+        $secondNode->setChildNodeOf($this->firstNode);
+        $thirdNode->setChildNodeOf($secondNode);
+        $fourthNode->setChildNodeOf($thirdNode);
+
+        $this->em->flush();
+        $root = $this->repo->getTree();
+
+        // finds root correctly
+        $this->assertSame($this->firstNode, $root->getRootNode());
+
+        // tree returns nested array
+        $this->assertSame($this->firstNode, $root);
+        $this->assertSame($secondNode, $root[0]);
+        $this->assertSame($thirdNode, $root[0][0]);
+        $this->assertSame($fourthNode, $root[0][0][0]);
+    }
+
+    public function testMultipleRoots()
+    {
+        $this->setupAndExercise(4);
+        $secondNode = $this->nodes[1];
+        $thirdNode = $this->nodes[2];
+        $fourthNode = $this->nodes[3];
+
+        // have to set path for intended root
+        $this->firstNode->setMaterializedPath('/foo');
+        $thirdNode->setMaterializedPath('/bar');
+
+        $secondNode->setChildNodeOf($this->firstNode);
+        $fourthNode->setChildNodeOf($thirdNode);
+        
+        $this->em->flush();
+
+        $tree1 = $this->repo->getTree('/foo');
+        $tree2 = $this->repo->getTree('/bar');
+
+        $this->assertSame($this->firstNode, $tree1);
+        $this->assertSame($secondNode, $tree1[0]);
+
+        $this->assertSame($thirdNode, $tree2);
+        $this->assertSame($fourthNode, $tree2[0]);
     }
 }

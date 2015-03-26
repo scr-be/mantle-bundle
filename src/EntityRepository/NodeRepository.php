@@ -12,6 +12,7 @@ namespace Scribe\MantleBundle\EntityRepository;
 
 use Doctrine\ORM\EntityRepository;
 use Scribe\MantleBundle\Entity\Node;
+use Knp\DoctrineBehaviors\ORM as ORMBehaviors;
 
 /**
  * NodeRepository
@@ -22,4 +23,5 @@ use Scribe\MantleBundle\Entity\Node;
  */
 class NodeRepository extends EntityRepository
 {
+    use ORMBehaviors\Tree\Tree;
 }
