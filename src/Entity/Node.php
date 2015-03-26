@@ -354,4 +354,35 @@ class Node implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Recursively reparents given children
+     *
+     * @param Node
+     * @param ArrayCollection
+     *
+     * @return void
+     */
+    protected function reParentNodes(Node $parent, ArrayCollection $children)
+    {
+        foreach($children as $child) {
+            $child->setChildNodeOf($parent);
+            $this->reParentNodes($child, $child->getChildNodes());
+        } 
+
+        return $this;
+    }
+
+    /**
+     * Sets node to a root 
+     *
+     * @return $this 
+     */
+    public function setAsRoot()
+    {
+        $this->setMaterializedPath('/'. $this->getSlug());
+        $this->reParentNodes($this, $this->getChildNodes());
+
+        return $this;
+    }
 }

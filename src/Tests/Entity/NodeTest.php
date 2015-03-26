@@ -108,4 +108,57 @@ class NodeTest extends DefaultEntityTestHelper
         $this->assertSame($thirdNode, $tree2);
         $this->assertSame($fourthNode, $tree2[0]);
     }
+
+    public function testCanMoveBranchToBranch()
+    {
+        $this->setupAndExercise(4);
+
+        $this->nodes[0]->setAsRoot();
+        $this->nodes[1]->setChildNodeOf($this->nodes[0]);
+        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+
+        $this->em->flush();
+
+        $this->assertSame(1, sizeof($this->nodes[0]->getChildNodes()));
+
+        $this->nodes[2]->setChildNodeOf($this->nodes[0]);
+
+        $this->em->flush();
+
+        $this->assertSame(2, sizeof($this->nodes[0]->getChildNodes()));
+    }
+
+    public function testSetAsRoot()
+    {
+        $this->setupAndExercise(1);
+        $this->firstNode->setAsRoot(); 
+        $this->em->flush();
+
+        $path = '/'. $this->firstNode->getSlug();
+
+        $tree = $this->repo->getTree($path);
+
+        $this->assertSame($this->firstNode, $tree);
+    }
+
+    public function testSetAsRootFromBranch()
+    {
+        $this->setupAndExercise(3);
+        $branch = $this->nodes[1];
+        $leaf = $this->nodes[2];
+
+        $this->firstNode->setAsRoot(); 
+        $branch->setChildNodeOf($this->firstNode);
+        $leaf->setChildNodeOf($branch);
+
+        $branch->setAsRoot(); 
+        $this->em->flush();
+
+        $path = '/'. $branch->getSlug();
+
+        $tree = $this->repo->getTree($path);
+
+        $this->assertSame($branch, $tree);
+    }
 }
