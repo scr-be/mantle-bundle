@@ -25,6 +25,14 @@ trait HasCreatedOn
     protected $created_on;
 
     /**
+     * Init trait
+     */
+    public function __initCreatedOn()
+    {
+        $this->created_on = null;
+    }
+
+    /**
      * Setter for created_on property.
      *
      * @param Datetime $created_on any datetime object instance

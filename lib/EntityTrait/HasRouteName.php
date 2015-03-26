@@ -23,7 +23,7 @@ trait HasRouteName
     /**
      * init trait.
      */
-    public function initRouteName()
+    public function __initRouteName()
     {
         $this->routeName = null;
     }

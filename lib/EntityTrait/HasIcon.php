@@ -25,6 +25,14 @@ trait HasIcon
     protected $icon;
 
     /**
+     * Init trait
+     */
+    public function __initIcon()
+    {
+        $this->icon = null;
+    }
+
+    /**
      * Setter for icon property.
      *
      * @param Icon $icon any Icon object instance

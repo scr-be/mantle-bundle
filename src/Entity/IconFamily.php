@@ -62,8 +62,9 @@ class IconFamily extends AbstractEntity
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->templates = new ArrayCollection();
-        $this->icons     = new ArrayCollection();
     }
 
     /**

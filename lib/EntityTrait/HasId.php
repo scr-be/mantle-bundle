@@ -21,21 +21,21 @@ trait HasId
     protected $id;
 
     /**
+     * @return $this
+     */
+    public function __initId()
+    {
+        $this->id = null;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return $this
-     */
-    protected function initId()
-    {
-        $this->id = null;
-
-        return $this;
     }
 }
 

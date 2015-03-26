@@ -23,6 +23,14 @@ trait HasTitle
     protected $title;
 
     /**
+     * Init trait
+     */
+    public function __initTitle()
+    {
+        $this->title = null;
+    }
+
+    /**
      * Setter for title property.
      *
      * @param string|null $title your title string

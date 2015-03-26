@@ -27,7 +27,7 @@ trait HasIconAsString
     /**
      * init trait.
      */
-    protected function initIcon()
+    public function __initIcon()
     {
         $this->icon = null;
     }

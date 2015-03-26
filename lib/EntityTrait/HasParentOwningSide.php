@@ -25,7 +25,7 @@ trait HasParentOwningSide
     /**
      * init trait.
      */
-    protected function initParent()
+    public function __initParent()
     {
         $this->parent = null;
     }

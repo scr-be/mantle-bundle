@@ -20,6 +20,14 @@ trait HasReverseRoleRestrictionsOwningSide
     use HasReverseRoleRestrictionsInverseSide;
 
     /**
+     * Init trait
+     */
+    public function __initReverseRoleRestrictions()
+    {
+        $this->reverseRoleRestrictions = new ArrayCollection;
+    }
+
+    /**
      * Set reverseRoleRestrictions.
      *
      * @param ArrayCollection $reverseRoleRestrictions

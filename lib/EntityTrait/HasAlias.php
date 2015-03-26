@@ -23,6 +23,14 @@ trait HasAlias
     protected $alias;
 
     /**
+     * Init trait
+     */
+    public function __initAlias()
+    {
+        $this->alias = null;
+    }
+
+    /**
      * Setter for alias property.
      *
      * @param string|null $alias the alias string

@@ -49,9 +49,7 @@ class Icon extends AbstractEntity
      */
     public function __construct()
     {
-        $this->initAliases();
-        $this->initAttributes();
-        $this->initCategories();
+        parent::__construct();
 
         $this->families = new ArrayCollection();
     }

@@ -36,13 +36,6 @@ class Route extends AbstractEntity
     private $referenceType;
 
     /**
-     * perform any entity setup.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Support for casting from object type to string type.
      *
      * @return string

@@ -23,6 +23,14 @@ trait HasCode
     protected $code;
 
     /**
+     * Init trait
+     */
+    public function __initCode()
+    {
+        $this->code = null;
+    }
+
+    /**
      * Setter for code property.
      *
      * @param string|null $code the code string

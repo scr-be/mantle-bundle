@@ -27,7 +27,7 @@ trait HasCategories
      *
      * @return $this
      */
-    public function initCategories()
+    public function __initCategories()
     {
         $this->categories = [];
 

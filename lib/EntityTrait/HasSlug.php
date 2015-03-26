@@ -25,7 +25,7 @@ trait HasSlug
     /**
      * init trait.
      */
-    protected function initSlug()
+    public function __initSlug()
     {
         $this->slug = null;
     }

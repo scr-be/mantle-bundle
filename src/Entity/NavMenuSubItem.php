@@ -56,14 +56,6 @@ class NavMenuSubItem extends AbstractEntity
     {
         parent::__construct();
 
-        $this->initIcon();
-        $this->initAttrs();
-        $this->initRouteName();
-        $this->initRouteParameters();
-        $this->initParent();
-        $this->initRoleRestrictionsAsArray();
-        $this->initReverseRoleRestrictionsAsArray();
-
         $this->header = false;
     }
 

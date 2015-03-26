@@ -25,6 +25,14 @@ trait HasChildrenInverseSide
     protected $children;
 
     /**
+     * Init trait
+     */
+    public function __initChildren()
+    {
+        $this->children = new ArrayCollection;
+    }
+
+    /**
      * Getter for children.
      *
      * @return ArrayCollection

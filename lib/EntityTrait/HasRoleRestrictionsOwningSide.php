@@ -24,6 +24,14 @@ trait HasRoleRestrictionsOwningSide
     use HasRoleRestrictionsInverseSide;
 
     /**
+     * Init trait
+     */
+    public function __initRoleRestrictions()
+    {
+        $this->roleRestrictions = new ArrayCollection;
+    }
+
+    /**
      * Setter for revisions property.
      *
      * @param ArrayCollection|null $roleRestrictions collection of roles

@@ -24,6 +24,14 @@ trait HasIconsOwningSide
     private $icons;
 
     /**
+     * Init trait
+     */
+    public function __initIcons()
+    {
+        $this->icons = new ArrayCollection;
+    }
+
+    /**
      * Setter for icons collection.
      *
      * @param ArrayCollection $icons

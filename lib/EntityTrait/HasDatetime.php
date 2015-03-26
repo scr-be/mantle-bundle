@@ -25,6 +25,14 @@ trait HasDatetime
     protected $datetime;
 
     /**
+     * Init trait
+     */
+    public function __initDatetime()
+    {
+        $this->datetime = null;
+    }
+
+    /**
      * Setter for datetime property.
      *
      * @param Datetime $datetime any datetime object instance

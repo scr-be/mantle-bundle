@@ -23,6 +23,14 @@ trait HasValueAsString
     protected $value;
 
     /**
+     * Init trait
+     */
+    public function __initValue()
+    {
+        $this->value = null;
+    }
+
+    /**
      * Setter for value property.
      *
      * @param string|null $value the value string

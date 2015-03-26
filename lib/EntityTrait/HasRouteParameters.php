@@ -23,7 +23,7 @@ trait HasRouteParameters
     /**
      * init trait.
      */
-    public function initRouteParameters()
+    public function __initRouteParameters()
     {
         $this->routeParameters = [];
     }

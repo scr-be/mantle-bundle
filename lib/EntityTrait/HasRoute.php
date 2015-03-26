@@ -25,6 +25,14 @@ trait HasRoute
     protected $route;
 
     /**
+     * Init trait
+     */
+    public function __initRoute()
+    {
+        $this->route = null;
+    }
+
+    /**
      * Setter for route property.
      *
      * @param Route $route any Route object instance
