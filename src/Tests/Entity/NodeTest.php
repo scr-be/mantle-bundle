@@ -161,4 +161,15 @@ class NodeTest extends DefaultEntityTestHelper
 
         $this->assertSame($branch, $tree);
     }
+
+    /* public function testCanDeleteWholeBranch() */
+    /* { */
+    /*     $this->setupAndExercise(3); */
+
+    /*     $this->nodes[0]->setAsRoot(); */
+    /*     $this->nodes[1]->setChildNodeOf($this->nodes[0]); */
+    /*     $this->nodes[2]->setChildNodeOf($this->nodes[1]); */
+        
+    /*     $this->em->flush(); */
+    /* } */
 }

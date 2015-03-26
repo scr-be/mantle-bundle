@@ -356,18 +356,16 @@ class Node implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
     }
 
     /**
-     * Recursively reparents given children
-     *
-     * @param Node
-     * @param ArrayCollection
+     * Recursively reassigns children in the event
+     * a materialPath is modified
      *
      * @return void
      */
-    protected function reParentNodes(Node $parent, ArrayCollection $children)
+    protected function keepChildren()
     {
-        foreach($children as $child) {
-            $child->setChildNodeOf($parent);
-            $this->reParentNodes($child, $child->getChildNodes());
+        foreach($this->getChildNodes() as $child) {
+            $child->setChildNodeOf($this);
+            $child->keepChildren();
         } 
 
         return $this;
@@ -381,7 +379,7 @@ class Node implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
     public function setAsRoot()
     {
         $this->setMaterializedPath('/'. $this->getSlug());
-        $this->reParentNodes($this, $this->getChildNodes());
+        $this->keepChildren();
 
         return $this;
     }
