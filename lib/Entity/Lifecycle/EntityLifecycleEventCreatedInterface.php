@@ -29,7 +29,7 @@ interface EntityLifecycleEventCreatedInterface
      *
      * @param LifecycleEventArgs $eventArgs
      */
-    public function __ormPrePersistCreated(LifecycleEventArgs $eventArgs = null);
+    public function __ormPrePersistSetCreatedOn(LifecycleEventArgs $eventArgs = null);
 }
 
 /* EOF */
