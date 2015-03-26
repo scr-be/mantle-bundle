@@ -23,6 +23,14 @@ trait HasVersionAsString
     protected $version;
 
     /**
+     * Init trait
+     */
+    public function __initVersion()
+    {
+        $this->version = null;
+    }
+
+    /**
      * Setter for version property.
      *
      * @param string|null $version the version integer value

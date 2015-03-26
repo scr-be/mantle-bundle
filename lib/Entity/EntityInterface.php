@@ -21,6 +21,11 @@ interface EntityInterface
     public function __construct();
 
     /**
+     * Call all initializer methods
+     */
+    public function __callInitMethods();
+
+    /**
      * Get entity id.
      *
      * @return int|null

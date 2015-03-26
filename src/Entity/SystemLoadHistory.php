@@ -35,6 +35,9 @@ class SystemLoadHistory extends AbstractEntity
      */
     private $load15;
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return __CLASS__.'::id('.$this->id.')';

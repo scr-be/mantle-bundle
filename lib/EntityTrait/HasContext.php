@@ -23,6 +23,14 @@ trait HasContext
     protected $context;
 
     /**
+     * Init trait
+     */
+    public function __initContext()
+    {
+        $this->context = null;
+    }
+
+    /**
      * Setter for context property.
      *
      * @param string|null $context the context string

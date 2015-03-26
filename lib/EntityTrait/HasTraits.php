@@ -23,6 +23,14 @@ trait HasTraits
     protected $traits;
 
     /**
+     * Init trait
+     */
+    public function __initTraits()
+    {
+        $this->traits = [];
+    }
+
+    /**
      * Setter for traits property.
      *
      * @param array|null $traits array of traits

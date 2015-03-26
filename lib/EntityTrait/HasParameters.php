@@ -23,6 +23,14 @@ trait HasParameters
     protected $parameters;
 
     /**
+     * Init trait
+     */
+    public function initParameters()
+    {
+        $this->parameters = [];
+    }
+
+    /**
      * Setter for parameters property.
      *
      * @param array|null $parameters array of parameters for entity

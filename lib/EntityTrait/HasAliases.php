@@ -27,7 +27,7 @@ trait HasAliases
      *
      * @return $this
      */
-    public function initAliases()
+    public function __initAliases()
     {
         $this->aliases = [];
 

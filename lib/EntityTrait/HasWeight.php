@@ -21,6 +21,14 @@ trait HasWeight
     private $weight;
 
     /**
+     * Init trait
+     */
+    public function __initVersion()
+    {
+        $this->weight = null;
+    }
+
+    /**
      * Set weight.
      *
      * @param integer $weight

@@ -21,9 +21,9 @@ trait HasReverseRoleRestrictionsAsArrayOwningSide
     use HasReverseRoleRestrictionsAsArrayInverseSide;
 
     /**
-     * Init this trait.
+     * Init trait
      */
-    protected function initReverseRoleRestrictionsAsArray()
+    public function __initReverseRoleRestrictions()
     {
         $this->reverseRoleRestrictions = [];
     }

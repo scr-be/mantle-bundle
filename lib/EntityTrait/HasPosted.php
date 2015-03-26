@@ -23,6 +23,14 @@ trait HasPosted
     private $posted;
 
     /**
+     * Init trait
+     */
+    public function __initPosted()
+    {
+        $this->posted = null;
+    }
+
+    /**
      * @return Datetime
      */
     public function getPosted()

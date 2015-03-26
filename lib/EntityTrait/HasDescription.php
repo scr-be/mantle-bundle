@@ -25,7 +25,7 @@ trait HasDescription
     /**
      * Init trait
      */
-    protected function initDescription()
+    public function __initDescription()
     {
         $this->description = null;
     }

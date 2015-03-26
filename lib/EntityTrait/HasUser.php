@@ -25,6 +25,14 @@ trait HasUser
     protected $user;
 
     /**
+     * Init user
+     */
+    public function __initUser()
+    {
+        $this->user = null;
+    }
+
+    /**
      * Setter for user property.
      *
      * @param User|null $user a user entity object instance

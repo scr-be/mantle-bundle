@@ -10,6 +10,20 @@
 
 namespace Scribe\Entity;
 
+use Scribe\Entity\Castable\EntityCastableInterface;
+use Scribe\Entity\Castable\EntityCastableTrait;
+use Scribe\Entity\Debuggable\EntityDebuggableInterface;
+use Scribe\Entity\Debuggable\EntityDebuggableTrait;
+use Scribe\Entity\Equatable\EntityEquatableInterface;
+use Scribe\Entity\Equatable\EntityEquatableTrait;
+use Scribe\Entity\Lifecycle\EntityLifecycleEventCreated;
+use Scribe\Entity\Lifecycle\EntityLifecycleEventCreatedInterface;
+use Scribe\Entity\Lifecycle\EntityLifecycleEventsInterface;
+use Scribe\Entity\Lifecycle\EntityLifecycleEventsTrait;
+use Scribe\Entity\Lifecycle\EntityLifecycleEventUpdated;
+use Scribe\Entity\Lifecycle\EntityLifecycleEventUpdatedInterface;
+use Scribe\Entity\Serializable\EntitySerializableInterface;
+use Scribe\Entity\Serializable\EntitySerializableTrait;
 use Scribe\EntityTrait\HasId;
 
 /**
@@ -17,20 +31,40 @@ use Scribe\EntityTrait\HasId;
  */
 abstract class AbstractEntity implements
     EntityInterface, EntityCastableInterface, EntityDebuggableInterface, EntityEquatableInterface,
-    EntitySerializableInterface
+    EntitySerializableInterface, EntityLifecycleEventsInterface, EntityLifecycleEventCreatedInterface,
+    EntityLifecycleEventUpdatedInterface
 {
     use HasId,
         EntityCastableTrait,
         EntityDebuggableTrait,
         EntityEquatableTrait,
-        EntitySerializableTrait;
+        EntitySerializableTrait,
+        EntityLifecycleEventsTrait,
+        EntityLifecycleEventCreated,
+        EntityLifecycleEventUpdated;
 
     /**
-     * set the default value for entity id.
+     * Construct the entity by calling all init methods. Be sure to call this in your
+     * parent entity if you overwrite the constructor, otherwise your init methods
+     * in your traits will not be called.
      */
     public function __construct()
     {
-        $this->initId();
+        $this->__callInitMethods();
+    }
+
+    /**
+     * Call all initializer methods
+     */
+    final public function __callInitMethods()
+    {
+        $initMethods = array_filter(get_class_methods($this), function($method) {
+            return (bool) (substr($method, 0, 6) === '__init');
+        });
+
+        foreach ($initMethods as $method) {
+            $this->$method();
+        }
     }
 }
 

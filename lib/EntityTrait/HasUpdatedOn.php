@@ -25,6 +25,14 @@ trait HasUpdatedOn
     protected $updated_on;
 
     /**
+     * Init trait
+     */
+    public function __initUpdatedOn()
+    {
+        $this->updated_on = null;
+    }
+
+    /**
      * Setter for updated_on property.
      *
      * @param Datetime $updated_on any datetime object instance

@@ -27,7 +27,7 @@ trait HasAttrs
      *
      * @return $this
      */
-    public function initAttrs()
+    public function __initAttrs()
     {
         $this->attrs = [];
 

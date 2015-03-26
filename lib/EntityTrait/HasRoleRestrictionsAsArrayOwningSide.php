@@ -23,7 +23,7 @@ trait HasRoleRestrictionsAsArrayOwningSide
     /**
      * Init this trait.
      */
-    protected function initRoleRestrictionsAsArray()
+    public function __initRoleRestrictions()
     {
         $this->roleRestrictions = [];
     }

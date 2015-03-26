@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Entity;
+namespace Scribe\Entity\Castable;
 
 /**
  * Trait EntityCastableTrait
@@ -23,6 +23,13 @@ interface EntityCastableInterface
      * @return string
      */
     public function __toString();
+
+    /**
+     * Support for explicit casting from object type to array type
+     *
+     * @return array
+     */
+    public function __toArray();
 }
 
 /* EOF */

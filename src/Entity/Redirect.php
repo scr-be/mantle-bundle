@@ -24,6 +24,9 @@ class Redirect extends AbstractEntity
      */
     private $pathTo;
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->pathFrom.' -> '.$this->pathTo;

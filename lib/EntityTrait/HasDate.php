@@ -23,6 +23,14 @@ trait HasDate
     private $date;
 
     /**
+     * Init trait
+     */
+    public function __initDate()
+    {
+        $this->date = null;
+    }
+
+    /**
      * @return Datetime
      */
     public function getDate()

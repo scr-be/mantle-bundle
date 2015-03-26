@@ -23,6 +23,14 @@ trait HasName
     protected $name;
 
     /**
+     * Init trait
+     */
+    public function __initName()
+    {
+        $this->name = null;
+    }
+
+    /**
      * Setter for name property.
      *
      * @param string|null $name the name string

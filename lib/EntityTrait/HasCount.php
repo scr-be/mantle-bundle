@@ -23,6 +23,14 @@ trait HasCount
     protected $count;
 
     /**
+     * Init trait
+     */
+    public function __initCount()
+    {
+        $this->code = null;
+    }
+
+    /**
      * Setter for count property.
      *
      * @param int|null $count the integer number
