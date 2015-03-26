@@ -8,14 +8,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Entity;
+namespace Scribe\Entity\Serializable;
 
 /**
  * Interface EntitySerializableInterface
+ *
  * Allows an entity to be serialized.
  */
 interface EntitySerializableInterface extends \Serializable
 {
+    /*
+     * PHP's build-in \Serializable interface already defines the only
+     * interface we need.
+     */
 }
 
 /* EOF */

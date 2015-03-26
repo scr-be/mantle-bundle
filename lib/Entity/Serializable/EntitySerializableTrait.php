@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Entity;
+namespace Scribe\Entity\Serializable;
 
 use Scribe\Utility\Serializer\Serializer;
 
@@ -34,13 +34,7 @@ trait EntitySerializableTrait
      */
     public function serialize()
     {
-        $properties = get_object_vars($this);
-
-        if (!is_array($properties)) {
-            $properties = [ ];
-        }
-
-        return Serializer::sleep($properties);
+        return Serializer::sleep((array) get_object_vars($this));
     }
 
     /**

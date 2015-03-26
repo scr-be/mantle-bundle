@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Entity;
+namespace Scribe\Entity\Debuggable;
 
 /**
  * Interface EntityDebuggableInterface
