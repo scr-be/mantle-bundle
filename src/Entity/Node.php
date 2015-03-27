@@ -13,49 +13,33 @@ namespace Scribe\MantleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasCreatedOn;
+use Scribe\EntityTrait\HasUpdatedOn;
+use Scribe\EntityTrait\HasSlug;
+use Scribe\EntityTrait\HasTitle;
+use Scribe\EntityTrait\HasWeight;
 
 /**
  * Node
  * @package Scribe\MantleBundle\Entity
  */
-class Node implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
+class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
 {
-    use ORMBehaviors\Tree\Node;
-
     /**
-     * @var integer
+     * import traits
      */
-    private $id;
+    use ORMBehaviors\Tree\Node,
+        HasCreatedOn,
+        HasUpdatedOn,
+        HasSlug,
+        HasTitle,
+        HasWeight;
 
     /**
      * @var boolean
      */
     private $locked;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdOn;
-
-    /**
-     * @var \DateTime
-     */
-    private $updatedOn;
-
-    /**
-     * @var string
-     */
-    private $slug;
-
-    /**
-     * @var string
-     */
-    private $title;
-
-    /**
-     * @var integer
-     */
-    private $weight;
 
     /**
      * @var Scribe\MantleBundle\Model\AuthorInterface
@@ -87,18 +71,20 @@ class Node implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->revisions              = new ArrayCollection;
         $this->containerNodeRevisions = new ArrayCollection;
     }
 
     /**
-     * Get id
+     * Support for casting from object to string
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return $this->getTitle();        
     }
 
     /**
@@ -122,121 +108,6 @@ class Node implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
     public function getLocked()
     {
         return $this->locked;
-    }
-
-    /**
-     * Set createdOn
-     *
-     * @param \DateTime $createdOn
-     * @return Node
-     */
-    public function setCreatedOn($createdOn)
-    {
-        $this->createdOn = $createdOn;
-
-        return $this;
-    }
-
-    /**
-     * Get createdOn
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedOn()
-    {
-        return $this->createdOn;
-    }
-
-    /**
-     * Set updatedOn
-     *
-     * @param \DateTime $updatedOn
-     * @return Node
-     */
-    public function setUpdatedOn($updatedOn)
-    {
-        $this->updatedOn = $updatedOn;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedOn
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedOn()
-    {
-        return $this->updatedOn;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Node
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Node
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set weight
-     *
-     * @param integer $weight
-     * @return Node
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-
-        return $this;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return integer 
-     */
-    public function getWeight()
-    {
-        return $this->weight;
     }
 
     /**

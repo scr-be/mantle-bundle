@@ -12,22 +12,16 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasSlug;
 
 /**
  * NodeRenderEngine
  * @package Scribe\MantleBundle\Entity
  */
-class NodeRenderEngine
+class NodeRenderEngine extends AbstractEntity
 {
-    /**
-     * @var integer
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $slug;
+    use HasSlug;
 
     /**
      * @var string
@@ -44,40 +38,19 @@ class NodeRenderEngine
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->revisions = new ArrayCollection;
     }
 
     /**
-     * Get id
+     * Support for casting from object to string
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return NodeRenderEngine
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
+        return __CLASS__ . ':' . $this->getSlug();
     }
 
     /**

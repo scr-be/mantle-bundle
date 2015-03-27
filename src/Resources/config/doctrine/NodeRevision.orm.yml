@@ -9,7 +9,7 @@ Scribe\MantleBundle\Entity\NodeRevision:
             generator:
                 strategy: AUTO
     fields:
-        createdOn:
+        created_on:
             type: datetime
             column: created_on
         content:

@@ -12,22 +12,19 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasCreatedOn;
 
 /**
  * NodeRevision
  * @package Scribe\MantleBundle\Entity
  */
-class NodeRevision
+class NodeRevision extends AbstractEntity
 {
     /**
-     * @var integer
+     * import traits
      */
-    private $id;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdOn;
+    use HasCreatedOn;
 
     /**
      * @var string
@@ -74,41 +71,20 @@ class NodeRevision
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->embeddedNodes  = new ArrayCollection;
         $this->embeddedAssets = new ArrayCollection;
     }
 
     /**
-     * Get id
+     * Support for casting from object to string
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set createdOn
-     *
-     * @param \DateTime $createdOn
-     * @return NodeRevision
-     */
-    public function setCreatedOn($createdOn)
-    {
-        $this->createdOn = $createdOn;
-
-        return $this;
-    }
-
-    /**
-     * Get createdOn
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedOn()
-    {
-        return $this->createdOn;
+        return $this->getContent(); 
     }
 
     /**

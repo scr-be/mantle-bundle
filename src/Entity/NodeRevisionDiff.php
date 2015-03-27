@@ -11,18 +11,14 @@
 namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Scribe\Entity\AbstractEntity;
 
 /**
  * NodeRevisionDiff
  * @package Scribe\MantleBundle\Entity
  */
-class NodeRevisionDiff
+class NodeRevisionDiff extends AbstractEntity
 {
-    /**
-     * @var integer
-     */
-    private $id;
-
     /**
      * @var string
      */
@@ -36,16 +32,19 @@ class NodeRevisionDiff
     /**
      * perform any entity setup
      */
-    public function __construct() {}
+    public function __construct() 
+    {
+        parent::__construct();
+    }
 
     /**
-     * Get id
+     * Support for casting from object to string
      *
-     * @return integer 
+     * @return string 
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return $this->getDiff(); 
     }
 
     /**

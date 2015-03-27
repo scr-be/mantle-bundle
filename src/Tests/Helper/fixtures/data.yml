@@ -6,3 +6,27 @@ node:
         title: 'SCR Post $n'
         slug: 'auto$n'
     assocs: []
+nodeRevision:
+    table: NodeRevision
+    service: s.mantle.node_revision.repo
+    data:
+        content: '# This is a head'
+nodeContextType:
+    table: NodeContextType
+    service: s.mantle.node_context_type.repo
+    data:
+        slug: 'context $n'
+        name: 'My Context $n'
+nodeRenderEngine:
+    table: NodeRenderEngine
+    service: s.mantle.node_render_engine.repo
+    data:
+        slug: 'engine $n'
+        closure: '{ return foo }'
+nodeRevisionDiff:
+    table: NodeRevisionDiff
+    service: s.mantle.node_revision_diff.repo
+    data:
+        diff: |
+           + foo was bar
+           \- bar was foo 

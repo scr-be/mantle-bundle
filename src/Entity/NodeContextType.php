@@ -12,27 +12,21 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasSlug;
+use Scribe\EntityTrait\HasName;
 
 /**
  * NodeContextType
  * @package Scribe\MantleBundle\Entity
  */
-class NodeContextType
+class NodeContextType extends AbstractEntity
 {
     /**
-     * @var integer
+     * import traits
      */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $slug;
-
-    /**
-     * @var string
-     */
-    private $name;
+    use HasSlug,
+        HasName;
 
     /**
      * @var ArrayCollection
@@ -44,63 +38,19 @@ class NodeContextType
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->nodes = new ArrayCollection;
     }
 
     /**
-     * Get id
+     * Support for casting from object to string
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return NodeContextType
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return NodeContextType
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
+        return $this->getName(); 
     }
 
     /**
