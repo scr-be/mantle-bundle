@@ -35,7 +35,13 @@ trait EntityLifecycleEventUpdated
             return;
         }
 
-        $eventArgs->setNewValue($updatedProperty, new \Datetime);
+        $entity = $eventArgs->getEntity();
+        $entity->setUpdatedOn(new \Datetime);
+
+        $em = $eventArgs->getEntityManager();
+        $uow = $em->getUnitOfWork();
+        $meta = $em->getClassMetadata(get_class($entity));
+        $uow->recomputeSingleEntityChangeSet($meta, $entity);
     }
 }
 
