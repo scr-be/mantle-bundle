@@ -11,8 +11,8 @@
 namespace Scribe\Entity\Lifecycle;
 
 use Doctrine\Common\EventArgs;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Trait EntityLifecycleEventsTrait
@@ -109,7 +109,8 @@ trait EntityLifecycleEventsTrait
                     return false;
                 }
 
-                return (bool) (substr($method, 0, strlen($lifecycleMethodSearch)) === $lifecycleMethodSearch);
+                return (bool) (substr($method, 0, strlen($lifecycleMethodSearch)) === $lifecycleMethodSearch  
+                                    && substr($method, -6, 6) !== 'Caller');
             }
         );
 

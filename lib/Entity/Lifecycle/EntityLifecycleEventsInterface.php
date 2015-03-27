@@ -11,8 +11,8 @@
 namespace Scribe\Entity\Lifecycle;
 
 use Doctrine\Common\EventArgs;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 /**
  * Trait EntityLifecycleEventsTrait

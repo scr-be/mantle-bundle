@@ -10,7 +10,7 @@
 
 namespace Scribe\Entity\Lifecycle;
 
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 /**
  * EntityLifecycleEventUpdated
