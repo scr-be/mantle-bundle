@@ -12,18 +12,14 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\Entity\AbstractEntity;
 
 /**
  * AssetDescriptor
  * @package Scribe\MantleBundle\Entity
  */
-class AssetDescriptor
+class AssetDescriptor extends AbstractEntity
 {
-    /**
-     * @var integer
-     */
-    private $id;
-
     /**
      * @var string
      */
@@ -54,17 +50,19 @@ class AssetDescriptor
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->assets = new ArrayCollection;
     }
 
     /**
-     * Get id
+     * Support for casting from object to string
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return __CLASS__ . ':' . $this->getId();
     }
 
     /**

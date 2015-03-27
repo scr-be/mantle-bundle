@@ -30,3 +30,20 @@ nodeRevisionDiff:
         diff: |
            + foo was bar
            \- bar was foo 
+asset:
+    table: Asset 
+    service: s.mantle.asset.repo
+    data:
+        path: '/foo/bar/yo.jpeg'
+        altText: 'a picture of yo'
+assetDescriptor:
+    table: AssetDescriptor 
+    service: s.mantle.asset_descriptor.repo
+    data:
+        markup: '<foo/>'
+assetType:
+    table: AssetType 
+    service: s.mantle.asset_type.repo
+    data:
+        element: 'img'
+        attributes: "['height', 'width', alt']"

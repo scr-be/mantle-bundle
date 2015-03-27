@@ -12,27 +12,24 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\Entity\AbstractEntity;
+use Scribe\EntityTrait\HasAttributes;
 
 /**
  * AssetType
  * @package Scribe\MantleBundle\Entity
  */
-class AssetType
+class AssetType extends AbstractEntity
 {
     /**
-     * @var integer
+     * import traits
      */
-    private $id;
+    use HasAttributes;
 
     /**
      * @var string
      */
     private $element;
-
-    /**
-     * @var array
-     */
-    private $attributes;
 
     /**
      * @var ArrayCollection 
@@ -44,17 +41,19 @@ class AssetType
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->assets = new ArrayCollection;
     }
 
     /**
-     * Get id
+     * Support for casting from object to string
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return __CLASS__ . ':' . $this->getId();
     }
 
     /**
@@ -78,29 +77,6 @@ class AssetType
     public function getElement()
     {
         return $this->element;
-    }
-
-    /**
-     * Set attributes
-     *
-     * @param array $attributes
-     * @return AssetType
-     */
-    public function setAttributes($attributes)
-    {
-        $this->attributes = $attributes;
-
-        return $this;
-    }
-
-    /**
-     * Get attributes
-     *
-     * @return array 
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
     }
 
     /**

@@ -25,6 +25,12 @@ parameters:
     s.mantle.node_context_type.repo.class:          Scribe\MantleBundle\EntityRepository\NodeContextTypeRepository
     s.mantle.node_render_engine.entity.class:       Scribe\MantleBundle\Entity\NodeRenderEngine
     s.mantle.node_render_engine.repo.class:         Scribe\MantleBundle\EntityRepository\NodeRenderEngineRepository
+    s.mantle.asset.entity.class:                    Scribe\MantleBundle\Entity\Asset
+    s.mantle.asset.repo.class:                      Scribe\MantleBundle\EntityRepository\AssetRepository
+    s.mantle.asset_descriptor.entity.class:         Scribe\MantleBundle\Entity\AssetDescriptor
+    s.mantle.asset_descriptor.repo.class:           Scribe\MantleBundle\EntityRepository\AssetDescriptorRepository
+    s.mantle.asset_type.entity.class:               Scribe\MantleBundle\Entity\AssetType
+    s.mantle.asset_type.repo.class:                 Scribe\MantleBundle\EntityRepository\AssetTypeRepository
     s.mantle.cachedfilesystementrysize.repo.class:  Scribe\MantleBundle\EntityRepository\CachedFilesystemEntrySizeRepository
     s.mantle.icon_creator.class:                    Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
     s.mantle.icon_creator_cached.class:             Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
@@ -157,6 +163,27 @@ services:
         factory_method:  getRepository
         arguments:
             - %s.mantle.node_render_engine.entity.class%
+
+    s.mantle.asset.repo:
+        class:           %s.mantle.asset.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - %s.mantle.asset.entity.class%
+
+    s.mantle.asset_descriptor.repo:
+        class:           %s.mantle.asset_descriptor.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - %s.mantle.asset_descriptor.entity.class%
+
+    s.mantle.asset_type.repo:
+        class:           %s.mantle.asset_type.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - %s.mantle.asset_type.entity.class%
 
     s.mantle.cachedfilesystementrysize.repo:
         class:           %s.mantle.cachedfilesystementrysize.repo.class%
