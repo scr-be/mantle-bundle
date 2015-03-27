@@ -29,7 +29,7 @@ interface EntityLifecycleEventUpdatedInterface
      *
      * @param PreUpdateEventArgs $eventArgs
      */
-    public function __ormPreUpdateUpdated(PreUpdateEventArgs $eventArgs = null);
+    public function __ormPreUpdateSetUpdatedOn(PreUpdateEventArgs $eventArgs = null);
 }
 
 /* EOF */

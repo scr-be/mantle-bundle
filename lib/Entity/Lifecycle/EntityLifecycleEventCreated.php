@@ -24,7 +24,7 @@ trait EntityLifecycleEventCreated
      *
      * @param LifecycleEventArgs $eventArgs
      */
-    public function __ormPrePersistCreated(LifecycleEventArgs $eventArgs = null)
+    public function __ormPrePersistSetCreatedOn(LifecycleEventArgs $eventArgs = null)
     {
         $createdProperty = EntityLifecycleEventCreatedInterface::ORM_LIFECYCLE_PROPERTY_CREATED;
 

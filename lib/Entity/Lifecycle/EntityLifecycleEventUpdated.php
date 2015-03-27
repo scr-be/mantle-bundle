@@ -24,7 +24,7 @@ trait EntityLifecycleEventUpdated
      *
      * @param PreUpdateEventArgs $eventArgs
      */
-    public function __ormPreUpdateUpdated(PreUpdateEventArgs $eventArgs = null)
+    public function __ormPreUpdateSetUpdatedOn(PreUpdateEventArgs $eventArgs = null)
     {
         $updatedProperty = EntityLifecycleEventUpdatedInterface::ORM_LIFECYCLE_PROPERTY_UPDATED;
 
