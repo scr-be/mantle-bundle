@@ -11,24 +11,18 @@
 namespace Scribe\MantleBundle\Tests\Templating\Extension;
 
 use Scribe\MantleBundle\Templating\Extension\IconCreatorExtension;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Scribe\Tests\Helper\MantleFrameworkHelper;
 use Twig_Environment;
-use PHPUnit_Framework_TestCase;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 
 /**
  * Class IconCreatorExtensionTest.
  */
-class IconCreatorExtensionTest extends PHPUnit_Framework_TestCase
+class IconCreatorExtensionTest extends MantleFrameworkHelper
 {
     use IconCreatorMocksTrait,
         IconCreatorHelperTrait;
-
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
 
     /**
      * @var IconCreatorExtension
@@ -47,21 +41,17 @@ class IconCreatorExtensionTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->bootKernelAndGetContainer();
-        $this->twig = $this->container->get('twig');
+        parent::setUp();
+
+        $this->twig = $this
+            ->container
+            ->get('twig')
+        ;
 
         $this->mockIconEntities();
         $this->getNewHandlerChainWithAllHandlerTypes();
         $this->ext       = new IconCreatorExtension($this->getNewIconCreatorNoEngine());
         $this->extCached = new IconCreatorExtension($this->getNewIconCreatorNoEngine(true));
-    }
-
-    public function bootKernelAndGetContainer()
-    {
-        $kernel = new \AppKernel('test', true);
-        $kernel->boot();
-
-        $this->container = $kernel->getContainer();
     }
 
     public function testCanRender()
@@ -96,9 +86,10 @@ class IconCreatorExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expected, $html2);
     }
 
-    protected function tearDown()
+    public function tearDown()
     {
         $this->clearFilesystemCache();
-        $this->clearKernelCache();
+
+        parent::tearDown();
     }
 }

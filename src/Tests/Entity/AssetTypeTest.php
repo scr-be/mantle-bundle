@@ -11,14 +11,13 @@
 namespace Scribe\MantleBundle\Tests\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Scribe\MantleBundle\Tests\Helper\DefaultEntityTestHelper;
 use Scribe\MantleBundle\Entity\AssetType;
+use Scribe\Tests\Helper\MantleFrameworkEntityPhactoryHelper;
 
 /**
  * Class AssetTypeTest 
  */
-class AssetTypeTest extends DefaultEntityTestHelper 
+class AssetTypeTest extends MantleFrameworkEntityPhactoryHelper
 {
     /**
      * @var AssetType 

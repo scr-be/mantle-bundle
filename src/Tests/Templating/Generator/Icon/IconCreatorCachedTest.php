@@ -10,33 +10,24 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
-use PHPUnit_Framework_TestCase;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached;
+use Scribe\Tests\Helper\MantleFrameworkHelper;
 
 /**
- * Class IconCreatorCacheddTest.
+ * Class IconCreatorCachedTest.
  */
-class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
+class IconCreatorCachedTest extends MantleFrameworkHelper
 {
     use IconCreatorMocksTrait;
     use IconCreatorHelperTrait;
 
-    private $container;
-
     public function setUp()
     {
+        parent::setUp();
+
         $this->mockIconEntities();
         $this->getNewHandlerChainWithAllHandlerTypes();
-    }
-
-    public function setupContainer()
-    {
-        $kernel = new \AppKernel('test', true);
-        $kernel->boot();
-
-        $this->container = $kernel->getContainer();
     }
 
     public function testCanRender()
@@ -216,16 +207,16 @@ class IconCreatorCachedTest extends PHPUnit_Framework_TestCase
 
     public function testCanGetCacheGeneratorAsService()
     {
-        $this->setupContainer();
         $formatter = $this->container->get('s.mantle.icon_creator');
 
         $this->assertInstanceOf('Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached', $formatter);
     }
 
-    protected function tearDown()
+    public function tearDown()
     {
         $this->clearFilesystemCache();
-        $this->clearKernelCache();
+
+        parent::tearDown();
     }
 }
 

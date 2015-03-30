@@ -1,39 +1,26 @@
 <?php
 /*
- * This file is part of the Scribe World Application.
+ * This file is part of the Scribe Mantle Bundle.
  *
- * (c) Scribe Inc. <scribe@scribenet.com>
+ * (c) Scribe Inc. <source@scribe.software>
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Tests\Helper;
+namespace Scribe\Tests\Helper;
 
 use PDO;
 use PDOException;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\ORM\EntityManager;
 use Phactory\Sql\Phactory;
 
 /**
- * Class DefaultControllerTest
+ * Class MantleFrameworkEntityPhactoryHelper
  */
-class DefaultEntityTestHelper extends KernelTestCase
+class MantleFrameworkEntityPhactoryHelper extends MantleFrameworkEntityHelper
 {
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $em;
-
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    protected $container;
-
     /**
      * @var \PDO
      */
@@ -46,7 +33,7 @@ class DefaultEntityTestHelper extends KernelTestCase
 
     /**
      * YAML configuration data for test fixtures
-     * @var YAML
+     * @var Parser
      */
     protected $config;
 
@@ -54,7 +41,7 @@ class DefaultEntityTestHelper extends KernelTestCase
      * array for storing all Phactory objects as they are generated
      * @var Array
      */
-    private $sampleData;
+    private $sampleData = [];
 
     /**
      * handle constructing the object instance
@@ -64,58 +51,11 @@ class DefaultEntityTestHelper extends KernelTestCase
         parent::__construct();
 
         $this
-            ->setupKernel()
-            ->setupContainer()
-            ->setupEM()
             ->setupPDO()
             ->setupPhactory()
             ->setupFixtureData()
             ->setupFactoryDefaults()
         ;
-
-        $this->sampleData = array();
-    }
-
-    /**
-     * @return $this
-     */
-    private function setupKernel()
-    {
-        self::bootKernel();
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    private function setupContainer()
-    {
-        $this->container = static::$kernel->getContainer();
-
-        if (false === ($this->container instanceof ContainerInterface)) {
-            throw new \RuntimeException('Unable to obtain a valid Symfony Container instance.');
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    private function setupEM()
-    {
-        $this->em = $this
-            ->container
-            ->get('doctrine')
-            ->getManager()
-        ;
-
-        if (false === ($this->em instanceof EntityManager)) {
-            throw new \RuntimeException('Unable to obtain a valid Doctrine EntityManager instance.');
-        }
-
-        return $this;
     }
 
     /**
@@ -158,7 +98,7 @@ class DefaultEntityTestHelper extends KernelTestCase
      */
     private function setupFixtureData()
     {
-        $yamlPath = dirname(dirname(__FILE__)) . '/Helper/fixtures/data.yml';
+        $yamlPath = $this->container->getParameter('kernel.root_dir').'/../fixtures/data.yml';
         $yaml     = new Parser;
 
         try {
@@ -180,7 +120,7 @@ class DefaultEntityTestHelper extends KernelTestCase
             $this->factory->setInflection($type, $info['table']);
 
             if(array_key_exists('assocs', $info)) {
-                $tableAssocs = array();
+                $tableAssocs = [];
 
                 foreach($info['assocs'] as $name => $field) {
                     $tableAssocs[$name] = $this->factory->manyToOne($name, $field);
@@ -202,7 +142,7 @@ class DefaultEntityTestHelper extends KernelTestCase
             array_push($this->sampleData[$type], $row);
         }
         else {
-            $this->sampleData[$type] = array($row);
+            $this->sampleData[$type] = [$row];
         }
     }
 
@@ -216,7 +156,7 @@ class DefaultEntityTestHelper extends KernelTestCase
 
     public function createRowWithAssociationsCountTimes($table, $count = 1, $existing = false)
     {
-        $assocs = array();
+        $assocs = [];
         foreach ($this->config[$table]['assocs'] as $assoc => $field){
             if($existing && array_key_exists($assoc, $this->sampleData)) {
                 $assocs[$assoc] = $this->sampleData[$assoc][0];
@@ -280,10 +220,10 @@ class DefaultEntityTestHelper extends KernelTestCase
                 ->container
                 ->get($this->config[$type]['service'])
                 ->findAll()
-            ;
+                ;
         }
         else {
-          throw new \Exception("{$method} is not an available method in " . get_class($this));
+            throw new \Exception("{$method} is not an available method in " . get_class($this));
         }
     }
 
@@ -311,11 +251,11 @@ class DefaultEntityTestHelper extends KernelTestCase
     // checks that a given entity can set its updated_on and modified_on properties
     public function assertCanGetSetTimes($entity)
     {
-       $time = new \Datetime;
-       $entity->setCreatedOn($time);
-       $this->assertEquals($entity->getCreatedOn(), $time);
-       $entity->setUpdatedOn($time);
-       $this->assertEquals($entity->getUpdatedOn(), $time);
+        $time = new \Datetime;
+        $entity->setCreatedOn($time);
+        $this->assertEquals($entity->getCreatedOn(), $time);
+        $entity->setUpdatedOn($time);
+        $this->assertEquals($entity->getUpdatedOn(), $time);
     }
 
     /**
@@ -323,18 +263,13 @@ class DefaultEntityTestHelper extends KernelTestCase
      */
     public function tearDown()
     {
-        parent::tearDown();
-
         $this
             ->factory
             ->recall()
         ;
 
-        $this
-            ->em
-            ->close()
-        ;
-
         $this->pdo = NULL;
+
+        parent::tearDown();
     }
 }

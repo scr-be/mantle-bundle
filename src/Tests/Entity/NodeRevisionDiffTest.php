@@ -10,15 +10,12 @@
 
 namespace Scribe\MantleBundle\Tests\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Scribe\MantleBundle\Tests\Helper\DefaultEntityTestHelper;
-use Scribe\MantleBundle\Entity\NodeRevisionDiff;
+use Scribe\Tests\Helper\MantleFrameworkEntityPhactoryHelper;
 
 /**
  * Class NodeRevisionDiffTest 
  */
-class NodeRevisionDiffTest extends DefaultEntityTestHelper 
+class NodeRevisionDiffTest extends MantleFrameworkEntityPhactoryHelper
 {
     /**
      * @var string

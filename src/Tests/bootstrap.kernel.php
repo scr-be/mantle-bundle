@@ -20,7 +20,7 @@ if (false === ($loader = includeIfExists(__DIR__.'/../../vendor/autoload.php')))
     );
 }
 
-if (false === includeIfExists(__DIR__.'/Fixtures/app/AppKernel.php')) {
+if (false === includeIfExists(__DIR__.'/Helper/app/AppKernel.php')) {
     logicException(
         'Your testing AppKernel.php could not be found! This must be implemented prior '.PHP_EOL.
         'to the tests running properly.'

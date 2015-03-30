@@ -3,7 +3,7 @@
 /build/
 /docs/_build/
 /.idea/
-src/Tests/Fixtures/app/cache/
+src/Tests/Helper/app/cache/
 atlassian-ide-plugin.xml
 *.DS_Store*
 *.rb

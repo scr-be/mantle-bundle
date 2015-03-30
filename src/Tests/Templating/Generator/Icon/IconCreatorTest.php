@@ -11,15 +11,15 @@
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use PHPUnit_Framework_TestCase;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
+use Scribe\Tests\Helper\MantleFrameworkHelper;
 
 /**
  * Class IconCreatorTest.
  */
-class IconCreatorTest extends PHPUnit_Framework_TestCase
+class IconCreatorTest extends MantleFrameworkHelper
 {
     use IconCreatorMocksTrait,
         IconCreatorHelperTrait;
@@ -32,6 +32,8 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->mockIconEntities();
     }
 
