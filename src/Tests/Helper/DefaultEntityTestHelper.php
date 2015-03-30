@@ -326,13 +326,13 @@ class DefaultEntityTestHelper extends KernelTestCase
         parent::tearDown();
 
         $this
-            ->em
-            ->close()
+            ->factory
+            ->recall()
         ;
 
         $this
-            ->factory
-            ->recall()
+            ->em
+            ->close()
         ;
 
         $this->pdo = NULL;

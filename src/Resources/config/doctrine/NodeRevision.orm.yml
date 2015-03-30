@@ -22,12 +22,6 @@ Scribe\MantleBundle\Entity\NodeRevision:
             targetEntity: Scribe\MantleBundle\Entity\Node
             mappedBy: latestRevision
     manyToOne:
-        author:
-            targetEntity: Scribe\MantleBundle\Model\AuthorInterface 
-            inversedBy: nodeRevisions
-            joinColumn:
-                name: authorId
-                referenceColumn: id
         node:
             targetEntity: Scribe\MantleBundle\Entity\Node
             inversedBy: revisions

@@ -33,12 +33,6 @@ Scribe\MantleBundle\Entity\Node:
             type: string
             nullable: true
     manyToOne:
-        author:
-            targetEntity: Scribe\MantleBundle\Model\AuthorInterface 
-            inversedBy: nodes 
-            joinColumn:
-                name: authorId
-                referenceColumn: id
         context:
             targetEntity: Scribe\MantleBundle\Entity\NodeContextType 
             inversedBy: nodes 

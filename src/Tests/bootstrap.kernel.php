@@ -8,17 +8,12 @@
  * file that was distributed with this source code.
  */
 
-function includeIfExists($file)
-{
-    if (file_exists($file)) {
-        return include $file;
-    }
+require_once __DIR__.'/bootstrap.functions.php';
 
-    return false;
-}
+removeDirectory(__DIR__.'/Fixtures/app/cache/');
 
 if (false === ($loader = includeIfExists(__DIR__.'/../../vendor/autoload.php'))) {
-    throw new \LogicException(
+    logicException(
         'You must set up the project dependencies, run the following commands:'.PHP_EOL.
         'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
         'php composer.phar install'.PHP_EOL
@@ -26,9 +21,9 @@ if (false === ($loader = includeIfExists(__DIR__.'/../../vendor/autoload.php')))
 }
 
 if (false === includeIfExists(__DIR__.'/Fixtures/app/AppKernel.php')) {
-    throw new \LogicException(
-        'Your testing AppKernel.php could not be found! This must be implemented prior '.
-        'To the tests running properly.'
+    logicException(
+        'Your testing AppKernel.php could not be found! This must be implemented prior '.PHP_EOL.
+        'to the tests running properly.'
     );
 }
 

@@ -13,118 +13,94 @@ namespace Scribe\Tests\Utility\Caller;
 use PHPUnit_Framework_TestCase;
 use Scribe\Utility\Caller\Call;
 use Scribe\Exception\BadFunctionCallException;
-use Scribe\Exception\RuntimeException;
 
 class CallTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage Cannot instantiate static class Scribe\Utility\Caller\Call.
-     */
-    public function shouldThrowExceptionOnInstantiation()
+    public function testShouldThrowExceptionOnInstantiation()
     {
+        $this->setExpectedException(
+            'Scribe\Exception\RuntimeException',
+            'Cannot instantiate static class Scribe\Utility\Caller\Call.'
+        );
+
         new Call();
     }
 
-    /**
-     * @test
-     * @expectedException BadFunctionCallException
-     */
-    public function shouldThrowExceptionOnInvalidFunctionCall()
+    public function testShouldThrowExceptionOnInvalidFunctionCall()
     {
+        $this->setExpectedException(
+            'Scribe\Exception\BadFunctionCallException'
+        );
+
         Call::func('this_function_does_not_exist');
     }
 
-    /**
-     * @test
-     * @expectedException        PHPUnit_Framework_Error
-     * @expectedExceptionMessage strtolower() expects parameter 1 to be string, array given
-     */
-    public function shouldResultInPhpErrorOnInvalidFunctionArgument()
+    public function testShouldResultInPhpErrorOnInvalidFunctionArgument()
     {
+        $this->setExpectedException(
+            'Symfony\Component\Debug\Exception\ContextErrorException',
+            'Warning: strtolower() expects parameter 1 to be string, array given'
+        );
+
         $result = Call::func('strtolower', ['an', 'array']);
         $this->assertFalse($result);
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnResultOnFunctionCall()
+    public function testShouldReturnResultOnFunctionCall()
     {
         $phpVersion = Call::func('phpversion');
         $this->assertEquals($phpVersion, phpVersion());
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnResultOnFunctionCallWithSingleStringArgument()
+    public function testShouldReturnResultOnFunctionCallWithSingleStringArgument()
     {
         $string = Call::func('strtolower', 'STRING');
         $this->assertEquals($string, 'string');
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnResultOnFunctionCallWithSingleArrayArgument()
+    public function testShouldReturnResultOnFunctionCallWithSingleArrayArgument()
     {
         $array = Call::func('array_keys', ['one', 'two', 'three']);
         $this->assertEquals($array, [0, 1, 2]);
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnResultOnFunctionCallWithMultipleStringArguments()
+    public function testShouldReturnResultOnFunctionCallWithMultipleStringArguments()
     {
         $array = Call::func('explode', ',', 'one,two,three');
         $this->assertEquals($array, ['one', 'two', 'three']);
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnResultOnFunctionCallWithMultipleMixedArguments()
+    public function testShouldReturnResultOnFunctionCallWithMultipleMixedArguments()
     {
         $string = Call::func('implode', ',', ['one', 'two', 'three']);
         $this->assertEquals($string, 'one,two,three');
     }
 
-    /**
-     * @test
-     * @expectedException BadFunctionCallException
-     */
-    public function shouldThrowExceptionOnInvalidMethodCall()
+    public function testShouldThrowExceptionOnInvalidMethodCall()
     {
+        $this->setExpectedException(
+            'Scribe\Exception\BadFunctionCallException'
+        );
         $exception = new \Exception();
         Call::method($exception, 'method_does_not_exist');
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnResultOnMethodCall()
+    public function testShouldReturnResultOnMethodCall()
     {
         $exception = new \Exception('This is an exception');
         $result    = Call::method($exception, 'getMessage');
         $this->assertEquals($result, 'This is an exception');
     }
 
-    /**
-     * @test
-     * @expectedException BadFunctionCallException
-     */
-    public function shouldThrowExceptionOnInvalidStaticMethodCall()
+    public function testShouldThrowExceptionOnInvalidStaticMethodCall()
     {
+        $this->setExpectedException(
+            'Scribe\Exception\BadFunctionCallException'
+        );
         Call::staticMethod('\Datetime', 'static_method_does_not_exist');
     }
 
-    /**
-     * @test
-     */
-    public function shouldReturnResultOnStaticMethodCall()
+    public function testShouldReturnResultOnStaticMethodCall()
     {
         $time   = time();
         $result = Call::staticMethod('\Datetime', 'createFromFormat', 'Y', $time);

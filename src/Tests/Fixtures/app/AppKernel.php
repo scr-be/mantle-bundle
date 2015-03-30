@@ -8,13 +8,10 @@
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
-
 /**
  * Class AppKernel.
  */
-class AppKernel extends Kernel
+class AppKernel extends \Symfony\Component\HttpKernel\Kernel
 {
     /**
      * Return array of bundles requires for tests.
@@ -24,6 +21,7 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return [
+            new \Symfony\Bundle\MonologBundle\MonologBundle(),
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -37,11 +35,13 @@ class AppKernel extends Kernel
     /**
      * Load the required config file based on the environment.
      *
-     * @param LoaderInterface $loader
+     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
      */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(
+            __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
+        );
     }
 }
 

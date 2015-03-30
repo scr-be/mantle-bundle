@@ -17,10 +17,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @package Scribe\MantleBundle\Model
  */
-interface AuthorInterface
+interface AuthorEntityInterface
 {
     public function getNodeRevisions();
     public function setNodeRevisions(ArrayCollection $nodeRevisions);
     public function getNodes();
     public function setNodes(ArrayCollection $nodes);
 }
+
+/* EOF */

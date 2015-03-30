@@ -494,7 +494,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException             PHPUnit_Framework_Error
+     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
      * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
      */
     public function testAttributesTypeHintOnSetter_Family()
@@ -506,7 +506,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException             PHPUnit_Framework_Error
+     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
      * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
      */
     public function testAttributesTypeHintOnSetter_Icon()
@@ -518,7 +518,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException             PHPUnit_Framework_Error
+     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
      * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
      */
     public function testAttributesTypeHintOnSetter_Template()
@@ -530,7 +530,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException             PHPUnit_Framework_Error
+     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
      * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
      */
     public function testAttributesTypeHintOnSetter_IconFamilyRepo()
@@ -542,7 +542,7 @@ class IconCreatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException             PHPUnit_Framework_Error
+     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
      * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
      */
     public function testAttributesTypeHintOnSetter_Engine()

@@ -28,7 +28,7 @@ class MathTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException              PHPUnit_Framework_Error
+     * @expectedException              Symfony\Component\Debug\Exception\ContextErrorException
      * @expectedExceptionMessageRegExp /Missing argument 1 for Scribe\\Utility\\Math::toBase\(\)/
      */
     public function shouldAcceptNoLessThanThreeArguments()

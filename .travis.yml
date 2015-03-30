@@ -14,6 +14,8 @@ before_script:
   - mkdir -p bin
   - travis_retry curl -s http://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
   - travis_retry php bin/composer install --no-interaction
+  - bin/mantle doctrine:database:create
+  - bin/mantle doctrine:schema:create
 
 script:
   - bin/phpunit --verbose -c phpunit.travis.xml
