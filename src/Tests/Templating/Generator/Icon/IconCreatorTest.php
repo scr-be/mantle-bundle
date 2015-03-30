@@ -14,12 +14,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
-use Scribe\Tests\Helper\MantleFrameworkHelper;
+use Scribe\Tests\Helper\MantleFrameworkKernelHelper;
 
 /**
  * Class IconCreatorTest.
  */
-class IconCreatorTest extends MantleFrameworkHelper
+class IconCreatorTest extends MantleFrameworkKernelHelper
 {
     use IconCreatorMocksTrait,
         IconCreatorHelperTrait;

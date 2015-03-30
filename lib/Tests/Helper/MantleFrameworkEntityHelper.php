@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManager;
 /**
  * Class MantleFrameworkEntityHelper
  */
-class MantleFrameworkEntityHelper extends MantleFrameworkHelper
+class MantleFrameworkEntityHelper extends MantleFrameworkKernelHelper
 {
     /**
      * @var EntityManager
