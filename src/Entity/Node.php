@@ -19,6 +19,7 @@ use Scribe\EntityTrait\HasUpdatedOn;
 use Scribe\EntityTrait\HasSlug;
 use Scribe\EntityTrait\HasTitle;
 use Scribe\EntityTrait\HasWeight;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Node
@@ -232,15 +233,15 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
      *
      * @return void
      */
-    protected function keepChildren()
-    {
-        foreach($this->getChildNodes() as $child) {
-            $child->setChildNodeOf($this);
-            $child->keepChildren();
-        } 
+    /* protected function keepChildren() */
+    /* { */
+    /*     foreach($this->getChildNodes() as $child) { */
+    /*         $child->setChildNodeOf($this); */
+    /*         $child->keepChildren(); */
+    /*     } */ 
 
-        return $this;
-    }
+    /*     return $this; */
+    /* } */
 
     /**
      * Sets node to a root 
@@ -250,8 +251,46 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     public function setAsRoot()
     {
         $this->setMaterializedPath('/'. $this->getSlug());
-        $this->keepChildren();
 
         return $this;
+    }
+
+    public function __ormPreUpdateResetChildren(LifecycleEventArgs $eventArgs)
+    {
+        /* $oldPath = $eventArgs->getOldValue('materializedPath'); */
+        /* if($oldPath !== null) { */
+        /*     $node = $eventArgs->getEntity(); */
+        /*     $newPath = $eventArgs->getNewValue('materializedPath'); */
+
+        /*     foreach($node->getChildNodes() as $child) { */
+        /*         $oldChildPath = $child->getMaterializedPath(); */
+        /*         $newChildPath = str_replace($oldPath, $newPath, $oldChildPath); */
+
+        /*         $child->setMaterializedPath($newChildPath); */
+        /*         /1* $eventArgs->getEntityManager()->flush(); *1/ */
+        /*     } */
+
+        /* } */
+        /* $path = $eventArgs->getOldValue('materializedPath'); */
+        /* if ($path !== null) { */
+        /*     $repo = $eventArgs */
+        /*         ->getEntityManager() */
+        /*         ->getRepository(__CLASS__) */ 
+        /*     ; */
+        /*     $tree = $repo->getTree($path); */ 
+        /*     var_dump($tree); */ 
+            /* foreach($tree as $child) { */
+                /* var_dump($child); */ 
+                /* $child->setChildNodeOf($node); */
+            /* } */
+            /* $node = $eventArgs->getEntity(); */
+
+            /* var_dump('-----'); */ 
+            /* var_dump($node->getSlug()); */ 
+            /* foreach($node->getChildNodes() as $child) { */
+            /*     var_dump($child->getSlug()); */ 
+            /*     $child->setChildNodeOf($node); */
+            /* } */
+        /* } */
     }
 }

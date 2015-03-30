@@ -150,6 +150,7 @@ class NodeTest extends MantleFrameworkEntityPhactoryHelper
         $this->firstNode->setAsRoot(); 
         $branch->setChildNodeOf($this->firstNode);
         $leaf->setChildNodeOf($branch);
+        $this->em->flush();
 
         $branch->setAsRoot(); 
         $this->em->flush();
@@ -159,6 +160,8 @@ class NodeTest extends MantleFrameworkEntityPhactoryHelper
         $tree = $this->repo->getTree($path);
 
         $this->assertSame($branch, $tree);
+        /* $children = $tree->getChildNodes(); */
+        /* $this->assertSame($leaf, $children[0]); */
     }
 
     /* public function testCanDeleteWholeBranch() */

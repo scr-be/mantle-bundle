@@ -14,7 +14,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-    env: SYMFONY_VERSION="2.7.*@dev"
+    - env: SYMFONY_VERSION="2.7.*@dev"
 
 notifications:
   slack:
@@ -33,7 +33,7 @@ before_install:
 install:
   - travis_retry composer self-update
   - travis_retry composer clear-cache
-  - travis_retry composer require symfony/symfony:${SYMFONY_VERSION} --no-interaction
+  - if [ "${SYMFONY_VERSION}" == "2.6.*" ]; then travis_retry composer install --no-interaction; else travis_retry composer require symfony/symfony:${SYMFONY_VERSION} --no-interaction; fi
 
 before_script:
   - bin/mantle doctrine:database:create --no-interaction

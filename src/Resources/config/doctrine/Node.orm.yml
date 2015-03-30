@@ -54,4 +54,13 @@ Scribe\MantleBundle\Entity\Node:
         containerNodeRevisions:
             targetEntity: Scribe\MantleBundle\Entity\NodeRevision
             mappedBy: embeddedNodes
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks: 
+
+        preUpdate:   [ __ormPreUpdateCaller   ]
+        postUpdate:  [ __ormPostUpdateCaller  ]
+        prePersist:  [ __ormPrePersistCaller  ]
+        postPersist: [ __ormPostPersistCaller ]
+        preRemove:   [ __ormPreRemoveCaller   ]
+        postRemove:  [ __ormPostRemoveCaller  ]
+        postLoad:    [ __ormPostLoadCaller    ]
+
