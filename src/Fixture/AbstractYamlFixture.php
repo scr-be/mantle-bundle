@@ -337,7 +337,7 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
         } else {
             $fixtureRoot = $fixture[$name];
         }
-        var_dump($fixtureRoot);
+
         if (!isset($fixtureRoot['orm'])) {
             throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'orm', $yamlPath));
         } elseif (null !== $fixtureRoot['data'] && !isset($fixtureRoot['data'])) {

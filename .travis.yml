@@ -36,9 +36,9 @@ install:
   - travis_retry composer require symfony/symfony:${SYMFONY_VERSION} --no-interaction
 
 before_script:
-  - bin/mantle doctrine:database:create
-  - bin/mantle doctrine:schema:create
-  - bin/mantle doctrine:fixtures:load
+  - bin/mantle doctrine:database:create --no-interaction
+  - bin/mantle doctrine:schema:create --no-interaction
+  - bin/mantle doctrine:fixtures:load --no-interaction
 
 script:
   - bin/phpunit --verbose --configuration phpunit.travis.xml
