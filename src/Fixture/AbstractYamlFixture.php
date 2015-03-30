@@ -337,10 +337,10 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
         } else {
             $fixtureRoot = $fixture[$name];
         }
-
+        var_dump($fixtureRoot);
         if (!isset($fixtureRoot['orm'])) {
             throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'orm', $yamlPath));
-        } elseif (!isset($fixtureRoot['data'])) {
+        } elseif (null !== $fixtureRoot['data'] && !isset($fixtureRoot['data'])) {
             throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'data', $yamlPath));
         } elseif (!array_key_exists('dependencies', $fixtureRoot)) {
             throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'dependencies', $yamlPath));
@@ -378,6 +378,10 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
      */
     public function load(ObjectManager $manager)
     {
+        if (true !== is_array($this->data)) {
+            return;
+        }
+
         foreach ($this->data as $i => $f) {
             $entity = $this->getNewFixtureEntity();
             $entity = $this->setNewFixtureDataForEntity($entity, $f);

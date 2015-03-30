@@ -1,0 +1,3 @@
+[submodule "knowledge"]
+	path = knowledge
+	url = https://code.scribe.software/scm/wldgl/world-configuration-public.git
