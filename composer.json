@@ -1,14 +1,39 @@
 {
     "name"        : "scribe/mantle-bundle",
-    "description" : "The Scribe Mantle Bundle is a dependency used by Scribe Inc for our internal web applications as well as our client web projects. It provides the foundation, or 'mantle' for our work with Symfony.",
-    "keywords"    : ["mantle", "foundation", "bundle", "scribe", "symfony", "framework"],
-    "type"        : "project",
-    "homepage"    : "https://symfony-mantle-bundle.docs.scribe.tools/",
     "license"     : "MIT",
+    "type"        : "project",
+    "homepage"    : "https://symfony-mantle-bundle.docs.scribe.tools/git",
+    "description" : "Scribe Mantle Bundle provides the core dependencies and specific functionality need for the \ndevvelopment of our internal (proprietary) application as well as our other external projects, both\nprofessional and personal. Mantle provides a solid foundation for us to develope all our applications\nin tandem, while providing a common version- and feature-set throughout. In addition to the collection\nof external dependencies required, we have also spent a great deal of time abstracting as much as\nas posible with the intend of providing a solid foundation (or \"mantle\") for all our Symfony-based\nwork. If anyone has any qyestions, please feel free to contact the maintainers (try Rob Frawley 2nd\nfirst, as he would be most keen to open a dialoge). Otherwise, as this is MIT Licences, feel free to\n disect, pull-apart, and use whatever functionality you find most-appropriate for your enviornment.\nHappy coding!",
+    "support" : {
+        "email"  : "mantle-bundle@scribe.tools",
+        "issues" : "https://symfony-mantle-bundle.docs.scribe.tools/issues",
+        "source" : "https://symfony-mantle-bundle.docs.scribe.tools/git",
+
+    },
+    "keywords"    : [
+        "scribe-mantle-bundle",
+        "symfony-mantle-bundle",
+        "mantle-bundle",
+        "mantle",
+        "foundation",
+        "core",
+        "libs",
+        "bundle",
+        "symfony",
+        "symfony2",
+        "symfony-framework"
+        "scribe",
+        "scr",
+        "scribenet",
+        "scribeinc",
+        "scribe-software",
+        "scribe-services"
+    ],
     "authors"     : [
         {
-            "name"  : "Rob Frawley 2nd",
-            "email" : "rmf@scribe.software"
+            "name"    : "Rob Frawley 2nd",
+            "email"   : "rmf@scribe.software",
+            "homepage": ""
         },
         {
             "name"  : "Andrew Thomas",
@@ -19,11 +44,7 @@
             "email" : "dfc@scribe.software"
         }
     ],
-    "support" : {
-        "email"  : "open@scribe.tools",
-        "issues" : "https://symfony-mantle-bundle.docs.scribe.tools/issues",
-        "source" : "https://symfony-mantle-bundle.docs.scribe.tools/git"
-    },
+
     "require" : {
         "php"                                  : ">=5.6",
         "symfony/symfony"                      : "2.6.*",
@@ -41,7 +62,7 @@
         "symfony/monolog-bundle"               : "~2.7",
         "symfony/assetic-bundle"               : "~2.6",
         "kriswallsmith/assetic"                : "~1.2",
-        "sensio/distribution-bundle"           : "~3.0",
+        "sensio/distribution-bundle"           : "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle"        : "~3.0,>=3.0.2",
         "sensio/generator-bundle"              : "~2.5",
         "incenteev/composer-parameter-handler" : "~2.1",
@@ -56,6 +77,29 @@
         "codeclimate/php-test-reporter" : "~0.1.2",
         "sami/sami"                     : "~3.0",
         "chriskite/phactory"            : "~0.4.3"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ]
     },
     "autoload" : {
         "psr-4" : {
@@ -72,6 +116,12 @@
         "minimum-stability" : "dev"
     },
     "extra": {
+        "symfony-app-dir": "src/Tests/Helper/app",
+        "symfony-web-dir": "src/Tests/Helper/web",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
         "branch-alias": {
             "dev-master": "2.0-dev"
         }

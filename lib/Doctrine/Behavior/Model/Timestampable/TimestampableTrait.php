@@ -15,7 +15,7 @@ namespace Scribe\Doctrine\Behavior\Model\Timestampable;
  *
  * @package Scribe\Doctrine\Behavior\Model\Timestampable
  */
-class TimestampableTrait
+trait TimestampableTrait
 {
     /**
      * Datetime of creation
