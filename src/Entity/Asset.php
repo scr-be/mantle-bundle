@@ -12,7 +12,7 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * class Asset

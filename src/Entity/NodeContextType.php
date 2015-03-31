@@ -12,9 +12,9 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasSlug;
-use Scribe\EntityTrait\HasName;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\HasName;
 
 /**
  * NodeContextType

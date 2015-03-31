@@ -10,10 +10,10 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasName;
-use Scribe\EntityTrait\HasDescription;
-use Scribe\EntityTrait\HasSlug;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\HasDescription;
+use Scribe\Doctrine\Base\Model\HasSlug;
 
 /**
  * Class Icon.

@@ -11,12 +11,12 @@
 namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\EntityTrait\HasAttributes;
-use Scribe\EntityTrait\HasIconsOwningSide;
-use Scribe\EntityTrait\HasSlug;
-use Scribe\EntityTrait\HasName;
-use Scribe\EntityTrait\HasVersionAsString;
-use Scribe\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasAttributes;
+use Scribe\Doctrine\Base\Model\HasIconsOwningSide;
+use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\HasVersionAsString;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class Icon.

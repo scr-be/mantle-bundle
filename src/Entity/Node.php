@@ -13,12 +13,12 @@ namespace Scribe\MantleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasCreatedOn;
-use Scribe\EntityTrait\HasUpdatedOn;
-use Scribe\EntityTrait\HasSlug;
-use Scribe\EntityTrait\HasTitle;
-use Scribe\EntityTrait\HasWeight;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasCreatedOn;
+use Scribe\Doctrine\Base\Model\HasUpdatedOn;
+use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\HasTitle;
+use Scribe\Doctrine\Base\Model\HasWeight;
 
 /**
  * Node

@@ -10,8 +10,8 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasDate;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasDate;
 
 /**
  * Class SystemLoadHistory.

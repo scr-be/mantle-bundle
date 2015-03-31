@@ -11,13 +11,13 @@
 namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\EntityTrait\HasName;
-use Scribe\EntityTrait\HasSlug;
-use Scribe\EntityTrait\HasAliases;
-use Scribe\EntityTrait\HasCategories;
-use Scribe\EntityTrait\HasAttributes;
-use Scribe\EntityTrait\HasDescription;
-use Scribe\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\HasAliases;
+use Scribe\Doctrine\Base\Model\HasCategories;
+use Scribe\Doctrine\Base\Model\HasAttributes;
+use Scribe\Doctrine\Base\Model\HasDescription;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class Icon.
