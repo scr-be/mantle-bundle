@@ -5,10 +5,10 @@
     "homepage"    : "https://symfony-mantle-bundle.docs.scribe.tools/git",
     "description" : "Scribe Mantle Bundle provides the core dependencies and specific functionality need for the \ndevvelopment of our internal (proprietary) application as well as our other external projects, both\nprofessional and personal. Mantle provides a solid foundation for us to develope all our applications\nin tandem, while providing a common version- and feature-set throughout. In addition to the collection\nof external dependencies required, we have also spent a great deal of time abstracting as much as\nas posible with the intend of providing a solid foundation (or \"mantle\") for all our Symfony-based\nwork. If anyone has any qyestions, please feel free to contact the maintainers (try Rob Frawley 2nd\nfirst, as he would be most keen to open a dialoge). Otherwise, as this is MIT Licences, feel free to\n disect, pull-apart, and use whatever functionality you find most-appropriate for your enviornment.\nHappy coding!",
     "support" : {
-        "email"  : "mantle-bundle@scribe.tools",
+        "email"  : "mantle@scr.be",
         "issues" : "https://symfony-mantle-bundle.docs.scribe.tools/issues",
         "source" : "https://symfony-mantle-bundle.docs.scribe.tools/git",
-
+        "irc"    : "irc://irc.efnet.org/scribe"
     },
     "keywords"    : [
         "scribe-mantle-bundle",
@@ -21,7 +21,7 @@
         "bundle",
         "symfony",
         "symfony2",
-        "symfony-framework"
+        "symfony-framework",
         "scribe",
         "scr",
         "scribenet",
@@ -32,16 +32,21 @@
     "authors"     : [
         {
             "name"    : "Rob Frawley 2nd",
-            "email"   : "rmf@scribe.software",
-            "homepage": ""
+            "email"   : "rmf@scr.be",
+            "homepage": "https://scr.be/rmf",
+            "role"    : "Project Lead"
         },
         {
-            "name"  : "Andrew Thomas",
-            "email" : "aht@scribe.software"
+            "name"    : "Dan Corrigan",
+            "email"   : "dfc@scr.be",
+            "homepage": "https://scr.be/dfc",
+            "role"    : "Developer (Rogue Rubyist)"
         },
         {
-            "name"  : "Dan Corrigan",
-            "email" : "dfc@scribe.software"
+            "name"    : "Andrew Thomas",
+            "email"   : "aht@scr.be",
+            "homepage": "https://scr.be/aht",
+            "role"    : "Developer (UX)"
         }
     ],
 
@@ -78,29 +83,6 @@
         "sami/sami"                     : "~3.0",
         "chriskite/phactory"            : "~0.4.3"
     },
-    "scripts": {
-        "post-root-package-install": [
-            "SymfonyStandard\\Composer::hookRootPackageInstall"
-        ],
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ]
-    },
     "autoload" : {
         "psr-4" : {
             "Scribe\\MantleBundle\\" : "src/",
@@ -113,15 +95,11 @@
     "config" : {
         "bin-dir"           : "bin",
         "preferred-install" : "auto",
-        "minimum-stability" : "dev"
+        "minimum-stability" : "stable"
     },
     "extra": {
         "symfony-app-dir": "src/Tests/Helper/app",
         "symfony-web-dir": "src/Tests/Helper/web",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
         "branch-alias": {
             "dev-master": "2.0-dev"
         }
