@@ -271,22 +271,4 @@ class NodeRevision extends AbstractEntity
 
         return $this;
     }
-
-    /**
-     * Renders the $content with the appropriate
-     * rendering engine
-     *
-     * @param Symfony service
-     * @param array
-     * @return string 
-     */
-    public function render($service, $args)
-    {
-        $content = $this
-            ->getRenderEngine()
-            ->render($service, $this->getContent(), $args)
-        ;
-
-        return $content;
-    }
 }

@@ -26,7 +26,7 @@ class NodeRenderEngine extends AbstractEntity
     /**
      * @var string
      */
-    private $closure;
+    private $service;
     
     /**
      * @var ArrayCollection 
@@ -54,26 +54,26 @@ class NodeRenderEngine extends AbstractEntity
     }
 
     /**
-     * Set closure
+     * Set service
      *
-     * @param string $closure
+     * @param string $service
      * @return NodeRenderEngine
      */
-    public function setClosure($closure)
+    public function setService($service)
     {
-        $this->closure = $closure;
+        $this->service = $service;
 
         return $this;
     }
 
     /**
-     * Get closure
+     * Get service
      *
      * @return string 
      */
-    public function getClosure()
+    public function getService()
     {
-        return $this->closure;
+        return $this->service;
     }
 
     /**
@@ -98,22 +98,5 @@ class NodeRenderEngine extends AbstractEntity
         $this->revisions = $revisions;
 
         return $this;
-    }
-
-    /**
-     * Renders the $content with the appropriate
-     * rendering engine
-     *
-     * @param Symfony service
-     * @param string
-     * @param array
-     * @return string 
-     */
-    public function render($service, $content, $args)
-    {
-        $function = $this->getClosure();
-        $content = $function($service, $content, $args);
-
-        return $content;
     }
 }

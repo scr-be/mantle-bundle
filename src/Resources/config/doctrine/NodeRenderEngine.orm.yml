@@ -12,7 +12,7 @@ Scribe\MantleBundle\Entity\NodeRenderEngine:
         slug:
             type: string
             length: 255
-        closure:
+        service:
             type: text
     oneToMany:
         revisions:
