@@ -67,18 +67,4 @@ security:
 monolog:
     handlers:
         main:
-            type:         fingers_crossed
-            action_level: error
-            passthru_level: ERROR
-            handler:      grouped_main
-
-        # Groups
-        grouped_main:
-            type:    group
-            members: [streamed_main]
-
-        # Streams
-        streamed_main:
-            type:  stream
-            path:  %kernel.logs_dir%/%kernel.environment%.log
-            level: error
+             type: "null"

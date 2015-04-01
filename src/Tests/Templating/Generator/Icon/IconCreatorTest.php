@@ -26,7 +26,7 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
 
     const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\EntityRepository\IconFamilyRepository';
 
-    const FULLY_QUALIFIED_CLASS_NAME_ENGINE_INTERFACE = 'Symfony\Component\Templating\EngineInterface';
+    const FULLY_QUALIFIED_CLASS_NAME_TWIG_ENVIRONMENT = 'Twig_Environment';
 
     const FULLY_QUALIFIED_CLASS_NAME_SELF = 'Scribe\MantleBundle\Templating\Generator\Icon\IconCreator';
 
@@ -192,26 +192,26 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage The requested optional style fa-foo is not compatible with the Font Awesome font family.
-     * @expectedExceptionCode    51
-     */
     public function testThrowsExceptionOnInvalidOptionalStyles_ShortForm()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'The requested optional style fa-foo is not compatible with the Font Awesome font family.',
+            '51'
+        );
         $this
             ->getNewIconCreator()
             ->render('glass', 'fa', null, 'fa-foo')
         ;
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage The requested optional style fa-bad-style is not compatible with the Font Awesome font family.
-     * @expectedExceptionCode    51
-     */
     public function testThrowsExceptionOnInvalidOptionalStyles_LongForm()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'The requested optional style fa-bad-style is not compatible with the Font Awesome font family.',
+            '51'
+        );
         $this
             ->getNewIconCreator()
             ->setFamily('fa')
@@ -318,13 +318,13 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
 
-    /**
-     * @expectedException             Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessageRegex #You attempted to set an invalid aria role attribute. Valid values:.*#
-     * @expectedExceptionCode         50
-     */
     public function testThrowsExceptionOnInvalidAriaRoleValue()
     {
+        $this->setExpectedExceptionRegExp(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            '#You attempted to set an invalid aria role attribute. Valid values:.*#',
+            '50'
+        );
         $this
             ->getNewIconCreator()
             ->setAriaRole("does-not-exists")
@@ -454,41 +454,41 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $this->assertAttributeInstanceOf(
             self::FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO, 'iconFamilyRepo', $formatter);
         $this->assertAttributeInstanceOf(
-            self::FULLY_QUALIFIED_CLASS_NAME_ENGINE_INTERFACE, 'engine',         $formatter);
+            self::FULLY_QUALIFIED_CLASS_NAME_TWIG_ENVIRONMENT, 'twigEnv',         $formatter);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage An icon family type was not provided.
-     * @expectedExceptionCode    100
-     */
     public function testCanValidateInvalidMissingFontFamilies()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'An icon family type was not provided.',
+            '100'
+        );
         (new IconCreator($this->iconFamilyRepoNoFamilyResult, $this->engine))
             ->setIcon('glass')
             ->render()
         ;
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage IconFamily with slug not-valid could not be found.
-     * @expectedExceptionCode    101
-     */
     public function testCanValidateInvalidFontFamilies()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'IconFamily with slug not-valid could not be found.',
+            '101'
+        );
         (new IconCreator($this->iconFamilyRepoNoFamilyResult, $this->engine))
             ->render('glass', 'not-valid')
         ;
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage Could not find icon template slug bad-template in icon family Font Awesome.
-     * @expectedExceptionCode    101
-     */
     public function testCanValidateInvalidFontTemplates()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'Could not find icon template slug bad-template in icon family Font Awesome.',
+            '101'
+        );
         $this
             ->getNewIconCreator()
             ->render('glass', 'fa', 'bad-template')
@@ -543,13 +543,14 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $method->invokeArgs($obj, [$badArgument]);
     }
 
-    /**
-     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
-     * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
-     */
     public function testAttributesTypeHintOnSetter_Engine()
     {
-        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setEngine');
+        $this->setExpectedExceptionRegExp(
+            'Symfony\Component\Debug\Exception\ContextErrorException',
+            '#Argument 1 passed to .* must be an instance of .*, instance of .* given#'
+        );
+
+        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setTwigEnv');
 
         $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
@@ -646,37 +647,37 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $this->assertEquals('button', $get->invokeArgs($obj, []));
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage An icon type was not provided.
-     * @expectedExceptionCode    100
-     */
     public function testValidateIconExceptionHandling()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'An icon type was not provided.',
+            '100'
+        );
         list($obj, $v) = $this->getReflectionOfIconCreatorForMethods('validateIcon');
 
         $v->invokeArgs($obj, []);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage Could not validate/lookup icon entity without a valid icon family entity.
-     * @expectedExceptionCode    52
-     */
     public function testLookupIconNoFontFamilyExceptionHandling()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'Could not validate/lookup icon entity without a valid icon family entity.',
+            '52'
+        );
         list($obj, $l) = $this->getReflectionOfIconCreatorForMethods('lookupIcon');
 
         $l->invokeArgs($obj, []);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage Could not find icon slug  in icon family Font Awesome.
-     * @expectedExceptionCode    101
-     */
     public function testLookupIconNoFontFamilyIconsExceptionHandling()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'Could not find icon slug  in icon family Font Awesome.',
+            '101'
+        );
         list($obj, $l, $g, $s) = $this->getReflectionOfIconCreatorForMethods('lookupIcon', 'getFamilyEntity', 'setFamilyEntity');
 
         $family = $this->mockIconFamily();
@@ -689,25 +690,25 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $l->invokeArgs($obj, []);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage Could not validate/lookup icon template entity without a valid icon family entity.
-     * @expectedExceptionCode    52
-     */
     public function testLookupTemplateNoFontFamilyExceptionHandling()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'Could not validate/lookup icon template entity without a valid icon family entity.',
+            '52'
+        );
         list($obj, $l) = $this->getReflectionOfIconCreatorForMethods('lookupTemplate');
 
         $l->invokeArgs($obj, []);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage No icon templates are associated with the Font Awesome icon family.
-     * @expectedExceptionCode    101
-     */
     public function testLookupTemplateNoFontFamilyTemplatesExceptionHandling()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'No icon templates are associated with the Font Awesome icon family.',
+            '101'
+        );
         list($obj, $l, $g, $s) = $this->getReflectionOfIconCreatorForMethods('lookupTemplate', 'getFamilyEntity', 'setFamilyEntity');
 
         $family = $this->mockIconFamily();
@@ -720,13 +721,13 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $l->invokeArgs($obj, []);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage No available optional styles to select for Font Awesome font family.
-     * @expectedExceptionCode    51
-     */
     public function testLookupStylesUserSpecifiedByNoFontFamilySpecifiedOptionalStylesExceptionHandling()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'No available optional styles to select for Font Awesome font family.',
+            '51'
+        );
         list($obj, $l, $o, $s) = $this->getReflectionOfIconCreatorForMethods('lookupStyles', 'setOptionalStyles', 'setFamilyEntity');
 
         $family = $this->mockIconFamilyNoOptionalClasses();
@@ -737,14 +738,15 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $l->invokeArgs($obj, []);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage Template engine type could not be determined, support cannot be verified.
-     * @expectedExceptionCode    50
-     */
     public function testValidateEngineUnknownTypeExceptionHandling()
     {
-        $engine = $this->getMock('Symfony\Component\Templating\EngineInterface');
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'The icon template entity is invalid; cannot verify the template engine.',
+            50
+        );
+
+        $engine = $this->getMock('Twig_Environment');
         $obj = new IconCreator($this->iconFamilyRepo, $engine);
         $refFormat = new \ReflectionClass(IconCreatorTest::FULLY_QUALIFIED_CLASS_NAME_SELF);
 
@@ -753,13 +755,13 @@ class IconCreatorTest extends MantleFrameworkKernelHelper
         $validateEngine->invokeArgs($obj, []);
     }
 
-    /**
-     * @expectedException        Scribe\MantleBundle\Templating\Generator\Icon\IconException
-     * @expectedExceptionMessage The icon template requested this-is-not-a-valid-engine engine, but we are running the twig engine.
-     * @expectedExceptionCode    50
-     */
     public function testValidateEngineInvalidTypeExceptionHandling()
     {
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Icon\IconException',
+            'The icon template requested this-is-not-a-valid-engine engine, but we are running the twig engine.',
+            '50'
+        );
         $obj = new IconCreator($this->iconFamilyRepo, $this->engine);
         $refFormat = new \ReflectionClass(IconCreatorTest::FULLY_QUALIFIED_CLASS_NAME_SELF);
 

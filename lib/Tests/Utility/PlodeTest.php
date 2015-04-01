@@ -16,108 +16,89 @@ use Scribe\Exception\BadFunctionCallException;
 
 class PlodeTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage Cannot instantiate static class Scribe\Utility\Plode.
-     */
-    public function shouldThrowExceptionOnInstantiation()
+    public function testShouldThrowExceptionOnInstantiation()
     {
+        $this->setExpectedException(
+            'RuntimeException',
+            'Cannot instantiate static class Scribe\Utility\Plode.'
+        );
         new Plode();
     }
 
-    /**
-     * @test
-     */
-    public function shouldImplodeArrayToString()
+    public function testShouldImplodeArrayToString()
     {
         $result = Plode::im(['one', 'two', 'three'], Plode::SEPARATOR_COMMA);
         $this->assertEquals($result, 'one,two,three');
     }
 
-    /**
-     * @test
-     */
-    public function shouldExplodeStringToArray()
+    public function testShouldExplodeStringToArray()
     {
         $result = Plode::ex('one,two,three', Plode::SEPARATOR_COMMA);
         $this->assertEquals($result, ['one', 'two', 'three']);
     }
 
-    /**
-     * @test
-     * @expectedException        BadFunctionCallException
-     * @expectedExceptionMessage Expected method format is "[im|ex]OnSeparator" for example "imOnComma".
-     */
-    public function shouldThrowExceptionOnInvalidArgumentCountNotEnoughMagicMethodCall()
+    public function testShouldThrowExceptionOnInvalidArgumentCountNotEnoughMagicMethodCall()
     {
+        $this->setExpectedException(
+            'BadFunctionCallException',
+            'Expected method format is "[im|ex]OnSeparator" for example "imOnComma".'
+        );
         Plode::imOnComma();
     }
 
-    /**
-     * @test
-     * @expectedException        BadFunctionCallException
-     * @expectedExceptionMessage Expected method format is "[im|ex]OnSeparator" for example "imOnComma".
-     */
-    public function shouldThrowExceptionOnInvalidArgumentCountTooManyMagicMethodCall()
+    public function testShouldThrowExceptionOnInvalidArgumentCountTooManyMagicMethodCall()
     {
+        $this->setExpectedException(
+            'BadFunctionCallException',
+            'Expected method format is "[im|ex]OnSeparator" for example "imOnComma".'
+        );
         Plode::imOnComma('one', 'two');
     }
 
-    /**
-     * @test
-     * @expectedException        BadFunctionCallException
-     * @expectedExceptionMessage Expected method format is "[im|ex]OnSeparator" for example "imOnComma".
-     */
-    public function shouldThrowExceptionOnInvalidStrSizeMagicMethodCall()
+    public function testShouldThrowExceptionOnInvalidStrSizeMagicMethodCall()
     {
+        $this->setExpectedException(
+            'BadFunctionCallException',
+            'Expected method format is "[im|ex]OnSeparator" for example "imOnComma".'
+        );
         Plode::a();
     }
 
-    /**
-     * @test
-     * @expectedException        BadFunctionCallException
-     * @expectedExceptionMessage Valid method prefixes are "im" for "implode" and "ex" for "explode".
-     */
-    public function shouldThrowExceptionOnInvalidStr01MagicMethodCall()
+    public function testShouldThrowExceptionOnInvalidStr01MagicMethodCall()
     {
+        $this->setExpectedException(
+            'BadFunctionCallException',
+            'Valid method prefixes are "im" for "implode" and "ex" for "explode".'
+        );
         Plode::aaOnComma('one,two,three');
     }
 
     /**
-     * @test
      * @expectedException        BadFunctionCallException
      * @expectedExceptionMessage Expected method format is "[im|ex]OnSeparator" for example "imOnComma" but exAaComma
      *                           was provided.
      */
-    public function shouldThrowExceptionOnInvalidStr23MagicMethodCall()
+    public function testShouldThrowExceptionOnInvalidStr23MagicMethodCall()
     {
         Plode::exAAComma('one,two,three');
     }
 
-    /**
-     * @test
-     * @expectedException        BadFunctionCallException
-     * @expectedExceptionMessage Invalid separator type of aa provided.
-     */
-    public function shouldThrowExceptionOnInvalidStr4nMagicMethodCall()
+    public function testShouldThrowExceptionOnInvalidStr4nMagicMethodCall()
     {
+        $this->setExpectedException(
+            'BadFunctionCallException',
+            'Invalid separator type of aa provided.'
+        );
         Plode::exOnAA('one,two,three');
     }
 
-    /**
-     * @test
-     */
-    public function shouldImplodeArrayToStringUsingMagicMethodWithCommaSeparator()
+    public function testShouldImplodeArrayToStringUsingMagicMethodWithCommaSeparator()
     {
         $result = Plode::imOnComma(['one', 'two', 'three']);
         $this->assertEquals($result, 'one,two,three');
     }
 
-    /**
-     * @test
-     */
-    public function shouldImplodeArrayToStringUsingMagicMethodWithColonSeparator()
+    public function testShouldImplodeArrayToStringUsingMagicMethodWithColonSeparator()
     {
         $result = Plode::imOnColon(['one', 'two', 'three']);
         $this->assertEquals($result, 'one:two:three');

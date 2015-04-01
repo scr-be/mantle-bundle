@@ -10,7 +10,7 @@
 
 namespace Scribe\Doctrine\Base\Model;
 
-use Scribe\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class HasParentInverseSide.

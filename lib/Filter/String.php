@@ -13,7 +13,7 @@ namespace Scribe\Filter;
 use Scribe\Utility\Caller\Call;
 
 /**
- * Class Filters.
+ * Class String
  */
 class String
 {
@@ -218,16 +218,43 @@ class String
      *
      * @return int
      */
-    public static function mb_strnatcasecmp($str1, $str2, $encoding = null)
+    public static function mb_strnatcasecmp($str1, $str2, $encoding = 'UTF-8')
     {
-        if (null === $encoding) {
-            $encoding = mb_internal_encoding();
+        if (null !== $encoding) {
+            mb_internal_encoding($encoding);
         }
 
-        return strcmp(
-            mb_strtoupper($str1, $encoding),
-            mb_strtoupper($str2, $encoding)
-        );
+        $str1Split = self::mb_str_split(mb_convert_case($str1, MB_CASE_LOWER), 1);
+        $str2Split = self::mb_str_split(mb_convert_case($str2, MB_CASE_LOWER), 1);
+
+        if (count($str1Split) !== count($str2Split)) {
+            return false;
+        }
+
+        for ($i = 0; $i < count($str1Split); $i++) {
+            if ($str1Split[$i] !== $str2Split[$i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
+    public static function mb_str_split($string)
+    {
+        $stop   = mb_strlen($string);
+        $result = array();
+
+        for($idx = 0; $idx < $stop; $idx++) {
+            $result[] = mb_substr( $string, $idx, 1);
+        }
+
+        return $result;
     }
 }
 

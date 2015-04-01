@@ -49,15 +49,14 @@
             "role"    : "Developer (UX)"
         }
     ],
-
     "require" : {
         "php"                                  : ">=5.6",
-        "symfony/symfony"                      : "2.6.*",
+        "symfony/symfony"                      : "~2.6",
         "symfony/yaml"                         : "~2.6",
-        "doctrine/orm"                         : ">=2.4,<2.5",
-        "doctrine/dbal"                        : ">=2.4,<2.5",
+        "doctrine/orm"                         : "2.5.*@dev",
+        "doctrine/common"                      : "2.5.*@dev",
+        "doctrine/dbal"                        : "2.5.*@dev",
         "doctrine/doctrine-bundle"             : "1.4.*@dev",
-        "doctrine/doctrine-fixtures-bundle"    : "2.2.*@dev",
         "knplabs/doctrine-behaviors"           : "~1.0.3",
         "twig/twig"                            : "~1.18,<2.0",
         "twig/extensions"                      : "~1.2",
@@ -69,19 +68,18 @@
         "kriswallsmith/assetic"                : "~1.2",
         "sensio/distribution-bundle"           : "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle"        : "~3.0,>=3.0.2",
-        "sensio/generator-bundle"              : "~2.5",
         "incenteev/composer-parameter-handler" : "~2.1",
         "zendframework/zend-json"              : "~2.3",
-        "phpoption/phpoption"                  : "~1.4",
         "scribe/cache-bundle"                  : "2.0.*@dev"
     },
     "require-dev" : {
-        "phpunit/phpunit"               : "~4.5,>=4.5.1",
-        "scrutinizer/ocular"            : "~1.1",
-        "satooshi/php-coveralls"        : "~0.6",
-        "codeclimate/php-test-reporter" : "~0.1.2",
-        "sami/sami"                     : "~3.0",
-        "chriskite/phactory"            : "~0.4.3"
+        "sensio/generator-bundle"              : "~2.5",
+        "doctrine/doctrine-fixtures-bundle"    : "2.2.*@dev",
+        "phpunit/phpunit"                      : "~4.5,>=4.5.1",
+        "scrutinizer/ocular"                   : "~1.1",
+        "satooshi/php-coveralls"               : "~0.6",
+        "codeclimate/php-test-reporter"        : "~0.1.2",
+        "chriskite/phactory"                   : "~0.4.3"
     },
     "autoload" : {
         "psr-4" : {
@@ -98,8 +96,6 @@
         "minimum-stability" : "stable"
     },
     "extra": {
-        "symfony-app-dir": "src/Tests/Helper/app",
-        "symfony-web-dir": "src/Tests/Helper/web",
         "branch-alias": {
             "dev-master": "2.0-dev"
         }

@@ -10,7 +10,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
-use Symfony\Component\Templating\EngineInterface;
+use Twig_Environment;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
 
 /**
@@ -18,7 +18,7 @@ use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
  */
 interface IconCreatorInterface
 {
-    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null);
+    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $twigEnv = null);
     public function setFamily($slug);
     public function setIcon($slug);
     public function setTemplate($slug = null);

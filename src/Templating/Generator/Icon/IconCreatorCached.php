@@ -10,8 +10,8 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
+use Twig_Environment;
 use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainInterface;
-use Symfony\Component\Templating\EngineInterface;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedServicesTrait;
 use Doctrine\ORM\EntityRepository;
@@ -27,11 +27,11 @@ class IconCreatorCached extends IconCreator
      * Setup the object instance.
      *
      * @param IconFamilyRepository $iconFamilyRepo
-     * @param EngineInterface      $engine
+     * @param Twig_Environment     $twigEnv
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $twigEnv = null)
     {
-        parent::__construct($iconFamilyRepo, $engine);
+        parent::__construct($iconFamilyRepo, $twigEnv);
     }
 
     /**

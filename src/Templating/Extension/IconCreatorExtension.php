@@ -30,7 +30,9 @@ class IconCreatorExtension extends Twig_Extension
     private $iconCreator;
 
     /**
-     * @param ContainerInterface $container
+     * @param IconCreatorInterface $iconCreator
+     *
+     * @internal param IconCreatorInterface $container
      */
     public function __construct(IconCreatorInterface $iconCreator)
     {
@@ -45,7 +47,7 @@ class IconCreatorExtension extends Twig_Extension
     }
 
     /**
-     * @param Twig_Environment $env
+     * @param Twig_Environment $twigEnv
      * @param string           $icon
      * @param string|null      $family
      * @param string|null      $template
@@ -53,27 +55,13 @@ class IconCreatorExtension extends Twig_Extension
      *
      * @return string
      */
-    public function getIcon(Twig_Environment $env, $icon, $family = null, $template = null, ...$styles)
+    public function getIcon(Twig_Environment $twigEnv, $icon, $family = null, $template = null, ...$styles)
     {
-        if (false === $this->iconCreator->hasEngine()) {
-            $engine = $this->buildEngineInterfaceFromTwigEnvironment($env);
-            $this->iconCreator->setEngine($engine);
+        if (false === $this->iconCreator->hasTwigEnv()) {
+            $this->iconCreator->setTwigEnv($twigEnv);
         }
 
         return (string) $this->iconCreator->render($icon, $family, $template, ...$styles);
-    }
-
-    /**
-     * @param Twig_Environment $env
-     *
-     * @return TwigEngine
-     */
-    protected function buildEngineInterfaceFromTwigEnvironment(Twig_Environment $env)
-    {
-        $nameParser = new TemplateNameParser();
-        $engine     = new TwigEngine($env, $nameParser);
-
-        return $engine;
     }
 }
 

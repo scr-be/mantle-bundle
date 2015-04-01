@@ -27,6 +27,8 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
 
     /**
      * setup with container instance.
+     *
+     * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
     {
@@ -38,7 +40,7 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
      *
      * @param string $key config key
      *
-     * @throws bool
+     * @return mixed
      */
     public function get($key)
     {
@@ -51,8 +53,10 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
     /**
      * Setter for YAML config cannot occur.
      *
-     * @param string $key   config key
+     * @param string $key config key
      * @param mixed  $value config value
+     *
+     * @return void
      *
      * @throws RuntimeException
      */

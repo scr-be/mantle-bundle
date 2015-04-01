@@ -10,10 +10,10 @@
 
 namespace Scribe\Tests\Utility;
 
-use PHPUnit_Framework_TestCase;
+use Scribe\Tests\Helper\MantleFrameworkHelper;
 use Scribe\Utility\Extension;
 
-class CallTest extends PHPUnit_Framework_TestCase
+class ExtensionTest extends MantleFrameworkHelper
 {
     public function testThrowsExceptionOnInstantiation()
     {

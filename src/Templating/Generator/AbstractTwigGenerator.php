@@ -8,14 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Utility;
+namespace Scribe\MantleBundle\Templating\Generator;
+
+use Scribe\Templating\Engine\TwigEngineAwareTrait;
 
 /**
- * Class SystemExec.
+ * Class AbstractTwigGenerator.
  */
-class SystemExec
+abstract class AbstractTwigGenerator
 {
-    const PATH = '';
+    use TwigEngineAwareTrait;
 }
 
 /* EOF */
