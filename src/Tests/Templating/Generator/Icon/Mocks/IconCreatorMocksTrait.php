@@ -286,11 +286,7 @@ EOT;
 
     protected function mockEngineInterface()
     {
-        $twigEnv                      = new \Twig_Environment(new \Twig_Loader_String());
-        $templateNamedParserInterface = $this->getMock('Symfony\Component\Templating\TemplateNameParserInterface');
-        $templating                   = new \Symfony\Bridge\Twig\TwigEngine($twigEnv, $templateNamedParserInterface);
-
-        return $templating;
+        return $this->container->get('twig');
     }
 
     protected function mockIconEntities()

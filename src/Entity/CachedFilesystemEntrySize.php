@@ -2,9 +2,9 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasAttributes;
-use Scribe\EntityTrait\HasDatetime;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasAttributes;
+use Scribe\Doctrine\Base\Model\HasDatetime;
 
 /**
  * Class CachedFilesystemEntrySize.

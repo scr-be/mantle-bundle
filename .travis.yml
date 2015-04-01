@@ -1,48 +1,59 @@
 language: php
 
-php:
-  - 5.6
-
 branches:
-  only:
-    - master
+    only:
+        - master
 
 env:
-  - SYMFONY_VERSION="2.6.*"
-  - SYMFONY_VERSION="2.7.*@dev"
+    global:
+        - SYMFONY_DEPRECATIONS_HELPER=weak
 
 matrix:
-  fast_finish: true
-  allow_failures:
-    - env: SYMFONY_VERSION="2.7.*@dev"
+    include:
+        - php: 5.6
+          env: SYMFONY_VERSION="2.6.*"
+        - php: 5.6
+          env: SYMFONY_VERSION="2.7.*@dev"
+        - php: nightly
+          env: SYMFONY_VERSION="2.7.*@dev"
+        - php: hhvm-nightly
+          env: SYMFONY_VERSION="2.7.*@dev"
+    allow_failures:
+        - php: 5.6
+          env: SYMFONY_VERSION="2.7.*@dev"
+        - php: nightly
+          env: SYMFONY_VERSION="2.7.*@dev"
+        - php: hhvm-nightly
+          env: SYMFONY_VERSION="2.7.*@dev"
+    fast_finish: true
 
 notifications:
-  slack:
-    secure: fQJkH85f60YbHu0y3y7lptnouX3IULkX9f8wrEq4+SFI7n7Uy6RLRhz1wRioOR0gjRcX4dH+40ZZit3GpLB0M781cOwuBAcnobrU6coE8YdbFLrK/EFD/qXM/6RlwRik/3TA3ZX5C1WQfrBxnxq3jvuTFDplrXoxThS3lIl/KCo=
+    slack:
+        secure: fQJkH85f60YbHu0y3y7lptnouX3IULkX9f8wrEq4+SFI7n7Uy6RLRhz1wRioOR0gjRcX4dH+40ZZit3GpLB0M781cOwuBAcnobrU6coE8YdbFLrK/EFD/qXM/6RlwRik/3TA3ZX5C1WQfrBxnxq3jvuTFDplrXoxThS3lIl/KCo=
 
 before_install:
-  - git submodule update --init --recursive && cd knowledge && git checkout master && cd ../
-  - sh .travis-build-igbinary.sh
-  - sh .travis-build-memcached.sh
-  - phpenv config-add .travis-php.ini
-  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - phpenv rehash
-  - mkdir -p build/logs
-  - mkdir -p bin
+    - git submodule update --init --recursive && cd knowledge && git checkout master && cd ../
+    - sh .travis-build-igbinary.sh
+    - sh .travis-build-memcached.sh
+    - phpenv config-add .travis-php.ini
+    - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - phpenv rehash
+    - mkdir -p build/logs
+    - mkdir -p bin
 
 install:
-  - travis_retry composer self-update
-  - travis_retry composer clear-cache
-  - if [ "${SYMFONY_VERSION}" == "2.6.*" ]; then travis_retry composer install --no-interaction; else travis_retry composer require symfony/symfony:${SYMFONY_VERSION} --no-interaction; fi
+    - travis_retry composer self-update
+    - travis_retry composer clear-cache
+    - if [ "${SYMFONY_VERSION}" == "2.6.*" ]; then travis_retry composer install --no-interaction; else travis_retry composer require symfony/symfony:${SYMFONY_VERSION} --no-interaction; fi
 
 before_script:
-  - bin/mantle doctrine:database:create --no-interaction
-  - bin/mantle doctrine:schema:create --no-interaction
-  - bin/mantle doctrine:fixtures:load --no-interaction
+    - bin/mantle doctrine:database:create --no-interaction
+    - bin/mantle doctrine:schema:create --no-interaction
+    - bin/mantle doctrine:fixtures:load --no-interaction
 
 script:
-  - bin/phpunit --verbose --configuration phpunit.travis.xml
+    - bin/phpunit --verbose --configuration phpunit.travis.xml
 
 after_script:
-  - bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
-  - bin/coveralls -vvv
+    - bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
+    - bin/coveralls -vvv

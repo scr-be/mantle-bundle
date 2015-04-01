@@ -10,11 +10,10 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
+use Twig_Environment;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Entity\Icon;
-use Symfony\Component\Templating\EngineInterface;
 use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
-use Scribe\MantleBundle\Templating\Generator\AbstractGenerator;
+use Scribe\MantleBundle\Templating\Generator\AbstractTwigGenerator;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorAccessibilityTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorServicesTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorAttributesTrait;
@@ -22,7 +21,7 @@ use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorAttribut
 /**
  * IconCreator.
  */
-class IconCreator extends AbstractGenerator implements IconCreatorInterface
+class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
 {
     use IconCreatorServicesTrait,
         IconCreatorAccessibilityTrait,
@@ -32,12 +31,12 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      * Setup the object instance.
      *
      * @param IconFamilyRepository $iconFamilyRepo
-     * @param EngineInterface      $engine
+     * @param Twig_Environment     $twigEnv
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, EngineInterface $engine = null)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $twigEnv = null)
     {
         $this->setIconFamilyRepo($iconFamilyRepo);
-        parent::__construct($engine);
+        $this->setTwigEnv($twigEnv);
     }
 
     /**
@@ -441,6 +440,12 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             );
         }
 
+        if ($this->getTemplateEntity() === null) {
+            throw new IconException(
+                "The icon template entity is invalid; cannot verify the template engine.", IconException::CODE_INVALID_ARGS
+            );
+        }
+
         if ($this->getTemplateEntity()->getEngine() !== $type) {
             throw new IconException(
                 sprintf(
@@ -457,7 +462,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
      * Creates helper object to expose accessibility data
      * to template.
      *
-     * @return stdClass
+     * @return \stdClass
      */
     protected function templateHelper()
     {
@@ -490,10 +495,7 @@ class IconCreator extends AbstractGenerator implements IconCreatorInterface
             'helper' => $this->templateHelper(),
         ];
 
-        return $this
-            ->getEngine()
-            ->render($template, $arguments)
-        ;
+        return $this->getEngineRendering($template, $arguments);
     }
 }
 

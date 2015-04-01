@@ -10,58 +10,53 @@
 
 namespace Scribe\Tests\Utility;
 
-use PHPUnit_Framework_TestCase;
+use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
 use Scribe\Utility\Math;
-use Scribe\Exception\InvalidArgumentException;
 
-class MathTest extends PHPUnit_Framework_TestCase
+class MathTest extends AbstractMantleUnitTestHelper
 {
-    /**
-     * @test
-     * @expectedException        RuntimeException
-     * @expectedExceptionMessage Cannot instantiate static class Scribe\Utility\Math.
-     */
-    public function shouldThrowExceptionOnInstantiation()
+    public function testShouldThrowExceptionOnInstantiation()
     {
+        $this->setExpectedException(
+            'RuntimeException',
+            'Cannot instantiate static class Scribe\Utility\Math.'
+        );
+
         new Math();
     }
 
-    /**
-     * @test
-     * @expectedException              Symfony\Component\Debug\Exception\ContextErrorException
-     * @expectedExceptionMessageRegExp /Missing argument 1 for Scribe\\Utility\\Math::toBase\(\)/
-     */
-    public function shouldAcceptNoLessThanThreeArguments()
+    public function testShouldAcceptNoLessThanThreeArguments()
     {
+        $this->setExpectedException(
+            'Symfony\Component\Debug\Exception\ContextErrorException',
+            'Missing argument 1 for Scribe\Utility\Math::toBase()'
+        );
+
         Math::toBase();
     }
 
-    public function toBaseProvider()
+    public function testToBase()
     {
-        return [
+        $provider = [
             [1,     10, 100, null, false, 10  ],
             [50,    50, 200, null, false, 200 ],
             [1.333, 10, 50,  2,    false, 6.67],
             [20,    10, 100, null, true,  100 ],
         ];
+
+        foreach ($provider as $p) {
+            $result = Math::toBase($p[0], $p[1], $p[2], $p[3], $p[4]);
+            $this->assertEquals($result, $p[5]);
+        }
     }
 
-    /**
-     * @dataProvider toBaseProvider
-     */
-    public function testToBase($integer, $base, $newBase, $precision, $newBaseAsMax, $expected)
+    public function testToBaseShouldThrowExceptionOnZeroBase()
     {
-        $result = Math::toBase($integer, $base, $newBase, $precision, $newBaseAsMax);
-        $this->assertEquals($result, $expected);
-    }
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'Cannot convert to a base of zero.'
+        );
 
-    /**
-     * @test
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Cannot convert to a base of zero.
-     */
-    public function toBaseShouldThrowExceptionOnZeroBase()
-    {
         Math::toBase(5, 0, 100);
     }
 }

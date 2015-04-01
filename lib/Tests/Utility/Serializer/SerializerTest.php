@@ -10,10 +10,10 @@
 
 namespace Scribe\Tests\Utility\Serializer;
 
-use PHPUnit_Framework_TestCase;
+use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
 use Scribe\Utility\Serializer\Serializer;
 
-class SerializerTest extends PHPUnit_Framework_TestCase
+class SerializerTest extends AbstractMantleUnitTestHelper
 {
     public function testThrowsExceptionOnInstantiation()
     {

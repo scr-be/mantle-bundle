@@ -11,18 +11,18 @@
 namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasDescription;
-use Scribe\EntityTrait\HasSlug;
-use Scribe\EntityTrait\HasTitle;
-use Scribe\EntityTrait\HasWeight;
-use Scribe\EntityTrait\HasContext;
-use Scribe\EntityTrait\HasIconAsString;
-use Scribe\EntityTrait\HasAttrs;
-use Scribe\EntityTrait\HasRouteName;
-use Scribe\EntityTrait\HasRouteParameters;
-use Scribe\EntityTrait\HasRoleRestrictionsAsArrayOwningSide;
-use Scribe\EntityTrait\HasReverseRoleRestrictionsAsArrayOwningSide;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasDescription;
+use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\HasTitle;
+use Scribe\Doctrine\Base\Model\HasWeight;
+use Scribe\Doctrine\Base\Model\HasContext;
+use Scribe\Doctrine\Base\Model\HasIconAsString;
+use Scribe\Doctrine\Base\Model\HasAttrs;
+use Scribe\Doctrine\Base\Model\HasRouteName;
+use Scribe\Doctrine\Base\Model\HasRouteParameters;
+use Scribe\Doctrine\Base\Model\HasRoleRestrictionsAsArrayOwningSide;
+use Scribe\Doctrine\Base\Model\HasReverseRoleRestrictionsAsArrayOwningSide;
 
 /**
  * Entity NavMenuItem.

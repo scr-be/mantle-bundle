@@ -10,16 +10,16 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasTitle;
-use Scribe\EntityTrait\HasWeight;
-use Scribe\EntityTrait\HasIconAsString;
-use Scribe\EntityTrait\HasAttrs;
-use Scribe\EntityTrait\HasRouteName;
-use Scribe\EntityTrait\HasRouteParameters;
-use Scribe\EntityTrait\HasParentOwningSide;
-use Scribe\EntityTrait\HasRoleRestrictionsAsArrayOwningSide;
-use Scribe\EntityTrait\HasReverseRoleRestrictionsAsArrayOwningSide;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasTitle;
+use Scribe\Doctrine\Base\Model\HasWeight;
+use Scribe\Doctrine\Base\Model\HasIconAsString;
+use Scribe\Doctrine\Base\Model\HasAttrs;
+use Scribe\Doctrine\Base\Model\HasRouteName;
+use Scribe\Doctrine\Base\Model\HasRouteParameters;
+use Scribe\Doctrine\Base\Model\HasParentOwningSide;
+use Scribe\Doctrine\Base\Model\HasRoleRestrictionsAsArrayOwningSide;
+use Scribe\Doctrine\Base\Model\HasReverseRoleRestrictionsAsArrayOwningSide;
 
 /**
  * Entity NavMenuSubItem.

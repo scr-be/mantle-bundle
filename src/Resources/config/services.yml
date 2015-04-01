@@ -1,7 +1,5 @@
 parameters:
 
-    templating.stringloader.class:                  Twig_Loader_String
-
     s.mantle.redirect.entity.class:                 Scribe\MantleBundle\Entity\Redirect
     s.mantle.redirect.repo.class:                   Scribe\MantleBundle\EntityRepository\RedirectRepository
     s.mantle.navmenuitem.entity.class:              Scribe\MantleBundle\Entity\NavMenuItem
@@ -74,11 +72,6 @@ services:
         class: %s.mantle.navigation_registrar.class%
         arguments:
             - @s.symfony.bundleinfo
-
-    twig.loader.string:
-        class: %templating.stringloader.class%
-        tags:
-            - { name: twig.loader }
 
     s.mantle.redirect.repo:
             class:           %s.mantle.redirect.repo.class%
@@ -196,7 +189,7 @@ services:
         class:           %s.mantle.icon_creator_cached.class%
         arguments:
             - @s.mantle.iconfamily.repo
-            - @templating
+            - @twig
         calls:
             - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
 

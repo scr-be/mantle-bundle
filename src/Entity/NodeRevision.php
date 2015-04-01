@@ -12,8 +12,8 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasCreatedOn;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasCreatedOn;
 
 /**
  * NodeRevision
@@ -270,5 +270,23 @@ class NodeRevision extends AbstractEntity
         $this->node = $node;
 
         return $this;
+    }
+
+    /**
+     * Renders the $content with the appropriate
+     * rendering engine
+     *
+     * @param Symfony service
+     * @param array
+     * @return string 
+     */
+    public function render($service, $args)
+    {
+        $content = $this
+            ->getRenderEngine()
+            ->render($service, $this->getContent(), $args)
+        ;
+
+        return $content;
     }
 }

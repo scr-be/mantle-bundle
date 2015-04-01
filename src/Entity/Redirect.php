@@ -2,7 +2,7 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Scribe\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Redirect.

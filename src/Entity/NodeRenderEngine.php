@@ -12,8 +12,8 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Entity\AbstractEntity;
-use Scribe\EntityTrait\HasSlug;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\HasSlug;
 
 /**
  * NodeRenderEngine
@@ -98,5 +98,22 @@ class NodeRenderEngine extends AbstractEntity
         $this->revisions = $revisions;
 
         return $this;
+    }
+
+    /**
+     * Renders the $content with the appropriate
+     * rendering engine
+     *
+     * @param Symfony service
+     * @param string
+     * @param array
+     * @return string 
+     */
+    public function render($service, $content, $args)
+    {
+        $function = $this->getClosure();
+        $content = $function($service, $content, $args);
+
+        return $content;
     }
 }

@@ -10,16 +10,16 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Extension;
 
-use Scribe\MantleBundle\Templating\Extension\IconCreatorExtension;
-use Scribe\Tests\Helper\MantleFrameworkKernelHelper;
 use Twig_Environment;
+use Scribe\MantleBundle\Templating\Extension\IconCreatorExtension;
+use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 
 /**
  * Class IconCreatorExtensionTest.
  */
-class IconCreatorExtensionTest extends MantleFrameworkKernelHelper
+class IconCreatorExtensionTest extends AbstractMantleKernelUnitTestHelper
 {
     use IconCreatorMocksTrait,
         IconCreatorHelperTrait;

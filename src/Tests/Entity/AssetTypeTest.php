@@ -12,12 +12,12 @@ namespace Scribe\MantleBundle\Tests\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Entity\AssetType;
-use Scribe\Tests\Helper\MantleFrameworkEntityPhactoryHelper;
+use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 
 /**
  * Class AssetTypeTest 
  */
-class AssetTypeTest extends MantleFrameworkEntityPhactoryHelper
+class AssetTypeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
     /**
      * @var AssetType 
