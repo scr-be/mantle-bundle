@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -26,32 +27,32 @@ class Jqtimeline extends AbstractContainer implements TimelineInterface
     private $target;
 
     /**
-     * @var integer
+     * @var int
      */
     private $startYear;
 
     /**
-     * @var integer
+     * @var int
      */
     private $endYear;
 
     /**
-     * @var integer
+     * @var int
      */
     private $numYears;
 
     /**
-     * @var integer
+     * @var int
      */
     private $gap;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $showToolTip;
 
     /**
-     * @var integer
+     * @var int
      */
     private $groupEventWithinPx;
 
@@ -106,7 +107,7 @@ class Jqtimeline extends AbstractContainer implements TimelineInterface
             $this->numYears = 1;
         }
 
-        $js = "var ev = ".Json::encode($this->__toArray(), false, array('enableJsonExprFinder' => true)).";\n\n";
+        $js = 'var ev = '.Json::encode($this->__toArray(), false, array('enableJsonExprFinder' => true)).";\n\n";
 
         $js .= "var tl = $('".$this->target."').jqtimeline({\n".
             "\t	events: ev,\n".

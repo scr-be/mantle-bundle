@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Application.
  *
@@ -15,17 +16,17 @@ use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 use Scribe\MantleBundle\Entity\Node;
 
 /**
- * Class NodeTest 
+ * Class NodeTest.
  */
 class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
     /**
-     * @var Node 
+     * @var Node
      */
     private $firstNode;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $nodes;
 
@@ -36,7 +37,7 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
     public function setUp()
     {
-        $this->repo = $this->container->get($this->config['node']['service']); 
+        $this->repo = $this->container->get($this->config['node']['service']);
     }
 
     public function setupAndExercise($count = 1)
@@ -95,7 +96,7 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
         $secondNode->setChildNodeOf($this->firstNode);
         $fourthNode->setChildNodeOf($thirdNode);
-        
+
         $this->em->flush();
 
         $tree1 = $this->repo->getTree('/foo');
@@ -131,10 +132,10 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
     public function testSetAsRoot()
     {
         $this->setupAndExercise(1);
-        $this->firstNode->setAsRoot(); 
+        $this->firstNode->setAsRoot();
         $this->em->flush();
 
-        $path = '/'. $this->firstNode->getSlug();
+        $path = '/'.$this->firstNode->getSlug();
 
         $tree = $this->repo->getTree($path);
 
@@ -147,14 +148,14 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
         $branch = $this->nodes[1];
         $leaf = $this->nodes[2];
 
-        $this->firstNode->setAsRoot(); 
+        $this->firstNode->setAsRoot();
         $branch->setChildNodeOf($this->firstNode);
         $leaf->setChildNodeOf($branch);
 
-        $branch->setAsRoot(); 
+        $branch->setAsRoot();
         $this->em->flush();
 
-        $path = '/'. $branch->getSlug();
+        $path = '/'.$branch->getSlug();
 
         $tree = $this->repo->getTree($path);
 
@@ -168,7 +169,7 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
     /*     $this->nodes[0]->setAsRoot(); */
     /*     $this->nodes[1]->setChildNodeOf($this->nodes[0]); */
     /*     $this->nodes[2]->setChildNodeOf($this->nodes[1]); */
-        
+
     /*     $this->em->flush(); */
     /* } */
 }

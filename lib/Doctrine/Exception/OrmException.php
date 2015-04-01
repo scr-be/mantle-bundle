@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -14,11 +15,9 @@ use Exception;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
- * Class ORMException
- *
- * @package Scribe\Doctrine\Exception
+ * Class ORMException.
  */
-class ORMException extends \Doctrine\ORM\ORMException implements ORMExceptionInterface
+class OrmException extends \Doctrine\ORM\ORMException implements ORMExceptionInterface
 {
     /**
      * The entity where this exception was thrown from.

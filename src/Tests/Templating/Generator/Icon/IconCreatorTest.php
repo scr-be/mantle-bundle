@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -251,7 +252,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
 
         $html = $this
             ->getNewIconCreator()
-            ->setAriaLabel("Glass is half full!")
+            ->setAriaLabel('Glass is half full!')
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
@@ -270,7 +271,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
 
         $html = $this
             ->getNewIconCreator()
-            ->setAriaRole("img")
+            ->setAriaRole('img')
             ->setAriaLabel('Glass is half full!')
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
@@ -290,7 +291,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
 
         $html = $this
             ->getNewIconCreator()
-            ->setAriaRole("img")
+            ->setAriaRole('img')
             ->setAriaLabel('Glass is half full!')
             ->render('glass-half-full', 'fa', null, 'fa-fw', 'fa-lg')
         ;
@@ -327,7 +328,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
         );
         $this
             ->getNewIconCreator()
-            ->setAriaRole("does-not-exists")
+            ->setAriaRole('does-not-exists')
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
     }
@@ -367,7 +368,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
             ->getNewIconCreator()
             ->setAriaHidden(false)
             ->setAriaRole('button')
-            ->setAriaLabel("Its a PHOTO ICON!!!")
+            ->setAriaLabel('Its a PHOTO ICON!!!')
             ->setFamily('fa')
             ->setIcon('photo')
             ->setStyles('fa-5x')
@@ -391,7 +392,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
             ->getNewIconCreator()
             ->setAriaHidden(false)
             ->setAriaRole('img')
-            ->setAriaLabel("Foo!")
+            ->setAriaLabel('Foo!')
             ->setFamily('fa')
             ->setIcon('glass')
             ->setStyles('fa-fw', 'fa-lg')
@@ -426,14 +427,14 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
             </span>
         ';
 
-        $validRoles = [ 'img', 'link', 'button', 'presentation'];
+        $validRoles = ['img', 'link', 'button', 'presentation'];
 
         $formatter = $this->getNewIconCreator();
 
         $html = $formatter
             ->setAriaHidden(false)
             ->setAriaRole('img')
-            ->setAriaLabel("Foo!")
+            ->setAriaLabel('Foo!')
             ->setFamily('fa')
             ->setIcon('glass')
             ->setStyles('fa-fw', 'fa-lg')
@@ -686,7 +687,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
             ->willReturn(new ArrayCollection())
         ;
 
-        $s->invokeArgs($obj, [ $family ]);
+        $s->invokeArgs($obj, [$family]);
         $l->invokeArgs($obj, []);
     }
 
@@ -717,7 +718,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
             ->willReturn(new ArrayCollection())
         ;
 
-        $s->invokeArgs($obj, [ $family ]);
+        $s->invokeArgs($obj, [$family]);
         $l->invokeArgs($obj, []);
     }
 
@@ -732,7 +733,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
 
         $family = $this->mockIconFamilyNoOptionalClasses();
 
-        $s->invokeArgs($obj, [ $family ]);
+        $s->invokeArgs($obj, [$family]);
 
         $o->invokeArgs($obj, ['one', 'two', 'three']);
         $l->invokeArgs($obj, []);

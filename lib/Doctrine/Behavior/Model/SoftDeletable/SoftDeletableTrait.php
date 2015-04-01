@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,9 +12,7 @@
 namespace Scribe\Doctrine\Behavior\Model\SoftDeletable;
 
 /**
- * Class SoftDeletableTrait
- *
- * @package Scribe\Doctrine\Behavior\Model\SoftDeletable
+ * Class SoftDeletableTrait.
  */
 trait SoftDeletableTrait
 {
@@ -23,7 +22,7 @@ trait SoftDeletableTrait
     protected $deletedAt;
 
     /**
-     * Get the deleted date (or null if not deleted)
+     * Get the deleted date (or null if not deleted).
      *
      * @return \Datetime|null
      */
@@ -33,7 +32,7 @@ trait SoftDeletableTrait
     }
 
     /**
-     * Set the date the to soft-delete the entity
+     * Set the date the to soft-delete the entity.
      *
      * @param \Datetime $when
      *
@@ -47,7 +46,7 @@ trait SoftDeletableTrait
     }
 
     /**
-     * Determines if the entity has already been deleted
+     * Determines if the entity has already been deleted.
      *
      * @return bool
      */
@@ -57,11 +56,11 @@ trait SoftDeletableTrait
             return false;
         }
 
-        return (bool) ($this->deletedAt <= (new \Datetime));
+        return (bool) ($this->deletedAt <= (new \Datetime()));
     }
 
     /**
-     * Determines if the entity will be deleted in the future
+     * Determines if the entity will be deleted in the future.
      *
      * @param \Datetime $when
      *
@@ -70,10 +69,8 @@ trait SoftDeletableTrait
     public function willBeDeletedAt(\Datetime $when = null)
     {
         if ($this->deletedAt === null) {
-
             return false;
         } elseif ($when === null) {
-
             return true;
         }
 
@@ -81,19 +78,19 @@ trait SoftDeletableTrait
     }
 
     /**
-     * Delete the entity now
+     * Delete the entity now.
      *
      * @return $this
      */
     public function delete()
     {
-        $this->deletedAt = new \Datetime;
+        $this->deletedAt = new \Datetime();
 
         return $this;
     }
 
     /**
-     * Restore the entity now
+     * Restore the entity now.
      *
      * @return $this
      */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -15,6 +16,8 @@ use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 /**
  * LoadNavMenuSubItemData.
  */
-class LoadNavMenuSubItemData extends AbstractYamlFixture {}
+class LoadNavMenuSubItemData extends AbstractYamlFixture
+{
+}
 
 /* EOF */

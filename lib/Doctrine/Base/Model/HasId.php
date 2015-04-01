@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -16,7 +17,7 @@ namespace Scribe\Doctrine\Base\Model;
 trait HasId
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 

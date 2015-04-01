@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,28 +12,26 @@
 namespace Scribe\Doctrine\Behavior\Model\Timestampable;
 
 /**
- * Class TimestampableTrait
- *
- * @package Scribe\Doctrine\Behavior\Model\Timestampable
+ * Class TimestampableTrait.
  */
 trait TimestampableTrait
 {
     /**
-     * Datetime of creation
+     * Datetime of creation.
      *
      * @var \Datetime
      */
     protected $created_at;
 
     /**
-     * Datetime of last update
+     * Datetime of last update.
      *
      * @var \Datetime
      */
     protected $updated_at;
 
     /**
-     * Get the created at timestamp (optionally formatted)
+     * Get the created at timestamp (optionally formatted).
      *
      * @param null|string $format
      *
@@ -48,7 +47,7 @@ trait TimestampableTrait
     }
 
     /**
-     * Set the created=at timestamp
+     * Set the created=at timestamp.
      *
      * @param \Datetime $when
      *
@@ -62,7 +61,7 @@ trait TimestampableTrait
     }
 
     /**
-     * Get the updated-at timestamp (optionally formatted)
+     * Get the updated-at timestamp (optionally formatted).
      *
      * @param null|string $format
      *
@@ -78,7 +77,7 @@ trait TimestampableTrait
     }
 
     /**
-     * Set the updated-at timestamp
+     * Set the updated-at timestamp.
      *
      * @param \Datetime $when
      *
@@ -92,33 +91,33 @@ trait TimestampableTrait
     }
 
     /**
-     * Update created-at timestamp
+     * Update created-at timestamp.
      *
      * @return $this
      */
     public function updateCreatedAt()
     {
         if (false === ($this->created_at instanceof \Datetime)) {
-            $this->created_at = new \Datetime;
+            $this->created_at = new \Datetime();
         }
 
         return $this;
     }
 
     /**
-     * Update updated-at timestamp
+     * Update updated-at timestamp.
      *
      * @return $this
      */
     public function updateUpdatedAt()
     {
-        $this->updated_at = new \Datetime;
+        $this->updated_at = new \Datetime();
 
         return $this;
     }
 
     /**
-     * Update created/updated-at timestamps
+     * Update created/updated-at timestamps.
      *
      * @return $this
      */

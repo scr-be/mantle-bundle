@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -22,16 +23,16 @@ class ArraysTest extends AbstractMantleUnitTestHelper
             'Cannot instantiate static class Scribe\Utility\Arrays.'
         );
 
-        new Arrays;
+        new Arrays();
     }
 
     public function testIsHash()
     {
         $data = [
             [['a', 'b', 'c', 'd'], false],
-            [[0=>'a',1=>'b',2=>'c',3=>'d'], false],
-            [[20=>'a',3=>'b',12=>'c',9=>'d'], true],
-            [['abc'=>'a','def'=>'b','ghi'=>'c','jkl'=>'d'], true],
+            [[0 => 'a',1 => 'b',2 => 'c',3 => 'd'], false],
+            [[20 => 'a',3 => 'b',12 => 'c',9 => 'd'], true],
+            [['abc' => 'a','def' => 'b','ghi' => 'c','jkl' => 'd'], true],
         ];
 
         foreach ($data as $d) {

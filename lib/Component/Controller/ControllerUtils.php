@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -169,7 +170,7 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
      * Persist an orm entity and optionally flush the transaction.
      *
      * @param AbstractEntity $entity   an orm entity instance
-     * @param bool            $flushNow whether to flush transaction
+     * @param bool           $flushNow whether to flush transaction
      *
      * @return bool
      */
@@ -182,7 +183,7 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
      * Remove an orm entity and optionally flush the transaction.
      *
      * @param AbstractEntity $entity   an orm entity instance
-     * @param bool            $flushNow whether to flush transaction
+     * @param bool           $flushNow whether to flush transaction
      *
      * @return bool
      */
@@ -194,9 +195,9 @@ class ControllerUtils implements ControllerUtilsInterface, ContainerAwareInterfa
     /**
      * Perform an orm entity action and optionally flush the transaction.
      *
-     * @param string          $action   entity action to perform
+     * @param string         $action   entity action to perform
      * @param AbstractEntity $entity   an orm entity instance
-     * @param bool            $flushNow whether to flush transaction
+     * @param bool           $flushNow whether to flush transaction
      *
      * @return bool
      */

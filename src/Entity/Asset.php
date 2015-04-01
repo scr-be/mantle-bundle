@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,13 +11,11 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
- * class Asset
- * @package Scribe\MantleBundle\Entity
+ * class Asset.
  */
 class Asset extends AbstractEntity
 {
@@ -31,12 +30,12 @@ class Asset extends AbstractEntity
     private $embeddedCode;
 
     /**
-     * @var integer
+     * @var int
      */
     private $height;
 
     /**
-     * @var integer
+     * @var int
      */
     private $width;
 
@@ -51,39 +50,40 @@ class Asset extends AbstractEntity
     private $assetType;
 
     /**
-     * @var AssetDescriptor 
+     * @var AssetDescriptor
      */
     private $assetDescriptor;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $containerNodeRevisions;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
         parent::__construct();
-        
-        $this->containerNodeRevisions = new ArrayCollection;
+
+        $this->containerNodeRevisions = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
      * @return string
      */
     public function __toString()
     {
-        return __CLASS__ . ':' . $this->getId();
+        return __CLASS__.':'.$this->getId();
     }
 
     /**
-     * Set path
+     * Set path.
      *
      * @param string $path
+     *
      * @return Asset
      */
     public function setPath($path)
@@ -94,9 +94,9 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Get path
+     * Get path.
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {
@@ -104,9 +104,10 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Set embeddedCode
+     * Set embeddedCode.
      *
      * @param string $embeddedCode
+     *
      * @return Asset
      */
     public function setEmbeddedCode($embeddedCode)
@@ -117,9 +118,9 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Get embeddedCode
+     * Get embeddedCode.
      *
-     * @return string 
+     * @return string
      */
     public function getEmbeddedCode()
     {
@@ -127,9 +128,10 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Set height
+     * Set height.
      *
-     * @param integer $height
+     * @param int $height
+     *
      * @return Asset
      */
     public function setHeight($height)
@@ -140,9 +142,9 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Get height
+     * Get height.
      *
-     * @return integer 
+     * @return int
      */
     public function getHeight()
     {
@@ -150,9 +152,10 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Set width
+     * Set width.
      *
-     * @param integer $width
+     * @param int $width
+     *
      * @return Asset
      */
     public function setWidth($width)
@@ -163,9 +166,9 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Get width
+     * Get width.
      *
-     * @return integer 
+     * @return int
      */
     public function getWidth()
     {
@@ -173,9 +176,10 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Set altText
+     * Set altText.
      *
      * @param string $altText
+     *
      * @return Asset
      */
     public function setAltText($altText)
@@ -186,9 +190,9 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Get altText
+     * Get altText.
      *
-     * @return string 
+     * @return string
      */
     public function getAltText()
     {
@@ -196,9 +200,10 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Set assetType
+     * Set assetType.
      *
      * @param \stdClass $assetType
+     *
      * @return Asset
      */
     public function setAssetType($assetType)
@@ -209,9 +214,9 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Get assetType
+     * Get assetType.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getAssetType()
     {
@@ -219,7 +224,7 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Gets the value of assetDescriptor
+     * Gets the value of assetDescriptor.
      *
      * @return $assetDescriptor
      */
@@ -229,7 +234,7 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Sets the value of assetDescriptor
+     * Sets the value of assetDescriptor.
      *
      * @param AssetDescriptor
      *
@@ -243,7 +248,7 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Gets the value of containerNodeRevisions
+     * Gets the value of containerNodeRevisions.
      *
      * @return containerNodeRevisions
      */
@@ -253,7 +258,7 @@ class Asset extends AbstractEntity
     }
 
     /**
-     * Sets the value of containerNodeRevisions
+     * Sets the value of containerNodeRevisions.
      *
      * @param ArrayCollection
      *

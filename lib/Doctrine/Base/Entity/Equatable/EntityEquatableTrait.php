@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -26,7 +27,7 @@ trait EntityEquatableTrait
      * @param AbstractEntity $entity entity to test against
      * @param bool           $strict should the entity id be compared or not
      *
-     * @return boolean
+     * @return bool
      */
     public function isEqualTo(AbstractEntity $entity, $strict = true)
     {

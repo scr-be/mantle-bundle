@@ -29,17 +29,17 @@ Scribe\MantleBundle\Entity\NodeRevision:
                 name: nodeId
                 referenceColumn: id
         renderEngine:
-            targetEntity: Scribe\MantleBundle\Entity\NodeRenderEngine 
+            targetEntity: Scribe\MantleBundle\Entity\NodeRenderEngine
             inversedBy: revisions
             joinColumn:
-                name: nodeRenderEngineId 
+                name: nodeRenderEngineId
                 referenceColumn: id
     manyToMany:
         embeddedNodes:
-            targetEntity: Scribe\MantleBundle\Entity\Node 
-            inversedBy:  containerNodeRevisions 
+            targetEntity: Scribe\MantleBundle\Entity\Node
+            inversedBy:  containerNodeRevisions
             joinTable:
-                name: NodeRevisionMapToEmbeddedNode 
+                name: NodeRevisionMapToEmbeddedNode
                 joinColumns:
                     nodeRevisionId:
                         referencedColumnId: id
@@ -47,10 +47,10 @@ Scribe\MantleBundle\Entity\NodeRevision:
                     nodeId:
                         referencedColumnId: id
         embeddedAssets:
-            targetEntity: Scribe\MantleBundle\Entity\Asset 
-            inversedBy:  containerNodeRevisions 
+            targetEntity: Scribe\MantleBundle\Entity\Asset
+            inversedBy:  containerNodeRevisions
             joinTable:
-                name: NodeRevisionMapToAsset 
+                name: NodeRevisionMapToAsset
                 joinColumns:
                     nodeRevisionId:
                         referencedColumnId: id

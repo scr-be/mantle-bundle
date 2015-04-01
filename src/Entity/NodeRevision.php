@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,18 +11,16 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasCreatedOn;
 
 /**
- * NodeRevision
- * @package Scribe\MantleBundle\Entity
+ * NodeRevision.
  */
 class NodeRevision extends AbstractEntity
 {
-    /**
+    /*
      * import traits
      */
     use HasCreatedOn;
@@ -37,60 +36,61 @@ class NodeRevision extends AbstractEntity
     private $author;
 
     /**
-     * @var NodeRenderEngine 
+     * @var NodeRenderEngine
      */
     private $renderEngine;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $embeddedNodes;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $embeddedAssets;
 
     /**
-     * @var NodeRevisionDiff 
+     * @var NodeRevisionDiff
      */
     private $diff;
 
     /**
-     * @var Node 
+     * @var Node
      */
     private $owningNode;
 
     /**
-     * @var Node 
+     * @var Node
      */
     private $node;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->embeddedNodes  = new ArrayCollection;
-        $this->embeddedAssets = new ArrayCollection;
+        $this->embeddedNodes  = new ArrayCollection();
+        $this->embeddedAssets = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->getContent(); 
+        return $this->getContent();
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
+     *
      * @return NodeRevision
      */
     public function setContent($content)
@@ -101,9 +101,9 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Get content
+     * Get content.
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -111,9 +111,10 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Set author
+     * Set author.
      *
      * @param \stdClass $author
+     *
      * @return NodeRevision
      */
     public function setAuthor($author)
@@ -124,9 +125,9 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Get author
+     * Get author.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getAuthor()
     {
@@ -134,9 +135,10 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Set renderEngine
+     * Set renderEngine.
      *
      * @param \stdClass $renderEngine
+     *
      * @return NodeRevision
      */
     public function setRenderEngine($renderEngine)
@@ -147,9 +149,9 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Get renderEngine
+     * Get renderEngine.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getRenderEngine()
     {
@@ -157,9 +159,10 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Set embeddedNodes
+     * Set embeddedNodes.
      *
      * @param \stdClass $embeddedNodes
+     *
      * @return NodeRevision
      */
     public function setEmbeddedNodes($embeddedNodes)
@@ -170,9 +173,9 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Get embeddedNodes
+     * Get embeddedNodes.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getEmbeddedNodes()
     {
@@ -180,9 +183,10 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Set embeddedAssets
+     * Set embeddedAssets.
      *
      * @param \stdClass $embeddedAssets
+     *
      * @return NodeRevision
      */
     public function setEmbeddedAssets($embeddedAssets)
@@ -193,9 +197,9 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Get embeddedAssets
+     * Get embeddedAssets.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getEmbeddedAssets()
     {
@@ -203,9 +207,9 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Gets the value of diff
+     * Gets the value of diff.
      *
-     * @return NodeRevisionDiff|null 
+     * @return NodeRevisionDiff|null
      */
     public function getdiff()
     {
@@ -213,22 +217,23 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Sets the value of diff
+     * Sets the value of diff.
      *
      * @param NodeRevisionDiff
      *
-     * @return $this 
+     * @return $this
      */
     public function setDiff(NodeRevisionDiff $diff)
     {
         $this->diff = $diff;
+
         return $this;
     }
 
     /**
-     * Gets the value of owningNode
+     * Gets the value of owningNode.
      *
-     * @return Scribe\MantleBundle\Entity\Node 
+     * @return Scribe\MantleBundle\Entity\Node
      */
     public function getOwningNode()
     {
@@ -236,20 +241,21 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Sets the value of owningNode
+     * Sets the value of owningNode.
      *
      * @param Scribe\MantleBundle\Entity\Node
      *
-     * @return $this 
+     * @return $this
      */
     public function setOwningNode(Node $owningNode)
     {
         $this->owningNode = $owningNode;
+
         return $this;
     }
 
     /**
-     * Gets the value of node
+     * Gets the value of node.
      *
      * @return Scribe\MantleBundle\Entity\Node
      */
@@ -259,7 +265,7 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Sets the value of node
+     * Sets the value of node.
      *
      * @param Scribe\MantleBundle\Entity\Node
      *

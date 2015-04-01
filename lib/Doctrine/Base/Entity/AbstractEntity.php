@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -27,8 +28,6 @@ use Scribe\Doctrine\Exception\OrmException;
 
 /**
  * Class Entity.
- *
- * @package Scribe\Entity
  */
 abstract class AbstractEntity implements
     EntityCastableInterface, EntityDebuggableInterface, EntityEquatableInterface, EntitySerializableInterface,
@@ -51,7 +50,7 @@ abstract class AbstractEntity implements
     }
 
     /**
-     * Trigger an ORM entity error by passing a valid ORMException
+     * Trigger an ORM entity error by passing a valid ORMException.
      *
      * @param ORMException $e
      *

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -13,7 +14,7 @@ namespace Scribe\Filter;
 use Scribe\Utility\Caller\Call;
 
 /**
- * Class String
+ * Class String.
  */
 class String
 {
@@ -250,8 +251,8 @@ class String
         $stop   = mb_strlen($string);
         $result = array();
 
-        for($idx = 0; $idx < $stop; $idx++) {
-            $result[] = mb_substr( $string, $idx, 1);
+        for ($idx = 0; $idx < $stop; $idx++) {
+            $result[] = mb_substr($string, $idx, 1);
         }
 
         return $result;

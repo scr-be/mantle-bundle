@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -38,10 +39,10 @@ class MathTest extends AbstractMantleUnitTestHelper
     public function testToBase()
     {
         $provider = [
-            [1,     10, 100, null, false, 10  ],
-            [50,    50, 200, null, false, 200 ],
+            [1,     10, 100, null, false, 10],
+            [50,    50, 200, null, false, 200],
             [1.333, 10, 50,  2,    false, 6.67],
-            [20,    10, 100, null, true,  100 ],
+            [20,    10, 100, null, true,  100],
         ];
 
         foreach ($provider as $p) {

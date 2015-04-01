@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -15,14 +16,14 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
- * Trait EntityLifecycleableTrait
+ * Trait EntityLifecycleableTrait.
  *
  * Supports standard life-cycle doctrine events
  */
 trait EntityLifecycleableTrait
 {
     /**
-     * Event occurs pre-removal of entity
+     * Event occurs pre-removal of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
@@ -32,7 +33,7 @@ trait EntityLifecycleableTrait
     }
 
     /**
-     * Event occurs post-removal of entity
+     * Event occurs post-removal of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
@@ -42,7 +43,7 @@ trait EntityLifecycleableTrait
     }
 
     /**
-     * Event occurs pre-persist (only initial insert) of entity
+     * Event occurs pre-persist (only initial insert) of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
@@ -52,7 +53,7 @@ trait EntityLifecycleableTrait
     }
 
     /**
-     * Event occurs post-persist (only initial insert) of entity
+     * Event occurs post-persist (only initial insert) of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
@@ -62,7 +63,7 @@ trait EntityLifecycleableTrait
     }
 
     /**
-     * Event occurs pre-update of entity
+     * Event occurs pre-update of entity.
      *
      * @param null|PreUpdateEventArgs $eventArgs
      */
@@ -72,7 +73,7 @@ trait EntityLifecycleableTrait
     }
 
     /**
-     * Event occurs post-update of entity
+     * Event occurs post-update of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
@@ -93,7 +94,7 @@ trait EntityLifecycleableTrait
     }
 
     /**
-     * Call all lifecycle methods beginning with the pre-defined type
+     * Call all lifecycle methods beginning with the pre-defined type.
      *
      * @param string         $lifecycleType
      * @param EventArgs|null $eventArgs
@@ -105,7 +106,7 @@ trait EntityLifecycleableTrait
 
         $lifecycleMethods = array_filter(
             get_class_methods($this),
-            function($method) use ($lifecycleMethodSearch, $lifecycleMethodSearchLen) {
+            function ($method) use ($lifecycleMethodSearch, $lifecycleMethodSearchLen) {
                 return (bool) (substr($method, 0, $lifecycleMethodSearchLen) === $lifecycleMethodSearch);
             }
         );

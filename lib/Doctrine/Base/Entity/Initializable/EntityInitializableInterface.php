@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,7 +12,7 @@
 namespace Scribe\Doctrine\Base\Entity\Initializable;
 
 /**
- * Trait EntityInitializableTrait
+ * Trait EntityInitializableTrait.
  *
  * Supports auto-initializing of included traits
  */
@@ -23,21 +24,21 @@ interface EntityInitializableInterface
     const INITABLE_METHOD_PREFIX = 'initialize';
 
     /**
-     * Disable auto-initialization method calling
+     * Disable auto-initialization method calling.
      *
      * @return $this
      */
     public function disableAutoInitialization();
 
     /**
-     * Enable auto-initialization method calling
+     * Enable auto-initialization method calling.
      *
      * @return $this
      */
     public function enableAutoInitialization();
 
     /**
-     * Call all initializer methods
+     * Call all initializer methods.
      *
      * @param bool $force
      * @param bool $suppressExceptions

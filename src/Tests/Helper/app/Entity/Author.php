@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,46 +11,53 @@
 
 namespace Scribe\MantleBundle\Tests\Fixtures\app\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Model\AuthorInterface;
 
-class Author implements AuthorInterface 
+class Author implements AuthorInterface
 {
     /**
-     * @var integer 
+     * @var int
      */
     private $id = null;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $revisions;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $nodes;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
-    
-    public function getNodeRevisions() {}
-    public function setNodeRevisions(ArrayCollection $nodeRevisions) {}
-    public function getNodes() {}
-    public function setNodes(ArrayCollection $nodes) {}
+
+    public function getNodeRevisions()
+    {
+    }
+    public function setNodeRevisions(ArrayCollection $nodeRevisions)
+    {
+    }
+    public function getNodes()
+    {
+    }
+    public function setNodes(ArrayCollection $nodes)
+    {
+    }
 }

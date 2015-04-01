@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -16,12 +17,12 @@ namespace Scribe\Doctrine\Base\Model;
 trait HasWeight
 {
     /**
-     * @var integer
+     * @var int
      */
     private $weight;
 
     /**
-     * Init trait
+     * Init trait.
      */
     public function initializeVersion()
     {
@@ -31,7 +32,7 @@ trait HasWeight
     /**
      * Set weight.
      *
-     * @param integer $weight
+     * @param int $weight
      *
      * @return $this
      */
@@ -45,7 +46,7 @@ trait HasWeight
     /**
      * Get weight.
      *
-     * @return integer
+     * @return int
      */
     public function getWeight()
     {

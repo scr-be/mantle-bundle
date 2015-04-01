@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,7 +12,6 @@
 namespace Scribe\MantleBundle\Fixture;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Util\Debug;
 use Symfony\Component\Debug\Exception\ContextErrorException;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -29,28 +29,28 @@ use Doctrine\Common\Persistence\ObjectManager;
 abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
-     * Operational mode: truncate table
+     * Operational mode: truncate table.
      *
      * @var int
      */
     const MODE_TRUNCATE = -1;
 
     /**
-     * Operational mode: merge entries into table
+     * Operational mode: merge entries into table.
      *
      * @var int
      */
     const MODE_MERGE = 0;
 
     /**
-     * Operational mode: append to table
+     * Operational mode: append to table.
      *
      * @var int
      */
     const MODE_APPEND = 1;
 
     /**
-     * Default operational mode: truncate
+     * Default operational mode: truncate.
      *
      * @var int
      */
@@ -313,7 +313,7 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
         $name = $this->name;
 
         if (null === $name) {
-            throw new RuntimeException("You must provide a fixture name.");
+            throw new RuntimeException('You must provide a fixture name.');
         }
 
         $kernelRoot = $this
@@ -329,21 +329,21 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
         try {
             $fixture = $yaml->parse(@file_get_contents($yamlPath));
         } catch (ParseException $e) {
-            throw new RuntimeException(sprintf("Unable to parse the YAML string: %s", $e->getMessage()), 0, $e);
+            throw new RuntimeException(sprintf('Unable to parse the YAML string: %s', $e->getMessage()), 0, $e);
         }
 
         if (!isset($fixture[$name])) {
-            throw new RuntimeException(sprintf("Unable to parse the YAML root %s in file %s.", $name, $yamlPath));
+            throw new RuntimeException(sprintf('Unable to parse the YAML root %s in file %s.', $name, $yamlPath));
         } else {
             $fixtureRoot = $fixture[$name];
         }
 
         if (!isset($fixtureRoot['orm'])) {
-            throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'orm', $yamlPath));
+            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'orm', $yamlPath));
         } elseif (null !== $fixtureRoot['data'] && !isset($fixtureRoot['data'])) {
-            throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'data', $yamlPath));
+            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'data', $yamlPath));
         } elseif (!array_key_exists('dependencies', $fixtureRoot)) {
-            throw new RuntimeException(sprintf("Unable to find required fixture section %s in file %s.", 'dependencies', $yamlPath));
+            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'dependencies', $yamlPath));
         }
 
         $this->fixture      = $fixtureRoot;

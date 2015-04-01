@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Application.
  *
@@ -13,7 +14,7 @@ namespace Scribe\MantleBundle\Tests\Entity;
 use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 
 /**
- * Class NodeContextTypeTest 
+ * Class NodeContextTypeTest.
  */
 class NodeContextTypeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
@@ -34,7 +35,7 @@ class NodeContextTypeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
     public function setUp()
     {
-        $this->repo = $this->container->get($this->config['nodeContextType']['service']); 
+        $this->repo = $this->container->get($this->config['nodeContextType']['service']);
     }
 
     public function setupAndExercise($count = 1)

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -23,7 +24,7 @@ trait HasTitle
     protected $title;
 
     /**
-     * Init trait
+     * Init trait.
      */
     public function initializeTitle()
     {

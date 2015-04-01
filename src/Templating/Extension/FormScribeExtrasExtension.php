@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -137,10 +138,10 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param FormType     $form
-     * @param string       $label
-     * @param string       $placeholder
-     * @param null|integer $cols
+     * @param FormType $form
+     * @param string   $label
+     * @param string   $placeholder
+     * @param null|int $cols
      *
      * @return mixed
      */
@@ -158,10 +159,10 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param FormType     $form
-     * @param string       $label
-     * @param string       $placeholder
-     * @param null|integer $cols
+     * @param FormType $form
+     * @param string   $label
+     * @param string   $placeholder
+     * @param null|int $cols
      *
      * @return mixed
      */
@@ -179,10 +180,10 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param FormType     $form
-     * @param string       $label
-     * @param string       $placeholder
-     * @param null|integer $cols
+     * @param FormType $form
+     * @param string   $label
+     * @param string   $placeholder
+     * @param null|int $cols
      *
      * @return mixed
      */
@@ -200,10 +201,10 @@ class FormScribeExtrasExtension extends Twig_Extension
     }
 
     /**
-     * @param FormType     $form
-     * @param string       $label
-     * @param string       $placeholder
-     * @param null|integer $cols
+     * @param FormType $form
+     * @param string   $label
+     * @param string   $placeholder
+     * @param null|int $cols
      *
      * @return mixed
      */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -12,8 +13,6 @@ namespace Scribe\MantleBundle\Templating\Extension;
 
 use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorInterface;
-use Symfony\Component\Templating\TemplateNameParser;
-use Symfony\Bridge\Twig\TwigEngine;
 use Twig_Extension;
 use Twig_Environment;
 
@@ -39,7 +38,7 @@ class IconCreatorExtension extends Twig_Extension
         $this->iconCreator = $iconCreator;
 
         $this->setParameters([
-            'is_safe'           => [ 'html' ],
+            'is_safe'           => ['html'],
             'needs_environment' => true,
         ]);
 
