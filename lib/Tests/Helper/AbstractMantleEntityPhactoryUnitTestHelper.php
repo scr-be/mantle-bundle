@@ -17,9 +17,11 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Phactory\Sql\Phactory;
 
 /**
- * Class MantleFrameworkEntityPhactoryHelper
+ * Class AbstractMantleEntityPhactoryUnitTestHelper
+ *
+ * @package Scribe\Tests\Helper
  */
-class MantleFrameworkEntityPhactoryHelper extends MantleFrameworkEntityHelper
+class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUnitTestHelper
 {
     /**
      * @var \PDO

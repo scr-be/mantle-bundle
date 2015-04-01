@@ -11,9 +11,11 @@
 namespace Scribe\Tests\Helper;
 
 /**
- * Class MantleFrameworkHelper
+ * Class AbstractMantleUnitTestHelper
+ *
+ * @package Scribe\Tests\Helper
  */
-class MantleFrameworkHelper extends \PHPUnit_Framework_TestCase
+abstract class AbstractMantleUnitTestHelper extends \PHPUnit_Framework_TestCase
 {
-    use MantleFrameworkHelperTrait;
+    use MantleUnitTestHelperTrait;
 }

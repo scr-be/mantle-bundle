@@ -48,7 +48,7 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
     public function registerContainerConfiguration(\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(
-            __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
+            __DIR__ . '/config/config_' . $this->getEnvironment() . '.yml'
         );
     }
 
@@ -58,11 +58,14 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
     protected function initializeContainer()
     {
         parent::initializeContainer();
+
         return;
+
         static $first = true;
 
         if ('test' !== $this->getEnvironment()) {
             parent::initializeContainer();
+
             return;
         }
 

@@ -10,27 +10,22 @@
 
 namespace Scribe\MantleBundle\Tests;
 
-use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 use Scribe\MantleBundle\ScribeMantleBundle;
+use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
 use Symfony\Component\DependencyInjection\Container;
 use AppKernel;
 
 /**
  * Class ScribeMantleBundleTest.
  */
-class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
+class ScribeMantleBundleTest extends AbstractMantleKernelUnitTestHelper
 {
     const FULLY_QUALIFIED_CLASS_NAME = 'Scribe\MantleBundle\ScribeMantleBundle';
 
-    private $container;
-
     protected function setUp()
     {
-        $kernel = new AppKernel('test', true);
-        $kernel->boot();
-
-        $this->container = $kernel->getContainer();
+        parent::setUp();
     }
 
     protected function getNewBundle()

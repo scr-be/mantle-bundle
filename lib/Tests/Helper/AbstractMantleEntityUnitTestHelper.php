@@ -13,9 +13,11 @@ namespace Scribe\Tests\Helper;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Class MantleFrameworkEntityHelper
+ * Class AbstractMantleEntityUnitTestHelper
+ *
+ * @package Scribe\Tests\Helper
  */
-class MantleFrameworkEntityHelper extends MantleFrameworkKernelHelper
+abstract class AbstractMantleEntityUnitTestHelper extends AbstractMantleKernelUnitTestHelper
 {
     /**
      * @var EntityManager

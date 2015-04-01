@@ -11,9 +11,11 @@
 namespace Scribe\Tests\Helper;
 
 /**
- * Class MantleFrameworkHelperTrait
+ * Class MantleUnitTestHelperTrait
+ *
+ * @package Scribe\Tests\Helper
  */
-trait MantleFrameworkHelperTrait
+trait MantleUnitTestHelperTrait
 {
     /**
      * Remove a directory

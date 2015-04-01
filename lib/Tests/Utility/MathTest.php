@@ -10,11 +10,10 @@
 
 namespace Scribe\Tests\Utility;
 
-use PHPUnit_Framework_TestCase;
+use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
 use Scribe\Utility\Math;
-use Scribe\Exception\InvalidArgumentException;
 
-class MathTest extends PHPUnit_Framework_TestCase
+class MathTest extends AbstractMantleUnitTestHelper
 {
     public function testShouldThrowExceptionOnInstantiation()
     {

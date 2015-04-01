@@ -10,10 +10,10 @@
 
 namespace Scribe\Tests\Utility;
 
-use Scribe\Tests\Helper\MantleFrameworkHelper;
+use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
 use Scribe\Utility\Arrays;
 
-class ArraysTest extends MantleFrameworkHelper
+class ArraysTest extends AbstractMantleUnitTestHelper
 {
     public function testShouldThrowExceptionOnInstantiation()
     {

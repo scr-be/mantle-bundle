@@ -10,10 +10,10 @@
 
 namespace Scribe\Tests\Utility\Config;
 
-use Scribe\Tests\Helper\MantleFrameworkKernelHelper;
+use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
 use Scribe\Utility\Config\ConfigContainer;
 
-class ConfigContainerTest extends MantleFrameworkKernelHelper
+class ConfigContainerTest extends AbstractMantleKernelUnitTestHelper
 {
     /**
      * @var ConfigContainer
@@ -30,7 +30,10 @@ class ConfigContainerTest extends MantleFrameworkKernelHelper
     public function testGetParameter()
     {
         $this->assertEquals([], $this->config->get('scribe.maintenance.bundles'));
-        $this->assertEquals('Symfony\Component\HttpKernel\Controller\TraceableControllerResolver', $this->config->get('debug.controller_resolver.class'));
+        $this->assertEquals(
+            'Symfony\Component\HttpKernel\Controller\TraceableControllerResolver',
+            $this->config->get('debug.controller_resolver.class')
+        );
     }
 
     public function testSetParameter()

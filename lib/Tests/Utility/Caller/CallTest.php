@@ -10,11 +10,10 @@
 
 namespace Scribe\Tests\Utility\Caller;
 
-use PHPUnit_Framework_TestCase;
+use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
 use Scribe\Utility\Caller\Call;
-use Scribe\Exception\BadFunctionCallException;
 
-class CallTest extends PHPUnit_Framework_TestCase
+class CallTest extends AbstractMantleUnitTestHelper
 {
     public function testShouldThrowExceptionOnInstantiation()
     {

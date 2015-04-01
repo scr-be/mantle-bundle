@@ -10,12 +10,12 @@
 
 namespace Scribe\MantleBundle\Tests\Entity;
 
-use Scribe\Tests\Helper\MantleFrameworkEntityPhactoryHelper;
+use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 
 /**
  * Class NodeRevisionTest 
  */
-class NodeRevisionTest extends MantleFrameworkEntityPhactoryHelper
+class NodeRevisionTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
     /**
      * @var string

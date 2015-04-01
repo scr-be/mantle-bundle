@@ -70,7 +70,8 @@
         "sensio/framework-extra-bundle"        : "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler" : "~2.1",
         "zendframework/zend-json"              : "~2.3",
-        "scribe/cache-bundle"                  : "2.0.*@dev"
+        "scribe/cache-bundle"                  : "2.0.*@dev",
+        "mindscape/raygun4php"                 : "dev-master"
     },
     "require-dev" : {
         "sensio/generator-bundle"              : "~2.5",

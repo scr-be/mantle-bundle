@@ -14,11 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class MantleFrameworkHelper
+ * Class AbstractMantleKernelUnitTestHelper
+ *
+ * @package Scribe\Tests\Helper
  */
-class MantleFrameworkKernelHelper extends KernelTestCase
+abstract class AbstractMantleKernelUnitTestHelper extends KernelTestCase
 {
-    use MantleFrameworkHelperTrait;
+    use MantleUnitTestHelperTrait;
 
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface

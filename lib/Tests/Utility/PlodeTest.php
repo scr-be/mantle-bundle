@@ -10,11 +10,11 @@
 
 namespace Scribe\Tests\Utility;
 
-use PHPUnit_Framework_TestCase;
+use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
 use Scribe\Utility\Plode;
 use Scribe\Exception\BadFunctionCallException;
 
-class PlodeTest extends PHPUnit_Framework_TestCase
+class PlodeTest extends AbstractMantleUnitTestHelper
 {
     public function testShouldThrowExceptionOnInstantiation()
     {

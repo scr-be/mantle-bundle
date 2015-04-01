@@ -11,13 +11,13 @@
 namespace Scribe\MantleBundle\Tests\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Tests\Helper\MantleFrameworkEntityPhactoryHelper;
+use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 use Scribe\MantleBundle\Entity\Node;
 
 /**
  * Class NodeTest 
  */
-class NodeTest extends MantleFrameworkEntityPhactoryHelper
+class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
     /**
      * @var Node 
