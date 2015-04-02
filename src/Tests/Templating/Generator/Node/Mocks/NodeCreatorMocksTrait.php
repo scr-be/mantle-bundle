@@ -106,6 +106,10 @@ trait NodeCreatorMocksTrait
             ->method('getTitle')
             ->willReturn('Post 1')
         ;
+        $node
+            ->method('getSlug')
+            ->willReturn('post_1')
+        ;
 
         return $node;
     }
@@ -122,6 +126,7 @@ trait NodeCreatorMocksTrait
         ;
         $nodeRepo
             ->method('findOneBySlug')
+            ->with('post_1')
             ->willReturn($node)
         ;
 
@@ -131,7 +136,7 @@ trait NodeCreatorMocksTrait
     protected function mockNodeTwigEntities()
     {
         $this->nodeRepo = $this->mockNodeRepository();
-        $this->node = $this->nodeRepo->findOneBySlug();
+        $this->node = $this->nodeRepo->findOneBySlug('post_1');
     }
 
     protected function mockNodeNothingEntities()

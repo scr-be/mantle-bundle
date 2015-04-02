@@ -91,12 +91,35 @@ class NodeCreator
      */
     public function renderFromSlug($slug, $args = array())
     {
-        $node = $this
-            ->nodeRepository
-            ->findOneBySlug($slug) 
-        ;
+        $node = $this->findNodeBySlug($slug);
         $content = $this->render($node, $args);
 
         return $content;
+    }
+
+    /**
+     * Find node by slug
+     *
+     * @param string
+     * @return void
+     *
+     * @throws NodeException
+     */
+    public function findNodeBySlug($slug)
+    {
+        try {
+            $node = $this
+                ->nodeRepository
+                ->findOneBySlug($slug) 
+            ;
+
+            return $node;
+        } catch (\Exception $e) {
+            throw new NodeException(
+                sprintf("Node with slug %s could not be found.", $slug),
+                NodeException::CODE_MISSING_ENTITY,
+                $e
+            );
+        } 
     }
 }

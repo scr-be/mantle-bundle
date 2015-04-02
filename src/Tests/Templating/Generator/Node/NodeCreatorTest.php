@@ -55,6 +55,19 @@ class NodeCreatorTest extends AbstractMantleKernelUnitTestHelper
         $this->assertXmlStringEqualsXmlString($expected, $actual);
     }
 
+    public function testRenderFromBadSlugThrowsException()
+    {
+        $this->mockNodeTwigEntities();
+        $creator = $this->getNewNodeCreator(); 
+
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Node\NodeException',
+            'Node with slug foo could not be found.',
+            '101'
+        );
+        $actual = $creator->renderFromSlug('foo');
+    }
+
     public function testNoRender()
     {
         $this->mockNodeNothingEntities();

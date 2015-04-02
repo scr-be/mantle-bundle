@@ -15,14 +15,6 @@ use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorExcep
 /**
  * Class NodeException.
  */
-class NodeException extends TemplatingGeneratorException
-{
-    /**
-     * Exception code for validation occurring in the incorrect order.
-     *
-     * @var int
-     */
-    const CODE_INVALID_VALIDATION_ORDER = 52;
-}
+class NodeException extends TemplatingGeneratorException {}
 
 /* EOF */
