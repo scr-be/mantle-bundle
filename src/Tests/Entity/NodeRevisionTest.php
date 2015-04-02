@@ -45,4 +45,10 @@ class NodeRevisionTest extends AbstractMantleEntityPhactoryUnitTestHelper
         $this->nodeRevisions = $this->nodeRevisionRows();
         $this->firstNodeRevision = $this->nodeRevisionRows()[0];
     }
+
+    public function testBasic()
+    {
+        $this->setupAndExercise(1);
+    }
+
 }

@@ -34,6 +34,7 @@ parameters:
     s.mantle.icon_creator_cached.class:             Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
     s.mantle.navigation_registrar.class:            Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
     s.mantle.navigation_member.content_nodes.class: Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember;
+    s.mantle.node.twig.render.class:                Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeTwigRender
     s.utils.controller.class:                       Scribe\Component\Controller\ControllerUtils
     s.symfony.bundleinfo.class:                     Scribe\Component\Bundle\BundleInformation
 
@@ -192,6 +193,11 @@ services:
             - @twig
         calls:
             - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
+
+    s.mantle.node.twig.render:
+        class:            %s.mantle.node.twig.render.class%
+        arguments:
+            - @twig
 
     s.mantle.icon_creator.notemplating:
         class:       %s.mantle.icon_creator_cached.class%
