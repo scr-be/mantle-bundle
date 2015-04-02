@@ -44,4 +44,15 @@ class NodeCreatorTest extends AbstractMantleKernelUnitTestHelper
 
         $this->assertXmlStringEqualsXmlString($expected, $actual);
     }
+
+    public function testRenderFromSlug()
+    {
+        $expected = '<div id="foo">Post 1</div>';
+
+        $creator = $this->getNewNodeCreator(); 
+        $actual = $creator->renderFromSlug($this->node->getSlug());
+
+        $this->assertXmlStringEqualsXmlString($expected, $actual);
+    }
+
 }

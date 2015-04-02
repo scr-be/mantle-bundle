@@ -73,4 +73,23 @@ class NodeCreator
 
         return $content;
     }
+
+    /**
+     * Lookup node by slug and 
+     * render twig template from Node
+     *
+     * @param string 
+     * @param array
+     * @return string 
+     */
+    public function renderFromSlug($slug, $args = array())
+    {
+        $node = $this
+            ->nodeRepository
+            ->findOneBySlug($slug) 
+        ;
+        $content = $this->render($node, $args);
+
+        return $content;
+    }
 }
