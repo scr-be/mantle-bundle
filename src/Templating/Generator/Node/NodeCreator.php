@@ -19,12 +19,12 @@ use Scribe\MantleBundle\EntityRepository\NodeRepository;
 class NodeCreator
 {
     /**
-     * @var string
+     * @var NodeRepository 
      */
     private $nodeRepository;
 
     /**
-     * @var string
+     * @var ServiceFinder 
      */
     private $serviceFinder;
 
@@ -65,13 +65,12 @@ class NodeCreator
         $content = $nodeRevision->getContent();
 
         if ($nodeRevision->hasRenderEngine()) {
-            $engineType = $nodeRevision
+            $serviceName = $nodeRevision
                 ->getRenderEngine()
                 ->getService()
             ;
             $fullArgs = $this->getFullArgs($node, $args);
-            $finder = $this->serviceFinder;
-            $engine = $finder($engineType);
+            $engine = $this->findRenderEngineService($serviceName);
             $rendered = $engine->render($content, $fullArgs);
 
             return $rendered;
@@ -98,6 +97,30 @@ class NodeCreator
     }
 
     /**
+     * Find node rendering service by
+     * service name, via service finder
+     *
+     * @param string
+     * @return Object 
+     *
+     * @throws NodeException
+     */
+    protected function findRenderEngineService($serviceName)
+    {
+        $finder = $this->serviceFinder;
+
+        try {
+            return $finder($serviceName);
+        } catch (\Exception $e) {
+            throw new NodeException(
+                sprintf("The requested node rendering service %s could not be found.", $serviceName),
+                NodeException::CODE_MISSING_SERVICE,
+                $e
+            );
+        } 
+    }
+
+    /**
      * Find node by slug
      *
      * @param string
@@ -105,7 +128,7 @@ class NodeCreator
      *
      * @throws NodeException
      */
-    public function findNodeBySlug($slug)
+    protected function findNodeBySlug($slug)
     {
         try {
             $node = $this

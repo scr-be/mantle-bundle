@@ -42,6 +42,6 @@ class ServiceFinder
             return $this->container->get($service);
         }
 
-        throw new \RuntimeException('Bad!!');
+        throw new \RuntimeException('Placeholder exception because service not found!');
     }
 }

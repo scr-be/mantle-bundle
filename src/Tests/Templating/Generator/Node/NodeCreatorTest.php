@@ -82,4 +82,17 @@ class NodeCreatorTest extends AbstractMantleKernelUnitTestHelper
 
         $this->assertXmlStringEqualsXmlString($expected, $actual);
     }
+
+    public function testNoService()
+    {
+        $this->mockNodeMissingServiceEntities();
+        $creator = $this->getNewNodeCreator(); 
+
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Templating\Generator\Node\NodeException',
+            'The requested node rendering service s.mantle.node.foo.render could not be found.',
+            '201'
+        );
+        $actual = $creator->render($this->node);
+    }
 }
