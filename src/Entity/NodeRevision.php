@@ -157,6 +157,16 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
+     * Checks if renderEngine set
+     *
+     * @return renderEngine
+     */
+    public function hasRenderEngine()
+    {
+        return (bool) ($this->renderEngine !== null);
+    }
+
+    /**
      * Set embeddedNodes
      *
      * @param \stdClass $embeddedNodes

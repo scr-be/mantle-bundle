@@ -63,10 +63,12 @@ class NodeCreator
     {
         $nodeRevision = $node->getLatestRevision();
         $content = $nodeRevision->getContent();
-        $renderEngine = $nodeRevision->getRenderEngine();
 
-        if ($renderEngine->isRenderable() === true) {
-            $engineType = $renderEngine->getService();
+        if ($nodeRevision->hasRenderEngine()) {
+            $engineType = $nodeRevision
+                ->getRenderEngine()
+                ->getService()
+            ;
             $fullArgs = $this->getFullArgs($node, $args);
             $finder = $this->serviceFinder;
             $engine = $finder($engineType);

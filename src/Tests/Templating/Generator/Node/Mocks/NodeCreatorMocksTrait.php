@@ -43,21 +43,6 @@ trait NodeCreatorMocksTrait
         return $nodeRevisionEngine;
     }
 
-    protected function mockNodeRenderEngine_Nothing()
-    {
-        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Entity\NodeRenderEngine');
-        $nodeRevisionEngine
-            ->method('getSlug')
-            ->willReturn('twig')
-        ;
-        $nodeRevisionEngine
-            ->method('isRenderable')
-            ->willReturn(false)
-        ;
-
-        return $nodeRevisionEngine;
-    }
-
     protected function mockNodeRevision_Blog($nodeRenderEngine = null)
     {
         if ($nodeRenderEngine === null) { $nodeRenderEngine = $this->mockNodeRenderEngine_Twig(); }
@@ -74,6 +59,35 @@ trait NodeCreatorMocksTrait
         $nodeRevision
             ->method('getRenderEngine')
             ->willReturn($nodeRenderEngine)
+        ;
+        $nodeRevision
+            ->method('hasRenderEngine')
+            ->willReturn(true)
+        ;
+
+        return $nodeRevision;
+    }
+
+    protected function mockNodeRevision_NoRender($nodeRenderEngine = null)
+    {
+        if ($nodeRenderEngine === null) { $nodeRenderEngine = $this->mockNodeRenderEngine_Twig(); }
+
+        $nodeRevision = $this->getMock('Scribe\MantleBundle\Entity\NodeRevision');
+        $nodeRevision
+            ->method('getSlug')
+            ->willReturn('blog_post')
+        ;
+        $nodeRevision
+            ->method('getContent')
+            ->willReturn('<div id="foo">{{ title }}</div>')
+        ;
+        $nodeRevision
+            ->method('getRenderEngine')
+            ->willReturn($nodeRenderEngine)
+        ;
+        $nodeRevision
+            ->method('hasRenderEngine')
+            ->willReturn(false)
         ;
 
         return $nodeRevision;
@@ -122,8 +136,7 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeNothingEntities()
     {
-        $engine = $this->mockNodeRenderEngine_Nothing();
-        $rev = $this->mockNodeRevision_Blog($engine);
+        $rev = $this->mockNodeRevision_NoRender();
         $node = $this->mockNode($rev);
 
         $this->nodeRepo = $this->mockNodeRepository($node);
