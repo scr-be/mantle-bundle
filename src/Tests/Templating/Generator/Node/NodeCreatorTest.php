@@ -31,12 +31,11 @@ class NodeCreatorTest extends AbstractMantleKernelUnitTestHelper
     public function setUp()
     {
         parent::setUp();
-
-        $this->mockNodeEntities();
     }
 
     public function testBasicTwigRender()
     {
+        $this->mockNodeTwigEntities();
         $expected = '<div id="foo">Post 1</div>';
 
         $creator = $this->getNewNodeCreator(); 
@@ -47,6 +46,7 @@ class NodeCreatorTest extends AbstractMantleKernelUnitTestHelper
 
     public function testRenderFromSlug()
     {
+        $this->mockNodeTwigEntities();
         $expected = '<div id="foo">Post 1</div>';
 
         $creator = $this->getNewNodeCreator(); 
@@ -55,4 +55,18 @@ class NodeCreatorTest extends AbstractMantleKernelUnitTestHelper
         $this->assertXmlStringEqualsXmlString($expected, $actual);
     }
 
+    public function testNoRender()
+    {
+        $this->mockNodeNothingEntities();
+        $expected = $this
+            ->node
+            ->getLatestRevision()
+            ->getContent()
+        ;
+
+        $creator = $this->getNewNodeCreator(); 
+        $actual = $creator->render($this->node);
+
+        $this->assertXmlStringEqualsXmlString($expected, $actual);
+    }
 }

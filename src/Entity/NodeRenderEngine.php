@@ -27,6 +27,11 @@ class NodeRenderEngine extends AbstractEntity
      * @var string
      */
     private $service;
+
+    /**
+     * @var bool 
+     */
+    private $renderable = true;
     
     /**
      * @var ArrayCollection 
@@ -96,6 +101,54 @@ class NodeRenderEngine extends AbstractEntity
     public function setRevisions(ArrayCollection $revisions)
     {
         $this->revisions = $revisions;
+
+        return $this;
+    }
+
+    /**
+     * Checks if renderable set
+     *
+     * @return renderable
+     */
+    public function hasRenderable()
+    {
+        return (bool) ($this->getRenderable() !== null);
+    }
+
+    /**
+     * Checks if entity can be rendered
+     *
+     * @return renderable
+     */
+    public function isRenderable()
+    {
+        if ($this->hasRenderable() && $this->getRenderable()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Gets the value of renderable
+     *
+     * @return renderable
+     */
+    protected function getRenderable()
+    {
+        return $this->renderable;
+    }
+
+    /**
+     * Sets the value of renderable
+     *
+     * @param renderable $renderable description
+     *
+     * @return $this
+     */
+    public function setRenderable($renderable)
+    {
+        $this->renderable = (bool) $renderable;
 
         return $this;
     }

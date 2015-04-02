@@ -34,7 +34,27 @@ trait NodeCreatorMocksTrait
             ->method('getService')
             ->willReturn('s.mantle.node.twig.render')
         ;
+        $nodeRevisionEngine
+            ->method('isRenderable')
+            ->willReturn(true)
+        ;
+
         
+        return $nodeRevisionEngine;
+    }
+
+    protected function mockNodeRenderEngine_Nothing()
+    {
+        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Entity\NodeRenderEngine');
+        $nodeRevisionEngine
+            ->method('getSlug')
+            ->willReturn('twig')
+        ;
+        $nodeRevisionEngine
+            ->method('isRenderable')
+            ->willReturn(false)
+        ;
+
         return $nodeRevisionEngine;
     }
 
@@ -76,9 +96,9 @@ trait NodeCreatorMocksTrait
         return $node;
     }
 
-    protected function mockNodeRepository()
+    protected function mockNodeRepository($node = null)
     {
-        $node = $this->mockNode();
+        if ($node === null) { $node = $this->mockNode(); }
 
         $nodeRepo = $this
             ->getMockBuilder('Scribe\MantleBundle\EntityRepository\NodeRepository')
@@ -94,10 +114,20 @@ trait NodeCreatorMocksTrait
         return $nodeRepo;
     }
 
-    protected function mockNodeEntities()
+    protected function mockNodeTwigEntities()
     {
         $this->nodeRepo = $this->mockNodeRepository();
         $this->node = $this->nodeRepo->findOneBySlug();
+    }
+
+    protected function mockNodeNothingEntities()
+    {
+        $engine = $this->mockNodeRenderEngine_Nothing();
+        $rev = $this->mockNodeRevision_Blog($engine);
+        $node = $this->mockNode($rev);
+
+        $this->nodeRepo = $this->mockNodeRepository($node);
+        $this->node = $node;
     }
 }
 

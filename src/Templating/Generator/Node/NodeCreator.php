@@ -62,16 +62,21 @@ class NodeCreator
     public function render(Node $node, $args = array())
     {
         $nodeRevision = $node->getLatestRevision();
-        $engineType = $nodeRevision
-            ->getRenderEngine()
-            ->getService()
-        ;
-        $fullArgs = $this->getFullArgs($node, $args);
-        $finder = $this->serviceFinder;
-        $engine = $finder($engineType);
-        $content = $engine->render($nodeRevision->getContent(), $fullArgs);
+        $content = $nodeRevision->getContent();
+        $renderEngine = $nodeRevision->getRenderEngine();
 
-        return $content;
+        if ($renderEngine->isRenderable() === true) {
+            $engineType = $renderEngine->getService();
+            $fullArgs = $this->getFullArgs($node, $args);
+            $finder = $this->serviceFinder;
+            $engine = $finder($engineType);
+            $rendered = $engine->render($content, $fullArgs);
+
+            return $rendered;
+        } else {
+
+            return $content;
+        }
     }
 
     /**

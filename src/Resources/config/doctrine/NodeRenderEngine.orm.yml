@@ -14,6 +14,10 @@ Scribe\MantleBundle\Entity\NodeRenderEngine:
             length: 255
         service:
             type: text
+            nullable: true
+        renderable:
+            type: boolean
+            nullable: true
     oneToMany:
         revisions:
             targetEntity: Scribe\MantleBundle\Entity\NodeRevision
