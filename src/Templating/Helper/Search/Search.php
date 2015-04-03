@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -29,7 +30,7 @@ class Search implements ContainerAwareInterface
     protected $searchPath = null;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $cache = false;
 

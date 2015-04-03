@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,14 +11,12 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasSlug;
 
 /**
- * NodeRenderEngine
- * @package Scribe\MantleBundle\Entity
+ * NodeRenderEngine.
  */
 class NodeRenderEngine extends AbstractEntity
 {
@@ -27,36 +26,37 @@ class NodeRenderEngine extends AbstractEntity
      * @var string
      */
     private $service;
-    
+
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $revisions;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->revisions = new ArrayCollection;
+        $this->revisions = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
      * @return string
      */
     public function __toString()
     {
-        return __CLASS__ . ':' . $this->getSlug();
+        return __CLASS__.':'.$this->getSlug();
     }
 
     /**
      * Set service
      *
      * @param string $service
+     *
      * @return NodeRenderEngine
      */
     public function setService($service)
@@ -69,7 +69,7 @@ class NodeRenderEngine extends AbstractEntity
     /**
      * Get service
      *
-     * @return string 
+     * @return string
      */
     public function getService()
     {
@@ -77,7 +77,7 @@ class NodeRenderEngine extends AbstractEntity
     }
 
     /**
-     * Gets the value of revisions
+     * Gets the value of revisions.
      *
      * @return revisions
      */
@@ -87,9 +87,9 @@ class NodeRenderEngine extends AbstractEntity
     }
 
     /**
-     * Sets the value of revisions
+     * Sets the value of revisions.
      *
-     * @param ArrayCollection 
+     * @param ArrayCollection
      *
      * @return $this
      */

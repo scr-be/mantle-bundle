@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,9 +12,7 @@
 namespace Scribe\Doctrine\Behavior\Model\Publishable;
 
 /**
- * Class PublishableTrait
- *
- * @package Scribe\Doctrine\Behavior\Model\Publishable
+ * Class PublishableTrait.
  */
 trait PublishableTrait
 {
@@ -23,7 +22,7 @@ trait PublishableTrait
     protected $publishedAt;
 
     /**
-     * Gets the published datetime
+     * Gets the published datetime.
      *
      * @return \Datetime|null
      */
@@ -33,7 +32,7 @@ trait PublishableTrait
     }
 
     /**
-     * Set the published datetime
+     * Set the published datetime.
      *
      * @param \Datetime $when
      *
@@ -47,7 +46,7 @@ trait PublishableTrait
     }
 
     /**
-     * Check if it is already published
+     * Check if it is already published.
      *
      * @return bool
      */
@@ -57,7 +56,7 @@ trait PublishableTrait
             return false;
         }
 
-        return (bool) ($this->publishedAt <= (new \Datetime));
+        return (bool) ($this->publishedAt <= (new \Datetime()));
     }
 
     /**
@@ -71,10 +70,8 @@ trait PublishableTrait
     public function willBePublishedAt(\Datetime $when = null)
     {
         if ($this->publishedAt === null) {
-
             return false;
         } elseif ($when === null) {
-
             return true;
         }
 
@@ -82,19 +79,19 @@ trait PublishableTrait
     }
 
     /**
-     * Publish an entity
+     * Publish an entity.
      *
      * @return $this
      */
     public function publish()
     {
-        $this->publishedAt = new \Datetime;
+        $this->publishedAt = new \Datetime();
 
         return $this;
     }
 
     /**
-     * Revert a published entity
+     * Revert a published entity.
      *
      * @return $this
      */

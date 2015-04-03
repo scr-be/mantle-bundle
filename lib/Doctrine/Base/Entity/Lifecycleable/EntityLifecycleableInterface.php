@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -15,7 +16,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 /**
- * Trait EntityLifecycleableInterface
+ * Trait EntityLifecycleableInterface.
  *
  * Supports standard life-cycle doctrine events
  */
@@ -62,42 +63,42 @@ interface EntityLifecycleableInterface
     const ORM_LC_POST_LOAD = 'PostLoad';
 
     /**
-     * Event occurs pre-removal of entity
+     * Event occurs pre-removal of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
     public function callOrmPreRemove(LifecycleEventArgs $eventArgs = null);
 
     /**
-     * Event occurs post-removal of entity
+     * Event occurs post-removal of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
     public function callOrmPostRemove(LifecycleEventArgs $eventArgs = null);
 
     /**
-     * Event occurs pre-persist (only initial insert) of entity
+     * Event occurs pre-persist (only initial insert) of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
     public function callOrmPrePersist(LifecycleEventArgs $eventArgs = null);
 
     /**
-     * Event occurs post-persist (only initial insert) of entity
+     * Event occurs post-persist (only initial insert) of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
     public function callOrmPostPersist(LifecycleEventArgs $eventArgs = null);
 
     /**
-     * Event occurs pre-update of entity
+     * Event occurs pre-update of entity.
      *
      * @param null|PreUpdateEventArgs $eventArgs
      */
     public function callOrmPreUpdate(PreUpdateEventArgs $eventArgs = null);
 
     /**
-     * Event occurs post-update of entity
+     * Event occurs post-update of entity.
      *
      * @param null|LifecycleEventArgs $eventArgs
      */
@@ -112,7 +113,7 @@ interface EntityLifecycleableInterface
     public function callOrmPostLoad(LifecycleEventArgs $eventArgs = null);
 
     /**
-     * Call all lifecycle methods beginning with the pre-defined type
+     * Call all lifecycle methods beginning with the pre-defined type.
      *
      * @param string         $lifecycleType
      * @param EventArgs|null $eventArgs

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -74,7 +75,7 @@ interface ControllerUtilsInterface
      * Persist an orm entity and optionally flush the transaction.
      *
      * @param AbstractEntity $entity   an orm entity instance
-     * @param bool            $flushNow whether to flush transaction
+     * @param bool           $flushNow whether to flush transaction
      *
      * @return bool
      */
@@ -84,7 +85,7 @@ interface ControllerUtilsInterface
      * Remove an orm entity and optionally flush the transaction.
      *
      * @param AbstractEntity $entity   an orm entity instance
-     * @param bool            $flushNow whether to flush transaction
+     * @param bool           $flushNow whether to flush transaction
      *
      * @return bool
      */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Application.
  *
@@ -15,17 +16,17 @@ use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 use Scribe\MantleBundle\Entity\Node;
 
 /**
- * Class NodeTest 
+ * Class NodeTest.
  */
 class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
     /**
-     * @var Node 
+     * @var Node
      */
     private $firstNode;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $nodes;
 
@@ -36,7 +37,7 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
     public function setUp()
     {
-        $this->repo = $this->container->get($this->config['node']['service']); 
+        $this->repo = $this->container->get($this->config['node']['service']);
     }
 
     public function setupAndExercise($count = 1)
@@ -95,7 +96,7 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
         $secondNode->setChildNodeOf($this->firstNode);
         $fourthNode->setChildNodeOf($thirdNode);
-        
+
         $this->em->flush();
 
         $tree1 = $this->repo->getTree('/foo');
@@ -131,10 +132,10 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
     public function testSetAsRoot()
     {
         $this->setupAndExercise(1);
-        $this->firstNode->setAsRoot(); 
+        $this->firstNode->setAsRoot();
         $this->em->flush();
 
-        $path = '/'. $this->firstNode->getSlug();
+        $path = '/'.$this->firstNode->getSlug();
 
         $tree = $this->repo->getTree($path);
 
@@ -147,21 +148,55 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
         $branch = $this->nodes[1];
         $leaf = $this->nodes[2];
 
-        $this->firstNode->setAsRoot(); 
+        $this->firstNode->setAsRoot();
         $branch->setChildNodeOf($this->firstNode);
         $leaf->setChildNodeOf($branch);
         $this->em->flush();
 
-        $branch->setAsRoot(); 
+        $branch->setAsRoot();
         $this->em->flush();
 
-        $path = '/'. $branch->getSlug();
+        $path = '/'.$branch->getSlug();
 
         $tree = $this->repo->getTree($path);
 
         $this->assertSame($branch, $tree);
         /* $children = $tree->getChildNodes(); */
         /* $this->assertSame($leaf, $children[0]); */
+    }
+
+    public function testIsTimestampable()
+    {
+        $this->setupAndExercise(2);
+
+        $this->nodes[0]->setAsRoot();
+
+        $this->em->flush();
+
+        $this->assertTrue(($this->nodes[0]->getCreatedOn() instanceof \Datetime));
+        $this->assertTrue(($this->nodes[0]->getUpdatedOn() instanceof \Datetime));
+
+        $previousCreatedOn = clone $this->nodes[0]->getCreatedOn();
+        $previousUpdatedOn = clone $this->nodes[0]->getUpdatedOn();
+
+        $this->assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
+        $this->assertTrue($this->nodes[0]->getUpdatedOn() <= (new \Datetime()));
+
+        $this->assertSame(0, sizeof($this->nodes[0]->getChildNodes()));
+
+        $this->nodes[0]->setSlug('something');
+        $this->nodes[1]->setChildNodeOf($this->nodes[0]);
+
+        sleep(2);
+
+        $this->em->flush();
+        $this->em->refresh($this->nodes[0]);
+        $this->em->refresh($this->nodes[1]);
+
+        $this->assertSame(1, sizeof($this->nodes[0]->getChildNodes()));
+
+        $this->assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
+        $this->assertTrue($this->nodes[0]->getUpdatedOn() > $previousUpdatedOn);
     }
 
     /* public function testCanDeleteWholeBranch() */
@@ -171,7 +206,7 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
     /*     $this->nodes[0]->setAsRoot(); */
     /*     $this->nodes[1]->setChildNodeOf($this->nodes[0]); */
     /*     $this->nodes[2]->setChildNodeOf($this->nodes[1]); */
-        
+
     /*     $this->em->flush(); */
     /* } */
 }

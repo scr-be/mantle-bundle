@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -23,7 +24,7 @@ interface TimelineInterface
     public function render();
 
     /**
-     * @param integer  $id
+     * @param int      $id
      * @param string   $name
      * @param Datetime $on
      * @param string   $url

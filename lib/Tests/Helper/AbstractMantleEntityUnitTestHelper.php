@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -13,9 +14,7 @@ namespace Scribe\Tests\Helper;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Class AbstractMantleEntityUnitTestHelper
- *
- * @package Scribe\Tests\Helper
+ * Class AbstractMantleEntityUnitTestHelper.
  */
 abstract class AbstractMantleEntityUnitTestHelper extends AbstractMantleKernelUnitTestHelper
 {
@@ -25,7 +24,7 @@ abstract class AbstractMantleEntityUnitTestHelper extends AbstractMantleKernelUn
     protected $em;
 
     /**
-     * handle constructing the object instance
+     * handle constructing the object instance.
      */
     public function __construct()
     {

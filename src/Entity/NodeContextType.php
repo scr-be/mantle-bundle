@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,19 +11,17 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasSlug;
 use Scribe\Doctrine\Base\Model\HasName;
 
 /**
- * NodeContextType
- * @package Scribe\MantleBundle\Entity
+ * NodeContextType.
  */
 class NodeContextType extends AbstractEntity
 {
-    /**
+    /*
      * import traits
      */
     use HasSlug,
@@ -34,29 +33,30 @@ class NodeContextType extends AbstractEntity
     private $nodes;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->nodes = new ArrayCollection;
+        $this->nodes = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->getName(); 
+        return $this->getName();
     }
 
     /**
-     * Set nodes
+     * Set nodes.
      *
      * @param \stdClass $nodes
+     *
      * @return NodeContextType
      */
     public function setNodes($nodes)
@@ -67,9 +67,9 @@ class NodeContextType extends AbstractEntity
     }
 
     /**
-     * Get nodes
+     * Get nodes.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getNodes()
     {

@@ -7,18 +7,10 @@ Scribe\MantleBundle\Entity\Node:
             type: integer
             id: true
             generator:
-                strategy: AUTO 
+                strategy: AUTO
     fields:
         locked:
             type: boolean
-            nullable: true
-        created_on:
-            type: datetime
-            column: created_on
-            nullable: true
-        updated_on:
-            type: datetime
-            column: updated_on
             nullable: true
         slug:
             type: string
@@ -34,8 +26,8 @@ Scribe\MantleBundle\Entity\Node:
             nullable: true
     manyToOne:
         context:
-            targetEntity: Scribe\MantleBundle\Entity\NodeContextType 
-            inversedBy: nodes 
+            targetEntity: Scribe\MantleBundle\Entity\NodeContextType
+            inversedBy: nodes
             joinColumn:
                 name: nodeContextTypeId
                 referenceColumn: id

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -14,7 +15,6 @@ use ReflectionClass;
 use Scribe\MantleBundle\ScribeMantleBundle;
 use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
 use Symfony\Component\DependencyInjection\Container;
-use AppKernel;
 
 /**
  * Class ScribeMantleBundleTest.

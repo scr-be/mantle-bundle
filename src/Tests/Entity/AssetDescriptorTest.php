@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Application.
  *
@@ -15,17 +16,17 @@ use Scribe\MantleBundle\Entity\AssetDescriptor;
 use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 
 /**
- * Class AssetDescriptorTest 
+ * Class AssetDescriptorTest.
  */
 class AssetDescriptorTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
     /**
-     * @var AssetDescriptor 
+     * @var AssetDescriptor
      */
     private $firstAssetDescriptor;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $assetDescriptors;
 
@@ -36,7 +37,7 @@ class AssetDescriptorTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
     public function setUp()
     {
-        $this->repo = $this->container->get($this->config['assetDescriptor']['service']); 
+        $this->repo = $this->container->get($this->config['assetDescriptor']['service']);
     }
 
     public function setupAndExercise($count = 1)

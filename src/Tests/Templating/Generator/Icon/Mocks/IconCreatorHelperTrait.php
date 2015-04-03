@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -156,7 +157,7 @@ trait IconCreatorHelperTrait
             $returnedMethods[$i]->setAccessible(true);
         }
 
-        return array_merge([ $obj ], $returnedMethods);
+        return array_merge([$obj], $returnedMethods);
     }
 
     protected function clearFilesystemCache()

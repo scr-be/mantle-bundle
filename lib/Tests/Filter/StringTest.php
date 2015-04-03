@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -24,7 +25,7 @@ class StringTest extends AbstractMantleUnitTestHelper
     {
         parent::setUp();
 
-        $this->filterString = new String;
+        $this->filterString = new String();
     }
 
     public function testAlphanumericOnly()

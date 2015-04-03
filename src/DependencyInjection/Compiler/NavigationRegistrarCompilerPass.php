@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -38,7 +39,7 @@ class NavigationRegistrarCompilerPass implements CompilerPassInterface
             foreach ($handlerDefinitions as $id => $attributes) {
                 $chainDefinition->addMethodCall(
                     'addMember',
-                    [ new Reference($id) ]
+                    [new Reference($id)]
                 );
             }
         }

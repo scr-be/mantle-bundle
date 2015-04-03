@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,13 +11,11 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
- * AssetDescriptor
- * @package Scribe\MantleBundle\Entity
+ * AssetDescriptor.
  */
 class AssetDescriptor extends AbstractEntity
 {
@@ -31,44 +30,45 @@ class AssetDescriptor extends AbstractEntity
     private $markup;
 
     /**
-     * @var integer
+     * @var int
      */
     private $height;
 
     /**
-     * @var integer
+     * @var int
      */
     private $width;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $assets;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->assets = new ArrayCollection;
+        $this->assets = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
      * @return string
      */
     public function __toString()
     {
-        return __CLASS__ . ':' . $this->getId();
+        return __CLASS__.':'.$this->getId();
     }
 
     /**
-     * Set binContent
+     * Set binContent.
      *
      * @param string $binContent
+     *
      * @return AssetDescriptor
      */
     public function setBinContent($binContent)
@@ -79,9 +79,9 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Get binContent
+     * Get binContent.
      *
-     * @return string 
+     * @return string
      */
     public function getBinContent()
     {
@@ -89,9 +89,10 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Set markup
+     * Set markup.
      *
      * @param string $markup
+     *
      * @return AssetDescriptor
      */
     public function setMarkup($markup)
@@ -102,9 +103,9 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Get markup
+     * Get markup.
      *
-     * @return string 
+     * @return string
      */
     public function getMarkup()
     {
@@ -112,9 +113,10 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Set height
+     * Set height.
      *
-     * @param integer $height
+     * @param int $height
+     *
      * @return AssetDescriptor
      */
     public function setHeight($height)
@@ -125,9 +127,9 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Get height
+     * Get height.
      *
-     * @return integer 
+     * @return int
      */
     public function getHeight()
     {
@@ -135,9 +137,10 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Set width
+     * Set width.
      *
-     * @param integer $width
+     * @param int $width
+     *
      * @return AssetDescriptor
      */
     public function setWidth($width)
@@ -148,9 +151,9 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Get width
+     * Get width.
      *
-     * @return integer 
+     * @return int
      */
     public function getWidth()
     {
@@ -158,7 +161,7 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Gets the value of assets
+     * Gets the value of assets.
      *
      * @return assets
      */
@@ -168,7 +171,7 @@ class AssetDescriptor extends AbstractEntity
     }
 
     /**
-     * Sets the value of assets
+     * Sets the value of assets.
      *
      * @param ArrayCollection
      *

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -23,7 +24,7 @@ trait HasContext
     protected $context;
 
     /**
-     * Init trait
+     * Init trait.
      */
     public function initializeContext()
     {

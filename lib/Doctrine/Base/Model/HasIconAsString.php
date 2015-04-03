@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -57,7 +58,7 @@ trait HasIconAsString
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasIcon()
     {

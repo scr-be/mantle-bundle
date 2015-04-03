@@ -13,9 +13,9 @@ Scribe\MantleBundle\Entity\NodeRevisionDiff:
             type: text
     oneToOne:
         nodeRevision:
-            targetEntity: Scribe\MantleBundle\Entity\NodeRevision 
-            inversedBy:  diff 
+            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            inversedBy:  diff
             joinColumn:
-                name:            nodeRevisionId 
+                name:            nodeRevisionId
                 referencedColumn: id
     lifecycleCallbacks: {  }

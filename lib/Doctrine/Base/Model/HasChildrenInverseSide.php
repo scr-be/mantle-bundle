@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -25,11 +26,11 @@ trait HasChildrenInverseSide
     protected $children;
 
     /**
-     * Init trait
+     * Init trait.
      */
     public function initializeChildren()
     {
-        $this->children = new ArrayCollection;
+        $this->children = new ArrayCollection();
     }
 
     /**

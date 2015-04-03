@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -25,7 +26,7 @@ trait HasRoute
     protected $route;
 
     /**
-     * Init trait
+     * Init trait.
      */
     public function initializeRoute()
     {

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -48,7 +49,7 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
     public function registerContainerConfiguration(\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(
-            __DIR__ . '/config/config_' . $this->getEnvironment() . '.yml'
+            __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
         );
     }
 

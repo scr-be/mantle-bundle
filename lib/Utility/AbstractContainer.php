@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -177,7 +178,7 @@ abstract class AbstractContainer implements ArrayAccess
     /**
      * @param mixed $key
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($key)
     {

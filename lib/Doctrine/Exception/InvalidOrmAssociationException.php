@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,9 +12,7 @@
 namespace Scribe\Doctrine\Exception;
 
 /**
- * Class InvalidOrmAssociationException
- *
- * @package Scribe\Doctrine\Exception
+ * Class InvalidOrmAssociationException.
  */
 class InvalidOrmAssociationException extends OrmException
 {

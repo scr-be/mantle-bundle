@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Application.
  *
@@ -15,17 +16,17 @@ use Scribe\MantleBundle\Entity\Asset;
 use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 
 /**
- * Class AssetTest 
+ * Class AssetTest.
  */
 class AssetTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
     /**
-     * @var Asset 
+     * @var Asset
      */
     private $firstAsset;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $assets;
 
@@ -36,7 +37,7 @@ class AssetTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
     public function setUp()
     {
-        $this->repo = $this->container->get($this->config['asset']['service']); 
+        $this->repo = $this->container->get($this->config['asset']['service']);
     }
 
     public function setupAndExercise($count = 1)

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -61,7 +62,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      *
      * @return $this
      */
-    protected function setServiceFiles(array $files = [ ])
+    protected function setServiceFiles(array $files = [])
     {
         $this->serviceFiles = $files;
 

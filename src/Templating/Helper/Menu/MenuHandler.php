@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -64,11 +65,11 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     private $securityContext;
 
     /**
-     * @param ContainerInterface $container
-     * @param NavMenuItemRepository $navMenuItemRepo
+     * @param ContainerInterface       $container
+     * @param NavMenuItemRepository    $navMenuItemRepo
      * @param NavMenuSettingRepository $navMenuSettingRepo
-     * @param BundleInformation $bundleInformation
-     * @param SecurityContext $securityContext
+     * @param BundleInformation        $bundleInformation
+     * @param SecurityContext          $securityContext
      */
     public function __construct(
         ContainerInterface       $container = null,
@@ -268,7 +269,7 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     /**
      * @param NavMenuItem|NavMenuSubItem $entity
      *
-     * @return boolean
+     * @return bool
      */
     private function menuItemIsAllowed($entity)
     {
@@ -294,7 +295,7 @@ class MenuHandler implements MenuHandlerInterface, ContainerAwareInterface
     /**
      * @param NavMenuItem|NavMenuSubItem $entity
      *
-     * @return boolean
+     * @return bool
      */
     private function menuItemIsAllowedReverse($entity)
     {

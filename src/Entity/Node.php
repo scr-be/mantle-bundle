@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,35 +11,31 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasCreatedOn;
-use Scribe\Doctrine\Base\Model\HasUpdatedOn;
 use Scribe\Doctrine\Base\Model\HasSlug;
 use Scribe\Doctrine\Base\Model\HasTitle;
 use Scribe\Doctrine\Base\Model\HasWeight;
-use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableTrait;
+use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 
 /**
- * Node
- * @package Scribe\MantleBundle\Entity
+ * Node.
  */
 class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \ArrayAccess
 {
-    /**
+    /*
      * import traits
      */
     use ORMBehaviors\Tree\Node,
-        TimestampableTrait,
         HasSlug,
         HasTitle,
-        HasWeight;
+        HasWeight,
+        TimestampableBehaviorTrait;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $locked;
 
@@ -53,7 +50,7 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     private $context;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $revisions;
 
@@ -63,35 +60,36 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     private $latestRevision;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $containerNodeRevisions;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->revisions              = new ArrayCollection;
-        $this->containerNodeRevisions = new ArrayCollection;
+        $this->revisions              = new ArrayCollection();
+        $this->containerNodeRevisions = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->getTitle();        
+        return $this->getTitle();
     }
 
     /**
-     * Set locked
+     * Set locked.
      *
-     * @param boolean $locked
+     * @param bool $locked
+     *
      * @return Node
      */
     public function setLocked($locked)
@@ -102,9 +100,9 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Get locked
+     * Get locked.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getLocked()
     {
@@ -112,9 +110,10 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Set author
+     * Set author.
      *
      * @param \stdClass $author
+     *
      * @return Node
      */
     public function setAuthor($author)
@@ -125,9 +124,9 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Get author
+     * Get author.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getAuthor()
     {
@@ -135,9 +134,10 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Set context
+     * Set context.
      *
      * @param \stdClass $context
+     *
      * @return Node
      */
     public function setContext($context)
@@ -148,9 +148,9 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Get context
+     * Get context.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getContext()
     {
@@ -158,9 +158,10 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Set revisions
+     * Set revisions.
      *
      * @param \stdClass $revisions
+     *
      * @return Node
      */
     public function setRevisions($revisions)
@@ -171,9 +172,9 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Get revisions
+     * Get revisions.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getRevisions()
     {
@@ -181,9 +182,10 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Set latestRevision
+     * Set latestRevision.
      *
      * @param \stdClass $latestRevision
+     *
      * @return Node
      */
     public function setLatestRevision($latestRevision)
@@ -194,9 +196,9 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Get latestRevision
+     * Get latestRevision.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getLatestRevision()
     {
@@ -204,7 +206,7 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Gets the value of containerNodeRevisions
+     * Gets the value of containerNodeRevisions.
      *
      * @return $containerNodeRevisions
      */
@@ -214,7 +216,7 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
     }
 
     /**
-     * Sets the value of containerNodeRevisions
+     * Sets the value of containerNodeRevisions.
      *
      * @param ArrayCollection
      *
@@ -229,24 +231,22 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
 
     /**
      * Recursively reassigns children in the event
-     * a materialPath is modified
-     *
-     * @return void
+     * a materialPath is modified.
      */
-    /* protected function keepChildren() */
-    /* { */
-    /*     foreach($this->getChildNodes() as $child) { */
-    /*         $child->setChildNodeOf($this); */
-    /*         $child->keepChildren(); */
-    /*     } */ 
+    protected function keepChildren()
+    {
+        foreach ($this->getChildNodes() as $child) {
+            $child->setChildNodeOf($this);
+            $child->keepChildren();
+        }
 
-    /*     return $this; */
-    /* } */
+        return $this;
+    }
 
     /**
-     * Sets node to a root 
+     * Sets node to a root.
      *
-     * @return $this 
+     * @return $this
      */
     public function setAsRoot()
     {

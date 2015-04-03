@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -15,6 +16,8 @@ use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 /**
  * LoadIconTemplateData.
  */
-class LoadIconTemplateData extends AbstractYamlFixture {}
+class LoadIconTemplateData extends AbstractYamlFixture
+{
+}
 
 /* EOF */

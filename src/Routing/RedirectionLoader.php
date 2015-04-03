@@ -18,7 +18,7 @@ class RedirectionLoader extends Loader implements ContainerAwareInterface
     use ContainerAwareTrait;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $loaded = false;
 

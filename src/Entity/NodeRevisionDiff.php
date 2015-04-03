@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,12 +11,10 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
- * NodeRevisionDiff
- * @package Scribe\MantleBundle\Entity
+ * NodeRevisionDiff.
  */
 class NodeRevisionDiff extends AbstractEntity
 {
@@ -30,27 +29,28 @@ class NodeRevisionDiff extends AbstractEntity
     private $nodeRevision;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
-    public function __construct() 
+    public function __construct()
     {
         parent::__construct();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
-     * @return string 
+     * @return string
      */
     public function __toString()
     {
-        return $this->getDiff(); 
+        return $this->getDiff();
     }
 
     /**
-     * Set diff
+     * Set diff.
      *
      * @param string $diff
+     *
      * @return NodeRevisionDiff
      */
     public function setDiff($diff)
@@ -61,9 +61,9 @@ class NodeRevisionDiff extends AbstractEntity
     }
 
     /**
-     * Get diff
+     * Get diff.
      *
-     * @return string 
+     * @return string
      */
     public function getDiff()
     {
@@ -71,9 +71,10 @@ class NodeRevisionDiff extends AbstractEntity
     }
 
     /**
-     * Set nodeRevision
+     * Set nodeRevision.
      *
      * @param \stdClass $nodeRevision
+     *
      * @return NodeRevisionDiff
      */
     public function setNodeRevision($nodeRevision)
@@ -84,9 +85,9 @@ class NodeRevisionDiff extends AbstractEntity
     }
 
     /**
-     * Get nodeRevision
+     * Get nodeRevision.
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getNodeRevision()
     {

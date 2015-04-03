@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -35,10 +36,10 @@ trait EntityDebuggableTrait
             $parent = '';
         }
         if (!is_array($properties)) {
-            $properties = [ ];
+            $properties = [];
         }
         if (!is_array($methods)) {
-            $method = [ ];
+            $method = [];
         }
 
         return [

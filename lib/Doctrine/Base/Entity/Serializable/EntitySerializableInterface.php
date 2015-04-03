@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,7 +12,7 @@
 namespace Scribe\Doctrine\Base\Entity\Serializable;
 
 /**
- * Interface EntitySerializableInterface
+ * Interface EntitySerializableInterface.
  *
  * Allows an entity to be serialized.
  */

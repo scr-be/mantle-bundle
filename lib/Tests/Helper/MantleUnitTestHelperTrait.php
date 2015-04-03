@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,14 +12,12 @@
 namespace Scribe\Tests\Helper;
 
 /**
- * Class MantleUnitTestHelperTrait
- *
- * @package Scribe\Tests\Helper
+ * Class MantleUnitTestHelperTrait.
  */
 trait MantleUnitTestHelperTrait
 {
     /**
-     * Remove a directory
+     * Remove a directory.
      *
      * @param string $path
      */
@@ -38,7 +37,7 @@ trait MantleUnitTestHelperTrait
     }
 
     /**
-     * Alias for {@see:removeDirectory}
+     * Alias for {@see:removeDirectory}.
      *
      * @deprecated
      *

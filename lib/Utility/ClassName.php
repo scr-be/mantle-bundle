@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -24,9 +25,9 @@ class ClassName
     use StaticClassTrait;
 
     /**
-     * Attempt to return an array of the namespace parts for the given fully-qualified class name
+     * Attempt to return an array of the namespace parts for the given fully-qualified class name.
      *
-     * @param  string $fqcn Fully-qualified class name
+     * @param string $fqcn Fully-qualified class name
      *
      * @return array
      *
@@ -49,9 +50,9 @@ class ClassName
     }
 
     /**
-     * Attempt to return just the class name (without a namespace) for the given fully-qualified class name
+     * Attempt to return just the class name (without a namespace) for the given fully-qualified class name.
      *
-     * @param  string $fqcn Fully-qualified class name
+     * @param string $fqcn Fully-qualified class name
      *
      * @return string
      *
@@ -76,7 +77,6 @@ class ClassName
 
         return (string) $className;
     }
-
 }
 
 /* EOF */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -114,7 +115,7 @@ class BaseFeatureContext extends MinkContext implements Context
         $url = $session->getCurrentUrl();
         $session->setRequestHeader('Referer', $url);
         $link = $this->findByText($linkText, 'a');
-        $relTarget = $link->getAttribute("href");
+        $relTarget = $link->getAttribute('href');
         $absTarget = $this->relativeToAbsolute($relTarget);
         $session->visit($absTarget);
     }
@@ -183,7 +184,7 @@ class BaseFeatureContext extends MinkContext implements Context
      public function theUrlShouldNotMatch($pattern)
      {
          $url = $this->getSession()->getCurrentUrl();
-         if (preg_match("|".preg_quote($pattern)."|", $url)) {
+         if (preg_match('|'.preg_quote($pattern).'|', $url)) {
              throw new \Exception('We did not go to a new blog page!');
          }
      }

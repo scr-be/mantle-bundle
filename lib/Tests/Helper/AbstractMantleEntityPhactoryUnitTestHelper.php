@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -17,9 +18,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Phactory\Sql\Phactory;
 
 /**
- * Class AbstractMantleEntityPhactoryUnitTestHelper
- *
- * @package Scribe\Tests\Helper
+ * Class AbstractMantleEntityPhactoryUnitTestHelper.
  */
 class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUnitTestHelper
 {
@@ -34,19 +33,21 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
     protected $factory;
 
     /**
-     * YAML configuration data for test fixtures
+     * YAML configuration data for test fixtures.
+     *
      * @var Parser
      */
     protected $config;
 
     /**
-     * array for storing all Phactory objects as they are generated
+     * array for storing all Phactory objects as they are generated.
+     *
      * @var Array
      */
     private $sampleData = [];
 
     /**
-     * handle constructing the object instance
+     * handle constructing the object instance.
      */
     public function __construct()
     {
@@ -70,16 +71,14 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
             $dbName = $this->container->getParameter('database_name');
             $dbUser = $this->container->getParameter('database_user');
             $dbPass = $this->container->getParameter('database_password');
-        }
-        catch(\InvalidArgumentException $e) {
-            die('Could not obtain the DB connection parameters from the Symfony container: ' . $e->getMessage());
+        } catch (\InvalidArgumentException $e) {
+            die('Could not obtain the DB connection parameters from the Symfony container: '.$e->getMessage());
         }
 
         try {
             $this->pdo = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
-        }
-        catch(PDOException $e) {
-            die('Could not connect to the DB: ' . $e->getMessage());
+        } catch (PDOException $e) {
+            die('Could not connect to the DB: '.$e->getMessage());
         }
 
         return $this;
@@ -101,13 +100,12 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
     private function setupFixtureData()
     {
         $yamlPath = $this->container->getParameter('kernel.root_dir').'/../fixtures/data.yml';
-        $yaml     = new Parser;
+        $yaml     = new Parser();
 
         try {
             $this->config = $yaml->parse(file_get_contents($yamlPath));
-        }
-        catch (ParseException $e) {
-            printf("Unable to parse the YAML string: %s", $e->getMessage());
+        } catch (ParseException $e) {
+            printf('Unable to parse the YAML string: %s', $e->getMessage());
         }
 
         return $this;
@@ -118,19 +116,18 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
      */
     private function setupFactoryDefaults()
     {
-        foreach($this->config as $type => $info) {
+        foreach ($this->config as $type => $info) {
             $this->factory->setInflection($type, $info['table']);
 
-            if(array_key_exists('assocs', $info)) {
+            if (array_key_exists('assocs', $info)) {
                 $tableAssocs = [];
 
-                foreach($info['assocs'] as $name => $field) {
+                foreach ($info['assocs'] as $name => $field) {
                     $tableAssocs[$name] = $this->factory->manyToOne($name, $field);
                 };
 
                 $this->factory->define($type, $info['data'], $tableAssocs);
-            }
-            else {
+            } else {
                 $this->factory->define($type, $info['data']);
             }
         }
@@ -140,17 +137,16 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
 
     public function recordSampleData($type, $row)
     {
-        if(array_key_exists($type, $this->sampleData)) {
+        if (array_key_exists($type, $this->sampleData)) {
             array_push($this->sampleData[$type], $row);
-        }
-        else {
+        } else {
             $this->sampleData[$type] = [$row];
         }
     }
 
     public function createRowCountTimes($table, $count = 1)
     {
-        for($i = 1; $i <= $count; $i++) {
+        for ($i = 1; $i <= $count; $i++) {
             $row = $this->factory->create($table);
             $this->recordSampleData($table, $row);
         }
@@ -159,18 +155,17 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
     public function createRowWithAssociationsCountTimes($table, $count = 1, $existing = false)
     {
         $assocs = [];
-        foreach ($this->config[$table]['assocs'] as $assoc => $field){
-            if($existing && array_key_exists($assoc, $this->sampleData)) {
+        foreach ($this->config[$table]['assocs'] as $assoc => $field) {
+            if ($existing && array_key_exists($assoc, $this->sampleData)) {
                 $assocs[$assoc] = $this->sampleData[$assoc][0];
-            }
-            else {
+            } else {
                 $obj = $this->factory->create($assoc);
                 $assocs[$assoc] = $obj;
                 $this->recordSampleData($table, $obj);
             }
         }
 
-        for($i = 1; $i <= $count; $i++) {
+        for ($i = 1; $i <= $count; $i++) {
             $row = $this->factory->createWithAssociations($table, $assocs);
             $this->recordSampleData($table, $row);
         }
@@ -179,11 +174,8 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
     public function isBasicMaker($method, $arguments)
     {
         if (substr($method, 0, 4) == 'make' && substr($method, -16) != 'WithAssociations' && count($arguments) == 1) {
-
             return true;
-        }
-        else {
-
+        } else {
             return false;
         }
     }
@@ -191,11 +183,8 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
     public function isAssociationMaker($method, $arguments)
     {
         if (substr($method, 0, 4) == 'make' && substr($method, -16) == 'WithAssociations' && count($arguments) <= 2) {
-
             return true;
-        }
-        else {
-
+        } else {
             return false;
         }
     }
@@ -210,12 +199,10 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
             }
 
             $this->createRowWithAssociationsCountTimes($type, $arguments[0], $arguments[1]);
-        }
-        else if($this->isBasicMaker($method, $arguments)){
+        } elseif ($this->isBasicMaker($method, $arguments)) {
             $type = lcfirst(substr($method, 4, -1));
             $this->createRowCountTimes($type, $arguments[0]);
-        }
-        else if (array_key_exists(substr($method, 0, -4), $this->config) and substr($method, -4) == 'Rows') {
+        } elseif (array_key_exists(substr($method, 0, -4), $this->config) and substr($method, -4) == 'Rows') {
             $type = substr($method, 0, -4);
 
             return $this
@@ -223,18 +210,17 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
                 ->get($this->config[$type]['service'])
                 ->findAll()
                 ;
-        }
-        else {
-            throw new \Exception("{$method} is not an available method in " . get_class($this));
+        } else {
+            throw new \Exception("{$method} is not an available method in ".get_class($this));
         }
     }
 
     public function assertCanSetGetProperty($entity, $property, $newVal = 'foocatchoo')
     {
         $capsProperty = ucfirst($property);
-        $getter = "get" . $capsProperty;
+        $getter = 'get'.$capsProperty;
         $this->assertTrue(is_string($entity->{$getter}()), "{$getter} did not return a string.");
-        $setter = "set" . $capsProperty;
+        $setter = 'set'.$capsProperty;
         $entity->{$setter}($newVal);
         $this->assertSame($entity->{$getter}(), $newVal, "{$getter} did not return expected value of {$newVal}.");
     }
@@ -242,9 +228,9 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
     public function assertHasAndCanClearEntity($entity, $property)
     {
         $capsProperty = ucfirst($property);
-        $checker = 'has' . $capsProperty;
-        $basicClearer = 'clear' . $capsProperty;
-        $clearer = (method_exists($entity, $basicClearer)) ? $basicClearer : 'unset' . $capsProperty;
+        $checker = 'has'.$capsProperty;
+        $basicClearer = 'clear'.$capsProperty;
+        $clearer = (method_exists($entity, $basicClearer)) ? $basicClearer : 'unset'.$capsProperty;
         $this->assertTrue($entity->{$checker}(), "{$checker} returned false.");
         $entity->{$clearer}();
         $this->assertTrue(!$entity->{$checker}(), "{$clearer} did not nullify property.");
@@ -253,7 +239,7 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
     // checks that a given entity can set its updated_on and modified_on properties
     public function assertCanGetSetTimes($entity)
     {
-        $time = new \Datetime;
+        $time = new \Datetime();
         $entity->setCreatedOn($time);
         $this->assertEquals($entity->getCreatedOn(), $time);
         $entity->setUpdatedOn($time);
@@ -270,7 +256,7 @@ class AbstractMantleEntityPhactoryUnitTestHelper extends AbstractMantleEntityUni
             ->recall()
         ;
 
-        $this->pdo = NULL;
+        $this->pdo = null;
 
         parent::tearDown();
     }
