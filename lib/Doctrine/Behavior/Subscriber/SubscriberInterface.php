@@ -12,7 +12,6 @@
 namespace Scribe\Doctrine\Behavior\Subscriber;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * Class SubscriberInterface.
@@ -20,7 +19,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 interface SubscriberInterface extends EventSubscriber
 {
     /**
-     * Return an array of events to subscribe to
+     * Return an array of events to subscribe to.
      *
      * @return string[]
      */

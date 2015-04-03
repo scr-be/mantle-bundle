@@ -162,6 +162,40 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
         $this->assertSame($branch, $tree);
     }
 
+    public function testIsTimestampable()
+    {
+        $this->setupAndExercise(2);
+
+        $this->nodes[0]->setAsRoot();
+
+        $this->em->flush();
+
+        $this->assertTrue(($this->nodes[0]->getCreatedOn() instanceof \Datetime));
+        $this->assertTrue(($this->nodes[0]->getUpdatedOn() instanceof \Datetime));
+
+        $previousCreatedOn = clone $this->nodes[0]->getCreatedOn();
+        $previousUpdatedOn = clone $this->nodes[0]->getUpdatedOn();
+
+        $this->assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
+        $this->assertTrue($this->nodes[0]->getUpdatedOn() <= (new \Datetime));
+
+        $this->assertSame(0, sizeof($this->nodes[0]->getChildNodes()));
+
+        $this->nodes[0]->setSlug('something');
+        $this->nodes[1]->setChildNodeOf($this->nodes[0]);
+
+        sleep(2);
+
+        $this->em->flush();
+        $this->em->refresh($this->nodes[0]);
+        $this->em->refresh($this->nodes[1]);
+
+        $this->assertSame(1, sizeof($this->nodes[0]->getChildNodes()));
+
+        $this->assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
+        $this->assertTrue($this->nodes[0]->getUpdatedOn() > $previousUpdatedOn);
+    }
+
     /* public function testCanDeleteWholeBranch() */
     /* { */
     /*     $this->setupAndExercise(3); */

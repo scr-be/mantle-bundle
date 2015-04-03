@@ -12,14 +12,6 @@ Scribe\MantleBundle\Entity\Node:
         locked:
             type: boolean
             nullable: true
-        created_on:
-            type: datetime
-            column: created_on
-            nullable: true
-        updated_on:
-            type: datetime
-            column: updated_on
-            nullable: true
         slug:
             type: string
             length: 255

@@ -12,9 +12,9 @@
 namespace Scribe\Utility\Reflection;
 
 /**
- * Interface ClassReflectionAnalyzerInterface.
+ * Interface ClassReflectionAnalyserInterface.
  */
-interface ClassReflectionAnalyzerInterface
+interface ClassReflectionAnalyserInterface
 {
     /**
      * Set the current reflection class to operate on (can be overridden by directly passing

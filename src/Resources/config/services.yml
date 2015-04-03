@@ -66,14 +66,30 @@ parameters:
     s.twig.bundleinformation.class:                 Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
     s.twig.icon_creator.class:                      Scribe\MantleBundle\Templating\Extension\IconCreatorExtension
 
-    s.mantle.utils.reflection_analyzer.class:       Scribe\Utility\Reflection\ClassReflectionAnalyzer
+    s.mantle.utils.reflection_analyser.class:                       Scribe\Utility\Reflection\ClassReflectionAnalyser
+
+    s.mantle.doctrine.behaviors.timestampable.subscriber.class:     Scribe\Doctrine\Behavior\Subscriber\Timestampable\TimestampableSubscriber
+    s.mantle.doctrine.behaviors.timestampable.subscriber.events:    [ 'Events::loadClassMetadata' ]
+    s.mantle.doctrine.behaviors.timestampable.subscriber.fields:    [ 'created_on', 'updated_on' ]
+    s.mantle.doctrine.behaviors.timestampable.model.trait:          Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait
 
 services:
 
-    s.mantle.utils.reflection_analyzer:
-        class: %s.mantle.utils.reflection_analyzer.class%
+    s.mantle.utils.reflection_analyser:
+        class:  %s.mantle.utils.reflection_analyser.class%
         calls:
-            - [unsetReflectionClass]
+            - [ unsetReflectionClass ]
+
+    s.mantle.doctrine.behaviors.timestampable.subscriber:
+        class:  %s.mantle.doctrine.behaviors.timestampable.subscriber.class%
+        public: false
+        arguments:
+            - @s.mantle.utils.reflection_analyser
+            - [ %s.mantle.doctrine.behaviors.timestampable.model.trait% ]
+            - %s.mantle.doctrine.behaviors.timestampable.subscriber.events%
+            - %s.mantle.doctrine.behaviors.timestampable.subscriber.fields%
+        tags:
+            - { name: doctrine.event_subscriber }
 
     s.mantle.navigation_registrar:
         class: %s.mantle.navigation_registrar.class%

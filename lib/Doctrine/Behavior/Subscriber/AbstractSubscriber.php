@@ -11,7 +11,7 @@
 
 namespace Scribe\Doctrine\Behavior\Subscriber;
 
-use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Scribe\Utility\Reflection\ClassReflectionAnalyserInterface;
 
 /**
@@ -20,21 +20,21 @@ use Scribe\Utility\Reflection\ClassReflectionAnalyserInterface;
 abstract class AbstractSubscriber implements SubscriberInterface
 {
     /**
-     * Provides functionality to determine trait/method/property information against a reflected class
+     * Provides functionality to determine trait/method/property information against a reflected class.
      *
      * @var ClassReflectionAnalyserInterface
      */
     protected $classReflectionAnalyser;
 
     /**
-     * Dictates the recursive search behavior of ClassReflectionAnalyser for traits and properties
+     * Dictates the recursive search behavior of ClassReflectionAnalyser for traits and properties.
      *
      * @var bool
      */
     protected $recursiveAnalysis;
 
     /**
-     * Return the array of required entity traits for this subscriber
+     * Return the array of required entity traits for this subscriber.
      *
      * @var string[]
      */
@@ -49,30 +49,48 @@ abstract class AbstractSubscriber implements SubscriberInterface
     protected $subscribedEvents;
 
     /**
-     * Construct the subscriber with a class reflection analysis class
+     * Subscriber fields
+     *
+     * @var array
+     */
+    protected $subscriberFields;
+
+    /**
+     * Construct the subscriber with a class reflection analysis class.
      *
      * @param ClassReflectionAnalyserInterface $classReflectionAnalyser
      * @param string[]                         $requiredTraits
      * @param string[]                         $subscribedEventConstants
      * @param bool                             $recursiveAnalysis
      */
-    public function __construct(ClassReflectionAnalyserInterface $classReflectionAnalyser, array $requiredTraits = [ ],
-                                array $subscribedEventConstants = [ ], $recursiveAnalysis = true)
+    public function __construct(ClassReflectionAnalyserInterface $classReflectionAnalyser, array $requiredTraits = [],
+                                array $subscribedEventConstants = [], array $subscriberFields = [], $recursiveAnalysis = true)
     {
         $this->classReflectionAnalyser = $classReflectionAnalyser;
         $this->recursiveAnalysis       = $recursiveAnalysis;
         $this->requiredTraits          = $requiredTraits;
         $this->subscribedEvents        = $this->resolveEventConstantsToValues($subscribedEventConstants);
+        $this->subscriberFields        = $subscriberFields;
     }
 
     /**
-     * Return the events the subscriber is subscribing to
+     * Return the events the subscriber is subscribing to.
      *
      * @return string[]
      */
     public function getSubscribedEvents()
     {
         return $this->subscribedEvents;
+    }
+
+    /**
+     * Get the subscriber entity fields
+     *
+     * @return string[]
+     */
+    public function getSubscriberFields()
+    {
+        return $this->subscriberFields;
     }
 
     /**
@@ -99,7 +117,7 @@ abstract class AbstractSubscriber implements SubscriberInterface
     }
 
     /**
-     * Checks if this subscriber supports the passed entity through the reflection object provided
+     * Checks if this subscriber supports the passed entity through the reflection object provided.
      *
      * @param \ReflectionClass $reflectionClass
      *
@@ -127,6 +145,30 @@ abstract class AbstractSubscriber implements SubscriberInterface
         }
 
         return true;
+    }
+
+    /**
+     * Returns the class metadata and reflection class of entity if possible.
+     *
+     * @param LoadClassMetadataEventArgs $eventArgs
+     *
+     * @return array|null
+     */
+    protected function getClassMetadataAndReflectionOfEntityForLoadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
+    {
+        if ((null === ($classMetadata = $eventArgs->getClassMetadata())) ||
+            (true !== ($reflectionClass = $classMetadata->getReflectionClass()) instanceof \ReflectionClass)) {
+
+            return [
+                null,
+                null
+            ];
+        }
+
+        return [
+            $classMetadata,
+            $reflectionClass
+        ];
     }
 }
 

@@ -12,11 +12,11 @@
 namespace Scribe\Utility\Reflection;
 
 /**
- * Class ClassReflectionAnalyzer.
+ * Class ClassReflectionAnalyser.
  */
-class ClassReflectionAnalyzer implements ClassReflectionAnalyzerInterface
+class ClassReflectionAnalyser implements ClassReflectionAnalyserInterface
 {
-    use ClassReflectionAnalyzerTrait;
+    use ClassReflectionAnalyserTrait;
 }
 
 /* EOF */

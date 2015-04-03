@@ -12,194 +12,204 @@
 namespace Scribe\Tests\Utility\Reflection;
 
 use Scribe\MantleBundle\Entity\Icon;
-use Scribe\Utility\Reflection\ClassReflectionAnalyzer;
+use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
 
 /**
- * Class ClassReflectionAnalyzerTest.
+ * Class ClassReflectionAnalyserTest.
  */
-class ClassReflectionAnalyzerTest extends AbstractMantleKernelUnitTestHelper
+class ClassReflectionAnalyserTest extends AbstractMantleKernelUnitTestHelper
 {
     /**
      * @var string
      */
-    const FQCN = 'Scribe\Utility\Reflection\ClassReflectionAnalyzer';
+    const FQCN = 'Scribe\Utility\Reflection\ClassReflectionAnalyser';
 
     /**
-     * @var ClassReflectionAnalyzer
+     * @var ClassReflectionAnalyser
      */
-    protected $reflectionClassAnalyzer = null;
+    protected $reflectionClassAnalyser = null;
 
     /**
      * @var \ReflectionClass
      */
-    protected $refOfClassReflectionAnalyzer;
+    protected $refOfClassReflectionAnalyser;
 
     public function setUp()
     {
         parent::setup();
 
-        $this->reflectionClassAnalyzer = $this
+        $this->reflectionClassAnalyser = $this
             ->container
-            ->get('s.mantle.utils.reflection_analyzer')
+            ->get('s.mantle.utils.reflection_analyser')
         ;
     }
 
     public function testFunctionsOutsideOfContainer()
     {
-        $refOfClassReflectionAnalyzer = new \ReflectionClass(self::FQCN);
-        $reflectionClassAnalyzer      = new ClassReflectionAnalyzer($refOfClassReflectionAnalyzer);
+        $refOfClassReflectionAnalyser = new \ReflectionClass(self::FQCN);
+        $reflectionClassAnalyser      = new ClassReflectionAnalyser($refOfClassReflectionAnalyser);
 
-        $this->assertFalse($reflectionClassAnalyzer->hasTrait(
-            'doesNotHaveThisTrait', $refOfClassReflectionAnalyzer
+        $this->assertFalse($reflectionClassAnalyser->hasTrait(
+            'doesNotHaveThisTrait', $refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($reflectionClassAnalyzer->hasTrait(
-            'Scribe\Utility\Reflection\ClassReflectionAnalyzerTrait', $refOfClassReflectionAnalyzer
+        $this->assertTrue($reflectionClassAnalyser->hasTrait(
+            'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $refOfClassReflectionAnalyser
         ));
     }
 
     public function testThrowsExceptionWhenReflectionClassNotProvided()
     {
-        $this->reflectionClassAnalyzer->unsetReflectionClass();
+        $this->reflectionClassAnalyser->unsetReflectionClass();
 
         $this->setExpectedException(
             'Scribe\Exception\InvalidArgumentException',
             'No valid object reflection class instance provided explicitly via method call or injected into object instance.'
         );
 
-        $this->reflectionClassAnalyzer->hasTrait(
-            'Scribe\Utility\Reflection\ClassReflectionAnalyzerTrait', $this->refOfClassReflectionAnalyzer
+        $this->reflectionClassAnalyser->hasTrait(
+            'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $this->refOfClassReflectionAnalyser
         );
     }
 
     public function testHasTraitViaConstructorSet()
     {
-        $this->refOfClassReflectionAnalyzer =
+        $this->refOfClassReflectionAnalyser =
             new \ReflectionClass(self::FQCN);
 
-        $this->assertFalse($this->reflectionClassAnalyzer->hasTrait(
-            'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyzer
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+            'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyzer->hasTrait(
-            'Scribe\Utility\Reflection\ClassReflectionAnalyzerTrait', $this->refOfClassReflectionAnalyzer
+        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+            'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $this->refOfClassReflectionAnalyser
         ));
     }
 
     public function testHasTraitViaManualReflectionObjectInjection()
     {
-        $this->refOfClassReflectionAnalyzer = new \ReflectionClass(self::FQCN);
+        $this->refOfClassReflectionAnalyser = new \ReflectionClass(self::FQCN);
 
-        $this->reflectionClassAnalyzer->unsetReflectionClass();
+        $this->reflectionClassAnalyser->unsetReflectionClass();
 
-        $this->reflectionClassAnalyzer->setReflectionClass(new \ReflectionClass(self::FQCN));
+        $this->reflectionClassAnalyser->setReflectionClass(new \ReflectionClass(self::FQCN));
 
-        $this->assertFalse($this->reflectionClassAnalyzer->hasTrait(
-            'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyzer
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+            'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyzer->hasTrait(
-            'Scribe\Utility\Reflection\ClassReflectionAnalyzerTrait', $this->refOfClassReflectionAnalyzer
+        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+            'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $this->refOfClassReflectionAnalyser
         ));
     }
 
     public function testHasTraitViaClassInstanceSet()
     {
         $iconEntity = new Icon();
-        $this->reflectionClassAnalyzer->setReflectionClassFromClassInstance($iconEntity);
+        $this->reflectionClassAnalyser->setReflectionClassFromClassInstance($iconEntity);
 
-        $this->assertFalse($this->reflectionClassAnalyzer->hasTrait(
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', null, true
         ));
 
-        $this->assertFalse($this->reflectionClassAnalyzer->hasTrait(
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', null, false
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyzer->hasTrait(
+        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Model\HasName', null, true
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyzer->hasTrait(
+        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Model\HasName', null, false
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyzer->hasTrait(
+        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Entity\Serializable\EntitySerializableTrait', null, true
         ));
 
-        $this->assertFalse($this->reflectionClassAnalyzer->hasTrait(
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Entity\Serializable\EntitySerializableTrait', null, false
         ));
 
-        $this->assertFalse($this->reflectionClassAnalyzer->hasTrait(
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', null, true
         ));
     }
 
     public function testHasTraitViaClassNameSet()
     {
-        $this->reflectionClassAnalyzer->setReflectionClassFromClassName(self::FQCN);
+        $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
 
-        $this->assertFalse($this->reflectionClassAnalyzer->hasTrait(
-            'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyzer
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+            'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyzer->hasTrait(
-            'Scribe\Utility\Reflection\ClassReflectionAnalyzerTrait', $this->refOfClassReflectionAnalyzer
+        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+            'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $this->refOfClassReflectionAnalyser
         ));
     }
 
-    /*
-    public function hasMethod($methodName, \ReflectionClass $class = null, $recursiveSearch = true)
+    public function testHasMethodViaConstructorSet()
     {
-        $class = $this->determineWorkingReflectionClass($class);
+        $this->refOfClassReflectionAnalyser =
+            new \ReflectionClass(self::FQCN);
 
-        if (true === $class->hasMethod($methodName)) {
-            return true;
-        }
+        $this->assertFalse($this->reflectionClassAnalyser->hasMethod(
+            'doesNotHaveThisMethod', $this->refOfClassReflectionAnalyser
+        ));
 
-        $parentClass = $class->getParentClass();
-
-        if ((false === $recursiveSearch) || (false === $parentClass) || (null === $parentClass)) {
-            return false;
-        }
-
-        return (bool) $this->hasMethod($parentClass, $methodName, $recursiveSearch);
+        $this->assertTrue($this->reflectionClassAnalyser->hasMethod(
+            'hasMethod', $this->refOfClassReflectionAnalyser
+        ));
     }
-    public function hasProperty($propertyName, \ReflectionClass $class = null, $recursiveSearch = true)
+
+    public function testHasMethodThrowsExceptionWhenReflectionClassNotProvided()
     {
-        $class = $this->determineWorkingReflectionClass($class);
+        $this->reflectionClassAnalyser->unsetReflectionClass();
 
-        if (true === $class->hasProperty($propertyName)) {
-            return true;
-        }
+        $this->setExpectedException(
+            'Scribe\Exception\InvalidArgumentException',
+            'No valid object reflection class instance provided explicitly via method call or injected into object instance.'
+        );
 
-        $parentClass = $class->getParentClass();
-
-        if ((false === $recursiveSearch) || (false === $parentClass) || (null === $parentClass)) {
-            return false;
-        }
-
-        return (bool) $this->hasProperty($parentClass, $propertyName, $recursiveSearch);
-    }
-    private function determineWorkingReflectionClass(\ReflectionClass $reflectionClass = null)
-    {
-        if ($reflectionClass !== null) {
-            return $reflectionClass;
-        }
-
-        if ($this->reflectionClass !== null) {
-            return $this->reflectionClass;
-        }
-
-        throw new InvalidArgumentException(
-            'Cannot determine class information without a \ReflectionClass instance set via either the setReflectionClass '.
-            'method or passed directly to the calling examination function.'
+        $this->reflectionClassAnalyser->hasMethod(
+            'someMethod', $this->refOfClassReflectionAnalyser
         );
     }
-    */
+
+    public function testHasProperty()
+    {
+        $iconEntity = new Icon();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassInstance($iconEntity);
+
+        $this->assertFalse($this->reflectionClassAnalyser->hasProperty(
+            'doesNotHaveThisProperty', $this->refOfClassReflectionAnalyser
+        ));
+
+        $this->assertTrue($this->reflectionClassAnalyser->hasProperty(
+            'families', $this->refOfClassReflectionAnalyser, true
+        ));
+
+        $this->assertTrue($this->reflectionClassAnalyser->hasProperty(
+            'id', $this->refOfClassReflectionAnalyser, true
+        ));
+    }
+
+    public function testHasPropertyThrowsExceptionWhenReflectionClassNotProvided()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+
+        $this->setExpectedException(
+            'Scribe\Exception\InvalidArgumentException',
+            'No valid object reflection class instance provided explicitly via method call or injected into object instance.'
+        );
+
+        $this->reflectionClassAnalyser->hasProperty(
+            'someProperty', $this->refOfClassReflectionAnalyser
+        );
+    }
 }
 
 /* EOF */

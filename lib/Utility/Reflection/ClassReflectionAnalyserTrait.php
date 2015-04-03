@@ -14,9 +14,9 @@ namespace Scribe\Utility\Reflection;
 use Scribe\Exception\InvalidArgumentException;
 
 /**
- * Class ClassReflectionAnalyzerTrait.
+ * Class ClassReflectionAnalyserTrait.
  */
-trait ClassReflectionAnalyzerTrait
+trait ClassReflectionAnalyserTrait
 {
     /**
      * An instance of a reflection object, can be used instead of passing it manually to the
@@ -92,7 +92,7 @@ trait ClassReflectionAnalyzerTrait
      */
     public function hasTrait($traitName, \ReflectionClass $class = null, $recursiveSearch = true)
     {
-        $class = $this->determineWorkUnitReflectionClass($class);
+        $class = $this->triggerUpdateWorkUnit($class);
 
         if (true === in_array($traitName, $class->getTraitNames())) {
             return true;
@@ -117,9 +117,7 @@ trait ClassReflectionAnalyzerTrait
      */
     public function hasMethod($methodName, \ReflectionClass $class = null)
     {
-        if (null === ($class = $this->determineWorkUnitReflectionClass($class))) {
-            return false;
-        }
+        $class = $this->triggerUpdateWorkUnit($class);
 
         if (true === $class->hasMethod($methodName)) {
             return true;
@@ -139,9 +137,7 @@ trait ClassReflectionAnalyzerTrait
      */
     public function hasProperty($propertyName, \ReflectionClass $class = null, $recursiveSearch = true)
     {
-        if (null === ($class = $this->determineWorkUnitReflectionClass($class))) {
-            return false;
-        }
+        $class = $this->triggerUpdateWorkUnit($class);
 
         if (true === $class->hasProperty($propertyName)) {
             return true;
@@ -149,7 +145,7 @@ trait ClassReflectionAnalyzerTrait
 
         $parentClass = $class->getParentClass();
 
-        if ((false === $recursiveSearch) || (false === ($parentClass instanceof \ReflectionClass))) {
+        if (false === $recursiveSearch || (false === ($parentClass instanceof \ReflectionClass))) {
             return false;
         }
 
@@ -163,7 +159,7 @@ trait ClassReflectionAnalyzerTrait
      *
      * @return \ReflectionClass|null
      */
-    private function determineWorkUnitReflectionClass(\ReflectionClass $reflectionClass = null)
+    private function triggerUpdateWorkUnit(\ReflectionClass $reflectionClass = null)
     {
         if ($reflectionClass instanceof \ReflectionClass) {
             return $reflectionClass;
