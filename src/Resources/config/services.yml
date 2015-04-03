@@ -68,10 +68,11 @@ parameters:
 
     s.mantle.utils.reflection_analyser.class:                       Scribe\Utility\Reflection\ClassReflectionAnalyser
 
+    s.mantle.doctrine.behaviors.timestampable.model.trait:          Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait
     s.mantle.doctrine.behaviors.timestampable.subscriber.class:     Scribe\Doctrine\Behavior\Subscriber\Timestampable\TimestampableSubscriber
     s.mantle.doctrine.behaviors.timestampable.subscriber.events:    [ 'Events::loadClassMetadata' ]
+    s.mantle.doctrine.behaviors.timestampable.subscriber.triggers:  [ 'triggerUpdateTimestampEvent' ]
     s.mantle.doctrine.behaviors.timestampable.subscriber.fields:    [ 'created_on', 'updated_on' ]
-    s.mantle.doctrine.behaviors.timestampable.model.trait:          Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait
 
 services:
 
@@ -87,6 +88,7 @@ services:
             - @s.mantle.utils.reflection_analyser
             - [ %s.mantle.doctrine.behaviors.timestampable.model.trait% ]
             - %s.mantle.doctrine.behaviors.timestampable.subscriber.events%
+            - %s.mantle.doctrine.behaviors.timestampable.subscriber.triggers%
             - %s.mantle.doctrine.behaviors.timestampable.subscriber.fields%
         tags:
             - { name: doctrine.event_subscriber }

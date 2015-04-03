@@ -56,20 +56,31 @@ abstract class AbstractSubscriber implements SubscriberInterface
     protected $subscriberFields;
 
     /**
+     * Subscriber trigger functions
+     *
+     * @var array
+     */
+    protected $subscriberTriggers;
+
+    /**
      * Construct the subscriber with a class reflection analysis class.
      *
      * @param ClassReflectionAnalyserInterface $classReflectionAnalyser
      * @param string[]                         $requiredTraits
      * @param string[]                         $subscribedEventConstants
+     * @param string[]                         $subscriberTriggers
+     * @param string[]                         $subscriberFields
      * @param bool                             $recursiveAnalysis
      */
     public function __construct(ClassReflectionAnalyserInterface $classReflectionAnalyser, array $requiredTraits = [],
-                                array $subscribedEventConstants = [], array $subscriberFields = [], $recursiveAnalysis = true)
+                                array $subscribedEventConstants = [], array $subscriberTriggers = [],
+                                array $subscriberFields = [], $recursiveAnalysis = true)
     {
         $this->classReflectionAnalyser = $classReflectionAnalyser;
         $this->recursiveAnalysis       = $recursiveAnalysis;
         $this->requiredTraits          = $requiredTraits;
         $this->subscribedEvents        = $this->resolveEventConstantsToValues($subscribedEventConstants);
+        $this->subscriberTriggers      = $subscriberTriggers;
         $this->subscriberFields        = $subscriberFields;
     }
 
@@ -91,6 +102,16 @@ abstract class AbstractSubscriber implements SubscriberInterface
     public function getSubscriberFields()
     {
         return $this->subscriberFields;
+    }
+
+    /**
+     * Get the subscriber triggers.
+     *
+     * @return string[]
+     */
+    public function getSubscriberTriggers()
+    {
+        return $this->subscriberTriggers;
     }
 
     /**
