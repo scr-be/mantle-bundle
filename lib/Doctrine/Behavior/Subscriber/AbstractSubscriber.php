@@ -56,7 +56,7 @@ abstract class AbstractSubscriber implements SubscriberInterface
     protected $subscriberFields;
 
     /**
-     * Subscriber trigger functions
+     * Subscriber trigger functions.
      *
      * @var array
      */
