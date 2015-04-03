@@ -49,7 +49,7 @@ abstract class AbstractSubscriber implements SubscriberInterface
     protected $subscribedEvents;
 
     /**
-     * Subscriber fields
+     * Subscriber fields.
      *
      * @var array
      */
@@ -84,7 +84,7 @@ abstract class AbstractSubscriber implements SubscriberInterface
     }
 
     /**
-     * Get the subscriber entity fields
+     * Get the subscriber entity fields.
      *
      * @return string[]
      */
@@ -158,16 +158,15 @@ abstract class AbstractSubscriber implements SubscriberInterface
     {
         if ((null === ($classMetadata = $eventArgs->getClassMetadata())) ||
             (true !== ($reflectionClass = $classMetadata->getReflectionClass()) instanceof \ReflectionClass)) {
-
             return [
                 null,
-                null
+                null,
             ];
         }
 
         return [
             $classMetadata,
-            $reflectionClass
+            $reflectionClass,
         ];
     }
 }

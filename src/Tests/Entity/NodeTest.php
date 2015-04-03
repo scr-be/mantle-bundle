@@ -177,7 +177,7 @@ class NodeTest extends AbstractMantleEntityPhactoryUnitTestHelper
         $previousUpdatedOn = clone $this->nodes[0]->getUpdatedOn();
 
         $this->assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
-        $this->assertTrue($this->nodes[0]->getUpdatedOn() <= (new \Datetime));
+        $this->assertTrue($this->nodes[0]->getUpdatedOn() <= (new \Datetime()));
 
         $this->assertSame(0, sizeof($this->nodes[0]->getChildNodes()));
 
