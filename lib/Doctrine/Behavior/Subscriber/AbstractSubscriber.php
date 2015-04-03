@@ -118,7 +118,7 @@ abstract class AbstractSubscriber implements SubscriberInterface
             return $this->subscriberTriggers;
         }
 
-        $triggers = [ ];
+        $triggers = [];
         foreach ($this->subscribedEvents as $i => $event) {
             if ($for === $event) {
                 $triggers[] = $this->subscriberTriggers[$i];

@@ -21,9 +21,9 @@ trait LoggableBehaviorTrait
      *
      * @return string
      */
-    public function triggerPostUpdateLoggableEvent(array $changeSets = [ ])
+    public function triggerPostUpdateLoggableEvent(array $changeSets = [])
     {
-        $message = [ ];
+        $message = [];
         foreach ($changeSets as $property => $changeSet) {
             for ($i = 0; $i < count($changeSet); $i++) {
                 if ($changeSet[$i] instanceof \Datetime) {

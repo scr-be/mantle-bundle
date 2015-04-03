@@ -161,7 +161,7 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Checks if renderEngine set
+     * Checks if renderEngine set.
      *
      * @return renderEngine
      */
@@ -171,7 +171,7 @@ class NodeRevision extends AbstractEntity
     }
 
     /**
-     * Set embeddedNodes
+     * Set embeddedNodes.
      *
      * @param \stdClass $embeddedNodes
      *

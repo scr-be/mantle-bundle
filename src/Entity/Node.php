@@ -252,7 +252,7 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
      */
     public function setAsRoot()
     {
-        $this->setMaterializedPath('/'. $this->getSlug());
+        $this->setMaterializedPath('/'.$this->getSlug());
 
         return $this;
     }
@@ -277,20 +277,20 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
         /* if ($path !== null) { */
         /*     $repo = $eventArgs */
         /*         ->getEntityManager() */
-        /*         ->getRepository(__CLASS__) */ 
+        /*         ->getRepository(__CLASS__) */
         /*     ; */
-        /*     $tree = $repo->getTree($path); */ 
-        /*     var_dump($tree); */ 
+        /*     $tree = $repo->getTree($path); */
+        /*     var_dump($tree); */
             /* foreach($tree as $child) { */
-                /* var_dump($child); */ 
+                /* var_dump($child); */
                 /* $child->setChildNodeOf($node); */
             /* } */
             /* $node = $eventArgs->getEntity(); */
 
-            /* var_dump('-----'); */ 
-            /* var_dump($node->getSlug()); */ 
+            /* var_dump('-----'); */
+            /* var_dump($node->getSlug()); */
             /* foreach($node->getChildNodes() as $child) { */
-            /*     var_dump($child->getSlug()); */ 
+            /*     var_dump($child->getSlug()); */
             /*     $child->setChildNodeOf($node); */
             /* } */
         /* } */

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -15,20 +16,20 @@ use Twig_Environment;
 /**
  * Interface NodeTwigRender.
  */
-class NodeTwigRender implements NodeRenderingInterface 
+class NodeTwigRender implements NodeRenderingInterface
 {
     /**
-     * @var Twig_Environment 
+     * @var Twig_Environment
      */
     private $twigEnv;
- 
+
     public function __construct(Twig_Environment $twigEnv)
     {
-        $this->twigEnv = $twigEnv; 
+        $this->twigEnv = $twigEnv;
     }
 
     /**
-     * Gets the value of twigEnv
+     * Gets the value of twigEnv.
      *
      * @return twigEnv
      */
@@ -38,7 +39,7 @@ class NodeTwigRender implements NodeRenderingInterface
     }
 
     /**
-     * Sets the value of twigEnv
+     * Sets the value of twigEnv.
      *
      * @param twigEnv $twigEnv description
      *

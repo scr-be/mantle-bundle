@@ -53,7 +53,7 @@ class NodeRenderEngine extends AbstractEntity
     }
 
     /**
-     * Set service
+     * Set service.
      *
      * @param string $service
      *
@@ -67,7 +67,7 @@ class NodeRenderEngine extends AbstractEntity
     }
 
     /**
-     * Get service
+     * Get service.
      *
      * @return string
      */

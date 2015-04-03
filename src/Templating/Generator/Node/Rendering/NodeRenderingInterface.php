@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -13,7 +14,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 /**
  * Interface NodeRenderingInterface.
  */
-interface NodeRenderingInterface 
+interface NodeRenderingInterface
 {
     public function render($content, $args);
 }

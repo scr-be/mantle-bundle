@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -124,7 +125,7 @@ class NodeCreatorCached extends NodeCreator
      */
     protected function getCachableProperties()
     {
-        $keyValues = [ ];
+        $keyValues = [];
         foreach (get_object_vars($this) as $property => $value) {
             $keyValues[ ] = $property;
             $keyValues[ ] = $this->getCachablePropertyValue($value);

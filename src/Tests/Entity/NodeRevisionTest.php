@@ -13,7 +13,6 @@ namespace Scribe\MantleBundle\Tests\Entity;
 
 use Scribe\Tests\Helper\AbstractMantleEntityPhactoryUnitTestHelper;
 use Scribe\MantleBundle\Entity\NodeRevision;
-use Scribe\MantleBundle\Entity\NodeRenderEngine;
 
 /**
  * Class NodeRevisionTest.
@@ -51,5 +50,4 @@ class NodeRevisionTest extends AbstractMantleEntityPhactoryUnitTestHelper
     {
         $this->setupAndExercise(1);
     }
-
 }

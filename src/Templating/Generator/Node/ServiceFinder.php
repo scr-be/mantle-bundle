@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -15,24 +16,24 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * ServiceFinder.
  */
-class ServiceFinder 
+class ServiceFinder
 {
     /**
-     * @var ContainerInterface 
+     * @var ContainerInterface
      */
     private $container = null;
 
     /**
      * Setup the object instance.
      */
-    public function __construct(ContainerInterface $container) 
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
     /**
      * Any call to the object tries to fetch
-     * the given string argument as a service
+     * the given string argument as a service.
      *
      * @param string
      */

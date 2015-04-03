@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,7 +11,6 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Entity\NodeRevision;
 use Scribe\MantleBundle\Entity\Node;
 
@@ -39,7 +39,6 @@ trait NodeCreatorMocksTrait
             ->willReturn(true)
         ;
 
-        
         return $nodeRevisionEngine;
     }
 
@@ -59,13 +58,14 @@ trait NodeCreatorMocksTrait
             ->willReturn(true)
         ;
 
-        
         return $nodeRevisionEngine;
     }
 
     protected function mockNodeRevision_Blog($nodeRenderEngine = null)
     {
-        if ($nodeRenderEngine === null) { $nodeRenderEngine = $this->mockNodeRenderEngine_Twig(); }
+        if ($nodeRenderEngine === null) {
+            $nodeRenderEngine = $this->mockNodeRenderEngine_Twig();
+        }
 
         $nodeRevision = $this->getMock('Scribe\MantleBundle\Entity\NodeRevision');
         $nodeRevision
@@ -90,7 +90,9 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeRevision_NoRender($nodeRenderEngine = null)
     {
-        if ($nodeRenderEngine === null) { $nodeRenderEngine = $this->mockNodeRenderEngine_Twig(); }
+        if ($nodeRenderEngine === null) {
+            $nodeRenderEngine = $this->mockNodeRenderEngine_Twig();
+        }
 
         $nodeRevision = $this->getMock('Scribe\MantleBundle\Entity\NodeRevision');
         $nodeRevision
@@ -115,7 +117,9 @@ trait NodeCreatorMocksTrait
 
     protected function mockNode($nodeRevision = null)
     {
-        if ($nodeRevision === null) { $nodeRevision = $this->mockNodeRevision_Blog(); }
+        if ($nodeRevision === null) {
+            $nodeRevision = $this->mockNodeRevision_Blog();
+        }
 
         $node = $this->getMock('Scribe\MantleBundle\Entity\Node');
         $node
@@ -136,7 +140,9 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeRepository($node = null)
     {
-        if ($node === null) { $node = $this->mockNode(); }
+        if ($node === null) {
+            $node = $this->mockNode();
+        }
 
         $nodeRepo = $this
             ->getMockBuilder('Scribe\MantleBundle\EntityRepository\NodeRepository')
