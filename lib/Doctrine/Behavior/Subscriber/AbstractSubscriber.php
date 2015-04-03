@@ -11,6 +11,7 @@
 
 namespace Scribe\Doctrine\Behavior\Subscriber;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Scribe\Utility\Reflection\ClassReflectionAnalyserInterface;
 
@@ -107,11 +108,24 @@ abstract class AbstractSubscriber implements SubscriberInterface
     /**
      * Get the subscriber triggers.
      *
+     * @param null|string $for
+     *
      * @return string[]
      */
-    public function getSubscriberTriggers()
+    public function getSubscriberTriggers($for = null)
     {
-        return $this->subscriberTriggers;
+        if (null === $for) {
+            return $this->subscriberTriggers;
+        }
+
+        $triggers = [ ];
+        foreach ($this->subscribedEvents as $i => $event) {
+            if ($for === $event) {
+                $triggers[] = $this->subscriberTriggers[$i];
+            }
+        }
+
+        return $triggers;
     }
 
     /**
@@ -141,10 +155,11 @@ abstract class AbstractSubscriber implements SubscriberInterface
      * Checks if this subscriber supports the passed entity through the reflection object provided.
      *
      * @param \ReflectionClass $reflectionClass
+     * @param bool             $requireAll
      *
      * @return bool
      */
-    protected function isSupported(\ReflectionClass $reflectionClass)
+    protected function isSupported(\ReflectionClass $reflectionClass, $requireAll = true)
     {
         if (false === (count($this->requiredTraits) > 0)) {
             return true;
@@ -160,12 +175,18 @@ abstract class AbstractSubscriber implements SubscriberInterface
                 )
             ;
 
-            if (true !== $r) {
-                return false;
+            if ($requireAll === true) {
+                if (true !== $r) {
+                    return false;
+                }
+            } else {
+                if (true === $r) {
+                    return true;
+                }
             }
         }
 
-        return true;
+        return (bool) ($requireAll ?: false);
     }
 
     /**
@@ -175,7 +196,7 @@ abstract class AbstractSubscriber implements SubscriberInterface
      *
      * @return array|null
      */
-    protected function getClassMetadataAndReflectionOfEntityForLoadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
+    protected function getHelperObjectsForLoadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         if ((null === ($classMetadata = $eventArgs->getClassMetadata())) ||
             (true !== ($reflectionClass = $classMetadata->getReflectionClass()) instanceof \ReflectionClass)) {
@@ -188,6 +209,30 @@ abstract class AbstractSubscriber implements SubscriberInterface
         return [
             $classMetadata,
             $reflectionClass,
+        ];
+    }
+
+    /**
+     * Returns the class metadata and reflection class of entity if possible.
+     *
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @return array|null
+     */
+    protected function getHelperObjectsForLifecycleEvent(LifecycleEventArgs $eventArgs)
+    {
+        $em              = $eventArgs->getEntityManager();
+        $entity          = $eventArgs->getEntity();
+        $uow             = $em->getUnitOfWork();
+        $classMetadata   = $em->getClassMetadata(get_class($entity));
+        $reflectionClass = $classMetadata->getReflectionClass();
+
+        return [
+            $em,
+            $entity,
+            $reflectionClass,
+            $uow,
+            $classMetadata,
         ];
     }
 }

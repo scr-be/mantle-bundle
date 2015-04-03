@@ -13,6 +13,7 @@ namespace Scribe\MantleBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 
 /**
@@ -23,7 +24,8 @@ class NodeRevision extends AbstractEntity
     /*
      * import traits
      */
-    use TimestampableBehaviorTrait;
+    use TimestampableBehaviorTrait,
+        LoggableBehaviorTrait;
 
     /**
      * @var string

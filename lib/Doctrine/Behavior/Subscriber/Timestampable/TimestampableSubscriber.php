@@ -25,9 +25,9 @@ class TimestampableSubscriber extends AbstractSubscriber
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
-        list($classMetadata, $reflectionClass) = $this->getClassMetadataAndReflectionOfEntityForLoadClassMetadata($eventArgs);
+        list($classMetadata, $reflectionClass) = $this->getHelperObjectsForLoadClassMetadata($eventArgs);
 
-        if (true !== $this->isSupported($reflectionClass)) {
+        if (true !== $this->isSupported($reflectionClass, true)) {
             return;
         }
 

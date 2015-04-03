@@ -18,6 +18,7 @@ use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasSlug;
 use Scribe\Doctrine\Base\Model\HasTitle;
 use Scribe\Doctrine\Base\Model\HasWeight;
+use Scribe\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 
 /**
@@ -32,7 +33,8 @@ class Node extends AbstractEntity implements ORMBehaviors\Tree\NodeInterface, \A
         HasSlug,
         HasTitle,
         HasWeight,
-        TimestampableBehaviorTrait;
+        TimestampableBehaviorTrait,
+        LoggableBehaviorTrait;
 
     /**
      * @var bool

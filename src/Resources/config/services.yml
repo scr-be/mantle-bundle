@@ -68,12 +68,18 @@ parameters:
     s.twig.icon_creator.class:                      Scribe\MantleBundle\Templating\Extension\IconCreatorExtension
 
     s.mantle.utils.reflection_analyser.class:                       Scribe\Utility\Reflection\ClassReflectionAnalyser
+    s.mantle.utils.logger_callable.class:                           Scribe\Utility\Logger\LoggerCallable
 
-    s.mantle.doctrine.behaviors.timestampable.model.trait:          Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait
+    s.mantle.doctrine.behaviors.timestampable.model.trait:          [ 'Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait' ]
     s.mantle.doctrine.behaviors.timestampable.subscriber.class:     Scribe\Doctrine\Behavior\Subscriber\Timestampable\TimestampableSubscriber
     s.mantle.doctrine.behaviors.timestampable.subscriber.events:    [ 'Events::loadClassMetadata' ]
     s.mantle.doctrine.behaviors.timestampable.subscriber.triggers:  [ 'triggerUpdateTimestampEvent' ]
     s.mantle.doctrine.behaviors.timestampable.subscriber.fields:    [ 'created_on', 'updated_on' ]
+
+    s.mantle.doctrine.behaviors.loggable.model.trait:               [ 'Scribe\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait' ]
+    s.mantle.doctrine.behaviors.loggable.subscriber.class:          Scribe\Doctrine\Behavior\Subscriber\Loggable\LoggableSubscriber
+    s.mantle.doctrine.behaviors.loggable.subscriber.events:         [ 'Events::postPersist', 'Events::postUpdate', 'Events::preRemove' ]
+    s.mantle.doctrine.behaviors.loggable.subscriber.triggers:       [ 'triggerPostPersistLoggableEvent', 'triggerPostUpdateLoggableEvent', 'triggerPreRemoveLoggableEvent' ]
 
 services:
 
@@ -82,15 +88,33 @@ services:
         calls:
             - [ unsetReflectionClass ]
 
+    s.mantle.utils.logger_callable:
+        class: %s.mantle.utils.logger_callable.class%
+        arguments:
+            - @logger
+
     s.mantle.doctrine.behaviors.timestampable.subscriber:
         class:  %s.mantle.doctrine.behaviors.timestampable.subscriber.class%
         public: false
         arguments:
             - @s.mantle.utils.reflection_analyser
-            - [ %s.mantle.doctrine.behaviors.timestampable.model.trait% ]
+            - %s.mantle.doctrine.behaviors.timestampable.model.trait%
             - %s.mantle.doctrine.behaviors.timestampable.subscriber.events%
             - %s.mantle.doctrine.behaviors.timestampable.subscriber.triggers%
             - %s.mantle.doctrine.behaviors.timestampable.subscriber.fields%
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    s.mantle.doctrine.behaviors.loggable.subscriber:
+        class:  %s.mantle.doctrine.behaviors.loggable.subscriber.class%
+        public: false
+        arguments:
+            - @s.mantle.utils.reflection_analyser
+            - %s.mantle.doctrine.behaviors.loggable.model.trait%
+            - %s.mantle.doctrine.behaviors.loggable.subscriber.events%
+            - %s.mantle.doctrine.behaviors.loggable.subscriber.triggers%
+        calls:
+            - [ setLoggerCallable, [ @s.mantle.utils.logger_callable ] ]
         tags:
             - { name: doctrine.event_subscriber }
 
