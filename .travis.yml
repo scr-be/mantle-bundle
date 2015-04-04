@@ -55,6 +55,5 @@ script:
     - bin/phpunit --verbose --configuration phpunit.travis.xml
 
 after_script:
-    - sudo rm -fr bin composer.json composer.lock docs knowledge LICENSE.md phpunit* README.md vendor
-    - bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
     - bin/coveralls -c .coveralls.yml -vvv
+    - bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml

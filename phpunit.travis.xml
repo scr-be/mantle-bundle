@@ -21,11 +21,11 @@
     </groups>
     <filter>
         <whitelist>
-            <directory>./(lib|src)</directory>
+            <directory>./lib</directory>
+            <directory>./src</directory>
             <exclude>
                 <directory>./*/Tests/</directory>
                 <directory>./*/Resources/</directory>
-                <directory>./knowledge/</directory>
             </exclude>
         </whitelist>
     </filter>
