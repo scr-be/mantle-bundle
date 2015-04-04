@@ -3,11 +3,12 @@ imports:
 
 filter:
     excluded_paths:
-        - test/*
+        - src/Tests/*
+        - lib/Tests/*
+        - knowledge/*
         - vendor/*
         - bin/*
         - build/*
-        - src/Tests/*
 
 tools:
     external_code_coverage:
