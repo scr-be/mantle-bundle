@@ -1,0 +1,39 @@
+Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Icon\IconTemplateRepository
+
+    fields:
+
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+        slug:
+            type:   string
+            length: 40
+
+        description:
+            type:   string
+            length: 100
+
+        engine:
+            type:   string
+            length: 10
+
+        template:
+            type:   text
+
+        priority:
+            type:   integer
+
+    manyToOne:
+
+        family:
+            targetEntity: IconFamily
+            inversedBy:   templates
+            joinColumn:
+                name:              iconFamilyId
+                referencedColumn:  id

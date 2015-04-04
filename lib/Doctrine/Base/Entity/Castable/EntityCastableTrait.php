@@ -10,6 +10,8 @@
  */
 
 namespace Scribe\Doctrine\Base\Entity\Castable;
+use Scribe\Doctrine\Exception\EntityDataStateORMException;
+use Scribe\Doctrine\Exception\ORMExceptionInterface;
 
 /**
  * Trait EntityCastableTrait
@@ -18,21 +20,36 @@ namespace Scribe\Doctrine\Base\Entity\Castable;
 trait EntityCastableTrait
 {
     /**
-     * Support for casting from object type to string type must be implemented
-     * in all classes inheriting from this base-class.
+     * Support for explicit/implicit casting from object to string. This function should be explicitly implemented
+     * in each entity, though a default implementation has been provided.
+     *
+     * @throws EntityDataStateORMException If current entity does not have a valid id value.
      *
      * @return string
      */
-    abstract public function __toString();
+    public function __toString()
+    {
+        if (false === method_exists($this, 'id') || false !== empty($this->getId()) || null === $this->getId()) {
+            throw new EntityDataStateORMException(
+                'Cast to string using default implementation failed as current entity does not have an "id" property.',
+                ORMExceptionInterface::CODE_GENERIC_FROM_MANTLE_LIB
+            );
+        }
+
+        return (string) (get_class($this).':'.$this->getId());
+    }
 
     /**
-     * Support for explicit casting from object type to array type.
+     * Support for explicit casting from object to array.
      *
      * @return array
      */
     public function __toArray()
     {
-        return (array) get_object_vars($this);
+        return (array) array_merge(
+            [ 'properties' => get_class_vars($this) ],
+            [ 'methods'    => get_class_methods($this) ]
+        );
     }
 }
 

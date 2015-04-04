@@ -11,14 +11,14 @@
 
 namespace Scribe\Tests\Utility\Reflection;
 
-use Scribe\MantleBundle\Entity\Icon;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
-use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 
 /**
  * Class ClassReflectionAnalyserTest.
  */
-class ClassReflectionAnalyserTest extends AbstractMantleKernelUnitTestHelper
+class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
 {
     /**
      * @var string

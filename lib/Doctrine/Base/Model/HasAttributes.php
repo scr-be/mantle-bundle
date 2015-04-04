@@ -106,7 +106,7 @@ trait HasAttributes
             return $this->getAttributes()[$key];
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -123,7 +123,7 @@ trait HasAttributes
         $key = (string) $key;
 
         if ($this->hasAttributeKey($key) !== true || $overwrite === true) {
-            $this->getAttributes()[ $key ] = $value;
+            $this->attributes[ $key ] = $value;
         }
 
         return $this;

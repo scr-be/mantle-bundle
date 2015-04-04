@@ -1,0 +1,48 @@
+Scribe\MantleBundle\Doctrine\Entity\Node\Node:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository
+
+    id:
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+    fields:
+        slugDisableAutoGeneration:
+            type:     boolean
+            nullable: true
+        title:
+            type:   string
+            length: '500'
+        weight:
+            type:     integer
+            nullable: true
+
+    manyToOne:
+        context:
+            targetEntity: NodeContextType
+            inversedBy:   nodes
+            joinColumn:
+                name:            nodeContextTypeId
+                referenceColumn: id
+
+    oneToOne:
+        latestRevision:
+            targetEntity: NodeRevision
+            inversedBy:   owningNode
+            joinColumn:
+                name:            latestRevisionId
+                referenceColumn: id
+
+    oneToMany:
+        revisions:
+            targetEntity: NodeRevision
+            mappedBy:     node
+
+    manyToMany:
+        containerNodeRevisions:
+            targetEntity: NodeRevision
+            mappedBy:     embeddedNodes

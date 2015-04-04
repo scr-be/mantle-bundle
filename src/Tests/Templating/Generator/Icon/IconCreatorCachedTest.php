@@ -13,12 +13,12 @@ namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
-use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 
 /**
  * Class IconCreatorCachedTest.
  */
-class IconCreatorCachedTest extends AbstractMantleKernelUnitTestHelper
+class IconCreatorCachedTest extends AbstractMantleKernelTestCase
 {
     use IconCreatorMocksTrait;
     use IconCreatorHelperTrait;

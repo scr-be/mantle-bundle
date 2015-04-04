@@ -67,16 +67,19 @@ abstract class AbstractSubscriber implements SubscriberInterface
      * Construct the subscriber with a class reflection analysis class.
      *
      * @param ClassReflectionAnalyserInterface $classReflectionAnalyser
-     * @param string[]                         $requiredTraits
      * @param string[]                         $subscribedEventConstants
      * @param string[]                         $subscriberTriggers
+     * @param string[]                         $requiredTraits
      * @param string[]                         $subscriberFields
      * @param bool                             $recursiveAnalysis
      */
-    public function __construct(ClassReflectionAnalyserInterface $classReflectionAnalyser, array $requiredTraits = [],
-                                array $subscribedEventConstants = [], array $subscriberTriggers = [],
-                                array $subscriberFields = [], $recursiveAnalysis = true)
-    {
+    public function __construct(ClassReflectionAnalyserInterface $classReflectionAnalyser,
+                                array $subscribedEventConstants = [],
+                                array $subscriberTriggers       = [],
+                                array $requiredTraits           = [],
+                                array $subscriberFields         = [],
+                                $recursiveAnalysis              = true
+    ) {
         $this->classReflectionAnalyser = $classReflectionAnalyser;
         $this->recursiveAnalysis       = $recursiveAnalysis;
         $this->requiredTraits          = $requiredTraits;

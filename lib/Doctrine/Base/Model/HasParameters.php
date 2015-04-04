@@ -26,7 +26,7 @@ trait HasParameters
     /**
      * Init trait.
      */
-    public function initParameters()
+    public function initializeParameters()
     {
         $this->parameters = [];
     }
@@ -87,6 +87,42 @@ trait HasParameters
     public function hasParameterKey($key)
     {
         return (bool) array_key_exists($key, (array) $this->parameters);
+    }
+
+    /**
+     * Retrieve a single parameter array value.
+     *
+     * @param string $key the array key to get the value of
+     *
+     * @return string|null
+     */
+    public function getParameterValue($key)
+    {
+        if ($this->hasParameterKey($key)) {
+            return $this->getParameters()[$key];
+        }
+
+        return null;
+    }
+
+    /**
+     * Set a key->value parameters property pair.
+     *
+     * @param string $key       assignment array key
+     * @param mixed  $value     new array item value
+     * @param bool   $overwrite overwrite a row if the key already exists
+     *
+     * @return $this
+     */
+    public function setParameterValue($key, $value, $overwrite = true)
+    {
+        $key = (string) $key;
+
+        if ($this->hasParameterKey($key) !== true || $overwrite === true) {
+            $this->parameters[ $key ] = $value;
+        }
+
+        return $this;
     }
 
     /**

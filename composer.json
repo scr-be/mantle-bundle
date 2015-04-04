@@ -57,7 +57,6 @@
         "doctrine/common"                      : "~2.5.0",
         "doctrine/dbal"                        : "~2.5.1",
         "doctrine/doctrine-bundle"             : "~1.4.0",
-        "knplabs/doctrine-behaviors"           : "~1.0.3",
         "twig/twig"                            : "~1.18,<2.0",
         "twig/extensions"                      : "~1.2",
         "symfony/filesystem"                   : "~2.6",

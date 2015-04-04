@@ -14,17 +14,17 @@ namespace Scribe\MantleBundle\Tests\Templating\Generator\Node;
 use Scribe\MantleBundle\Templating\Generator\Node\NodeCreator;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorHelperTrait;
-use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 
 /**
  * Class NodeCreatorTest.
  */
-class NodeCreatorTest extends AbstractMantleKernelUnitTestHelper
+class NodeCreatorTest extends AbstractMantleKernelTestCase
 {
     use NodeCreatorMocksTrait,
         NodeCreatorHelperTrait;
 
-    const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\EntityRepository\NodeFamilyRepository';
+    const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\Doctrine\Repository\Node\NodeFamilyRepository';
 
     const FULLY_QUALIFIED_CLASS_NAME_SELF = 'Scribe\MantleBundle\Templating\Generator\Node\NodeCreator';
 

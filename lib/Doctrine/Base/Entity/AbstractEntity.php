@@ -24,7 +24,7 @@ use Scribe\Doctrine\Base\Entity\Lifecycleable\EntityLifecycleableTrait;
 use Scribe\Doctrine\Base\Entity\Serializable\EntitySerializableInterface;
 use Scribe\Doctrine\Base\Entity\Serializable\EntitySerializableTrait;
 use Scribe\Doctrine\Base\Model\HasId;
-use Scribe\Doctrine\Exception\OrmException;
+use Scribe\Doctrine\Exception\ORMException;
 
 /**
  * Class Entity.
@@ -50,11 +50,12 @@ abstract class AbstractEntity implements
     }
 
     /**
-     * Trigger an ORM entity error by passing a valid ORMException.
+     * Will trigger (throw) an ORM error from within an entity. Intended to ensure all exceptions throw
+     * by an entity will inherit from our base ORMException class.
      *
      * @param ORMException $e
      *
-     * @throws OrmException
+     * @throws ORMException
      */
     final protected function triggerError(ORMException $e)
     {

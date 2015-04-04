@@ -11,10 +11,10 @@
 
 namespace Scribe\Tests\Utility;
 
-use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 use Scribe\Utility\Extension;
 
-class ExtensionTest extends AbstractMantleUnitTestHelper
+class ExtensionTest extends AbstractMantleTestCase
 {
     public function testThrowsExceptionOnInstantiation()
     {

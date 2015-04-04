@@ -13,13 +13,13 @@ namespace Scribe\MantleBundle\Tests;
 
 use ReflectionClass;
 use Scribe\MantleBundle\ScribeMantleBundle;
-use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class ScribeMantleBundleTest.
  */
-class ScribeMantleBundleTest extends AbstractMantleKernelUnitTestHelper
+class ScribeMantleBundleTest extends AbstractMantleKernelTestCase
 {
     const FULLY_QUALIFIED_CLASS_NAME = 'Scribe\MantleBundle\ScribeMantleBundle';
 

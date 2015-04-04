@@ -11,10 +11,10 @@
 
 namespace Scribe\Tests\Utility\Config;
 
-use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Scribe\Utility\Config\ConfigContainer;
 
-class ConfigContainerTest extends AbstractMantleKernelUnitTestHelper
+class ConfigContainerTest extends AbstractMantleKernelTestCase
 {
     /**
      * @var ConfigContainer

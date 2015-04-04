@@ -11,10 +11,10 @@
 
 namespace Scribe\Tests\Utility\Serializer;
 
-use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 use Scribe\Utility\Serializer\Serializer;
 
-class SerializerTest extends AbstractMantleUnitTestHelper
+class SerializerTest extends AbstractMantleTestCase
 {
     public function testThrowsExceptionOnInstantiation()
     {

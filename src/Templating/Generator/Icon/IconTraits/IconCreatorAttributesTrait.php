@@ -11,9 +11,9 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
 
-use Scribe\MantleBundle\Entity\Icon;
-use Scribe\MantleBundle\Entity\IconFamily;
-use Scribe\MantleBundle\Entity\IconTemplate;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate;
 
 /**
  * Class IconCreatorAttributesTrait.

@@ -1,0 +1,58 @@
+Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository
+
+    fields:
+
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+        slug:
+            type:   string
+            length: 40
+
+        version:
+            type:   string
+            length: 40
+
+        url:
+            type:   string
+            length: 255
+
+        name:
+            type:   string
+            length: 40
+
+        prefix:
+            type:   string
+            length: 10
+
+        requiredClasses:
+            type: json_array
+            nullable: true
+
+        optionalClasses:
+            type: json_array
+            nullable: true
+
+        attributes:
+            type: json_array
+            nullable: true
+
+    oneToMany:
+
+        templates:
+            targetEntity: IconTemplate
+            mappedBy:     family
+            orderBy:
+                priority: ASC
+
+    manyToMany:
+
+        icons:
+            targetEntity: Icon
+            mappedBy:     families

@@ -11,8 +11,8 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
-use Scribe\MantleBundle\Entity\Node;
-use Scribe\MantleBundle\EntityRepository\NodeRepository;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
+use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 
 /**
  * NodeCreator.

@@ -11,8 +11,8 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
-use Scribe\MantleBundle\Entity\NodeRevision;
-use Scribe\MantleBundle\Entity\Node;
+use Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 
 /**
  * Class NodeCreatorMocksTrait.
@@ -25,7 +25,7 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeRenderEngine_Twig()
     {
-        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Entity\NodeRenderEngine');
+        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine');
         $nodeRevisionEngine
             ->method('getSlug')
             ->willReturn('twig')
@@ -44,7 +44,7 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeRenderEngine_Foo()
     {
-        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Entity\NodeRenderEngine');
+        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine');
         $nodeRevisionEngine
             ->method('getSlug')
             ->willReturn('twig')
@@ -67,7 +67,7 @@ trait NodeCreatorMocksTrait
             $nodeRenderEngine = $this->mockNodeRenderEngine_Twig();
         }
 
-        $nodeRevision = $this->getMock('Scribe\MantleBundle\Entity\NodeRevision');
+        $nodeRevision = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision');
         $nodeRevision
             ->method('getSlug')
             ->willReturn('blog_post')
@@ -94,7 +94,7 @@ trait NodeCreatorMocksTrait
             $nodeRenderEngine = $this->mockNodeRenderEngine_Twig();
         }
 
-        $nodeRevision = $this->getMock('Scribe\MantleBundle\Entity\NodeRevision');
+        $nodeRevision = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision');
         $nodeRevision
             ->method('getSlug')
             ->willReturn('blog_post')
@@ -121,7 +121,7 @@ trait NodeCreatorMocksTrait
             $nodeRevision = $this->mockNodeRevision_Blog();
         }
 
-        $node = $this->getMock('Scribe\MantleBundle\Entity\Node');
+        $node = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\Node');
         $node
             ->method('getLatestRevision')
             ->willReturn($nodeRevision)
@@ -145,7 +145,7 @@ trait NodeCreatorMocksTrait
         }
 
         $nodeRepo = $this
-            ->getMockBuilder('Scribe\MantleBundle\EntityRepository\NodeRepository')
+            ->getMockBuilder('Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository')
             ->setMethods(['findOneBySlug'])
             ->disableOriginalConstructor()
             ->getMock()

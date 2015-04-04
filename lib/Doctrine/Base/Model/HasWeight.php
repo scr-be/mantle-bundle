@@ -24,7 +24,7 @@ trait HasWeight
     /**
      * Init trait.
      */
-    public function initializeVersion()
+    public function initializeWeight()
     {
         $this->weight = null;
     }
@@ -51,6 +51,28 @@ trait HasWeight
     public function getWeight()
     {
         return $this->weight;
+    }
+
+    /**
+     * Checker for weight
+     *
+     * @return bool
+     */
+    public function hasWeight()
+    {
+        return (bool) ($this->weight !== null);
+    }
+
+    /**
+     * Clear weight
+     *
+     * @return $this
+     */
+    public function clearWeight()
+    {
+        $this->weight = null;
+
+        return $this;
     }
 }
 

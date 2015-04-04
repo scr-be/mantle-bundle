@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
-use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
+use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 
 /**
  * Interface IconInterface.

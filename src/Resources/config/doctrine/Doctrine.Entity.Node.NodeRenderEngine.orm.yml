@@ -1,0 +1,21 @@
+Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRenderEngineRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        slug:
+            type: string
+            length: 255
+        service:
+            type: text
+    oneToMany:
+        revisions:
+            targetEntity: NodeRevision
+            mappedBy: renderEngine
+    lifecycleCallbacks: {  }

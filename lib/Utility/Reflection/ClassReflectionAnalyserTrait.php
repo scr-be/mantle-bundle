@@ -12,6 +12,7 @@
 namespace Scribe\Utility\Reflection;
 
 use Scribe\Exception\InvalidArgumentException;
+use Scribe\Utility\ClassName;
 
 /**
  * Class ClassReflectionAnalyserTrait.
@@ -25,6 +26,15 @@ trait ClassReflectionAnalyserTrait
      * @var \ReflectionClass|null
      */
     private $reflectionClass = null;
+
+    /**
+     * Enable "kind" mode with regard to trait look-ups. For example, it will blindly assume that if you want
+     * to check against "SomeTrait" and it has "Some/Namespace/To/SomeTrait" that your check is valid. This is
+     * generally unsafe!
+     *
+     * @var bool
+     */
+    private $requireFQN = true;
 
     /**
      * Set the current reflection class to operate on (can be overridden by directly passing
@@ -82,6 +92,19 @@ trait ClassReflectionAnalyserTrait
     }
 
     /**
+     * Enables ability to allow unsafe checks against trait names without passing a fully-qualified namespace.
+     * Use at your own risk...
+     *
+     * @param bool $requireFQN
+     *
+     * @return $this
+     */
+    public function setRequireFQN($requireFQN = true)
+    {
+        $this->requireFQN = (bool) $requireFQN;
+    }
+
+    /**
      * Return true if the given object has the provided trait.
      *
      * @param string           $traitName
@@ -94,7 +117,7 @@ trait ClassReflectionAnalyserTrait
     {
         $class = $this->triggerUpdateWorkUnit($class);
 
-        if (true === in_array($traitName, $class->getTraitNames())) {
+        if (true === in_array($traitName, $this->getTraitNames($class))) {
             return true;
         }
 
@@ -172,6 +195,34 @@ trait ClassReflectionAnalyserTrait
         throw new InvalidArgumentException(
             'No valid object reflection class instance provided explicitly via method call or injected into object instance.'
         );
+    }
+
+    /**
+     * Return the trait names of the provided reflection class. Optionally returns an array containing both the
+     * fully-qualified names as well as the stand-alone trait names. Be cautious when using this option.
+     *
+     * @param \ReflectionClass $reflectionClass
+     *
+     * @return array
+     */
+    private function getTraitNames(\ReflectionClass $reflectionClass)
+    {
+        $traits = $reflectionClass->getTraitNames();
+
+        if (false === (count($traits) > 0)) {
+            return [];
+        }
+
+        if (false !== $this->requireFQN) {
+            return $traits;
+        }
+
+        $traitNames = [];
+        foreach ($traits as $t) {
+            $traitNames[] = ClassName::getTraitNameString($t);
+        }
+
+        return (array) array_merge($traits, $traitNames);
     }
 }
 

@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
 
-use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
+use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 
 /**
  * Trait IconCreatorServicesTrait.

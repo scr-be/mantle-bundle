@@ -98,7 +98,7 @@ trait HasAliases
             return $this->aliases[$alias];
         }
 
-        return;
+        return null;
     }
 
     /**
