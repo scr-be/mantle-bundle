@@ -11,8 +11,8 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
+use Scribe\Component\DependencyInjection\Container\ServiceFinder;
 use Scribe\MantleBundle\Templating\Generator\Node\NodeCreator;
-use Scribe\MantleBundle\Templating\Generator\Node\ServiceFinder;
 
 /**
  * Class NodeCreatorHelperTrait.

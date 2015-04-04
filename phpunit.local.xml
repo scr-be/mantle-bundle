@@ -21,8 +21,7 @@
     </groups>
     <filter>
         <whitelist>
-            <directory>./lib</directory>
-            <directory>./src</directory>
+            <directory>./(lib|src)</directory>
             <exclude>
                 <directory>./*/Tests/</directory>
                 <directory>./*/Resources/</directory>

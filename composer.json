@@ -99,5 +99,11 @@
         "branch-alias": {
             "dev-master": "2.0-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/scribenet/php-coveralls.git"
+        }
+    ]
 }

@@ -11,6 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
+use Scribe\Component\DependencyInjection\Container\ServiceFinder;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 
@@ -62,7 +63,7 @@ class NodeCreator
      *
      * @return string
      */
-    public function render(Node $node, $args = array())
+    public function render(Node $node, $args = [])
     {
         $nodeRevision = $node->getLatestRevision();
         $content = $nodeRevision->getContent();
@@ -91,7 +92,7 @@ class NodeCreator
      *
      * @return string
      */
-    public function renderFromSlug($slug, $args = array())
+    public function renderFromSlug($slug, $args = [])
     {
         $node = $this->findNodeBySlug($slug);
         $content = $this->render($node, $args);
@@ -149,3 +150,5 @@ class NodeCreator
         }
     }
 }
+
+/* EOF */

@@ -31,7 +31,7 @@ class NodeTwigRender implements NodeRenderingInterface
     /**
      * Gets the value of twigEnv.
      *
-     * @return twigEnv
+     * @return Twig_Environment
      */
     public function getTwigEnv()
     {
@@ -41,11 +41,11 @@ class NodeTwigRender implements NodeRenderingInterface
     /**
      * Sets the value of twigEnv.
      *
-     * @param twigEnv $twigEnv description
+     * @param Twig_Environment $twigEnv
      *
      * @return $this
      */
-    public function setTwigEnv(twigEnv $twigEnv)
+    public function setTwigEnv(Twig_Environment $twigEnv)
     {
         $this->twigEnv = $twigEnv;
 

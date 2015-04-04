@@ -9,12 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Node;
+namespace Scribe\Component\DependencyInjection\Container;
 
+use Scribe\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * ServiceFinder.
+ * Class ServiceFinder.
  */
 class ServiceFinder
 {
@@ -36,6 +37,10 @@ class ServiceFinder
      * the given string argument as a service.
      *
      * @param string
+     *
+     * @throws RuntimeException If the service cannot be found.
+     *
+     * @return object
      */
     public function __invoke($service)
     {
@@ -43,6 +48,6 @@ class ServiceFinder
             return $this->container->get($service);
         }
 
-        throw new \RuntimeException('Placeholder exception because service not found!');
+        throw new RuntimeException('Placeholder exception because service not found!');
     }
 }
