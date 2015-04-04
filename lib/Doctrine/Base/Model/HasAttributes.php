@@ -106,7 +106,7 @@ trait HasAttributes
             return $this->getAttributes()[$key];
         }
 
-        return null;
+        return;
     }
 
     /**

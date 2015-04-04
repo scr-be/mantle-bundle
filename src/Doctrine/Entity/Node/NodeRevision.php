@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
-use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 
 /**
  * NodeRevision.

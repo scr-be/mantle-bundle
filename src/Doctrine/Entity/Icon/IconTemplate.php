@@ -87,7 +87,7 @@ class IconTemplate extends AbstractEntity
     }
 
     /**
-     * Disable auto-generated slugs
+     * Disable auto-generated slugs.
      *
      * @return bool
      */

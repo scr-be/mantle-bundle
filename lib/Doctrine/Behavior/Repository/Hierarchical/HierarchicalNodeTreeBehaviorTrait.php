@@ -12,9 +12,7 @@
 
 namespace Scribe\Doctrine\Behavior\Repository\Hierarchical;
 
-use Doctrine\Common\Collections\Collection;
-
-/**
+/*
  * Class HierarchicalNodeTreeBehaviorTrait.
  */
 
@@ -24,7 +22,7 @@ use Scribe\Doctrine\Behavior\Model\Hierarchical\HierarchicalNodeInterface;
 trait HierarchicalNodeTreeBehaviorTrait
 {
     /**
-     * Constructs a query builder to get all root nodes
+     * Constructs a query builder to get all root nodes.
      *
      * @param string $rootAlias
      *
@@ -38,7 +36,7 @@ trait HierarchicalNodeTreeBehaviorTrait
     }
 
     /**
-     * Returns all root nodes
+     * Returns all root nodes.
      *
      * @api
      *
@@ -55,7 +53,7 @@ trait HierarchicalNodeTreeBehaviorTrait
     }
 
     /**
-     * Returns a node hydrated with its children and parents
+     * Returns a node hydrated with its children and parents.
      *
      * @api
      *
@@ -82,7 +80,7 @@ trait HierarchicalNodeTreeBehaviorTrait
     }
 
     /**
-     * Extracts the root node and constructs a tree using flat resultset
+     * Extracts the root node and constructs a tree using flat resultset.
      *
      * @param array|\Iterator $results a flat result set
      *
@@ -101,7 +99,7 @@ trait HierarchicalNodeTreeBehaviorTrait
     }
 
     /**
-     * Constructs a query builder to get a flat tree, starting from a given path
+     * Constructs a query builder to get a flat tree, starting from a given path.
      *
      * @param string $path
      * @param string $rootAlias
@@ -131,7 +129,7 @@ trait HierarchicalNodeTreeBehaviorTrait
 
     /**
      * manipulates the flat tree query builder before executing it.
-     * Override this method to customize the tree query
+     * Override this method to customize the tree query.
      *
      * @param QueryBuilder $qb
      */
@@ -140,7 +138,7 @@ trait HierarchicalNodeTreeBehaviorTrait
     }
 
     /**
-     * Executes the flat tree query builder
+     * Executes the flat tree query builder.
      *
      * @return array the flat resultset
      */

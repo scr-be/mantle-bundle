@@ -13,7 +13,6 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Node;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasSlug;
 use Scribe\Doctrine\Base\Model\HasName;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
 
@@ -61,11 +60,11 @@ class NodeContextType extends AbstractEntity
      */
     public function getAutoSlugFields()
     {
-        return [ 'name' ];
+        return ['name'];
     }
 
     /**
-     * Disable auto-slug generation for this entity
+     * Disable auto-slug generation for this entity.
      *
      * @return bool
      */

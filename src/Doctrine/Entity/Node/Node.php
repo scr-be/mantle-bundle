@@ -87,16 +87,14 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
         return $this->getTitle();
     }
 
-
-
     /**
-     * Returns the entity fields used to create the slug
+     * Returns the entity fields used to create the slug.
      *
      * @return array
      */
     public function getAutoSlugFields()
     {
-        return [ 'title' ];
+        return ['title'];
     }
 
     /**
@@ -220,7 +218,7 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     }
 
     /**
-     * Check if it has latest node revision
+     * Check if it has latest node revision.
      *
      * @return bool
      */
@@ -254,7 +252,7 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     }
 
     /**
-     * Check if it has an collection of node revisions
+     * Check if it has an collection of node revisions.
      *
      * @return bool
      */

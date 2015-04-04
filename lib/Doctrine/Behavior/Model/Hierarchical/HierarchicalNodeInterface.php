@@ -26,13 +26,13 @@ interface HierarchicalNodeInterface
 
     /**
      * @return string the materialized path,
-     * eg the representation of path from all ancestors
+     *                eg the representation of path from all ancestors
      **/
     public function getMaterializedPath();
 
     /**
      * @return string the real materialized path,
-     * eg the representation of path from all ancestors + current node
+     *                eg the representation of path from all ancestors + current node
      **/
     public function getRealMaterializedPath();
 
@@ -66,7 +66,7 @@ interface HierarchicalNodeInterface
      *    - modify the parent of this node
      *    - Add the this node to the children of the new parent
      *    - Remove the this node from the children of the old parent
-     *    - Modify the materialized path of this node and all its children, recursively
+     *    - Modify the materialized path of this node and all its children, recursively.
      *
      * @param HierarchicalNodeInterface $node The node to use as a parent
      *
@@ -97,23 +97,21 @@ interface HierarchicalNodeInterface
     public function isRootNode();
 
     /**
-     * Tells if this node is a child of another node
+     * Tells if this node is a child of another node.
+     *
      * @param HierarchicalNodeInterface $node the node to compare with
      *
-     * @return boolean true if this node is a direct child of $node
+     * @return bool true if this node is a direct child of $node
      **/
     public function isChildNodeOf(HierarchicalNodeInterface $node);
 
     /**
-     *
-     * @return integer the level of this node, eg: the depth compared to root node
+     * @return int the level of this node, eg: the depth compared to root node
      **/
     public function getNodeLevel();
 
     /**
-     * Builds a hierarchical tree from a flat collection of HierarchicalNodeInterface elements
-     *
-     * @return void
+     * Builds a hierarchical tree from a flat collection of HierarchicalNodeInterface elements.
      **/
     public function buildTree(array $nodes);
 }

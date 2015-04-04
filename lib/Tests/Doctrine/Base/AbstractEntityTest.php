@@ -12,7 +12,6 @@
 namespace Scribe\Doctrine\Base\Entity;
 
 use Scribe\Tests\Doctrine\Fixtures\BaseEntity;
-use Scribe\Tests\Doctrine\Fixtures\BaseEntityHasAlias;
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 
@@ -134,12 +133,12 @@ class AbstractEntityTest extends AbstractMantleTestCase
     {
         parent::setUp();
 
-        $this->reflectionAnalyser = new ClassReflectionAnalyser;
+        $this->reflectionAnalyser = new ClassReflectionAnalyser();
     }
 
     public function testEntityIsCastable()
     {
-        $entity = new BaseEntity;
+        $entity = new BaseEntity();
 
         $this->assertTrue(method_exists($entity, '__toString'));
         $this->assertEquals('Scribe\Tests\Doctrine\Fixtures\BaseEntity', (string) $entity);

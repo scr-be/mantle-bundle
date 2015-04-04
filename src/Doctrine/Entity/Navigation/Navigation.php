@@ -32,7 +32,7 @@ class Navigation extends AbstractEntity
         SluggableBehaviorTrait;
 
     /**
-     * Support casting to string
+     * Support casting to string.
      *
      * @return string
      */
@@ -55,7 +55,7 @@ class Navigation extends AbstractEntity
     }
 
     /**
-     * Disable auto-generated slugs
+     * Disable auto-generated slugs.
      *
      * @return bool
      */

@@ -11,7 +11,6 @@
 
 namespace Scribe\Doctrine\Exception;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Interface ORMExceptionInterface.
@@ -26,7 +25,7 @@ interface ORMExceptionInterface
     const MSG_GENERIC = 'An undefined exception was thrown.';
 
     /**
-     * Generic exception code for...absolutely generic, unspecified exceptions
+     * Generic exception code for...absolutely generic, unspecified exceptions.
      *
      * @var int
      */

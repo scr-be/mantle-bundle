@@ -12,7 +12,6 @@
 namespace Scribe\Doctrine\Behavior\Subscriber\Hierarchical;
 
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Doctrine\ORM\Events;
 use Scribe\Doctrine\Behavior\Subscriber\AbstractSubscriber;
 
 /**

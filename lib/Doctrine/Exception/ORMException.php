@@ -11,7 +11,6 @@
 
 namespace Scribe\Doctrine\Exception;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class ORMException.
@@ -38,9 +37,9 @@ class ORMException extends \Doctrine\ORM\ORMException implements ORMExceptionInt
      */
     public function __construct($message = null, $code = null, \Exception $previous = null, array $attributes = null, ...$sprintfArgs)
     {
-        $message    = (string) (null === $message    ? ORMExceptionInterface::MSG_GENERIC  : $message   );
-        $code       = (int)    (null === $code       ? ORMExceptionInterface::CODE_GENERIC : $code      );
-        $attributes = (array)  (null === $attributes ? [ ]                                 : $attributes);
+        $message    = (string) (null === $message    ? ORMExceptionInterface::MSG_GENERIC  : $message);
+        $code       = (int) (null === $code       ? ORMExceptionInterface::CODE_GENERIC : $code);
+        $attributes = (array) (null === $attributes ? []                                 : $attributes);
 
         $this->attributes = $attributes;
 

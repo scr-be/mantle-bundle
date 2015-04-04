@@ -24,7 +24,7 @@ class NavigationItem extends AbstractEntity
         HasDescription;
 
     /**
-     * Support casting to string
+     * Support casting to string.
      *
      * @return string
      */

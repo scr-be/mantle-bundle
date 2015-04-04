@@ -12,7 +12,7 @@
 namespace Scribe\Doctrine\Base\Model;
 
 /**
- * Class HasVersion
+ * Class HasVersion.
  */
 trait HasVersion
 {

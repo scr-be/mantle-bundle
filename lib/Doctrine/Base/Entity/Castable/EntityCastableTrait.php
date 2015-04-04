@@ -10,6 +10,7 @@
  */
 
 namespace Scribe\Doctrine\Base\Entity\Castable;
+
 use Scribe\Doctrine\Exception\EntityDataStateORMException;
 use Scribe\Doctrine\Exception\ORMExceptionInterface;
 
@@ -47,8 +48,8 @@ trait EntityCastableTrait
     public function __toArray()
     {
         return (array) array_merge(
-            [ 'properties' => get_class_vars($this) ],
-            [ 'methods'    => get_class_methods($this) ]
+            ['properties' => get_class_vars($this)],
+            ['methods'    => get_class_methods($this)]
         );
     }
 }

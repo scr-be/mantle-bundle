@@ -57,8 +57,8 @@ trait HasChildrenOwningSide
      * Element adder for children collection.
      *
      * @param AbstractEntity $child  an entity instance to add to the collection
-     * @param bool   $unique requires the passed object instance does not already exist within
-     *                       the collection
+     * @param bool           $unique requires the passed object instance does not already exist within
+     *                               the collection
      *
      * @return $this
      */

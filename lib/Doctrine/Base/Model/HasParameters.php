@@ -102,7 +102,7 @@ trait HasParameters
             return $this->getParameters()[$key];
         }
 
-        return null;
+        return;
     }
 
     /**

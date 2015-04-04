@@ -20,12 +20,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 trait HierarchicalNodeBehaviorTrait
 {
     /**
-     * @var ArrayCollection $childNodes the children in the tree
+     * @var ArrayCollection the children in the tree
      */
     private $childNodes;
 
     /**
-     * @var HierarchicalNodeInterface $parentNode the parent in the tree
+     * @var HierarchicalNodeInterface the parent in the tree
      */
     private $parentNode;
 
@@ -46,7 +46,7 @@ trait HierarchicalNodeBehaviorTrait
      **/
     public function getRealMaterializedPath()
     {
-        return $this->getMaterializedPath() . self::getMaterializedPathSeparator() . $this->getId();
+        return $this->getMaterializedPath().self::getMaterializedPathSeparator().$this->getId();
     }
 
     public function getMaterializedPath()
@@ -93,7 +93,7 @@ trait HierarchicalNodeBehaviorTrait
     {
         $explodedPath = $this->getExplodedPath();
 
-        return static::getMaterializedPathSeparator() . array_shift($explodedPath);
+        return static::getMaterializedPathSeparator().array_shift($explodedPath);
     }
 
     /**
@@ -119,7 +119,7 @@ trait HierarchicalNodeBehaviorTrait
      **/
     public function getChildNodes()
     {
-        return $this->childNodes = $this->childNodes ?: new ArrayCollection;
+        return $this->childNodes = $this->childNodes ?: new ArrayCollection();
     }
 
     /**
@@ -241,7 +241,7 @@ trait HierarchicalNodeBehaviorTrait
     public function toArray(\Closure $prepare = null, array &$tree = null)
     {
         if (null === $prepare) {
-            $prepare = function(HierarchicalNodeInterface $node) {
+            $prepare = function (HierarchicalNodeInterface $node) {
                 return (string) $node;
             };
         }
@@ -266,7 +266,7 @@ trait HierarchicalNodeBehaviorTrait
     public function toFlatArray(\Closure $prepare = null, array &$tree = null)
     {
         if (null === $prepare) {
-            $prepare = function(HierarchicalNodeInterface $node) {
+            $prepare = function (HierarchicalNodeInterface $node) {
                 $pre = $node->getNodeLevel() > 1 ? implode('', array_fill(0, $node->getNodeLevel(), '--')) : '';
 
                 return $pre.(string) $node;
@@ -313,7 +313,7 @@ trait HierarchicalNodeBehaviorTrait
     {
         $path = explode(static::getMaterializedPathSeparator(), $this->getRealMaterializedPath());
 
-        return array_filter($path, function($item) {
+        return array_filter($path, function ($item) {
             return '' !== $item;
         });
     }

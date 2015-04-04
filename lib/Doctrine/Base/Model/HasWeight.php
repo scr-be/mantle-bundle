@@ -54,7 +54,7 @@ trait HasWeight
     }
 
     /**
-     * Checker for weight
+     * Checker for weight.
      *
      * @return bool
      */
@@ -64,7 +64,7 @@ trait HasWeight
     }
 
     /**
-     * Clear weight
+     * Clear weight.
      *
      * @return $this
      */
