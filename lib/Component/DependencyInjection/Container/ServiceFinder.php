@@ -48,6 +48,6 @@ class ServiceFinder
             return $this->container->get($service);
         }
 
-        throw new RuntimeException('Placeholder exception because service not found!');
+        throw new RuntimeException(sprintf('Service %s not found.', $service));
     }
 }

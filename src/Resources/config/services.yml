@@ -63,6 +63,7 @@ parameters:
 
     s.mantle.utils.reflection_analyser.class:                           Scribe\Utility\Reflection\ClassReflectionAnalyser
     s.mantle.utils.logger_callable.class:                               Scribe\Utility\Logger\LoggerCallable
+    s.mantle.utils.service_finder.class:                                Scribe\Component\DependencyInjection\Container\ServiceFinder
 
     s.mantle.doctrine.behaviors.timestampable.subscriber.class:         Scribe\Doctrine\Behavior\Subscriber\Timestampable\TimestampableSubscriber
     s.mantle.doctrine.behaviors.timestampable.subscriber.events:        [ 'Events::loadClassMetadata' ]
@@ -98,6 +99,11 @@ services:
         class: %s.mantle.utils.logger_callable.class%
         arguments:
             - @logger
+
+    s.mantle.utils.service_finder:
+        class: %s.mantle.utils.service_finder.class%
+        arguments:
+            - @service_container
 
     s.mantle.doctrine.behaviors.timestampable.subscriber:
         class:  %s.mantle.doctrine.behaviors.timestampable.subscriber.class%
