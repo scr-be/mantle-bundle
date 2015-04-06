@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -13,11 +14,9 @@ namespace Scribe\MantleBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * interface AuthorInterface 
- *
- * @package Scribe\MantleBundle\Model
+ * interface AuthorInterface.
  */
-interface AuthorEntityInterface
+interface AuthorInterface
 {
     public function getNodeRevisions();
     public function setNodeRevisions(ArrayCollection $nodeRevisions);

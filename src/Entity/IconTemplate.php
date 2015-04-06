@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -48,7 +49,7 @@ class IconTemplate extends AbstractEntity
     private $family;
 
     /**
-     * @var integer
+     * @var int
      */
     private $priority;
 
@@ -213,7 +214,7 @@ class IconTemplate extends AbstractEntity
     /**
      * Setter for priority property.
      *
-     * @param integer
+     * @param int
      *
      * @return $this
      */
@@ -227,7 +228,7 @@ class IconTemplate extends AbstractEntity
     /**
      * Getter for priority property.
      *
-     * @return integer
+     * @return int
      */
     public function getPriority()
     {

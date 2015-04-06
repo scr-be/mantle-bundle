@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -159,7 +160,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelUnitTestHelper
                   ->setTemplate('fa-basic')
                   ->setAriaHidden(true)
                   ->setAriaLabel('Glass!')
-                  ->setAriaRole("img");
+                  ->setAriaRole('img');
         $html1 = $formatter->render();
 
         $formatter->setStyles('fa-lg', 'fa-fw')
@@ -168,7 +169,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelUnitTestHelper
                   ->setTemplate('fa-basic')
                   ->setAriaHidden(true)
                   ->setAriaLabel('Glass!')
-                  ->setAriaRole("img");
+                  ->setAriaRole('img');
         $html2 = $formatter->render();
 
         $this->assertXmlStringNotEqualsXmlString($html1, $html2);
@@ -196,7 +197,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelUnitTestHelper
         $formatter
             ->setAriaHidden(false)
             ->setAriaRole('img')
-            ->setAriaLabel("Foo!")
+            ->setAriaLabel('Foo!')
             ->setFamily('fa')
             ->setStyles('fa-fw', 'fa-lg')
         ;

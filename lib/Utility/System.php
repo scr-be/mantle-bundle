@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -46,10 +47,10 @@ class System
     }
 
     /**
-     * @param int          $precision
-     * @param int          $newBase
-     * @param bool         $newBaseMax
-     * @param null|integer $cpuCount
+     * @param int      $precision
+     * @param int      $newBase
+     * @param bool     $newBaseMax
+     * @param null|int $cpuCount
      *
      * @return array
      */

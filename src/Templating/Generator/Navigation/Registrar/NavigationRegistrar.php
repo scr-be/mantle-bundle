@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -20,7 +21,7 @@ class NavigationRegistrar implements NavigationRegistrarInterface
     /**
      * @var NavigationMemberInterface[]
      */
-    protected $members = [ ];
+    protected $members = [];
 
     /**
      * Add member to navigation registrar (configured via tagged DI services).

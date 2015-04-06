@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -24,11 +25,11 @@ trait HasRoleRestrictionsOwningSide
     use HasRoleRestrictionsInverseSide;
 
     /**
-     * Init trait
+     * Init trait.
      */
     public function initializeRoleRestrictions()
     {
-        $this->roleRestrictions = new ArrayCollection;
+        $this->roleRestrictions = new ArrayCollection();
     }
 
     /**

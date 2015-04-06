@@ -20,12 +20,12 @@ class CachedFilesystemEntrySize extends AbstractEntity
     private $identifier;
 
     /**
-     * @var integer
+     * @var int
      */
     private $sizeBytes;
 
     /**
-     * @var integer
+     * @var int
      */
     private $sizeHuman;
 

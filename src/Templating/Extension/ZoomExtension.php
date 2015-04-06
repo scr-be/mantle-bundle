@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -30,7 +31,7 @@ class ZoomExtension extends Twig_Extension
      */
     public function getFunctions()
     {
-        return [ 'zoom' => new \Twig_Function_Method($this, 'zoom') ];
+        return ['zoom' => new \Twig_Function_Method($this, 'zoom')];
     }
 
     /**

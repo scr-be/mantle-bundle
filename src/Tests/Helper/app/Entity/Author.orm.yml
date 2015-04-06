@@ -10,8 +10,8 @@ Scribe\MantleBundle\Tests\Fixtures\app\Entity\Author:
     oneToMany:
         revisions:
             targetEntity: Scribe\MantleBundle\Entity\NodeRevision
-            mappedBy: author 
+            mappedBy: author
         nodes:
             targetEntity: Scribe\MantleBundle\Entity\Node
-            mappedBy: author 
+            mappedBy: author
     lifecycleCallbacks: {  }

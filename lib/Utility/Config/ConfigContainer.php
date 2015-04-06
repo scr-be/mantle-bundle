@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -53,10 +54,8 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
     /**
      * Setter for YAML config cannot occur.
      *
-     * @param string $key config key
+     * @param string $key   config key
      * @param mixed  $value config value
-     *
-     * @return void
      *
      * @throws RuntimeException
      */

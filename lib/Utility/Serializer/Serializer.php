@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -19,7 +20,7 @@ use Scribe\Utility\Extension;
 class Serializer extends AbstractSerializer
 {
     /**
-     * Perform serialization
+     * Perform serialization.
      *
      * @param mixed  $mixed
      * @param string $method
@@ -34,7 +35,7 @@ class Serializer extends AbstractSerializer
     }
 
     /**
-     * Perform unserialization
+     * Perform unserialization.
      *
      * @param mixed  $mixed
      * @param string $method

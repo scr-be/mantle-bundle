@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -9,17 +10,18 @@
  */
 
 namespace Scribe\Doctrine\Base\Entity\Initializable;
+
 use Scribe\Doctrine\Exception\ORMException;
 
 /**
- * Trait EntityInitializableTrait
+ * Trait EntityInitializableTrait.
  *
  * Supports auto-initializing of included traits
  */
 trait EntityInitializableTrait
 {
     /**
-     * Ability to disable auto-initialization of traits
+     * Ability to disable auto-initialization of traits.
      *
      * @var bool
      */
@@ -33,7 +35,7 @@ trait EntityInitializableTrait
     protected $autoInitializationCalled = false;
 
     /**
-     * Disable auto-initialization method calling
+     * Disable auto-initialization method calling.
      *
      * @return $this
      */
@@ -45,7 +47,7 @@ trait EntityInitializableTrait
     }
 
     /**
-     * Enable auto-initialization method calling
+     * Enable auto-initialization method calling.
      *
      * @return $this
      */
@@ -57,7 +59,7 @@ trait EntityInitializableTrait
     }
 
     /**
-     * Call all initializer methods
+     * Call all initializer methods.
      *
      * @param bool $force
      * @param bool $suppressExceptions
@@ -70,7 +72,6 @@ trait EntityInitializableTrait
     {
         if (($this->autoInitializationEnabled === false || $this->autoInitializationCalled === true)
             && $force !== true) {
-
             return $this;
         }
 
@@ -78,7 +79,7 @@ trait EntityInitializableTrait
         $initMethodSearchLen = strlen($initMethodSearch);
 
         $initMethods = array_filter(get_class_methods($this),
-            function($method) use ($initMethodSearch, $initMethodSearchLen) {
+            function ($method) use ($initMethodSearch, $initMethodSearchLen) {
                 return (bool) (substr($method, 0, $initMethodSearchLen) === $initMethodSearch);
             }
         );

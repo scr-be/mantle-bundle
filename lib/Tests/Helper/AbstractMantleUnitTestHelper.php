@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -11,9 +12,7 @@
 namespace Scribe\Tests\Helper;
 
 /**
- * Class AbstractMantleUnitTestHelper
- *
- * @package Scribe\Tests\Helper
+ * Class AbstractMantleUnitTestHelper.
  */
 abstract class AbstractMantleUnitTestHelper extends \PHPUnit_Framework_TestCase
 {

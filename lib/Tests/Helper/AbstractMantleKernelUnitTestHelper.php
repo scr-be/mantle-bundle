@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -14,9 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class AbstractMantleKernelUnitTestHelper
- *
- * @package Scribe\Tests\Helper
+ * Class AbstractMantleKernelUnitTestHelper.
  */
 abstract class AbstractMantleKernelUnitTestHelper extends KernelTestCase
 {
@@ -28,7 +27,7 @@ abstract class AbstractMantleKernelUnitTestHelper extends KernelTestCase
     protected $container;
 
     /**
-     * handle constructing the object instance
+     * handle constructing the object instance.
      */
     public function __construct()
     {
@@ -78,7 +77,7 @@ abstract class AbstractMantleKernelUnitTestHelper extends KernelTestCase
     }
 
     /**
-     * Clear kernel cache
+     * Clear kernel cache.
      */
     protected function clearKernelCache()
     {

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -44,7 +45,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     private $icon = null;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $header = false;
 
@@ -54,7 +55,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     private $subMenus = [];
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $forceActive = false;
 
@@ -100,7 +101,8 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param  null|string $desc
+     * @param null|string $desc
+     *
      * @return $this
      */
     public function setDescription($desc)
@@ -139,7 +141,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getForceActive()
     {
@@ -167,7 +169,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasIcon()
     {
@@ -251,7 +253,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasSubMenus()
     {
@@ -261,7 +263,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @param boolean $header
+     * @param bool $header
      *
      * @return MenuItem
      */
@@ -273,7 +275,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getHeader()
     {
@@ -281,7 +283,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isHeader()
     {
@@ -291,7 +293,7 @@ class MenuItem implements MenuInterface, ContainerAwareInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {

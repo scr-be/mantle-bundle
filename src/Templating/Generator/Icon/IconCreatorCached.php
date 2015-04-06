@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -128,7 +129,7 @@ class IconCreatorCached extends IconCreator
      */
     protected function getCachableProperties()
     {
-        $keyValues = [ ];
+        $keyValues = [];
         foreach (get_object_vars($this) as $property => $value) {
             $keyValues[ ] = $property;
             $keyValues[ ] = $this->getCachablePropertyValue($value);

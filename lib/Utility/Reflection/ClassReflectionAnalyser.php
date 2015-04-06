@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -8,16 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Reflection;
+namespace Scribe\Utility\Reflection;
 
 /**
- * Class AbstractClassReflectable
- *
- * Provides basic class analysis using Reflection.
+ * Class ClassReflectionAnalyser.
  */
-abstract class AbstractClassReflectable implements ClassReflectableInterface
+class ClassReflectionAnalyser implements ClassReflectionAnalyserInterface
 {
-    use ClassReflectableTrait;
+    use ClassReflectionAnalyserTrait;
 }
 
 /* EOF */

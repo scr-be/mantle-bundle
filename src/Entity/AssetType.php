@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,18 +11,16 @@
 
 namespace Scribe\MantleBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasAttributes;
 
 /**
- * AssetType
- * @package Scribe\MantleBundle\Entity
+ * AssetType.
  */
 class AssetType extends AbstractEntity
 {
-    /**
+    /*
      * import traits
      */
     use HasAttributes;
@@ -32,34 +31,35 @@ class AssetType extends AbstractEntity
     private $element;
 
     /**
-     * @var ArrayCollection 
+     * @var ArrayCollection
      */
     private $assets;
 
     /**
-     * perform any entity setup
+     * perform any entity setup.
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->assets = new ArrayCollection;
+        $this->assets = new ArrayCollection();
     }
 
     /**
-     * Support for casting from object to string
+     * Support for casting from object to string.
      *
      * @return string
      */
     public function __toString()
     {
-        return __CLASS__ . ':' . $this->getId();
+        return __CLASS__.':'.$this->getId();
     }
 
     /**
-     * Set element
+     * Set element.
      *
      * @param string $element
+     *
      * @return AssetType
      */
     public function setElement($element)
@@ -70,9 +70,9 @@ class AssetType extends AbstractEntity
     }
 
     /**
-     * Get element
+     * Get element.
      *
-     * @return string 
+     * @return string
      */
     public function getElement()
     {
@@ -80,7 +80,7 @@ class AssetType extends AbstractEntity
     }
 
     /**
-     * Gets the value of assets
+     * Gets the value of assets.
      *
      * @return assets
      */
@@ -90,7 +90,7 @@ class AssetType extends AbstractEntity
     }
 
     /**
-     * Sets the value of assets
+     * Sets the value of assets.
      *
      * @param ArrayCollection
      *

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -30,7 +31,7 @@ trait TwigEngineAwareTrait
     private $twigTpl;
 
     /**
-     * Getter for twig enviornment
+     * Getter for twig enviornment.
      *
      * @return Twig_Environment|null
      *
@@ -46,7 +47,7 @@ trait TwigEngineAwareTrait
     }
 
     /**
-     * Setter for twig enviornment
+     * Setter for twig enviornment.
      *
      * @param Twig_Environment|null $twigEnv
      *
@@ -60,7 +61,7 @@ trait TwigEngineAwareTrait
     }
 
     /**
-     * Checker for twig enviornment
+     * Checker for twig enviornment.
      *
      * @return bool
      */

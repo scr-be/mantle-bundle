@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Application.
  *
@@ -15,7 +16,7 @@ use Scribe\MantleBundle\Entity\NodeRevision;
 use Scribe\MantleBundle\Entity\NodeRenderEngine;
 
 /**
- * Class NodeRevisionTest 
+ * Class NodeRevisionTest.
  */
 class NodeRevisionTest extends AbstractMantleEntityPhactoryUnitTestHelper
 {
@@ -36,7 +37,7 @@ class NodeRevisionTest extends AbstractMantleEntityPhactoryUnitTestHelper
 
     public function setUp()
     {
-        $this->repo = $this->container->get($this->config['nodeRevision']['service']); 
+        $this->repo = $this->container->get($this->config['nodeRevision']['service']);
     }
 
     public function setupAndExercise($count = 1)

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -29,10 +30,10 @@ class AjaxResponse
     }
 
     /**
-     * @param string  $message
-     * @param integer $statusTextCode
-     * @param int     $httpStatusCode
-     * @param array   $jsonDataAppend
+     * @param string $message
+     * @param int    $statusTextCode
+     * @param int    $httpStatusCode
+     * @param array  $jsonDataAppend
      *
      * @return JsonResponse
      */

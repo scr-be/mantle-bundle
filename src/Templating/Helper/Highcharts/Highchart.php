@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -101,7 +102,7 @@ class Highchart extends AbstractContainer
 
         // Chart Option
         if (get_object_vars($this->chart->chart)) {
-            $chartJS .= "        chart: ".
+            $chartJS .= '        chart: '.
                 Json::encode($this->chart->chart,
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -109,7 +110,7 @@ class Highchart extends AbstractContainer
 
         // Pane
         if (get_object_vars($this->pane->pane)) {
-            $chartJS .= "        pane: ".
+            $chartJS .= '        pane: '.
                 Json::encode($this->pane->pane,
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -117,17 +118,17 @@ class Highchart extends AbstractContainer
 
         // Colors
         if (!empty($this->colors)) {
-            $chartJS .= "        colors: ".json_encode($this->colors).",\n";
+            $chartJS .= '        colors: '.json_encode($this->colors).",\n";
         }
 
         // Credits
         if (get_object_vars($this->credits->credits)) {
-            $chartJS .= "        credits: ".json_encode($this->credits->credits).",\n";
+            $chartJS .= '        credits: '.json_encode($this->credits->credits).",\n";
         }
 
         // Exporting
         if (get_object_vars($this->exporting->exporting)) {
-            $chartJS .= "        exporting: ".
+            $chartJS .= '        exporting: '.
                 Json::encode($this->exporting->exporting,
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -135,7 +136,7 @@ class Highchart extends AbstractContainer
 
         // Global
         if (get_object_vars($this->global->global)) {
-            $chartJS .= "        global: ".json_encode($this->global->global).",\n";
+            $chartJS .= '        global: '.json_encode($this->global->global).",\n";
         }
 
         // Labels
@@ -143,7 +144,7 @@ class Highchart extends AbstractContainer
 
         // Legend
         if (get_object_vars($this->legend->legend)) {
-            $chartJS .= "        legend: ".
+            $chartJS .= '        legend: '.
                 Json::encode($this->legend->legend,
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -155,7 +156,7 @@ class Highchart extends AbstractContainer
 
         // PlotOptions
         if (get_object_vars($this->plotOptions->plotOptions)) {
-            $chartJS .= "        plotOptions: ".
+            $chartJS .= '        plotOptions: '.
                 Json::encode($this->plotOptions->plotOptions,
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -163,7 +164,7 @@ class Highchart extends AbstractContainer
 
         // Series
         if (!empty($this->series)) {
-            $chartJS .= "        series: ".
+            $chartJS .= '        series: '.
                 Json::encode($this->series[0],
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -171,19 +172,19 @@ class Highchart extends AbstractContainer
 
         // Subtitle
         if (get_object_vars($this->subtitle->subtitle)) {
-            $chartJS .= "        subtitle: ".json_encode($this->subtitle->subtitle).",\n";
+            $chartJS .= '        subtitle: '.json_encode($this->subtitle->subtitle).",\n";
         }
 
         // Symbols
 
         // Title
         if (get_object_vars($this->title->title)) {
-            $chartJS .= "        title: ".json_encode($this->title->title).",\n";
+            $chartJS .= '        title: '.json_encode($this->title->title).",\n";
         }
 
         // Tooltip
         if (get_object_vars($this->tooltip->tooltip)) {
-            $chartJS .= "        tooltip: ".
+            $chartJS .= '        tooltip: '.
                 Json::encode($this->tooltip->tooltip,
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -191,7 +192,7 @@ class Highchart extends AbstractContainer
 
         // xAxis
         if (get_object_vars($this->xAxis->xAxis)) {
-            $chartJS .= "        xAxis: ".
+            $chartJS .= '        xAxis: '.
                 Json::encode($this->xAxis->xAxis,
                     false,
                     array('enableJsonExprFinder' => true)).",\n";
@@ -200,14 +201,14 @@ class Highchart extends AbstractContainer
         // yAxis
         if (gettype($this->yAxis) === 'array') {
             if (!empty($this->yAxis)) {
-                $chartJS .= "        yAxis: ".
+                $chartJS .= '        yAxis: '.
                     Json::encode($this->yAxis[0],
                         false,
                         array('enableJsonExprFinder' => true)).",\n";
             }
         } elseif (gettype($this->yAxis) === 'object') {
             if (get_object_vars($this->yAxis->yAxis)) {
-                $chartJS .= "        yAxis: ".
+                $chartJS .= '        yAxis: '.
                     Json::encode($this->yAxis->yAxis,
                         false,
                         array('enableJsonExprFinder' => true)).",\n";

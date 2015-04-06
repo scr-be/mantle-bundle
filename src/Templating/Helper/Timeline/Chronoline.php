@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -61,7 +62,7 @@ class Chronoline extends AbstractContainer
      */
     public function render()
     {
-        $js = "var chronolineEvents = ".Json::encode($this->__toArray(), false, array('enableJsonExprFinder' => true)).";\n\n";
+        $js = 'var chronolineEvents = '.Json::encode($this->__toArray(), false, array('enableJsonExprFinder' => true)).";\n\n";
 
         $js .= 'var timeline = new Chronoline(document.getElementById("'.$this->target.'"), chronolineEvents,'."\n".
             "\t".'{'."\n".

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -24,11 +25,11 @@ trait HasIconsOwningSide
     private $icons;
 
     /**
-     * Init trait
+     * Init trait.
      */
     public function initializeIcons()
     {
-        $this->icons = new ArrayCollection;
+        $this->icons = new ArrayCollection();
     }
 
     /**

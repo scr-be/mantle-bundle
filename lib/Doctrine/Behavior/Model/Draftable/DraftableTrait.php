@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -9,12 +10,11 @@
  */
 
 namespace Scribe\Doctrine\Behavior\Model\Draftable;
+
 use Scribe\Doctrine\Behavior\Model\Publishable\PublishableTrait;
 
 /**
- * Class DraftableTrait
- *
- * @package Scribe\Doctrine\Behavior\Model\Draftable
+ * Class DraftableTrait.
  */
 trait DraftableTrait
 {
@@ -24,7 +24,7 @@ trait DraftableTrait
     use PublishableTrait;
 
     /**
-     * Set as draft (not published)
+     * Set as draft (not published).
      *
      * @return $this
      */
@@ -36,7 +36,7 @@ trait DraftableTrait
     }
 
     /**
-     * Determines if it is a draft (non published)
+     * Determines if it is a draft (non published).
      *
      * @return bool
      */

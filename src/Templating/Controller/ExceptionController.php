@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -31,7 +32,7 @@ class ExceptionController
     protected $twig;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $debug;
 
@@ -97,7 +98,7 @@ class ExceptionController
     }
 
     /**
-     * @param integer $startObLevel
+     * @param int $startObLevel
      *
      * @return string
      */
@@ -119,7 +120,7 @@ class ExceptionController
     /**
      * @param Request $request
      * @param string  $format
-     * @param integer $code    An HTTP response status code
+     * @param int     $code    An HTTP response status code
      * @param Boolean $debug
      *
      * @return TemplateReference

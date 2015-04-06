@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -25,7 +26,7 @@ trait EntityCastableTrait
     abstract public function __toString();
 
     /**
-     * Support for explicit casting from object type to array type
+     * Support for explicit casting from object type to array type.
      *
      * @return array
      */

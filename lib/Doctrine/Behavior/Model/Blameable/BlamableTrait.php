@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,11 +11,8 @@
 
 namespace Scribe\Doctrine\Behavior\Model\Blamable;
 
-
 /**
- * Class BlamableTrait
- *
- * @package Scribe\Doctrine\Behavior\Model\Blamable
+ * Class BlamableTrait.
  */
 trait BlamableTrait
 {

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -180,10 +181,10 @@ class Filesystem
      * results in a whole number, before returning an array with two objects - one with the original
      * size information, and a second with the converted size information.
      *
-     * @param integer $sizeToConvert    the size value to convert
-     * @param string  $providedUnitType the unit type provided
-     * @param string  $maxUnitType      an optional max unit type for the conversion
-     * @param integer $unitBase         an optional specifier of either a base-02 or base-10 number
+     * @param int    $sizeToConvert    the size value to convert
+     * @param string $providedUnitType the unit type provided
+     * @param string $maxUnitType      an optional max unit type for the conversion
+     * @param int    $unitBase         an optional specifier of either a base-02 or base-10 number
      *
      * @return array
      */

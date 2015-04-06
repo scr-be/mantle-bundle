@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -37,7 +38,7 @@ class NavMenuSubItem extends AbstractEntity
         HasReverseRoleRestrictionsAsArrayOwningSide;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $header;
 
@@ -60,7 +61,7 @@ class NavMenuSubItem extends AbstractEntity
     }
 
     /**
-     * @param boolean $header
+     * @param bool $header
      *
      * @return NavMenuSubItem
      */
@@ -72,7 +73,7 @@ class NavMenuSubItem extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getHeader()
     {
@@ -80,7 +81,7 @@ class NavMenuSubItem extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isHeader()
     {
@@ -90,7 +91,7 @@ class NavMenuSubItem extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasSubItems()
     {
