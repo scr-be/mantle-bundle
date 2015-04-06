@@ -56,7 +56,7 @@ class NodeCreator
     }
 
     /**
-     * Render twig template from Node.
+     * Render template from Node.
      *
      * @param Node
      * @param array

@@ -33,6 +33,9 @@ parameters:
     s.mantle.icon_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
     s.mantle.node.twig.render.class:                                    Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeTwigRender
 
+    s.mantle.node_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Node\NodeCreator
+    s.mantle.node_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached
+
     s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
     s.mantle.navigation_member.content_nodes.class:                     Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember;
 
@@ -252,6 +255,14 @@ services:
         arguments:
             - @s.mantle.icon_family.repo
             - @twig
+        calls:
+            - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
+
+    s.mantle.node_creator:
+        class:           %s.mantle.icon_creator_cached.class%
+        arguments:
+            - @s.mantle.utils.service_finder
+            - @s.mantle.node.repo
         calls:
             - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
 
