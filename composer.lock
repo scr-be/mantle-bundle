@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d31f7d0a2e89f05fe7a653b9b79ba035",
+    "hash": "1bc75548f23196ef61e28835635ca7de",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1112,12 +1112,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "913c41e69794854131e58b0e3ac88116ec76b5a0"
+                "reference": "8f4b6dae35005a986910821e2ee1a427eb88fd92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/913c41e69794854131e58b0e3ac88116ec76b5a0",
-                "reference": "913c41e69794854131e58b0e3ac88116ec76b5a0",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/8f4b6dae35005a986910821e2ee1a427eb88fd92",
+                "reference": "8f4b6dae35005a986910821e2ee1a427eb88fd92",
                 "shasum": ""
             },
             "require": {
@@ -1125,17 +1125,15 @@
                 "scribe/mantle-bundle": "2.0.*@dev"
             },
             "require-dev": {
-                "allure-framework/allure-phpunit": "~1.1",
-                "codeclimate/php-test-reporter": "~0.1.2",
+                "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
                 "ext-igbinary": "~1.2",
                 "ext-memcached": "~2.2",
                 "ext-tidy": "~2.0",
-                "leaphub/phpcs-symfony2-standard": "~2.0",
-                "mayflower/php-codebrowser": "~1.1",
-                "phpdocumentor/phpdocumentor": "dev-master",
+                "mindscape/raygun4php": "dev-master",
                 "phpunit/phpunit": "~4.5",
-                "satooshi/php-coveralls": "~0.6",
+                "satooshi/php-coveralls": "dev-multipleroot",
                 "scrutinizer/ocular": "~1.1",
+                "sensio/generator-bundle": "~2.5",
                 "symfony/symfony": "~2.6"
             },
             "suggest": {
@@ -1173,7 +1171,7 @@
                 "memcached",
                 "userland cache"
             ],
-            "time": "2015-03-31 00:14:21"
+            "time": "2015-04-06 21:57:51"
         },
         {
             "name": "sensio/distribution-bundle",
