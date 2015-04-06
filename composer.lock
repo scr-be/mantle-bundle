@@ -1112,12 +1112,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "8f4b6dae35005a986910821e2ee1a427eb88fd92"
+                "reference": "d2df54cc6cc1708455a67c292a5fafd26a424b45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/8f4b6dae35005a986910821e2ee1a427eb88fd92",
-                "reference": "8f4b6dae35005a986910821e2ee1a427eb88fd92",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/d2df54cc6cc1708455a67c292a5fafd26a424b45",
+                "reference": "d2df54cc6cc1708455a67c292a5fafd26a424b45",
                 "shasum": ""
             },
             "require": {
@@ -1171,7 +1171,7 @@
                 "memcached",
                 "userland cache"
             ],
-            "time": "2015-04-06 21:57:51"
+            "time": "2015-04-06 22:11:36"
         },
         {
             "name": "sensio/distribution-bundle",
