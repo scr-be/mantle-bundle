@@ -53,10 +53,6 @@ trait NodeCreatorMocksTrait
             ->method('getService')
             ->willReturn('s.mantle.node.foo.render')
         ;
-        $nodeRevisionEngine
-            ->method('isRenderable')
-            ->willReturn(true)
-        ;
 
         return $nodeRevisionEngine;
     }
@@ -134,6 +130,10 @@ trait NodeCreatorMocksTrait
             ->method('getSlug')
             ->willReturn('post_1')
         ;
+        $node
+            ->method('getMaterializedPath')
+            ->willReturn('/post_1')
+        ;
 
         return $node;
     }
@@ -146,13 +146,18 @@ trait NodeCreatorMocksTrait
 
         $nodeRepo = $this
             ->getMockBuilder('Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository')
-            ->setMethods(['findOneBySlug'])
+            ->setMethods(['findOneBySlug', 'findOneByMaterializedPath'])
             ->disableOriginalConstructor()
             ->getMock()
         ;
         $nodeRepo
             ->method('findOneBySlug')
             ->with('post_1')
+            ->willReturn($node)
+        ;
+        $nodeRepo
+            ->method('findOneByMaterializedPath')
+            ->with('/post_1')
             ->willReturn($node)
         ;
 

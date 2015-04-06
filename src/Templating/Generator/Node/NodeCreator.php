@@ -85,7 +85,7 @@ class NodeCreator
 
     /**
      * Lookup node by slug and
-     * render twig template from Node.
+     * render template from Node.
      *
      * @param string
      * @param array
@@ -95,6 +95,23 @@ class NodeCreator
     public function renderFromSlug($slug, $args = [])
     {
         $node = $this->findNodeBySlug($slug);
+        $content = $this->render($node, $args);
+
+        return $content;
+    }
+
+    /**
+     * Lookup node by materializedPath and
+     * render template from Node.
+     *
+     * @param string
+     * @param array
+     *
+     * @return string
+     */
+    public function renderFromMaterializedPath($slug, $args = [])
+    {
+        $node = $this->findNodeByMaterializedPath($slug);
         $content = $this->render($node, $args);
 
         return $content;
@@ -134,16 +151,47 @@ class NodeCreator
      */
     protected function findNodeBySlug($slug)
     {
+        $node = $this->findNodeByField('slug', 'findOneBySlug', $slug);
+
+        return $node;
+    }
+
+    /**
+     * Find node by materializedPath.
+     *
+     * @param string
+     *
+     * @throws NodeException
+     */
+    protected function findNodeByMaterializedPath($materializedPath)
+    {
+        $node = $this->findNodeByField('materializedPath', 'findOneByMaterializedPath', $materializedPath);
+
+        return $node;
+    }
+
+    /**
+     * Generic method for finding node based on given
+     * field and value.
+     *
+     * @param string
+     * @param string
+     * @param string
+     *
+     * @throws NodeException
+     */
+    protected function findNodeByField($field, $repoMagicMethod, $criteria)
+    {
         try {
             $node = $this
                 ->nodeRepository
-                ->findOneBySlug($slug)
+                ->{$repoMagicMethod}($criteria)
             ;
 
             return $node;
         } catch (\Exception $e) {
             throw new NodeException(
-                sprintf('Node with slug %s could not be found.', $slug),
+                sprintf('Node with %s %s could not be found.', $field, $criteria),
                 NodeException::CODE_MISSING_ENTITY,
                 $e
             );

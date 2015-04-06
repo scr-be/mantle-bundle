@@ -55,6 +55,17 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
         $this->assertXmlStringEqualsXmlString($expected, $actual);
     }
 
+    public function testRenderFromMaterializedPath()
+    {
+        $this->mockNodeTwigEntities();
+        $expected = '<div id="foo">Post 1</div>';
+
+        $creator = $this->getNewNodeCreator();
+        $actual = $creator->renderFromMaterializedPath($this->node->getMaterializedPath());
+
+        $this->assertXmlStringEqualsXmlString($expected, $actual);
+    }
+
     public function testRenderFromBadSlugThrowsException()
     {
         $this->mockNodeTwigEntities();
