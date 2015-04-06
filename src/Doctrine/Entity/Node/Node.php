@@ -47,11 +47,6 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     private $author;
 
     /**
-     * @var NodeContextType
-     */
-    private $context;
-
-    /**
      * @var ArrayCollection
      */
     private $revisions;
@@ -146,30 +141,6 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     }
 
     /**
-     * Set context.
-     *
-     * @param NodeContextType $context
-     *
-     * @return $this
-     */
-    public function setContext(NodeContextType $context)
-    {
-        $this->context = $context;
-
-        return $this;
-    }
-
-    /**
-     * Get context.
-     *
-     * @return NodeContextType
-     */
-    public function getContext()
-    {
-        return $this->context;
-    }
-
-    /**
      * Set revisions.
      *
      * @param ArrayCollection $revisions
@@ -196,11 +167,11 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     /**
      * Set latestRevision.
      *
-     * @param NodeContextType $latestRevision
+     * @param NodeRevision $latestRevision
      *
      * @return $this
      */
-    public function setLatestRevision(NodeContextType $latestRevision)
+    public function setLatestRevision(NodeRevision $latestRevision)
     {
         $this->latestRevision = $latestRevision;
 
@@ -210,7 +181,7 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     /**
      * Get latestRevision.
      *
-     * @return NodeContextType
+     * @return NodeRevision
      */
     public function getLatestRevision()
     {

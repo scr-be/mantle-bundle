@@ -20,8 +20,6 @@ parameters:
     s.mantle.node_revision.repo.class:                                  Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeRevisionRepository
     s.mantle.node_revision_diff.entity.class:                           Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff
     s.mantle.node_revision_diff.repo.class:                             Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeRevisionDiffRepository
-    s.mantle.node_context_type.entity.class:                            Scribe\MantleBundle\Doctrine\Entity\Node\NodeContextType
-    s.mantle.node_context_type.repo.class:                              Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeContextTypeRepository
     s.mantle.node_render_engine.entity.class:                           Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine
     s.mantle.node_render_engine.repo.class:                             Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeRenderEngineRepository
     s.mantle.asset.entity.class:                                        Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
@@ -214,13 +212,6 @@ services:
         factory_method:  getRepository
         arguments:
             - %s.mantle.node_revision_diff.entity.class%
-
-    s.mantle.node_context_type.repo:
-        class:           %s.mantle.node_context_type.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
-        arguments:
-            - %s.mantle.node_context_type.entity.class%
 
     s.mantle.node_render_engine.repo:
         class:           %s.mantle.node_render_engine.repo.class%

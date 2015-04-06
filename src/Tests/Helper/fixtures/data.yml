@@ -11,12 +11,6 @@ nodeRevision:
     service: s.mantle.node_revision.repo
     data:
         content: '# This is a head'
-nodeContextType:
-    table: NodeContextType
-    service: s.mantle.node_context_type.repo
-    data:
-        slug: 'context $n'
-        name: 'My Context $n'
 nodeRenderEngine:
     table: NodeRenderEngine
     service: s.mantle.node_render_engine.repo

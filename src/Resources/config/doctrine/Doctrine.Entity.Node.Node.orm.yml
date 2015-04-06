@@ -21,14 +21,6 @@ Scribe\MantleBundle\Doctrine\Entity\Node\Node:
             type:     integer
             nullable: true
 
-    manyToOne:
-        context:
-            targetEntity: NodeContextType
-            inversedBy:   nodes
-            joinColumn:
-                name:            nodeContextTypeId
-                referenceColumn: id
-
     oneToOne:
         latestRevision:
             targetEntity: NodeRevision
