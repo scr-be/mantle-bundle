@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -15,7 +16,7 @@ use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorExcep
 /**
  * Class NodeException.
  */
-class NodeException extends TemplatingGeneratorException 
+class NodeException extends TemplatingGeneratorException
 {
     /**
      * Exception code for an unknown/missing service.

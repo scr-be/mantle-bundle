@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,8 +11,9 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
-use Scribe\MantleBundle\Entity\Node;
-use Scribe\MantleBundle\EntityRepository\NodeRepository;
+use Scribe\Component\DependencyInjection\Container\ServiceFinder;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
+use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 
 /**
  * NodeCreator.
@@ -19,19 +21,19 @@ use Scribe\MantleBundle\EntityRepository\NodeRepository;
 class NodeCreator
 {
     /**
-     * @var NodeRepository 
+     * @var NodeRepository
      */
     private $nodeRepository;
 
     /**
-     * @var ServiceFinder 
+     * @var ServiceFinder
      */
     private $serviceFinder;
 
     /**
      * Setup the object instance.
      */
-    public function __construct(ServiceFinder $serviceFinder, NodeRepository $nodeRepository) 
+    public function __construct(ServiceFinder $serviceFinder, NodeRepository $nodeRepository)
     {
         $this->serviceFinder = $serviceFinder;
         $this->nodeRepository = $nodeRepository;
@@ -39,27 +41,29 @@ class NodeCreator
 
     /**
      * Adds node title to paired array passed to
-     * render function
+     * render function.
      *
      * @param Node
      * @param array
-     * @return array 
+     *
+     * @return array
      */
     protected function getFullArgs(Node $node, $args)
     {
-         $args['title'] = $node->getTitle();
+        $args['title'] = $node->getTitle();
 
-         return $args;
+        return $args;
     }
 
     /**
-     * Render twig template from Node
+     * Render twig template from Node.
      *
      * @param Node
      * @param array
-     * @return string 
+     *
+     * @return string
      */
-    public function render(Node $node, $args = array())
+    public function render(Node $node, $args = [])
     {
         $nodeRevision = $node->getLatestRevision();
         $content = $nodeRevision->getContent();
@@ -75,20 +79,20 @@ class NodeCreator
 
             return $rendered;
         } else {
-
             return $content;
         }
     }
 
     /**
-     * Lookup node by slug and 
-     * render twig template from Node
+     * Lookup node by slug and
+     * render twig template from Node.
      *
-     * @param string 
+     * @param string
      * @param array
-     * @return string 
+     *
+     * @return string
      */
-    public function renderFromSlug($slug, $args = array())
+    public function renderFromSlug($slug, $args = [])
     {
         $node = $this->findNodeBySlug($slug);
         $content = $this->render($node, $args);
@@ -98,10 +102,11 @@ class NodeCreator
 
     /**
      * Find node rendering service by
-     * service name, via service finder
+     * service name, via service finder.
      *
      * @param string
-     * @return Object 
+     *
+     * @return Object
      *
      * @throws NodeException
      */
@@ -113,18 +118,17 @@ class NodeCreator
             return $finder($serviceName);
         } catch (\Exception $e) {
             throw new NodeException(
-                sprintf("The requested node rendering service %s could not be found.", $serviceName),
+                sprintf('The requested node rendering service %s could not be found.', $serviceName),
                 NodeException::CODE_MISSING_SERVICE,
                 $e
             );
-        } 
+        }
     }
 
     /**
-     * Find node by slug
+     * Find node by slug.
      *
      * @param string
-     * @return void
      *
      * @throws NodeException
      */
@@ -133,16 +137,18 @@ class NodeCreator
         try {
             $node = $this
                 ->nodeRepository
-                ->findOneBySlug($slug) 
+                ->findOneBySlug($slug)
             ;
 
             return $node;
         } catch (\Exception $e) {
             throw new NodeException(
-                sprintf("Node with slug %s could not be found.", $slug),
+                sprintf('Node with slug %s could not be found.', $slug),
                 NodeException::CODE_MISSING_ENTITY,
                 $e
             );
-        } 
+        }
     }
 }
+
+/* EOF */

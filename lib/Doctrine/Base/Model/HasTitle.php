@@ -70,7 +70,7 @@ trait HasTitle
      *
      * @return $this
      */
-    public function unsetTitle()
+    public function clearTitle()
     {
         $this->setTitle(null);
 

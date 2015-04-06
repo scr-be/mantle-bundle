@@ -13,14 +13,14 @@ namespace Scribe\MantleBundle\Tests\Templating\Extension;
 
 use Twig_Environment;
 use Scribe\MantleBundle\Templating\Extension\IconCreatorExtension;
-use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
 
 /**
  * Class IconCreatorExtensionTest.
  */
-class IconCreatorExtensionTest extends AbstractMantleKernelUnitTestHelper
+class IconCreatorExtensionTest extends AbstractMantleKernelTestCase
 {
     use IconCreatorMocksTrait,
         IconCreatorHelperTrait;

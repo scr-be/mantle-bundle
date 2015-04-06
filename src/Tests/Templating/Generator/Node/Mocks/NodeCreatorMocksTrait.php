@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,9 +11,8 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Entity\NodeRevision;
-use Scribe\MantleBundle\Entity\Node;
+use Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 
 /**
  * Class NodeCreatorMocksTrait.
@@ -25,7 +25,7 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeRenderEngine_Twig()
     {
-        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Entity\NodeRenderEngine');
+        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine');
         $nodeRevisionEngine
             ->method('getSlug')
             ->willReturn('twig')
@@ -39,13 +39,12 @@ trait NodeCreatorMocksTrait
             ->willReturn(true)
         ;
 
-        
         return $nodeRevisionEngine;
     }
 
     protected function mockNodeRenderEngine_Foo()
     {
-        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Entity\NodeRenderEngine');
+        $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine');
         $nodeRevisionEngine
             ->method('getSlug')
             ->willReturn('twig')
@@ -59,15 +58,16 @@ trait NodeCreatorMocksTrait
             ->willReturn(true)
         ;
 
-        
         return $nodeRevisionEngine;
     }
 
     protected function mockNodeRevision_Blog($nodeRenderEngine = null)
     {
-        if ($nodeRenderEngine === null) { $nodeRenderEngine = $this->mockNodeRenderEngine_Twig(); }
+        if ($nodeRenderEngine === null) {
+            $nodeRenderEngine = $this->mockNodeRenderEngine_Twig();
+        }
 
-        $nodeRevision = $this->getMock('Scribe\MantleBundle\Entity\NodeRevision');
+        $nodeRevision = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision');
         $nodeRevision
             ->method('getSlug')
             ->willReturn('blog_post')
@@ -90,9 +90,11 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeRevision_NoRender($nodeRenderEngine = null)
     {
-        if ($nodeRenderEngine === null) { $nodeRenderEngine = $this->mockNodeRenderEngine_Twig(); }
+        if ($nodeRenderEngine === null) {
+            $nodeRenderEngine = $this->mockNodeRenderEngine_Twig();
+        }
 
-        $nodeRevision = $this->getMock('Scribe\MantleBundle\Entity\NodeRevision');
+        $nodeRevision = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision');
         $nodeRevision
             ->method('getSlug')
             ->willReturn('blog_post')
@@ -115,9 +117,11 @@ trait NodeCreatorMocksTrait
 
     protected function mockNode($nodeRevision = null)
     {
-        if ($nodeRevision === null) { $nodeRevision = $this->mockNodeRevision_Blog(); }
+        if ($nodeRevision === null) {
+            $nodeRevision = $this->mockNodeRevision_Blog();
+        }
 
-        $node = $this->getMock('Scribe\MantleBundle\Entity\Node');
+        $node = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\Node');
         $node
             ->method('getLatestRevision')
             ->willReturn($nodeRevision)
@@ -136,10 +140,12 @@ trait NodeCreatorMocksTrait
 
     protected function mockNodeRepository($node = null)
     {
-        if ($node === null) { $node = $this->mockNode(); }
+        if ($node === null) {
+            $node = $this->mockNode();
+        }
 
         $nodeRepo = $this
-            ->getMockBuilder('Scribe\MantleBundle\EntityRepository\NodeRepository')
+            ->getMockBuilder('Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository')
             ->setMethods(['findOneBySlug'])
             ->disableOriginalConstructor()
             ->getMock()

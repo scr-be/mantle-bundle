@@ -1,0 +1,21 @@
+Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionDiffRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        diff:
+            type: text
+    oneToOne:
+        nodeRevision:
+            targetEntity: NodeRevision
+            inversedBy:  diff
+            joinColumn:
+                name:            nodeRevisionId
+                referencedColumn: id
+    lifecycleCallbacks: {  }

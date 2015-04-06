@@ -15,17 +15,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
-use Scribe\Tests\Helper\AbstractMantleKernelUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 
 /**
  * Class IconCreatorTest.
  */
-class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
+class IconCreatorTest extends AbstractMantleKernelTestCase
 {
     use IconCreatorMocksTrait,
         IconCreatorHelperTrait;
 
-    const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\EntityRepository\IconFamilyRepository';
+    const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository';
 
     const FULLY_QUALIFIED_CLASS_NAME_TWIG_ENVIRONMENT = 'Twig_Environment';
 
@@ -447,7 +447,7 @@ class IconCreatorTest extends AbstractMantleKernelUnitTestHelper
         $this->assertAttributeEquals(null,           'iconSlug',       $formatter);
         $this->assertAttributeEquals(null,           'templateEntity', $formatter);
         $this->assertAttributeEquals(null,           'templateSlug',   $formatter);
-        $this->assertAttributeEquals([],           'optionalStyles', $formatter);
+        $this->assertAttributeEquals([],             'optionalStyles', $formatter);
         $this->assertAttributeEquals(true,           'ariaHidden',     $formatter);
         $this->assertAttributeEquals(null,           'ariaLabel',      $formatter);
         $this->assertAttributeEquals('presentation', 'ariaRole',       $formatter);

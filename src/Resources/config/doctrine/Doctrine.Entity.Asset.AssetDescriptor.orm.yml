@@ -1,0 +1,28 @@
+Scribe\MantleBundle\Doctrine\Entity\Asset\AssetDescriptor:
+    type: entity
+    table: null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetDescriptorRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        binContent:
+            type: blob
+            nullable: true
+        markup:
+            type: text
+            nullable: true
+        height:
+            type: integer
+            nullable: true
+        width:
+            type: integer
+            nullable: true
+    oneToMany:
+        assets:
+            targetEntity: Asset
+            mappedBy: assetDescriptor
+    lifecycleCallbacks: {  }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,12 +11,8 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
-use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChain;
-use Scribe\CacheBundle\Cache\Handler\Type\HandlerTypeFilesystem;
-use Scribe\CacheBundle\KeyGenerator\KeyGenerator;
-use Scribe\CacheBundle\KeyGenerator\KeyGeneratorInterface;
+use Scribe\Component\DependencyInjection\Container\ServiceFinder;
 use Scribe\MantleBundle\Templating\Generator\Node\NodeCreator;
-use Scribe\MantleBundle\Templating\Generator\Node\ServiceFinder;
 
 /**
  * Class NodeCreatorHelperTrait.

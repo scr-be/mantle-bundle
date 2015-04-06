@@ -24,7 +24,7 @@ trait IconCreatorMocksTrait
 
     protected function mockIcon_Glass()
     {
-        $icon = $this->getMock('Scribe\MantleBundle\Entity\Icon');
+        $icon = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Icon\Icon');
         $icon
             ->method('getSlug')
             ->willReturn('glass')
@@ -55,7 +55,7 @@ trait IconCreatorMocksTrait
 
     protected function mockIcon_Photo()
     {
-        $icon = $this->getMock('Scribe\MantleBundle\Entity\Icon');
+        $icon = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Icon\Icon');
         $icon
             ->method('getSlug')
             ->willReturn('photo')
@@ -86,7 +86,7 @@ trait IconCreatorMocksTrait
 
     protected function mockIconFamily()
     {
-        $iconFamily = $this->getMock('Scribe\MantleBundle\Entity\IconFamily');
+        $iconFamily = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily');
         $iconFamily
             ->method('getName')
             ->willReturn('Font Awesome')
@@ -121,7 +121,7 @@ trait IconCreatorMocksTrait
 
     protected function mockIconFamilyNoOptionalClasses()
     {
-        $iconFamily = $this->getMock('Scribe\MantleBundle\Entity\IconFamily');
+        $iconFamily = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily');
         $iconFamily
             ->method('getName')
             ->willReturn('Font Awesome')
@@ -157,7 +157,7 @@ trait IconCreatorMocksTrait
     protected function mockIconFamilyRepo($iconFamily)
     {
         $iconFamilyRepo = $this
-            ->getMockBuilder('Scribe\MantleBundle\EntityRepository\IconFamilyRepository')
+            ->getMockBuilder('Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository')
             ->setMethods(['findOneBySlug', 'loadIconFamilyBySlug'])
             ->disableOriginalConstructor()
             ->getMock()
@@ -177,7 +177,7 @@ trait IconCreatorMocksTrait
     protected function mockIconFamilyRepoNoFamilyResult($iconFamily)
     {
         $iconFamilyRepo = $this
-            ->getMockBuilder('Scribe\MantleBundle\EntityRepository\IconFamilyRepository')
+            ->getMockBuilder('Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository')
             ->setMethods(['findOneBySlug', 'loadIconFamilyBySlug'])
             ->disableOriginalConstructor()
             ->getMock()
@@ -194,7 +194,7 @@ trait IconCreatorMocksTrait
 
     protected function mockIconTemplateUnknownEngine()
     {
-        $iconTemplate = $this->getMock('Scribe\MantleBundle\Entity\IconTemplate');
+        $iconTemplate = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate');
         $iconTemplate
             ->method('getSlug')
             ->willReturn('fa-basic')
@@ -225,7 +225,7 @@ EOT;
 
     protected function mockIconTemplate1()
     {
-        $iconTemplate = $this->getMock('Scribe\MantleBundle\Entity\IconTemplate');
+        $iconTemplate = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate');
         $iconTemplate
             ->method('getSlug')
             ->willReturn('fa-basic')
@@ -256,7 +256,7 @@ EOT;
 
     protected function mockIconTemplate2()
     {
-        $iconTemplate = $this->getMock('Scribe\MantleBundle\Entity\IconTemplate');
+        $iconTemplate = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate');
         $iconTemplate
             ->method('getSlug')
             ->willReturn('fa-different')

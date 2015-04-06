@@ -9,9 +9,9 @@ Scribe\MantleBundle\Tests\Fixtures\app\Entity\Author:
                 strategy: AUTO
     oneToMany:
         revisions:
-            targetEntity: Scribe\MantleBundle\Entity\NodeRevision
+            targetEntity: use Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision
             mappedBy: author
         nodes:
-            targetEntity: Scribe\MantleBundle\Entity\Node
+            targetEntity: use Scribe\MantleBundle\Doctrine\Entity\Node\Node
             mappedBy: author
     lifecycleCallbacks: {  }

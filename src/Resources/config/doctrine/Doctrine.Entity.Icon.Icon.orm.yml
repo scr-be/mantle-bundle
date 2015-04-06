@@ -1,0 +1,51 @@
+Scribe\MantleBundle\Doctrine\Entity\Icon\Icon:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
+
+    fields:
+
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+        slug:
+            type:   string
+            length: 40
+
+        unicode:
+            type:     string
+            length:   10
+            nullable: true
+
+        name:
+            type:   string
+            length: 40
+
+        aliases:
+            type:     json_array
+            nullable: true
+
+        categories:
+            type:     json_array
+            nullable: true
+
+        attributes:
+            type:     json_array
+            nullable: true
+
+    manyToMany:
+
+        families:
+            targetEntity: IconFamily
+            inversedBy:   icons
+            joinTable:
+                name: Icon_MaptoFamilies
+                joinColumns:
+                    iconId:
+                        referencedColummnName: id
+                inverseJoinColumns:
+                    iconFamilyId:
+                        referencedColummnName: id

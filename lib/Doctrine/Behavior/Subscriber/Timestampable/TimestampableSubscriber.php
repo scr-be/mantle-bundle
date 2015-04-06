@@ -25,28 +25,28 @@ class TimestampableSubscriber extends AbstractSubscriber
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
-        list($classMetadata, $reflectionClass) = $this->getClassMetadataAndReflectionOfEntityForLoadClassMetadata($eventArgs);
+        list($classMetadata, $reflectionClass) = $this->getHelperObjectsForLoadClassMetadata($eventArgs);
 
-        if (true !== $this->isSupported($reflectionClass)) {
+        if (true !== $this->isSupported($reflectionClass, true)) {
             return;
+        }
+
+        foreach ($this->getSubscriberFields() as $field) {
+            if ($classMetadata->hasField($field)) {
+                continue;
+            }
+
+            $classMetadata->mapField([
+                'fieldName' => $field,
+                'type'      => 'datetime',
+                'nullable'  => true,
+            ]);
         }
 
         foreach ($this->getSubscriberTriggers() as $trigger) {
             if ($this->classReflectionAnalyser->hasMethod($trigger, $reflectionClass)) {
                 $classMetadata->addLifecycleCallback($trigger, Events::prePersist);
                 $classMetadata->addLifecycleCallback($trigger, Events::preUpdate);
-
-                foreach ($this->getSubscriberFields() as $field) {
-                    if ($classMetadata->hasField($field)) {
-                        continue;
-                    }
-
-                    $classMetadata->mapField([
-                        'fieldName' => $field,
-                        'type'      => 'datetime',
-                        'nullable'  => true,
-                    ]);
-                }
             }
         }
     }

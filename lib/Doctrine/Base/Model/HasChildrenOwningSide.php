@@ -12,6 +12,7 @@
 namespace Scribe\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class HasChildrenOwningSide.
@@ -55,13 +56,13 @@ trait HasChildrenOwningSide
     /**
      * Element adder for children collection.
      *
-     * @param Entity $child  an entity instance to add to the collection
-     * @param bool   $unique requires the passed object instance does not already exist within
-     *                       the collection
+     * @param AbstractEntity $child  an entity instance to add to the collection
+     * @param bool           $unique requires the passed object instance does not already exist within
+     *                               the collection
      *
      * @return $this
      */
-    public function addChild(Entity $child, $unique = true)
+    public function addChild(AbstractEntity $child, $unique = true)
     {
         if ($this->hasChild($child) === false || $unique === false) {
             $this
@@ -74,11 +75,11 @@ trait HasChildrenOwningSide
     /**
      * Element remover for children collection.
      *
-     * @param Entity $child an entity instance to remove from the collection
+     * @param AbstractEntity $child an entity instance to remove from the collection
      *
      * @return $this
      */
-    public function removeChild(Entity $child)
+    public function removeChild(AbstractEntity $child)
     {
         if ($this->hasChild($child) === true) {
             $this

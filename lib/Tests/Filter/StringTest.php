@@ -11,10 +11,10 @@
 
 namespace Scribe\Tests\Filter;
 
-use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 use Scribe\Filter\String;
 
-class StringTest extends AbstractMantleUnitTestHelper
+class StringTest extends AbstractMantleTestCase
 {
     /**
      * @var Scribe\Filter\String

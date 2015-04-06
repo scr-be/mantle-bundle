@@ -1,0 +1,57 @@
+Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision:
+
+    type:            entity
+    table:           null
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionRepository
+
+    id:
+
+        id:
+            type:      integer
+            id:        true
+            generator: { strategy: AUTO }
+
+    fields:
+
+        content:
+            type: text
+
+    oneToOne:
+
+        diff:
+            targetEntity: NodeRevisionDiff
+            mappedBy:     nodeRevision
+        owningNode:
+            targetEntity: Node
+            mappedBy:     latestRevision
+
+    manyToOne:
+
+        node:
+            targetEntity: Node
+            inversedBy:   revisions
+            joinColumn:
+                name:            nodeId
+                referenceColumn: id
+
+        renderEngine:
+            targetEntity: NodeRenderEngine
+            inversedBy:   revisions
+            joinColumn:   { name: nodeRenderEngineId, referencedColumn: id }
+
+    manyToMany:
+        embeddedNodes:
+            targetEntity: Node
+            inversedBy:   containerNodeRevisions
+            joinTable:
+                name:               NodeRevisionMapToEmbeddedNode
+                joinColumns:        { nodeRevisionId: { referencedColumnId: id } }
+                inverseJoinColumns: { nodeId: { referencedColumnId: id } }
+
+        embeddedAssets:
+            targetEntity: Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
+            inversedBy:   containerNodeRevisions
+            joinTable:
+                name:               NodeRevisionMapToAsset
+                joinColumns:        { nodeRevisionId: { referencedColumnId: id } }
+                inverseJoinColumns: { assetId:        { referencedColumnId: id } }

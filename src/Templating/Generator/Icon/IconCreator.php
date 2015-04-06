@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
+use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\AbstractTwigGenerator;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorAccessibilityTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorServicesTrait;

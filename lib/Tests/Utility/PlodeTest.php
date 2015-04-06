@@ -11,11 +11,11 @@
 
 namespace Scribe\Tests\Utility;
 
-use Scribe\Tests\Helper\AbstractMantleUnitTestHelper;
+use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 use Scribe\Utility\Plode;
 use Scribe\Exception\BadFunctionCallException;
 
-class PlodeTest extends AbstractMantleUnitTestHelper
+class PlodeTest extends AbstractMantleTestCase
 {
     public function testShouldThrowExceptionOnInstantiation()
     {

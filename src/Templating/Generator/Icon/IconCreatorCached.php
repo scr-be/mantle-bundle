@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
 use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainInterface;
-use Scribe\MantleBundle\EntityRepository\IconFamilyRepository;
+use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedServicesTrait;
 use Doctrine\ORM\EntityRepository;
 

@@ -1,6 +1,3 @@
-imports:
-  - { resource: ../../../../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }
-
 framework:
     secret:          "Secret for tests!"
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -28,11 +25,21 @@ doctrine:
                 password: %database_password%
                 charset:  utf8mb4
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
-        default_entity_manager:      default
+        auto_generate_proxy_classes: true
+        proxy_namespace: Proxies
+        proxy_dir: %kernel.cache_dir%/doctrine/orm/Proxies
+        default_entity_manager: default
         entity_managers:
             default:
-                auto_mapping: true
+                mappings:
+                    ScribeMantleBundle:
+                        type: yml
+                        prefix: Scribe\MantleBundle
+                #class_metadata_factory_name:    Doctrine\ORM\Mapping\ClassMetadataFactory
+                # All cache drivers have to be array, apc, xcache or memcache
+                metadata_cache_driver:          array
+                query_cache_driver:             array
+                result_cache_driver:            array
 
 security:
     encoders:

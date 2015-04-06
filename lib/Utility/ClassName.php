@@ -77,6 +77,20 @@ class ClassName
 
         return (string) $className;
     }
+
+    /**
+     * Attempt to return just the trait name (without a namespace) for the given fully-qualified trait name.
+     *
+     * @param string $fqcn Fully-qualified class name
+     *
+     * @return string
+     *
+     * @throws InvalidArgumentException If it cannot determine class name
+     */
+    public static function getTraitNameString($fqn)
+    {
+        return (string) ClassName::getClassNameString($fqn);
+    }
 }
 
 /* EOF */

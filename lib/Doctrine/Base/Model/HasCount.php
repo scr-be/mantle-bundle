@@ -70,7 +70,7 @@ trait HasCount
      *
      * @return $this
      */
-    public function unsetCount()
+    public function clearCount()
     {
         $this->setCount(null);
 

@@ -17,6 +17,13 @@ namespace Scribe\Utility\Reflection;
 interface ClassReflectionAnalyserInterface
 {
     /**
+     * Optional injection at instantiation of reflection class for analysis.
+     *
+     * @param \ReflectionClass $reflectionClass
+     */
+    public function __construct(\ReflectionClass $reflectionClass = null);
+
+    /**
      * Set the current reflection class to operate on (can be overridden by directly passing
      * a reflection class to any of the has[Trait|Method|Property] methods. Passing no value
      * effectivly unsets the internally held class instance.
