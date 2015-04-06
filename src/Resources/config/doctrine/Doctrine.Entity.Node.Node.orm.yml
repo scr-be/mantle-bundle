@@ -11,6 +11,9 @@ Scribe\MantleBundle\Doctrine\Entity\Node\Node:
             generator: { strategy: AUTO }
 
     fields:
+        slug:
+            type: string
+            unique: true
         slugDisableAutoGeneration:
             type:     boolean
             nullable: true
