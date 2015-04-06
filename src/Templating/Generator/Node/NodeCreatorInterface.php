@@ -11,23 +11,19 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
-use Twig_Environment;
+use Scribe\Component\DependencyInjection\Container\ServiceFinder;
+use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 
 /**
  * Interface NodeInterface.
  */
 interface NodeCreatorInterface
 {
-    public function __construct(NodeFamilyRepository $iconFamilyRepo, Twig_Environment $twigEnv = null);
-    public function setFamily($slug);
-    public function setNode($slug);
-    public function setTemplate($slug = null);
-    public function setStyles(...$styles);
-    public function setAriaHidden($hidden = true);
-    public function setAriaLabel($label = null);
-    public function setAriaRole($role);
-    public function resetState();
-    public function render($family = null, $icon = null, $template = null, ...$styles);
+    public function __construct(ServiceFinder $serviceFinder, NodeRepository $nodeRepository);
+    public function render(Node $node, $args = []);
+    public function renderFromSlug($slug, $args = []);
+    public function renderFromMaterializedPath($slug, $args = []);
 }
 
 /* EOF */

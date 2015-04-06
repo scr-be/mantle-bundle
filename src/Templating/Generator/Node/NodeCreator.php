@@ -18,7 +18,7 @@ use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 /**
  * NodeCreator.
  */
-class NodeCreator
+class NodeCreator implements NodeCreatorInterface
 {
     /**
      * @var NodeRepository
