@@ -92,7 +92,7 @@
     "config" : {
         "bin-dir"           : "bin",
         "preferred-install" : "auto",
-        "minimum-stability" : "stable"
+        "minimum-stability" : "dev"
     },
     "extra": {
         "branch-alias": {

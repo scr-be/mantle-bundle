@@ -35,8 +35,6 @@ doctrine:
                     ScribeMantleBundle:
                         type: yml
                         prefix: Scribe\MantleBundle
-                #class_metadata_factory_name:    Doctrine\ORM\Mapping\ClassMetadataFactory
-                # All cache drivers have to be array, apc, xcache or memcache
                 metadata_cache_driver:          array
                 query_cache_driver:             array
                 result_cache_driver:            array

@@ -160,11 +160,11 @@ services:
             - @s.symfony.bundleinfo
 
     s.mantle.redirect.repo:
-            class:           %s.mantle.route_redirect.repo.class%
-            factory_service: doctrine
-            factory_method:  getRepository
-            arguments:
-                - %s.mantle.route_redirect.entity.class%
+        class:           %s.mantle.route_redirect.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - %s.mantle.route_redirect.entity.class%
 
     s.mantle.navigation.repo:
         class:           %s.mantle.navigation.repo.class%
