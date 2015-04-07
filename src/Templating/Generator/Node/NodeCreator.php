@@ -11,12 +11,13 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
-use Scribe\Component\DependencyInjection\Container\ServiceFinder;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
+use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererInterface;
+use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar;
 
 /**
- * NodeCreator.
+ * Class NodeCreator.
  */
 class NodeCreator implements NodeCreatorInterface
 {
@@ -26,30 +27,30 @@ class NodeCreator implements NodeCreatorInterface
     private $nodeRepository;
 
     /**
-     * @var ServiceFinder
+     * @var NodeRendererRegistrar
      */
-    private $serviceFinder;
+    private $rendererRegistrar;
 
     /**
-     * @param ServiceFinder  $serviceFinder
-     * @param NodeRepository $nodeRepository
+     * @param NodeRepository        $nodeRepository
+     * @param NodeRendererRegistrar $rendererRegistrar
      */
-    public function __construct(ServiceFinder $serviceFinder, NodeRepository $nodeRepository)
+    public function __construct(NodeRepository $nodeRepository, NodeRendererRegistrar $rendererRegistrar)
     {
-        $this->serviceFinder = $serviceFinder;
         $this->nodeRepository = $nodeRepository;
+        $this->rendererRegistrar = $rendererRegistrar;
     }
 
     /**
      * Adds node title to paired array passed to
      * render function.
      *
-     * @param Node
-     * @param array
+     * @param Node  $node
+     * @param array $args
      *
      * @return array
      */
-    protected function getFullArgs(Node $node, $args)
+    protected function getFullArgs(Node $node, array $args = [])
     {
         $args['title'] = $node->getTitle();
 
@@ -59,96 +60,95 @@ class NodeCreator implements NodeCreatorInterface
     /**
      * Render template from Node.
      *
-     * @param Node
-     * @param array
+     * @param Node  $node
+     * @param array $args
      *
      * @return string
      */
-    public function render(Node $node, $args = [])
+    public function render(Node $node, array $args = [])
     {
         $nodeRevision = $node->getLatestRevision();
         $content = $nodeRevision->getContent();
 
         if ($nodeRevision->hasRenderEngine()) {
-            $serviceName = $nodeRevision
+            $rendererSlug = $nodeRevision
                 ->getRenderEngine()
-                ->getService()
+                ->getSlug()
             ;
+
             $fullArgs = $this->getFullArgs($node, $args);
-            $engine = $this->findRenderEngineService($serviceName);
-            $rendered = $engine->render($content, $fullArgs);
+
+            $rendered = $this
+                ->findRenderer($rendererSlug)
+                ->render($content, $fullArgs)
+            ;
 
             return $rendered;
-        } else {
-            return $content;
         }
+
+        return $content;
     }
 
     /**
-     * Lookup node by slug and
-     * render template from Node.
+     * Lookup node by slug and render template from Node.
      *
-     * @param string
-     * @param array
+     * @param string $slug
+     * @param array  $args
      *
      * @return string
      */
-    public function renderFromSlug($slug, $args = [])
+    public function renderFromSlug($slug, array $args = [])
     {
         $node = $this->findNodeBySlug($slug);
-        $content = $this->render($node, $args);
 
-        return $content;
+        return $this->render($node, $args);
     }
 
     /**
-     * Lookup node by materializedPath and
-     * render template from Node.
+     * Lookup node by materializedPath and render template from Node.
      *
-     * @param string
-     * @param array
+     * @param string $slug
+     * @param array  $args
      *
      * @return string
      */
-    public function renderFromMaterializedPath($slug, $args = [])
+    public function renderFromMaterializedPath($slug, array $args = [])
     {
         $node = $this->findNodeByMaterializedPath($slug);
-        $content = $this->render($node, $args);
 
-        return $content;
+        return $this->render($node, $args);
     }
 
     /**
-     * Find node rendering service by
-     * service name, via service finder.
+     * Find node rendering service by service name, via service finder.
      *
-     * @param string
+     * @param string $rendererSlug
      *
-     * @return Object
+     * @throws NodeException If the requested rendering engine type cannot be found.
      *
-     * @throws NodeException
+     * @return NodeRendererInterface
      */
-    protected function findRenderEngineService($serviceName)
+    protected function findRenderer($rendererSlug)
     {
-        $finder = $this->serviceFinder;
+        $renderer = $this
+            ->rendererRegistrar
+            ->getHandler($rendererSlug)
+        ;
 
-        try {
-            return $finder($serviceName);
-        } catch (\Exception $e) {
-            throw new NodeException(
-                sprintf('The requested node rendering service %s could not be found.', $serviceName),
-                NodeException::CODE_MISSING_SERVICE,
-                $e
-            );
+        if ($renderer instanceof NodeRendererInterface) {
+            return $renderer;
         }
+
+        throw new NodeException(
+            sprintf('Could not find a renderer for the requested type template type of "%s".', $rendererSlug),
+            NodeException::CODE_MISSING_SERVICE
+        );
     }
 
     /**
      * Find node by slug.
      *
-     * @param string
-     *
-     * @throws NodeException
+     * @param string $slug
      */
     protected function findNodeBySlug($slug)
     {
@@ -160,9 +160,7 @@ class NodeCreator implements NodeCreatorInterface
     /**
      * Find node by materializedPath.
      *
-     * @param string
-     *
-     * @throws NodeException
+     * @param string $materializedPath
      */
     protected function findNodeByMaterializedPath($materializedPath)
     {
@@ -175,9 +173,9 @@ class NodeCreator implements NodeCreatorInterface
      * Generic method for finding node based on given
      * field and value.
      *
-     * @param string
-     * @param string
-     * @param string
+     * @param string $field
+     * @param string $repoMagicMethod
+     * @param string $criteria
      *
      * @throws NodeException
      */

@@ -14,15 +14,29 @@ namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 use Twig_Environment;
 
 /**
- * Interface NodeTwigRender.
+ * Class NodeRendererTwig.
  */
-class NodeTwigRender implements NodeRenderingInterface
+class NodeRendererTwig extends AbstractNodeRenderer
 {
     /**
+     * The supported slug (name) of this renderer
+     *
+     * @var string
+     */
+    const SUPPORTED_NAME = 'twig';
+
+    /**
+     * Twig enviornment used to render twig templates from strings
+     *
      * @var Twig_Environment
      */
     private $twigEnv;
 
+    /**
+     * Construct the renderer with the required Twig_Enviornment
+     *
+     * @param Twig_Environment $twigEnv
+     */
     public function __construct(Twig_Environment $twigEnv)
     {
         $this->twigEnv = $twigEnv;
@@ -53,22 +67,34 @@ class NodeTwigRender implements NodeRenderingInterface
     }
 
     /**
-     * @param string $template
-     * @param array  $arguments
+     * Render a node item
+     *
+     * @param string $string The content/template to be rendered
+     * @param array  $args   Arguments to pass to the renderer
      *
      * @return string
      *
      * @throws \Twig_Error_Loader When the passed template cannot be found/loaded
      * @throws \Twig_Error_Syntax When the passed template contains a syntax error
      */
-    public function render($template, $arguments)
+    public function render($string, array $args = [])
     {
         $twigTemplate = $this
             ->getTwigEnv()
-            ->createTemplate($template)
+            ->createTemplate($string)
         ;
 
-        return $twigTemplate->render($arguments);
+        return $twigTemplate->render($args);
+    }
+
+    /**
+     * Returns the renderType name supported by this renderer implementation
+     *
+     * @returns string
+     */
+    protected function getRendererName()
+    {
+        return self::SUPPORTED_NAME;
     }
 }
 

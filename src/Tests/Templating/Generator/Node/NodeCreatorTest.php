@@ -101,7 +101,7 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
 
         $this->setExpectedException(
             'Scribe\MantleBundle\Templating\Generator\Node\NodeException',
-            'The requested node rendering service s.mantle.node.foo.render could not be found.',
+            'Could not find a renderer for the requested type template type of "foo".',
             '201'
         );
         $actual = $creator->render($this->node);

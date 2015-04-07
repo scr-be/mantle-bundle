@@ -28,10 +28,10 @@ trait NodeCreatorHelperTrait
     {
         $serviceFinder = new ServiceFinder($this->container);
         if (true === (bool) $cached) {
-            $nodeGenerator = new NodeCreatorCached($serviceFinder, $this->nodeRepo);
+            $nodeGenerator = new NodeCreatorCached($this->nodeRepo, $this->getNewNodeRendererRegistrar());
             $nodeGenerator->setCacheHandlerChain($this->cacheChain);
         } else {
-            $nodeGenerator = new NodeCreator($serviceFinder, $this->nodeRepo);
+            $nodeGenerator = new NodeCreator($this->nodeRepo, $this->getNewNodeRendererRegistrar());
         }
 
         return $nodeGenerator;

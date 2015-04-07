@@ -11,17 +11,29 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
-use Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision;
+use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
+use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererTwig;
 
 /**
  * Class NodeCreatorMocksTrait.
  */
 trait NodeCreatorMocksTrait
 {
+    /**
+     * @var Node
+     */
     private $node;
 
+    /**
+     * @var NodeRepository
+     */
     private $nodeRepo;
+
+    protected function getNewNodeRendererRegistrar()
+    {
+        return $this->container->get('s.mantle.node_creator.renderer.registrar');
+    }
 
     protected function mockNodeRenderEngine_Twig()
     {
@@ -29,10 +41,6 @@ trait NodeCreatorMocksTrait
         $nodeRevisionEngine
             ->method('getSlug')
             ->willReturn('twig')
-        ;
-        $nodeRevisionEngine
-            ->method('getService')
-            ->willReturn('s.mantle.node.twig.render')
         ;
         $nodeRevisionEngine
             ->method('isRenderable')
@@ -47,11 +55,7 @@ trait NodeCreatorMocksTrait
         $nodeRevisionEngine = $this->getMock('Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine');
         $nodeRevisionEngine
             ->method('getSlug')
-            ->willReturn('twig')
-        ;
-        $nodeRevisionEngine
-            ->method('getService')
-            ->willReturn('s.mantle.node.foo.render')
+            ->willReturn('foo')
         ;
 
         return $nodeRevisionEngine;

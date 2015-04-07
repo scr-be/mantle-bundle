@@ -13,6 +13,7 @@ namespace Scribe\MantleBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Scribe\MantleBundle\DependencyInjection\Compiler\NodeRendererCompilerPass;
 use Scribe\MantleBundle\DependencyInjection\Compiler\NavigationRegistrarCompilerPass;
 
 /**
@@ -21,7 +22,7 @@ use Scribe\MantleBundle\DependencyInjection\Compiler\NavigationRegistrarCompiler
 class ScribeMantleBundle extends Bundle
 {
     /**
-     * Build the container for this bundle.
+     * Build the container for Mantle bundle!
      *
      * @param ContainerBuilder $container
      */
@@ -29,6 +30,7 @@ class ScribeMantleBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new NavigationRegistrarCompilerPass());
+        $container->addCompilerPass(new NavigationRegistrarCompilerPass);
+        $container->addCompilerPass(new NodeRendererCompilerPass);
     }
 }

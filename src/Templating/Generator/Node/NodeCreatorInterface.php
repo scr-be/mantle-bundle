@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
-use Scribe\Component\DependencyInjection\Container\ServiceFinder;
+use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 
@@ -20,10 +20,42 @@ use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
  */
 interface NodeCreatorInterface
 {
-    public function __construct(ServiceFinder $serviceFinder, NodeRepository $nodeRepository);
-    public function render(Node $node, $args = []);
-    public function renderFromSlug($slug, $args = []);
-    public function renderFromMaterializedPath($slug, $args = []);
+    /**
+     * @param NodeRepository        $nodeRepository
+     * @param NodeRendererRegistrar $rendererRegistrar
+     */
+    public function __construct(NodeRepository $nodeRepository, NodeRendererRegistrar $rendererRegistrar);
+
+
+    /**
+     * Render template from Node.
+     *
+     * @param Node  $node
+     * @param array $args
+     *
+     * @return string
+     */
+    public function render(Node $node, array $args = []);
+
+    /**
+     * Lookup node by slug and render template from Node.
+     *
+     * @param string $slug
+     * @param array  $args
+     *
+     * @return string
+     */
+    public function renderFromSlug($slug, array $args = []);
+
+    /**
+     * Lookup node by materializedPath and render template from Node.
+     *
+     * @param string $slug
+     * @param array  $args
+     *
+     * @return string
+     */
+    public function renderFromMaterializedPath($slug, array $args = []);
 }
 
 /* EOF */
