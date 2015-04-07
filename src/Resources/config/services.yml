@@ -264,7 +264,7 @@ services:
             - @s.mantle.utils.service_finder
             - @s.mantle.node.repo
         calls:
-            - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
+            - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
     s.mantle.node.twig.render:
         class:            %s.mantle.node.twig.render.class%
