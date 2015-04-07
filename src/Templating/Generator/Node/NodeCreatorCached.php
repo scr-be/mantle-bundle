@@ -22,23 +22,18 @@ class NodeCreatorCached extends NodeCreator
     use HandlerChainAwareTrait;
 
     /**
-     * Render template from Node.
+     * Render template from Node, caching enabled.
      *
-     * @param Node
-     * @param array
+     * @param Node  $node
+     * @param array $args
      *
      * @return string
      */
-    public function render(Node $node, $args = [])
+    public function render(Node $node, array $args = [])
     {
-        $this
-            ->getCacheHandlerChain()
-            ->setKey($node->getMaterializedPath())
-        ;
-
-        if (null === ($renderedNode = $this->getCacheHandlerChain()->get())) {
+        if (null === ($renderedNode = $this->getCacheHandlerChain()->get($node->getMaterializedPath()))) {
             $renderedNode = parent::render($node, $args);
-            $this->getCacheHandlerChain()->set($renderedNode);
+            $this->getCacheHandlerChain()->set($renderedNode, $node->getMaterializedPath());
         }
 
         return $renderedNode;

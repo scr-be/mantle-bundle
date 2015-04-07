@@ -12,9 +12,9 @@
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
 /**
- * Interface NodeRenderingInterface.
+ * Interface NodeRendererInterface.
  */
-interface NodeRenderingInterface
+interface NodeRendererInterface
 {
     /**
      * Render a node item
@@ -25,6 +25,15 @@ interface NodeRenderingInterface
      * @return string
      */
     public function render($string, array $args = []);
+
+    /**
+     * Given the provided rendererName, does this renderer match?
+     *
+     * @param string $rendererName
+     *
+     * @return bool
+     */
+    public function isSupported($rendererName);
 }
 
 /* EOF */

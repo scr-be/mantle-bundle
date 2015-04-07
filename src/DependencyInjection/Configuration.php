@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->append($this->getMaintenanceNode())
+                ->append($this->getNodeCreatorNode())
                 ->append($this->getMetadataNode())
                 ->append($this->getHTMLNode())
                 ->append($this->getDateNode())
@@ -80,6 +81,25 @@ class Configuration implements ConfigurationInterface
                             ->info('URL request argument value to allow overriding maintenance mode.')
                         ->end()
                     ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    /**
+     * Create node creator node.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    private function getNodeCreatorNode()
+    {
+        return (new TreeBuilder())
+            ->root('node_creator')
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->booleanNode('caching')
+                    ->defaultTrue()
+                    ->info('Enables or disabled node caching.')
                 ->end()
             ->end()
         ;

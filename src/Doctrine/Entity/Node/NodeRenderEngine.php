@@ -25,11 +25,6 @@ class NodeRenderEngine extends AbstractEntity
     use SluggableBehaviorTrait;
 
     /**
-     * @var string
-     */
-    private $service;
-
-    /**
      * @var ArrayCollection
      */
     private $revisions;
@@ -78,33 +73,9 @@ class NodeRenderEngine extends AbstractEntity
     }
 
     /**
-     * Set service.
-     *
-     * @param string $service
-     *
-     * @return NodeRenderEngine
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    /**
-     * Get service.
-     *
-     * @return string
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    /**
      * Gets the value of revisions.
      *
-     * @return revisions
+     * @return NodeRevision[]
      */
     public function getRevisions()
     {
@@ -114,7 +85,7 @@ class NodeRenderEngine extends AbstractEntity
     /**
      * Sets the value of revisions.
      *
-     * @param ArrayCollection
+     * @param ArrayCollection $revisions
      *
      * @return $this
      */

@@ -27,19 +27,29 @@ class NodeRendererCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (true === $container->hasDefinition('s.mantle.node_creator.renderer_registrar')) {
-            $chainDefinition = $container->getDefinition(
-                's.mantle.node_creator.renderer_registrar'
+        if (true === $container->hasDefinition('s.mantle.node_creator.renderer.registrar')) {
+            $rendererRegistrar = $container->getDefinition(
+                's.mantle.node_creator.renderer.registrar'
             );
-            $handlerDefinitions = $container->findTaggedServiceIds(
+
+            $rendererHandlers = $container->findTaggedServiceIds(
                 'node_creator.renderer'
             );
 
-            foreach ($handlerDefinitions as $id => $attributes) {
-                $chainDefinition->addMethodCall(
-                    'addRenderer',
-                    [new Reference($id)]
-                );
+            if (false === (count($rendererHandlers) > 0)) {
+                return;
+            }
+
+            foreach ($rendererHandlers as $id => $attributes) {
+                foreach ($attributes as $attr) {
+                    $rendererRegistrar->addMethodCall(
+                        'addHandler',
+                        [
+                            new Reference($id),
+                            isset($attr['priority']) ? $attr['priority'] : null
+                        ]
+                    );
+                }
             }
         }
     }

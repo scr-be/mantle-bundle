@@ -14,11 +14,20 @@ namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 use Twig_Environment;
 
 /**
- * Interface NodeTwigRender.
+ * Class NodeRendererTwig.
  */
-class NodeTwigRender implements NodeRenderingInterface
+class NodeRendererTwig extends AbstractNodeRenderer
 {
     /**
+     * The supported slug (name) of this renderer
+     *
+     * @var string
+     */
+    const SUPPORTED_NAME = 'twig';
+
+    /**
+     * Twig enviornment used to render twig templates from strings
+     *
      * @var Twig_Environment
      */
     private $twigEnv;
@@ -76,6 +85,16 @@ class NodeTwigRender implements NodeRenderingInterface
         ;
 
         return $twigTemplate->render($args);
+    }
+
+    /**
+     * Returns the renderType name supported by this renderer implementation
+     *
+     * @returns string
+     */
+    protected function getRendererName()
+    {
+        return self::SUPPORTED_NAME;
     }
 }
 

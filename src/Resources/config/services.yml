@@ -75,10 +75,12 @@ parameters:
 
     # Node Creator Services
 
-    s.mantle.node_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Node\NodeCreator
-    s.mantle.node_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached
+    s.mantle.node_creator_caching_disabled.class:                       Scribe\MantleBundle\Templating\Generator\Node\NodeCreator
+    s.mantle.node_creator_caching_enabled.class:                        Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached
+    s.mantle.node_creator.factory.class:                                Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorFactory
+    s.mantle.node_creator.renderer.registrar.class:                     Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar
+    s.mantle.node_creator.renderer.twig.class:                          Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererTwig
     s.mantle.node_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorTwigExtension
-    s.mantle.node_creator.renderer.twig.class:                          Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeTwigRender
 
     # Navigation Creator Services
 
@@ -316,20 +318,36 @@ services:
 
     # Node Creator Services
 
-    s.mantle.node_creator:
-        class: %s.mantle.node_creator_cached.class%
+    s.mantle.node_creator_caching_enabled:
+        class: %s.mantle.node_creator_caching_enabled.class%
         arguments:
-            - @s.mantle.service_finder
             - @s.mantle.node.repo
+            - @s.mantle.node_creator.renderer.registrar
+
+    s.mantle.node_creator_caching_disabled:
+        class: %s.mantle.node_creator_caching_disabled.class%
+        arguments:
+            - @s.mantle.node.repo
+            - @s.mantle.node_creator.renderer.registrar
         calls:
             - [setCacheHandlerChain, [@s.cache.handler_chain]]
+
+    s.mantle.node_creator:
+        class:   %s.mantle.node_creator_caching_enabled.class%
+        factory: [%s.mantle.node_creator.factory.class%, getNodeRenderer]
+        arguments:
+            - @s.mantle.service_finder
+            - %scribe.node_creator.caching%
+
+    s.mantle.node_creator.renderer.registrar:
+        class: %s.mantle.node_creator.renderer.registrar.class%
 
     s.mantle.node_creator.renderer.twig:
         class: %s.mantle.node_creator.renderer.twig.class%
         arguments:
             - @twig
         tags:
-            - { name: node_creator.renderer }
+            - { name: node_creator.renderer, priority: 100 }
 
     s.mantle.node_creator.twig_extension:
         class: %s.mantle.node_creator.twig_extension.class%
