@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Tests\Templating\Extension;
+namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
 use Twig_Environment;
-use Scribe\MantleBundle\Templating\Extension\IconCreatorExtension;
+use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorExtension;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;

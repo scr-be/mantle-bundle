@@ -12,8 +12,6 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine:
         slug:
             type: string
             length: 255
-        service:
-            type: text
     oneToMany:
         revisions:
             targetEntity: NodeRevision

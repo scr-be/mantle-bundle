@@ -41,7 +41,7 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
 
         $this->reflectionClassAnalyser = $this
             ->container
-            ->get('s.mantle.utils.reflection_analyser')
+            ->get('s.mantle.reflection_analyser')
         ;
     }
 

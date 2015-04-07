@@ -1,5 +1,7 @@
 parameters:
 
+    # Entities/Repositories
+
     s.mantle.navigation.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Navigation\Navigation
     s.mantle.navigation.repo.class:                                     Scribe\MantleBundle\Doctrine\EntityRepository\Navigation\NavigationRepository
     s.mantle.navigation_item.entity.class:                              Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem
@@ -29,45 +31,18 @@ parameters:
     s.mantle.asset_type.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType
     s.mantle.asset_type.repo.class:                                     Scribe\MantleBundle\Doctrine\EntityRepository\Asset\AssetTypeRepository
 
-    s.mantle.icon_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
-    s.mantle.icon_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
-    s.mantle.node.twig.render.class:                                    Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeTwigRender
-
-    s.mantle.node_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Node\NodeCreator
-    s.mantle.node_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached
-
-    s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
-    s.mantle.navigation_member.content_nodes.class:                     Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember
+    # General Utilities
 
     s.utils.controller.class:                                           Scribe\Component\Controller\ControllerUtils
-    s.symfony.bundleinfo.class:                                         Scribe\Component\Bundle\BundleInformation
+    s.mantle.reflection_analyser.class:                                 Scribe\Utility\Reflection\ClassReflectionAnalyser
+    s.mantle.logger_callable.class:                                     Scribe\Utility\Logger\LoggerCallable
+    s.mantle.service_finder.class:                                      Scribe\Component\DependencyInjection\Container\ServiceFinder
+    s.mantle.bundle_information.class:                                  Scribe\Component\Bundle\BundleInformation
+    s.mantle.bundle_information.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
+    s.mantle.config.yml.class:                                          Scribe\Utility\Config\ConfigContainer
+    s.mantle.config.yml.twig_extension.class:                           Scribe\MantleBundle\Templating\Extension\ConfigExtension
 
-    s.config.yml.class:                                                 Scribe\Utility\Config\ConfigContainer
-
-    s.loader.redirection.class:                                         Scribe\MantleBundle\Routing\RedirectionLoader
-
-    s.listener.maintenance.class:                                       Scribe\MantleBundle\Listener\MaintenanceListener
-    s.listener.newsletter.class:                                        Scribe\MantleBundle\Listener\NewsletterListener
-
-    s.search.class:                                                     Scribe\MantleBundle\Templating\Helper\Search\Search
-
-    s.twig.config.yml.class:                                            Scribe\MantleBundle\Templating\Extension\ConfigExtension
-    s.twig.zoom.class:                                                  Scribe\MantleBundle\Templating\Extension\ZoomExtension
-    s.twig.search.class:                                                Scribe\MantleBundle\Templating\Extension\SearchExtension
-    s.twig.button.class:                                                Scribe\MantleBundle\Templating\Extension\BsButtonExtension
-    s.twig.highchart.class:                                             Scribe\MantleBundle\Templating\Extension\HighchartExtension
-    s.twig.jqtimeline.class:                                            Scribe\MantleBundle\Templating\Extension\JqtimelineExtension
-    s.twig.chronoline.class:                                            Scribe\MantleBundle\Templating\Extension\ChronolineExtension
-    s.twig.formscribeextras.class:                                      Scribe\MantleBundle\Templating\Extension\FormScribeExtrasExtension
-    s.twig.node.class:                                                  Scribe\MantleBundle\Templating\Extension\NodeExtension
-    s.twig.getlastusername.class:                                       Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
-    s.twig.bundleinformation.class:                                     Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
-    s.twig.icon_creator.class:                                          Scribe\MantleBundle\Templating\Extension\IconCreatorExtension
-    s.twig.node_creator.class:                                          Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorTwigExtension
-
-    s.mantle.utils.reflection_analyser.class:                           Scribe\Utility\Reflection\ClassReflectionAnalyser
-    s.mantle.utils.logger_callable.class:                               Scribe\Utility\Logger\LoggerCallable
-    s.mantle.utils.service_finder.class:                                Scribe\Component\DependencyInjection\Container\ServiceFinder
+    # Doctrine Subscribers
 
     s.mantle.doctrine.behaviors.timestampable.subscriber.class:         Scribe\Doctrine\Behavior\Subscriber\Timestampable\TimestampableSubscriber
     s.mantle.doctrine.behaviors.timestampable.subscriber.events:        [ 'Events::loadClassMetadata' ]
@@ -92,73 +67,81 @@ parameters:
     s.mantle.doctrine.behaviors.loggable.subscriber.triggers:           [ 'triggerPostPersistLoggableEvent', 'triggerPostUpdateLoggableEvent', 'triggerPreRemoveLoggableEvent' ]
     s.mantle.doctrine.behaviors.loggable.model.traits:                  [ 'Scribe\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait' ]
 
+    # Icon Creator Services
+
+    s.mantle.icon_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
+    s.mantle.icon_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
+    s.mantle.icon_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorExtension
+
+    # Node Creator Services
+
+    s.mantle.node_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Node\NodeCreator
+    s.mantle.node_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached
+    s.mantle.node_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorTwigExtension
+    s.mantle.node_creator.renderer.twig.class:                          Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeTwigRender
+
+    # Navigation Creator Services
+
+    s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
+    s.mantle.navigation_member.content_nodes.class:                     Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember
+
+    # Routing loaders
+
+    s.mantle.route_redirect.routing_loader.class:                       Scribe\MantleBundle\Routing\RedirectionLoader
+
+    # Kernel Event Listeners
+
+    s.mantle.maintenance.kernel_listener.class:                         Scribe\MantleBundle\Listener\MaintenanceListener
+    s.mantle.newsletter_form.kernel_listener.class:                     Scribe\MantleBundle\Listener\NewsletterListener
+
+    # Old Services
+
+    s.search.class:                                                     Scribe\MantleBundle\Templating\Helper\Search\Search
+    s.twig.zoom.class:                                                  Scribe\MantleBundle\Templating\Extension\ZoomExtension
+    s.twig.search.class:                                                Scribe\MantleBundle\Templating\Extension\SearchExtension
+    s.twig.button.class:                                                Scribe\MantleBundle\Templating\Extension\BsButtonExtension
+    s.twig.highchart.class:                                             Scribe\MantleBundle\Templating\Extension\HighchartExtension
+    s.twig.jqtimeline.class:                                            Scribe\MantleBundle\Templating\Extension\JqtimelineExtension
+    s.twig.chronoline.class:                                            Scribe\MantleBundle\Templating\Extension\ChronolineExtension
+    s.twig.formscribeextras.class:                                      Scribe\MantleBundle\Templating\Extension\FormScribeExtrasExtension
+    s.twig.node.class:                                                  Scribe\MantleBundle\Templating\Extension\NodeExtension
+    s.twig.getlastusername.class:                                       Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
+
 services:
 
-    s.mantle.utils.reflection_analyser:
-        class:  %s.mantle.utils.reflection_analyser.class%
-        calls:
-            - [ unsetReflectionClass ]
+    # General Utilities
 
-    s.mantle.utils.logger_callable:
-        class: %s.mantle.utils.logger_callable.class%
-        arguments:
-            - @logger
-
-    s.mantle.utils.service_finder:
-        class: %s.mantle.utils.service_finder.class%
+    s.utils.controller:
+        class: %s.utils.controller.class%
         arguments:
             - @service_container
 
-    s.mantle.doctrine.behaviors.timestampable.subscriber:
-        class:  %s.mantle.doctrine.behaviors.timestampable.subscriber.class%
-        public: false
-        arguments:
-            - @s.mantle.utils.reflection_analyser
-            - %s.mantle.doctrine.behaviors.timestampable.subscriber.events%
-            - %s.mantle.doctrine.behaviors.timestampable.subscriber.triggers%
-            - %s.mantle.doctrine.behaviors.timestampable.model.traits%
-            - %s.mantle.doctrine.behaviors.timestampable.model.fields%
-        tags:
-            - { name: doctrine.event_subscriber }
-    s.mantle.doctrine.behaviors.loggable.subscriber:
-        class:  %s.mantle.doctrine.behaviors.loggable.subscriber.class%
-        public: false
-        arguments:
-            - @s.mantle.utils.reflection_analyser
-            - %s.mantle.doctrine.behaviors.loggable.subscriber.events%
-            - %s.mantle.doctrine.behaviors.loggable.subscriber.triggers%
-            - %s.mantle.doctrine.behaviors.loggable.model.traits%
+    s.mantle.reflection_analyser:
+        class:  %s.mantle.reflection_analyser.class%
         calls:
-            - [ setLoggerCallable, [ @s.mantle.utils.logger_callable ] ]
-        tags:
-            - { name: doctrine.event_subscriber }
-    s.mantle.doctrine.behaviors.sluggable.subscriber:
-        class:  %s.mantle.doctrine.behaviors.sluggable.subscriber.class%
-        public: false
-        arguments:
-            - @s.mantle.utils.reflection_analyser
-            - %s.mantle.doctrine.behaviors.sluggable.subscriber.events%
-            - %s.mantle.doctrine.behaviors.sluggable.subscriber.triggers%
-            - %s.mantle.doctrine.behaviors.sluggable.model.traits%
-            - %s.mantle.doctrine.behaviors.sluggable.model.fields%
-        tags:
-            - { name: doctrine.event_subscriber }
-    s.mantle.doctrine.behaviors.hierarchical_node.subscriber:
-        class:  %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.class%
-        public: false
-        arguments:
-            - @s.mantle.utils.reflection_analyser
-            - %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.events%
-            - %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.triggers%
-            - %s.mantle.doctrine.behaviors.hierarchical_node.model.traits%
-            - %s.mantle.doctrine.behaviors.hierarchical_node.model.fields%
-        tags:
-            - { name: doctrine.event_subscriber }
+            - [unsetReflectionClass]
 
-    s.mantle.navigation_registrar:
-        class: %s.mantle.navigation_registrar.class%
+    s.mantle.logger_callable:
+        class: %s.mantle.logger_callable.class%
         arguments:
-            - @s.symfony.bundleinfo
+            - @logger
+
+    s.mantle.service_finder:
+        class: %s.mantle.service_finder.class%
+        arguments:
+            - @service_container
+
+    s.mantle.config.yml:
+        class: %s.mantle.config.yml.class%
+        arguments: [ @service_container ]
+
+    s.mantle.config.yml.twig_extension:
+        class: %s.mantle.config.yml.twig_extension.class%
+        arguments: [ @s.mantle.config.yml ]
+        tags:
+            - { name: twig.extension }
+
+    # Repositories
 
     s.mantle.redirect.repo:
         class:           %s.mantle.route_redirect.repo.class%
@@ -251,60 +234,140 @@ services:
         arguments:
             - %s.mantle.asset_type.entity.class%
 
+    # Doctrine Subscribers
+
+    s.mantle.doctrine.behaviors.timestampable.subscriber:
+        class:  %s.mantle.doctrine.behaviors.timestampable.subscriber.class%
+        public: false
+        arguments:
+            - @s.mantle.reflection_analyser
+            - %s.mantle.doctrine.behaviors.timestampable.subscriber.events%
+            - %s.mantle.doctrine.behaviors.timestampable.subscriber.triggers%
+            - %s.mantle.doctrine.behaviors.timestampable.model.traits%
+            - %s.mantle.doctrine.behaviors.timestampable.model.fields%
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    s.mantle.doctrine.behaviors.loggable.subscriber:
+        class:  %s.mantle.doctrine.behaviors.loggable.subscriber.class%
+        public: false
+        arguments:
+            - @s.mantle.reflection_analyser
+            - %s.mantle.doctrine.behaviors.loggable.subscriber.events%
+            - %s.mantle.doctrine.behaviors.loggable.subscriber.triggers%
+            - %s.mantle.doctrine.behaviors.loggable.model.traits%
+        calls:
+            - [ setLoggerCallable, [ @s.mantle.logger_callable ] ]
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    s.mantle.doctrine.behaviors.sluggable.subscriber:
+        class:  %s.mantle.doctrine.behaviors.sluggable.subscriber.class%
+        public: false
+        arguments:
+            - @s.mantle.reflection_analyser
+            - %s.mantle.doctrine.behaviors.sluggable.subscriber.events%
+            - %s.mantle.doctrine.behaviors.sluggable.subscriber.triggers%
+            - %s.mantle.doctrine.behaviors.sluggable.model.traits%
+            - %s.mantle.doctrine.behaviors.sluggable.model.fields%
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    s.mantle.doctrine.behaviors.hierarchical_node.subscriber:
+        class:  %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.class%
+        public: false
+        arguments:
+            - @s.mantle.reflection_analyser
+            - %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.events%
+            - %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.triggers%
+            - %s.mantle.doctrine.behaviors.hierarchical_node.model.traits%
+            - %s.mantle.doctrine.behaviors.hierarchical_node.model.fields%
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    s.mantle.navigation_registrar:
+        class: %s.mantle.navigation_registrar.class%
+        arguments:
+            - @s.mantle.bundle_information
+
+    # Icon Creator Services
+
     s.mantle.icon_creator:
-        class:           %s.mantle.icon_creator_cached.class%
+        class: %s.mantle.icon_creator_cached.class%
         arguments:
             - @s.mantle.icon_family.repo
             - @twig
         calls:
             - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
-    s.mantle.node_creator:
-        class:           %s.mantle.icon_creator_cached.class%
+    s.mantle.icon_creator.notemplating:
+        class: %s.mantle.icon_creator_cached.class%
         arguments:
-            - @s.mantle.utils.service_finder
+            - @s.mantle.icon_family.repo
+        calls:
+            - [setCacheHandlerChain, [@s.cache.handler_chain]]
+
+    s.mantle.icon_creator.twig_extension:
+        class: %s.mantle.icon_creator.twig_extension.class%
+        arguments:
+            - @s.mantle.icon_creator.notemplating
+        tags:
+            - { name: twig.extension }
+
+    # Node Creator Services
+
+    s.mantle.node_creator:
+        class: %s.mantle.node_creator_cached.class%
+        arguments:
+            - @s.mantle.service_finder
             - @s.mantle.node.repo
         calls:
             - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
-    s.mantle.node.twig.render:
-        class:            %s.mantle.node.twig.render.class%
+    s.mantle.node_creator.renderer.twig:
+        class: %s.mantle.node_creator.renderer.twig.class%
         arguments:
             - @twig
+        tags:
+            - { name: node_creator.renderer }
 
-    s.mantle.icon_creator.notemplating:
-        class:       %s.mantle.icon_creator_cached.class%
+    s.mantle.node_creator.twig_extension:
+        class: %s.mantle.node_creator.twig_extension.class%
         arguments:
-            - @s.mantle.icon_family.repo
-        calls:
-            - [setCacheHandlerChain, [@s.cache.handler_chain]]
+            - @s.mantle.node_creator
+        tags:
+            - { name: twig.extension }
 
-    s.utils.controller:
-        class: "%s.utils.controller.class%"
-        arguments:
-            - @service_container
+    # Bundle Information Services
 
-    s.symfony.bundleinfo:
-        class: "%s.symfony.bundleinfo.class%"
+    s.mantle.bundle_information:
+        class: %s.mantle.bundle_information.class%
         arguments:
             - @request_stack
 
-    s.config.yml:
-        class: "%s.config.yml.class%"
-        arguments: [ "@service_container" ]
+    s.mantle.bundle_information.twig_extension:
+        class: %s.mantle.bundle_information.twig_extension.class%
+        arguments:
+            - @s.mantle.bundle_information
+        tags:
+            - { name: twig.extension }
 
-    s.loader.redirection:
-        class: "%s.loader.redirection.class%"
+    # Routing Loader Services
+
+    s.mantle.route_redirect.routing_loader:
+        class: %s.mantle.route_redirect.routing_loader.class%
         arguments:
             - @service_container
         tags:
             - { name: routing.loader }
 
-    s.listener.maintenance:
-        class: "%s.listener.maintenance.class%"
+    # Kernel Event Listeners
+
+    s.mantle.maintenance.kernel_listener:
+        class: %s.mantle.maintenance.kernel_listener.class%
         arguments:
             - @s.utils.controller
-            - @s.symfony.bundleinfo
+            - @s.mantle.bundle_information
             - %scribe.maintenance.enabled%
             - %scribe.maintenance.bundles%
             - %scribe.maintenance.exempt%
@@ -313,30 +376,14 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
-    s.listener.newsletter:
-        class: "%s.listener.newsletter.class%"
+    s.mantle.newsletter_form.kernel_listener:
+        class: %s.mantle.newsletter_form.kernel_listener.class%
         arguments:
             - @service_container
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
-    s.twig.config:
-        class: "%s.twig.config.yml.class%"
-        arguments: [ "@s.config.yml" ]
-        tags:
-            - { name: twig.extension }
-
-    s.search:
-        class: "%s.search.class%"
-        arguments: [ "@service_container" ]
-        tags:
-            - { name: search }
-
-    s.twig.search:
-        class: "%s.twig.search.class%"
-        arguments: [ "@service_container", "@s.search" ]
-        tags:
-            - { name: twig.extension }
+    # Old Twig Extensions
 
     s.twig.button:
         class: "%s.twig.button.class%"
@@ -373,26 +420,5 @@ services:
 
     s.twig.zoom:
         class: "%s.twig.zoom.class%"
-        tags:
-            - { name: twig.extension }
-
-    s.twig.bundleinformation:
-        class: "%s.twig.bundleinformation.class%"
-        arguments:
-            - @s.symfony.bundleinfo
-        tags:
-            - { name: twig.extension }
-
-    s.twig.icon_creator:
-        class: "%s.twig.icon_creator.class%"
-        arguments:
-            - @s.mantle.icon_creator.notemplating
-        tags:
-            - { name: twig.extension }
-
-    s.twig.node_creator:
-        class: "%s.twig.node_creator.class%"
-        arguments:
-            - @s.mantle.node_creator
         tags:
             - { name: twig.extension }

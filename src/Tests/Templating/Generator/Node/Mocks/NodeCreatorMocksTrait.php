@@ -32,7 +32,7 @@ trait NodeCreatorMocksTrait
         ;
         $nodeRevisionEngine
             ->method('getService')
-            ->willReturn('s.mantle.node.twig.render')
+            ->willReturn('s.mantle.node_creator.renderer.twig')
         ;
         $nodeRevisionEngine
             ->method('isRenderable')

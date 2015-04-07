@@ -23,6 +23,11 @@ class NodeTwigRender implements NodeRenderingInterface
      */
     private $twigEnv;
 
+    /**
+     * Construct the renderer with the required Twig_Enviornment
+     *
+     * @param Twig_Environment $twigEnv
+     */
     public function __construct(Twig_Environment $twigEnv)
     {
         $this->twigEnv = $twigEnv;
@@ -53,22 +58,24 @@ class NodeTwigRender implements NodeRenderingInterface
     }
 
     /**
-     * @param string $template
-     * @param array  $arguments
+     * Render a node item
+     *
+     * @param string $string The content/template to be rendered
+     * @param array  $args   Arguments to pass to the renderer
      *
      * @return string
      *
      * @throws \Twig_Error_Loader When the passed template cannot be found/loaded
      * @throws \Twig_Error_Syntax When the passed template contains a syntax error
      */
-    public function render($template, $arguments)
+    public function render($string, array $args = [])
     {
         $twigTemplate = $this
             ->getTwigEnv()
-            ->createTemplate($template)
+            ->createTemplate($string)
         ;
 
-        return $twigTemplate->render($arguments);
+        return $twigTemplate->render($args);
     }
 }
 
