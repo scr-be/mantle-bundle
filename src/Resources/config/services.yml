@@ -256,7 +256,7 @@ services:
             - @s.mantle.icon_family.repo
             - @twig
         calls:
-            - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
+            - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
     s.mantle.node_creator:
         class:           %s.mantle.icon_creator_cached.class%
@@ -264,7 +264,7 @@ services:
             - @s.mantle.utils.service_finder
             - @s.mantle.node.repo
         calls:
-            - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
+            - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
     s.mantle.node.twig.render:
         class:            %s.mantle.node.twig.render.class%
@@ -276,7 +276,7 @@ services:
         arguments:
             - @s.mantle.icon_family.repo
         calls:
-            - [setCacheHandlerChain, [@scribe_cache.handler_chain]]
+            - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
     s.utils.controller:
         class: "%s.utils.controller.class%"
