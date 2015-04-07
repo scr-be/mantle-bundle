@@ -11,10 +11,8 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
-use Twig_Environment;
 use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainAwareTrait;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * Class: NodeCreatorCached.

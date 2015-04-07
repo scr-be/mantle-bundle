@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,8 +11,6 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Templating\Generator\Node\NodeCreator;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorHelperTrait;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
@@ -36,7 +35,7 @@ class NodeCreatorCachedTest extends AbstractMantleKernelTestCase
         $this->mockNodeTwigEntities();
         $expected = '<div id="foo">Post 1</div>';
 
-        $creator = $this->getNewNodeCreator(true); 
+        $creator = $this->getNewNodeCreator(true);
         $actual = $creator->render($this->node);
 
         $this->assertTrue($creator->getCacheHandlerChain()->has());

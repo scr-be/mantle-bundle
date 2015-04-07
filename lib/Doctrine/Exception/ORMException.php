@@ -11,7 +11,6 @@
 
 namespace Scribe\Doctrine\Exception;
 
-
 /**
  * Class ORMException.
  */
