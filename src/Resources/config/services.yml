@@ -37,7 +37,7 @@ parameters:
     s.mantle.node_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached
 
     s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
-    s.mantle.navigation_member.content_nodes.class:                     Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember;
+    s.mantle.navigation_member.content_nodes.class:                     Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember
 
     s.utils.controller.class:                                           Scribe\Component\Controller\ControllerUtils
     s.symfony.bundleinfo.class:                                         Scribe\Component\Bundle\BundleInformation
@@ -63,6 +63,7 @@ parameters:
     s.twig.getlastusername.class:                                       Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
     s.twig.bundleinformation.class:                                     Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
     s.twig.icon_creator.class:                                          Scribe\MantleBundle\Templating\Extension\IconCreatorExtension
+    s.twig.node_creator.class:                                          Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorTwigExtension
 
     s.mantle.utils.reflection_analyser.class:                           Scribe\Utility\Reflection\ClassReflectionAnalyser
     s.mantle.utils.logger_callable.class:                               Scribe\Utility\Logger\LoggerCallable
@@ -386,5 +387,12 @@ services:
         class: "%s.twig.icon_creator.class%"
         arguments:
             - @s.mantle.icon_creator.notemplating
+        tags:
+            - { name: twig.extension }
+
+    s.twig.node_creator:
+        class: "%s.twig.node_creator.class%"
+        arguments:
+            - @s.mantle.node_creator
         tags:
             - { name: twig.extension }
