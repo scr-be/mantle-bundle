@@ -27,7 +27,7 @@ trait NodeCreatorHelperTrait
     protected function getNewNodeCreator($cached = false)
     {
         $serviceFinder = new ServiceFinder($this->container);
-        if(true === (bool) $cached) {
+        if (true === (bool) $cached) {
             $nodeGenerator = new NodeCreatorCached($serviceFinder, $this->nodeRepo);
             $nodeGenerator->setCacheHandlerChain($this->cacheChain);
         } else {

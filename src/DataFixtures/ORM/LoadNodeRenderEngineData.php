@@ -16,7 +16,7 @@ use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 /**
  * LoadNodeRenderEngine.
  */
-class LoadNodeRenderEngine extends AbstractYamlFixture
+class LoadNodeRenderEngineData extends AbstractYamlFixture
 {
 }
 
