@@ -2,10 +2,10 @@
     "name"        : "scribe/mantle-bundle",
     "license"     : "MIT",
     "type"        : "project",
-    "homepage"    : "https://symfony-mantle-bundle.docs.scribe.tools/git",
-    "description" : "Scribe Mantle Bundle provides the core dependencies and specific functionality need for the \ndevvelopment of our internal (proprietary) application as well as our other external projects, both\nprofessional and personal. Mantle provides a solid foundation for us to develope all our applications\nin tandem, while providing a common version- and feature-set throughout. In addition to the collection\nof external dependencies required, we have also spent a great deal of time abstracting as much as\nas posible with the intend of providing a solid foundation (or \"mantle\") for all our Symfony-based\nwork. If anyone has any qyestions, please feel free to contact the maintainers (try Rob Frawley 2nd\nfirst, as he would be most keen to open a dialoge). Otherwise, as this is MIT Licences, feel free to\n disect, pull-apart, and use whatever functionality you find most-appropriate for your enviornment.\nHappy coding!",
+    "homepage"    : "https://scr.be/mantle-bundle",
+    "description" : "Scribe Mantle Bundle provides the core dependencies and specific functionality need for the devvelopment of our internal (proprietary) application as well as our other external projects, both professional and personal. Mantle provides a solid foundation for us to develope all our applications in tandem, while providing a common version- and feature-set throughout. In addition to the collection of external dependencies required, we have also spent a great deal of time abstracting as much as as posible with the intend of providing a solid foundation (or \"mantle\") for all our Symfony-based work. If anyone has any qyestions, please feel free to contact the maintainers (try Rob Frawley 2nd first, as he would be most keen to open a dialoge). Otherwise, as this is MIT Licenced, feel free to disect, pull-apart, and use whatever functionality you find most-appropriate for your enviornment.",
     "support" : {
-        "email"  : "mantle@scr.be",
+        "email"  : "rmf@scr.be",
         "issues" : "https://symfony-mantle-bundle.docs.scribe.tools/issues",
         "source" : "https://symfony-mantle-bundle.docs.scribe.tools/git",
         "irc"    : "irc://irc.efnet.org/scribe"
@@ -78,7 +78,8 @@
         "phpunit/phpunit"                      : "~4.5,>=4.5.1",
         "scrutinizer/ocular"                   : "~1.1",
         "satooshi/php-coveralls"               : "dev-multipleroot",
-        "chriskite/phactory"                   : "~0.4.3"
+        "chriskite/phactory"                   : "~0.4.3",
+        "sami/sami"                             : "*@dev"
     },
     "autoload" : {
         "psr-4" : {
@@ -92,7 +93,7 @@
     "config" : {
         "bin-dir"           : "bin",
         "preferred-install" : "auto",
-        "minimum-stability" : "stable"
+        "minimum-stability" : "dev"
     },
     "extra": {
         "branch-alias": {

@@ -31,7 +31,8 @@ class NodeCreator
     private $serviceFinder;
 
     /**
-     * Setup the object instance.
+     * @param ServiceFinder  $serviceFinder
+     * @param NodeRepository $nodeRepository
      */
     public function __construct(ServiceFinder $serviceFinder, NodeRepository $nodeRepository)
     {

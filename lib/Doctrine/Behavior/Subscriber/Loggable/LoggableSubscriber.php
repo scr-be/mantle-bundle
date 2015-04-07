@@ -55,7 +55,7 @@ class LoggableSubscriber extends AbstractSubscriber
     /**
      * @param LifecycleEventArgs $eventArgs
      */
-    public function preDelete(LifecycleEventArgs $eventArgs)
+    public function preRemove(LifecycleEventArgs $eventArgs)
     {
         $this->logChangeSet($eventArgs, __FUNCTION__);
     }
