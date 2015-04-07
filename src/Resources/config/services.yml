@@ -260,12 +260,19 @@ services:
             - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
     s.mantle.node_creator:
-        class:           %s.mantle.icon_creator_cached.class%
+        class:           %s.mantle.node_creator_cached.class%
         arguments:
             - @s.mantle.utils.service_finder
             - @s.mantle.node.repo
         calls:
             - [setCacheHandlerChain, [@s.cache.handler_chain]]
+
+    s.mantle.twig.node_creator:
+        class: "%s.twig.node_creator.class%"
+        arguments:
+            - @s.mantle.node_creator
+        tags:
+            - { name: twig.extension }
 
     s.mantle.node.twig.render:
         class:            %s.mantle.node.twig.render.class%
@@ -387,12 +394,5 @@ services:
         class: "%s.twig.icon_creator.class%"
         arguments:
             - @s.mantle.icon_creator.notemplating
-        tags:
-            - { name: twig.extension }
-
-    s.twig.node_creator:
-        class: "%s.twig.node_creator.class%"
-        arguments:
-            - @s.mantle.node_creator
         tags:
             - { name: twig.extension }
