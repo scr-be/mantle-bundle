@@ -65,4 +65,19 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
         $this->assertEmpty($this->nodeRows());
     }
+
+    public function testCascadeDeleteAndReparent()
+    {
+        $this->setupAndExercise(4);
+        $this->firstNode->setAsRoot();
+        $this->nodes[1]->setChildNodeOf($this->firstNode);
+        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+
+        $this->manager->deleteAndReparentChildren($this->nodes[1]);
+
+        $this->assertSame(3, sizeof($this->nodeRows()));
+        $this->assertSame($this->firstNode, $this->nodes[2]->getParentNode());
+        $this->assertSame($this->nodes[2], $this->nodes[3]->getParentNode());
+    }
 }

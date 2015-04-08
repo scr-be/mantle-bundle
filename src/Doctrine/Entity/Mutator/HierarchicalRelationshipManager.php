@@ -74,8 +74,10 @@ class HierarchicalRelationshipManager
      */
     public function deleteAndCascade(Node $node)
     {
-        $this->recursivelyDeleteBranch($node);
-        $this->flush();
+        $this
+            ->recursivelyDeleteBranch($node)
+            ->flush()
+        ;
 
         return $this;
     }
@@ -95,5 +97,63 @@ class HierarchicalRelationshipManager
         $this->remove($node);
  
         return $this; 
+    }
+
+    /**
+     * Deletes given node and moves all children
+     * up the chain, setting the children of node
+     * as children of node's parent. Resets all 
+     * descendant relationships so materialized
+     * paths stay intact.
+     *
+     * @param Node $node
+     *
+     * @return $this 
+     */
+    public function deleteAndReparentChildren(Node $node)
+    {
+        $this
+            ->reparentChildrenUpBranch($node)
+            ->remove($node)
+            ->flush()
+        ;
+
+        return $this;
+    }
+
+    /**
+     * Sets children of node as children of node's
+     * parent, then calls recursive method to ensure
+     * integrity of descendant relationships.
+     *
+     * @param Node $node
+     *
+     * @return $this 
+     */
+    protected function reparentChildrenUpBranch(Node $node)
+    {
+        $parent = $node->getParentNode();
+        foreach($node->getChildNodes() as $child) {
+            $child->setChildNodeOf($parent);
+            $this->recursivelyResetRelationships($child);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Recursively resestablishes parentage to
+     * maintain materialized path integrity.
+     *
+     * @param Node $node
+     *
+     * @return $this 
+     */
+    protected function recursivelyResetRelationships(Node $node)
+    {
+        foreach($node->getChildNodes() as $child) {
+            $child->setChildNodeOf($node);
+            $this->recursivelyResetRelationships($child);
+        }
     }
 }
