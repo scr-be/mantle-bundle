@@ -112,8 +112,11 @@ class HierarchicalRelationshipManager
      */
     public function deleteAndReparentChildren(Node $node)
     {
+        if (false === $node->isRootNode()) {
+            $this->reparentChildrenUpBranch($node);
+        }
+
         $this
-            ->reparentChildrenUpBranch($node)
             ->remove($node)
             ->flush()
         ;

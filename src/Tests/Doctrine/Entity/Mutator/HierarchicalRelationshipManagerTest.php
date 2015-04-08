@@ -66,7 +66,6 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->assertEmpty($this->nodeRows());
     }
 
-    // error if no parent
     public function testCascadeDeleteAndReparent()
     {
         $this->setupAndExercise(4);
