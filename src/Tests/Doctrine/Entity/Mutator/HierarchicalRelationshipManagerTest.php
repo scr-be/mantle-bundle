@@ -66,6 +66,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->assertEmpty($this->nodeRows());
     }
 
+    // error if no parent
     public function testCascadeDeleteAndReparent()
     {
         $this->setupAndExercise(4);
@@ -79,5 +80,43 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->assertSame(3, sizeof($this->nodeRows()));
         $this->assertSame($this->firstNode, $this->nodes[2]->getParentNode());
         $this->assertSame($this->nodes[2], $this->nodes[3]->getParentNode());
+    }
+
+    public function testCascadeSetAsRoot()
+    {
+        $this->setupAndExercise(4);
+        $this->firstNode->setAsRoot();
+        $this->nodes[1]->setChildNodeOf($this->firstNode);
+        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->em->flush();
+
+        $this->manager->setAsRoot($this->nodes[1]);
+
+        $root = $this->repo->getTree('/'. $this->nodes[1]->getSlug());
+        $this->assertSame($this->nodes[1]->getSlug(), $root->getSlug());
+        $this->assertSame($this->nodes[2], $root->getChildNodes()[0]);
+
+        $leaf = $root->getChildNodes()[0]->getChildNodes()[0];
+
+        $this->assertSame($this->nodes[3], $leaf);
+    }
+
+    public function testCascadeOnSlugUpdate()
+    {
+        $this->setupAndExercise(4);
+        $this->firstNode->setAsRoot();
+        $this->nodes[1]->setChildNodeOf($this->firstNode);
+        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->em->flush();
+
+        $newSlug = 'foo';
+        $this->firstNode->setSlug($newSlug);
+        $this->manager->updateAndCascade($this->firstNode);
+
+        foreach($this->nodeRows() as $n) {
+            $this->assertRegExp('/'.$newSlug.'/', $n->getMaterializedPath());
+        }
     }
 }

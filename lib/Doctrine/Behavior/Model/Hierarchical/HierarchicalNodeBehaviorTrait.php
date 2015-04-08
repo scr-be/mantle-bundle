@@ -106,7 +106,9 @@ trait HierarchicalNodeBehaviorTrait
 
     public function isRootNode()
     {
-        return self::getMaterializedPathSeparator() === $this->getParentMaterializedPath();
+        $count = substr_count($this->getMaterializedPath(), $this->getMaterializedPathSeparator()); 
+
+        return $count <= 1; 
     }
 
     public function isLeafNode()

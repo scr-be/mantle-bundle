@@ -233,20 +233,6 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     }
 
     /**
-     * Recursively reassigns children in the event
-     * a materialPath is modified.
-     */
-    protected function keepChildren()
-    {
-        foreach ($this->getChildNodes() as $child) {
-            $child->setChildNodeOf($this);
-            $child->keepChildren();
-        }
-
-        return $this;
-    }
-
-    /**
      * Sets node to a root.
      *
      * @return $this

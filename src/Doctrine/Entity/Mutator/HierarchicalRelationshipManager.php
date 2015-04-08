@@ -155,5 +155,53 @@ class HierarchicalRelationshipManager
             $child->setChildNodeOf($node);
             $this->recursivelyResetRelationships($child);
         }
+
+        return $this;
+    }
+
+    /**
+     * Sets given node as a root node.
+     * Recursively resestablishes parentage to
+     * maintain materialized path integrity.
+     *
+     * @param Node $node
+     *
+     * @return $this 
+     */
+    public function setAsRoot(Node $node)
+    {
+        $node->setAsRoot();
+        foreach($node->getChildNodes() as $child) {
+            $child->setChildNodeOf($node);
+            $this->recursivelyResetRelationships($child);
+        }
+        $this->flush();
+
+        return $this;
+    }
+
+    /**
+     * Ensures materializedPath and paths for all children
+     * are correct according to slug of given node. Triggers
+     * slug event first to ensure slug is set.
+     *
+     * @return void
+     * @author Me
+     */
+    public function updateAndCascade(Node $node)
+    {
+        $node->triggerGenerateSlugEvent();
+        $newPath = 
+            ($node->isRootNode() ? '' : $node->getParentMaterializedPath()) .
+            $node->getMaterializedPathSeparator() . $node->getSlug()
+        ;
+        $node->setMaterializedPath($newPath);
+
+        $this
+            ->recursivelyResetRelationships($node)
+            ->flush()
+        ;
+
+        return $this;
     }
 }
