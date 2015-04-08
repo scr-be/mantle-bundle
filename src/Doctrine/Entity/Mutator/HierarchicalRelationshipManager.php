@@ -15,18 +15,16 @@ use Doctrine\ORM\EntityManager;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Doctrine\Manager\EntityManagerForwardableTrait;
+use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
+use Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException;
 
 /**
  * Class HierarchicalRelationshipManager.
  */
 class HierarchicalRelationshipManager 
 {
-    use EntityManagerForwardableTrait;
-
-    /**
-     * @var string
-     */
-    private $nodeRepo;
+    use EntityManagerForwardableTrait,
+        NodeRepositoryAwareTrait;
 
     /**
      * Object initialization.
@@ -35,32 +33,8 @@ class HierarchicalRelationshipManager
     {
         $this
             ->setEntityManager($entityManager)        
-            ->setNodeRepo($nodeRepo)
+            ->setNodeRepository($nodeRepo)
         ;
-    }
-
-    /**
-     * Gets the value of nodeRepo
-     *
-     * @return nodeRepo
-     */
-    protected function getNodeRepo()
-    {
-        return $this->nodeRepo;
-    }
-
-    /**
-     * Sets the value of nodeRepo
-     *
-     * @param NodeRepository $nodeRepo
-     *
-     * @return $this
-     */
-    protected function setNodeRepo(NodeRepository $nodeRepo)
-    {
-        $this->nodeRepo = $nodeRepo;
-
-        return $this;
     }
 
     /**
@@ -78,6 +52,25 @@ class HierarchicalRelationshipManager
             ->recursivelyDeleteBranch($node)
             ->flush()
         ;
+
+        return $this;
+    }
+
+    /**
+     * Finds node by slug.
+     * Deletes node and recursively deletes children
+     * of node, their children, etc. Treats given node
+     * as entire branch to be trimmed. Flushes changes.
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function deleteAndCascadeBySlug($slug)
+    {
+        $node = $this->findNodeBySlug($slug); 
+
+        $this->deleteAndCascade($node);
 
         return $this;
     }
@@ -206,5 +199,14 @@ class HierarchicalRelationshipManager
         ;
 
         return $this;
+    }
+
+    protected function unfoundEntityException($field, $criteria, $e)
+    {
+        throw new HierarchicalRelationshipException(
+            sprintf('Node with %s %s could not be found.', $field, $criteria),
+            HierarchicalRelationshipException::CODE_MISSING_ENTITY,
+            $e
+        );
     }
 }

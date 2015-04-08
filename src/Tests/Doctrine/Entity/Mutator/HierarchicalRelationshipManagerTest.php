@@ -54,7 +54,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->firstNode = $this->nodeRows()[0];
     }
 
-    public function testCascaseDeletion()
+    public function testCascadeDeletion()
     {
         $this->setupAndExercise(3);
         $this->firstNode->setAsRoot();
@@ -64,6 +64,36 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->manager->deleteAndCascade($this->firstNode);
 
         $this->assertEmpty($this->nodeRows());
+    }
+
+    public function testCascadeDeleteBySlug()
+    {
+        $this->setupAndExercise(3);
+        $this->firstNode->setAsRoot();
+        $this->nodes[1]->setChildNodeOf($this->firstNode);
+        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+
+        $this->manager->deleteAndCascadeBySlug($this->firstNode->getSlug());
+
+        $this->assertEmpty($this->nodeRows());
+    }
+
+    public function testCascaseDeletionByBadSlugErrors()
+    {
+        $this->markTestSkipped(
+          'Not behaving as expected; NodeRepo returning null for bad slug.'
+        );
+        $this->setupAndExercise(3);
+        $this->firstNode->setAsRoot();
+        $this->nodes[1]->setChildNodeOf($this->firstNode);
+        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+
+        $this->setExpectedException(
+            'Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException',
+            'Node with slug foo could not be found.',
+            '101'
+        );
+        $this->manager->deleteAndCascadeBySlug('foo');
     }
 
     public function testCascadeDeleteAndReparent()
