@@ -102,6 +102,15 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->manager->deleteAndCascadeBySlug('foo');
     }
 
+    public function testCascadeDeletionFromService()
+    {
+        $this->setupAndNestXTimes();
+        $newManager = $this->container->get('s.mantle.hier_rel_manager');
+        $newManager->deleteAndCascade($this->firstNode);
+
+        $this->assertEmpty($this->nodeRows());
+    }
+
     //## deleteAndReparentChildren tests
 
     public function assertDeletedAndReparentedCorrectly()
