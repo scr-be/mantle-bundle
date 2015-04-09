@@ -37,6 +37,15 @@ class HierarchicalRelationshipManager
         ;
     }
 
+    protected function performActionBySlug($functionName, $slug)
+    {
+        $performer = substr($functionName, 0, -6); 
+        $node = $this->findNodeBySlug($slug);
+        $this->{$performer}($node);
+
+        return $this;
+    }
+
     /**
      * Deletes node and recursively deletes children
      * of node, their children, etc. Treats given node
@@ -68,11 +77,7 @@ class HierarchicalRelationshipManager
      */
     public function deleteAndCascadeBySlug($slug)
     {
-        $node = $this->findNodeBySlug($slug); 
-
-        $this->deleteAndCascade($node);
-
-        return $this;
+        $this->performActionBySlug(__FUNCTION__, $slug);
     }
 
     /**
@@ -115,6 +120,23 @@ class HierarchicalRelationshipManager
         ;
 
         return $this;
+    }
+
+    /**
+     * Finds node by slug.
+     * Deletes given node and moves all children
+     * up the chain, setting the children of node
+     * as children of node's parent. Resets all 
+     * descendant relationships so materialized
+     * paths stay intact.
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function deleteAndReparentChildrenBySlug($slug)
+    {
+        $this->performActionBySlug(__FUNCTION__, $slug);
     }
 
     /**
@@ -174,6 +196,21 @@ class HierarchicalRelationshipManager
         $this->flush();
 
         return $this;
+    }
+
+    /**
+     * Finds node by slug.
+     * Sets given node as a root node.
+     * Recursively resestablishes parentage to
+     * maintain materialized path integrity.
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function setAsRootBySlug($slug)
+    {
+        $this->performActionBySlug(__FUNCTION__, $slug);
     }
 
     /**
