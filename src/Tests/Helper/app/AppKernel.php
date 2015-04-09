@@ -52,41 +52,6 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
             __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
         );
     }
-
-    /**
-     * @throws Exception
-     */
-    protected function initializeContainer()
-    {
-        parent::initializeContainer();
-
-        return;
-
-        static $first = true;
-
-        if ('test' !== $this->getEnvironment()) {
-            parent::initializeContainer();
-
-            return;
-        }
-
-        $debug = $this->debug;
-
-        if (!$first) {
-            $this->debug = false;
-        }
-
-        $first = false;
-
-        try {
-            parent::initializeContainer();
-        } catch (\Exception $e) {
-            $this->debug = $debug;
-            throw $e;
-        }
-
-        $this->debug = $debug;
-    }
 }
 
 /* EOF */

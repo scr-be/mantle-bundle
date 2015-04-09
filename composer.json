@@ -77,9 +77,9 @@
         "doctrine/doctrine-fixtures-bundle"    : "2.2.*@dev",
         "phpunit/phpunit"                      : "~4.5,>=4.5.1",
         "scrutinizer/ocular"                   : "~1.1",
-        "satooshi/php-coveralls"               : "dev-multipleroot",
+        "satooshi/php-coveralls"               : "~0.6,>=0.6.2",
         "chriskite/phactory"                   : "~0.4.3",
-        "sami/sami"                             : "*@dev"
+        "sami/sami"                            : "*@dev"
     },
     "autoload" : {
         "psr-4" : {
