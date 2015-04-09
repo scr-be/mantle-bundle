@@ -81,6 +81,15 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->assertEmpty($this->nodeRows());
     }
 
+    public function testCascadeDeleteByMaterializedPath()
+    {
+        $this->setupAndNestXTimes();
+        $this->em->flush();
+        $this->manager->deleteAndCascadeByMaterializedPath($this->firstNode->getMaterializedPath());
+
+        $this->assertEmpty($this->nodeRows());
+    }
+
     public function testCascaseDeletionByBadSlugErrors()
     {
         $this->markTestSkipped(
@@ -121,6 +130,15 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->assertDeletedAndReparentedCorrectly();
     }
 
+    public function testCascadeDeleteAndReparentByMaterializedPath()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->em->flush();
+        $this->manager->deleteAndReparentChildrenByMaterializedPath($this->nodes[1]->getMaterializedPath());
+
+        $this->assertDeletedAndReparentedCorrectly();
+    }
+
     //## setAsRoot tests
 
     public function assertSetNodeAsRootCorrectly()
@@ -152,6 +170,15 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->assertSetNodeAsRootCorrectly();
     }
 
+    public function testCascadeSetAsRootByMaterializedPath()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->em->flush();
+        $this->manager->setAsRootByMaterializedPath($this->nodes[1]->getMaterializedPath());
+
+        $this->assertSetNodeAsRootCorrectly();
+    }
+
     //## updateAndCascade tests
 
     public function testCascadeOnSlugUpdate()
@@ -162,6 +189,20 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $newSlug = 'foo';
         $this->firstNode->setSlug($newSlug);
         $this->manager->updateAndCascade($this->firstNode);
+
+        foreach($this->nodeRows() as $n) {
+            $this->assertRegExp('/'.$newSlug.'/', $n->getMaterializedPath());
+        }
+    }
+
+    public function testCascadeOnSlugUpdateByMaterializedPath()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->em->flush();
+
+        $newSlug = 'foo';
+        $this->firstNode->setSlug($newSlug);
+        $this->manager->updateAndCascadeByMaterializedPath($this->firstNode->getMaterializedPath());
 
         foreach($this->nodeRows() as $n) {
             $this->assertRegExp('/'.$newSlug.'/', $n->getMaterializedPath());
