@@ -54,12 +54,18 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->firstNode = $this->nodeRows()[0];
     }
 
+    public function setupAndNestXTimes($x = 3)
+    {
+        $this->setupAndExercise($x);
+        $this->firstNode->setAsRoot();
+        for ($k = 0; $k < ($x - 1); $k++) {
+            $this->nodes[$k + 1]->setChildNodeOf($this->nodes[$k]); 
+        }
+    }
+
     public function testCascadeDeletion()
     {
-        $this->setupAndExercise(3);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->setupAndNestXTimes();
 
         $this->manager->deleteAndCascade($this->firstNode);
 
@@ -68,10 +74,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
     public function testCascadeDeleteBySlug()
     {
-        $this->setupAndExercise(3);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->setupAndNestXTimes();
 
         $this->manager->deleteAndCascadeBySlug($this->firstNode->getSlug());
 
@@ -83,10 +86,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->markTestSkipped(
           'Not behaving as expected; NodeRepo returning null for bad slug.'
         );
-        $this->setupAndExercise(3);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->setupAndNestXTimes();
 
         $this->setExpectedException(
             'Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException',
@@ -98,11 +98,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
     public function testCascadeDeleteAndReparent()
     {
-        $this->setupAndExercise(4);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->setupAndNestXTimes(4);
 
         $this->manager->deleteAndReparentChildren($this->nodes[1]);
 
@@ -113,11 +109,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
     public function testCascadeSetAsRoot()
     {
-        $this->setupAndExercise(4);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->setupAndNestXTimes(4);
         $this->em->flush();
 
         $this->manager->setAsRoot($this->nodes[1]);
@@ -133,11 +125,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
     public function testCascadeOnSlugUpdate()
     {
-        $this->setupAndExercise(4);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->setupAndNestXTimes(4);
         $this->em->flush();
 
         $newSlug = 'foo';
