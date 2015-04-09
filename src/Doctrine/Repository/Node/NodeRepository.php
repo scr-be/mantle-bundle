@@ -20,4 +20,51 @@ use Scribe\Doctrine\Behavior\Repository\Hierarchical\HierarchicalNodeTreeBehavio
 class NodeRepository extends EntityRepository
 {
     use HierarchicalNodeTreeBehaviorTrait;
+
+    /**
+     * @param string $slug
+     *
+     * @return Node 
+     * @throws Exception
+     * @todo move this into SlugAwareRepoTrait
+     */
+    public function loadBySlug($slug)
+    {
+        $q = $this
+          ->createQueryBuilder('i')
+          ->where('i.slug = :slug')
+          ->setParameter('slug', $slug)
+          ->setMaxResults(1)
+          ->getQuery()
+        ;
+
+        try {
+            return $q->getSingleResult();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return Node 
+     * @throws Exception
+     */
+    public function loadByMaterializedPath($materializedPath)
+    {
+        $q = $this
+          ->createQueryBuilder('i')
+          ->where('i.materializedPath= :materializedPath')
+          ->setParameter('materializedPath', $materializedPath)
+          ->setMaxResults(1)
+          ->getQuery()
+        ;
+
+        try {
+            return $q->getSingleResult();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

@@ -92,15 +92,12 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
     public function testCascaseDeletionByBadSlugErrors()
     {
-        $this->markTestSkipped(
-          'Not behaving as expected; NodeRepo returning null for bad slug.'
-        );
         $this->setupAndNestXTimes();
 
         $this->setExpectedException(
             'Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipException',
             'Node with slug foo could not be found.',
-            '101'
+            '201'
         );
         $this->manager->deleteAndCascadeBySlug('foo');
     }

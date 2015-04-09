@@ -17,11 +17,12 @@ use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Doctrine\Manager\EntityManagerForwardableTrait;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
 use Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipException;
+use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareInterface;
 
 /**
  * Class HierarchicalRelationshipManager.
  */
-class HierarchicalRelationshipManager 
+class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
 {
     use EntityManagerForwardableTrait,
         NodeRepositoryAwareTrait;
@@ -327,7 +328,16 @@ class HierarchicalRelationshipManager
         $this->performActionByMaterializedPath(__FUNCTION__, $materializedPath);
     }
 
-    protected function unfoundEntityException($field, $criteria, $e)
+    /**
+     * throws domain-specific exception for unfound Node
+     *
+     * @param string $field
+     * @param string $criteria
+     * @param \Exception $e
+     *
+     * @throws HierarchicalRelationshipException
+     */
+    public function unfoundEntityException($field, $criteria, $e)
     {
         throw new HierarchicalRelationshipException(
             sprintf('Node with %s %s could not be found.', $field, $criteria),

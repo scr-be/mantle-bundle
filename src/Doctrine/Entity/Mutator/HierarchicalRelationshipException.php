@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Mutator;
 
-use Scribe\Exception\ExceptionInterface;
+use Scribe\Exception\RuntimeException;
 
 /**
  * Class HierarchicalRelationshipException.
  */
-class HierarchicalRelationshipException implements ExceptionInterface 
+class HierarchicalRelationshipException extends RuntimeException 
 {
     /**
      * Exception code for an unknown/missing entity.
