@@ -46,7 +46,7 @@ class NodeRendererCompilerPass implements CompilerPassInterface
                         'addHandler',
                         [
                             new Reference($id),
-                            isset($attr['priority']) ? $attr['priority'] : null
+                            isset($attr['priority']) ? $attr['priority'] : null,
                         ]
                     );
                 }

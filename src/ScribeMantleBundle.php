@@ -30,7 +30,7 @@ class ScribeMantleBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new NavigationRegistrarCompilerPass);
-        $container->addCompilerPass(new NodeRendererCompilerPass);
+        $container->addCompilerPass(new NavigationRegistrarCompilerPass());
+        $container->addCompilerPass(new NodeRendererCompilerPass());
     }
 }

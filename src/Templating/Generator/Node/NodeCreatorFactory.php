@@ -12,7 +12,6 @@
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
 use Scribe\Component\DependencyInjection\Container\ServiceFinder;
-use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorInterface;
 
 /**
  * NodeCreatorFactory.
@@ -20,22 +19,22 @@ use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorInterface;
 class NodeCreatorFactory
 {
     /**
-     * Service name of Node Creator without caching
+     * Service name of Node Creator without caching.
      *
      * @var string
      */
     const NODE_CREATOR_CACHING_DISABLED = 's.mantle.node_creator_caching_disabled';
 
     /**
-     * Service name of Node Creator with caching
+     * Service name of Node Creator with caching.
      *
      * @var string
      */
     const NODE_CREATOR_CACHING_ENABLED = 's.mantle.node_creator_caching_enabled';
 
     /**
-     * @param ServiceFinder  $serviceFinder
-     * @param bool           $cacheEnabled
+     * @param ServiceFinder $serviceFinder
+     * @param bool          $cacheEnabled
      *
      * @return NodeCreatorInterface
      */

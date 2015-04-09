@@ -16,7 +16,7 @@ use Scribe\Exception\ExceptionInterface;
 /**
  * Class HierarchicalRelationshipException.
  */
-class HierarchicalRelationshipException implements ExceptionInterface 
+class HierarchicalRelationshipException implements ExceptionInterface
 {
     /**
      * Exception code for an unknown/missing entity.

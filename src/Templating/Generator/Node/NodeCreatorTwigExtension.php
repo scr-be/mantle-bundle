@@ -12,9 +12,7 @@
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
 use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
-use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorInterface;
 use Twig_Extension;
-use Twig_Environment;
 
 /**
  * Class NodeCreatorExtension.
@@ -48,8 +46,8 @@ class NodeCreatorTwigExtension extends Twig_Extension
     }
 
     /**
-     * @param Node             $node
-     * @param array            $args
+     * @param Node  $node
+     * @param array $args
      *
      * @return string
      */
@@ -59,8 +57,8 @@ class NodeCreatorTwigExtension extends Twig_Extension
     }
 
     /**
-     * @param string           $slug
-     * @param array            $args
+     * @param string $slug
+     * @param array  $args
      *
      * @return string
      */
@@ -70,8 +68,8 @@ class NodeCreatorTwigExtension extends Twig_Extension
     }
 
     /**
-     * @param string           $materializedPath
-     * @param array            $args
+     * @param string $materializedPath
+     * @param array  $args
      *
      * @return string
      */

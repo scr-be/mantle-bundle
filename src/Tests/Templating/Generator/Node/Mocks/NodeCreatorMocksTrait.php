@@ -13,7 +13,6 @@ namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
-use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererTwig;
 
 /**
  * Class NodeCreatorMocksTrait.

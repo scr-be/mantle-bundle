@@ -26,7 +26,6 @@ interface NodeCreatorInterface
      */
     public function __construct(NodeRepository $nodeRepository, NodeRendererRegistrar $rendererRegistrar);
 
-
     /**
      * Render template from Node.
      *

@@ -17,7 +17,7 @@ use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 /**
  * Class HierarchicalNodeBehaviorTrait.
  */
-trait NodeRepositoryAwareTrait 
+trait NodeRepositoryAwareTrait
 {
     /**
      * @var string
@@ -25,7 +25,7 @@ trait NodeRepositoryAwareTrait
     private $nodeRepository;
 
     /**
-     * Gets the value of nodeRepo
+     * Gets the value of nodeRepo.
      *
      * @return nodeRepo
      */
@@ -35,7 +35,7 @@ trait NodeRepositoryAwareTrait
     }
 
     /**
-     * Sets the value of nodeRepo
+     * Sets the value of nodeRepo.
      *
      * @param NodeRepository $nodeRepo
      *

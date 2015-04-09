@@ -29,7 +29,7 @@ abstract class AbstractNodeRenderer implements NodeRendererInterface
     }
 
     /**
-     * Perform any string normalization required on the passed renderName value
+     * Perform any string normalization required on the passed renderName value.
      *
      * @param string $rendererName
      *
@@ -41,7 +41,7 @@ abstract class AbstractNodeRenderer implements NodeRendererInterface
     }
 
     /**
-     * Returns the renderType name supported by this renderer implementation
+     * Returns the renderType name supported by this renderer implementation.
      *
      * @returns string
      */

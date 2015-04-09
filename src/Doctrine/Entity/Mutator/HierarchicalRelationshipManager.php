@@ -21,7 +21,7 @@ use Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException;
 /**
  * Class HierarchicalRelationshipManager.
  */
-class HierarchicalRelationshipManager 
+class HierarchicalRelationshipManager
 {
     use EntityManagerForwardableTrait,
         NodeRepositoryAwareTrait;
@@ -32,7 +32,7 @@ class HierarchicalRelationshipManager
     public function __construct(EntityManager $entityManager, NodeRepository $nodeRepo)
     {
         $this
-            ->setEntityManager($entityManager)        
+            ->setEntityManager($entityManager)
             ->setNodeRepository($nodeRepo)
         ;
     }
@@ -68,7 +68,7 @@ class HierarchicalRelationshipManager
      */
     public function deleteAndCascadeBySlug($slug)
     {
-        $node = $this->findNodeBySlug($slug); 
+        $node = $this->findNodeBySlug($slug);
 
         $this->deleteAndCascade($node);
 
@@ -84,24 +84,24 @@ class HierarchicalRelationshipManager
      */
     protected function recursivelyDeleteBranch(Node $node)
     {
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $this->recursivelyDeleteBranch($child);
         }
         $this->remove($node);
- 
-        return $this; 
+
+        return $this;
     }
 
     /**
      * Deletes given node and moves all children
      * up the chain, setting the children of node
-     * as children of node's parent. Resets all 
+     * as children of node's parent. Resets all
      * descendant relationships so materialized
      * paths stay intact.
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     public function deleteAndReparentChildren(Node $node)
     {
@@ -124,12 +124,12 @@ class HierarchicalRelationshipManager
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     protected function reparentChildrenUpBranch(Node $node)
     {
         $parent = $node->getParentNode();
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $child->setChildNodeOf($parent);
             $this->recursivelyResetRelationships($child);
         }
@@ -143,11 +143,11 @@ class HierarchicalRelationshipManager
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     protected function recursivelyResetRelationships(Node $node)
     {
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $child->setChildNodeOf($node);
             $this->recursivelyResetRelationships($child);
         }
@@ -162,12 +162,12 @@ class HierarchicalRelationshipManager
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     public function setAsRoot(Node $node)
     {
         $node->setAsRoot();
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $child->setChildNodeOf($node);
             $this->recursivelyResetRelationships($child);
         }
@@ -181,15 +181,14 @@ class HierarchicalRelationshipManager
      * are correct according to slug of given node. Triggers
      * slug event first to ensure slug is set.
      *
-     * @return void
      * @author Me
      */
     public function updateAndCascade(Node $node)
     {
         $node->triggerGenerateSlugEvent();
-        $newPath = 
-            ($node->isRootNode() ? '' : $node->getParentMaterializedPath()) .
-            $node->getMaterializedPathSeparator() . $node->getSlug()
+        $newPath =
+            ($node->isRootNode() ? '' : $node->getParentMaterializedPath()).
+            $node->getMaterializedPathSeparator().$node->getSlug()
         ;
         $node->setMaterializedPath($newPath);
 
