@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Entity\Mutator;
+namespace Scribe\MantleBundle\Doctrine\Entity\Mutator;
 
 use Scribe\Exception\ExceptionInterface;
 

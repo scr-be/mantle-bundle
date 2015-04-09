@@ -98,7 +98,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->setupAndNestXTimes();
 
         $this->setExpectedException(
-            'Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException',
+            'Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipException',
             'Node with slug foo could not be found.',
             '101'
         );

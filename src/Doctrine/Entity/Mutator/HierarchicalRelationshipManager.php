@@ -16,7 +16,7 @@ use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Doctrine\Manager\EntityManagerForwardableTrait;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
-use Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException;
+use Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipException;
 
 /**
  * Class HierarchicalRelationshipManager.
