@@ -37,11 +37,6 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
         LoggableBehaviorTrait;
 
     /**
-     * @var bool
-     */
-    private $slugDisableAutoGeneration;
-
-    /**
      * @var Scribe\MantleBundle\Model\AuthorInterface
      */
     private $author;
@@ -90,30 +85,6 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     public function getAutoSlugFields()
     {
         return ['title'];
-    }
-
-    /**
-     * Set slugDisableAutoGeneration.
-     *
-     * @param bool $slugDisableAutoGeneration
-     *
-     * @return $this
-     */
-    public function setSlugDisableAutoGeneration($slugDisableAutoGeneration)
-    {
-        $this->slugDisableAutoGeneration = $slugDisableAutoGeneration;
-
-        return $this;
-    }
-
-    /**
-     * Get slugDisableAutoGeneration.
-     *
-     * @return bool
-     */
-    public function getSlugDisableAutoGeneration()
-    {
-        return (bool) $this->slugDisableAutoGeneration;
     }
 
     /**

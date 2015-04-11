@@ -5,26 +5,28 @@ Scribe\MantleBundle\Doctrine\Entity\Node\Node:
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository
 
     id:
+
         id:
             type:      integer
             id:        true
             generator: { strategy: AUTO }
 
     fields:
+
         slug:
             type: string
             unique: true
-        slugDisableAutoGeneration:
-            type:     boolean
-            nullable: true
+
         title:
             type:   string
             length: '500'
+
         weight:
             type:     integer
             nullable: true
 
     oneToOne:
+
         latestRevision:
             targetEntity: NodeRevision
             inversedBy:   owningNode
@@ -33,11 +35,13 @@ Scribe\MantleBundle\Doctrine\Entity\Node\Node:
                 referenceColumn: id
 
     oneToMany:
+
         revisions:
             targetEntity: NodeRevision
             mappedBy:     node
 
     manyToMany:
+
         containerNodeRevisions:
             targetEntity: NodeRevision
             mappedBy:     embeddedNodes
