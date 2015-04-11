@@ -1,43 +1,43 @@
 ---
 node:
-    table: Node
+    table:   MantleBundle_Node
     service: s.mantle.node.repo
     data:
         title: 'SCR Post $n'
-        slug: 'auto$n'
+        slug:  'auto$n'
     assocs: []
 nodeRevision:
-    table: NodeRevision
+    table:   MantleBundle_NodeRevision
     service: s.mantle.node_revision.repo
     data:
         content: '# This is a head'
 nodeRenderEngine:
-    table: NodeRenderEngine
+    table:   MantleBundle_NodeRenderEngine
     service: s.mantle.node_render_engine.repo
     data:
-        slug: 'engine $n'
+        slug:    'engine $n'
         closure: '{ return foo }'
 nodeRevisionDiff:
-    table: NodeRevisionDiff
+    table:   MantleBundle_NodeRevisionDiff
     service: s.mantle.node_revision_diff.repo
     data:
         diff: |
            + foo was bar
            \- bar was foo
 asset:
-    table: Asset
+    table:   MantleBundle_Asset
     service: s.mantle.asset.repo
     data:
-        path: '/foo/bar/yo.jpeg'
+        path:    '/foo/bar/yo.jpeg'
         altText: 'a picture of yo'
 assetDescriptor:
-    table: AssetDescriptor
+    table:   MantleBundle_AssetDescriptor
     service: s.mantle.asset_descriptor.repo
     data:
         markup: '<foo/>'
 assetType:
-    table: AssetType
+    table:   MantleBundle_AssetType
     service: s.mantle.asset_type.repo
     data:
-        element: 'img'
+        element:    'img'
         attributes: "['height', 'width', alt']"
