@@ -1,20 +1,27 @@
 Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect:
-    type: entity
-    table: null
+
+    type:            entity
+    table:           MantleBundle_RouteRedirect
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository
-    fields:
+
+    id:
+
         id:
             type: integer
-            id: true
+            id:   true
             generator:
                 strategy: AUTO
+
+    fields:
+
         regex:
             type: boolean
             nullable: true
+
         pathFrom:
             type: string
             length: 510
+
         pathTo:
             type: string
             length: 510
-    lifecycleCallbacks: {  }

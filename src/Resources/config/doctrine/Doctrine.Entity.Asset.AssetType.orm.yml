@@ -1,21 +1,28 @@
 Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType:
-    type: entity
-    table: null
+
+    type:            entity
+    table:           MantleBundle_AssetType
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetTypeRepository
+
     id:
+
         id:
             type: integer
-            id: true
+            id:   true
             generator:
                 strategy: AUTO
+
     fields:
+
         element:
-            type: string
+            type:   string
             length: 255
+
         attributes:
             type: json_array
+
     oneToMany:
+
         assets:
             targetEntity: Asset
-            mappedBy: assetType
-    lifecycleCallbacks: {  }
+            mappedBy:     assetType

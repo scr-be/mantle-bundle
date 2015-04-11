@@ -1,15 +1,18 @@
 Scribe\MantleBundle\Doctrine\Entity\Icon\Icon:
 
     type:            entity
-    table:           null
+    table:           MantleBundle_Icon
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
 
-    fields:
+    id:
 
         id:
-            type:      integer
-            id:        true
-            generator: { strategy: AUTO }
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+
+    fields:
 
         slug:
             type:   string
@@ -42,7 +45,7 @@ Scribe\MantleBundle\Doctrine\Entity\Icon\Icon:
             targetEntity: IconFamily
             inversedBy:   icons
             joinTable:
-                name: Icon_MaptoFamilies
+                name: MantleBundle_Icon_MaptoFamilies
                 joinColumns:
                     iconId:
                         referencedColummnName: id

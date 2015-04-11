@@ -1,15 +1,18 @@
 Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate:
 
     type:            entity
-    table:           null
+    table:           MantleBundle_IconTemplate
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Icon\IconTemplateRepository
 
-    fields:
+    id:
 
         id:
-            type:      integer
-            id:        true
-            generator: { strategy: AUTO }
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+
+    fields:
 
         slug:
             type:   string

@@ -1,44 +1,57 @@
 Scribe\MantleBundle\Doctrine\Entity\Asset\Asset:
-    type: entity
-    table: null
+
+    type:            entity
+    table:           MantleBundle_Asset
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetRepository
+
     id:
+
         id:
             type: integer
-            id: true
+            id:   true
             generator:
                 strategy: AUTO
+
     fields:
+
         path:
-            type: text
+            type:     text
             nullable: true
+
         embeddedCode:
-            type: text
+            type:     text
             nullable: true
+
         height:
-            type: integer
+            type:     integer
             nullable: true
+
         width:
-            type: integer
+            type:     integer
             nullable: true
+
         altText:
-            type: text
+            type:     text
             nullable: true
+
     manyToOne:
+
         assetType:
             targetEntity: AssetType
-            inversedBy: assets
+            inversedBy:   assets
             joinColumn:
-                name: assetTypeId
+                name:            assetTypeId
                 referenceColumn: id
+
         assetDescriptor:
             targetEntity: AssetDescriptor
-            inversedBy: assets
+            inversedBy:   assets
             joinColumn:
-                name: assetDescriptorId
+                name:            assetDescriptorId
                 referenceColumn: id
+
     manyToMany:
+
         containerNodeRevisions:
             targetEntity: Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision
-            mappedBy: embeddedAssets
-    lifecycleCallbacks: {  }
+            mappedBy:     embeddedAssets

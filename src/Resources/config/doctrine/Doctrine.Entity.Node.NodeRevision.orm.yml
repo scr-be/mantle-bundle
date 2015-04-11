@@ -1,7 +1,7 @@
 Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision:
 
     type:            entity
-    table:           null
+    table:           MantleBundle_NodeRevision
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionRepository
 
     id:
@@ -44,7 +44,7 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision:
             targetEntity: Node
             inversedBy:   containerNodeRevisions
             joinTable:
-                name:               NodeRevisionMapToEmbeddedNode
+                name:               MantleBundle_NodeRevision_MapTo_EmbeddedNode
                 joinColumns:        { nodeRevisionId: { referencedColumnId: id } }
                 inverseJoinColumns: { nodeId: { referencedColumnId: id } }
 
@@ -52,6 +52,6 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision:
             targetEntity: Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
             inversedBy:   containerNodeRevisions
             joinTable:
-                name:               NodeRevisionMapToAsset
+                name:               MantleBundle_NodeRevision_MapTo_Asset
                 joinColumns:        { nodeRevisionId: { referencedColumnId: id } }
                 inverseJoinColumns: { assetId:        { referencedColumnId: id } }

@@ -1,15 +1,18 @@
 Scribe\MantleBundle\Doctrine\Entity\Route\Route:
 
     type:            entity
-    table:           null
+    table:           MantleBundle_Route
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
 
-    fields:
+    id:
 
         id:
-            type:      integer
-            id:        true
-            generator: { strategy: AUTO }
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+
+    fields:
 
         name:
             type:   string

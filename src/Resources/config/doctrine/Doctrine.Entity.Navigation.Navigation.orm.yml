@@ -1,7 +1,7 @@
 Scribe\MantleBundle\Doctrine\Entity\Navigation\Navigation:
 
     type:            entity
-    table:           null
+    table:           MantleBundle_Navigation
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Navigation\Navigation
 
     id:

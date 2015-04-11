@@ -1,7 +1,7 @@
 Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine:
 
-    type: entity
-    table: null
+    type:            entity
+    table:           MantleBundle_NodeRenderEngine
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRenderEngineRepository
 
     id:
