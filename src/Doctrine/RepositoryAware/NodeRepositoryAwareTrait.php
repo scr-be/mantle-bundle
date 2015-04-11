@@ -96,7 +96,6 @@ trait NodeRepositoryAwareTrait
     protected function findNodeByField($field, $repoMagicMethod, $criteria)
     {
         try {
-            /* var_dump($this->getNodeRepository()->loadBySlug($criteria)); */ 
             $node = $this
                 ->getNodeRepository()
                 ->{$repoMagicMethod}($criteria)
