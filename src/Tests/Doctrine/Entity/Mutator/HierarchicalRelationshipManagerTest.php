@@ -54,13 +54,20 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->firstNode = $this->nodeRows()[0];
     }
 
+    public function setupAndNestXTimes($x = 3)
+    {
+        $this->setupAndExercise($x);
+        $this->firstNode->setAsRoot();
+        for ($k = 0; $k < ($x - 1); $k++) {
+            $this->nodes[$k + 1]->setChildNodeOf($this->nodes[$k]); 
+        }
+    }
+
+    //## deleteAndCascade tests
+
     public function testCascadeDeletion()
     {
-        $this->setupAndExercise(3);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-
+        $this->setupAndNestXTimes();
         $this->manager->deleteAndCascade($this->firstNode);
 
         $this->assertEmpty($this->nodeRows());
@@ -68,60 +75,80 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
     public function testCascadeDeleteBySlug()
     {
-        $this->setupAndExercise(3);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-
+        $this->setupAndNestXTimes();
         $this->manager->deleteAndCascadeBySlug($this->firstNode->getSlug());
+
+        $this->assertEmpty($this->nodeRows());
+    }
+
+    public function testCascadeDeleteByMaterializedPath()
+    {
+        $this->setupAndNestXTimes();
+        $this->em->flush();
+        $this->manager->deleteAndCascadeByMaterializedPath($this->firstNode->getMaterializedPath());
 
         $this->assertEmpty($this->nodeRows());
     }
 
     public function testCascaseDeletionByBadSlugErrors()
     {
-        $this->markTestSkipped(
-          'Not behaving as expected; NodeRepo returning null for bad slug.'
-        );
-        $this->setupAndExercise(3);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
+        $this->setupAndNestXTimes();
 
         $this->setExpectedException(
-            'Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException',
+            'Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipException',
             'Node with slug foo could not be found.',
-            '101'
+            '201'
         );
         $this->manager->deleteAndCascadeBySlug('foo');
     }
 
-    public function testCascadeDeleteAndReparent()
+    public function testCascadeDeletionFromService()
     {
-        $this->setupAndExercise(4);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->setupAndNestXTimes();
+        $newManager = $this->container->get('s.mantle.hier_rel_manager');
+        $newManager->deleteAndCascade($this->firstNode);
 
-        $this->manager->deleteAndReparentChildren($this->nodes[1]);
+        $this->assertEmpty($this->nodeRows());
+    }
 
+    //## deleteAndReparentChildren tests
+
+    public function assertDeletedAndReparentedCorrectly()
+    {
         $this->assertSame(3, sizeof($this->nodeRows()));
         $this->assertSame($this->firstNode, $this->nodes[2]->getParentNode());
         $this->assertSame($this->nodes[2], $this->nodes[3]->getParentNode());
     }
 
-    public function testCascadeSetAsRoot()
+    public function testCascadeDeleteAndReparent()
     {
-        $this->setupAndExercise(4);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->setupAndNestXTimes(4);
+        $this->manager->deleteAndReparentChildren($this->nodes[1]);
+
+        $this->assertDeletedAndReparentedCorrectly();
+    }
+
+    public function testCascadeDeleteAndReparentBySlug()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->manager->deleteAndReparentChildrenBySlug($this->nodes[1]->getSlug());
+
+        $this->assertDeletedAndReparentedCorrectly();
+    }
+
+    public function testCascadeDeleteAndReparentByMaterializedPath()
+    {
+        $this->setupAndNestXTimes(4);
         $this->em->flush();
+        $this->manager->deleteAndReparentChildrenByMaterializedPath($this->nodes[1]->getMaterializedPath());
 
-        $this->manager->setAsRoot($this->nodes[1]);
+        $this->assertDeletedAndReparentedCorrectly();
+    }
 
+    //## setAsRoot tests
+
+    public function assertSetNodeAsRootCorrectly()
+    {
         $root = $this->repo->getTree('/'. $this->nodes[1]->getSlug());
         $this->assertSame($this->nodes[1]->getSlug(), $root->getSlug());
         $this->assertSame($this->nodes[2], $root->getChildNodes()[0]);
@@ -131,18 +158,57 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->assertSame($this->nodes[3], $leaf);
     }
 
+    public function testCascadeSetAsRoot()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->em->flush();
+        $this->manager->setAsRoot($this->nodes[1]);
+
+        $this->assertSetNodeAsRootCorrectly();
+    }
+
+    public function testCascadeSetAsRootBySlug()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->em->flush();
+        $this->manager->setAsRootBySlug($this->nodes[1]->getSlug());
+
+        $this->assertSetNodeAsRootCorrectly();
+    }
+
+    public function testCascadeSetAsRootByMaterializedPath()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->em->flush();
+        $this->manager->setAsRootByMaterializedPath($this->nodes[1]->getMaterializedPath());
+
+        $this->assertSetNodeAsRootCorrectly();
+    }
+
+    //## updateAndCascade tests
+
     public function testCascadeOnSlugUpdate()
     {
-        $this->setupAndExercise(4);
-        $this->firstNode->setAsRoot();
-        $this->nodes[1]->setChildNodeOf($this->firstNode);
-        $this->nodes[2]->setChildNodeOf($this->nodes[1]);
-        $this->nodes[3]->setChildNodeOf($this->nodes[2]);
+        $this->setupAndNestXTimes(4);
         $this->em->flush();
 
         $newSlug = 'foo';
         $this->firstNode->setSlug($newSlug);
         $this->manager->updateAndCascade($this->firstNode);
+
+        foreach($this->nodeRows() as $n) {
+            $this->assertRegExp('/'.$newSlug.'/', $n->getMaterializedPath());
+        }
+    }
+
+    public function testCascadeOnSlugUpdateByMaterializedPath()
+    {
+        $this->setupAndNestXTimes(4);
+        $this->em->flush();
+
+        $newSlug = 'foo';
+        $this->firstNode->setSlug($newSlug);
+        $this->manager->updateAndCascadeByMaterializedPath($this->firstNode->getMaterializedPath());
 
         foreach($this->nodeRows() as $n) {
             $this->assertRegExp('/'.$newSlug.'/', $n->getMaterializedPath());

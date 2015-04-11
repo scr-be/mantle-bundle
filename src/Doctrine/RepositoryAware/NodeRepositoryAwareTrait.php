@@ -55,7 +55,7 @@ trait NodeRepositoryAwareTrait
      */
     protected function findNodeBySlug($slug)
     {
-        $node = $this->findNodeByField('slug', 'findOneBySlug', $slug);
+        $node = $this->findNodeByField('slug', 'loadBySlug', $slug);
 
         return $node;
     }
@@ -67,7 +67,7 @@ trait NodeRepositoryAwareTrait
      */
     protected function findNodeByMaterializedPath($materializedPath)
     {
-        $node = $this->findNodeByField('materializedPath', 'findOneByMaterializedPath', $materializedPath);
+        $node = $this->findNodeByField('materializedPath', 'loadByMaterializedPath', $materializedPath);
 
         return $node;
     }
@@ -85,6 +85,7 @@ trait NodeRepositoryAwareTrait
     protected function findNodeByField($field, $repoMagicMethod, $criteria)
     {
         try {
+            /* var_dump($this->getNodeRepository()->loadBySlug($criteria)); */ 
             $node = $this
                 ->getNodeRepository()
                 ->{$repoMagicMethod}($criteria)

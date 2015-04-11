@@ -16,12 +16,13 @@ use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Doctrine\Manager\EntityManagerForwardableTrait;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
-use Scribe\MantleBundle\Entity\Mutator\HierarchicalRelationshipException;
+use Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipException;
+use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareInterface;
 
 /**
  * Class HierarchicalRelationshipManager.
  */
-class HierarchicalRelationshipManager 
+class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
 {
     use EntityManagerForwardableTrait,
         NodeRepositoryAwareTrait;
@@ -35,6 +36,42 @@ class HierarchicalRelationshipManager
             ->setEntityManager($entityManager)        
             ->setNodeRepository($nodeRepo)
         ;
+    }
+
+    /**
+     * Finds node by slug. Finds and performs
+     * appropriate method based on calling method name.
+     *
+     * @param string $functionName
+     * @param string $slug
+     *
+     * @return $this 
+     */
+    protected function performActionBySlug($functionName, $slug)
+    {
+        $performer = substr($functionName, 0, -6); 
+        $node = $this->findNodeBySlug($slug);
+        $this->{$performer}($node);
+
+        return $this;
+    }
+
+    /**
+     * Finds node by materializedPath. Finds and performs
+     * appropriate method based on calling method name.
+     *
+     * @param string $functionName
+     * @param string $slug
+     *
+     * @return $this 
+     */
+    protected function performActionByMaterializedPath($functionName, $materializedPath)
+    {
+        $performer = substr($functionName, 0, -18); 
+        $node = $this->findNodeByMaterializedPath($materializedPath);
+        $this->{$performer}($node);
+
+        return $this;
     }
 
     /**
@@ -68,11 +105,22 @@ class HierarchicalRelationshipManager
      */
     public function deleteAndCascadeBySlug($slug)
     {
-        $node = $this->findNodeBySlug($slug); 
+        $this->performActionBySlug(__FUNCTION__, $slug);
+    }
 
-        $this->deleteAndCascade($node);
-
-        return $this;
+    /**
+     * Finds node by materializedPath.
+     * Deletes node and recursively deletes children
+     * of node, their children, etc. Treats given node
+     * as entire branch to be trimmed. Flushes changes.
+     *
+     * @param string $materializedPath
+     *
+     * @return $this
+     */
+    public function deleteAndCascadeByMaterializedPath($materializedPath)
+    {
+        $this->performActionByMaterializedPath(__FUNCTION__, $materializedPath);
     }
 
     /**
@@ -115,6 +163,40 @@ class HierarchicalRelationshipManager
         ;
 
         return $this;
+    }
+
+    /**
+     * Finds node by slug.
+     * Deletes given node and moves all children
+     * up the chain, setting the children of node
+     * as children of node's parent. Resets all 
+     * descendant relationships so materialized
+     * paths stay intact.
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function deleteAndReparentChildrenBySlug($slug)
+    {
+        $this->performActionBySlug(__FUNCTION__, $slug);
+    }
+
+    /**
+     * Finds node by materializedPath.
+     * Deletes given node and moves all children
+     * up the chain, setting the children of node
+     * as children of node's parent. Resets all 
+     * descendant relationships so materialized
+     * paths stay intact.
+     *
+     * @param string $materializedPath
+     *
+     * @return $this
+     */
+    public function deleteAndReparentChildrenByMaterializedPath($materializedPath)
+    {
+        $this->performActionByMaterializedPath(__FUNCTION__, $materializedPath);
     }
 
     /**
@@ -177,6 +259,36 @@ class HierarchicalRelationshipManager
     }
 
     /**
+     * Finds node by slug.
+     * Sets given node as a root node.
+     * Recursively resestablishes parentage to
+     * maintain materialized path integrity.
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
+    public function setAsRootBySlug($slug)
+    {
+        $this->performActionBySlug(__FUNCTION__, $slug);
+    }
+
+    /**
+     * Finds node by materializedPath.
+     * Sets given node as a root node.
+     * Recursively resestablishes parentage to
+     * maintain materialized path integrity.
+     *
+     * @param string $materializedPath
+     *
+     * @return $this
+     */
+    public function setAsRootByMaterializedPath($materializedPath)
+    {
+        $this->performActionByMaterializedPath(__FUNCTION__, $materializedPath);
+    }
+
+    /**
      * Ensures materializedPath and paths for all children
      * are correct according to slug of given node. Triggers
      * slug event first to ensure slug is set.
@@ -201,7 +313,31 @@ class HierarchicalRelationshipManager
         return $this;
     }
 
-    protected function unfoundEntityException($field, $criteria, $e)
+    /**
+     * Finds node by materializedPath.
+     * Ensures materializedPath and paths for all children
+     * are correct according to slug of given node. Triggers
+     * slug event first to ensure slug is set.
+     *
+     * @param string $materializedPath
+     *
+     * @return $this
+     */
+    public function updateAndCascadeByMaterializedPath($materializedPath)
+    {
+        $this->performActionByMaterializedPath(__FUNCTION__, $materializedPath);
+    }
+
+    /**
+     * throws domain-specific exception for unfound Node
+     *
+     * @param string $field
+     * @param string $criteria
+     * @param \Exception $e
+     *
+     * @throws HierarchicalRelationshipException
+     */
+    public function unfoundEntityException($field, $criteria, $e)
     {
         throw new HierarchicalRelationshipException(
             sprintf('Node with %s %s could not be found.', $field, $criteria),

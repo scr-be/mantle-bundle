@@ -82,6 +82,10 @@ parameters:
     s.mantle.node_creator.renderer.twig.class:                          Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererTwig
     s.mantle.node_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorTwigExtension
 
+    # Node Handler Services
+
+    s.mantle.hier_rel_manager.class:                                    Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipManager
+
     # Navigation Creator Services
 
     s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
@@ -355,6 +359,14 @@ services:
             - @s.mantle.node_creator
         tags:
             - { name: twig.extension }
+
+    # Node Handler Services
+
+    s.mantle.hier_rel_manager:
+        class: %s.mantle.hier_rel_manager.class%
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @s.mantle.node.repo 
 
     # Bundle Information Services
 

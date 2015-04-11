@@ -150,17 +150,17 @@ trait NodeCreatorMocksTrait
 
         $nodeRepo = $this
             ->getMockBuilder('Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository')
-            ->setMethods(['findOneBySlug', 'findOneByMaterializedPath'])
+            ->setMethods(['loadBySlug', 'loadByMaterializedPath'])
             ->disableOriginalConstructor()
             ->getMock()
         ;
         $nodeRepo
-            ->method('findOneBySlug')
+            ->method('loadBySlug')
             ->with('post_1')
             ->willReturn($node)
         ;
         $nodeRepo
-            ->method('findOneByMaterializedPath')
+            ->method('loadByMaterializedPath')
             ->with('/post_1')
             ->willReturn($node)
         ;
@@ -171,7 +171,7 @@ trait NodeCreatorMocksTrait
     protected function mockNodeTwigEntities()
     {
         $this->nodeRepo = $this->mockNodeRepository();
-        $this->node = $this->nodeRepo->findOneBySlug('post_1');
+        $this->node = $this->nodeRepo->loadBySlug('post_1');
     }
 
     protected function mockNodeNothingEntities()

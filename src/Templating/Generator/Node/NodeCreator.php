@@ -15,16 +15,15 @@ use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererInterface;
 use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar;
+use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
+use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareInterface;
 
 /**
  * Class NodeCreator.
  */
-class NodeCreator implements NodeCreatorInterface
+class NodeCreator implements NodeCreatorInterface, NodeRepositoryAwareInterface
 {
-    /**
-     * @var NodeRepository
-     */
-    private $nodeRepository;
+    use NodeRepositoryAwareTrait;
 
     /**
      * @var NodeRendererRegistrar
@@ -146,55 +145,21 @@ class NodeCreator implements NodeCreatorInterface
     }
 
     /**
-     * Find node by slug.
-     *
-     * @param string $slug
-     */
-    protected function findNodeBySlug($slug)
-    {
-        $node = $this->findNodeByField('slug', 'findOneBySlug', $slug);
-
-        return $node;
-    }
-
-    /**
-     * Find node by materializedPath.
-     *
-     * @param string $materializedPath
-     */
-    protected function findNodeByMaterializedPath($materializedPath)
-    {
-        $node = $this->findNodeByField('materializedPath', 'findOneByMaterializedPath', $materializedPath);
-
-        return $node;
-    }
-
-    /**
-     * Generic method for finding node based on given
-     * field and value.
+     * throws domain-specific exception for unfound Node
      *
      * @param string $field
-     * @param string $repoMagicMethod
      * @param string $criteria
+     * @param \Exception $e
      *
-     * @throws NodeException
+     * @throws NodeException 
      */
-    protected function findNodeByField($field, $repoMagicMethod, $criteria)
+    public function unfoundEntityException($field, $criteria, $e)
     {
-        try {
-            $node = $this
-                ->nodeRepository
-                ->{$repoMagicMethod}($criteria)
-            ;
-
-            return $node;
-        } catch (\Exception $e) {
-            throw new NodeException(
-                sprintf('Node with %s %s could not be found.', $field, $criteria),
-                NodeException::CODE_MISSING_ENTITY,
-                $e
-            );
-        }
+        throw new NodeException(
+            sprintf('Node with %s %s could not be found.', $field, $criteria),
+            NodeException::CODE_MISSING_ENTITY,
+            $e
+        );
     }
 }
 

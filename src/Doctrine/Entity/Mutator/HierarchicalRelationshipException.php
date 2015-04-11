@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Entity\Mutator;
+namespace Scribe\MantleBundle\Doctrine\Entity\Mutator;
 
-use Scribe\Exception\ExceptionInterface;
+use Scribe\Exception\RuntimeException;
 
 /**
  * Class HierarchicalRelationshipException.
  */
-class HierarchicalRelationshipException implements ExceptionInterface 
+class HierarchicalRelationshipException extends RuntimeException 
 {
     /**
      * Exception code for an unknown/missing entity.
