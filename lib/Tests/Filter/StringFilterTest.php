@@ -12,12 +12,12 @@
 namespace Scribe\Tests\Filter;
 
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
-use Scribe\Filter\String;
+use Scribe\Filter\StringFilter;
 
 class StringTest extends AbstractMantleTestCase
 {
     /**
-     * @var Scribe\Filter\String
+     * @var StringFilter
      */
     protected $filterString;
 
@@ -25,7 +25,7 @@ class StringTest extends AbstractMantleTestCase
     {
         parent::setUp();
 
-        $this->filterString = new String();
+        $this->filterString = new StringFilter();
     }
 
     public function testAlphanumericOnly()

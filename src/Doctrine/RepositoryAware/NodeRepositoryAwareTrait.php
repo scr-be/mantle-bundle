@@ -20,14 +20,14 @@ use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 trait NodeRepositoryAwareTrait
 {
     /**
-     * @var string
+     * @var NodeRepository
      */
     private $nodeRepository;
 
     /**
      * Gets the value of nodeRepo.
      *
-     * @return nodeRepo
+     * @return NodeRepoRepository
      */
     protected function getNodeRepository()
     {

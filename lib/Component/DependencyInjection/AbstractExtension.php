@@ -17,7 +17,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Scribe\Utility\String;
+use Scribe\Filter\StringFilter;
 use Scribe\Exception\RuntimeException;
 use Scribe\Component\DependencyInjection\Loader\XmlFileLoader;
 use Scribe\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -88,7 +88,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      */
     protected function setIndexPrefix($prefix)
     {
-        String::isLongerThan($prefix, 0);
+        StringFilter::isLongerThan($prefix, 0);
         $this->indexPrefix = (string) $prefix;
 
         return $this;
@@ -113,7 +113,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      */
     protected function setIndexSeparator($separator)
     {
-        String::isLongerThan($separator, 0);
+        StringFilter::isLongerThan($separator, 0);
         $this->indexSeparator = (string) $separator;
 
         return $this;
