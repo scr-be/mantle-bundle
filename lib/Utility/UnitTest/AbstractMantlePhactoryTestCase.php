@@ -211,7 +211,7 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
                 ->container
                 ->get($this->config[$type]['service'])
                 ->findAll()
-                ;
+            ;
         } else {
             throw new \Exception("{$method} is not an available method in ".get_class($this));
         }

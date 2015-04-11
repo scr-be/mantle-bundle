@@ -19,21 +19,21 @@ use Twig_Environment;
 class NodeRendererTwig extends AbstractNodeRenderer
 {
     /**
-     * The supported slug (name) of this renderer
+     * The supported slug (name) of this renderer.
      *
      * @var string
      */
     const SUPPORTED_NAME = 'twig';
 
     /**
-     * Twig enviornment used to render twig templates from strings
+     * Twig enviornment used to render twig templates from strings.
      *
      * @var Twig_Environment
      */
     private $twigEnv;
 
     /**
-     * Construct the renderer with the required Twig_Enviornment
+     * Construct the renderer with the required Twig_Enviornment.
      *
      * @param Twig_Environment $twigEnv
      */
@@ -67,7 +67,7 @@ class NodeRendererTwig extends AbstractNodeRenderer
     }
 
     /**
-     * Render a node item
+     * Render a node item.
      *
      * @param string $string The content/template to be rendered
      * @param array  $args   Arguments to pass to the renderer
@@ -88,7 +88,7 @@ class NodeRendererTwig extends AbstractNodeRenderer
     }
 
     /**
-     * Returns the renderType name supported by this renderer implementation
+     * Returns the renderType name supported by this renderer implementation.
      *
      * @returns string
      */

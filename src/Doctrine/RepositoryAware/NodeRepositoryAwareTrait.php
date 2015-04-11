@@ -17,17 +17,28 @@ use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 /**
  * Class HierarchicalNodeBehaviorTrait.
  */
-trait NodeRepositoryAwareTrait 
+trait NodeRepositoryAwareTrait
 {
     /**
-     * @var string
+     * @var NodeRepository
      */
     private $nodeRepository;
 
     /**
-     * Gets the value of nodeRepo
+     * @param string $field
+     * @param string $criteria
+     * @param \Exception $exception
      *
-     * @return nodeRepo
+     * @throws \Exception
+     *
+     * @return mixed
+     */
+    abstract public function throwNotFoundEntityException($field, $criteria, \Exception $exception);
+
+    /**
+     * Gets the value of nodeRepo.
+     *
+     * @return NodeRepoRepository
      */
     protected function getNodeRepository()
     {
@@ -35,7 +46,7 @@ trait NodeRepositoryAwareTrait
     }
 
     /**
-     * Sets the value of nodeRepo
+     * Sets the value of nodeRepo.
      *
      * @param NodeRepository $nodeRepo
      *
@@ -93,7 +104,7 @@ trait NodeRepositoryAwareTrait
 
             return $node;
         } catch (\Exception $e) {
-            $this->unfoundEntityException($field, $criteria, $e);
+            $this->throwNotFoundEntityException($field, $criteria, $e);
         }
     }
 }

@@ -16,7 +16,16 @@ namespace Scribe\MantleBundle\Doctrine\RepositoryAware;
  */
 interface NodeRepositoryAwareInterface
 {
-    public function unfoundEntityException($field, $criteria, $exception);
+    /**
+     * @param string $field
+     * @param string $criteria
+     * @param \Exception $exception
+     *
+     * @throws \Exception
+     *
+     * @return mixed
+     */
+    public function throwNotFoundEntityException($field, $criteria, \Exception $exception);
 }
 
 /* EOF */

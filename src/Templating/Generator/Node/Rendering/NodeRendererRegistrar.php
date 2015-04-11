@@ -22,7 +22,7 @@ class NodeRendererRegistrar
     protected $nodeRendererHandlers;
 
     /**
-     * Construct object with empty handlers array
+     * Construct object with empty handlers array.
      */
     public function __construct()
     {
@@ -30,12 +30,10 @@ class NodeRendererRegistrar
     }
 
     /**
-     * Add render handler
+     * Add render handler.
      *
      * @param NodeRendererInterface $nodeRenderer
      * @param int|null              $priority
-     *
-     * @return void
      */
     public function addHandler(NodeRendererInterface $nodeRenderer, $priority = null)
     {
@@ -47,7 +45,7 @@ class NodeRendererRegistrar
     }
 
     /**
-     * Get renderer
+     * Get renderer.
      *
      * @param string $rendererType
      *
@@ -57,14 +55,13 @@ class NodeRendererRegistrar
     {
         ksort($this->nodeRendererHandlers);
 
-        foreach ($this->nodeRendererHandlers as $renderer)
-        {
+        foreach ($this->nodeRendererHandlers as $renderer) {
             if ($renderer->isSupported($rendererType)) {
                 return $renderer;
             }
         }
 
-        return null;
+        return;
     }
 }
 

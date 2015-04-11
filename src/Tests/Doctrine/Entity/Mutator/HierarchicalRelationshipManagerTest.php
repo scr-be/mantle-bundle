@@ -32,12 +32,12 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
     private $nodes;
 
     /**
-     * @var NodeRepository 
+     * @var NodeRepository
      */
     private $repo;
 
     /**
-     * @var HierarchicalRelationshipManager 
+     * @var HierarchicalRelationshipManager
      */
     private $manager;
 
@@ -196,7 +196,7 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
         $this->firstNode->setSlug($newSlug);
         $this->manager->updateAndCascade($this->firstNode);
 
-        foreach($this->nodeRows() as $n) {
+        foreach ($this->nodeRows() as $n) {
             $this->assertRegExp('/'.$newSlug.'/', $n->getMaterializedPath());
         }
     }

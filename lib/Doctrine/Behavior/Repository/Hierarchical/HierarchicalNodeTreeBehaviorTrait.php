@@ -30,9 +30,11 @@ trait HierarchicalNodeTreeBehaviorTrait
      */
     public function getRootNodesQB($rootAlias = 't')
     {
-        return $this->createQueryBuilder($rootAlias)
+        return $this
+            ->createQueryBuilder($rootAlias)
             ->andWhere($rootAlias.'.materializedPath = :empty')
-            ->setParameter('empty', '');
+            ->setParameter('empty', '')
+        ;
     }
 
     /**
@@ -49,7 +51,8 @@ trait HierarchicalNodeTreeBehaviorTrait
         return $this
             ->getRootNodesQB($rootAlias)
             ->getQuery()
-            ->execute();
+            ->execute()
+        ;
     }
 
     /**
@@ -69,6 +72,12 @@ trait HierarchicalNodeTreeBehaviorTrait
         return $this->buildTree($results);
     }
 
+    /**
+     * @param HierarchicalNodeInterface $entity
+     * @param string                    $rootAlias
+     *
+     * @return QueryBuilder
+     */
     public function getTreeExceptNodeAndItsChildrenQB(HierarchicalNodeInterface $entity, $rootAlias = 't')
     {
         return $this->getFlatTreeQB('', $rootAlias)
@@ -76,7 +85,7 @@ trait HierarchicalNodeTreeBehaviorTrait
             ->andWhere($rootAlias.'.id != :id')
             ->setParameter('except_path', $entity->getRealMaterializedPath().'%')
             ->setParameter('id', $entity->getId())
-            ;
+        ;
     }
 
     /**
@@ -148,7 +157,7 @@ trait HierarchicalNodeTreeBehaviorTrait
             ->getFlatTreeQB($path, $rootAlias)
             ->getQuery()
             ->execute()
-            ;
+        ;
     }
 }
 

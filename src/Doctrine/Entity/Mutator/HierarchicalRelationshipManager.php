@@ -33,7 +33,7 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
     public function __construct(EntityManager $entityManager, NodeRepository $nodeRepo)
     {
         $this
-            ->setEntityManager($entityManager)        
+            ->setEntityManager($entityManager)
             ->setNodeRepository($nodeRepo)
         ;
     }
@@ -132,24 +132,24 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      */
     protected function recursivelyDeleteBranch(Node $node)
     {
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $this->recursivelyDeleteBranch($child);
         }
         $this->remove($node);
- 
-        return $this; 
+
+        return $this;
     }
 
     /**
      * Deletes given node and moves all children
      * up the chain, setting the children of node
-     * as children of node's parent. Resets all 
+     * as children of node's parent. Resets all
      * descendant relationships so materialized
      * paths stay intact.
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     public function deleteAndReparentChildren(Node $node)
     {
@@ -206,12 +206,12 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     protected function reparentChildrenUpBranch(Node $node)
     {
         $parent = $node->getParentNode();
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $child->setChildNodeOf($parent);
             $this->recursivelyResetRelationships($child);
         }
@@ -225,11 +225,11 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     protected function recursivelyResetRelationships(Node $node)
     {
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $child->setChildNodeOf($node);
             $this->recursivelyResetRelationships($child);
         }
@@ -244,12 +244,12 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      *
      * @param Node $node
      *
-     * @return $this 
+     * @return $this
      */
     public function setAsRoot(Node $node)
     {
         $node->setAsRoot();
-        foreach($node->getChildNodes() as $child) {
+        foreach ($node->getChildNodes() as $child) {
             $child->setChildNodeOf($node);
             $this->recursivelyResetRelationships($child);
         }
@@ -276,7 +276,7 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
     /**
      * Finds node by materializedPath.
      * Sets given node as a root node.
-     * Recursively resestablishes parentage to
+     * Recursively reestablishes parentage to
      * maintain materialized path integrity.
      *
      * @param string $materializedPath
@@ -289,19 +289,19 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
     }
 
     /**
-     * Ensures materializedPath and paths for all children
-     * are correct according to slug of given node. Triggers
+     * Ensures materializedPath and paths for all children are correct according to slug of given node. Triggers
      * slug event first to ensure slug is set.
      *
-     * @return void
-     * @author Me
+     * @param Node $node
+     *
+     * @return $this
      */
     public function updateAndCascade(Node $node)
     {
         $node->triggerGenerateSlugEvent();
-        $newPath = 
-            ($node->isRootNode() ? '' : $node->getParentMaterializedPath()) .
-            $node->getMaterializedPathSeparator() . $node->getSlug()
+        $newPath =
+            ($node->isRootNode() ? '' : $node->getParentMaterializedPath()).
+            $node->getMaterializedPathSeparator().$node->getSlug()
         ;
         $node->setMaterializedPath($newPath);
 
@@ -314,10 +314,8 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
     }
 
     /**
-     * Finds node by materializedPath.
-     * Ensures materializedPath and paths for all children
-     * are correct according to slug of given node. Triggers
-     * slug event first to ensure slug is set.
+     * Finds node by materializedPath. Ensures materializedPath and paths for all children are correct according
+     * to slug of given node. Triggers slug event first to ensure slug is set.
      *
      * @param string $materializedPath
      *
@@ -329,20 +327,20 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
     }
 
     /**
-     * throws domain-specific exception for unfound Node
+     * @param string          $field
+     * @param string          $criteria
+     * @param \Exception|null $exception
      *
-     * @param string $field
-     * @param string $criteria
-     * @param \Exception $e
+     * @throws \Exception
      *
-     * @throws HierarchicalRelationshipException
+     * @return mixed
      */
-    public function unfoundEntityException($field, $criteria, $e)
+    public function throwNotFoundEntityException($field, $criteria, \Exception $exception = null)
     {
         throw new HierarchicalRelationshipException(
             sprintf('Node with %s %s could not be found.', $field, $criteria),
             HierarchicalRelationshipException::CODE_MISSING_ENTITY,
-            $e
+            $exception
         );
     }
 }

@@ -17,7 +17,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 interface NodeRendererInterface
 {
     /**
-     * Render a node item
+     * Render a node item.
      *
      * @param string $string The content/template to be rendered
      * @param array  $args   Arguments to pass to the renderer

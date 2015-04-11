@@ -11,12 +11,13 @@
 
 namespace Scribe\Filter;
 
+use Scribe\Exception\RuntimeException;
 use Scribe\Utility\Caller\Call;
 
 /**
- * Class String.
+ * Class StringFilter.
  */
-class String
+class StringFilter
 {
     /**
      * @param string $s
@@ -225,8 +226,8 @@ class String
             mb_internal_encoding($encoding);
         }
 
-        $str1Split = self::mb_str_split(mb_convert_case($str1, MB_CASE_LOWER), 1);
-        $str2Split = self::mb_str_split(mb_convert_case($str2, MB_CASE_LOWER), 1);
+        $str1Split = self::mb_str_split(mb_convert_case($str1, MB_CASE_LOWER));
+        $str2Split = self::mb_str_split(mb_convert_case($str2, MB_CASE_LOWER));
 
         if (count($str1Split) !== count($str2Split)) {
             return false;
@@ -249,13 +250,39 @@ class String
     public static function mb_str_split($string)
     {
         $stop   = mb_strlen($string);
-        $result = array();
+        $result = [];
 
         for ($idx = 0; $idx < $stop; $idx++) {
             $result[] = mb_substr($string, $idx, 1);
         }
 
         return $result;
+    }
+
+    /**
+     * Determine if string is longer than the requested length.
+     *
+     * @param string $string The string to check against
+     * @param int    $length The minimum length of the string
+     * @param bool   $throw  Whether to throw an exception or return a boolean
+     *
+     * @throws RuntimeException
+     *
+     * @return bool
+     */
+    public static function isLongerThan($string, $length, $throw = true)
+    {
+        if (true === (mb_strlen($string) < $length)) {
+            if (true === $throw) {
+                throw new RuntimeException(
+                    sprintf('The string "%s" must be greater than %n characters.', (string) $string, (int) $length)
+                );
+            }
+
+            return false;
+        }
+
+        return true;
     }
 }
 

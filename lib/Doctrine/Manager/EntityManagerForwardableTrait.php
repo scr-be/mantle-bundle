@@ -11,8 +11,6 @@
 
 namespace Scribe\Doctrine\Manager;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\ORM\EntityManager;
 use Scribe\Component\DependencyInjection\EntityManagerAwareTrait;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
@@ -22,7 +20,7 @@ use Scribe\Doctrine\Base\Entity\AbstractEntity;
 trait EntityManagerForwardableTrait
 {
     use EntityManagerAwareTrait;
- 
+
     /**
      * Forwards flush action to $entityManager.
      *
@@ -32,12 +30,12 @@ trait EntityManagerForwardableTrait
     {
         $this
             ->getEntityManager()
-            ->flush() 
+            ->flush()
         ;
 
         return $this;
     }
- 
+
     /**
      * Forwards remove action to $entityManager.
      *
@@ -49,12 +47,12 @@ trait EntityManagerForwardableTrait
     {
         $this
             ->getEntityManager()
-            ->remove($entity) 
+            ->remove($entity)
         ;
 
         return $this;
     }
- 
+
     /**
      * Forwards persist action to $entityManager.
      *
@@ -66,7 +64,7 @@ trait EntityManagerForwardableTrait
     {
         $this
             ->getEntityManager()
-            ->remove($entity) 
+            ->remove($entity)
         ;
 
         return $this;

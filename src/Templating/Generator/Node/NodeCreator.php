@@ -145,15 +145,15 @@ class NodeCreator implements NodeCreatorInterface, NodeRepositoryAwareInterface
     }
 
     /**
-     * throws domain-specific exception for unfound Node
+     * @param string          $field
+     * @param string          $criteria
+     * @param \Exception|null $exception
      *
-     * @param string $field
-     * @param string $criteria
-     * @param \Exception $e
+     * @throws \Exception
      *
-     * @throws NodeException 
+     * @return mixed
      */
-    public function unfoundEntityException($field, $criteria, $e)
+    public function throwNotFoundEntityException($field, $criteria, \Exception $e = null)
     {
         throw new NodeException(
             sprintf('Node with %s %s could not be found.', $field, $criteria),
