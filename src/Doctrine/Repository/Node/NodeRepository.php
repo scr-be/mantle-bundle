@@ -24,8 +24,10 @@ class NodeRepository extends EntityRepository
     /**
      * @param string $slug
      *
-     * @return Node 
+     * @return Node
+     *
      * @throws Exception
+     *
      * @todo move this into SlugAwareRepoTrait
      */
     public function loadBySlug($slug)
@@ -48,7 +50,8 @@ class NodeRepository extends EntityRepository
     /**
      * @param string $slug
      *
-     * @return Node 
+     * @return Node
+     *
      * @throws Exception
      */
     public function loadByMaterializedPath($materializedPath)

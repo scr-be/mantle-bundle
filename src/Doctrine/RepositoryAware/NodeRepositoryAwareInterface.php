@@ -17,8 +17,8 @@ namespace Scribe\MantleBundle\Doctrine\RepositoryAware;
 interface NodeRepositoryAwareInterface
 {
     /**
-     * @param string $field
-     * @param string $criteria
+     * @param string     $field
+     * @param string     $criteria
      * @param \Exception $exception
      *
      * @throws \Exception

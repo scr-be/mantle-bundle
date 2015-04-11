@@ -16,7 +16,6 @@ use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Doctrine\Manager\EntityManagerForwardableTrait;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
-use Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipException;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareInterface;
 
 /**
@@ -45,11 +44,11 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      * @param string $functionName
      * @param string $slug
      *
-     * @return $this 
+     * @return $this
      */
     protected function performActionBySlug($functionName, $slug)
     {
-        $performer = substr($functionName, 0, -6); 
+        $performer = substr($functionName, 0, -6);
         $node = $this->findNodeBySlug($slug);
         $this->{$performer}($node);
 
@@ -63,11 +62,11 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      * @param string $functionName
      * @param string $slug
      *
-     * @return $this 
+     * @return $this
      */
     protected function performActionByMaterializedPath($functionName, $materializedPath)
     {
-        $performer = substr($functionName, 0, -18); 
+        $performer = substr($functionName, 0, -18);
         $node = $this->findNodeByMaterializedPath($materializedPath);
         $this->{$performer}($node);
 
@@ -169,7 +168,7 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      * Finds node by slug.
      * Deletes given node and moves all children
      * up the chain, setting the children of node
-     * as children of node's parent. Resets all 
+     * as children of node's parent. Resets all
      * descendant relationships so materialized
      * paths stay intact.
      *
@@ -186,7 +185,7 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
      * Finds node by materializedPath.
      * Deletes given node and moves all children
      * up the chain, setting the children of node
-     * as children of node's parent. Resets all 
+     * as children of node's parent. Resets all
      * descendant relationships so materialized
      * paths stay intact.
      *

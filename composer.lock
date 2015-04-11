@@ -1112,12 +1112,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "19e814ee92d66ed4d1063370b7dff48b71cdfc23"
+                "reference": "1e91e8f3c4171d4ae032d96cbc3f9c26a844f66f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/19e814ee92d66ed4d1063370b7dff48b71cdfc23",
-                "reference": "19e814ee92d66ed4d1063370b7dff48b71cdfc23",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/1e91e8f3c4171d4ae032d96cbc3f9c26a844f66f",
+                "reference": "1e91e8f3c4171d4ae032d96cbc3f9c26a844f66f",
                 "shasum": ""
             },
             "require": {
@@ -1184,21 +1184,21 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-04-09 14:21:49"
+            "time": "2015-04-11 00:47:02"
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.20",
+            "version": "v3.0.21",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "48c76189fb0a76a20a4a67a750b513ed06074b55"
+                "reference": "da23c78093676a823a1ff43a214987ea3fbf83c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/48c76189fb0a76a20a4a67a750b513ed06074b55",
-                "reference": "48c76189fb0a76a20a4a67a750b513ed06074b55",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/da23c78093676a823a1ff43a214987ea3fbf83c8",
+                "reference": "da23c78093676a823a1ff43a214987ea3fbf83c8",
                 "shasum": ""
             },
             "require": {
@@ -1244,7 +1244,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-03-26 11:09:50"
+            "time": "2015-04-10 06:20:46"
         },
         {
             "name": "sensio/framework-extra-bundle",

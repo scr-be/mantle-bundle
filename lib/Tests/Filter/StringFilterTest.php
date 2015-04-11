@@ -14,7 +14,7 @@ namespace Scribe\Tests\Filter;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 use Scribe\Filter\StringFilter;
 
-class StringTest extends AbstractMantleTestCase
+class StringFilterTest extends AbstractMantleTestCase
 {
     /**
      * @var StringFilter

@@ -366,7 +366,7 @@ services:
         class: %s.mantle.hier_rel_manager.class%
         arguments:
             - @doctrine.orm.entity_manager
-            - @s.mantle.node.repo 
+            - @s.mantle.node.repo
 
     # Bundle Information Services
 
