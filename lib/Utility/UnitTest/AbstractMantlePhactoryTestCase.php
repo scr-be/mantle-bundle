@@ -97,11 +97,21 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
     }
 
     /**
+     * Gets the value of fixtureLocation
+     *
+     * @return fixtureLocation
+     */
+    public function getFixtureLocation()
+    {
+        return $this->container->getParameter('kernel.root_dir').'/../fixtures/data.yml';
+    }
+
+    /**
      * @return $this
      */
     private function setupFixtureData()
     {
-        $yamlPath = $this->container->getParameter('kernel.root_dir').'/../fixtures/data.yml';
+        $yamlPath = $this->getFixtureLocation();
         $yaml     = new Parser();
 
         try {
@@ -120,6 +130,7 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
     {
         foreach ($this->config as $type => $info) {
             $this->factory->setInflection($type, $info['table']);
+            $data = $this->setDatetimeValues($info['data']);
 
             if (array_key_exists('assocs', $info)) {
                 $tableAssocs = [];
@@ -128,13 +139,24 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
                     $tableAssocs[$name] = $this->factory->manyToOne($name, $field);
                 };
 
-                $this->factory->define($type, $info['data'], $tableAssocs);
+                $this->factory->define($type, $data, $tableAssocs);
             } else {
-                $this->factory->define($type, $info['data']);
+                $this->factory->define($type, $data);
             }
         }
 
         return $this;
+    }
+
+    protected function setDatetimeValues($data)
+    {
+        foreach ($data as $key => $value) {
+            if ($value === 'NOW') {
+                $data[$key] = date("Y-m-d H:i:s");
+            }
+        } 
+
+        return $data;
     }
 
     public function recordSampleData($type, $row)
