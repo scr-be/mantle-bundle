@@ -322,9 +322,19 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
             ->getRootDir()
         ;
 
-        $baseDir     = $kernelRoot.'/config/knowledge/shared/fixtures/';
-        $yamlPath    = $baseDir.$this->buildYamlFileName($name);
-        $yaml        = new Parser();
+        $baseDir        = $kernelRoot.'/config/knowledge/shared/fixtures/';
+        $basePublicDir  = $kernelRoot.'/config/knowledge_public/shared/fixtures/';
+        $yamlPath       = $baseDir.$this->buildYamlFileName($name);
+        $yamlPublicPath = $basePublicDir.$this->buildYamlFileName($name);
+        $yaml           = new Parser();
+
+        if (false === file_exists($yamlPath) && false === file_exists($yamlPublicPath)) {
+            throw new RuntimeException(sprintf('Unable to find YAML fixture file at %s or %s.', $yamlPath, $yamlPublicPath));
+        }
+
+        if (false === file_exists($yamlPath)) {
+            $yamlPath = $yamlPublicPath;
+        }
 
         try {
             $fixture = $yaml->parse(@file_get_contents($yamlPath));
