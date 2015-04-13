@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Entity\Icon;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
 
 /**
  * Class HasIcon.
