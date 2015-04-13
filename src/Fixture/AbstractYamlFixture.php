@@ -332,7 +332,9 @@ abstract class AbstractYamlFixture extends AbstractFixture implements OrderedFix
             throw new RuntimeException(sprintf('Unable to find YAML fixture file at %s or %s.', $yamlPath, $yamlPublicPath));
         }
 
-        if (false === file_exists($yamlPath)) {
+        if (false === file_exists($yamlPublicPath)) {
+            // do nothing
+        } else {
             $yamlPath = $yamlPublicPath;
         }
 
