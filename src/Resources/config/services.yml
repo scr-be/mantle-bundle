@@ -2,8 +2,8 @@ parameters:
 
     # Entities/Repositories
 
-    s.mantle.navigation.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Navigation\Navigation
-    s.mantle.navigation.repo.class:                                     Scribe\MantleBundle\Doctrine\EntityRepository\Navigation\NavigationRepository
+    s.mantle.navigation_set.entity.class:                               Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationSet
+    s.mantle.navigation_set.repo.class:                                 Scribe\MantleBundle\Doctrine\EntityRepository\Navigation\NavigationSetRepository
     s.mantle.navigation_item.entity.class:                              Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem
     s.mantle.navigation_item.repo.class:                                Scribe\MantleBundle\Doctrine\EntityRepository\Navigation\NavigationItemRepository
     s.mantle.route.entity.class:                                        Scribe\MantleBundle\Doctrine\Entity\Route\Route
@@ -156,12 +156,12 @@ services:
         arguments:
             - %s.mantle.route_redirect.entity.class%
 
-    s.mantle.navigation.repo:
-        class:           %s.mantle.navigation.repo.class%
+    s.mantle.navigation_set.repo:
+        class:           %s.mantle.navigation_set.repo.class%
         factory_service: doctrine
         factory_method:  getRepository
         arguments:
-            - %s.mantle.navigation.entity.class%
+            - %s.mantle.navigation_set.entity.class%
 
     s.mantle.navigation_item.repo:
         class:           %s.mantle.navigation_item.repo.class%

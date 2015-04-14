@@ -14,9 +14,13 @@ Scribe\MantleBundle\Doctrine\Entity\Route\Route:
 
     fields:
 
+        slug:
+            type:   string
+            length: 240
+
         name:
             type:   string
-            length: 120
+            length: 240
 
         parameters:
             type:     json_array

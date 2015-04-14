@@ -11,25 +11,35 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Navigation;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasAliases;
 use Scribe\Doctrine\Base\Model\HasAttributes;
 use Scribe\Doctrine\Base\Model\HasDescription;
 use Scribe\Doctrine\Base\Model\HasName;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Doctrine\Exception\ORMExceptionInterface;
-use Scribe\Doctrine\Exception\SubscriberEventORMException;
 
 /**
- * Class Navigation.
+ * Class NavigationSet.
  */
-class Navigation extends AbstractEntity
+class NavigationSet extends AbstractEntity
 {
-    use HasAliases,
-        HasName,
+    use HasName,
         HasDescription,
         HasAttributes,
         SluggableBehaviorTrait;
+
+    /**
+     * @var ArrayCollection
+     */
+    protected $navigationSet;
+
+    /**
+     * Initialize navigation set as empty array collection.
+     */
+    public function initializeNavigationSet()
+    {
+        $this->navigationSet = new ArrayCollection;
+    }
 
     /**
      * Support casting to string.
@@ -38,20 +48,19 @@ class Navigation extends AbstractEntity
      */
     public function __toString()
     {
-        return (string) (__CLASS__.':'.$this->getId());
+        return (string) $this->getSlug();
     }
 
     /**
-     * This entity must not have auto-generated slugs.
+     * Fallback for auto slug creation if one is not explicitly set
      *
-     * @throws SubscriberEventORMException
+     * @return array
      */
     public function getAutoSlugFields()
     {
-        throw new SubscriberEventORMException(
-            'This entity does not support automatically generating slugs!',
-            ORMExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL
-        );
+        return [
+            'name'
+        ];
     }
 
     /**

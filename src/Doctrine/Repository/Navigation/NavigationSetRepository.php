@@ -14,10 +14,8 @@ namespace Scribe\MantleBundle\Doctrine\Repository\Navigation;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * NavigationRepository.
+ * Class NavigationSetRepository.
  */
-class NavigationRepository extends EntityRepository
-{
-}
+class NavigationSetRepository extends EntityRepository {}
 
 /* EOF */

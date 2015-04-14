@@ -15,6 +15,7 @@ use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasName;
 use Scribe\Doctrine\Base\Model\HasDescription;
 use Scribe\Doctrine\Base\Model\HasParameters;
+use Scribe\Doctrine\Base\Model\HasSlug;
 
 /**
  * Class Route.
@@ -24,7 +25,8 @@ class Route extends AbstractEntity
     /*
      * import name, description, and parameters traits
      */
-    use HasName,
+    use HasSlug,
+        HasName,
         HasDescription,
         HasParameters;
 
