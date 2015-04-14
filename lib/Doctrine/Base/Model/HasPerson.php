@@ -21,6 +21,39 @@ trait HasPerson
         HasPersonMiddleName,
         HasPersonSurname,
         HasPersonSuffix;
+
+    /**
+     * Compiles full name string
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        $fullName = (string) (
+            $this->getHonorific().' '.
+            $this->getFirstName().' '.
+            $this->getMiddleName().' '.
+            $this->getSurname().' '.
+            $this->getSuffix()
+        );
+
+        return preg_replace('#\s+#', ' ', trim($fullName));
+    }
+
+    /**
+     * Compiles short name string
+     *
+     * @return string
+     */
+    public function getShortName()
+    {
+        $shortName = (string) (
+            $this->getFirstName().' '.
+            $this->getSurname()
+        );
+
+        return preg_replace('#\s+#', ' ', trim($shortName));
+    }
 }
 
 /* EOF */

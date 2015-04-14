@@ -12,6 +12,7 @@
 namespace Scribe\Doctrine\Base\Entity;
 
 use Scribe\Tests\Doctrine\Fixtures\BaseEntity;
+use Scribe\Tests\Doctrine\Fixtures\BaseEntityHasPerson;
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 
@@ -391,6 +392,31 @@ class EntityModelTest extends AbstractMantleTestCase
         $entity = $this->setEntityBeforeTest($trait);
         $this->performRuntime($trait, $entity);
         $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasPerson()
+    {
+        $entity = new BaseEntityHasPerson();
+        $entity
+            ->setHonorific('Mr.')
+            ->setFirstName('Rob')
+            ->setMiddleName('Martin')
+            ->setSurname('Frawley')
+            ->setSuffix('2nd')
+        ;
+
+        $this->assertEquals('Mr. Rob Martin Frawley 2nd', $entity->getFullName());
+        $this->assertEquals('Rob Frawley', $entity->getShortName());
+
+        $entity = new BaseEntityHasPerson();
+        $entity
+            ->setFirstName('Dan')
+            ->setMiddleName('F')
+            ->setSurname('Corrigan')
+        ;
+
+        $this->assertEquals('Dan F Corrigan', $entity->getFullName());
+        $this->assertEquals('Dan Corrigan', $entity->getShortName());
     }
 
     private function performRuntime($traitName, $entity)
