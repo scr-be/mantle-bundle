@@ -18,7 +18,7 @@ use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 /**
  * Class Entity.
  */
-class AbstractEntityTest extends AbstractMantleTestCase
+class EntityModelTest extends AbstractMantleTestCase
 {
     const RUNTIME_OPERATIONS_CRUD = 'runBasicCRUDOperations';
 
@@ -111,6 +111,36 @@ class AbstractEntityTest extends AbstractMantleTestCase
             'methods' => ['initializeWeight', 'setWeight', 'getWeight', 'hasWeight', 'clearWeight'],
             'op'      => [self::RUNTIME_OPERATIONS_CRUD],
             'ops'     => [10, 1, 5, 2, 9303, 2222, 3],
+        ],
+        'HasPersonHonorific' => [
+            'props'   => ['honorific'],
+            'methods' => ['initializeHonorific', 'setHonorific', 'getHonorific', 'hasHonorific', 'clearHonorific'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => ['Mr.', 'Mr.', 'Mr.', 'Prof.', 'Mrs.'],
+        ],
+        'HasPersonFirstName' => [
+            'props'   => ['firstName'],
+            'methods' => ['initializeFirstName', 'setFirstName', 'getFirstName', 'hasFirstName', 'clearFirstName'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => ['Rob', 'Dan', 'Andrew', 'David', 'Chrissy'],
+        ],
+        'HasPersonMiddleName' => [
+            'props'   => ['middleName'],
+            'methods' => ['initializeMiddleName', 'setMiddleName', 'getMiddleName', 'hasMiddleName', 'clearMiddleName'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => ['Martin', 'F', 'H', 'Alan', 'M'],
+        ],
+        'HasPersonSurname' => [
+            'props'   => ['surname'],
+            'methods' => ['initializeSurname', 'setSurname', 'getSurname', 'hasSurname', 'clearSurname'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => ['Frawley', 'Corrigan', 'Thomas', 'Rech', 'Chimi'],
+        ],
+        'HasPersonSuffix' => [
+            'props'   => ['suffix'],
+            'methods' => ['initializeSuffix', 'setSuffix', 'getSuffix', 'hasSuffix', 'clearSuffix'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => ['2nd', 'Sr.', 'I', 'Sr.', 'I'],
         ],
     ];
 
@@ -318,6 +348,46 @@ class AbstractEntityTest extends AbstractMantleTestCase
     public function testEntityTraitHasWeight()
     {
         $trait = 'HasWeight';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasPersonHonorific()
+    {
+        $trait = 'HasPersonHonorific';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasPersonFirstName()
+    {
+        $trait = 'HasPersonFirstName';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasPersonMiddleName()
+    {
+        $trait = 'HasPersonMiddleName';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasPersonSurname()
+    {
+        $trait = 'HasPersonSurname';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasPersonSuffix()
+    {
+        $trait = 'HasPersonSuffix';
         $entity = $this->setEntityBeforeTest($trait);
         $this->performRuntime($trait, $entity);
         $this->clearEntityAfterTest();

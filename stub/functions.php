@@ -50,4 +50,18 @@ function is_array_empty($item)
     return true;
 }
 
+/**
+ * @param mixed $array
+ *
+ * @return bool|int
+ */
+function count_array($array = [])
+{
+    if (false === is_array($array) && false === ($array instanceof \Countable)) {
+        return false;
+    }
+
+    return (int) count($array);
+}
+
 /* EOF */

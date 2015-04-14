@@ -12,7 +12,7 @@
 namespace Scribe\Doctrine\Base\Entity\Equatable;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Exception\RuntimeException;
+use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 
 /**
  * Interface EntityEquatableInterface
@@ -20,22 +20,19 @@ use Scribe\Exception\RuntimeException;
  */
 trait EntityEquatableTrait
 {
+    abstract public function getId();
+
     /**
      * Perform check to determining if the passed entity instance is equal
      * to self object instance.
      *
      * @param AbstractEntity $entity entity to test against
-     * @param bool           $strict should the entity id be compared or not
      *
      * @return bool
      */
-    public function isEqualTo(AbstractEntity $entity, $strict = true)
+    public function isEqualTo(AbstractEntity $entity)
     {
-        if ($strict === false) {
-            return (bool) $this == $entity;
-        }
-
-        return (bool) $this === $entity;
+        return (bool) ($this === $entity);
     }
 
     /**
@@ -43,15 +40,19 @@ trait EntityEquatableTrait
      * {@see $this->id} value as the current object. This should not allow a
      * comparison of two null id values to return true.
      *
-     * @todo   Implement this function
-     *
      * @param AbstractEntity $entity the entity object to check against
      *
      * @return bool
      */
     public function isEqualToId(AbstractEntity $entity)
     {
-        throw new RuntimeException('Not implemented '.__CLASS__.'::'.__FUNCTION__);
+        $reflectionAnalyzer = new ClassReflectionAnalyser();
+        $reflectionAnalyzer->setReflectionClassFromClassInstance($entity);
+
+        $reflectionProperty = $reflectionAnalyzer->setPropertyPublic('id');
+        $entityId           = $reflectionProperty->getValue($entity);
+
+        return (bool) ($this->getId() === $entityId ?: false);
     }
 
     /**
@@ -59,15 +60,36 @@ trait EntityEquatableTrait
      * as the current object. This includes id, as well as all other class
      * properties.
      *
-     * @todo   Implement this function
-     *
      * @param AbstractEntity $entity the entity object to check against
      *
      * @return bool
      */
     public function isEqualToProperties(AbstractEntity $entity)
     {
-        throw new RuntimeException('Not implemented '.__CLASS__.'::'.__FUNCTION__);
+        $reflectionAnalyzer = new ClassReflectionAnalyser();
+
+        $reflectionAnalyzer->setReflectionClassFromClassInstance($entity);
+        $entityProperties = $reflectionAnalyzer->getProperties(false);
+
+        $reflectionAnalyzer->setReflectionClassFromClassInstance($this);
+        $thisProperties = $reflectionAnalyzer->getProperties(false);
+
+        if (count_array($entityProperties) !== count_array($thisProperties)) {
+            return false;
+        }
+
+        foreach ($entityProperties as $i => $entityProp) {
+            $thisProp = $thisProperties[$i];
+
+            $thisProp->setAccessible(true);
+            $entityProp->setAccessible(true);
+
+            if ($thisProp->getValue($this) !== $entityProp->getValue($entity)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 

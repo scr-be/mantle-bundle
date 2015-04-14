@@ -11,9 +11,6 @@
 
 namespace Scribe\Doctrine\Base\Entity\Castable;
 
-use Scribe\Doctrine\Exception\EntityDataStateORMException;
-use Scribe\Doctrine\Exception\ORMExceptionInterface;
-
 /**
  * Trait EntityCastableTrait
  * Enable casting entity to string.
@@ -21,23 +18,25 @@ use Scribe\Doctrine\Exception\ORMExceptionInterface;
 trait EntityCastableTrait
 {
     /**
+     * @return null|int
+     */
+    abstract public function getId();
+
+    /**
      * Support for explicit/implicit casting from object to string. This function should be explicitly implemented
      * in each entity, though a default implementation has been provided.
-     *
-     * @throws EntityDataStateORMException If current entity does not have a valid id value.
      *
      * @return string
      */
     public function __toString()
     {
-        if (false === method_exists($this, 'id') || false !== empty($this->getId()) || null === $this->getId()) {
-            throw new EntityDataStateORMException(
-                'Cast to string using default implementation failed as current entity does not have an "id" property.',
-                ORMExceptionInterface::CODE_GENERIC_FROM_MANTLE_LIB
-            );
+        if (false === method_exists($this, 'getId') || false !== empty($this->getId()) || null === $this->getId()) {
+            $id = 'unknown-id';
+        } else {
+            $id = $this->getId();
         }
 
-        return (string) (get_class($this).':'.$this->getId());
+        return (string) (get_class($this).':'.$id);
     }
 
     /**

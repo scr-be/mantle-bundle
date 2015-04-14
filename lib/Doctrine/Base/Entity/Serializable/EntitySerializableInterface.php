@@ -18,10 +18,14 @@ namespace Scribe\Doctrine\Base\Entity\Serializable;
  */
 interface EntitySerializableInterface extends \Serializable
 {
-    /*
-     * PHP's build-in \Serializable interface already defines the only
-     * interface we need.
+    /**
+     * Clone is used internally by Doctrine prior to an entity obtaining an id;
+     * therefore this method should be called within any __clone implementation
+     * to determine if it is safe to implement custom logic.
+     *
+     * @return bool
      */
+    public function isCloneSafe();
 }
 
 /* EOF */

@@ -11,6 +11,8 @@
 
 namespace Scribe\Doctrine\Base\Entity\Debuggable;
 
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+
 /**
  * Trait EntityDebuggable
  * Provides basic functionality to utilize {@see var_dump()} on an entity that
@@ -32,16 +34,6 @@ trait EntityDebuggableTrait
         $properties = get_object_vars($this);
         $methods    = get_class_methods($self);
 
-        if ($parent === false) {
-            $parent = '';
-        }
-        if (!is_array($properties)) {
-            $properties = [];
-        }
-        if (!is_array($methods)) {
-            $method = [];
-        }
-
         return [
             'self'       => $self,
             'parent'     => $parent,
@@ -58,10 +50,23 @@ trait EntityDebuggableTrait
     public function __debugInfoToString()
     {
         $debug  = $this->__debugInfo();
-        $string = 'self:'.$debug['self'].'; '.
-                  'parent:'.$debug['parent'].'; '.
-                  'properties:'.implode(',', $debug['properties']).'; '.
-                  'methods:'.implode(',', $debug['methods']).';';
+
+        array_walk($debug['properties'], function (&$property, $index) {
+            $stringProperty = $index.':'.gettype($property).':';
+            if (is_array($property)) {
+                $stringProperty .= '['.implode('|', $property).']';
+            } elseif ($property instanceof AbstractEntity) {
+                $stringProperty .= '('.$property->__debugInfoToString().')';
+            } else {
+                $stringProperty .= (string) $property;
+            }
+            $property = $stringProperty;
+        });
+
+        $string = '{self} '.$debug['self'].'; '.
+                  '{parent} '.$debug['parent'].'; '.
+                  '{properties} '.implode(',', $debug['properties']).'; '.
+                  '{methods}'.implode(',', $debug['methods']).';';
 
         return $string;
     }

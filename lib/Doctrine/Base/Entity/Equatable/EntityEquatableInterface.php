@@ -24,11 +24,10 @@ interface EntityEquatableInterface
      * current object using {@see get_class()} or a similar method.
      *
      * @param AbstractEntity $entity the entity object to check against
-     * @param bool           $strict should the entity id be compared or not
      *
      * @return bool
      */
-    public function isEqualTo(AbstractEntity $entity, $strict = true);
+    public function isEqualTo(AbstractEntity $entity);
 
     /**
      * Check to see if the passed Entity object has the same orm-specified

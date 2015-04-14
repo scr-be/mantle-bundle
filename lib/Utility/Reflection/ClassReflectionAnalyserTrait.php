@@ -80,6 +80,14 @@ trait ClassReflectionAnalyserTrait
     }
 
     /**
+     * @return null|\ReflectionClass
+     */
+    public function getReflectionClass()
+    {
+        return $this->reflectionClass;
+    }
+
+    /**
      * Unsets the current reflection class associated with object.
      *
      * @return $this
@@ -102,6 +110,16 @@ trait ClassReflectionAnalyserTrait
     public function setRequireFQN($requireFQN = true)
     {
         $this->requireFQN = (bool) $requireFQN;
+    }
+
+    /**
+     * Returns whether the FQN is required or not.
+     *
+     * @return bool
+     */
+    public function getRequireFQN()
+    {
+        return (bool) $this->requireFQN;
     }
 
     /**
@@ -173,6 +191,126 @@ trait ClassReflectionAnalyserTrait
         }
 
         return (bool) $this->hasProperty($propertyName, $parentClass, $recursiveSearch);
+    }
+
+    /**
+     * @param int|bool $filter
+     *
+     * @throws InvalidArgumentException If argument type is not false or a \ReflectionProperty filter.
+     *
+     * @return array
+     */
+    public function getProperties($filter = \ReflectionProperty::IS_PUBLIC)
+    {
+        if ($filter === false) {
+            return array_merge(
+                $this->getPropertiesPublic(),
+                $this->getPropertiesProtected(),
+                $this->getPropertiesPrivate()
+            );
+        }
+
+        if ($filter === \ReflectionProperty::IS_PRIVATE) {
+            return $this->getPropertiesPrivate();
+        } elseif ($filter === \ReflectionProperty::IS_PROTECTED) {
+            return $this->getPropertiesProtected();
+        } elseif ($filter === \ReflectionProperty::IS_PUBLIC) {
+            return $this->getPropertiesPublic();
+        }
+
+        throw new InvalidArgumentException(
+            'Invalid filter provided to getProperties. Valid filters are false (for all properties), \ReflectionProperty::IS_PRIVATE '.
+            '\ReflectionProperty::IS_PROTECTED, and \ReflectionProperty::IS_PUBLIC.'
+        );
+    }
+
+    /**
+     * Get an array of the class's public properties.
+     *
+     * @return array
+     */
+    public function getPropertiesPublic()
+    {
+        return (array) $this
+            ->reflectionClass
+            ->getProperties(\ReflectionProperty::IS_PUBLIC)
+        ;
+    }
+
+    /**
+     * Get an array of the class's protected properties.
+     *
+     * @return array
+     */
+    public function getPropertiesProtected()
+    {
+        return (array) $this
+            ->reflectionClass
+            ->getProperties(\ReflectionProperty::IS_PROTECTED)
+        ;
+    }
+
+    /**
+     * Get an array of the class's private properties.
+     *
+     * @return array
+     */
+    public function getPropertiesPrivate()
+    {
+        return (array) $this
+            ->reflectionClass
+            ->getProperties(\ReflectionProperty::IS_PRIVATE)
+        ;
+    }
+
+    /**
+     * Set a protected/private property as public.
+     *
+     * @param string           $property
+     * @param \ReflectionClass $class
+     *
+     * @return \ReflectionProperty.
+     */
+    public function setPropertyPublic($property, \ReflectionClass $class = null)
+    {
+        $class     = $this->triggerUpdateWorkUnit($class);
+        $className = $class->getName();
+
+        if (false === $this->hasProperty($property)) {
+            throw new InvalidArgumentException(
+                sprintf('The requested property %s does not exist on the passed class %s.', $property, $className)
+            );
+        }
+
+        $classProperty = $class->getProperty($property);
+        $classProperty->setAccessible(true);
+
+        return $classProperty;
+    }
+
+    /**
+     * Set a protected/private method as public.
+     *
+     * @param string           $method
+     * @param \ReflectionClass $class
+     *
+     * @return \ReflectionMethod.
+     */
+    public function setMethodPublic($method, \ReflectionClass $class = null)
+    {
+        $class     = $this->triggerUpdateWorkUnit($class);
+        $className = $class->getName();
+
+        if (false === $this->hasMethod($method)) {
+            throw new InvalidArgumentException(
+                sprintf('The requested method %s does not exist on the passed class %s.', $method, $className)
+            );
+        }
+
+        $classMethod = $class->getMethod($method);
+        $classMethod->setAccessible(true);
+
+        return $classMethod;
     }
 
     /**

@@ -38,14 +38,27 @@ interface EntityInitializableInterface
     public function enableAutoInitialization();
 
     /**
+     * Has this entity been initialized?
+     *
+     * @return bool
+     */
+    public function isAutoInitialized();
+
+    /**
+     * Returns the methods called during auto initialization.
+     *
+     * @return array
+     */
+    public function getAutoInitializedMethods();
+
+    /**
      * Call all initializer methods.
      *
      * @param bool $force
-     * @param bool $suppressExceptions
      *
      * @return $this
      */
-    public function callInitializationMethods($force = false, $suppressExceptions = true);
+    public function callInitializationMethods($force = false);
 }
 
 /* EOF */

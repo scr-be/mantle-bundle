@@ -20,12 +20,24 @@ use Scribe\Utility\Serializer\Serializer;
 trait EntitySerializableTrait
 {
     /**
-     * Clone is used internally by Doctrine, so by defining this as final no
-     * entities that inherit from this class can define their own
-     * interpretation.
+     * @return int|null
      */
-    public function __clone()
+    abstract public function getId();
+
+    /**
+     * Clone is used internally by Doctrine prior to an entity obtaining an id;
+     * therefore this method should be called within any __clone implementation
+     * to determine if it is safe to implement custom logic.
+     *
+     * @return bool
+     */
+    final public function isCloneSafe()
     {
+        if ($this->getId()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

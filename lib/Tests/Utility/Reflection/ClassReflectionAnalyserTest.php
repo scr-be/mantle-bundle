@@ -210,6 +210,94 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
             'someProperty', $this->refOfClassReflectionAnalyser
         );
     }
+
+    public function testSetPropertyPublic()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
+
+        $this->reflectionClassAnalyser->setRequireFQN(true);
+        $this->assertTrue($this->reflectionClassAnalyser->getRequireFQN());
+
+        $reflectionProperty = $this->reflectionClassAnalyser->setPropertyPublic('requireFQN');
+
+        $reflectionProperty->setValue($this->reflectionClassAnalyser, false);
+        $this->assertFalse($this->reflectionClassAnalyser->getRequireFQN());
+
+        $reflectionProperty->setValue($this->reflectionClassAnalyser, true);
+        $this->assertTrue($this->reflectionClassAnalyser->getRequireFQN());
+    }
+
+    public function testSetPropertyPublicException()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
+
+        $this->setExpectedException(
+            'Scribe\Exception\InvalidArgumentException',
+            'The requested property property-does-not-exist does not exist on the passed class Scribe\Utility\Reflection\ClassReflectionAnalyser.'
+        );
+
+        $this->reflectionClassAnalyser->setPropertyPublic('property-does-not-exist');
+    }
+
+    public function testSetMethodPublic()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
+
+        $reflectionMethod = $this->reflectionClassAnalyser->setMethodPublic('getTraitNames');
+
+        $expected = ['Scribe\Utility\Reflection\ClassReflectionAnalyserTrait'];
+        $traits = $reflectionMethod->invoke($this->reflectionClassAnalyser, $this->reflectionClassAnalyser->getReflectionClass());
+
+        $this->assertEquals($expected, $traits);
+    }
+
+    public function testSetMethodPublicException()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
+
+        $this->setExpectedException(
+            'Scribe\Exception\InvalidArgumentException',
+            'The requested method method-does-not-exist does not exist on the passed class Scribe\Utility\Reflection\ClassReflectionAnalyser.'
+        );
+
+        $this->reflectionClassAnalyser->setMethodPublic('method-does-not-exist');
+    }
+
+    public function testGetProperties()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
+
+        $this->assertEquals(2, count($this->reflectionClassAnalyser->getProperties(false)));
+        $this->assertEquals(0, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PUBLIC)));
+        $this->assertEquals(0, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PROTECTED)));
+        $this->assertEquals(2, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PRIVATE)));
+    }
+
+    public function testGetPropertiesException()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
+
+        $this->setExpectedException(
+            'Scribe\Exception\InvalidArgumentException',
+            'Invalid filter provided to getProperties. Valid filters are false (for all properties), '.
+            '\ReflectionProperty::IS_PRIVATE \ReflectionProperty::IS_PROTECTED, and \ReflectionProperty::IS_PUBLIC.'
+        );
+        $this->reflectionClassAnalyser->getProperties(-02020202);
+    }
+
+    public function testNoTraits()
+    {
+        $this->reflectionClassAnalyser->unsetReflectionClass();
+        $this->reflectionClassAnalyser->setReflectionClassFromClassInstance(new \stdClass());
+
+        $this->assertFalse($this->reflectionClassAnalyser->hasTrait('Anything'));
+    }
 }
 
 /* EOF */

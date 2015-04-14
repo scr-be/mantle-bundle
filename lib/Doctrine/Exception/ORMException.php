@@ -11,6 +11,8 @@
 
 namespace Scribe\Doctrine\Exception;
 
+use Doctrine\Common\Util\Debug;
+
 /**
  * Class ORMException.
  */
@@ -76,6 +78,16 @@ class ORMException extends \Doctrine\ORM\ORMException implements ORMExceptionInt
      */
     public function getDebugOutput()
     {
+        $trace = $this->getTrace();
+
+        array_walk($trace, function (&$v, $i) {
+            foreach ($v['args'] as &$arg) {
+                if (is_object($arg)) {
+                    $arg = get_class($arg);
+                }
+            }
+        });
+
         return (array) [
             'Exception'   => get_class($this),
             'Message'     => $this->getMessage(),
@@ -83,7 +95,7 @@ class ORMException extends \Doctrine\ORM\ORMException implements ORMExceptionInt
             'Attributes'  => $this->getAttributes(),
             'File Name'   => $this->getFile(),
             'File Line'   => $this->getLine(),
-            'Trace-back'  => $this->getTrace(),
+            'Trace-back'  => $trace,
         ];
     }
 }

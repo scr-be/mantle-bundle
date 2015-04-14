@@ -47,7 +47,7 @@ class NodeTest extends AbstractMantlePhactoryTestCase
         $this->firstNode = $this->nodeRows()[0];
     }
 
-    public function testBasicPathRelationsip()
+    public function testBasicPathRelationship()
     {
         $this->setupAndExercise(2);
         $secondNode = $this->nodes[1];
