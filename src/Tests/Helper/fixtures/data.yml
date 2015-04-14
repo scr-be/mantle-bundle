@@ -5,6 +5,7 @@ node:
     data:
         title: 'SCR Post $n'
         slug:  'auto$n'
+        materializedPath: '/'
     assocs: []
 nodeRevision:
     table:   MantleBundle_NodeRevision
