@@ -152,6 +152,15 @@ class EntityModelTest extends AbstractMantleTestCase
                 'And another one.'
             ],
         ],
+        'HasContent' => [
+            'props'   => ['content'],
+            'methods' => ['initializeContent', 'setContent', 'getContent', 'hasContent', 'clearContent'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => [
+                'This is text content.',
+                'And another one.'
+            ],
+        ],
     ];
 
     private function setEntityBeforeTest($traitName)
@@ -431,6 +440,14 @@ class EntityModelTest extends AbstractMantleTestCase
     public function testEntityTraitHasLead()
     {
         $trait = 'HasLead';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasContent()
+    {
+        $trait = 'HasContent';
         $entity = $this->setEntityBeforeTest($trait);
         $this->performRuntime($trait, $entity);
         $this->clearEntityAfterTest();
