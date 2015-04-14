@@ -3052,12 +3052,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/Sami.git",
-                "reference": "e9f1b809171d191274005c09690bb099e841ea0e"
+                "reference": "ad41b11c7ff3d46e3345c833e77a31f58340b177"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/Sami/zipball/e9f1b809171d191274005c09690bb099e841ea0e",
-                "reference": "e9f1b809171d191274005c09690bb099e841ea0e",
+                "url": "https://api.github.com/repos/FriendsOfPHP/Sami/zipball/ad41b11c7ff3d46e3345c833e77a31f58340b177",
+                "reference": "ad41b11c7ff3d46e3345c833e77a31f58340b177",
                 "shasum": ""
             },
             "require": {
@@ -3102,7 +3102,7 @@
             "keywords": [
                 "phpdoc"
             ],
-            "time": "2015-03-02 12:22:39"
+            "time": "2015-04-08 05:19:43"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -3170,7 +3170,7 @@
                 "test"
             ],
             "support": {
-                "source": "https://github.com/scribenet/php-coveralls/tree/v0.6.2"
+                "source": "https://github.com/scribenet/php-coveralls/tree/multipleroot"
             },
             "time": "2015-04-04 18:19:58"
         },
