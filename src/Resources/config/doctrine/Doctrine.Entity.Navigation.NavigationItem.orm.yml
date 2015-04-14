@@ -13,11 +13,45 @@ Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem:
 
     fields:
 
-        title:
+        name:
             type:     string
-            length:   '510'
+            length:   510
             nullable: false
 
         description:
             type:     text
             nullable: true
+
+        weight:
+            type: integer
+
+        attributes:
+            type: json_array
+
+        restrictions:
+            type: json_array
+
+        restrictionsInverse:
+            type: json_array
+
+    oneToMany:
+
+        children:
+            targetEntity: NavigationItem
+            mappedBy:     parent
+
+    manyToOne:
+
+        parent:
+            targetEntity: NavigationItem
+            inversedBy:   children
+            joinColumn:   { name: parentId, referencedColumn: id }
+
+        root:
+            targetEntity: NavigationSet
+            inversedBy:   children
+            joinColumn:   { name: rootId, referencedColumn: id }
+
+        route:
+            targetEntity: Scribe\MantleBundle\Doctrine\Entity\Route\Route
+            joinColumn:   { name: routeId, referencedColumn: id }

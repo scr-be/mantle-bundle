@@ -14,6 +14,7 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Navigation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasAttributes;
+use Scribe\Doctrine\Base\Model\HasChildrenInverseSide;
 use Scribe\Doctrine\Base\Model\HasDescription;
 use Scribe\Doctrine\Base\Model\HasName;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
@@ -26,6 +27,7 @@ class NavigationSet extends AbstractEntity
     use HasName,
         HasDescription,
         HasAttributes,
+        HasChildrenInverseSide,
         SluggableBehaviorTrait;
 
     /**

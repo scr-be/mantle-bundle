@@ -1,7 +1,7 @@
 Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationSet:
 
     type:            entity
-    table:           MantleBundle_Navigation
+    table:           MantleBundle_NavigationSet
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationSetRepository
 
     id:
@@ -28,6 +28,6 @@ Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationSet:
 
     oneToMany:
 
-        navigationSet:
+        children:
             targetEntity: NavigationItem
-            mappedBy:     NavigationSet
+            mappedBy:     root
