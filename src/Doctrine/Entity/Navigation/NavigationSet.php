@@ -11,7 +11,6 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Navigation;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasAttributes;
 use Scribe\Doctrine\Base\Model\HasChildrenInverseSide;
@@ -29,19 +28,6 @@ class NavigationSet extends AbstractEntity
         HasAttributes,
         HasChildrenInverseSide,
         SluggableBehaviorTrait;
-
-    /**
-     * @var ArrayCollection
-     */
-    protected $navigationSet;
-
-    /**
-     * Initialize navigation set as empty array collection.
-     */
-    public function initializeNavigationSet()
-    {
-        $this->navigationSet = new ArrayCollection;
-    }
 
     /**
      * Support casting to string.
