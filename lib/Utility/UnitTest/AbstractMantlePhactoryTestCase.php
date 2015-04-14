@@ -97,7 +97,7 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
     }
 
     /**
-     * Gets the value of fixtureLocation
+     * Gets the value of fixtureLocation.
      *
      * @return fixtureLocation
      */
@@ -152,9 +152,9 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
     {
         foreach ($data as $key => $value) {
             if ($value === 'NOW') {
-                $data[$key] = date("Y-m-d H:i:s");
+                $data[$key] = date('Y-m-d H:i:s');
             }
-        } 
+        }
 
         return $data;
     }
