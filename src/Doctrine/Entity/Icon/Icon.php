@@ -64,7 +64,7 @@ class Icon extends AbstractEntity
      */
     public function __toString()
     {
-        if (false === $this->hasFamilies()) {
+        if (false === $this->hasFamilies() && !empty($this->getSlug())) {
             return $this->getSlug();
         }
 
@@ -73,7 +73,11 @@ class Icon extends AbstractEntity
             $string .= $f->getSlug().'-'.$this->getSlug().';';
         }
 
-        return $string;
+        if (empty($string)) {
+            return (string) $this->getName();
+        }
+
+        return (string) $string;
     }
 
     /**

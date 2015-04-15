@@ -50,7 +50,7 @@ trait HasParentOwningSide
      *
      * @return $this
      */
-    public function unsetParent()
+    public function clearParent()
     {
         $this->setParent(null);
 

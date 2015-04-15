@@ -77,7 +77,7 @@ class IconFamily extends AbstractEntity
      */
     public function __toString()
     {
-        $this->getName();
+        return (string) $this->getName();
     }
 
     /**

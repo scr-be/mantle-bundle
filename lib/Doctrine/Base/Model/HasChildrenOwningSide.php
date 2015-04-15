@@ -43,7 +43,7 @@ trait HasChildrenOwningSide
      *
      * @return $this
      */
-    public function emptyChildren()
+    public function clearChildren()
     {
         $this
             ->getChildren()

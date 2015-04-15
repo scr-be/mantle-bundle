@@ -11,8 +11,13 @@
 
 namespace Scribe\Doctrine\Base\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Tests\Doctrine\Fixtures\BaseEntity;
 use Scribe\Tests\Doctrine\Fixtures\BaseEntityHasPerson;
+use Scribe\Tests\Doctrine\Fixtures\BaseEntityHasSlug;
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 
@@ -28,6 +33,19 @@ class EntityModelTest extends AbstractMantleTestCase
      */
     private $reflectionAnalyser;
 
+    /**
+     * @var AbstractEntity
+     */
+    private $randomEntityOne;
+
+    /**
+     * @var AbstractEntity
+     */
+    private $randomEntityTwo;
+
+    /**
+     * @var array
+     */
     private $basicTraitAssertions = [
         'HasAlias' => [
             'props'   => ['alias'],
@@ -160,6 +178,30 @@ class EntityModelTest extends AbstractMantleTestCase
                 'This is text content.',
                 'And another one.'
             ],
+        ],
+        'HasImportance' => [
+            'props'   => ['importance'],
+            'methods' => ['initializeImportance', 'setImportance', 'getImportance', 'hasImportance', 'clearImportance'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => [-10, 0, 10, 20, 30, 40],
+        ],
+        'HasSlug' => [
+            'props'   => ['slug'],
+            'methods' => ['initializeSlug', 'setSlug', 'getSlug', 'hasSlug', 'clearSlug'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => ['a-slug', 'second', 'some-really-long-slug', 'yeah---slug'],
+        ],
+        'HasParentOwningSide' => [
+            'props'   => ['parent'],
+            'methods' => ['initializeParent', 'setParent', 'getParent', 'hasParent', 'clearParent'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => [],
+        ],
+        'HasChildrenOwningSide' => [
+            'props'   => ['children'],
+            'methods' => ['initializeChildren', 'setChildren', 'getChildren', 'hasChildren', 'clearChildren'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => [],
         ],
     ];
 
@@ -452,6 +494,79 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->performRuntime($trait, $entity);
         $this->clearEntityAfterTest();
     }
+
+    public function testEntityTraitHasImportance()
+    {
+        $trait = 'HasImportance';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+
+        $entity->setImportance($entity->getImportanceLevelByName('CRITICAL'));
+        $this->assertEquals(40, $entity->getImportance());
+
+        $this->assertNull($entity->getImportanceLevelByName('BADNAME'));
+        $this->assertEquals('DEPRECATION', $entity->getImportanceLevelByInt(-10));
+        $this->assertNull($entity->getImportanceLevelByInt(-10000));
+
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasSlug()
+    {
+        $trait = 'HasSlug';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasParentOwningSide()
+    {
+        $this->randomEntityOne = new IconFamily();
+        $this->randomEntityOne->setName('family');
+        $this->randomEntityTwo = new Icon();
+        $this->randomEntityTwo->setName('icon');
+        $this->basicTraitAssertions['HasParentOwningSide']['ops'] = [
+            $this->randomEntityOne,
+            $this->randomEntityTwo
+        ];
+        $trait = 'HasParentOwningSide';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasChildrenOwningSide()
+    {
+        $this->randomEntityOne = new IconFamily();
+        $this->randomEntityOne->setName('family');
+        $this->randomEntityTwo = new Icon();
+        $this->randomEntityTwo->setName('icon');
+        $this->basicTraitAssertions['HasChildrenOwningSide']['ops'] = [new ArrayCollection([
+            $this->randomEntityOne,
+            $this->randomEntityTwo
+            ])
+        ];
+        $trait = 'HasChildrenOwningSide';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+
+        $collection = new ArrayCollection([
+            $this->randomEntityOne,
+            $this->randomEntityTwo
+        ]);
+        $entity->setChildren($collection);
+
+        $this->assertTrue($entity->hasChild($this->randomEntityOne));
+
+        $entity->addChild($this->randomEntityOne);
+        $this->assertEquals(2, $entity->getChildren()->count());
+        $entity->addChild($this->randomEntityOne, false);
+        $this->assertEquals(3, $entity->getChildren()->count());
+        $entity->removeChild($this->randomEntityTwo);
+        $this->assertEquals(2, $entity->getChildren()->count());
+        $this->clearEntityAfterTest();
+    }
+
 
     private function performRuntime($traitName, $entity)
     {

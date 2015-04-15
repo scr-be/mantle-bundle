@@ -28,7 +28,7 @@ trait HasCount
      */
     public function initializeCount()
     {
-        $this->code = null;
+        $this->count = null;
     }
 
     /**
