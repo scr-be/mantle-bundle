@@ -64,4 +64,26 @@ function count_array($array = [])
     return (int) count($array);
 }
 
+/**
+ * @param string      $application
+ * @param string|null $framework
+ *
+ * @return bool
+ */
+function enable_new_relic_extension($application, $framework = null)
+{
+    if (false === extension_loaded('newrelic') ||
+        false === function_exists('newrelic_set_appname')) {
+        return false;
+    }
+
+    newrelic_set_appname($application);
+
+    if (null !== $framework) {
+        ini_set('newrelic.framework', $framework);
+    }
+
+    return true;
+}
+
 /* EOF */
