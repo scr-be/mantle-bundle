@@ -14,8 +14,6 @@ namespace Scribe\Doctrine\Exception;
 /**
  * Class EntityAssociationORMException.
  */
-class EntityAssociationORMException extends ORMException
-{
-}
+class EntityAssociationORMException extends ORMException {}
 
 /* EOF */

@@ -14,7 +14,7 @@ namespace Scribe\MantleBundle\DataFixtures\ORM;
 use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
 
 /**
- * LoadRedirectData.
+ * LoadRouteRedirectData.
  */
 class LoadRouteRedirectData extends AbstractYamlFixture
 {

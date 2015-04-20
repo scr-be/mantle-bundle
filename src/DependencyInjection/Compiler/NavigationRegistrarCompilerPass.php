@@ -11,38 +11,29 @@
 
 namespace Scribe\MantleBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
-
 /**
  * Class NavigationRegistrarCompilerPass.
  */
-class NavigationRegistrarCompilerPass implements CompilerPassInterface
+class NavigationRegistrarCompilerPass extends AbstractCompilerPass
 {
     /**
-     * Process the bundle's container. Perform compiler pass to provide cache chain
-     * handler with all services tagged as handler types.
+     * Return the name of the service that handles registering the handlers (the chain manager)
      *
-     * @param ContainerBuilder $container
+     * @return string
      */
-    public function process(ContainerBuilder $container)
+    protected function getChainServiceName()
     {
-        if (true === $container->hasDefinition('s.mantle.navigation_registrar')) {
-            $chainDefinition = $container->getDefinition(
-                's.mantle.navigation_registrar'
-            );
-            $handlerDefinitions = $container->findTaggedServiceIds(
-                's.mantle.navigation_member'
-            );
+        return 's.mantle.navigation_registrar';
+    }
 
-            foreach ($handlerDefinitions as $id => $attributes) {
-                $chainDefinition->addMethodCall(
-                    'addMember',
-                    [new Reference($id)]
-                );
-            }
-        }
+    /**
+     * Return the name of the service tag to attach to the chain manager (the handlers)
+     *
+     * @return string
+     */
+    protected function getHandlerTagName()
+    {
+        return 's.mantle.navigation_member';
     }
 }
 

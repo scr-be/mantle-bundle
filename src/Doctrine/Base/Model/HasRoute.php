@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Entity\Route;
+use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 
 /**
  * Class HasRoute.

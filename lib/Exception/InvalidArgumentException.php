@@ -11,9 +11,11 @@
 
 namespace Scribe\Exception;
 
+use Scribe\Exception\Model\AbstractInvalidArgumentException;
+
 /**
  * Class InvalidArgumentException.
  */
-class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
-{
-}
+class InvalidArgumentException extends AbstractInvalidArgumentException {}
+
+/* EOF */

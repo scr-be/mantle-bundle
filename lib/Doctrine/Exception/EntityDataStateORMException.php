@@ -14,8 +14,6 @@ namespace Scribe\Doctrine\Exception;
 /**
  * Class EntityDataStateORMException.
  */
-class EntityDataStateORMException extends ORMException
-{
-}
+class EntityDataStateORMException extends ORMException {}
 
 /* EOF */

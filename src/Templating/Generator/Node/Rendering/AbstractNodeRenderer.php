@@ -11,21 +11,23 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
+use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
+
 /**
  * Class AbstractNodeRenderer.
  */
-abstract class AbstractNodeRenderer implements NodeRendererInterface
+abstract class AbstractNodeRenderer implements NodeRendererInterface, CompilerPassHandlerInterface
 {
     /**
      * Given the provided rendererName, does this renderer match?
      *
-     * @param string $rendererName
+     * @param string $by
      *
      * @return bool
      */
-    public function isSupported($rendererName)
+    public function isSupported($by)
     {
-        return (bool) ($this->normalizeRendererName($rendererName) === $this->getRendererName() ?: false);
+        return (bool) ($this->normalizeRendererName($by) === $this->getRendererName() ?: false);
     }
 
     /**

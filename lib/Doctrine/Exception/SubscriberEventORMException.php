@@ -14,8 +14,6 @@ namespace Scribe\Doctrine\Exception;
 /**
  * Class SubscriberEventORMException.
  */
-class SubscriberEventORMException extends ORMException
-{
-}
+class SubscriberEventORMException extends ORMException {}
 
 /* EOF */

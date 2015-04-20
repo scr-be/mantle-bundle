@@ -11,13 +11,13 @@
 
 namespace Scribe\Utility\Observer;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Scribe\Component\DependencyInjection\ContainerAwareTrait;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareInterface;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
 
 /**
  * Class ObserverContainerAware.
  */
-abstract class ObserverContainerAware extends Observer implements ContainerAwareInterface
+abstract class ObserverContainerAware extends ObserverAbstract implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 }

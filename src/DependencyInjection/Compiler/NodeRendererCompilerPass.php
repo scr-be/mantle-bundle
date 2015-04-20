@@ -11,47 +11,29 @@
 
 namespace Scribe\MantleBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Reference;
-
 /**
  * Class NodeRendererCompilerPass.
  */
-class NodeRendererCompilerPass implements CompilerPassInterface
+class NodeRendererCompilerPass extends AbstractCompilerPass
 {
     /**
-     * Process the bundle's container in search of services tagged as node renders.
+     * Return the name of the service that handles registering the handlers (the chain manager)
      *
-     * @param ContainerBuilder $container
+     * @return string
      */
-    public function process(ContainerBuilder $container)
+    protected function getChainServiceName()
     {
-        if (true === $container->hasDefinition('s.mantle.node_creator.renderer.registrar')) {
-            $rendererRegistrar = $container->getDefinition(
-                's.mantle.node_creator.renderer.registrar'
-            );
+        return 's.mantle.node_creator.renderer.registrar';
+    }
 
-            $rendererHandlers = $container->findTaggedServiceIds(
-                'node_creator.renderer'
-            );
-
-            if (false === (count($rendererHandlers) > 0)) {
-                return;
-            }
-
-            foreach ($rendererHandlers as $id => $attributes) {
-                foreach ($attributes as $attr) {
-                    $rendererRegistrar->addMethodCall(
-                        'addHandler',
-                        [
-                            new Reference($id),
-                            isset($attr['priority']) ? $attr['priority'] : null,
-                        ]
-                    );
-                }
-            }
-        }
+    /**
+     * Return the name of the service tag to attach to the chain manager (the handlers)
+     *
+     * @return string
+     */
+    protected function getHandlerTagName()
+    {
+        return 'node_creator.renderer';
     }
 }
 

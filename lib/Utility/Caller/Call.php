@@ -12,11 +12,12 @@
 namespace Scribe\Utility\Caller;
 
 use Scribe\Exception\InvalidArgumentException;
-use Scribe\Utility\StaticClass\StaticClassTrait;
 use Scribe\Exception\BadFunctionCallException;
+use Scribe\Utility\StaticClass\StaticClassTrait;
 
 /**
  * Class Call
+ *
  * Static function collection to call either global functions or object methods
  * indirectly with checks that the requested function/method exists.
  */

@@ -12,8 +12,8 @@
 namespace Scribe\Utility\Config;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Scribe\Component\DependencyInjection\ContainerAwareTrait;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareInterface;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
 use Scribe\Exception\RuntimeException;
 
 /**
@@ -21,9 +21,6 @@ use Scribe\Exception\RuntimeException;
  */
 class ConfigContainer implements ConfigInterface, ContainerAwareInterface
 {
-    /*
-     * import container property and get/set functions
-     */
     use ContainerAwareTrait;
 
     /**

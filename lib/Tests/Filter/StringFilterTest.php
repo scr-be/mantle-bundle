@@ -12,7 +12,7 @@
 namespace Scribe\Tests\Filter;
 
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
-use Scribe\Filter\StringFilter;
+use Scribe\Utility\Filter\StringFilter;
 
 class StringFilterTest extends AbstractMantleTestCase
 {

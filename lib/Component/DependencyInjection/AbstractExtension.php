@@ -11,25 +11,23 @@
 
 namespace Scribe\Component\DependencyInjection;
 
-use Scribe\Utility\Arrays;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Scribe\Filter\StringFilter;
-use Scribe\Exception\RuntimeException;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareInterface;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
 use Scribe\Component\DependencyInjection\Loader\XmlFileLoader;
 use Scribe\Component\DependencyInjection\Loader\YamlFileLoader;
+use Scribe\Utility\Arrays;
+use Scribe\Utility\Filter\StringFilter;
+use Scribe\Exception\RuntimeException;
 
 /**
  * Class AbstractExtension.
  */
 abstract class AbstractExtension extends Extension implements ContainerAwareInterface
 {
-    /*
-     * Import container aware properties/functions
-     */
     use ContainerAwareTrait;
 
     /**
@@ -379,36 +377,6 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
         $this
             ->getContainer()
             ->setParameter($built, $v)
-        ;
-    }
-
-    /**
-     * Checks if parameter exists in container.
-     *
-     * @param string $built Final index (with prefix)
-     *
-     * @return bool
-     */
-    private function hasContainerParameter($built)
-    {
-        return (bool) $this
-            ->getContainer()
-            ->hasParameter($built)
-        ;
-    }
-
-    /**
-     * Gets parameter from container.
-     *
-     * @param string $built Final index (with prefix)
-     *
-     * @return mixed
-     */
-    private function getContainerParameter($built)
-    {
-        return $this
-            ->getContainer()
-            ->getParameter($built)
         ;
     }
 

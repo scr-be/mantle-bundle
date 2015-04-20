@@ -11,11 +11,11 @@
 
 namespace Scribe\Exception;
 
+use Scribe\Exception\Model\AbstractBadFunctionCallException;
+
 /**
  * Class BadFunctionCallException.
  */
-class BadFunctionCallException extends \BadFunctionCallException implements ExceptionInterface
-{
-}
+class BadFunctionCallException extends AbstractBadFunctionCallException {}
 
 /* EOF */

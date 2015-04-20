@@ -11,10 +11,13 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
+use Scribe\Component\DependencyInjection\Compiler\CompilerPassChainInterface;
+use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
+
 /**
  * Class NodeRendererRegistrar.
  */
-class NodeRendererRegistrar
+class NodeRendererRegistrar implements CompilerPassChainInterface
 {
     /**
      * @var NodeRendererInterface[]
@@ -30,17 +33,15 @@ class NodeRendererRegistrar
     }
 
     /**
-     * Add render handler.
+     * Add render handler type.
      *
-     * @param NodeRendererInterface $nodeRenderer
-     * @param int|null              $priority
+     * @param CompilerPassHandlerInterface $handler
+     * @param null                         $priority
      */
-    public function addHandler(NodeRendererInterface $nodeRenderer, $priority = null)
+    public function addHandler(CompilerPassHandlerInterface $handler, $priority = null)
     {
-        if (null !== $priority) {
-            $this->nodeRendererHandlers[(int) $priority] = $nodeRenderer;
-        } else {
-            $this->nodeRendererHandlers[] = $nodeRenderer;
+        if ($handler instanceof NodeRendererInterface) {
+            $this->nodeRendererHandlers[$priority] = $handler;
         }
     }
 

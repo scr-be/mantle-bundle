@@ -11,11 +11,11 @@
 
 namespace Scribe\Exception;
 
+use Scribe\Exception\Model\AbstractRuntimeException;
+
 /**
  * Class RuntimeException.
  */
-class RuntimeException extends \RuntimeException implements ExceptionInterface
-{
-}
+class RuntimeException extends AbstractRuntimeException {}
 
 /* EOF */

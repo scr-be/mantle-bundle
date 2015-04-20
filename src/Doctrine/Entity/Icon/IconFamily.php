@@ -17,7 +17,7 @@ use Scribe\Doctrine\Base\Model\HasName;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasVersion;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Doctrine\Exception\ORMExceptionInterface;
+use Scribe\Exception\ExceptionInterface;
 use Scribe\Doctrine\Exception\SubscriberEventORMException;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasIconsOwningSide;
 
@@ -89,7 +89,7 @@ class IconFamily extends AbstractEntity
     {
         throw new SubscriberEventORMException(
             'This entity does not support automatically generating slugs!',
-            ORMExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL
+            ExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL
         );
     }
 

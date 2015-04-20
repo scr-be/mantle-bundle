@@ -11,13 +11,13 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
-use Twig_Extension;
 
 /**
  * Class NodeCreatorExtension.
  */
-class NodeCreatorTwigExtension extends Twig_Extension
+class NodeCreatorTwigExtension extends \Twig_Extension
 {
     use AdvancedExtensionTrait;
 
@@ -51,7 +51,7 @@ class NodeCreatorTwigExtension extends Twig_Extension
      *
      * @return string
      */
-    public function getNode($node, $args = [])
+    public function getNode(Node $node, $args = [])
     {
         return (string) $this->nodeCreator->render($node, $args);
     }

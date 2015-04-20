@@ -12,7 +12,7 @@
 namespace Scribe\Utility\Reflection;
 
 use Scribe\Exception\InvalidArgumentException;
-use Scribe\Utility\ClassName;
+use Scribe\Utility\ClassInfo;
 
 /**
  * Class ClassReflectionAnalyserTrait.
@@ -357,7 +357,7 @@ trait ClassReflectionAnalyserTrait
 
         $traitNames = [];
         foreach ($traits as $t) {
-            $traitNames[] = ClassName::getTraitNameString($t);
+            $traitNames[] = ClassInfo::getTraitNameString($t);
         }
 
         return (array) array_merge($traits, $traitNames);

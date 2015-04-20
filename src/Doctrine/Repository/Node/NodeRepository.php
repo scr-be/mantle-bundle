@@ -22,11 +22,10 @@ class NodeRepository extends EntityRepository
     use HierarchicalNodeTreeBehaviorTrait;
 
     /**
-     * @param string $slug
+     * @param $slug
      *
-     * @return Node
-     *
-     * @throws Exception
+     * @return mixed
+     * @throws \Exception
      *
      * @todo move this into SlugAwareRepoTrait
      */
@@ -48,11 +47,10 @@ class NodeRepository extends EntityRepository
     }
 
     /**
-     * @param string $slug
+     * @param $materializedPath
      *
-     * @return Node
-     *
-     * @throws Exception
+     * @return mixed
+     * @throws \Exception
      */
     public function loadByMaterializedPath($materializedPath)
     {
@@ -71,3 +69,5 @@ class NodeRepository extends EntityRepository
         }
     }
 }
+
+/* EOF */

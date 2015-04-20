@@ -65,6 +65,51 @@ function count_array($array = [])
 }
 
 /**
+ * @param string $key
+ * @param array  $array
+ *
+ * @return null|mixed
+ */
+function try_for_array_value($key, array $array)
+{
+    if (false === array_key_exists($key, $array)) {
+        return null;
+    }
+
+    return $array[$key];
+}
+
+/**
+ * Helper function to get first element of an array (works around the fact that PHP won't return a function/method
+ * value by reference).
+ *
+ * @param array $array
+ *
+ * @return mixed
+ */
+function array_first(array $array = [])
+{
+    $arrayItem = reset($array);
+
+    return ($arrayItem === false ? null : $arrayItem);
+}
+
+/**
+ * Helper function to get last element of an array (works around the fact that PHP won't return a function/method
+ * value by reference).
+ *
+ * @param array $array
+ *
+ * @return mixed
+ */
+function array_last(array $array = [])
+{
+    $arrayItem = end($array);
+
+    return ($arrayItem === false ? null : $arrayItem);
+}
+
+/**
  * @param string      $application
  * @param string|null $framework
  *

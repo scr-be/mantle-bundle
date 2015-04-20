@@ -88,8 +88,8 @@ parameters:
 
     # Navigation Creator Services
 
-    s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Templating\Generator\Navigation\Registrar\NavigationRegistrar
-    s.mantle.navigation_member.content_nodes.class:                     Scribe\MantleBundle\ContentNodes\Navigation\ContentNodesNavigationMember
+    s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Component\Navigation\Registrar\NavigationRegistrar
+    s.mantle.navigation_member.root.class:                              Scribe\MantleBundle\Component\Navigation\Resolver\RootFixtureNavigationResolver
 
     # Routing loaders
 
@@ -110,7 +110,6 @@ parameters:
     s.twig.jqtimeline.class:                                            Scribe\MantleBundle\Templating\Extension\JqtimelineExtension
     s.twig.chronoline.class:                                            Scribe\MantleBundle\Templating\Extension\ChronolineExtension
     s.twig.formscribeextras.class:                                      Scribe\MantleBundle\Templating\Extension\FormScribeExtrasExtension
-    s.twig.node.class:                                                  Scribe\MantleBundle\Templating\Extension\NodeExtension
     s.twig.getlastusername.class:                                       Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
 
 services:
@@ -155,6 +154,13 @@ services:
         factory_method:  getRepository
         arguments:
             - %s.mantle.route_redirect.entity.class%
+
+    s.mantle.route.repo:
+        class:           %s.mantle.route.repo.class%
+        factory_service: doctrine
+        factory_method:  getRepository
+        arguments:
+            - %s.mantle.route.entity.class%
 
     s.mantle.navigation_set.repo:
         class:           %s.mantle.navigation_set.repo.class%
@@ -291,10 +297,19 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    # Navigation system
+
     s.mantle.navigation_registrar:
         class: %s.mantle.navigation_registrar.class%
         arguments:
             - @s.mantle.bundle_information
+
+    s.mantle.navigation_member.root:
+        class: %s.mantle.navigation_member.root.class%
+        arguments:
+            - @s.mantle.navigation_set.repo
+        tags:
+            - { name: navigation.handler, priority: 1 }
 
     # Icon Creator Services
 

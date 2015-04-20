@@ -16,8 +16,6 @@ use Doctrine\ORM\EntityRepository;
 /**
  * NavigationItemRepository.
  */
-class NavigationItemRepository extends EntityRepository
-{
-}
+class NavigationItemRepository extends EntityRepository {}
 
 /* EOF */

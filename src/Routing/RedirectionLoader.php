@@ -2,13 +2,13 @@
 
 namespace Scribe\MantleBundle\Routing;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use Scribe\Component\DependencyInjection\ContainerAwareTrait;
-use Scribe\Filter\String;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareInterface;
+use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
+use Scribe\Utility\Filter\StringFilter;
 
 /**
  * loader service to handle redirection urls.
@@ -53,7 +53,7 @@ class RedirectionLoader extends Loader implements ContainerAwareInterface
         $routes = new RouteCollection();
 
         foreach ($redirects as $i => $r) {
-            $routeName = '__redirection_'.$i.'_'.String::alphanumericOnly($r->getPathFrom());
+            $routeName = '__redirection_'.$i.'_'.StringFilter::alphanumericOnly($r->getPathFrom());
 
             $pattern = $r->getPathFrom();
             $defaults = [
