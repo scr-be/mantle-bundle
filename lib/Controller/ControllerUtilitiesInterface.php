@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Component\Controller;
+namespace Scribe\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Scribe\Component\HttpFoundation\Exception\AbstractHttpException;
+use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -32,6 +33,8 @@ use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 interface ControllerUtilitiesInterface
 {
     /**
+     * Returns the container.
+     *
      * @return ContainerInterface
      */
     public function container();
@@ -43,7 +46,7 @@ interface ControllerUtilitiesInterface
      *
      * @return mixed[]
      */
-    public function serviceCollection(...$keys);
+    public function getServiceCollection(...$keys);
 
     /**
      * Provides a service definition based on the service ID provided.
@@ -52,7 +55,7 @@ interface ControllerUtilitiesInterface
      *
      * @return mixed
      */
-    public function service($key);
+    public function getService($key);
 
     /**
      * Check if a service exists within the container.
@@ -61,7 +64,7 @@ interface ControllerUtilitiesInterface
      *
      * @return mixed
      */
-    public function serviceExists($key);
+    public function hasService($key);
 
     /**
      * Provides an array of parameters corresponding to an array of parameter keys provided as method arguments.
@@ -70,7 +73,7 @@ interface ControllerUtilitiesInterface
      *
      * @return mixed
      */
-    public function parameterCollection(...$keys);
+    public function getParameterCollection(...$keys);
 
     /**
      * Provides a parameter value based on the key provided.
@@ -79,7 +82,7 @@ interface ControllerUtilitiesInterface
      *
      * @return mixed
      */
-    public function parameter($key);
+    public function getParameter($key);
 
     /**
      * Checks if a parameter exists within the container.
@@ -88,7 +91,7 @@ interface ControllerUtilitiesInterface
      *
      * @return bool
      */
-    public function parameterExists($key);
+    public function hasParameter($key);
 
     /**
      * Access the entity manager quickly through this short hand method.
@@ -141,7 +144,7 @@ interface ControllerUtilitiesInterface
      *
      * @return string
      */
-    public function twigTpl($templateName, ...$parameters);
+    public function getTwigTpl($templateName, ...$parameters);
 
     /**
      * Renders a template from the provided string.
@@ -151,7 +154,7 @@ interface ControllerUtilitiesInterface
      *
      * @return string
      */
-    public function twigStr($templateString, ...$parameters);
+    public function getTwigStr($templateString, ...$parameters);
 
     /**
      * Returns an HTML response using the provided parameters to construct the Response object instance. The Response
@@ -163,44 +166,44 @@ interface ControllerUtilitiesInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function respHTML(...$parameters);
+    public function getResponseHTML(...$parameters);
 
     /**
      * Returns a text response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see respHTML()}.
+     * parameter and usage information reference {@see getResponseHTML()}.
      *
      * @param mixed[] $parameters Parameters passed to the Response constructor.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function respText(...$parameters);
+    public function getResponseText(...$parameters);
 
     /**
      * Returns a JSON response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see respHTML()}.
+     * parameter and usage information reference {@see getResponseHTML()}.
      *
      * @param mixed[] $parameters Parameters passed to the Response constructor.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function respJSON(...$parameters);
+    public function getResponseJSON(...$parameters);
 
     /**
      * Returns a YAML response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see respHTML()}.
+     * parameter and usage information reference {@see getResponseHTML()}.
      *
      * @param mixed[] $parameters Parameters passed to the Response constructor.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function respYAML(...$parameters);
+    public function getResponseYAML(...$parameters);
 
     /**
      * Provides a newly initialized Response object without any configuration applied.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function resp();
+    public function getResponseGeneric();
 
     /**
      * Returns a RedirectResponse configured based on the provided URI.
@@ -209,7 +212,7 @@ interface ControllerUtilitiesInterface
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function respRedirectURI($uri);
+    public function getResponseRedirectURI($uri);
 
     /**
      * Returns a RedirectResponse configured based on the provided URL.
@@ -218,7 +221,7 @@ interface ControllerUtilitiesInterface
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function respRedirectURL($url);
+    public function getResponseRedirectURL($url);
 
     /**
      * Returns a RedirectResponse configured based on the passed Route entity provided.
@@ -227,7 +230,7 @@ interface ControllerUtilitiesInterface
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function respRedirectRoute(Route $route);
+    public function getResponseRedirectRoute(Route $route);
 
     /**
      * Provides the router service from the container.
@@ -244,7 +247,7 @@ interface ControllerUtilitiesInterface
      *
      * @return string
      */
-    public function routeURI($key, ...$parameters);
+    public function getRouteURI($key, ...$parameters);
 
     /**
      * Uses the Router service to create a URL based on the route key and parameters provided.
@@ -254,7 +257,7 @@ interface ControllerUtilitiesInterface
      *
      * @return string
      */
-    public function routeURL($key, ...$parameters);
+    public function getRouteURL($key, ...$parameters);
 
     /**
      * Accepts any exception extending AbstractHttpException and returns the same exception populated with a
@@ -266,10 +269,10 @@ interface ControllerUtilitiesInterface
      *
      * @return AbstractHttpException
      */
-    public function exception(AbstractHttpException $exception);
+    public function processException(AbstractHttpException $exception);
 
     /**
-     * Creates and returns a generic http exception. This method handles passing the exception through {@see self::exception()}
+     * Creates and returns a generic http exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
      * @param string  $message     The exception message string.
@@ -277,10 +280,10 @@ interface ControllerUtilitiesInterface
      *
      * @return ControllerException
      */
-    public function exceptionGeneric($message = null, ...$sprintfArgs);
+    public function getExceptionGeneric($message = null, ...$sprintfArgs);
 
     /**
-     * Creates and returns a not found exception. This method handles passing the exception through {@see self::exception()}
+     * Creates and returns a not found exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
      * @param string  $message     The exception message string.
@@ -288,10 +291,10 @@ interface ControllerUtilitiesInterface
      *
      * @return ControllerException
      */
-    public function exceptionNotFound($message = null, ...$sprintfArgs);
+    public function getExceptionNotFound($message = null, ...$sprintfArgs);
 
     /**
-     * Creates and returns an unauthorized exception. This method handles passing the exception through {@see self::exception()}
+     * Creates and returns an unauthorized exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
      * @param string  $message     The exception message string.
@@ -299,7 +302,7 @@ interface ControllerUtilitiesInterface
      *
      * @return ControllerException
      */
-    public function exceptionUnauthorized($message = null, ...$sprintfArgs);
+    public function getExceptionUnauthorized($message = null, ...$sprintfArgs);
 
     /**
      * Returns the session service from the container.
@@ -316,7 +319,7 @@ interface ControllerUtilitiesInterface
      *
      * @return $this
      */
-    public function sessionMsgInfo($message, ...$sprintfArgs);
+    public function addSessionMsgInfo($message, ...$sprintfArgs);
 
     /**
      * Add a flash message to the session of type "success" - shown to the user on page rendering.
@@ -326,7 +329,7 @@ interface ControllerUtilitiesInterface
      *
      * @return $this
      */
-    public function sessionMsgSuccess($message, ...$sprintfArgs);
+    public function addSessionMsgSuccess($message, ...$sprintfArgs);
 
     /**
      * Add a flash message to the session of type "error" - shown to the user on page rendering.
@@ -336,7 +339,7 @@ interface ControllerUtilitiesInterface
      *
      * @return $this
      */
-    public function sessionMsgError($message, ...$sprintfArgs);
+    public function addSessionMsgError($message, ...$sprintfArgs);
 
     /**
      * Provides the user token service from the container.
@@ -365,7 +368,7 @@ interface ControllerUtilitiesInterface
      *
      * @return TranslatorInterface
      */
-    public function trans();
+    public function translator();
 
     /**
      * Resolves the string value based on a provided key.
@@ -374,64 +377,80 @@ interface ControllerUtilitiesInterface
      *
      * @return string
      */
-    public function transStr($key);
+    public function getTranslation($key);
 
     /**
      * Returns the request stack service.
      *
      * @return RequestStack
      */
-    public function reqStack();
+    public function requestStack();
 
     /**
      * Returns the current request by querying the request stack service. Returns null if no current exists.
      *
      * @return Request|null
      */
-    public function reqCurrent();
+    public function getRequestCurrent();
 
     /**
      * Returns the master request by querying the request stack service. Returns null if no master request exists.
      *
      * @return Request|null
      */
-    public function reqMaster();
+    public function getRequestMaster();
 
     /**
      * Determines if the current request-scrope is the master request.
      *
      * @return bool
      */
-    public function reqIsMaster();
+    public function isRequestMaster();
 
     /**
      * Returns the parent request by querying the request stack service. Returns null if no parent request exists.
      *
      * @return Request|null
      */
-    public function reqParent();
+    public function getRequestParent();
 
     /**
      * Returns the scheme of the current request. Generally, this will be either "http" or "https".
      *
      * @return string|null
      */
-    public function reqScheme();
+    public function getRequestScheme();
 
     /**
      * Returns the host of the current request.
      *
      * @return string|null
      */
-    public function reqHost();
+    public function getRequestHost();
 
     /**
-     * Concatenates and returns the result of {@see self::reqScheme()} and {@see self::reqHost()} to provide the full
+     * Concatenates and returns the result of {@see self::getRequestScheme()} and {@see self::getRequestHost()} to provide the full
      * base URL of the current request.
      *
      * @return string|null
      */
-    public function reqSchemeAndHost();
+    public function getRequestSchemeAndHost();
+
+    /**
+     * Return node creator service.
+     *
+     * @return NodeCreatorInterface
+     */
+    public function node();
+
+    /**
+     * Render a node from a node entity
+     *
+     * @param Node  $node
+     * @param array $args
+     *
+     *
+     */
 }
 
 /* EOF */
