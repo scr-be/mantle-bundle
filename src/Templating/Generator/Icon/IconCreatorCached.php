@@ -12,10 +12,11 @@
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
+use Doctrine\ORM\EntityRepository;
 use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainInterface;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorCachedServicesTrait;
-use Doctrine\ORM\EntityRepository;
+use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorCachedServicesTrait;
+use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
 
 /**
  * Class: IconCreatorCached.
@@ -45,7 +46,7 @@ class IconCreatorCached extends IconCreator
      *
      * @return string
      *
-     * @throws IconException
+     * @throws IconCreatorException
      */
     public function render($icon = null, $family = null, $template = null, ...$styles)
     {

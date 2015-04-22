@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Templating\Engine;
+namespace Scribe\Component\DependencyInjection\Aware;
 
 use Twig_Environment;
 use Twig_Template;

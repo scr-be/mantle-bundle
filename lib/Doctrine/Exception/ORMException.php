@@ -16,6 +16,27 @@ use Scribe\Doctrine\Exception\Model\AbstractORMException;
 /**
  * Class ORMException.
  */
-class ORMException extends AbstractORMException {}
+class ORMException extends AbstractORMException
+{
+    /**
+     * Get the default exception message.
+     *
+     * @return string
+     */
+    public function getDefaultMessage()
+    {
+        return self::MSG_ORM_GENERIC;
+    }
+
+    /**
+     * Get the default exception code.
+     *
+     * @return int
+     */
+    public function getDefaultCode()
+    {
+        return self::CODE_ORM_GENERIC;
+    }
+}
 
 /* EOF */

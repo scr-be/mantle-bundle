@@ -11,7 +11,7 @@
 
 namespace Scribe\Component\Bundle;
 
-use Scribe\Component\DependencyInjection\RequestStackAwareTrait;
+use Scribe\Component\DependencyInjection\Aware\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Scribe\Exception\InvalidArgumentException;
@@ -32,7 +32,7 @@ class BundleInformation implements BundleInformationInterface
     /**
      * @var string
      */
-    const CONTROLLER_SERVICEID_REGEX = '#([^\.]*)\.([^\.]*)\.([^\.]*)\.controller:(.*?)Action#i';
+    const CONTROLLER_SERVICE_ID_REGEX = '#([^\.]*)\.([^\.]*)\.([^\.]*)\.controller:(.*?)Action#i';
 
     /**
      * @var string
@@ -88,7 +88,7 @@ class BundleInformation implements BundleInformationInterface
         }
 
         $this
-            ->setRegex(self::CONTROLLER_SERVICEID_REGEX)
+            ->setRegex(self::CONTROLLER_SERVICE_ID_REGEX)
             ->handle()
         ;
 
@@ -96,7 +96,7 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Set the controller string derrived from the request object variable.
+     * Set the controller string derived from the request object variable.
      *
      * @param  $controllerAttributeValue string
      *

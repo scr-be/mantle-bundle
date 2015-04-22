@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Icon;
+namespace Scribe\MantleBundle\Templating\Generator\Icon\Extension;
 
 use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
+use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorInterface;
 use Twig_Extension;
 use Twig_Environment;
 

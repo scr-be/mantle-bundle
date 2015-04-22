@@ -11,56 +11,32 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Exceptions;
 
+use Scribe\Exception\RuntimeException;
+use Scribe\MantleBundle\Templating\Generator\Exceptions\Model\TemplatingGeneratorExtensionInterface;
+
 /**
  * Class TemplatingGeneratorException.
  */
-class TemplatingGeneratorException extends \Scribe\Exception\RuntimeException
+class TemplatingGeneratorException extends RuntimeException implements TemplatingGeneratorExtensionInterface
 {
     /**
-     * Exception code for an unknown/undefined state.
+     * Get the default exception message.
      *
-     * @var int
+     * @return string
      */
-    const CODE_UNKNOWN = -1;
-
-    /**
-     * Exception code for generic invalid arguments exception.
-     *
-     * @var int
-     */
-    const CODE_INVALID_ARGS = 50;
-
-    /**
-     * Exception code for an invalid style being passed by user.
-     *
-     * @var int
-     */
-    const CODE_INVALID_STYLE = 51;
-
-    /**
-     * Exception code for generic missing arguments.
-     *
-     * @var int
-     */
-    const CODE_MISSING_ARGS = 100;
-
-    /**
-     * Exception code for a missing entity.
-     *
-     * @var int
-     */
-    const CODE_MISSING_ENTITY = 101;
-
-    /**
-     * Assign our own default code value to setup the object instance.
-     *
-     * @param string     $message
-     * @param int        $code
-     * @param \Exception $previous
-     */
-    public function __construct($message, $code = self::CODE_UNKNOWN, \Exception $previous = null)
+    public function getDefaultMessage()
     {
-        parent::__construct($message, $code, $previous);
+        return self::MSG_TEMPLATING_GENERATOR_GENERIC;
+    }
+
+    /**
+     * Get the default exception code.
+     *
+     * @return int
+     */
+    public function getDefaultCode()
+    {
+        return self::CODE_TEMPLATING_GENERATOR_GENERIC;
     }
 }
 

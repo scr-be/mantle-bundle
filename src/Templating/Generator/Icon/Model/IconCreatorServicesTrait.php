@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
+namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
 
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 

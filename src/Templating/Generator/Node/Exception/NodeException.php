@@ -9,14 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Exception\Model;
+namespace Scribe\MantleBundle\Templating\Generator\Node\Exception;
+
+use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorException;
 
 /**
- * Class AbstractException.
+ * Class NodeException.
  */
-abstract class AbstractException extends \Exception implements ExceptionInterface
-{
-    use ExceptionTrait;
-}
+class NodeException extends TemplatingGeneratorException {}
 
 /* EOF */

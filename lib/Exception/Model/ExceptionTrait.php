@@ -11,8 +11,8 @@
 
 namespace Scribe\Exception\Model;
 
-use Scribe\Utility\ClassInfo;
 use Symfony\Component\Debug\Exception\ContextErrorException;
+use Scribe\Utility\ClassInfo;
 
 /**
  * Class ExceptionTrait.
@@ -27,27 +27,9 @@ trait ExceptionTrait
     protected $attributes;
 
     /**
-     * An enhanced constructor that allows for passing the default \Exception parameters, as well as an array of additional
-     * attributes followed by any number of additional arguments that will be passed to sprintf against the message.
-     *
-     * @param string|null  $message        An error message string (optionally fed to sprintf if optional args are given)
-     * @param int|null     $code           The error code (which should be from ORMExceptionInterface). If null, the value
-     *                                     of ExceptionInterface::CODE_GENERIC will be used.
-     * @param mixed        $previous       The previous exception (when re-thrown within another exception), if applicable.
-     * @param mixed[]|null $attributes     An optional array of attributes to pass. Will be provided in the debug output.
-     * @param mixed        ...$sprintfArgs Optional additional parameters that will be passed to sprintf against the
-     *                                     message string provided.
-     */
-    public function __construct($message = null, $code = null, $previous = null, array $attributes = null, ...$sprintfArgs)
-    {
-        $this
-            ->setAttributes((array) $attributes)
-            ->setParentArgs((string) $message, (int) $code, $previous, ...$sprintfArgs)
-        ;
-    }
-
-    /**
      * Get an instance of the exception, allowing for setting the message and any substitution parameters.
+     *
+     * @deprecated
      *
      * @param string|null $message
      * @param mixed       ...$sprintfArgs
@@ -61,6 +43,8 @@ trait ExceptionTrait
 
     /**
      * Get an instance of the exception, allowing for providing only string substitution parameters.
+     *
+     * @deprecated
      *
      * @param mixed ...$sprintfArgs
      *
@@ -82,34 +66,11 @@ trait ExceptionTrait
     }
 
     /**
-     * Handle any required setup of the parent class.
-     *
-     * @param string|null     $message
-     * @param int             $code
-     * @param \Exception|null $previous
-     * @param mixed           ...$sprintfArgs
-     *
-     * @internal
-     *
-     * @return $this
-     */
-    public function setParentArgs($message, $code, $previous = null, ...$sprintfArgs)
-    {
-        parent::__construct(
-            $this->getFinalMessage($message, ...$sprintfArgs),
-            $this->getFinalCode($code),
-            $this->getFinalPreviousException($previous)
-        );
-    }
-
-    /**
      * Validate message by providing a default if one was not provided and optionally calling sprintf on the message
      * if arguments were passed for string replacement.
      *
      * @param null|string $message
      * @param mixed       ...$sprintfArgs
-     *
-     * @internal
      *
      * @return string
      */
@@ -137,8 +98,6 @@ trait ExceptionTrait
      *
      * @param int|null $code
      *
-     * @internal
-     *
      * @return int
      */
     public function getFinalCode($code = null)
@@ -154,8 +113,6 @@ trait ExceptionTrait
      * Validate previous exception by requiring it is a subclass of \Exception or returning null.
      *
      * @param mixed $exception
-     *
-     * @internal
      *
      * @return null|\Exception
      */
@@ -173,20 +130,14 @@ trait ExceptionTrait
      *
      * @return string
      */
-    public function getDefaultMessage()
-    {
-        return (string) ExceptionInterface::MSG_GENERIC;
-    }
+    abstract public function getDefaultMessage();
 
     /**
      * Get the default exception code.
      *
      * @return int
      */
-    public function getDefaultCode()
-    {
-        return (int) ExceptionInterface::CODE_GENERIC;
-    }
+    abstract public function getDefaultCode();
 
     /**
      * @param array $attributes

@@ -13,6 +13,9 @@ namespace Scribe\MantleBundle\Templating\Generator\Node;
 
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
+use Scribe\MantleBundle\Templating\Generator\Node\Exception\NodeException;
+use Scribe\MantleBundle\Templating\Generator\Node\Exception\NodeORMException;
+use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererInterface;
 use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
@@ -145,21 +148,23 @@ class NodeCreator implements NodeCreatorInterface, NodeRepositoryAwareInterface
     }
 
     /**
-     * @param string          $field
-     * @param string          $criteria
-     * @param \Exception|null $exception
+     * @param string     $field
+     * @param string     $criteria
+     * @param \Exception $e
      *
-     * @throws \Exception
+     * @throws NodeORMException
      *
-     * @return mixed
+     * @return void
      */
     public function throwNotFoundEntityException($field, $criteria, \Exception $e = null)
     {
-        throw new NodeException(
+        throw new NodeORMException(
             sprintf('Node with %s %s could not be found.', $field, $criteria),
-            NodeException::CODE_MISSING_ENTITY,
+            NodeORMException::CODE_ORM_STATE_ENTITY_MISSING,
             $e
         );
+
+        return;
     }
 }
 

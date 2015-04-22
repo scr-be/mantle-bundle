@@ -14,6 +14,23 @@ namespace Scribe\Doctrine\Exception;
 /**
  * Class EntityAssociationORMException.
  */
-class EntityAssociationORMException extends ORMException {}
+class EntityAssociationORMException extends ORMException
+{
+    /**
+     * @return string
+     */
+    public function getDefaultMessage()
+    {
+        return self::MSG_ORM_STATE_ASSOCIATION_GENERIC;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultCode()
+    {
+        return self::CODE_ORM_STATE_ASSOCIATION_GENERIC;
+    }
+}
 
 /* EOF */

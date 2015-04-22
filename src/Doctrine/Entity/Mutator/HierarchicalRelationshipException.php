@@ -11,20 +11,32 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Mutator;
 
-use Scribe\Exception\ExceptionInterface;
-use Scribe\Exception\RuntimeException;
+use Scribe\Doctrine\Exception\ORMException;
 
 /**
  * Class HierarchicalRelationshipException.
  */
-class HierarchicalRelationshipException extends RuntimeException implements ExceptionInterface
+class HierarchicalRelationshipException extends ORMException
 {
     /**
-     * Exception code for an unknown/missing entity.
+     * Get the default exception message.
      *
-     * @var int
+     * @return string
      */
-    const CODE_MISSING_ENTITY = 201;
+    public function getDefaultMessage()
+    {
+        return self::MSG_ORM_STATE_ENTITY_MISSING;
+    }
+
+    /**
+     * Get the default exception code.
+     *
+     * @return int
+     */
+    public function getDefaultCode()
+    {
+        return self::CODE_ORM_STATE_ENTITY_MISSING;
+    }
 }
 
 /* EOF */

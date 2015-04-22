@@ -13,11 +13,14 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
 use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
+use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorORMException;
+use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorInterface;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\AbstractTwigGenerator;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorAccessibilityTrait;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorServicesTrait;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconTraits\IconCreatorAttributesTrait;
+use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorAccessibilityTrait;
+use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorServicesTrait;
+use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorAttributesTrait;
 
 /**
  * IconCreator.
@@ -128,7 +131,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      *
      * @return string
      *
-     * @throws IconException
+     * @throws IconCreatorException
      */
     public function render($icon = null, $family = null, $template = null, ...$styles)
     {
@@ -153,7 +156,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      *
      * @return $this
      *
-     * @throws IconException
+     * @throws IconCreatorException
      */
     protected function validateFamily($slug = null)
     {
@@ -162,9 +165,9 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
         }
 
         if (true !== $this->hasFamilyEntity()) {
-            throw new IconException(
+            throw new IconCreatorException(
                 'An icon family type was not provided.',
-                IconException::CODE_MISSING_ARGS
+                IconCreatorException::CODE_MISSING_ARGS
             );
         }
 
@@ -178,7 +181,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      *
      * @return $this
      *
-     * @throws IconException
+     * @throws IconCreatorException
      */
     protected function lookupFamily($slug = null)
     {
@@ -190,10 +193,12 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
 
             $this->setFamilyEntity($family);
         } catch (\Exception $e) {
-            throw new IconException(
-                sprintf('IconFamily with slug %s could not be found.', $slug),
-                IconException::CODE_MISSING_ENTITY,
-                $e
+            throw new IconCreatorORMException(
+                'IconFamily with slug %s could not be found.',
+                IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING,
+                $e,
+                null,
+                $slug
             );
         }
 
@@ -207,7 +212,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      *
      * @return $this
      *
-     * @throws IconException
+     * @throws IconCreatorException
      */
     protected function validateIcon($slug = null)
     {
@@ -216,9 +221,9 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
         }
 
         if (true !== $this->hasIconSlug()) {
-            throw new IconException(
+            throw new IconCreatorException(
                 'An icon type was not provided.',
-                IconException::CODE_MISSING_ARGS
+                IconCreatorException::CODE_MISSING_ARGS
             );
         }
 
@@ -228,18 +233,18 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
     }
 
     /**
-     * Check if the icon slug is valid or not.
+     * Checks if the icon slug is valid or not.
      *
      * @return $this
      *
-     * @throws IconException
+     * @throws IconCreatorORMException
      */
     private function lookupIcon()
     {
         if (true !== $this->hasFamilyEntity()) {
-            throw new IconException(
+            throw new IconCreatorException(
                 'Could not validate/lookup icon entity without a valid icon family entity.',
-                IconException::CODE_INVALID_VALIDATION_ORDER
+                IconCreatorException::CODE_TEMPLATING_GENERATOR_GENERIC
             );
         }
 
@@ -256,9 +261,13 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
 
         if (false === ($icons instanceof ArrayCollection) || 1 !== $icons->count()) {
             if (false === ($icons = $this->lookupIconByAlias($slug)) || 1 !== $icons->count()) {
-                throw new IconException(
-                    sprintf('Could not find icon slug %s in icon family %s.', $slug, $this->getFamilyEntity()->getName()),
-                    IconException::CODE_MISSING_ENTITY
+                throw new IconCreatorORMException(
+                    'Could not find icon slug %s in icon family %s.',
+                    IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING,
+                    null,
+                    null,
+                    $slug,
+                    $this->getFamilyEntity()->getName()
                 );
             }
         }
@@ -330,14 +339,15 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      *
      * @return $this
      *
-     * @throws IconException
+     * @throws IconCreatorException
+     * @throws IconCreatorORMException
      */
     private function lookupTemplate()
     {
         if (true !== $this->hasFamilyEntity()) {
-            throw new IconException(
+            throw new IconCreatorException(
                 'Could not validate/lookup icon template entity without a valid icon family entity.',
-                IconException::CODE_INVALID_VALIDATION_ORDER
+                IconCreatorException::CODE_TEMPLATING_GENERATOR_GENERIC
             );
         }
 
@@ -348,9 +358,9 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
         ;
 
         if (true !== ($templates->count() > 0)) {
-            throw new IconException(
+            throw new IconCreatorORMException(
                 sprintf('No icon templates are associated with the %s icon family.', $this->getFamilyEntity()->getName()),
-                IconException::CODE_MISSING_ENTITY
+                IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING
             );
         }
 
@@ -363,9 +373,9 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
             );
 
             if (false === ($templates instanceof ArrayCollection) || 1 !== $templates->count()) {
-                throw new IconException(
+                throw new IconCreatorORMException(
                     sprintf('Could not find icon template slug %s in icon family %s.', $slug, $this->getFamilyEntity()->getName()),
-                    IconException::CODE_MISSING_ENTITY
+                    IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING
                 );
             }
         }
@@ -403,23 +413,23 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      *
      * @return $this
      *
-     * @throws IconException
+     * @throws IconCreatorException
      */
     private function lookupStyles()
     {
         if (false === (count($this->getFamilyEntity()->getOptionalClasses()) > 0) &&
             true === (count($this->getOptionalStyles()) > 0)) {
-            throw new IconException(
+            throw new IconCreatorException(
                 sprintf('No available optional styles to select for %s font family.', $this->getFamilyEntity()->getName()),
-                IconException::CODE_INVALID_STYLE
+                IconCreatorException::CODE_INVALID_STYLE
             );
         }
 
         foreach ($this->getOptionalStyles() as $style) {
             if (false === in_array($style, $this->getFamilyEntity()->getOptionalClasses())) {
-                throw new IconException(
+                throw new IconCreatorException(
                     sprintf('The requested optional style %s is not compatible with the %s font family.', $style, $this->getFamilyEntity()->getName()),
-                    IconException::CODE_INVALID_STYLE
+                    IconCreatorException::CODE_INVALID_STYLE
                 );
             }
         }
@@ -435,24 +445,24 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
     protected function validateEngine()
     {
         if (false === ($type = $this->getEngineType())) {
-            throw new IconException(
+            throw new IconCreatorException(
                 'Template engine type could not be determined, support cannot be verified.',
-                IconException::CODE_INVALID_ARGS
+                IconCreatorException::CODE_INVALID_ARGS
             );
         }
 
         if ($this->getTemplateEntity() === null) {
-            throw new IconException(
-                'The icon template entity is invalid; cannot verify the template engine.', IconException::CODE_INVALID_ARGS
+            throw new IconCreatorException(
+                'The icon template entity is invalid; cannot verify the template engine.', IconCreatorException::CODE_INVALID_ARGS
             );
         }
 
         if ($this->getTemplateEntity()->getEngine() !== $type) {
-            throw new IconException(
+            throw new IconCreatorException(
                 sprintf(
                     'The icon template requested %s engine, but we are running the %s engine.',
                     $this->getTemplateEntity()->getEngine(), $type
-                ), IconException::CODE_INVALID_ARGS
+                ), IconCreatorException::CODE_INVALID_ARGS
             );
         }
 

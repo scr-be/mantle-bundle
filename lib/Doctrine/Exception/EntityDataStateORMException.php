@@ -14,6 +14,23 @@ namespace Scribe\Doctrine\Exception;
 /**
  * Class EntityDataStateORMException.
  */
-class EntityDataStateORMException extends ORMException {}
+class EntityDataStateORMException extends ORMException
+{
+    /**
+     * @return string
+     */
+    public function getDefaultMessage()
+    {
+        return self::MSG_ORM_STATE_DATA_GENERIC;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultCode()
+    {
+        return self::CODE_ORM_STATE_DATA_GENERIC;
+    }
+}
 
 /* EOF */

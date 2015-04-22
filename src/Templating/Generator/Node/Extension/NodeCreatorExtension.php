@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Node;
+namespace Scribe\MantleBundle\Templating\Generator\Node\Extension;
 
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
+use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 
 /**
  * Class NodeCreatorExtension.
  */
-class NodeCreatorTwigExtension extends \Twig_Extension
+class NodeCreatorExtension extends \Twig_Extension
 {
     use AdvancedExtensionTrait;
 

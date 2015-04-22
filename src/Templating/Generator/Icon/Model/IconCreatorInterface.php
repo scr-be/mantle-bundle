@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Icon;
+namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
 
 use Twig_Environment;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;

@@ -14,6 +14,23 @@ namespace Scribe\Doctrine\Exception;
 /**
  * Class SubscriberEventORMException.
  */
-class SubscriberEventORMException extends ORMException {}
+class SubscriberEventORMException extends ORMException
+{
+    /**
+     * @return string
+     */
+    public function getDefaultMessage()
+    {
+        return self::MSG_ORM_SUBSCRIBER_EVENT;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultCode()
+    {
+        return self::CODE_ORM_SUBSCRIBER_EVENT;
+    }
+}
 
 /* EOF */

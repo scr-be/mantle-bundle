@@ -9,11 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Controller;
+namespace Scribe\Controller\Magic;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Scribe\Component\HttpFoundation\Exception\AbstractHttpException;
-use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -24,14 +22,24 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Scribe\Component\Controller\Exception\ControllerException;
+use Scribe\Component\HttpFoundation\Exception\AbstractHttpException;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
+use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorInterface;
 
 /**
- * Interface ControllerUtilitiesInterface.
+ * Interface ControllerMagicUtilitiesInterface.
  */
-interface ControllerUtilitiesInterface
+interface ControllerMagicUtilitiesInterface
 {
+    /**
+     * Service id of the default entity manager.
+     *
+     * @var string
+     */
+    const EM_DEFAULT_ID = 'doctrine.orm.default_entity_manager';
+
     /**
      * Returns the container.
      *
@@ -42,92 +50,204 @@ interface ControllerUtilitiesInterface
     /**
      * Provides an array of services corresponding to the array of service IDs provided as parameters.
      *
-     * @param string,... $keys An array of service IDs to resolve from the container.
+     * @param string,... $id An array of service IDs to resolve from the container.
      *
      * @return mixed[]
      */
-    public function getServiceCollection(...$keys);
+    public function getServiceCollection(...$id);
 
     /**
      * Provides a service definition based on the service ID provided.
      *
-     * @param string $key A service key to resolve from the container
+     * @param string $id A service key to resolve from the container
      *
      * @return mixed
      */
-    public function getService($key);
+    public function getService($id);
 
     /**
      * Check if a service exists within the container.
      *
-     * @param string $key A service key to search for within the container.
+     * @param string $id A service key to search for within the container.
      *
      * @return mixed
      */
-    public function hasService($key);
+    public function hasService($id);
 
     /**
      * Provides an array of parameters corresponding to an array of parameter keys provided as method arguments.
      *
-     * @param string ...$keys The parameter keys to resolve.
+     * @param string ...$id The parameter keys to resolve.
      *
      * @return mixed
      */
-    public function getParameterCollection(...$keys);
+    public function getParameterCollection(...$id);
 
     /**
      * Provides a parameter value based on the key provided.
      *
-     * @param string $key A parameter key to resolve.
+     * @param string $id A parameter key to resolve.
      *
      * @return mixed
      */
-    public function getParameter($key);
+    public function getParameter($id);
 
     /**
      * Checks if a parameter exists within the container.
      *
-     * @param string $key A parameter key to check for within the container.
+     * @param string $id A parameter key to check for within the container.
      *
      * @return bool
      */
-    public function hasParameter($key);
+    public function hasParameter($id);
 
     /**
      * Access the entity manager quickly through this short hand method.
      *
-     * @return EntityManagerInterface
+     * @param string|null $id The id of the EM service if not the default.
+     *
+     * @return \Doctrine\ORM\EntityManagerInterface
      */
-    public function em();
+    public function em($id = null);
 
     /**
-     * Flush the pending ORM change set to the database.
+     * Flush the pending ORM change-set to the DB.
      *
-     * @param bool $now Should this action literally place *now*?
+     * @param bool $now Should the change-set be flushed?
      *
-     * @return bool
+     * @return $this
      */
     public function emFlush($now = true);
+
+    /**
+     * Begin a transaction.
+     *
+     * @return $this
+     */
+    public function emTransactionBegin();
+
+    /**
+     * Commit a transaction.
+     *
+     * @return $this
+     */
+    public function emTransactionCommit();
+
+    /**
+     * Rollback a transaction.
+     *
+     * @return $this
+     */
+    public function emTransactionRollback();
+
+    /**
+     * Persist an array collection to the database.
+     *
+     * @param ArrayCollection $collection An collection of entities.
+     * @param bool            $flush      Should the actions be flushed immediately?
+     *
+     * @return $this
+     */
+    public function entityCollectionPersist(ArrayCollection $collection, $flush = false);
+
+    /**
+     * Remove an array collection of entities from the database.
+     *
+     * @param ArrayCollection $collection An collection of entities.
+     * @param bool            $flush      Should the actions be flushed immediately?
+     *
+     * @return $this
+     */
+    public function entityCollectionRemove(ArrayCollection $collection, $flush = false);
+
+    /**
+     * Refresh an array collection of entities. This removes any local changes and
+     * brings the entities in-line with the state of the database.
+     *
+     * @param ArrayCollection $collection An collection of entities.
+     * @param bool            $flush      Should the actions be flushed immediately?
+     *
+     * @return $this
+     */
+    public function entityCollectionRefresh(ArrayCollection $collection, $flush = false);
 
     /**
      * Persist an entity to the database.
      *
      * @param AbstractEntity $entity An entity instance.
-     * @param bool           $flush  Whether to flush ORM change set immediately or not.
+     * @param bool           $flush  Whether to flush ORM change-set immediately or not.
      *
-     * @return bool
+     * @return $this
      */
-    public function emPersist(AbstractEntity $entity, $flush = false);
+    public function entityPersist(AbstractEntity $entity, $flush = false);
 
     /**
      * Remove an orm entity and optionally flush the transaction.
      *
      * @param AbstractEntity $entity An entity instance.
-     * @param bool           $flush  Whether to flush ORM change set immediately or not.
+     * @param bool           $flush  Whether to flush ORM change-set immediately or not.
      *
-     * @return bool
+     * @return $this
      */
-    public function emRemove(AbstractEntity $entity, $flush = false);
+    public function entityRemove(AbstractEntity $entity, $flush = false);
+
+    /**
+     * Refreshes an entity, discarding local changes and bringing its state in-line with
+     * that of the database.
+     *
+     * @param AbstractEntity $entity An entity instance.
+     *
+     * @return $this
+     */
+    public function entityRefresh(AbstractEntity $entity);
+
+    /**
+     * Clears the entity from Doctrine's entity map. This ensures you receive a new object instance
+     * when re-requesting the entity.
+     *
+     * @param AbstractEntity $entity An entity instance.
+     *
+     * @return $this
+     */
+    public function entityClear(AbstractEntity $entity);
+
+    /**
+     * Detaches an entity from the manager. Any unfinished/pending changes to the entity will not
+     * be persisted!
+     *
+     * @param AbstractEntity $entity An entity instance.
+     *
+     * @return $this
+     */
+    public function entityDetach(AbstractEntity $entity);
+
+    /**
+     * Re-attaches (merges) an entity back into the manager and returns the managed version of the
+     * entity. The passed version of the entity remains un-managed.
+     *
+     * @param AbstractEntity $entity An entity instance.
+     *
+     * @return AbstractEntity
+     */
+    public function entityAttach(AbstractEntity $entity);
+
+    /**
+     * Returns a new copy of the passed entity that is by default shallow-copied. A deep copy will
+     * recursively copy the passed entities associations as well.
+     *
+     * @param AbstractEntity $entity An entity instance.
+     * @param bool           $deep   Determines if deep copy is performed (associated entities are copied).
+     *
+     * @return AbstractEntity
+     */
+    public function entityCopy(AbstractEntity $entity, $deep = false);
+
+    /**
+     * Access the templating engine service.
+     *
+     * @return \Symfony\Bundle\FrameworkBundle\Templating\EngineInterface
+     */
+    public function templating();
 
     /**
      * Access the Twig environment service.
@@ -144,7 +264,7 @@ interface ControllerUtilitiesInterface
      *
      * @return string
      */
-    public function getTwigTpl($templateName, ...$parameters);
+    public function renderTwigTpl($templateName, ...$parameters);
 
     /**
      * Renders a template from the provided string.
@@ -154,56 +274,67 @@ interface ControllerUtilitiesInterface
      *
      * @return string
      */
-    public function getTwigStr($templateString, ...$parameters);
+    public function renderTwigStr($templateString, ...$parameters);
 
     /**
-     * Returns an HTML response using the provided parameters to construct the Response object instance. The Response
-     * object constructor parameters can be found via the Symfony API docs.
+     * Returns an HTML response using the provided parameters to construct the Response object instance.
      *
-     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html
+     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
      *
-     * @param mixed[] $parameters Parameters passed to the Response constructor.
+     * @param string        $content The content for the response.
+     * @param array         $headers Any headers to send with the request.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponseHTML(...$parameters);
+    public function getResponse($content, array $headers = [], $status = null, callable $config = null);
+
+    /**
+     * Alias for {@see self::getResponse()}.
+     *
+     * @param string $content       The response content.
+     * @param mixed  ...$parameters Parameters passed to the Response constructor.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getResponseTypeHTML($content, array $headers = []);
 
     /**
      * Returns a text response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see getResponseHTML()}.
+     * parameter and usage information reference {@see getResponse()}.
      *
      * @param mixed[] $parameters Parameters passed to the Response constructor.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponseText(...$parameters);
+    public function getResponseTypeText(...$parameters);
 
     /**
      * Returns a JSON response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see getResponseHTML()}.
+     * parameter and usage information reference {@see getResponse()}.
      *
      * @param mixed[] $parameters Parameters passed to the Response constructor.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponseJSON(...$parameters);
+    public function getResponseTypeJSON(...$parameters);
 
     /**
      * Returns a YAML response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see getResponseHTML()}.
+     * parameter and usage information reference {@see getResponse()}.
      *
      * @param mixed[] $parameters Parameters passed to the Response constructor.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponseYAML(...$parameters);
-
-    /**
-     * Provides a newly initialized Response object without any configuration applied.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getResponseGeneric();
+    public function getResponseTypeYAML(...$parameters);
 
     /**
      * Returns a RedirectResponse configured based on the provided URI.
@@ -212,7 +343,7 @@ interface ControllerUtilitiesInterface
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectURI($uri);
+    public function getResponseRedirectByURI($uri);
 
     /**
      * Returns a RedirectResponse configured based on the provided URL.
@@ -221,7 +352,7 @@ interface ControllerUtilitiesInterface
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectURL($url);
+    public function getResponseRedirectByURL($url);
 
     /**
      * Returns a RedirectResponse configured based on the passed Route entity provided.
@@ -230,7 +361,7 @@ interface ControllerUtilitiesInterface
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectRoute(Route $route);
+    public function getResponseRedirectByRoute(Route $route);
 
     /**
      * Provides the router service from the container.
@@ -444,13 +575,29 @@ interface ControllerUtilitiesInterface
     public function node();
 
     /**
-     * Render a node from a node entity
+     * Attempts to render a node. Tries to do so in the following order: by Node entity, by node slug, by node
+     * materialized path.
+     *
+     * @param Node|string $search
+     * @param mixed       ...$arguments
+     *
+     * @return string
+     */
+    public function getNodeRendered($search, ...$arguments);
+
+    /**
+     * Renders a node
      *
      * @param Node  $node
-     * @param array $args
+     * @param mixed ...$arguments
      *
-     *
+     * @return string
      */
+    public function renderNodeEntity(Node $node, ...$arguments);
+
+    public function renderNodeBySlug($slug, ...$arguments);
+
+    public function renderNodeByPath($materializedPath, ...$arguments);
 }
 
 /* EOF */

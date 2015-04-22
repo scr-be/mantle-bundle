@@ -9,33 +9,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- page title -->
-    <title>{{ get_config_yml('scribe.html_title_pre') }}{% block titlePre %}Home{% endblock %}{{ get_config_yml('scribe.html_title_post') }}</title>
+    <title>{{ get_config_yml('s.mantle.html_title_pre') }}{% block titlePre %}Home{% endblock %}{{ get_config_yml('s.mantle.html_title_post') }}</title>
 
     <!-- meta info -->
-    <meta name="description" content="{% block description %}{{ get_config('scribe.html_description') }}{% endblock %}">
-    <meta name="keywords"    content="{% block metaKeywords %}{{ get_config('scribe.html_keywords')   }}{% endblock %}">
-    <meta name="author"      content="{% block metaAuthor %}{{ get_config('scribe.html_author')       }}{% endblock %}">
+    <meta name="description" content="{% block description %}{{ get_config('s.mantle.html_description') }}{% endblock %}">
+    <meta name="keywords"    content="{% block metaKeywords %}{{ get_config('s.mantle.html_keywords')   }}{% endblock %}">
+    <meta name="author"      content="{% block metaAuthor %}{{ get_config('s.mantle.html_author')       }}{% endblock %}">
 
     <!-- Google+ publisher data -->
     <link rel="publisher" href="https://plus.google.com/+Scribenet">
 
     <!-- Twitter card info -->
     {% block metaTwitter %}
-        <meta name="twitter:card"        content="{% block metaTwitterCard %}{{ get_config('scribe.twitter_card') }}{% endblock %}">
-        <meta name="twitter:site"        content="{{ get_config('scribe.twitter_site') }}">
-        <meta name="twitter:title"       content="{{ block('titlePre') }}{{ get_config_yml('scribe.html_title_post') }}">
+        <meta name="twitter:card"        content="{% block metaTwitterCard %}{{ get_config('s.mantle.twitter_card') }}{% endblock %}">
+        <meta name="twitter:site"        content="{{ get_config('s.mantle.twitter_site') }}">
+        <meta name="twitter:title"       content="{{ block('titlePre') }}{{ get_config_yml('s.mantle.html_title_post') }}">
         <meta name="twitter:description" content="{{ block('description') }}">
-        <meta name="twitter:creator"     content="{% block metaTwitterCreator %}{{ get_config('scribe.twitter_site') }}{% endblock %}">
-        <meta name="twitter:image"       content="{% block metaTwitterImage %}{{ get_config('scribe.twitter_image') }}{% endblock %}">
+        <meta name="twitter:creator"     content="{% block metaTwitterCreator %}{{ get_config('s.mantle.twitter_site') }}{% endblock %}">
+        <meta name="twitter:image"       content="{% block metaTwitterImage %}{{ get_config('s.mantle.twitter_image') }}{% endblock %}">
     {% endblock %}
 
     <!-- Open Graph data -->
     {% block metaOG %}
-        <meta property="og:title"       content="{{ block('titlePre') }}{{ get_config_yml('scribe.html_title_post') }}">
-        <meta property="og:type"        content="{% block metaOGType %}{{ get_config('scribe.og_type') }}{% endblock %}">
+        <meta property="og:title"       content="{{ block('titlePre') }}{{ get_config_yml('s.mantle.html_title_post') }}">
+        <meta property="og:type"        content="{% block metaOGType %}{{ get_config('s.mantle.og_type') }}{% endblock %}">
         <meta property="og:description" content="{{ block('description') }}">
-        <meta property="og:image"       content="{% block metaOGImage %}{{ get_config('scribe.og_image') }}{% endblock %}">
-        <meta property="og:site_name"   content="{{ get_config('scribe.html_author') }}">
+        <meta property="og:image"       content="{% block metaOGImage %}{{ get_config('s.mantle.og_image') }}{% endblock %}">
+        <meta property="og:site_name"   content="{{ get_config('s.mantle.html_author') }}">
         <meta property="og:url"         content="{{ app.request.uri }}">
     {% endblock %}
 

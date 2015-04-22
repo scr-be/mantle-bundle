@@ -11,12 +11,13 @@
 
 namespace Scribe\Component\Controller\Exception;
 
-
+use Scribe\Exception\RuntimeException;
+use Scribe\Component\DependencyInjection\Exception\Model\ControllerExceptionInterface;
 
 /**
  * Class RuntimeControllerException.
  */
-class RuntimeControllerException extends ControllerException
+class RuntimeControllerException extends RuntimeException implements ControllerExceptionInterface
 {
     /**
      * Get the default exception message.

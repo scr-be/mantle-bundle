@@ -11,7 +11,7 @@
 
 namespace Scribe\Doctrine\Manager;
 
-use Scribe\Component\DependencyInjection\EntityManagerAwareTrait;
+use Scribe\Component\DependencyInjection\Aware\EntityManagerAwareTrait;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**

@@ -71,20 +71,25 @@ parameters:
 
     s.mantle.icon_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
     s.mantle.icon_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
-    s.mantle.icon_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorExtension
+    s.mantle.icon_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Icon\Extension\IconCreatorExtension
 
     # Node Creator Services
 
     s.mantle.node_creator_caching_disabled.class:                       Scribe\MantleBundle\Templating\Generator\Node\NodeCreator
     s.mantle.node_creator_caching_enabled.class:                        Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached
-    s.mantle.node_creator.factory.class:                                Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorFactory
+    s.mantle.node_creator.factory.class:                                Scribe\MantleBundle\Templating\Generator\Node\Factory\NodeCreatorFactory
     s.mantle.node_creator.renderer.registrar.class:                     Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar
     s.mantle.node_creator.renderer.twig.class:                          Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererTwig
-    s.mantle.node_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorTwigExtension
+    s.mantle.node_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Node\Extension\NodeCreatorExtension
 
     # Node Handler Services
 
     s.mantle.hier_rel_manager.class:                                    Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipManager
+
+    # Response Factory
+
+    s.mantle.response.factory.class:                                    Scribe\Component\HttpFoundation\Response\Factory\ResponseFactory
+    s.mantle.response.type_html.class:                                  Scribe\Component\HttpFoundation\Response\Response
 
     # Navigation Creator Services
 
@@ -145,6 +150,19 @@ services:
         arguments: [ @s.mantle.config.yml ]
         tags:
             - { name: twig.extension }
+
+    # Response Factories
+
+    s.mantle.response.type_html:
+        class:   %s.mantle.response.type_html.class%
+        factory:
+            - %s.mantle.response.factory.class%
+            - getResponse
+        arguments:
+            - %s.mantle.response.type_html.class%
+            - %s.mantle.http_response.charset%
+            - %s.mantle.http_response.protocol%
+            - %s.mantle.http_response.headers%
 
     # Repositories
 
@@ -342,21 +360,21 @@ services:
         arguments:
             - @s.mantle.node.repo
             - @s.mantle.node_creator.renderer.registrar
+        calls:
+            - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
     s.mantle.node_creator_caching_disabled:
         class: %s.mantle.node_creator_caching_disabled.class%
         arguments:
             - @s.mantle.node.repo
             - @s.mantle.node_creator.renderer.registrar
-        calls:
-            - [setCacheHandlerChain, [@s.cache.handler_chain]]
 
     s.mantle.node_creator:
         class:   %s.mantle.node_creator_caching_enabled.class%
         factory: [%s.mantle.node_creator.factory.class%, getNodeRenderer]
         arguments:
             - @s.mantle.service_finder
-            - %scribe.node_creator.caching%
+            - %s.mantle.node_creator.caching%
 
     s.mantle.node_creator.renderer.registrar:
         class: %s.mantle.node_creator.renderer.registrar.class%
@@ -413,11 +431,11 @@ services:
         arguments:
             - @s.utils.controller
             - @s.mantle.bundle_information
-            - %scribe.maintenance.enabled%
-            - %scribe.maintenance.bundles%
-            - %scribe.maintenance.exempt%
-            - %scribe.maintenance.override.request_argument%
-            - %scribe.maintenance.override.request_value%
+            - %s.mantle.maintenance.enabled%
+            - %s.mantle.maintenance.bundles%
+            - %s.mantle.maintenance.exempt%
+            - %s.mantle.maintenance.override.request_argument%
+            - %s.mantle.maintenance.override.request_value%
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 

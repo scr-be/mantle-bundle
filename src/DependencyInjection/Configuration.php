@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->append($this->getHttpResponseNode())
                 ->append($this->getMaintenanceNode())
                 ->append($this->getNodeCreatorNode())
                 ->append($this->getMetadataNode())
@@ -42,6 +43,34 @@ class Configuration implements ConfigurationInterface
         ;
 
         return $treeBuilder;
+    }
+
+    /**
+     * Create maintenance mode node.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     */
+    private function getHttpResponseNode()
+    {
+        return (new TreeBuilder())
+            ->root('http_response')
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('headers')
+                    ->defaultValue(['X-Framework-Powered-By: PHP-Symfony-Mantle'])
+                    ->info('Any additional header to append on each HTTP response.')
+                    ->prototype('scalar')->end()
+                ->end()
+                ->floatNode('protocol')
+                    ->defaultValue(1.1)
+                    ->info('The HTTP protocol to use for the response.')
+                ->end()
+                ->scalarNode('charset')
+                    ->defaultValue('utf-8')
+                    ->info('The charset to use for the HTTP response.')
+                ->end()
+            ->end()
+        ;
     }
 
     /**

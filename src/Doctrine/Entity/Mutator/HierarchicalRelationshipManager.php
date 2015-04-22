@@ -338,7 +338,7 @@ class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
     {
         throw new HierarchicalRelationshipException(
             sprintf('Node with %s %s could not be found.', $field, $criteria),
-            HierarchicalRelationshipException::CODE_MISSING_ENTITY,
+            HierarchicalRelationshipException::CODE_ORM_STATE_ENTITY_MISSING,
             $exception
         );
     }

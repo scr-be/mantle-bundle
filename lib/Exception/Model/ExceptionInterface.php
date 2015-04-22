@@ -24,11 +24,18 @@ interface ExceptionInterface
     const MSG_GENERIC = 'An undefined exception was thrown.';
 
     /**
+     * Exception code for an unknown/undefined state.
+     *
+     * @var int
+     */
+    const CODE_UNKNOWN = -10;
+
+    /**
      * Generic exception code for...absolutely generic, unspecified exceptions.
      *
      * @var int
      */
-    const CODE_GENERIC = -1;
+    const CODE_GENERIC = -5;
 
     /**
      * Generic exception code for exceptions thrown from within Mantle library.
@@ -43,6 +50,41 @@ interface ExceptionInterface
      * @var int
      */
     const CODE_GENERIC_FROM_MANTLE_BDL = 2000;
+
+    /**
+     * Exception code for generic invalid arguments exception.
+     *
+     * @var int
+     */
+    const CODE_INVALID_ARGS = 50;
+
+    /**
+     * Exception code for an invalid style being passed by user.
+     *
+     * @var int
+     */
+    const CODE_INVALID_STYLE = 51;
+
+    /**
+     * Exception code for generic missing arguments.
+     *
+     * @var int
+     */
+    const CODE_MISSING_ARGS = 100;
+
+    /**
+     * Exception code for a missing entity.
+     *
+     * @var int
+     */
+    const CODE_MISSING_ENTITY = 101;
+
+    /**
+     * Exception code for an unknown/missing service.
+     *
+     * @var int
+     */
+    const CODE_MISSING_SERVICE = 201;
 
     /**
      * An enhanced constructor that allows for passing the default \Exception parameters, as well as an array of additional
@@ -83,20 +125,6 @@ interface ExceptionInterface
      * @return string
      */
     public function __toString();
-
-    /**
-     * Handle any required setup of the parent class.
-     *
-     * @param string|null                        $message
-     * @param int                                $code
-     * @param ExceptionInterface|\Exception|null $previousException
-     * @param mixed                              ...$sprintfArgs
-     *
-     * @internal
-     *
-     * @return $this
-     */
-    public function setParentArgs($message, $code, $previousException, ...$sprintfArgs);
 
     /**
      * Validate message by providing a default if one was not provided and optionally calling sprintf on the message

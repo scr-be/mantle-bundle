@@ -9,12 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Node;
+namespace Scribe\MantleBundle\Templating\Generator\Node\Factory;
 
 use Scribe\Component\DependencyInjection\Container\ServiceFinder;
+use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 
 /**
- * NodeCreatorFactory.
+ * Class NodeCreatorFactory.
  */
 class NodeCreatorFactory
 {

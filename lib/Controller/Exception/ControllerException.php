@@ -12,32 +12,13 @@
 namespace Scribe\Component\Controller\Exception;
 
 use Scribe\Exception\Exception;
+use Scribe\Component\DependencyInjection\Exception\Model\ControllerExceptionInterface;
 
 /**
  * Class ControllerException.
  */
-class ControllerException extends Exception
+class ControllerException extends Exception implements ControllerExceptionInterface
 {
-    /**
-     * @var string
-     */
-    const MSG_CONTROLLER_GENERAL = 'An unknown controller-related error occurred.';
-
-    /**
-     * @var string
-     */
-    const MSG_CONTROLLER_RUNTIME = 'A controller runtime error occurred: "%s".';
-
-    /**
-     * @var string
-     */
-    const MSG_CONTROLLER_INVALID_MAGIC_CALL = 'While attempting to invoke __call in "%s" the requested method "%s" could not be found.';
-
-    /**
-     * @var string
-     */
-    const MSG_CONTROLLER_INVALID_ARGUMENT = 'An invalid argument type or count was provided in "%s" to "%s": %s.';
-
     /**
      * Get the default exception message.
      *

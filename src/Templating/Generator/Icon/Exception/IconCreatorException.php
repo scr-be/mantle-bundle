@@ -9,14 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Exception\Model;
+namespace Scribe\MantleBundle\Templating\Generator\Icon\Exception;
+
+use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorException;
 
 /**
- * Class AbstractRuntimeException.
+ * Class IconException.
  */
-abstract class AbstractRuntimeException extends \RuntimeException
-{
-    use ExceptionTrait;
-}
+class IconCreatorException extends TemplatingGeneratorException {}
 
 /* EOF */

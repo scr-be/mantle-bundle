@@ -30,7 +30,7 @@ class ConfigContainerTest extends AbstractMantleKernelTestCase
 
     public function testGetParameter()
     {
-        $this->assertEquals([], $this->config->get('scribe.maintenance.bundles'));
+        $this->assertEquals([], $this->config->get('s.mantle.maintenance.bundles'));
         $this->assertEquals(
             'Symfony\Component\HttpKernel\Controller\TraceableControllerResolver',
             $this->config->get('debug.controller_resolver.class')

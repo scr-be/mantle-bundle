@@ -72,9 +72,9 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
         $creator = $this->getNewNodeCreator();
 
         $this->setExpectedException(
-            'Scribe\MantleBundle\Templating\Generator\Node\NodeException',
+            'Scribe\MantleBundle\Templating\Generator\Node\Exception\NodeORMException',
             'Node with slug foo could not be found.',
-            '101'
+            '5040'
         );
         $actual = $creator->renderFromSlug('foo');
     }
@@ -100,7 +100,7 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
         $creator = $this->getNewNodeCreator();
 
         $this->setExpectedException(
-            'Scribe\MantleBundle\Templating\Generator\Node\NodeException',
+            'Scribe\MantleBundle\Templating\Generator\Node\Exception\NodeException',
             'Could not find a renderer for the requested type template type of "foo".',
             '201'
         );

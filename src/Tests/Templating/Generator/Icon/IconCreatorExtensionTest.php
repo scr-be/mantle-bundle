@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
 
 use Twig_Environment;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorExtension;
+use Scribe\MantleBundle\Templating\Generator\Icon\Extension\IconCreatorExtension;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;

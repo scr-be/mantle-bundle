@@ -351,16 +351,30 @@ trait ClassReflectionAnalyserTrait
             return [];
         }
 
-        if (false !== $this->requireFQN) {
-            return $traits;
+        if (true === $this->requireFQN) {
+            return (array) $traits;
         }
 
-        $traitNames = [];
-        foreach ($traits as $t) {
-            $traitNames[] = ClassInfo::getTraitNameString($t);
-        }
+        return (array) array_merge(
+            $traits,
+            $this->getTraitNamesUnqualified($traits)
+        );
+    }
 
-        return (array) array_merge($traits, $traitNames);
+    /**
+     * Translate fully-qualified trait paths into their unqualified trait name.
+     *
+     * @param array $traits
+     *
+     * @return array
+     */
+    private function getTraitNamesUnqualified(array $traits)
+    {
+        array_walk($traits, function (&$t) {
+            $t = ClassInfo::getTraitName($t);
+        });
+
+        return (array) $traits;
     }
 }
 

@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Tests\Templating\Extension;
 
 use Twig_Environment;
-use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorTwigExtension;
+use Scribe\MantleBundle\Templating\Generator\Node\Extension\NodeCreatorExtension;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorHelperTrait;
@@ -51,8 +51,8 @@ class NodeCreatorTwigExtensionTest extends AbstractMantleKernelTestCase
 
         $this->mockNodeTwigEntities();
         $this->getNewHandlerChainWithAllHandlerTypes();
-        $this->ext       = new NodeCreatorTwigExtension($this->getNewNodeCreator());
-        $this->extCached = new NodeCreatorTwigExtension($this->getNewNodeCreator(true));
+        $this->ext       = new NodeCreatorExtension($this->getNewNodeCreator());
+        $this->extCached = new NodeCreatorExtension($this->getNewNodeCreator(true));
     }
 
     public function testCanRender()

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Node;
+namespace Scribe\MantleBundle\Templating\Generator\Node\Model;
 
 use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;

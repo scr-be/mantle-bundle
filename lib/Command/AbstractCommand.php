@@ -13,8 +13,8 @@ namespace Scribe\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Output\OutputInterface as OI;
-use Symfony\Component\Console\Input\InputInterface as II;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
@@ -29,7 +29,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
     protected $dialog   = null;
     protected $writeIndentLog = [];
 
-    protected function setupBasicServices(II $input, OI $output)
+    protected function setupBasicServices(InputInterface $input, OutputInterface $output)
     {
         list($engine, $progress, $dialog) =
             $this->getServices([

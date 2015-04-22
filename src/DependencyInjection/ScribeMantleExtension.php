@@ -28,7 +28,7 @@ class ScribeMantleExtension extends AbstractExtension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->autoLoad($configs, $container, new Configuration(), 'scribe');
+        $this->autoLoad($configs, $container, new Configuration(), 's.mantle');
     }
 }
 

@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Icon\IconTraits;
-
-use Scribe\MantleBundle\Templating\Generator\Icon\IconException;
+namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
+use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
 
 /**
  * Class IconCreatorAccessibilityTrait.
@@ -160,9 +159,9 @@ trait IconCreatorAccessibilityTrait
     public function setAriaRole($role)
     {
         if (true !== in_array($role, $this->validAriaRoles)) {
-            throw new IconException(
+            throw new IconCreatorException(
                 'You attempted to set an invalid aria role attribute. Valid values: '.implode(',', $this->validAriaRoles),
-                IconException::CODE_INVALID_ARGS
+                IconCreatorException::CODE_INVALID_ARGS
             );
         }
 

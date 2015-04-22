@@ -11,10 +11,13 @@
 
 namespace Scribe\Component\Controller\Exception;
 
+use Scribe\Exception\LogicException;
+use Scribe\Component\DependencyInjection\Exception\Model\ControllerExceptionInterface;
+
 /**
  * Class InvalidArgumentControllerException.
  */
-class InvalidArgumentControllerException extends ControllerException
+class InvalidArgumentControllerException extends LogicException implements ControllerExceptionInterface
 {
     /**
      * Get the default exception message.
