@@ -87,6 +87,13 @@ interface ExceptionInterface
     const CODE_MISSING_SERVICE = 201;
 
     /**
+     * Exception code for an inconsistent fixture data error.
+     *
+     * @var int
+     */
+    const CODE_FIXTURE_DATA_INCONSISTENT = 735;
+
+    /**
      * An enhanced constructor that allows for passing the default \Exception parameters, as well as an array of additional
      * attributes followed by any number of additional arguments that will be passed to sprintf against the message.
      *

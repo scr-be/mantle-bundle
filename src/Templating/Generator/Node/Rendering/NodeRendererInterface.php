@@ -29,11 +29,11 @@ interface NodeRendererInterface
     /**
      * Given the provided rendererName, does this renderer match?
      *
-     * @param string $rendererName
+     * @param mixed ...$by
      *
      * @return bool
      */
-    public function isSupported($rendererName);
+    public function isSupported(...$by);
 }
 
 /* EOF */

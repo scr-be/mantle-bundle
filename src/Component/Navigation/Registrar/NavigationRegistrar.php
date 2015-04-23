@@ -11,30 +11,23 @@
 
 namespace Scribe\MantleBundle\Component\Navigation\Registrar;
 
-use Scribe\Component\DependencyInjection\Compiler\CompilerPassChainInterface;
-
+use Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain;
 use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
 use Scribe\MantleBundle\Component\Navigation\Member\NavigationHandlerInterface;
 
 /**
  * Class NavigationRegistrar.
  */
-class NavigationRegistrar implements CompilerPassChainInterface
+class NavigationRegistrar extends AbstractCompilerPassChain
 {
     /**
-     * @var array
+     * Construct object with empty handlers array.
      */
-    protected $handlers = [];
-
-    /**
-     * @param CompilerPassHandlerInterface $handler
-     * @param null                         $priority
-     */
-    public function addHandler(CompilerPassHandlerInterface $handler, $priority = null)
+    public function __construct()
     {
-        if ($handler instanceof NavigationHandlerInterface) {
-            $this->handlers[$priority] = $handler;
-        }
+        parent::__construct(
+            ['handlerInstanceRestriction' => 'Scribe\MantleBundle\Component\Navigation\Member\NavigationHandlerInterface']
+        );
     }
 }
 

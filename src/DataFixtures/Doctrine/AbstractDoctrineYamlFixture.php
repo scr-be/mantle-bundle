@@ -22,7 +22,6 @@ use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Scribe\Component\DependencyInjection\Container\ContainerAwareInterface;
 use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
-use Scribe\Exception\Exception;
 use Scribe\Exception\Model\ExceptionInterface;
 use Scribe\Exception\RuntimeException;
 use Scribe\Utility\ClassInfo;
@@ -128,7 +127,12 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         $return = preg_match('#^Load(.*?)Data$#', $class, $matches);
 
         if (false === $return || 0 === $return || false === isset($matches[1])) {
-            throw Exception::getInstance('Could not determine the fixture name from the class loader name "%s".', $class);
+            throw new RuntimeException(
+                'Could not determine the fixture name from the class loader name "%s".'.
+                RuntimeException::CODE_FIXTURE_DATA_INCONSISTENT,
+                null, null,
+                $class
+            );
         }
 
         return $matches[1];
@@ -207,8 +211,13 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      */
     protected function getFixtureDataValue($i, array $f = null)
     {
-        if (is_array($f) || !array_key_exists($i, $f)) {
-            throw RuntimeException::getInstance('Could not find data "%s" in fixtures array for "%s".', $i, $this->name);
+        if (!is_array($f) || !array_key_exists($i, $f)) {
+            throw new RuntimeException(
+                'Could not find data "%s" in fixtures array for "%s".',
+                RuntimeException::CODE_FIXTURE_DATA_INCONSISTENT,
+                null, null,
+                $i, $this->name
+            );
         }
 
         return (is_array($f[$i]) ? $this->getFixtureValueAsArrayWithRefs($f[$i]) : $this->getFixtureValueWithRefs($f[$i]));
@@ -268,12 +277,16 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         $depSch = $matches[3];
 
         if (!array_key_exists($depName, $this->dependencies)) {
-            throw new RuntimeException(sprintf('You must specify dependency repos/entities in your YAML file for %s.', $depName));
+            throw new RuntimeException(
+                'You must specify dependency repos/entities in your YAML file for %s.',
+                RuntimeException::CODE_MISSING_ARGS,
+                null, null, $depName
+            );
         }
 
         $dep = $this->dependencies[$depName];
 
-        if (!array_key_exists('repository', $dep)) {
+        if (false === array_key_exists('repository', $dep)) {
             throw new RuntimeException(
                 sprintf(
                     'You must specify dependency repo service in your YAML file for %s.',
@@ -282,7 +295,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
             );
         }
 
-        if ($this->container->has($dep['repository'])) {
+        if (false === $this->container->has($dep['repository'])) {
             throw new RuntimeException(
                 sprintf(
                     'The dependency repo service "%s" cannot be found in the container.',

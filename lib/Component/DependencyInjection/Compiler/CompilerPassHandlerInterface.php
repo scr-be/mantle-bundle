@@ -19,11 +19,11 @@ interface CompilerPassHandlerInterface
     /**
      * Allows the chain to determine if the handler is supported.
      *
-     * @param string $by
+     * @param string ...$by
      *
      * @return bool
      */
-    public function isSupported($by);
+    public function isSupported(...$by);
 }
 
 /* EOF */

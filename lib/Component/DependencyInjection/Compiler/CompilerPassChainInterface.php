@@ -23,6 +23,15 @@ interface CompilerPassChainInterface
      * @param int|null                     $priority
      */
     public function addHandler(CompilerPassHandlerInterface $handler, $priority = null);
+
+    /**
+     * Basic implementation of the get handler based on criteria passed.
+     *
+     * @param string ...$by
+     *
+     * @return CompilerPassHandlerInterface|null
+     */
+    public function getHandler(...$by);
 }
 
 /* EOF */

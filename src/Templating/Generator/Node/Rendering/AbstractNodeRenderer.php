@@ -21,13 +21,13 @@ abstract class AbstractNodeRenderer implements NodeRendererInterface, CompilerPa
     /**
      * Given the provided rendererName, does this renderer match?
      *
-     * @param string $by
+     * @param mixed ...$by
      *
      * @return bool
      */
-    public function isSupported($by)
+    public function isSupported(...$by)
     {
-        return (bool) ($this->normalizeRendererName($by) === $this->getRendererName() ?: false);
+        return (bool) ($this->normalizeRendererName(array_first($by)) === $this->getRendererName() ?: false);
     }
 
     /**

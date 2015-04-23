@@ -495,7 +495,49 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getResponse($content, array $headers = [], $status = null, callable $config = null)
     {
-        $response = new Response();
+        $response = $this->getService('s.mantle.response.type_html');
+
+        if (false === empty($headers)) {
+            foreach($headers as $name => $value) {
+                $response->addHeader([$name => $value]);
+            }
+        }
+
+        if (false === empty($content)) {
+            $response->setContent($content);
+        }
+
+        if (false === empty($status)) {
+            $response->setStatusCode($status);
+        }
+
+        if ($config instanceof \Closure) {
+            $response = $config($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Returns an HTML response using the provided parameters to construct the Response object instance.
+     * {@see self::getResponse()}
+     *
+     * @param string        $content The content for the response.
+     * @param array         $headers Any headers to send with the request.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getResponseTypeHTML($content, array $headers = [], $status = null, callable $config = null)
+    {
+        return $this->getResponse($content, $headers, $status, $config);
     }
 
     /**

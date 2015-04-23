@@ -11,58 +11,21 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
-use Scribe\Component\DependencyInjection\Compiler\CompilerPassChainInterface;
-use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
+use Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain;
 
 /**
  * Class NodeRendererRegistrar.
  */
-class NodeRendererRegistrar implements CompilerPassChainInterface
+class NodeRendererRegistrar extends AbstractCompilerPassChain
 {
-    /**
-     * @var NodeRendererInterface[]
-     */
-    protected $nodeRendererHandlers;
-
     /**
      * Construct object with empty handlers array.
      */
     public function __construct()
     {
-        $this->nodeRendererHandlers = [];
-    }
-
-    /**
-     * Add render handler type.
-     *
-     * @param CompilerPassHandlerInterface $handler
-     * @param null                         $priority
-     */
-    public function addHandler(CompilerPassHandlerInterface $handler, $priority = null)
-    {
-        if ($handler instanceof NodeRendererInterface) {
-            $this->nodeRendererHandlers[$priority] = $handler;
-        }
-    }
-
-    /**
-     * Get renderer.
-     *
-     * @param string $rendererType
-     *
-     * @return null|NodeRendererInterface
-     */
-    public function getHandler($rendererType)
-    {
-        ksort($this->nodeRendererHandlers);
-
-        foreach ($this->nodeRendererHandlers as $renderer) {
-            if ($renderer->isSupported($rendererType)) {
-                return $renderer;
-            }
-        }
-
-        return;
+        parent::__construct(
+            ['handlerInstanceRestriction' => 'Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererInterface']
+        );
     }
 }
 

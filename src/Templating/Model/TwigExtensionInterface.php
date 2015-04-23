@@ -19,4 +19,4 @@ interface TwigExtensionInterface
 
 }
 
-/* EOF *.
+/* EOF */

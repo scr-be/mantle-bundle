@@ -31,23 +31,23 @@ class SluggableSubscriber extends AbstractSubscriber
             return;
         }
 
+        foreach ($this->getSubscriberFields() as $field) {
+            if ($classMetadata->hasField($field)) {
+                continue;
+            }
+
+            $classMetadata->mapField([
+                'fieldName' => $field,
+                'type'      => 'string',
+                'length'    => '512',
+                'nullable'  => false,
+            ]);
+        }
+
         foreach ($this->getSubscriberTriggers() as $trigger) {
             if ($this->classReflectionAnalyser->hasMethod($trigger, $reflectionClass)) {
                 $classMetadata->addLifecycleCallback($trigger, Events::prePersist);
                 $classMetadata->addLifecycleCallback($trigger, Events::preUpdate);
-
-                foreach ($this->getSubscriberFields() as $field) {
-                    if ($classMetadata->hasField($field)) {
-                        continue;
-                    }
-
-                    $classMetadata->mapField([
-                        'fieldName' => $field,
-                        'type'      => 'string',
-                        'length'    => '512',
-                        'nullable'  => false,
-                    ]);
-                }
             }
         }
     }

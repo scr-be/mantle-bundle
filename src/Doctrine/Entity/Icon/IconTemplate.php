@@ -15,8 +15,6 @@ use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasName;
 use Scribe\Doctrine\Base\Model\HasDescription;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Exception\ExceptionInterface;
-use Scribe\Doctrine\Exception\SubscriberEventORMException;
 
 /**
  * Class Icon.
@@ -56,14 +54,6 @@ class IconTemplate extends AbstractEntity
     private $priority;
 
     /**
-     * perform any entity setup.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Support for casting from object type to string type.
      *
      * @return string
@@ -75,15 +65,12 @@ class IconTemplate extends AbstractEntity
 
     /**
      * This entity must not have auto-generated slugs.
-     *
-     * @throws SubscriberEventORMException
      */
     public function getAutoSlugFields()
     {
-        throw new SubscriberEventORMException(
-            'This entity does not support automatically generating slugs!',
-            ExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL
-        );
+        return [
+            'name'
+        ];
     }
 
     /**

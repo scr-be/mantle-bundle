@@ -22,11 +22,11 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Scribe\Component\Controller\Exception\ControllerException;
-use Scribe\Component\HttpFoundation\Exception\AbstractHttpException;
+use Scribe\Component\HttpFoundation\Exception\HttpException;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
-use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorInterface;
+use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 
 /**
  * Interface ControllerMagicUtilitiesInterface.
@@ -336,6 +336,8 @@ interface ControllerMagicUtilitiesInterface
      */
     public function getResponseTypeYAML(...$parameters);
 
+    public function getResponseTypeHTMLRenderedByTwig($name, array $arguments = []);
+
     /**
      * Returns a RedirectResponse configured based on the provided URI.
      *
@@ -396,11 +398,11 @@ interface ControllerMagicUtilitiesInterface
      * function (versus simply throwing the exception itself); by wrapping the exception in this method, it
      * intelligently handles providing the exception with request-specific information.
      *
-     * @param AbstractHttpException $exception
+     * @param HttpException $exception
      *
-     * @return AbstractHttpException
+     * @return HttpException
      */
-    public function processException(AbstractHttpException $exception);
+    public function processException(HttpException $exception);
 
     /**
      * Creates and returns a generic http exception. This method handles passing the exception through {@see self::processException()}

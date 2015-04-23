@@ -17,11 +17,11 @@ namespace Scribe\MantleBundle\Component\Navigation\Member;
 class NavigationHandler implements NavigationHandlerInterface
 {
     /**
-     * @param string $by
+     * @param mixed ...$by
      *
      * @return bool
      */
-    public function isSupported($by)
+    public function isSupported(...$by)
     {
         return false;
     }

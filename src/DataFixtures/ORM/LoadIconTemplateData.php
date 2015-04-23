@@ -11,13 +11,11 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Scribe\MantleBundle\Fixture\AbstractYamlFixture;
+use Scribe\MantleBundle\DataFixtures\Doctrine\AbstractDoctrineYamlFixture;
 
 /**
  * LoadIconTemplateData.
  */
-class LoadIconTemplateData extends AbstractYamlFixture
-{
-}
+class LoadIconTemplateData extends AbstractDoctrineYamlFixture {}
 
 /* EOF */
