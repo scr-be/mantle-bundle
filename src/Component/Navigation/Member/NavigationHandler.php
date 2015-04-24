@@ -10,11 +10,12 @@
  */
 
 namespace Scribe\MantleBundle\Component\Navigation\Member;
+use Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassHandler;
 
 /**
  * Class NavigationHandler.
  */
-class NavigationHandler implements NavigationHandlerInterface
+class NavigationHandler extends AbstractCompilerPassHandler
 {
     /**
      * @param mixed ...$by

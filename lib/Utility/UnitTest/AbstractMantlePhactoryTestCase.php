@@ -51,9 +51,9 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
     /**
      * handle constructing the object instance.
      */
-    public function __construct()
+    public function setUp()
     {
-        parent::__construct();
+        parent::setUp();
 
         $this
             ->setupPDO()

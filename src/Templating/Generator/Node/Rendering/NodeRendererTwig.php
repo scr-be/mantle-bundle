@@ -11,6 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
+use Scribe\Utility\ClassInfo;
 use Twig_Environment;
 
 /**
@@ -88,12 +89,18 @@ class NodeRendererTwig extends AbstractNodeRenderer
     }
 
     /**
-     * Returns the renderType name supported by this renderer implementation.
+     * Get the handler type (generally this will return the class name).
      *
-     * @returns string
+     * @param bool $fqcn
+     *
+     * @return string
      */
-    protected function getRendererName()
+    public function getType($fqcn = false)
     {
+        if ($fqcn === true) {
+            return (string) ClassInfo::getNamespaceByInstance($this).ClassInfo::getClassNameByInstance($this);
+        }
+
         return self::SUPPORTED_NAME;
     }
 }

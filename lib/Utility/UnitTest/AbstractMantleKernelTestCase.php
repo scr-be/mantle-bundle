@@ -31,9 +31,9 @@ abstract class AbstractMantleKernelTestCase extends KernelTestCase
     /**
      * handle constructing the object instance.
      */
-    public function __construct()
+    public function setUp()
     {
-        parent::__construct();
+        parent::setUp();
 
         $this
             ->setupKernel()

@@ -27,7 +27,7 @@ abstract class AbstractNodeRenderer implements NodeRendererInterface, CompilerPa
      */
     public function isSupported(...$by)
     {
-        return (bool) ($this->normalizeRendererName(array_first($by)) === $this->getRendererName() ?: false);
+        return (bool) ($this->normalizeRendererName(array_first($by)) === $this->getType() ?: false);
     }
 
     /**
@@ -43,11 +43,13 @@ abstract class AbstractNodeRenderer implements NodeRendererInterface, CompilerPa
     }
 
     /**
-     * Returns the renderType name supported by this renderer implementation.
+     * Get the handler type (generally this will return the class name).
      *
-     * @returns string
+     * @param bool $fqcn
+     *
+     * @return string
      */
-    abstract protected function getRendererName();
+    abstract public function getType($fqcn = false);
 }
 
 /* EOF */

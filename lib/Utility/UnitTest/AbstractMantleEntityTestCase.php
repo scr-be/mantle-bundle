@@ -28,9 +28,9 @@ abstract class AbstractMantleEntityTestCase extends AbstractMantleKernelTestCase
     /**
      * handle constructing the object instance.
      */
-    public function __construct()
+    public function setUp()
     {
-        parent::__construct();
+        parent::setUp();
 
         $this->setupEM();
     }

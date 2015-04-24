@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon;
+namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon\Extension;
 
 use Twig_Environment;
 use Scribe\MantleBundle\Templating\Generator\Icon\Extension\IconCreatorExtension;
@@ -85,12 +85,5 @@ class IconCreatorExtensionTest extends AbstractMantleKernelTestCase
 
         $this->assertXmlStringEqualsXmlString($expected, $html1);
         $this->assertXmlStringEqualsXmlString($expected, $html2);
-    }
-
-    public function tearDown()
-    {
-        $this->clearFilesystemCache();
-
-        parent::tearDown();
     }
 }

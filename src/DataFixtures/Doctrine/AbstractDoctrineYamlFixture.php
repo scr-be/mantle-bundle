@@ -123,7 +123,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
 
     protected function getFixtureNameFromClassName()
     {
-        $class = ClassInfo::getClassNameByInstance($this);
+        $class  = ClassInfo::getClassNameByInstance($this);
         $return = preg_match('#^Load(.*?)Data$#', $class, $matches);
 
         if (false === $return || 0 === $return || false === isset($matches[1])) {
@@ -190,7 +190,6 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     {
         foreach ($f as $name => $value) {
             $setter = 'set'.ucfirst($name);
-            print_r($setter);
             $data   = $this->getFixtureDataValue($name, $f);
             try {
                 $entity->$setter($data);

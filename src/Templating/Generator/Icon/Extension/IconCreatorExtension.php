@@ -30,8 +30,6 @@ class IconCreatorExtension extends Twig_Extension
 
     /**
      * @param IconCreatorInterface $iconCreator
-     *
-     * @internal param IconCreatorInterface $container
      */
     public function __construct(IconCreatorInterface $iconCreator)
     {

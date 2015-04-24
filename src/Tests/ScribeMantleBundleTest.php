@@ -70,9 +70,9 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
             'Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain',
             $nodeRenderer
         );
-        $this->assertNotEquals([], $methodChain->getHandlers());
-        $this->assertTrue($methodChain->hasHandlers());
-        $this->assertEquals(3, count($methodChain->getHandlers()));
+        $this->assertNotEquals([], $nodeRenderer->getHandlerCollection());
+        $this->assertTrue($nodeRenderer->hasHandlerCollection());
+        $this->assertEquals(1, count($nodeRenderer->getHandlerCollection()));
     }
 
     protected function tearDown()
@@ -84,8 +84,6 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
         if (true === is_dir($cacheDir)) {
             $this->removeDirectoryRecursive($cacheDir);
         }
-
-
     }
 
     protected function removeDirectoryRecursive($path)

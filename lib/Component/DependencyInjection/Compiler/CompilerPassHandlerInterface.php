@@ -17,6 +17,13 @@ namespace Scribe\Component\DependencyInjection\Compiler;
 interface CompilerPassHandlerInterface
 {
     /**
+     * The default restriction to check against when adding handler.
+     *
+     * @var string
+     */
+    const INTERFACE_NAME = __CLASS__;
+
+    /**
      * Allows the chain to determine if the handler is supported.
      *
      * @param string ...$by
@@ -24,6 +31,15 @@ interface CompilerPassHandlerInterface
      * @return bool
      */
     public function isSupported(...$by);
+
+    /**
+     * Get the handler type (generally this will return the class name).
+     *
+     * @param bool $fqcn
+     *
+     * @return string
+     */
+    public function getType($fqcn = false);
 }
 
 /* EOF */

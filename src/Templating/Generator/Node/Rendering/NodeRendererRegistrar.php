@@ -24,7 +24,7 @@ class NodeRendererRegistrar extends AbstractCompilerPassChain
     public function __construct()
     {
         parent::__construct(
-            ['handlerInstanceRestriction' => 'Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererInterface']
+            ['restrictions' => ['Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererInterface']]
         );
     }
 }

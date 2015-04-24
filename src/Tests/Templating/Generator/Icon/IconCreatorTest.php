@@ -496,48 +496,52 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ;
     }
 
-    /**
-     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
-     * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
-     */
     public function testAttributesTypeHintOnSetter_Family()
     {
+        $this->setExpectedExceptionRegExp(
+            'PHPUnit_Framework_Error',
+            '#Argument 1 passed to .* must be an instance of .*, instance of .* given#'
+        );
+
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setFamilyEntity');
 
         $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
-    /**
-     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
-     * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
-     */
     public function testAttributesTypeHintOnSetter_Icon()
     {
+        $this->setExpectedExceptionRegExp(
+            'PHPUnit_Framework_Error',
+            '#Argument 1 passed to .* must be an instance of .*, instance of .* given#'
+        );
+
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setIconEntity');
 
         $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
-    /**
-     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
-     * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
-     */
     public function testAttributesTypeHintOnSetter_Template()
     {
+        $this->setExpectedExceptionRegExp(
+            'PHPUnit_Framework_Error',
+            '#Argument 1 passed to .* must be an instance of .*, instance of .* given#'
+        );
+
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setTemplateEntity');
 
         $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);
     }
 
-    /**
-     * @expectedException             Symfony\Component\Debug\Exception\ContextErrorException
-     * @expectedExceptionMessageRegex #Argument 1 passed to .* must be an instance of .*, instance of .* given#
-     */
     public function testAttributesTypeHintOnSetter_IconFamilyRepo()
     {
+        $this->setExpectedExceptionRegExp(
+            'PHPUnit_Framework_Error',
+            '#Argument 1 passed to .* must be an instance of .*, instance of .* given#'
+        );
+
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setIconFamilyRepo');
 
         $badArgument = new \stdClass();
@@ -547,7 +551,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
     public function testAttributesTypeHintOnSetter_Engine()
     {
         $this->setExpectedExceptionRegExp(
-            'Symfony\Component\Debug\Exception\ContextErrorException',
+            'PHPUnit_Framework_Error',
             '#Argument 1 passed to .* must be an instance of .*, instance of .* given#'
         );
 

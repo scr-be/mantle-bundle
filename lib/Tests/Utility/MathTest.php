@@ -29,7 +29,7 @@ class MathTest extends AbstractMantleTestCase
     public function testShouldAcceptNoLessThanThreeArguments()
     {
         $this->setExpectedException(
-            'Symfony\Component\Debug\Exception\ContextErrorException',
+            'PHPUnit_Framework_Error',
             'Missing argument 1 for Scribe\Utility\Math::toBase()'
         );
 

@@ -59,6 +59,7 @@
         "doctrine/doctrine-bundle"             : "~1.4",
         "twig/twig"                            : "~1.18,<2.0",
         "twig/extensions"                      : "~1.2",
+        "symfony/proxy-manager-bridge"         : "2.7.*@dev",
         "symfony/filesystem"                   : "2.7.*@dev",
         "symfony/finder"                       : "2.7.*@dev",
         "symfony/swiftmailer-bundle"           : "2.3.*@dev",
@@ -70,7 +71,7 @@
         "incenteev/composer-parameter-handler" : "~2.1",
         "zendframework/zend-json"              : "~2.3",
         "scribe/cache-bundle"                  : "2.0.*@dev",
-        "mindscape/raygun4php"                 : "~1.6"
+        "mindscape/raygun4php"                 : "dev-master"
     },
     "require-dev" : {
         "symfony/phpunit-bridge"               : "2.7.*@dev",

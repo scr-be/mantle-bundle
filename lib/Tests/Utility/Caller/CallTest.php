@@ -38,8 +38,8 @@ class CallTest extends AbstractMantleTestCase
     public function testShouldResultInPhpErrorOnInvalidFunctionArgument()
     {
         $this->setExpectedException(
-            'Symfony\Component\Debug\Exception\ContextErrorException',
-            'Warning: strtolower() expects parameter 1 to be string, array given'
+            'PHPUnit_Framework_Error',
+            'strtolower() expects parameter 1 to be string, array given'
         );
 
         $result = Call::func('strtolower', ['an', 'array']);

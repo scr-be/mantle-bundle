@@ -48,6 +48,13 @@ interface CompilerPassChainInterface
     const FILTER_MODE_SINGLE = 3;
 
     /**
+     * The default restriction to check against when adding handler.
+     *
+     * @var string
+     */
+    const RESTRICTION_INTERFACE_DEFAULT = CompilerPassHandlerInterface::INTERFACE_NAME;
+
+    /**
      * Basic implementation of the compiler pass add handler.
      *
      * @param CompilerPassHandlerInterface $handler

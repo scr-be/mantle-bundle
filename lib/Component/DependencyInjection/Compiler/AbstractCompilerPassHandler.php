@@ -11,15 +11,15 @@
 
 namespace Scribe\Component\DependencyInjection\Compiler;
 
+use Scribe\Utility\ClassInfo;
 use Scribe\Utility\Mapper\ParametersToPropertiesMapperTrait;
 
 /**
- * Class AbstractCompilerPassChain.
+ * Class AbstractCompilerPassHandler.
  */
-abstract class AbstractCompilerPassChain implements CompilerPassChainInterface
+abstract class AbstractCompilerPassHandler implements CompilerPassHandlerInterface
 {
-    use ParametersToPropertiesMapperTrait,
-        CompilerPassChainTrait;
+    use ParametersToPropertiesMapperTrait;
 
     /**
      * Construct object with default parameters. Any number of parameters may be passed so long as they are each a
@@ -30,13 +30,34 @@ abstract class AbstractCompilerPassChain implements CompilerPassChainInterface
      */
     public function __construct(...$parameters)
     {
-        $this->handlers     = [];
-        $this->filterMode   = CompilerPassChainInterface::FILTER_MODE_FIRST;
-        $this->restrictions = [
-            CompilerPassChainInterface::RESTRICTION_INTERFACE_DEFAULT
-        ];
-
         $this->assignPropertyCollectionToSelf($parameters);
+    }
+
+    /**
+     * This must be overridden to enable support for this handler in the class inheriting from this abstract implementation.
+     *
+     * @param mixed ...$by
+     *
+     * @return bool
+     */
+    public function isSupported(...$by)
+    {
+        return false;
+    }
+
+    /**
+     * Get the handler type (generally this will return the class name).
+     *
+     * @param bool $fqcn
+     *
+     * @return string
+     */
+    public function getType($fqcn = false)
+    {
+        return (string) ($fqcn === true ?
+            ClassInfo::getNamespaceByInstance($this).'\\'.ClassInfo::getClassNameByInstance($this) :
+            ClassInfo::getClassNameByInstance($this)
+        );
     }
 }
 
