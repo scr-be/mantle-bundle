@@ -25,14 +25,15 @@ class TimestampableSubscriber extends AbstractSubscriber
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
-        list($classMetadata, $reflectionClass) = $this->getHelperObjectsForLoadClassMetadata($eventArgs);
+        $classMetadata = $eventArgs->getClassMetadata();
+        $reflectionClass = $classMetadata->getReflectionClass();
 
         if (true !== $this->isSupported($reflectionClass, true)) {
             return;
         }
 
         foreach ($this->getSubscriberFields() as $field) {
-            if ($classMetadata->hasField($field)) {
+            if ($classMetadata->hasField($field) && 'datetime' === $classMetadata->getTypeOfField($field)) {
                 continue;
             }
 

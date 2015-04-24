@@ -11,21 +11,27 @@
 
 namespace Scribe\MantleBundle\Tests;
 
+use PHPUnit_Framework_TestCase;
 use ReflectionClass;
+use Scribe\CacheBundle\ScribeCacheBundle;
 use Scribe\MantleBundle\ScribeMantleBundle;
-use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class ScribeMantleBundleTest.
  */
-class ScribeMantleBundleTest extends AbstractMantleKernelTestCase
+class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 {
     const FULLY_QUALIFIED_CLASS_NAME = 'Scribe\MantleBundle\ScribeMantleBundle';
 
+    private $container;
+
     protected function setUp()
     {
-        parent::setUp();
+        $kernel = new \AppKernel('test', true);
+        $kernel->boot();
+        $this->container = $kernel->getContainer();
     }
 
     protected function getNewBundle()
@@ -41,6 +47,54 @@ class ScribeMantleBundleTest extends AbstractMantleKernelTestCase
     public function testCanBuildContainer()
     {
         $this->assertTrue(($this->container instanceof Container));
+    }
+
+    public function testCanAccessContainerServices()
+    {
+        $this->assertTrue($this->container->has('s.mantle.node.repo'));
+        $this->assertInstanceOf(
+            'Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository',
+            $this->container->get('s.mantle.node.repo')
+        );
+    }
+
+    public function testCanApplyCompilerPass()
+    {
+        $this->assertTrue($this->container->has('s.mantle.node_creator.renderer.registrar'));
+        $nodeRenderer = $this->container->get('s.mantle.node_creator.renderer.registrar');
+        $this->assertInstanceOf(
+            'Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain',
+            $nodeRenderer
+        );
+        $this->assertInstanceOf(
+            'Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain',
+            $nodeRenderer
+        );
+        $this->assertNotEquals([], $methodChain->getHandlers());
+        $this->assertTrue($methodChain->hasHandlers());
+        $this->assertEquals(3, count($methodChain->getHandlers()));
+    }
+
+    protected function tearDown()
+    {
+        if (!$this->container instanceof ContainerInterface) {
+            return;
+        }
+        $cacheDir = $this->container->getParameter('kernel.cache_dir');
+        if (true === is_dir($cacheDir)) {
+            $this->removeDirectoryRecursive($cacheDir);
+        }
+
+
+    }
+
+    protected function removeDirectoryRecursive($path)
+    {
+        $files = glob($path . '/*');
+        foreach ($files as $file) {
+            is_dir($file) ? $this->removeDirectoryRecursive($file) : unlink($file);
+        }
+        rmdir($path);
     }
 }
 

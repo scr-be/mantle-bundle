@@ -12,8 +12,6 @@
 namespace Scribe\MantleBundle\Component\Navigation\Registrar;
 
 use Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain;
-use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
-use Scribe\MantleBundle\Component\Navigation\Member\NavigationHandlerInterface;
 
 /**
  * Class NavigationRegistrar.

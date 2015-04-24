@@ -154,7 +154,7 @@ services:
     # Response Factories
 
     s.mantle.response.type_html:
-        class:   %s.mantle.response.type_html.class%
+        class: %s.mantle.response.type_html.class%
         factory:
             - %s.mantle.response.factory.class%
             - getResponse
@@ -167,100 +167,114 @@ services:
     # Repositories
 
     s.mantle.redirect.repo:
-        class:           %s.mantle.route_redirect.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.route_redirect.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.route_redirect.entity.class%
 
     s.mantle.route.repo:
-        class:           %s.mantle.route.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.route.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.route.entity.class%
 
     s.mantle.navigation_set.repo:
-        class:           %s.mantle.navigation_set.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.navigation_set.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.navigation_set.entity.class%
 
     s.mantle.navigation_item.repo:
-        class:           %s.mantle.navigation_item.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.navigation_item.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.navigation_item.entity.class%
 
     s.mantle.icon.repo:
-        class:           %s.mantle.icon.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.icon.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.icon.entity.class%
 
     s.mantle.icon_template.repo:
-        class:           %s.mantle.icon_template.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.icon_template.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.icon_template.entity.class%
 
     s.mantle.icon_family.repo:
-        class:           %s.mantle.icon_family.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.icon_family.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.icon_family.entity.class%
 
     s.mantle.node.repo:
-        class:           %s.mantle.node.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.node.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.node.entity.class%
 
     s.mantle.node_revision.repo:
-        class:           %s.mantle.node_revision.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.node_revision.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.node_revision.entity.class%
 
     s.mantle.node_revision_diff.repo:
-        class:           %s.mantle.node_revision_diff.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.node_revision_diff.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.node_revision_diff.entity.class%
 
     s.mantle.node_render_engine.repo:
-        class:           %s.mantle.node_render_engine.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.node_render_engine.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.node_render_engine.entity.class%
 
     s.mantle.asset.repo:
-        class:           %s.mantle.asset.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.asset.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.asset.entity.class%
 
     s.mantle.asset_descriptor.repo:
-        class:           %s.mantle.asset_descriptor.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.asset_descriptor.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.asset_descriptor.entity.class%
 
     s.mantle.asset_type.repo:
-        class:           %s.mantle.asset_type.repo.class%
-        factory_service: doctrine
-        factory_method:  getRepository
+        class: %s.mantle.asset_type.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
         arguments:
             - %s.mantle.asset_type.entity.class%
 
@@ -370,7 +384,7 @@ services:
             - @s.mantle.node_creator.renderer.registrar
 
     s.mantle.node_creator:
-        class:   %s.mantle.node_creator_caching_enabled.class%
+        class: %s.mantle.node_creator_caching_enabled.class%
         factory: [%s.mantle.node_creator.factory.class%, getNodeRenderer]
         arguments:
             - @s.mantle.service_finder
