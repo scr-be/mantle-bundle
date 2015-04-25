@@ -35,6 +35,7 @@ class NodeRenderEngine extends AbstractMantlePhactoryTestCase
 
     public function setUp()
     {
+        parent::setUp();
         $this->repo = $this->container->get($this->config['nodeRenderEngine']['service']);
     }
 

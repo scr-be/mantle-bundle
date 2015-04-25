@@ -26,63 +26,33 @@ abstract class AbstractMantleKernelTestCase extends KernelTestCase
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    public $container;
 
-    /**
-     * handle constructing the object instance.
-     */
     public function setUp()
     {
-        parent::setUp();
-
-        $this
-            ->setupKernel()
-            ->setupContainer()
-        ;
+        $this->setupKernel();
+        $this->setupContainer();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    public function setupKernel()
+    {
+        self::bootKernel();
+    }
+
+    public function setupContainer()
+    {
+        $this->container = static::$kernel->getContainer();
+    }
+
     public function tearDown()
     {
         $this->clearKernelCache();
-        $this->container = null;
-
-        static::$kernel->shutdown();
-
-        parent::tearDown();
     }
 
-    /**
-     * @return $this
-     */
-    private function setupKernel()
+    public function clearKernelCache()
     {
-        static::bootKernel();
+        return;
 
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    private function setupContainer()
-    {
-        $this->container = static::$kernel->getContainer();
-
-        if (false === ($this->container instanceof ContainerInterface)) {
-            throw new \RuntimeException('Unable to obtain a valid Symfony Container instance.');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Clear kernel cache.
-     */
-    protected function clearKernelCache()
-    {
         if (!$this->container instanceof ContainerInterface) {
             return;
         }
@@ -92,5 +62,7 @@ abstract class AbstractMantleKernelTestCase extends KernelTestCase
         if (true === is_dir($cacheDir)) {
             $this->removeDirectory($cacheDir);
         }
+
+        parent::tearDown();
     }
 }

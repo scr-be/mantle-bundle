@@ -37,6 +37,8 @@ class AssetTest extends AbstractMantlePhactoryTestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->repo = $this->container->get($this->config['asset']['service']);
     }
 

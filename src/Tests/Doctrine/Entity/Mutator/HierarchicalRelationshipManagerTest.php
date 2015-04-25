@@ -43,6 +43,8 @@ class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->repo = $this->container->get($this->config['node']['service']);
         $this->manager = new HierarchicalRelationshipManager($this->em, $this->repo);
     }
