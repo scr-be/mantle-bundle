@@ -395,6 +395,7 @@ services:
 
     s.mantle.node_creator.renderer.twig:
         class: %s.mantle.node_creator.renderer.twig.class%
+        lazy:  false
         arguments:
             - @twig
         tags:

@@ -11,7 +11,8 @@
          bootstrap="src/Tests/Helper/bootstrap/phpunit.php">
     <testsuites>
         <testsuite name="Scribe Mantle Bundle Test Suite">
-            <directory>./*/Tests/</directory>
+            <directory>./lib/Tests/</directory>
+            <directory>./src/Tests/</directory>
         </testsuite>
     </testsuites>
     <groups>
