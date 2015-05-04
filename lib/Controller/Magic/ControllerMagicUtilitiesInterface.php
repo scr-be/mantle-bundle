@@ -336,7 +336,22 @@ interface ControllerMagicUtilitiesInterface
      */
     public function getResponseTypeYAML(...$parameters);
 
-    public function getResponseTypeHTMLRenderedByTwig($name, array $arguments = []);
+    /**
+     * @param               $name
+     * @param array         $arguments
+     * @param array         $headers Any headers to send with the request.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
+     *
+     * @return mixed
+     */
+    public function getResponseTypeHTMLRenderedByTwig($name, array $arguments = [], array $headers = [], $status = null, callable $config = null);
 
     /**
      * Returns a RedirectResponse configured based on the provided URI.
@@ -597,8 +612,20 @@ interface ControllerMagicUtilitiesInterface
      */
     public function renderNodeEntity(Node $node, ...$arguments);
 
+    /**
+     * @param $slug
+     * @param ...$arguments
+     *
+     * @return mixed
+     */
     public function renderNodeBySlug($slug, ...$arguments);
 
+    /**
+     * @param $materializedPath
+     * @param ...$arguments
+     *
+     * @return mixed
+     */
     public function renderNodeByPath($materializedPath, ...$arguments);
 }
 

@@ -12,17 +12,31 @@
 namespace Scribe\Controller\Magic;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Exception\ORMException;
+use Scribe\Component\Controller\Exception\ControllerException;
+use Scribe\Component\HttpFoundation\Exception\HttpException;
+use Scribe\Component\HttpFoundation\Exception\NotFoundHttpException;
+use Scribe\Component\HttpFoundation\Exception\UnauthorizedHttpException;
 use Scribe\Doctrine\Exception\TransactionORMException;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
+use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
+use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 use Scribe\Utility\Caller\Call;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Component\DependencyInjection\Exception\InvalidContainerParameterException;
 use Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class ControllerMagicUtilities.
@@ -541,16 +555,523 @@ trait ControllerMagicUtilitiesTrait
     }
 
     /**
-     * Create a not found exception with option to throw.
+     * Returns a text response using the provided parameters to construct the Response object instance. For additional
+     * parameter and usage information reference {@see getResponse()}.
      *
-     * @param string    $message           exception error message
-     * @param Exception $previousException an optional previous exception (for casacading catches)
+     * @param string        $content The content for the response.
+     * @param array         $headers Any headers to send with the request.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
      *
-     * @return NotFoundHttpException
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createNotFoundException($message = 'Not Found', Exception $previousException = null)
+    public function getResponseTypeText($content, array $headers = [], $status = null, callable $config = null)
     {
-        return new NotFoundHttpException($message, $previousException);
+        $headers['Content-Type'] = 'text/plain';
+
+        return $this->getResponse($content, $headers, $status, $config);
+    }
+
+    /**
+     * Returns a JSON response using the provided parameters to construct the Response object instance. For additional
+     * parameter and usage information reference {@see getResponse()}.
+     *
+     * @param string        $content The content for the response.
+     * @param array         $headers Any headers to send with the request.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getResponseTypeJSON($content, array $headers = [], $status = null, callable $config = null)
+    {
+        return $this->getResponse($content, $headers, $status, $config);
+    }
+
+    /**
+     * Returns a YAML response using the provided parameters to construct the Response object instance. For additional
+     * parameter and usage information reference {@see getResponse()}.
+     *
+     * @param string        $content The content for the response.
+     * @param array         $headers Any headers to send with the request.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getResponseTypeYAML($content, array $headers = [], $status = null, callable $config = null)
+    {
+        return $this->getResponse($content, $headers, $status, $config);
+    }
+
+    /**
+     * @param               $name
+     * @param array         $arguments
+     * @param array         $headers Any headers to send with the request.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
+     *
+     * @return mixed
+     */
+    public function getResponseTypeHTMLRenderedByTwig($name, array $arguments = [], array $headers = [], $status = null, callable $config = null)
+    {
+        $content = $this->twig()->render($name, $arguments);
+
+        return $this->getResponse($content, $headers, $status, $config);
+    }
+
+    /**
+     * Returns a RedirectResponse configured based on the provided URI.
+     *
+     * @param string $uri
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getResponseRedirectByURI($uri)
+    {
+        return new RedirectResponse($uri);
+    }
+
+    /**
+     * Returns a RedirectResponse configured based on the provided URL.
+     *
+     * @param string $url
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getResponseRedirectByURL($url)
+    {
+        return new RedirectResponse($url);
+    }
+
+    /**
+     * Returns a RedirectResponse configured based on the passed Route entity provided.
+     *
+     * @param Route $route
+     *
+     * @throws ControllerException
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getResponseRedirectByRoute(Route $route)
+    {
+        throw new ControllerException('Not yet implemented...'.__METHOD__);
+    }
+
+    /**
+     * Provides the router service from the container.
+     *
+     * @return RouterInterface
+     */
+    public function router()
+    {
+        return $this->getService('router');
+    }
+
+    /**
+     * Uses the Router service to create a URI based on the route key and parameters provided.
+     *
+     * @param string  $key
+     * @param mixed[] $parameters
+     *
+     * @return string
+     */
+    public function getRouteURI($key, ...$parameters)
+    {
+        return $this
+            ->router()
+            ->generate($key, $parameters, RouterInterface::RELATIVE_PATH)
+        ;
+    }
+
+    /**
+     * Uses the Router service to create a URL based on the route key and parameters provided.
+     *
+     * @param string  $key
+     * @param mixed[] $parameters
+     *
+     * @return string
+     */
+    public function getRouteURL($key, ...$parameters)
+    {
+        return $this
+            ->router()
+            ->generate($key, $parameters, RouterInterface::ABSOLUTE_URL)
+        ;
+    }
+
+    /**
+     * Accepts any exception extending AbstractHttpException and returns the same exception populated with a
+     * collection of additional debugging attributes. The intended use is to throw the return value of this
+     * function (versus simply throwing the exception itself); by wrapping the exception in this method, it
+     * intelligently handles providing the exception with request-specific information.
+     *
+     * @param \Exception $exception
+     *
+     * @return \Exception
+     */
+    public function processException(\Exception $exception)
+    {
+        return $exception;
+    }
+
+    /**
+     * Creates and returns a generic http exception. This method handles passing the exception through {@see self::processException()}
+     * so the returned exception is populated with additional request-specific info and can simply be thrown.
+     *
+     * @param string  $message     The exception message string.
+     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     *
+     * @return ControllerException
+     */
+    public function getExceptionGeneric($message = null, ...$sprintfArgs)
+    {
+        return $this->processException(new HttpException($message, null, null, null, ...$sprintfArgs));
+    }
+
+    /**
+     * Creates and returns a not found exception. This method handles passing the exception through {@see self::processException()}
+     * so the returned exception is populated with additional request-specific info and can simply be thrown.
+     *
+     * @param string  $message     The exception message string.
+     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     *
+     * @return ControllerException
+     */
+    public function getExceptionNotFound($message = null, ...$sprintfArgs)
+    {
+        return $this->processException(new NotFoundHttpException($message, $sprintfArgs));
+    }
+
+    /**
+     * Creates and returns an unauthorized exception. This method handles passing the exception through {@see self::processException()}
+     * so the returned exception is populated with additional request-specific info and can simply be thrown.
+     *
+     * @param string  $message     The exception message string.
+     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     *
+     * @return ControllerException
+     */
+    public function getExceptionUnauthorized($message = null, ...$sprintfArgs)
+    {
+        return $this->processException(new UnauthorizedHttpException($message, $sprintfArgs));
+    }
+
+    /**
+     * Returns the session service from the container.
+     *
+     * @return Session
+     */
+    public function session()
+    {
+        return $this->getService('session');
+    }
+
+    /**
+     * Add a flash message to the session of type "info" - shown to the user on page rendering.
+     *
+     * @param string  $message
+     * @param mixed[] $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgInfo($message, ...$sprintfArgs)
+    {
+        $this
+            ->session()
+            ->getFlashBag()
+            ->add('info', sprintf($message, $sprintfArgs))
+        ;
+    }
+
+    /**
+     * Add a flash message to the session of type "success" - shown to the user on page rendering.
+     *
+     * @param string  $message
+     * @param mixed[] $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgSuccess($message, ...$sprintfArgs)
+    {
+        $this
+            ->session()
+            ->getFlashBag()
+            ->add('success', sprintf($message, $sprintfArgs))
+        ;
+    }
+
+    /**
+     * Add a flash message to the session of type "error" - shown to the user on page rendering.
+     *
+     * @param string  $message
+     * @param mixed[] $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgError($message, ...$sprintfArgs)
+    {
+        $this
+            ->session()
+            ->getFlashBag()
+            ->add('error', sprintf($message, $sprintfArgs))
+        ;
+    }
+
+    /**
+     * Provides the user token service from the container.
+     *
+     * @return TokenInterface|null
+     */
+    public function token()
+    {
+        return $this->getService('security.token_storage')->getToken();
+    }
+
+    /**
+     * Provides the authorization service from the container.
+     *
+     * @return AuthorizationCheckerInterface
+     */
+    public function auth()
+    {
+        $this->getService('security.authorization_checker');
+    }
+
+    /**
+     * Provides the user entity for the current session, or returns null if no user is available (such as when a user
+     * has not logged on).
+     *
+     * @return AdvancedUserInterface|null
+     */
+    public function user()
+    {
+        $token = $this->token();
+
+        if ($token === null) {
+            return null;
+        }
+
+        return $token->getUser();
+    }
+
+    /**
+     * Returns the translation service.
+     *
+     * @return TranslatorInterface
+     */
+    public function translator()
+    {
+        return $this->getService('translator');
+    }
+
+    /**
+     * Resolves the string value based on a provided key.
+     *
+     * @param string $key          A translation key.
+     * @param mixed  ...$parameter Parameters for the translation.
+     *
+     * @return string
+     */
+    public function getTranslation($key, ...$parameters)
+    {
+        return $this->translator()->trans($key, $parameters);
+    }
+
+    /**
+     * Returns the request stack service.
+     *
+     * @return RequestStack
+     */
+    public function requestStack()
+    {
+        return $this->getService('request_stack');
+    }
+
+    /**
+     * Returns the current request by querying the request stack service. Returns null if no current exists.
+     *
+     * @return Request|null
+     */
+    public function getRequestCurrent()
+    {
+        return $this->requestStack()->getCurrentRequest();
+    }
+
+    /**
+     * Returns the master request by querying the request stack service. Returns null if no master request exists.
+     *
+     * @return Request|null
+     */
+    public function getRequestMaster()
+    {
+        return $this->requestStack()->getMasterRequest();
+    }
+
+    /**
+     * Determines if the current request-scrope is the master request.
+     *
+     * @return bool
+     */
+    public function isRequestMaster()
+    {
+        if ($this->requestStack()->getParentRequest()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the parent request by querying the request stack service. Returns null if no parent request exists.
+     *
+     * @return Request|null
+     */
+    public function getRequestParent()
+    {
+        return $this->requestStack()->getParentRequest();
+    }
+
+    /**
+     * Returns the scheme of the current request. Generally, this will be either "http" or "https".
+     *
+     * @return string|null
+     */
+    public function getRequestScheme()
+    {
+        return $this->requestStack()->getMasterRequest()->getScheme();
+    }
+
+    /**
+     * Returns the host of the current request.
+     *
+     * @return string|null
+     */
+    public function getRequestHost()
+    {
+        return $this->requestStack()->getMasterRequest()->getHost();
+    }
+
+    /**
+     * Concatenates and returns the result of {@see self::getRequestScheme()} and {@see self::getRequestHost()} to provide the full
+     * base URL of the current request.
+     *
+     * @return string|null
+     */
+    public function getRequestSchemeAndHost()
+    {
+        return $this->requestStack()->getMasterRequest()->getSchemeAndHttpHost();
+    }
+
+    /**
+     * Return node creator service.
+     *
+     * @return NodeCreatorInterface
+     */
+    public function node()
+    {
+        return $this->getService('s.mantle.node_creator');
+    }
+
+    /**
+     * Attempts to render a node. Tries to do so in the following order: by Node entity, by node slug, by node
+     * materialized path.
+     *
+     * @param Node|string $search
+     * @param mixed       $arguments
+     *
+     * @throws ControllerException
+     *
+     * @return string
+     */
+    public function getNodeRendered($search, ...$arguments)
+    {
+        $return = null;
+
+        try {
+            $return = $this->renderNodeEntity($search, $arguments);
+        } catch (\Exception $e) {}
+
+        if ($return !== null) {
+            return $return;
+        }
+
+        try {
+            $return = $this->renderNodeBySlug($search, $arguments);
+        } catch (\Exception $e) {}
+
+        if ($return !== null) {
+            return $return;
+        }
+
+        try {
+            $return = $this->renderNodeByPath($search, $arguments);
+        } catch (\Exception $e) {}
+
+        if ($return !== null) {
+            return $return;
+        }
+
+        throw $this->getExceptionGeneric('Could not find the requested node in %s.', __METHOD__);
+    }
+
+    /**
+     * Renders a node
+     *
+     * @param Node  $node
+     * @param mixed ...$arguments
+     *
+     * @return string
+     */
+    public function renderNodeEntity(Node $node, ...$arguments)
+    {
+        return $this->node()->render($node, $arguments);
+    }
+
+    /**
+     * @param $slug
+     * @param ...$arguments
+     *
+     * @return mixed
+     */
+    public function renderNodeBySlug($slug, ...$arguments)
+    {
+        return $this->node()->renderFromSlug($slug, $arguments);
+    }
+
+    /**
+     * @param $materializedPath
+     * @param ...$arguments
+     *
+     * @return mixed
+     */
+    public function renderNodeByPath($materializedPath, ...$arguments)
+    {
+        return $this->node()->renderFromMaterializedPath($materializedPath, $arguments);
     }
 
     /**
@@ -754,79 +1275,6 @@ trait ControllerMagicUtilitiesTrait
                 $data,
                 $options
             )
-        ;
-    }
-
-    /**
-     * Add session message to flashbag.
-     *
-     * @param string $type    flashbag category (type) to add message to
-     * @param string $message message to display
-     */
-    public function sessionMessage($type, $message)
-    {
-        $this
-            ->getService('session')
-            ->getFlashBag()
-            ->add($type, $message)
-        ;
-    }
-
-    /**
-     * Add session success message to flashbag.
-     *
-     * @param string $message message to display
-     */
-    public function sessionMessageSuccess($message)
-    {
-        $this->sessionMessage('success', $message);
-    }
-
-    /**
-     * Add session error message to flashbag.
-     *
-     * @param string $message message to display
-     */
-    public function sessionMessageError($message)
-    {
-        $this->sessionMessage('error', $message);
-    }
-
-    /**
-     * Add session info to flashbag.
-     *
-     * @param string $message message to display
-     */
-    public function sessionMessageInfo($message)
-    {
-        $this->sessionMessage('info', $message);
-    }
-
-    /**
-     * Get translation string.
-     *
-     * @param string $key translation index
-     *
-     * @return string
-     */
-    public function getTranslation($key)
-    {
-        return $this
-            ->getService('translator')
-            ->trans($key)
-        ;
-    }
-
-    /**
-     * Get the request scheme and host.
-     *
-     * @return string
-     */
-    public function getSchemeAndHost()
-    {
-        return $this
-            ->getService('request')
-            ->getSchemeAndHttpHost()
         ;
     }
 }
