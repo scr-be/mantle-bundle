@@ -65,6 +65,12 @@ class EntityModelTest extends AbstractMantleTestCase
             'op'      => [self::RUNTIME_OPERATIONS_CRUD],
             'ops'     => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
         ],
+        'HasProperties' => [
+            'props'   => ['properties'],
+            'methods' => ['initializeProperties', 'setProperties', 'getProperties', 'hasProperties', 'clearProperties'],
+            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops'     => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
+        ],
         'HasCategories' => [
             'props'   => ['categories'],
             'methods' => ['initializeCategories', 'setCategories', 'getCategories', 'hasCategories', 'clearCategories'],
@@ -285,6 +291,34 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->assertFalse($entity->hasAttributeValue('value'));
         $this->assertFalse($entity->hasAttributeValue('different-value'));
         $this->assertNull($entity->getAttributeValue('key'));
+
+        $this->clearEntityAfterTest();
+    }
+
+    public function testEntityTraitHasProperties()
+    {
+        $trait = 'HasProperties';
+        $entity = $this->setEntityBeforeTest($trait);
+        $this->performRuntime($trait, $entity);
+
+        $entity->setProperties(['key' => 'value']);
+        $this->assertTrue($entity->hasPropertyKey('key'));
+        $this->assertTrue($entity->hasPropertyValue('value'));
+        $this->assertFalse($entity->hasPropertyKey('doesn-have-key'));
+        $this->assertFalse($entity->hasPropertyValue('doesn-have-this-value'));
+        $this->assertEquals('value', $entity->getPropertyValue('key'), 'Should return the value to the key.');
+        $entity->setPropertyValue('key', 'different-value', false);
+        $this->assertTrue($entity->hasPropertyKey('key'));
+        $this->assertTrue($entity->hasPropertyValue('value'));
+        $entity->setPropertyValue('key', 'different-value', true);
+        $this->assertFalse($entity->hasPropertyValue('value'));
+        $this->assertTrue($entity->hasPropertyKey('key'));
+        $this->assertTrue($entity->hasPropertyValue('different-value'));
+        $entity->clearProperties();
+        $this->assertFalse($entity->hasPropertyKey('key'));
+        $this->assertFalse($entity->hasPropertyValue('value'));
+        $this->assertFalse($entity->hasPropertyValue('different-value'));
+        $this->assertNull($entity->getPropertyValue('key'));
 
         $this->clearEntityAfterTest();
     }
