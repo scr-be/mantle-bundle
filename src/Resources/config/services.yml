@@ -1,5 +1,11 @@
 parameters:
 
+    # Controllers
+
+    s.mantle.redirect.controller.class:                                 Scribe\MantleBundle\Controller\RedirectController
+    s.mantle.maintenance.controller.class:                              Scribe\MantleBundle\Controller\MantenanceController
+    s.mantle.search.controller.class:                                   Scribe\MantleBundle\Controller\SearchController
+
     # Entities/Repositories
 
     s.mantle.navigation_set.entity.class:                               Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationSet
@@ -33,7 +39,6 @@ parameters:
 
     # General Utilities
 
-    s.utils.controller.class:                                           Scribe\Component\Controller\ControllerUtils
     s.mantle.reflection_analyser.class:                                 Scribe\Utility\Reflection\ClassReflectionAnalyser
     s.mantle.logger_callable.class:                                     Scribe\Utility\Logger\LoggerCallable
     s.mantle.service_finder.class:                                      Scribe\Component\DependencyInjection\Container\ServiceFinder
@@ -119,12 +124,28 @@ parameters:
 
 services:
 
-    # General Utilities
+    # The abstract service definition to inject the service container into the ControllerBehavior class.
 
-    s.utils.controller:
-        class: %s.utils.controller.class%
-        arguments:
-            - @service_container
+    s.mantle.abstract.controller:
+        abstract: true
+        calls:
+            - [setContainer, [@service_container]]
+
+    # Controllers
+
+    s.mantle.redirect.controller:
+        class:  %s.mantle.redirect.controller.class%
+        parent: s.mantle.abstract.controller
+
+    s.mantle.maintenance.controller:
+        class:  %s.mantle.maintenance.controller.class%
+        parent: s.mantle.abstract.controller
+
+    s.mantle.search.controller:
+        class:  %s.mantle.search.controller.class%
+        parent: s.mantle.abstract.controller
+
+    # General Utilities
 
     s.mantle.reflection_analyser:
         class:  %s.mantle.reflection_analyser.class%
@@ -480,10 +501,12 @@ services:
     # Kernel Event Listeners
 
     s.mantle.maintenance.kernel_listener:
-        class: %s.mantle.maintenance.kernel_listener.class%
+        class:  %s.mantle.maintenance.kernel_listener.class%
+        parent: s.mantle.abstract.controller
         arguments:
-            - @s.utils.controller
+            - @request_stack
             - @s.mantle.bundle_information
+            - @s.mantle.maintenance.controller
             - %s.mantle.maintenance.enabled%
             - %s.mantle.maintenance.bundles%
             - %s.mantle.maintenance.exempt%

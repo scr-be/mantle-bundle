@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Component\Controller\Behaviors;
+namespace Scribe\MantleBundle\Component\Controller\Behaviors;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Form;
@@ -683,24 +683,39 @@ trait ControllerBehaviorsTrait
      * Returns a RedirectResponse configured based on the provided URI.
      *
      * @param string $uri
+     * @param int    $status
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectByUri($uri)
+    public function getResponseRedirectByUri($uri, $status = 302)
     {
-        return new RedirectResponse($uri);
+        return $this->getResponseRedirect($uri, $status);
     }
 
     /**
      * Returns a RedirectResponse configured based on the provided URL.
      *
      * @param string $url
+     * @param int    $status
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectByUrl($url)
+    public function getResponseRedirectByUrl($url, $status = 302)
     {
-        return new RedirectResponse($url);
+        return $this->getResponseRedirect($url, $status);
+    }
+
+    /**
+     * Returns a RedirectResponse configured based on the provided URI.
+     *
+     * @param string $uri
+     * @param int    $status
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getResponseRedirect($uri, $status = 302)
+    {
+        return new RedirectResponse($uri, $status);
     }
 
     /**
@@ -735,7 +750,7 @@ trait ControllerBehaviorsTrait
      *
      * @return string
      */
-    public function getRouteURI($key, ...$parameters)
+    public function getRouteUri($key, ...$parameters)
     {
         return $this
             ->router()
@@ -751,7 +766,7 @@ trait ControllerBehaviorsTrait
      *
      * @return string
      */
-    public function getRouteURL($key, ...$parameters)
+    public function getRouteUrl($key, ...$parameters)
     {
         return $this
             ->router()

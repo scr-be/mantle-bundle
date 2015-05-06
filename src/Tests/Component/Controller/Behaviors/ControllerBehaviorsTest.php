@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Doctrine\Base\Entity;
+namespace Scribe\MantleBundle\Tests\Component\Controller\Behaviors;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Component\Controller\Behaviors\ControllerBehaviors;
-use Scribe\Component\Controller\Behaviors\ControllerBehaviorsInterface;
+use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
+use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviorsInterface;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 

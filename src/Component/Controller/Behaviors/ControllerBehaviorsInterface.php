@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Component\Controller\Behaviors;
+namespace Scribe\MantleBundle\Component\Controller\Behaviors;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,7 +23,6 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Scribe\Component\Controller\Exception\ControllerException;
-use Scribe\Component\HttpFoundation\Exception\HttpException;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
@@ -422,19 +421,31 @@ interface ControllerBehaviorsInterface
      * Returns a RedirectResponse configured based on the provided URI.
      *
      * @param string $uri
+     * @param int    $status
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectByUri($uri);
+    public function getResponseRedirectByUri($uri, $status = 302);
 
     /**
      * Returns a RedirectResponse configured based on the provided URL.
      *
      * @param string $url
+     * @param int    $status
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectByUrl($url);
+    public function getResponseRedirectByUrl($url, $status = 302);
+
+    /**
+     * Returns a RedirectResponse configured based on the provided URI.
+     *
+     * @param string $uri
+     * @param int    $status
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getResponseRedirect($uri, $status = 302);
 
     /**
      * Returns a RedirectResponse configured based on the passed Route entity provided.
@@ -460,7 +471,7 @@ interface ControllerBehaviorsInterface
      *
      * @return string
      */
-    public function getRouteURI($key, ...$parameters);
+    public function getRouteUri($key, ...$parameters);
 
     /**
      * Uses the Router service to create a URL based on the route key and parameters provided.
@@ -470,7 +481,7 @@ interface ControllerBehaviorsInterface
      *
      * @return string
      */
-    public function getRouteURL($key, ...$parameters);
+    public function getRouteUrl($key, ...$parameters);
 
     /**
      * Accepts any exception extending AbstractHttpException and returns the same exception populated with a

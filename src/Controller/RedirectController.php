@@ -11,19 +11,19 @@
 
 namespace Scribe\MantleBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 
 /**
  * Class RedirectController.
  */
-class RedirectController extends Controller
+class RedirectController extends ControllerBehaviors
 {
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function apiDocsAction()
     {
-        return $this->redirect('/api/master/index.html');
+        return $this->getResponseRedirectByUri('/api/master/index.html');
     }
 
     /**
@@ -31,19 +31,21 @@ class RedirectController extends Controller
      */
     public function loginDirectorAction()
     {
-        return $this->redirect(
-            $this->generateUrl('login')
+        return $this->getResponseRedirectByUri(
+            $this->getRouteUri('login')
         );
     }
 
     /**
-     * @param $name
+     * @param string $destination
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function handleAction($destination)
     {
-        return $this->redirect($destination, 301);
+        return $this->getResponseRedirect(
+            $destination, 301
+        );
     }
 }
 

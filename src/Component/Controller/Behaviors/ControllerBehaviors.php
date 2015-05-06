@@ -9,13 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Controller;
-
-use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
+namespace Scribe\MantleBundle\Component\Controller\Behaviors;
 
 /**
- * Class SearchController.
+ * Class ControllerBehaviors.
  */
-class SearchController extends ControllerBehaviors {}
+class ControllerBehaviors implements ControllerBehaviorsInterface
+{
+    use ControllerBehaviorsTrait;
+}
 
 /* EOF */

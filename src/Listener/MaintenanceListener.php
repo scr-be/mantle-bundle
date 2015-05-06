@@ -11,9 +11,10 @@
 
 namespace Scribe\MantleBundle\Listener;
 
+use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Scribe\MantleBundle\Controller\MaintenanceController;
-use Scribe\Component\Controller\ControllerUtils;
 use Scribe\Component\Bundle\BundleInformation;
 
 /**
@@ -24,13 +25,6 @@ use Scribe\Component\Bundle\BundleInformation;
 class MaintenanceListener
 {
     /**
-     * Instance of controller utils.
-     *
-     * @var ControllerUtils
-     */
-    private $utils;
-
-    /**
      * Instance of bundle info object.
      *
      * @var BundleInformation
@@ -38,11 +32,11 @@ class MaintenanceListener
     private $bundleInfo;
 
     /**
-     * The current request object instance.
+     * The request stack.
      *
-     * @var Request
+     * @var RequestStack
      */
-    private $request;
+    private $requestStack;
 
     /**
      * The filter event instance generated pre-controller by the kernel.
@@ -54,9 +48,16 @@ class MaintenanceListener
     /**
      * The controller instance.
      *
-     * @var ControllerInterface
+     * @var ControllerBehaviors
      */
     private $controller;
+
+    /**
+     * The maintenance controller.
+     *
+     * @var MaintenanceController
+     */
+    private $maintenanceController;
 
     /**
      * Represents if maintenance mode is enabled.
@@ -98,18 +99,27 @@ class MaintenanceListener
     private $overrideValue;
 
     /**
-     * Setup the class instance.
+     * @param RequestStack          $requestStack
+     * @param BundleInformation     $bundleInfo
+     * @param MaintenanceController $maintenanceController
+     * @param bool                  $enabled
+     * @param array|null            $bundles
+     * @param array|null            $exempt
+     * @param string|null           $overrideArgument
+     * @param string|null           $overrideValue
      */
-    public function __construct(ControllerUtils $utils, BundleInformation $bundleInfo, $enabled, $bundles, $exempt, $overrideArgument, $overrideValue)
+    public function __construct(RequestStack $requestStack, BundleInformation $bundleInfo,
+                                MaintenanceController $maintenanceController, $enabled, $bundles, $exempt,
+                                $overrideArgument, $overrideValue)
     {
-        $this->utils            = $utils;
-        $this->bundleInfo       = $bundleInfo;
-        $this->enabled            = $enabled;
-        $this->bundles            = $bundles;
-        $this->exempt           = $exempt;
-        $this->overrideArgument = $overrideArgument;
-        $this->overrideValue    = $overrideValue;
-        $this->request          = $utils->getService('request');
+        $this->requestStack          = $requestStack;
+        $this->bundleInfo            = $bundleInfo;
+        $this->maintenanceController = $maintenanceController;
+        $this->enabled               = $enabled;
+        $this->bundles               = $bundles;
+        $this->exempt                = $exempt;
+        $this->overrideArgument      = $overrideArgument;
+        $this->overrideValue         = $overrideValue;
     }
 
     /**
@@ -126,7 +136,8 @@ class MaintenanceListener
         $this->event      = $event;
         $this->controller = $event->getController()[0];
 
-        if ($this->isDisabled() || $this->isExemptController() || $this->isOverridden()) {
+        if ($this->isDisabled() || $this->isOverridden() ||
+            $this->isInvalidController() || $this->isExemptController()) {
             return;
         }
 
@@ -142,7 +153,17 @@ class MaintenanceListener
      */
     private function isDisabled()
     {
-        return (bool) $this->enabled !== true;
+        return (bool) ($this->enabled !== true);
+    }
+
+    /**
+     * Check if the controller is an invalid controller.
+     *
+     * @return bool
+     */
+    private function isInvalidController()
+    {
+        return (bool) ($this->controller instanceof ControllerBehaviors ? false : true);
     }
 
     /**
@@ -168,7 +189,7 @@ class MaintenanceListener
      */
     private function isOverridden()
     {
-        if ($this->request->get($this->overrideArgument) === $this->overrideValue) {
+        if ($this->requestStack->getCurrentRequest()->get($this->overrideArgument) === $this->overrideValue) {
             return true;
         }
 
@@ -203,11 +224,9 @@ class MaintenanceListener
      */
     private function handleMaintenanceState()
     {
-        $maintenanceController = new MaintenanceController($this->utils);
-
         $this->event->stopPropagation();
         $this->event->setController(
-            [$maintenanceController, 'displayMaintenanceAction']
+            [$this->maintenanceController, 'displayMaintenanceAction']
         );
     }
 }

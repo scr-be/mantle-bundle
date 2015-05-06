@@ -11,31 +11,15 @@
 
 namespace Scribe\MantleBundle\Controller;
 
-use Scribe\Component\Controller\ControllerUtils;
+use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 
 /**
  * Class MaintenanceController
+ *
  * Handles display of a system offline page when maintenance mode if activated.
  */
-class MaintenanceController
+class MaintenanceController extends ControllerBehaviors
 {
-    /**
-     * Instance of controller utils.
-     *
-     * @var ControllerUtils
-     */
-    private $utils;
-
-    /**
-     * Constructs the instance with a controller utils property.
-     *
-     * @param ControllerUtils $utils [description]
-     */
-    public function __construct(ControllerUtils $utils)
-    {
-        $this->utils = $utils;
-    }
-
     /**
      * Renders and displays the system offline static page.
      *
@@ -43,7 +27,9 @@ class MaintenanceController
      */
     public function displayMaintenanceAction()
     {
-        return $this->utils->renderResponse('ScribeMantleBundle:Static:down.html.twig');
+        return $this->getResponseTypeHTMLRenderedByTwig(
+            'ScribeMantleBundle:Static:down.html.twig'
+        );
     }
 }
 
