@@ -17,24 +17,53 @@ namespace Scribe\Component\HttpFoundation\Response\Model;
 interface ResponseInterface
 {
     /**
+     * Last charset passed wins.
+     *
+     * @param string[] ...$charsets
+     *
      * @return string
      */
-    public function getDefaultCharset();
+    public function getFinalCharset(...$charsets);
 
     /**
+     * Last status passed wins.
+     *
+     * @param int[] ...$statuses
+     *
      * @return int
      */
-    public function getDefaultStatus();
+    public function getFinalStatus(...$statuses);
 
     /**
+     * Last protocol passed wins
+     *
+     * @param float[] ...$protocols
+     *
      * @return float
      */
-    public function getDefaultProtocol();
+    public function getFinalProtocol(...$protocols);
 
     /**
+     * All passed headers are merged. If header arrays have conflicting keys
+     * last passed key wins.
+     *
+     * @param array $headerCollections
+     *
      * @return array
      */
-    public function getDefaultHeaders();
+    public function getFinalHeaders(array ...$headerCollections);
+
+    /**
+     * @param string|null $content
+     *
+     * @return string
+     */
+    public function getFinalContent($content);
+
+    /**
+     * @param $content
+     */
+    public function setFinalContent($content);
 }
 
 /* EOF */

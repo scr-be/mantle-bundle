@@ -26,72 +26,60 @@ class ResponseFactory
 
     /**
      * @param string      $fqcn
-     * @param string|null $charset
-     * @param float|null  $protocol
-     * @param array|null  $headers
+     * @param mixed|null  $content              The response content {@see setFinalContent()}
+     * @param int|null    $status               Status for this response.
+     * @param array       $headers              Headers specific to this response.
+     * @param array       $headersGlobal        The global headers configured.
+     * @param array       $headersTypeSpecific  The type-specific headers configured.
+     * @param string|null $charsetGlobal        The global charset configured.
+     * @param string|null $charsetTypeSpecific  The type-specific charset configured.
+     * @param float|null  $protocolGlobal       The global charset configured.
+     * @param float|null  $protocolTypeSpecific The type-specific charset configured.
      *
      * @return Response
      */
-    public static function getResponse($fqcn, $charset = null, $protocol = null, array $headers = null)
+    public static function getResponse($fqcn, $content = null, $status = null, $headers = [],
+                                       $headersGlobal = [], $headersTypeSpecific = [],
+                                       $charsetGlobal = null, $charsetTypeSpecific = null,
+                                       $protocolGlobal = null, $protocolTypeSpecific = null)
     {
-        self::getInstance($fqcn);
-        self::setDefaults($charset, $protocol, $headers);
-
-        return self::$response;
+        return self::getInstance($fqcn, $content, $status, $headers, $headersGlobal, $headersTypeSpecific,
+                                 $charsetGlobal, $charsetTypeSpecific, $protocolGlobal, $protocolTypeSpecific);
     }
 
     /**
      * Instantiate a new Response object given the fully-qualified class name.
      *
-     * @param string $fqcn
+     * @param string      $fqcn
+     * @param mixed|null  $content              The response content {@see setFinalContent()}
+     * @param int|null    $status               Status for this response.
+     * @param array       $headers              Headers specific to this response.
+     * @param array       $headersGlobal        The global headers configured.
+     * @param array       $headersTypeSpecific  The type-specific headers configured.
+     * @param string|null $charsetGlobal        The global charset configured.
+     * @param string|null $charsetTypeSpecific  The type-specific charset configured.
+     * @param float|null  $protocolGlobal       The global charset configured.
+     * @param float|null  $protocolTypeSpecific The type-specific charset configured.
      *
-     * @return void
+     * @return null|Response
      */
-    public static function getInstance($fqcn)
+    public static function getInstance($fqcn, $content = null, $status = null, $headers = [],
+                                       $headersGlobal = [], $headersTypeSpecific = [],
+                                       $charsetGlobal = null, $charsetTypeSpecific = null,
+                                       $protocolGlobal = null, $protocolTypeSpecific = null)
     {
         try {
-            self::$response = new $fqcn();
+            self::$response = new $fqcn($content, $status, $headers, $headersGlobal, $headersTypeSpecific,
+                                        $charsetGlobal, $charsetTypeSpecific, $protocolGlobal, $protocolTypeSpecific);
         } catch (\Exception $e) {
             throw new LogicException('Could not instantiate Response object "%s".', null, $e, null, (string) $fqcn);
         }
 
         if (self::$response instanceof Response) {
-            return;
+            return self::$response;
         }
 
         throw new LogicException('Returned object in Response instance factory is not of type Response.');
-    }
-
-    /**
-     * @param string|null $charset
-     * @param string|null $protocol
-     * @param array       $headers
-     */
-    public static function setDefaults($charset, $protocol, array $headers)
-    {
-        self::setDefaultCharset($charset);
-        self::setDefaultProtocol($protocol);
-        self::setDefaultHeaders($headers);
-    }
-
-    /**
-     * @param string|null $charset
-     */
-    public static function setDefaultCharset($charset)
-    {
-        self::$response->setCharset(
-            empty($charset) === false ? $charset : self::$response->getDefaultCharset()
-        );
-    }
-
-    /**
-     * @param float|null $protocol
-     */
-    public static function setDefaultProtocol($protocol)
-    {
-        self::$response->setProtocolVersion(
-            empty($protocol) === false ? $protocol : self::$response->getDefaultProtocol()
-        );
     }
 
     /**

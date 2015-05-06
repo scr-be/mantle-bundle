@@ -9,19 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Controller\Magic;
+namespace Scribe\Component\Controller\Behaviors;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Component\Controller\Exception\ControllerException;
-use Scribe\Component\HttpFoundation\Exception\HttpException;
-use Scribe\Component\HttpFoundation\Exception\NotFoundHttpException;
-use Scribe\Component\HttpFoundation\Exception\UnauthorizedHttpException;
-use Scribe\Doctrine\Exception\TransactionORMException;
-use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
-use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
-use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
-use Scribe\Utility\Caller\Call;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,24 +20,37 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Component\DependencyInjection\Exception\InvalidContainerParameterException;
-use Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Scribe\Doctrine\Exception\ORMException;
+use Scribe\Doctrine\Exception\TransactionORMException;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Exception\RuntimeException;
+use Scribe\Utility\Caller\Call;
+use Scribe\Component\DependencyInjection\Exception\InvalidContainerParameterException;
+use Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException;
+use Scribe\Component\Controller\Exception\ControllerException;
+use Scribe\Component\HttpFoundation\Exception\HttpException;
+use Scribe\Component\HttpFoundation\Exception\NotFoundHttpException;
+use Scribe\Component\HttpFoundation\Exception\UnauthorizedHttpException;
+use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
+use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
+use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 
 /**
- * Class ControllerMagicUtilities.
+ * Class ControllerBehaviorsTrait.
  */
-trait ControllerMagicUtilitiesTrait
+trait ControllerBehaviorsTrait
 {
     /**
      * @var ContainerInterface
      */
-    private $container;
+    protected $container;
 
     /**
      * @param ContainerInterface $container
@@ -80,7 +84,16 @@ trait ControllerMagicUtilitiesTrait
         $services = [];
 
         foreach ($id as $serviceId) {
-            $services[(string) $serviceId] = $this->getService($serviceId);
+
+            if (false === is_array($serviceId)) {
+                $services[(string) $serviceId] = $this->getService($serviceId);
+                continue;
+            }
+
+            $services = array_merge(
+                $services,
+                $this->getServiceCollection(...$serviceId)
+            );
         }
 
         return (array) $services;
@@ -91,7 +104,7 @@ trait ControllerMagicUtilitiesTrait
      *
      * @param string $id A service key to resolve from the container
      *
-     * @throws InvalidContainerServiceException
+     * @throws InvalidContainerServiceException|\Exception
      *
      * @return mixed
      */
@@ -101,7 +114,9 @@ trait ControllerMagicUtilitiesTrait
             return $this->container->get($id);
         }
 
-        throw InvalidContainerServiceException::getDefaultInstance($id);
+        throw $this->processException(new InvalidContainerServiceException(
+            null, null, null, null, $id
+        ));
     }
 
     /**
@@ -119,7 +134,7 @@ trait ControllerMagicUtilitiesTrait
     /**
      * Provides an array of parameters corresponding to an array of parameter keys provided as method arguments.
      *
-     * @param string,... $id The parameter keys to resolve.
+     * @param string[] ...$id The parameter keys to resolve.
      *
      * @return mixed
      */
@@ -128,7 +143,16 @@ trait ControllerMagicUtilitiesTrait
         $parameters = [];
 
         foreach ($id as $parameterId) {
-            $parameters[(string) $parameterId] = $this->getParameter($id);
+
+            if (false === is_array($parameterId)) {
+                $parameters[(string) $parameterId] = $this->getParameter($parameterId);
+                continue;
+            }
+
+            $parameters = array_merge(
+                $parameters,
+                $this->getParameterCollection(...$parameterId)
+            );
         }
 
         return (array) $parameters;
@@ -139,7 +163,7 @@ trait ControllerMagicUtilitiesTrait
      *
      * @param string $id A parameter key to resolve.
      *
-     * @throws InvalidContainerParameterException
+     * @throws InvalidContainerParameterException|\Exception
      *
      * @return mixed
      */
@@ -149,7 +173,9 @@ trait ControllerMagicUtilitiesTrait
             return $this->container->getParameter($id);
         }
 
-        throw InvalidContainerParameterException::getDefaultInstance($id);
+        throw $this->processException(new InvalidContainerParameterException(
+            null, null, null, null, $id
+        ));
     }
 
     /**
@@ -173,9 +199,7 @@ trait ControllerMagicUtilitiesTrait
      */
     public function em($id = null)
     {
-        return $this->getService(
-            $id !== null ? $id : ControllerMagicUtilitiesInterface::EM_DEFAULT_ID
-        );
+        return $this->getService($id !== null ? $id : ControllerBehaviorsInterface::EM_DEFAULT_ID);
     }
 
     /**
@@ -280,13 +304,13 @@ trait ControllerMagicUtilitiesTrait
      * @param bool            $flush
      * @param bool            $filter
      *
-     * @throws TransactionORMException
+     * @throws \Exception
      *
      * @return $this
      */
     public function entityCollectionAction($method, ArrayCollection $collection, $flush = false, $filter = true)
     {
-        $collection = $this->entityCollectionFilter($collection);
+        $collection = $filter === true ? $this->entityCollectionFilter($collection) : $collection;
 
         try {
             $this->emTransactionBegin();
@@ -297,11 +321,16 @@ trait ControllerMagicUtilitiesTrait
 
             $this->emFlush($flush);
             $this->emTransactionCommit();
+            if ($flush === true) {
+                $this->emFlush();
+            }
 
         } catch (\Exception $e) {
             $this->emTransactionRollback();
 
-            throw TransactionORMException::getDefaultInstance($e->getMessage());
+            throw $this->processException(new TransactionORMException(
+                null, null, $e, null, $e->getMessage()
+            ));
         }
 
         return $this;
@@ -430,8 +459,14 @@ trait ControllerMagicUtilitiesTrait
      */
     private function entityAction($method, AbstractEntity $entity, $flush)
     {
-        Call::method($this->em(), $method, $entity);
-        $this->emFlush($flush);
+        try {
+            Call::method($this->em(), $method, $entity);
+            $this->emFlush($flush);
+        } catch (\Exception $e) {
+            throw $this->processException(new ORMException(
+                null, null, null, null, $e->getMessage()
+            ));
+        }
 
         return $this;
     }
@@ -549,7 +584,7 @@ trait ControllerMagicUtilitiesTrait
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponseTypeHTML($content, array $headers = [], $status = null, callable $config = null)
+    public function getResponseTypeHtml($content, array $headers = [], $status = null, callable $config = null)
     {
         return $this->getResponse($content, $headers, $status, $config);
     }
@@ -595,7 +630,7 @@ trait ControllerMagicUtilitiesTrait
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponseTypeJSON($content, array $headers = [], $status = null, callable $config = null)
+    public function getResponseTypeJson($content, array $headers = [], $status = null, callable $config = null)
     {
         return $this->getResponse($content, $headers, $status, $config);
     }
@@ -617,7 +652,7 @@ trait ControllerMagicUtilitiesTrait
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getResponseTypeYAML($content, array $headers = [], $status = null, callable $config = null)
+    public function getResponseTypeYaml($content, array $headers = [], $status = null, callable $config = null)
     {
         return $this->getResponse($content, $headers, $status, $config);
     }
@@ -651,7 +686,7 @@ trait ControllerMagicUtilitiesTrait
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectByURI($uri)
+    public function getResponseRedirectByUri($uri)
     {
         return new RedirectResponse($uri);
     }
@@ -663,7 +698,7 @@ trait ControllerMagicUtilitiesTrait
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirectByURL($url)
+    public function getResponseRedirectByUrl($url)
     {
         return new RedirectResponse($url);
     }
@@ -801,11 +836,11 @@ trait ControllerMagicUtilitiesTrait
      */
     public function addSessionMsgInfo($message, ...$sprintfArgs)
     {
-        $this
-            ->session()
-            ->getFlashBag()
-            ->add('info', sprintf($message, $sprintfArgs))
-        ;
+        return $this->addSessionMsg(
+            ControllerBehaviorsInterface::SESSION_MSG_INFO,
+            $message,
+            ...$sprintfArgs
+        );
     }
 
     /**
@@ -818,11 +853,11 @@ trait ControllerMagicUtilitiesTrait
      */
     public function addSessionMsgSuccess($message, ...$sprintfArgs)
     {
-        $this
-            ->session()
-            ->getFlashBag()
-            ->add('success', sprintf($message, $sprintfArgs))
-        ;
+        return $this->addSessionMsg(
+            ControllerBehaviorsInterface::SESSION_MSG_SUCCESS,
+            $message,
+            ...$sprintfArgs
+        );
     }
 
     /**
@@ -835,11 +870,45 @@ trait ControllerMagicUtilitiesTrait
      */
     public function addSessionMsgError($message, ...$sprintfArgs)
     {
+        return $this->addSessionMsg(
+            ControllerBehaviorsInterface::SESSION_MSG_ERROR,
+            $message,
+            ...$sprintfArgs
+        );
+    }
+
+    /**
+     * Add a session message of the specified type.
+     *
+     * @param string  $type
+     * @param string  $message
+     * @param mixed[] ...$sprintfArgs
+     *
+     * @return $this
+     */
+    protected function addSessionMsg($type, $message, ...$sprintfArgs)
+    {
+        if (count($sprintfArgs) > 0) {
+            $message = sprintf($message, $sprintfArgs);
+        }
+
         $this
             ->session()
             ->getFlashBag()
-            ->add('error', sprintf($message, $sprintfArgs))
+            ->add($type, $message)
         ;
+
+        return $this;
+    }
+
+    /**
+     * Provides the user token storage service from the container.
+     *
+     * @return TokenStorageInterface
+     */
+    public function tokenStorage()
+    {
+        return $this->getService('security.token_storage');
     }
 
     /**
@@ -849,7 +918,7 @@ trait ControllerMagicUtilitiesTrait
      */
     public function token()
     {
-        return $this->getService('security.token_storage')->getToken();
+        return $this->tokenStorage()->getToken();
     }
 
     /**
@@ -866,17 +935,21 @@ trait ControllerMagicUtilitiesTrait
      * Provides the user entity for the current session, or returns null if no user is available (such as when a user
      * has not logged on).
      *
+     * @throws RuntimeException
+     *
      * @return AdvancedUserInterface|null
      */
     public function user()
     {
-        $token = $this->token();
-
-        if ($token === null) {
-            return null;
+        if (null === ($token = $this->token())) {
+            throw new RuntimeException('Cannot request user entity when no token exists.');
         }
 
-        return $token->getUser();
+        if (null === ($user = $token->getUser())) {
+            throw new RuntimeException('Cannot get user entity from token.');
+        }
+
+        return $user;
     }
 
     /**
@@ -899,7 +972,9 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getTranslation($key, ...$parameters)
     {
-        return $this->translator()->trans($key, $parameters);
+        return $this
+            ->translator()
+            ->trans($key, $parameters);
     }
 
     /**
@@ -919,7 +994,9 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getRequestCurrent()
     {
-        return $this->requestStack()->getCurrentRequest();
+        return $this
+            ->requestStack()
+            ->getCurrentRequest();
     }
 
     /**
@@ -929,7 +1006,9 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getRequestMaster()
     {
-        return $this->requestStack()->getMasterRequest();
+        return $this
+            ->requestStack()
+            ->getMasterRequest();
     }
 
     /**
@@ -939,7 +1018,7 @@ trait ControllerMagicUtilitiesTrait
      */
     public function isRequestMaster()
     {
-        if ($this->requestStack()->getParentRequest()) {
+        if ($this->getRequestParent()) {
             return false;
         }
 
@@ -953,7 +1032,9 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getRequestParent()
     {
-        return $this->requestStack()->getParentRequest();
+        return $this
+            ->requestStack()
+            ->getParentRequest();
     }
 
     /**
@@ -963,7 +1044,10 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getRequestScheme()
     {
-        return $this->requestStack()->getMasterRequest()->getScheme();
+        return $this
+            ->requestStack()
+            ->getMasterRequest()
+            ->getScheme();
     }
 
     /**
@@ -973,7 +1057,10 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getRequestHost()
     {
-        return $this->requestStack()->getMasterRequest()->getHost();
+        return $this
+            ->requestStack()
+            ->getMasterRequest()
+            ->getHost();
     }
 
     /**
@@ -984,7 +1071,10 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getRequestSchemeAndHost()
     {
-        return $this->requestStack()->getMasterRequest()->getSchemeAndHttpHost();
+        return $this
+            ->requestStack()
+            ->getMasterRequest()
+            ->getSchemeAndHttpHost();
     }
 
     /**
@@ -1010,30 +1100,22 @@ trait ControllerMagicUtilitiesTrait
      */
     public function getNodeRendered($search, ...$arguments)
     {
-        $return = null;
-
         try {
-            $return = $this->renderNodeEntity($search, $arguments);
-        } catch (\Exception $e) {}
-
-        if ($return !== null) {
-            return $return;
+            return $this->renderNodeEntity($search, $arguments);
+        } catch (\Exception $e) {
+            // Ignore as we will try finding node by slug next
         }
 
         try {
-            $return = $this->renderNodeBySlug($search, $arguments);
-        } catch (\Exception $e) {}
-
-        if ($return !== null) {
-            return $return;
+            return $this->renderNodeBySlug($search, $arguments);
+        } catch (\Exception $e) {
+            // Ignore as we will try finding node by slug next
         }
 
         try {
-            $return = $this->renderNodeByPath($search, $arguments);
-        } catch (\Exception $e) {}
-
-        if ($return !== null) {
-            return $return;
+            return $this->renderNodeByPath($search, $arguments);
+        } catch (\Exception $e) {
+            // Ignore as we throw specific exception for this situation next
         }
 
         throw $this->getExceptionGeneric('Could not find the requested node in %s.', __METHOD__);
@@ -1071,14 +1153,16 @@ trait ControllerMagicUtilitiesTrait
      */
     public function renderNodeByPath($materializedPath, ...$arguments)
     {
-        return $this->node()->renderFromMaterializedPath($materializedPath, $arguments);
+        return $this
+            ->node()
+            ->renderFromMaterializedPath($materializedPath, $arguments);
     }
 
     /**
      * Renders a template view.
      *
      * @param string $view       The path to the template view
-     * @param array  $parameters An array of paramiters to pass to the template renderer
+     * @param array  $parameters An array of parameters to pass to the template renderer
      *
      * @return string
      */
@@ -1091,96 +1175,6 @@ trait ControllerMagicUtilitiesTrait
                 $parameters
             )
         ;
-    }
-
-    /**
-     * Return a response object from the provided string.
-     *
-     * @param string $string  A string value to return as the response
-     * @param int    $status  HTTP status code to return
-     * @param array  $headers Additional headers to return
-     *
-     * @return Response
-     */
-    public function response($string = '', $status = 200, array $headers = [])
-    {
-        return new Response($string, $status, $headers);
-    }
-
-    /**
-     * Return a response object from the provided string as plain text.
-     *
-     * @param string $string  A string value to return as the response
-     * @param int    $status  HTTP status code to return
-     * @param array  $headers Additional headers to return
-     *
-     * @return Response
-     */
-    public function plainTextResponse($string = '', $status = 200, array $headers = [])
-    {
-        $headers['Content-Type'] = 'text/plain';
-
-        return $this->response($string, $status, $headers);
-    }
-
-    /**
-     * Return a response object from the provided string, alias for {@see htmlResponse}.
-     *
-     * @param string $string  A string value to return as the response
-     * @param int    $status  HTTP status code to return
-     * @param array  $headers Additional headers to return
-     *
-     * @return Response
-     */
-    public function returnResponse($string = '', $status = 200, array $headers = [])
-    {
-        return $this->response($string, $status, $headers);
-    }
-
-    /**
-     * Return a response object from the generated view.
-     *
-     * @param string $view       The path to the template view
-     * @param array  $parameters An array of paramiters to pass to the template renderer
-     *
-     * @return Response
-     */
-    public function renderResponse($view, array $parameters = [])
-    {
-        return $this->response($this->renderView($view, $parameters));
-    }
-
-    /**
-     * return redirect response from a provided symfony route and its (optional) arguments.
-     *
-     * @param string $uri     uri to redirect to
-     * @param int    $status  http status code to return
-     * @param array  $headers additional headers to return
-     *
-     * @return RedirectResponse
-     */
-    public function redirectResponse($uri, $status = 302, array $headers = [])
-    {
-        return new RedirectResponse($uri, $status, $headers);
-    }
-
-    /**
-     * return redirect response from a provided symfony route and its (optional) arguments.
-     *
-     * @param string $routeName      name of the symfony route
-     * @param array  $routeArguments optional arguments array for route
-     * @param int    $status         http status code to return
-     * @param array  $headers        additional headers to return
-     *
-     * @return RedirectResponse
-     */
-    public function routeRedirectResponse($routeName, array $routeArguments = [], $status = 302, array $headers = [])
-    {
-        return $this->redirectResponse(
-            $this->generateUrl($routeName, $routeArguments),
-            $status,
-            $headers
-        );
     }
 
     /**
@@ -1214,15 +1208,47 @@ trait ControllerMagicUtilitiesTrait
     }
 
     /**
+     * Get the form factory service.
+     *
+     * @return mixed
+     */
+    public function form()
+    {
+        return $this->getService('form.factory');
+    }
+
+    /**
+     * Get a form via it's service type definition and/or its form definition object.
+     *
+     * @param string|object $type     The form type definition or a key to a form type service definition.
+     * @param string|null   $name     An optional name for the form (when multiple forms exist on a page)
+     * @param mixed|null    $data     Data for the form.
+     * @param array         $options  Options to be passed to the form.
+     *
+     * @return Form
+     * @return Form
+     */
+    public function getForm($type, $name = null, $data = null, array $options = [])
+    {
+        return $name === null ?
+            $this->form()->create($type, $data, $options) :
+            $this->form()->createNamed($name, $type, $data, $options)
+        ;
+    }
+
+
+    /**
      * Generate a url from a routename and route args.
      *
      * @param string $route         route name
      * @param array  $parameters    route parameters
      * @param string $referenceType the url reference type
      *
+     * @deprecated To be removed in v1.1.0
+     *
      * @return string
      */
-    public function generateUrl($route, array $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    public function deprecatedGenerateUrl($route, array $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
     {
         return $this
             ->getService('router')
@@ -1231,51 +1257,44 @@ trait ControllerMagicUtilitiesTrait
                 $parameters,
                 $referenceType
             )
-        ;
+            ;
     }
 
     /**
-     * Create a form.
+     * return redirect response from a provided symfony route and its (optional) arguments.
      *
-     * @param FormTypeInterface|null $type    form type to create
-     * @param mixed                  $data    form data
-     * @param array                  $options form options
+     * @param string $uri     uri to redirect to
+     * @param int    $status  http status code to return
+     * @param array  $headers additional headers to return
      *
-     * @return Form
+     * @deprecated To be removed in v1.1.0
+     *
+     * @return RedirectResponse
      */
-    public function createForm($type, $data = null, array $options = [])
+    public function deprecatedRedirectResponse($uri, $status = 302, array $headers = [])
     {
-        return $this
-            ->getService('form.factory')
-            ->create(
-                $type,
-                $data,
-                $options
-            )
-        ;
+        return new RedirectResponse($uri, $status, $headers);
     }
 
     /**
-     * Create a named form.
+     * return redirect response from a provided symfony route and its (optional) arguments.
      *
-     * @param string                 $name    name for the form
-     * @param FormTypeInterface|null $type    form type to create
-     * @param mixed                  $data    form data
-     * @param array                  $options form options
+     * @param string $routeName      name of the symfony route
+     * @param array  $routeArguments optional arguments array for route
+     * @param int    $status         http status code to return
+     * @param array  $headers        additional headers to return
      *
-     * @return Form
+     * @deprecated To be removed in v1.1.0
+     *
+     * @return RedirectResponse
      */
-    public function createNamedForm($name, $type, $data = null, array $options = [])
+    public function deprecatedRouteRedirectResponse($routeName, array $routeArguments = [], $status = 302, array $headers = [])
     {
-        return $this
-            ->getService('form.factory')
-            ->createNamed(
-                $name,
-                $type,
-                $data,
-                $options
-            )
-        ;
+        return $this->deprecatedRedirectResponse(
+            $this->deprecatedGenerateUrl($routeName, $routeArguments),
+            $status,
+            $headers
+        );
     }
 }
 

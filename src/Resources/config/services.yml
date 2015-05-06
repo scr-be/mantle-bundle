@@ -89,7 +89,7 @@ parameters:
     # Response Factory
 
     s.mantle.response.factory.class:                                    Scribe\Component\HttpFoundation\Response\Factory\ResponseFactory
-    s.mantle.response.type_html.class:                                  Scribe\Component\HttpFoundation\Response\Response
+    s.mantle.response.type_generic.class:                               Scribe\Component\HttpFoundation\Response\Response
 
     # Navigation Creator Services
 
@@ -154,15 +154,53 @@ services:
     # Response Factories
 
     s.mantle.response.type_html:
-        class: %s.mantle.response.type_html.class%
+        class: %s.mantle.response.type_generic.class%
         factory:
             - %s.mantle.response.factory.class%
             - getResponse
         arguments:
-            - %s.mantle.response.type_html.class%
-            - %s.mantle.http_response.charset%
-            - %s.mantle.http_response.protocol%
-            - %s.mantle.http_response.headers%
+            - %s.mantle.response.type_generic.class%
+            - null
+            - null
+            - [ ]
+            - %s.mantle.response.global.headers%
+            - %s.mantle.response.html.headers%
+            - %s.mantle.response.global.charset%
+            - %s.mantle.response.html.charset%
+            - %s.mantle.response.global.protocol%
+            - %s.mantle.response.html.protocol%
+
+    s.mantle.response.type_text:
+        class: %s.mantle.response.type_generic.class%
+        factory:
+            - %s.mantle.response.factory.class%
+            - getResponse
+        arguments:
+            - null
+            - null
+            - [ ]
+            - %s.mantle.response.global.headers%
+            - %s.mantle.response.text.headers%
+            - %s.mantle.response.global.charset%
+            - %s.mantle.response.text.charset%
+            - %s.mantle.response.global.protocol%
+            - %s.mantle.response.text.protocol%
+
+    s.mantle.response.type_json:
+        class: %s.mantle.response.type_generic.class%
+        factory:
+            - %s.mantle.response.factory.class%
+            - getResponse
+        arguments:
+            - null
+            - null
+            - [ ]
+            - %s.mantle.response.global.headers%
+            - %s.mantle.response.json.headers%
+            - %s.mantle.response.global.charset%
+            - %s.mantle.response.json.charset%
+            - %s.mantle.response.global.protocol%
+            - %s.mantle.response.json.protocol%
 
     # Repositories
 

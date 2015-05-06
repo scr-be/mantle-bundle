@@ -21,7 +21,7 @@ interface ORMExceptionInterface extends ExceptionInterface
     /**
      * @var string
      */
-    const MSG_ORM_GENERIC = 'An undefined ORM exception was thrown.';
+    const MSG_ORM_GENERIC = 'An undefined ORM exception was thrown. %s';
 
     /**
      * @var int

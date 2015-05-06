@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Controller\Magic;
+namespace Scribe\Component\Controller\Behaviors;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -21,11 +21,11 @@ use Scribe\Exception\InvalidArgumentException;
 use Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException;
 
 /**
- * Class ControllerMagicUtilities.
+ * Class ControllerBehaviors.
  */
-class ControllerMagicUtilities implements ControllerMagicUtilitiesInterface
+class ControllerBehaviors implements ControllerBehaviorsInterface
 {
-    use ControllerMagicUtilitiesTrait;
+    use ControllerBehaviorsTrait;
 }
 
 /* EOF */
