@@ -33,7 +33,7 @@ class NodeRevision extends AbstractEntity
     private $content;
 
     /**
-     * @var Scribe\MantleBundle\Model\AuthorInterface
+     * @var mixed
      */
     private $author;
 
@@ -115,7 +115,7 @@ class NodeRevision extends AbstractEntity
     /**
      * Set author.
      *
-     * @param \stdClass $author
+     * @param $author
      *
      * @return NodeRevision
      */

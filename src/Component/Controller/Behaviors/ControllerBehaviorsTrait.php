@@ -499,7 +499,7 @@ trait ControllerBehaviorsTrait
      *
      * @return string
      */
-    public function renderTwigTpl($templateName, ...$parameters)
+    public function renderTwigTpl($templateName, array $parameters = [])
     {
         return $this
             ->templating()
@@ -515,7 +515,7 @@ trait ControllerBehaviorsTrait
      *
      * @return string
      */
-    public function renderTwigStr($templateString, ...$parameters)
+    public function renderTwigStr($templateString, array $parameters = [])
     {
         return $this
             ->twig()

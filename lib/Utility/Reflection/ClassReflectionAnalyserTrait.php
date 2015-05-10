@@ -203,11 +203,10 @@ trait ClassReflectionAnalyserTrait
     public function getProperties($filter = \ReflectionProperty::IS_PUBLIC)
     {
         if ($filter === false) {
-            return array_merge(
-                $this->getPropertiesPublic(),
-                $this->getPropertiesProtected(),
-                $this->getPropertiesPrivate()
-            );
+            return (array) $this
+                ->reflectionClass
+                ->getProperties(\ReflectionProperty::IS_PUBLIC|\ReflectionProperty::IS_PROTECTED|\ReflectionProperty::IS_PRIVATE)
+            ;
         }
 
         if ($filter === \ReflectionProperty::IS_PRIVATE) {

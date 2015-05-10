@@ -285,7 +285,7 @@ interface ControllerBehaviorsInterface
      *
      * @return string
      */
-    public function renderTwigTpl($templateName, ...$parameters);
+    public function renderTwigTpl($templateName, array $parameters = []);
 
     /**
      * Renders a template from the provided string.
@@ -295,7 +295,7 @@ interface ControllerBehaviorsInterface
      *
      * @return string
      */
-    public function renderTwigStr($templateString, ...$parameters);
+    public function renderTwigStr($templateString, array $parameters = []);
 
     /**
      * Returns an HTML response using the provided parameters to construct the Response object instance.

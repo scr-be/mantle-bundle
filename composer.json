@@ -79,7 +79,7 @@
         "ext-igbinary"                         : "*",
         "ext-memcached"                        : "*",
         "ext-xdebug"                           : "*",
-        "symfony/phpunit-bridge"               : "2.7.*@dev",
+        "symfony/phpunit-bridge"               : "2.7.*@beta",
         "phpunit/phpunit"                      : "~4.6.4",
         "sensio/generator-bundle"              : "3.0.*@dev",
         "doctrine/doctrine-fixtures-bundle"    : "2.2.*@dev",

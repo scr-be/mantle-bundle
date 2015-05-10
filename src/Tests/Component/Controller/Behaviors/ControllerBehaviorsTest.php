@@ -16,6 +16,7 @@ use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviorsInterface;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 
 /**
  * Class Entity.
@@ -308,6 +309,38 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
         $this->assertEquals(0, count($result1));
         $this->assertEquals(0, count($result2));
+    }
+
+    public function testTemplating()
+    {
+        $this->assertTrue($this->controllerBehaviors->templating() instanceof TwigEngine);
+    }
+
+    public function testTwig()
+    {
+        $this->assertTrue($this->controllerBehaviors->twig() instanceof \Twig_Environment);
+    }
+
+    public function testTwigRenderString()
+    {
+        $template = '
+            <ul>
+            {% for item in itemCollection %}
+                <li>{{ item }}</li>
+            {% endfor %}
+            </ul>
+        ';
+        $expected = '
+            <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+            </ul>
+        ';
+
+        $this->assertXmlStringEqualsXmlString($expected, $this->controllerBehaviors->renderTwigStr(
+            $template, ['itemCollection' => ['One', 'Two', 'Three']]
+        ));
     }
 }
 

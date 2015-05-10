@@ -20,6 +20,7 @@ use Scribe\Doctrine\Behavior\Model\Hierarchical\HierarchicalNodeInterface;
 use Scribe\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
+use Symfony\Component\Security\Core\User\User;
 
 /**
  * Class Node.
@@ -37,7 +38,7 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
         LoggableBehaviorTrait;
 
     /**
-     * @var Scribe\MantleBundle\Model\AuthorInterface
+     * @var User
      */
     private $author;
 
@@ -90,7 +91,7 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     /**
      * Set author.
      *
-     * @param \stdClass $author
+     * @param $author
      *
      * @return $this
      */
