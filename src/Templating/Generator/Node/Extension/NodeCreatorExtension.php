@@ -42,8 +42,12 @@ class NodeCreatorExtension extends \Twig_Extension
         ]);
 
         $this->addFunctionMethod('getNode', 'get_node');
+
         $this->addFunctionMethod('getNodeFromSlug', 'get_node_from_slug');
+        $this->addFunctionMethod('getNodeFromSlug', 'get_node_by_slug');
+
         $this->addFunctionMethod('getNodeFromMaterializedPath', 'get_node_from_materialized_path');
+        $this->addFunctionMethod('getNodeFromMaterializedPath', 'get_node_by_path');
     }
 
     /**

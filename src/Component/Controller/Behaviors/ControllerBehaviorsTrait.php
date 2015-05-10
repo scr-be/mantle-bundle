@@ -546,7 +546,7 @@ trait ControllerBehaviorsTrait
     {
         $response = $this->getService('s.mantle.response.type_html');
 
-        if (false === empty($headers)) {
+        if (0 !== count($headers)) {
             foreach($headers as $name => $value) {
                 $response->addHeader([$name => $value]);
             }
