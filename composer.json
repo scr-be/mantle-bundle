@@ -72,7 +72,7 @@
         "incenteev/composer-parameter-handler" : "~2.1",
         "zendframework/zend-json"              : "~2.3",
         "kriswallsmith/assetic"                : "~1.2",
-        "scribe/cache-bundle"                  : "dev-release/v1.9.6"
+        "scribe/cache-bundle"                  : "1.9.6.*@dev"
     },
     "require-dev" : {
         "ext-memcached"                        : "~2.2",
