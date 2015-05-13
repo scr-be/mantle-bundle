@@ -11,6 +11,7 @@
 
 namespace Scribe\MantleBundle\Listener;
 
+use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -24,6 +25,8 @@ use Scribe\Component\Bundle\BundleInformation;
  */
 class MaintenanceListener
 {
+    use ContainerAwareTrait;
+
     /**
      * Instance of bundle info object.
      *

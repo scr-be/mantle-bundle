@@ -511,14 +511,14 @@ services:
             - %s.mantle.maintenance.override.request_argument%
             - %s.mantle.maintenance.override.request_value%
         tags:
-            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 1 }
 
     s.mantle.newsletter_form.kernel_listener:
         class: %s.mantle.newsletter_form.kernel_listener.class%
         arguments:
             - @service_container
         tags:
-            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 2 }
 
     # Old Twig Extensions
 

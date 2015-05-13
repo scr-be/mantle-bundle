@@ -39,7 +39,7 @@ doctrine:
                         prefix: Scribe\MantleBundle\Doctrine\Entity
                     ScribeCacheBundle:
                         type: yml
-                        prefix: Scribe\CacheBundle
+                        prefix: Scribe\CacheBundle\Doctrine\Entity
                 metadata_cache_driver:          array
                 query_cache_driver:             array
                 result_cache_driver:            array
