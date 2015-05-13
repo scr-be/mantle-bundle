@@ -23,7 +23,7 @@ trait TwigEngineAwareTrait
     /**
      * @var Twig_Environment
      */
-    private $twigEnv;
+    private $engineEnvironment;
 
     /**
      * @var Twig_Template
@@ -37,25 +37,25 @@ trait TwigEngineAwareTrait
      *
      * @throws RuntimeException If engine property has not yet been set.
      */
-    public function getTwigEnv()
+    public function getEngineEnvironment()
     {
-        if (false === $this->hasTwigEnv()) {
+        if (false === $this->hasEngineEnvironment()) {
             throw new RuntimeException('Cannot retrieve twig enviornment as it has not been set.');
         }
 
-        return $this->twigEnv;
+        return $this->engineEnvironment;
     }
 
     /**
      * Setter for twig enviornment.
      *
-     * @param Twig_Environment|null $twigEnv
+     * @param Twig_Environment|null $engineEnvironment
      *
      * @return $this
      */
-    public function setTwigEnv(Twig_Environment $twigEnv = null)
+    public function setEngineEnvironment(Twig_Environment $engineEnvironment = null)
     {
-        $this->twigEnv = $twigEnv;
+        $this->engineEnvironment = $engineEnvironment;
 
         return $this;
     }
@@ -65,9 +65,9 @@ trait TwigEngineAwareTrait
      *
      * @return bool
      */
-    public function hasTwigEnv()
+    public function hasEngineEnvironment()
     {
-        return (bool) ($this->twigEnv instanceof Twig_Environment);
+        return (bool) ($this->engineEnvironment instanceof Twig_Environment);
     }
 
     /**
@@ -86,14 +86,14 @@ trait TwigEngineAwareTrait
      *
      * @return string
      *
-     * @throws \RuntimeException  When twigEnv has not been set
+     * @throws \RuntimeException  When engineEnvironment has not been set
      * @throws \Twig_Error_Loader When the passed template cannot be found/loaded
      * @throws \Twig_Error_Syntax When the passed template contains a syntax error
      */
     public function getEngineRendering($template, $arguments)
     {
         $this->twigTpl = $this
-            ->getTwigEnv()
+            ->getEngineEnvironment()
             ->createTemplate($template)
         ;
 

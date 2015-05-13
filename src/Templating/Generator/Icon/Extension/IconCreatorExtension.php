@@ -11,20 +11,18 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\Extension;
 
-use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
-use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorInterface;
-use Twig_Extension;
 use Twig_Environment;
+use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
+use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorInterface;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
  * Class IconCreatorExtension.
  */
-class IconCreatorExtension extends Twig_Extension
+class IconCreatorExtension extends AbstractTwigExtension
 {
-    use AdvancedExtensionTrait;
-
     /**
-     * @var IconCreatorInterface
+     * @var IconCreator|IconCreatorInterface
      */
     private $iconCreator;
 
@@ -33,18 +31,20 @@ class IconCreatorExtension extends Twig_Extension
      */
     public function __construct(IconCreatorInterface $iconCreator)
     {
+        parent::__construct();
+
         $this->iconCreator = $iconCreator;
 
-        $this->setParameters([
-            'is_safe'           => ['html'],
-            'needs_environment' => true,
-        ]);
+        $this
+            ->enableOptionHtmlSafe()
+            ->enableOptionNeedsEnv()
+        ;
 
-        $this->addFunctionMethod('getIcon', 'get_icon');
+        $this->addFunction('get_icon', [$this, 'getIcon']);
     }
 
     /**
-     * @param Twig_Environment $twigEnv
+     * @param Twig_Environment $engineEnvironment
      * @param string           $icon
      * @param string|null      $family
      * @param string|null      $template
@@ -52,10 +52,10 @@ class IconCreatorExtension extends Twig_Extension
      *
      * @return string
      */
-    public function getIcon(Twig_Environment $twigEnv, $icon, $family = null, $template = null, ...$styles)
+    public function getIcon(Twig_Environment $engineEnvironment, $icon, $family = null, $template = null, ...$styles)
     {
-        if (false === $this->iconCreator->hasTwigEnv()) {
-            $this->iconCreator->setTwigEnv($twigEnv);
+        if (false === $this->iconCreator->hasEngineEnvironment()) {
+            $this->iconCreator->setEngineEnvironment($engineEnvironment);
         }
 
         return (string) $this->iconCreator->render($icon, $family, $template, ...$styles);

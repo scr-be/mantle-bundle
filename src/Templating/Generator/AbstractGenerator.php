@@ -9,14 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Model;
+namespace Scribe\MantleBundle\Templating\Generator;
+
+use Scribe\Component\DependencyInjection\Aware\TwigEngineAwareTrait;
 
 /**
- * Class TwigExtensionInterface.
+ * Class AbstractTwigGenerator.
  */
-interface TwigExtensionInterface
+abstract class AbstractTwigGenerator
 {
-
+    use TwigEngineAwareTrait;
 }
 
 /* EOF */

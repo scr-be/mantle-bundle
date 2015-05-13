@@ -10,6 +10,7 @@
  */
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
+
 use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
 
 /**
@@ -43,8 +44,8 @@ trait IconCreatorAccessibilityTrait
      *
      * @var array
      */
-    private $validAriaRoles = [
-        'img', 'link', 'button', 'presentation',
+    private static $validAriaRoles = [
+        'img', 'link', 'button', 'presentation'
     ];
 
     /**
@@ -158,9 +159,9 @@ trait IconCreatorAccessibilityTrait
      */
     public function setAriaRole($role)
     {
-        if (true !== in_array($role, $this->validAriaRoles)) {
+        if (true !== in_array($role, self::$validAriaRoles)) {
             throw new IconCreatorException(
-                'You attempted to set an invalid aria role attribute. Valid values: '.implode(',', $this->validAriaRoles),
+                'You attempted to set an invalid aria role attribute. Valid values: '.implode(',', self::$validAriaRoles),
                 IconCreatorException::CODE_INVALID_ARGS
             );
         }

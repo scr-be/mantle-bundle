@@ -453,9 +453,9 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         $this->assertAttributeEquals('presentation', 'ariaRole',       $formatter);
         $this->assertAttributeEquals($validRoles,    'validAriaRoles', $formatter);
         $this->assertAttributeInstanceOf(
-            self::FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO, 'iconFamilyRepo', $formatter);
+            self::FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO, 'iconFamilyRepo',    $formatter);
         $this->assertAttributeInstanceOf(
-            self::FULLY_QUALIFIED_CLASS_NAME_TWIG_ENVIRONMENT, 'twigEnv',         $formatter);
+            self::FULLY_QUALIFIED_CLASS_NAME_TWIG_ENVIRONMENT, 'engineEnvironment', $formatter);
     }
 
     public function testCanValidateInvalidMissingFontFamilies()
@@ -555,7 +555,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             '#Argument 1 passed to .* must be an instance of .*, instance of .* given#'
         );
 
-        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setTwigEnv');
+        list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('setEngineEnvironment');
 
         $badArgument = new \stdClass();
         $method->invokeArgs($obj, [$badArgument]);

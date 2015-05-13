@@ -71,7 +71,6 @@
         "incenteev/composer-parameter-handler" : "~2.1",
         "zendframework/zend-json"              : "~2.3",
         "kriswallsmith/assetic"                : "1.3.*@dev",
-        "mindscape/raygun4php"                 : "dev-master",
         "scribe/cache-bundle"                  : "2.0.*@dev"
     },
     "require-dev" : {
@@ -90,11 +89,6 @@
         "fzaninotto/faker"                     : "1.5.*@dev",
         "sami/sami"                            : "*@dev",
         "pdepend/pdepend"                      : "2.0.6"
-    },
-    "suggests" : {
-        "ext-mysql"                            : "*",
-        "ext-igbinary"                         : "*",
-        "ext-memcached"                        : "*"
     },
     "autoload" : {
         "psr-4" : {

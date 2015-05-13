@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
+namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
@@ -19,7 +19,7 @@ use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
  */
 interface IconCreatorInterface
 {
-    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $twigEnv = null);
+    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $enviornment = null);
     public function setFamily($slug);
     public function setIcon($slug);
     public function setTemplate($slug = null);

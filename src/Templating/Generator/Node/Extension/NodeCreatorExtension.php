@@ -12,16 +12,14 @@
 namespace Scribe\MantleBundle\Templating\Generator\Node\Extension;
 
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
-use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
 use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
  * Class NodeCreatorExtension.
  */
-class NodeCreatorExtension extends \Twig_Extension
+class NodeCreatorExtension extends AbstractTwigExtension
 {
-    use AdvancedExtensionTrait;
-
     /**
      * @var NodeCreatorInterface
      */
@@ -34,20 +32,21 @@ class NodeCreatorExtension extends \Twig_Extension
      */
     public function __construct(NodeCreatorInterface $nodeCreator)
     {
+        parent::__construct();
+
         $this->nodeCreator = $nodeCreator;
 
-        $this->setParameters([
-            'is_safe'           => ['html'],
-            'needs_environment' => true,
-        ]);
+        $this
+            ->enableOptionHtmlSafe()
+            ->enableOptionNeedsEnv()
+        ;
 
-        $this->addFunctionMethod('getNode', 'get_node');
+        $this->addFunction('get_node',                        [$this, 'getNode']);
+        $this->addFunction('get_node_from_slug',              [$this, 'getNodeFromSlug']);
+        $this->addFunction('get_node_by_slug',                [$this, 'getNodeFromSlug']);
 
-        $this->addFunctionMethod('getNodeFromSlug', 'get_node_from_slug');
-        $this->addFunctionMethod('getNodeFromSlug', 'get_node_by_slug');
-
-        $this->addFunctionMethod('getNodeFromMaterializedPath', 'get_node_from_materialized_path');
-        $this->addFunctionMethod('getNodeFromMaterializedPath', 'get_node_by_path');
+        $this->addFunction('get_node_from_materialized_path', [$this, 'getNodeFromMaterializedPath']);
+        $this->addFunction('get_node_by_path',                [$this, 'getNodeFromMaterializedPath']);
     }
 
     /**

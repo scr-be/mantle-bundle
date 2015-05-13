@@ -99,7 +99,7 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
     /**
      * Gets the value of fixtureLocation.
      *
-     * @return fixtureLocation
+     * @return string
      */
     public function getFixtureLocation()
     {

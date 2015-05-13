@@ -27,6 +27,7 @@ class YamlFileLoader extends SymfonyYamlFileLoader
      */
     public function __construct()
     {
+        // We don't want to call {parent::__construct()}, see {@see setup()}.
     }
 
     /**

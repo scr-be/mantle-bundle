@@ -26,11 +26,10 @@ notifications:
         secure: fQJkH85f60YbHu0y3y7lptnouX3IULkX9f8wrEq4+SFI7n7Uy6RLRhz1wRioOR0gjRcX4dH+40ZZit3GpLB0M781cOwuBAcnobrU6coE8YdbFLrK/EFD/qXM/6RlwRik/3TA3ZX5C1WQfrBxnxq3jvuTFDplrXoxThS3lIl/KCo=
 
 before_install:
-    - git submodule update --init --recursive && cd knowledge && git checkout master && cd ../
-    - sh .travis-build-igbinary.sh
-    - sh .travis-build-memcached.sh
-    - phpenv config-add .travis-php.ini
-    - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - git submodule update --init --recursive && cd app/config/shared_public && git checkout master && cd ../../../
+    - sh app/config/shared_public/travis/travis-build-igbinary.sh
+    - sh app/config/shared_public/travis-build-memcached.sh
+    - phpenv config-add app/config/shared_public/travis-php.ini
     - phpenv rehash
     - mkdir -p build/logs
     - mkdir -p bin
@@ -46,7 +45,7 @@ before_script:
     - bin/mantle doctrine:fixtures:load --no-interaction
 
 script:
-    - bin/phpunit --verbose --configuration phpunit.travis.xml
+    - bin/phpunit --verbose --configuration phpunit.xml.dist
 
 after_script:
     - bin/coveralls -c .coveralls.yml -vvv

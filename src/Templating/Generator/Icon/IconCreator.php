@@ -13,11 +13,11 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
-use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorORMException;
-use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorInterface;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\AbstractTwigGenerator;
+use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
+use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorORMException;
+use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorInterface;
 use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorAccessibilityTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorServicesTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorAttributesTrait;
@@ -35,12 +35,12 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      * Setup the object instance.
      *
      * @param IconFamilyRepository $iconFamilyRepo
-     * @param Twig_Environment     $twigEnv
+     * @param Twig_Environment     $engineEnvironment
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $twigEnv = null)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $engineEnvironment = null)
     {
         $this->setIconFamilyRepo($iconFamilyRepo);
-        $this->setTwigEnv($twigEnv);
+        $this->setEngineEnvironment($engineEnvironment);
     }
 
     /**

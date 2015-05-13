@@ -31,38 +31,38 @@ class NodeRendererTwig extends AbstractNodeRenderer
      *
      * @var Twig_Environment
      */
-    private $twigEnv;
+    private $engineEnvironment;
 
     /**
      * Construct the renderer with the required Twig_Enviornment.
      *
-     * @param Twig_Environment $twigEnv
+     * @param Twig_Environment $engineEnvironment
      */
-    public function __construct(Twig_Environment $twigEnv)
+    public function __construct(Twig_Environment $engineEnvironment)
     {
-        $this->twigEnv = $twigEnv;
+        $this->engineEnvironment = $engineEnvironment;
     }
 
     /**
-     * Gets the value of twigEnv.
+     * Gets the value of engineEnvironment.
      *
      * @return Twig_Environment
      */
-    public function getTwigEnv()
+    public function getEngineEnvironment()
     {
-        return $this->twigEnv;
+        return $this->engineEnvironment;
     }
 
     /**
-     * Sets the value of twigEnv.
+     * Sets the value of engineEnvironment.
      *
-     * @param Twig_Environment $twigEnv
+     * @param Twig_Environment $engineEnvironment
      *
      * @return $this
      */
-    public function setTwigEnv(Twig_Environment $twigEnv)
+    public function setEngineEnvironment(Twig_Environment $engineEnvironment)
     {
-        $this->twigEnv = $twigEnv;
+        $this->engineEnvironment = $engineEnvironment;
 
         return $this;
     }
@@ -81,7 +81,7 @@ class NodeRendererTwig extends AbstractNodeRenderer
     public function render($string, array $args = [])
     {
         $twigTemplate = $this
-            ->getTwigEnv()
+            ->getEngineEnvironment()
             ->createTemplate($string)
         ;
 

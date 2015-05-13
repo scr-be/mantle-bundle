@@ -27,6 +27,7 @@ class XmlFileLoader extends SymfonyXmlFileLoader
      */
     public function __construct()
     {
+        // We don't want to call {parent::__construct()}, see {@see setup()}.
     }
 
     /**

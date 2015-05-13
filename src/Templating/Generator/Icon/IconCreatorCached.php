@@ -29,11 +29,11 @@ class IconCreatorCached extends IconCreator
      * Setup the object instance.
      *
      * @param IconFamilyRepository $iconFamilyRepo
-     * @param Twig_Environment     $twigEnv
+     * @param Twig_Environment     $engineEnvironment
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $twigEnv = null)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $engineEnvironment = null)
     {
-        parent::__construct($iconFamilyRepo, $twigEnv);
+        parent::__construct($iconFamilyRepo, $engineEnvironment);
     }
 
     /**

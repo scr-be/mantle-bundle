@@ -14,8 +14,8 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Node;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Exception\ExceptionInterface;
 use Scribe\Doctrine\Exception\SubscriberEventORMException;
+use Scribe\Exception\Model\ExceptionInterface;
 
 /**
  * NodeRenderEngine.

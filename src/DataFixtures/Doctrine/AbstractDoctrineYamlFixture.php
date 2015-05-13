@@ -370,24 +370,30 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
             ->getRootDir()
         ;
 
-        $baseDir        = $kernelRoot.'/config/knowledge/shared/fixtures/';
-        $basePublicDir  = $kernelRoot.'/config/knowledge_public/shared/fixtures/';
-        $yamlPath       = $baseDir.$this->buildYamlFileName($name);
-        $yamlPublicPath = $basePublicDir.$this->buildYamlFileName($name);
-        $yaml           = new Parser();
+        $fixtureDirPaths = [
+            'dirPathPublic'      => $kernelRoot.'/../../../app/config/shared_proprietary/shared/fixtures/',
+            'dirPathProprietary' => $kernelRoot.'/../../../app/config/shared_public/shared/fixtures/'
+        ];
 
-        if (false === file_exists($yamlPath) && false === file_exists($yamlPublicPath)) {
-            throw new RuntimeException(sprintf('Unable to find YAML fixture file at %s or %s.', $yamlPath, $yamlPublicPath));
+        $fixtureBasePath = null;
+        $fixtureYamlPath = null;
+
+        foreach ($fixtureDirPaths as $fixtureName => $fixtureDirPath) {
+            if (file_exists($fixtureDirPath)) {
+                $fixtureBasePath = $fixtureDirPath;
+                $fixtureYamlPath = $fixtureDirPath.$this->buildYamlFileName($name);
+                break;
+            }
         }
 
-        if (false === file_exists($yamlPublicPath)) {
-            // do nothing
-        } else {
-            $yamlPath = $yamlPublicPath;
+        if (null === $fixtureBasePath && null === $fixtureYamlPath) {
+            throw new RuntimeException(sprintf('Unable to find YAML fixture file at %s or %s.', array_first($fixtureDirPaths), array_last($fixtureDirPaths)));
         }
+
+        $yaml = new Parser();
 
         try {
-            $fixture = $yaml->parse(@file_get_contents($yamlPath));
+            $fixture = $yaml->parse(@file_get_contents($fixtureYamlPath));
         } catch (ParseException $e) {
             throw new RuntimeException(
                 'Unable to parse the YAML string: %s',
@@ -399,17 +405,17 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         }
 
         if (!isset($fixture[$name])) {
-            throw new RuntimeException(sprintf('Unable to parse the YAML root %s in file %s.', $name, $yamlPath));
+            throw new RuntimeException(sprintf('Unable to parse the YAML root %s in file %s.', $name, $fixtureYamlPath));
         } else {
             $fixtureRoot = $fixture[$name];
         }
 
         if (!isset($fixtureRoot['orm'])) {
-            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'orm', $yamlPath));
+            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'orm', $fixtureYamlPath));
         } elseif (null !== $fixtureRoot['data'] && !isset($fixtureRoot['data'])) {
-            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'data', $yamlPath));
+            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'data', $fixtureYamlPath));
         } elseif (!array_key_exists('dependencies', $fixtureRoot)) {
-            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'dependencies', $yamlPath));
+            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'dependencies', $fixtureYamlPath));
         }
 
         $this->fixture      = $fixtureRoot;

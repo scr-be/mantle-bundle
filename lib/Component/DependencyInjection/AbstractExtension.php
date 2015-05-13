@@ -267,7 +267,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      */
     protected function processConfigsToParameters(array $config = [], $outer = null)
     {
-        if (true === (sizeof($config) === 0)) {
+        if (true === (count($config) === 0)) {
             $this->handleConfigsToParameterWhenEmpty($outer, $config);
 
             return $this;

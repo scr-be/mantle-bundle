@@ -19,8 +19,8 @@ use Scribe\Doctrine\Base\Model\HasAttributes;
 use Scribe\Doctrine\Base\Model\HasDescription;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Exception\ExceptionInterface;
 use Scribe\Doctrine\Exception\SubscriberEventORMException;
+use Scribe\Exception\Model\ExceptionInterface;
 
 /**
  * Class Icon.
