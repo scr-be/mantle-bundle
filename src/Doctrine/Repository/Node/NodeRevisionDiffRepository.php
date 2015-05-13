@@ -16,6 +16,6 @@ use Doctrine\ORM\EntityRepository;
 /**
  * NodeRevisionDiffRepository.
  */
-class NodeRevisionDiffRepository extends EntityRepository
-{
-}
+class NodeRevisionDiffRepository extends EntityRepository {}
+
+/* EOF */

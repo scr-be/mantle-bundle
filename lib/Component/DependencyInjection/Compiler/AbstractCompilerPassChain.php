@@ -36,7 +36,7 @@ abstract class AbstractCompilerPassChain implements CompilerPassChainInterface
             CompilerPassChainInterface::RESTRICTION_INTERFACE_DEFAULT
         ];
 
-        $this->assignPropertyCollectionToSelf($parameters);
+        $this->assignPropertyCollectionToSelf(...$parameters);
     }
 }
 

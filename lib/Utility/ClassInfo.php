@@ -90,18 +90,10 @@ class ClassInfo
      */
     public static function get($fqcn, $what = self::CLASS_STR)
     {
-        $exceptionCaught = null;
-
         try {
             return Call::staticMethod(__CLASS__, 'get' . $what, $fqcn);
-        } catch (InvalidArgumentException $e) {
-            $exceptionCaught = $e;
         } catch (BadFunctionCallException $e) {
-            $exceptionCaught = $e;
-        }
-
-        if ($exceptionCaught instanceof ExceptionInterface) {
-            throw $exceptionCaught;
+            throw $e;
         }
     }
 
@@ -188,7 +180,7 @@ class ClassInfo
      */
     public static function getNamespaceLevelsByInstance($instance)
     {
-        return (int) self::getNamespaceSet(get_class($instance));
+        return (int) self::getNamespaceLevels(get_class($instance));
     }
 
     /**

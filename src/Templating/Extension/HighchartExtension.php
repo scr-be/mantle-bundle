@@ -12,22 +12,23 @@
 namespace Scribe\MantleBundle\Templating\Extension;
 
 use Scribe\MantleBundle\Templating\Helper\Highcharts\Highchart;
-use Scribe\MantleBundle\Templating\Extension\Part\SimpleExtensionTrait;
-use Twig_Extension;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
  * Class HighchartExtension.
  */
-class HighchartExtension extends Twig_Extension
+class HighchartExtension extends AbstractTwigExtension
 {
-    use SimpleExtensionTrait;
-
     /**
-     * constructor.
+     * Initialize the instance.
      */
     public function __construct()
     {
-        $this->init('chart');
+        parent::__construct();
+
+        $this->enableOptionHtmlSafe();
+
+        $this->addFunction('chart', [$this, 'renderHighchart']);
     }
 
     /**
@@ -35,7 +36,7 @@ class HighchartExtension extends Twig_Extension
      *
      * @return string
      */
-    public function chart(Highchart $chart)
+    public function renderHighchart(Highchart $chart)
     {
         return $chart->render();
     }

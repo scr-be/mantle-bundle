@@ -9,20 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Utility;
+namespace Scribe\Utility\System;
 
-use Scribe\Component\Controller\ControllerUtils;
-use Scribe\Component\Controller\ControllerUtilsTrait;
-use Scribe\Component\Controller\ControllerUtilsInterface;
 use Scribe\Exception\InvalidArgumentException;
 
 /**
- * Class Filesystem.
+ * Class FileSystem.
  */
-class Filesystem implements ControllerUtilsInterface
+class FileSystem
 {
-    use ControllerUtilsTrait;
-
     /**
      * Bytes string representation.
      *
@@ -80,36 +75,10 @@ class Filesystem implements ControllerUtilsInterface
     const UNIT_BASE_02 = 1024;
 
     /**
-     * General purpose utility class shared between all controllers.
-     *
-     * @var ControllerUtils
-     */
-    private $utils;
-
-    /**
-     * Repo class for cached filesystem directory sizes.
-     *
-     * @var CachedFilesystemEntrySizeRepository
-     */
-    private $cachedFilesystemEntrySizeRepository;
-
-    /**
-     * Initialize and setup this object instance.
-     *
-     * @param ControllerUtils                     $utils
-     * @param CachedFilesystemEntrySizeRepository $cachedFilesystemEntrySizeRepository
-     */
-    public function __construct(
-        ControllerUtils $utils,
-        CachedFilesystemEntrySizeRepository $cachedFilesystemEntrySizeRepository)
-    {
-        $this->utils                               = $utils;
-        $this->cachedFilesystemEntrySizeRepository = $cachedFilesystemEntrySizeRepository;
-    }
-
-    /**
      * @param string $path
      * @param string $separator
+     *
+     * @return string
      */
     public static function sanitizePath($path, $separator = DIRECTORY_SEPARATOR)
     {
@@ -175,7 +144,7 @@ class Filesystem implements ControllerUtilsInterface
         return [
             $pathParts,
             $pathIncrementalParts,
-            count($pathParts),
+            count($pathParts)
         ];
     }
 
@@ -200,23 +169,32 @@ class Filesystem implements ControllerUtilsInterface
             self::UNIT_TYPE_MEGABYTE,
             self::UNIT_TYPE_GIGABYTE,
             self::UNIT_TYPE_TERABYTE,
-            self::UNIT_TYPE_PETABYTE,
+            self::UNIT_TYPE_PETABYTE
         ];
 
         // check for a valid provided and max unit type
-        if (!in_array($providedUnitType, $units) || !in_array($maxUnitType, $units)) {
-            throw new InvalidArgumentException('Invalid unit type specified: '.$unitBase);
+        if (false === in_array($providedUnitType, $units, false) || false === in_array($maxUnitType, $units, false)) {
+            throw new InvalidArgumentException(
+                'Invalid unit type specified in "%s" of "%s".',
+                null, null, null,
+                (string) __METHOD__,
+                (string) $unitBase
+            );
         }
 
         // use the unit-type array position (its key) to determine the starting step and max depth
-        $step  = array_search($providedUnitType, $units);
-        $depth = array_search($maxUnitType, $units);
+        $step  = array_search($providedUnitType, $units, false);
+        $depth = array_search($maxUnitType, $units, false);
 
         // begin the conversion with the passed size
         $size = $sizeToConvert;
 
         // continue while size is small than 1 of the next unit or we reach our max depth
         while ($size >= $unitBase && $step <= $depth) {
+
+            if ($units[$step] === $maxUnitType) {
+                break;
+            }
 
             // divide the size by the unit base
             $size /= $unitBase;
@@ -230,7 +208,7 @@ class Filesystem implements ControllerUtilsInterface
             'type' => 'provided',
             'size' => $sizeToConvert,
             'unit' => $providedUnitType,
-            'base' => $unitBase,
+            'base' => $unitBase
         ];
 
         // compile an object of the new size info
@@ -238,13 +216,13 @@ class Filesystem implements ControllerUtilsInterface
             'type' => 'converted',
             'size' => $size,
             'unit' => $units[$step],
-            'base' => $unitBase,
+            'base' => $unitBase
         ];
 
         // return an array with both original and new size info objects
         return [
             $convertedSizeInfo,
-            $originalSizeInfo,
+            $originalSizeInfo
         ];
     }
 }

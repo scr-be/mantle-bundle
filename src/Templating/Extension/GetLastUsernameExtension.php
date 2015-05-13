@@ -11,39 +11,42 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\MantleBundle\Templating\Extension\Part\SimpleExtensionTrait;
-use Scribe\MantleBundle\Templating\Extension\Part\ContainerAwareExtensionTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
-use Twig_Extension;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * Class GetLastUsernameExtension.
  */
-class GetLastUsernameExtension extends Twig_Extension
+class GetLastUsernameExtension extends AbstractTwigExtension
 {
-    use SimpleExtensionTrait,
-        ContainerAwareExtensionTrait;
+    /**
+     * Initialize the instance.
+     *
+     * @var AuthenticationUtils
+     */
+    private $authenticationUtils;
 
     /**
-     * constructor.
+     * Initialize the instance.
+     *
+     * @param AuthenticationUtils $authenticationUtils
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(AuthenticationUtils $authenticationUtils)
     {
-        $this->setContainer($container);
-        $this->init('get_last_username');
+        parent::__construct();
+
+        $this->authenticationUtils = $authenticationUtils;
+
+        $this->enableOptionHtmlSafe();
+
+        $this->addFunction('get_last_username', [$this, 'getLastUsername']);
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function get_last_username()
+    public function getLastUsername()
     {
-        $session = $this
-            ->container
-            ->get('session')
-        ;
-
-        return (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
+        return $this->authenticationUtils->getLastUsername();
     }
 }

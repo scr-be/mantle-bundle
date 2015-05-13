@@ -9,14 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Utility;
+namespace Scribe\Utility\System;
 
 use Scribe\Utility\Caller\Call;
+use Scribe\Utility\Math;
 
 /**
- * Class System.
+ * Class SystemInfo.
  */
-class System
+class SystemInfo
 {
     /**
      * osx (darwin) os string.
@@ -57,19 +58,19 @@ class System
     public static function getLoadAveragesAsPercent($precision = 2, $newBase = 100, $newBaseMax = true, $cpuCount = null)
     {
         if ($cpuCount === null) {
-            return System::getCpuCount();
+            return self::getCpuCount();
         }
 
         list($time, $load01, $load05, $load15, $loadAverage)
-            = System::getLoadAverages($precision)
+            = self::getLoadAverages($precision)
         ;
 
         return [
             $time,
-            Math::convertToBase($load01, $cpuCount, $newBase, $newBaseMax),
-            Math::convertToBase($load05, $cpuCount, $newBase, $newBaseMax),
-            Math::convertToBase($load15, $cpuCount, $newBase, $newBaseMax),
-            Math::convertToBase($loadAverage, $cpuCount, $newBase),
+            Math::toBase($load01, $cpuCount, $newBase, $newBaseMax),
+            Math::toBase($load05, $cpuCount, $newBase, $newBaseMax),
+            Math::toBase($load15, $cpuCount, $newBase, $newBaseMax),
+            Math::toBase($loadAverage, $cpuCount, $newBase)
         ];
     }
 
@@ -78,7 +79,7 @@ class System
      */
     public static function getSystemName()
     {
-        return System::getSystemUname('s');
+        return self::getSystemUname('s');
     }
 
     /**
@@ -91,11 +92,7 @@ class System
     {
         $value = Call::func($filterValueFunction, $value);
 
-        if (System::getSystemName() == $value) {
-            return true;
-        }
-
-        return false;
+        return (bool) (self::getSystemName() === $value ?: false);
     }
 
     /**
@@ -106,13 +103,7 @@ class System
      */
     public static function isNotSystemName($value, $filterValueFunction = 'strtolower')
     {
-        $value = Call::func($filterValueFunction, $value);
-
-        if (System::getSystemName() == $value) {
-            return true;
-        }
-
-        return false;
+        return (bool) (self::isSystemName($value, $filterValueFunction) ? false : true);
     }
 
     /**
@@ -136,12 +127,12 @@ class System
      */
     public static function getCpuCount($default = 4)
     {
-        switch (System::getSystemName()) {
+        switch (self::getSystemName()) {
             case 'linux':
-                $exec = "grep 'model name' /proc/cpuinfo | wc -l";
+                $exec = 'grep \'model name\' /proc/cpuinfo | wc -l';
                 break;
             case 'darwin':
-                $exec = "sysctl hw.ncpu | awk '{print $2}'";
+                $exec = 'sysctl hw.ncpu | awk \'{print $2}\'';
                 break;
             default:
                 $exec = null;

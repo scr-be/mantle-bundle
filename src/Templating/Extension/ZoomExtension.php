@@ -11,27 +11,21 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Twig_Extension;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
  * Class ContainerExtension.
  */
-class ZoomExtension extends Twig_Extension
+class ZoomExtension extends AbstractTwigExtension
 {
     /**
-     * @return string
+     * Initialize the instance.
      */
-    public function getName()
+    public function __construct()
     {
-        return get_class($this);
-    }
+        parent::__construct();
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
-    {
-        return ['zoom' => new \Twig_Function_Method($this, 'zoom')];
+        $this->addFunction('zoom', [$this, 'handleZeroOneOrMore']);
     }
 
     /**
@@ -42,7 +36,7 @@ class ZoomExtension extends Twig_Extension
      *
      * @return string
      */
-    public function zoom($i = 0, $zero, $one, $more = null)
+    public function handleZeroOneOrMore($i = 0, $zero, $one, $more = null)
     {
         switch ($i) {
             case 0:

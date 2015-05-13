@@ -14,14 +14,30 @@ Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect:
 
     fields:
 
-        regex:
-            type: boolean
+        path:
+            type: string
+            length: 510
+
+        pathRedirect:
+            type: string
+            length: 510
+
+        routeDefaults:
+            type:     json_array
             nullable: true
 
-        pathFrom:
-            type: string
-            length: 510
+        routeMethods:
+            type:     json_array
+            nullable: true
 
-        pathTo:
-            type: string
-            length: 510
+        routeSchemas:
+            type:     json_array
+            nullable: true
+
+        routeRequirements:
+            type:     json_array
+            nullable: true
+
+        routeHost:
+            type:     string
+            nullable: true

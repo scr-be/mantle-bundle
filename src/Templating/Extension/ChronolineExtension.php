@@ -11,29 +11,30 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\MantleBundle\Templating\Extension\Part\SimpleExtensionTrait;
 use Scribe\MantleBundle\Templating\Helper\Timeline\Chronoline;
-use Twig_Extension;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
  * Class ChronolineExtension.
  */
-class ChronolineExtension extends Twig_Extension
+class ChronolineExtension extends AbstractTwigExtension
 {
-    use SimpleExtensionTrait;
-
     /**
      * constructor.
      */
     public function __construct()
     {
-        $this->init('chronoline');
+        parent::__construct();
+
+        $this->enableOptionHtmlSafe();
+
+        $this->addFunction('chronoline', [$this, 'renderChronoline']);
     }
 
     /**
      * @return string
      */
-    public function chronoline(Chronoline $chronoline)
+    public function renderChronoline(Chronoline $chronoline)
     {
         return $chronoline->render();
     }

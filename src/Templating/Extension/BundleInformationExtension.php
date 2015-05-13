@@ -11,17 +11,14 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\MantleBundle\Templating\Extension\Part\AdvancedExtensionTrait;
 use Scribe\Component\Bundle\BundleInformation;
-use Twig_Extension;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
  * Class BundleInformationExtension.
  */
-class BundleInformationExtension extends Twig_Extension
+class BundleInformationExtension extends AbstractTwigExtension
 {
-    use AdvancedExtensionTrait;
-
     /**
      * @var BundleInformation
      */
@@ -32,11 +29,13 @@ class BundleInformationExtension extends Twig_Extension
      */
     public function __construct(BundleInformation $bundleInformation)
     {
+        parent::__construct();
+
         $this->bundleInformation = $bundleInformation;
 
-        $this->addFunctionMethod('getBundleName',     'get_info_bundle');
-        $this->addFunctionMethod('getControllerName', 'get_info_controller');
-        $this->addFunctionMethod('getActionName',     'get_info_action');
+        $this->addFunction('get_info_bundle', [$this, 'getBundleName']);
+        $this->addFunction('get_info_controller', [$this, 'getControllerName']);
+        $this->addFunction('get_info_action', [$this, 'getActionName']);
     }
 
     /**

@@ -11,9 +11,10 @@
 
 namespace Scribe\MantleBundle\Templating\Twig;
 
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 use Scribe\Exception\RuntimeException;
 use Scribe\Utility\ClassInfo;
-use Symfony\Component\Validator\Constraints\All;
 
 /**
  * Class AbstractTwigExtension.
@@ -292,23 +293,48 @@ abstract class AbstractTwigExtension extends \Twig_Extension implements TwigExte
         );
     }
 
+    private function getCallableCollectionForType($type)
+    {
+        $this->validateType($type);
+        $type = substr($type, 0, strlen($type) - 1);
+
+        $callableCollection     = [];
+        $callableCollectionName = $type.self::PROPERTY_PART_METHOD;
+        $twigExtensionClassName = 'Twig_Simple'.ucfirst($type);
+
+        if (false === is_array($this->{$callableCollectionName}) || 0 === count($this->{$callableCollectionName})) {
+            return $callableCollection;
+        }
+
+        foreach ($this->{$callableCollectionName} as $name => $callable) {
+            $callableCollection[$name] = new $twigExtensionClassName(
+                $name, $callable, $this->resolvedOptions($type, $name)
+            );
+        }
+
+        return $callableCollection;
+    }
+
     /**
-     * Returns an array of {@see \Twig_SimpleFunction} instances, providing the beidge between twig function calls
+     * Returns an array of {@see Twig_SimpleFunction} instances, providing the beidge between twig function calls
      * and the methods in this class.
      *
      * @return array
      */
     public function getFunctions()
     {
-        $callableCollection = [];
+        return $this->getCallableCollectionForType(__FUNCTION__);
+    }
 
-        foreach ($this->functionCallableCollection as $name => $callable) {
-            $callableCollection[$name] = new \Twig_SimpleFunction(
-                $name, $callable, $this->resolvedOptions('function', $name)
-            );
-        }
-
-        return $callableCollection;
+    /**
+     * Returns an array of {@see Twig_SimpleFilter} instances, providing the beidge between twig function calls
+     * and the methods in this class.
+     *
+     * @return array
+     */
+    public function getFilters()
+    {
+        return $this->getCallableCollectionForType(__FUNCTION__);
     }
 }
 

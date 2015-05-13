@@ -12,39 +12,34 @@
 namespace Scribe\MantleBundle\Doctrine\Repository\Icon;
 
 use Doctrine\ORM\EntityRepository;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily;
 
 /**
- * NavMenuItemRepository.
+ * Class IconRepository.
  */
 class IconRepository extends EntityRepository
 {
     /**
-     * loadIconByFamilyAndSlug.
-     *
      * @param IconFamily $family
-     * @param            $iconSlug
+     * @param string     $iconSlug
      *
      * @throws \Exception
+     *
+     * @return array
      */
     public function loadIconByFamilyAndSlug(IconFamily $family, $iconSlug)
     {
         $q = $this
-          ->createQueryBuilder('i')
-          ->where('i.slug = :slug')
-          ->setParameter('slug', $iconSlug)
-          ->getQuery()
+            ->createQueryBuilder('i')
+            ->where('i.slug = :slug')
+            ->where('i.families MEMBER OF :family')
+            ->setParameter('slug', $iconSlug)
+            ->setParameter('family', $family)
+            ->getQuery()
         ;
 
         try {
-            $results = $q->getResult();
-            foreach ($results as $icon) {
-                $fams = $icon->getFamilies();
-                if (in_array($family, $fams)) {
-                    return $icon;
-                }
-            }
-
-            return;
+            return $q->getResult();
         } catch (\Exception $e) {
             throw $e;
         }

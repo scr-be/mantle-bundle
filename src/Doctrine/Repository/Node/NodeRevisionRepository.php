@@ -14,8 +14,8 @@ namespace Scribe\MantleBundle\Doctrine\Repository\Node;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * NodeRevisionRepository.
+ * Class NodeRevisionRepository.
  */
-class NodeRevisionRepository extends EntityRepository
-{
-}
+class NodeRevisionRepository extends EntityRepository {}
+
+/* EOF */

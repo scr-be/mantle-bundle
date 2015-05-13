@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
 use Scribe\Doctrine\Behavior\Repository\Hierarchical\HierarchicalNodeTreeBehaviorTrait;
 
 /**
- * NodeRepository.
+ * Class NodeRepository.
  */
 class NodeRepository extends EntityRepository
 {

@@ -1,3 +1,5 @@
+---
+
 framework:
     secret:          "Secret for tests!"
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -34,7 +36,7 @@ doctrine:
                 mappings:
                     ScribeMantleBundle:
                         type: yml
-                        prefix: Scribe\MantleBundle
+                        prefix: Scribe\MantleBundle\Doctrine\Entity
                     ScribeCacheBundle:
                         type: yml
                         prefix: Scribe\CacheBundle

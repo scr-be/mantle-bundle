@@ -12,14 +12,14 @@
 namespace Scribe\MantleBundle\Tests\Component\Controller\Behaviors;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviorsInterface;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 
 /**
- * Class Entity.
+ * Class ControllerBehaviorsTest.
  */
 class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 {
@@ -38,7 +38,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
     public function testContainer()
     {
-        $this->assertEquals($this->container, $this->controllerBehaviors->container());
+        static::assertEquals($this->container, $this->controllerBehaviors->container());
     }
 
     public function testGetServiceCollectionVariadic()
@@ -50,7 +50,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
         $result = $this->controllerBehaviors->getServiceCollection('router', 'twig');
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetServiceCollectionArray()
@@ -62,7 +62,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
         $result = $this->controllerBehaviors->getServiceCollection(['router', 'twig']);
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetServiceCollectionMixed()
@@ -71,12 +71,12 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
             'router' => $this->container->get('router'),
             'twig' => $this->container->get('twig'),
             'translator' => $this->container->get('translator'),
-            'session' => $this->container->get('session'),
+            'session' => $this->container->get('session')
         ];
 
         $result = $this->controllerBehaviors->getServiceCollection('router', 'twig', ['translator', 'session']);
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetServiceCollectionException()
@@ -94,7 +94,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
         $expected = $this->container->get('router');
         $result = $this->controllerBehaviors->getService('router');
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetServiceException()
@@ -109,8 +109,8 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
     public function testHasService()
     {
-        $this->assertTrue($this->controllerBehaviors->hasService('router'));
-        $this->assertFalse($this->controllerBehaviors->hasService('abcdef0123'));
+        static::assertTrue($this->controllerBehaviors->hasService('router'));
+        static::assertFalse($this->controllerBehaviors->hasService('abcdef0123'));
     }
 
     public function testGetParameterCollectionVariadic()
@@ -122,7 +122,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
         $result = $this->controllerBehaviors->getParameterCollection('router.class', 'twig.class');
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetServiceParameterArray()
@@ -134,7 +134,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
         $result = $this->controllerBehaviors->getParameterCollection(['router.class', 'twig.class']);
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetParameterCollectionMixed()
@@ -143,12 +143,12 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
             'router.class' => $this->container->getParameter('router.class'),
             'twig.class' => $this->container->getParameter('twig.class'),
             'translator.class' => $this->container->getParameter('translator.class'),
-            'session.class' => $this->container->getParameter('session.class'),
+            'session.class' => $this->container->getParameter('session.class')
         ];
 
         $result = $this->controllerBehaviors->getParameterCollection('router.class', 'twig.class', ['translator.class', 'session.class']);
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetServiceParameterException()
@@ -166,7 +166,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
         $expected = $this->container->getParameter('router.class');
         $result = $this->controllerBehaviors->getParameter('router.class');
 
-        $this->assertEquals($expected, $result);
+        static::assertEquals($expected, $result);
     }
 
     public function testGetParameterException()
@@ -181,18 +181,18 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
     public function testHasParameter()
     {
-        $this->assertTrue($this->controllerBehaviors->hasParameter('router.class'));
-        $this->assertFalse($this->controllerBehaviors->hasParameter('abcdef0123'));
+        static::assertTrue($this->controllerBehaviors->hasParameter('router.class'));
+        static::assertFalse($this->controllerBehaviors->hasParameter('abcdef0123'));
     }
 
     public function testEm()
     {
-        $this->assertEquals($this->container->get(ControllerBehaviorsInterface::EM_DEFAULT_ID), $this->controllerBehaviors->em());
+        static::assertEquals($this->container->get(ControllerBehaviorsInterface::EM_DEFAULT_ID), $this->controllerBehaviors->em());
     }
 
     public function testEmSpecific()
     {
-        $this->assertEquals($this->container->get(ControllerBehaviorsInterface::EM_DEFAULT_ID), $this->controllerBehaviors->em('doctrine.orm.default_entity_manager'));
+        static::assertEquals($this->container->get(ControllerBehaviorsInterface::EM_DEFAULT_ID), $this->controllerBehaviors->em('doctrine.orm.default_entity_manager'));
     }
 
     public function testEntityActionsSingleRollback()
@@ -208,11 +208,14 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
         $this->controllerBehaviors->entityPersist($route);
         $this->controllerBehaviors->emTransactionRollback();
 
-        $em = $this->controllerBehaviors->em();
-        $routeRepo = $em->getRepository('ScribeMantleBundle:Doctrine\Entity\Route\Route');
+        $routeRepo = $this
+            ->controllerBehaviors
+            ->em()
+            ->getRepository('ScribeMantleBundle:Route\Route')
+        ;
 
         $result = $routeRepo->findBySlug('name.of.route');
-        $this->assertEquals([], $result);
+        static::assertEquals([], $result);
     }
 
     public function testEntityActionsSingle()
@@ -229,16 +232,19 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
         $this->controllerBehaviors->emTransactionCommit();
         $this->controllerBehaviors->emFlush();
 
-        $em = $this->controllerBehaviors->em();
-        $routeRepo = $em->getRepository('ScribeMantleBundle:Doctrine\Entity\Route\Route');
+        $routeRepo = $this
+            ->controllerBehaviors
+            ->em()
+            ->getRepository('ScribeMantleBundle:Route\Route')
+        ;
 
         $result = $routeRepo->findBySlug('name.of.route');
-        $this->assertEquals(1, count($result));
+        static::assertEquals(1, count($result));
 
         $this->controllerBehaviors->entityRemove($result[0], true);
 
         $result = $routeRepo->findBySlug('name.of.route');
-        $this->assertEquals(0, count($result));
+        static::assertEquals(0, count($result));
     }
 
     public function testEntityActionsCollectionRollback()
@@ -263,14 +269,17 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
         );
         $this->controllerBehaviors->entityCollectionPersist($routeCollection, true);
 
-        $em = $this->controllerBehaviors->em();
-        $routeRepo = $em->getRepository('ScribeMantleBundle:Doctrine\Entity\Route\Route');
+        $routeRepo = $this
+            ->controllerBehaviors
+            ->em()
+            ->getRepository('ScribeMantleBundle:Route\Route')
+        ;
 
         $result1 = $routeRepo->findBySlug('name.of.route.1');
         $result2 = $routeRepo->findBySlug('name.of.route.2');
 
-        $this->assertEquals([], $result1);
-        $this->assertEquals([], $result2);
+        static::assertEquals([], $result1);
+        static::assertEquals([], $result2);
     }
 
     public function testEntityActionsCollection()
@@ -293,32 +302,35 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
 
         $this->controllerBehaviors->entityCollectionPersist($routeCollection, true);
 
-        $em = $this->controllerBehaviors->em();
-        $routeRepo = $em->getRepository('ScribeMantleBundle:Doctrine\Entity\Route\Route');
+        $routeRepo = $this
+            ->controllerBehaviors
+            ->em()
+            ->getRepository('ScribeMantleBundle:Route\Route')
+        ;
 
         $result1 = $routeRepo->findBySlug('name.of.route.1');
         $result2 = $routeRepo->findBySlug('name.of.route.2');
 
-        $this->assertEquals(1, count($result1));
-        $this->assertEquals(1, count($result2));
+        static::assertEquals(1, count($result1));
+        static::assertEquals(1, count($result2));
 
         $this->controllerBehaviors->entityCollectionRemove(new ArrayCollection([$result1[0], $result2[0]]), true);
 
         $result1 = $routeRepo->findBySlug('name.of.route.1');
         $result2 = $routeRepo->findBySlug('name.of.route.2');
 
-        $this->assertEquals(0, count($result1));
-        $this->assertEquals(0, count($result2));
+        static::assertEquals(0, count($result1));
+        static::assertEquals(0, count($result2));
     }
 
     public function testTemplating()
     {
-        $this->assertTrue($this->controllerBehaviors->templating() instanceof TwigEngine);
+        static::assertTrue($this->controllerBehaviors->templating() instanceof TwigEngine);
     }
 
     public function testTwig()
     {
-        $this->assertTrue($this->controllerBehaviors->twig() instanceof \Twig_Environment);
+        static::assertTrue($this->controllerBehaviors->twig() instanceof \Twig_Environment);
     }
 
     public function testTwigRenderString()
@@ -338,7 +350,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
             </ul>
         ';
 
-        $this->assertXmlStringEqualsXmlString($expected, $this->controllerBehaviors->renderTwigStr(
+        static::assertXmlStringEqualsXmlString($expected, $this->controllerBehaviors->renderTwigStr(
             $template, ['itemCollection' => ['One', 'Two', 'Three']]
         ));
     }

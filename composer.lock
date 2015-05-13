@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fda4d5937ee319ca8fa3b36b984b4ad7",
+    "hash": "9c42d4a5643a3aa34ded291254f5bb90",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1590,12 +1590,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "e60f7159202ee9ac419022b4cf9d42486e11cdba"
+                "reference": "2815ae8f93063b46db834db2983815bf9faf00e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/e60f7159202ee9ac419022b4cf9d42486e11cdba",
-                "reference": "e60f7159202ee9ac419022b4cf9d42486e11cdba",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/2815ae8f93063b46db834db2983815bf9faf00e4",
+                "reference": "2815ae8f93063b46db834db2983815bf9faf00e4",
                 "shasum": ""
             },
             "require": {
@@ -1704,7 +1704,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-05 08:54:18"
+            "time": "2015-05-12 15:52:33"
         },
         {
             "name": "twig/extensions",
@@ -3797,8 +3797,8 @@
         "sensio/distribution-bundle": 20,
         "sensio/framework-extra-bundle": 20,
         "kriswallsmith/assetic": 20,
-        "mindscape/raygun4php": 20,
         "scribe/cache-bundle": 20,
+        "mindscape/raygun4php": 20,
         "symfony/phpunit-bridge": 10,
         "sensio/generator-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,

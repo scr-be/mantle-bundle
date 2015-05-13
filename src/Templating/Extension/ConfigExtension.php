@@ -11,49 +11,41 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\MantleBundle\Templating\Extension\Part\ConfigExtensionTrait;
-use Scribe\MantleBundle\Templating\Extension\Part\SimpleExtensionTrait;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 use Scribe\Utility\Config\ConfigInterface;
-use Twig_Extension;
 
 /**
  * ContainerExtension.
  */
-class ConfigExtension extends Twig_Extension
+class ConfigExtension extends AbstractTwigExtension
 {
-    /*
-     * @see ConfigExtensionTrait
-     * @see SimpleExtentionTrait
+    /**
+     * @var ConfigInterface
      */
-    use ConfigExtensionTrait,
-        SimpleExtensionTrait;
+    private $config;
 
     /**
      * @param ConfigInterface $config
      */
     public function __construct(ConfigInterface $config)
     {
+        parent::__construct();
+
         $this->config = $config;
-        $this->init('get_config_yml', 'getConfig');
+
+        $this->enableOptionHtmlSafe();
+
+        $this->addFunction('get_config_yml', [$this, 'getConfig']);
+        $this->addFunction('get_config',     [$this, 'getConfig']);
     }
 
     /**
-     * @return array
+     * @param string $key
+     *
+     * @return mixed
      */
-    public function getFunctions()
+    public function getConfig($key)
     {
-        return [
-            'get_config_yml' => new \Twig_Function_Method(
-                $this,
-                'getConfig',
-                ['is_safe' => ['html']]
-            ),
-            'get_config' => new \Twig_Function_Method(
-                $this,
-                'getConfig',
-                ['is_safe' => ['html']]
-            ),
-
-        ];
+        return $this->config->get($key);
     }
 }

@@ -14,8 +14,8 @@ namespace Scribe\MantleBundle\Doctrine\Repository\Asset;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * AssetTypeRepository.
+ * Class AssetTypeRepository.
  */
-class AssetTypeRepository extends EntityRepository
-{
-}
+class AssetTypeRepository extends EntityRepository {}
+
+/* EOF */

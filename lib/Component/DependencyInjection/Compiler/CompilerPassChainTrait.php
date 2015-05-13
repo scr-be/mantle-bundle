@@ -14,7 +14,6 @@ namespace Scribe\Component\DependencyInjection\Compiler;
 use Scribe\Exception\RuntimeException;
 use Scribe\Utility\ClassInfo;
 
-
 /**
  * Class CompilerPassChainTrait.
  */
@@ -143,7 +142,7 @@ trait CompilerPassChainTrait
             return (bool) $handler->isSupported(...$by);
         });
 
-        return true === empty($filteredCollection) ?
+        return 0 === count($filteredCollection) ?
             null : $this->getHandlerByMode($filteredCollection);
     }
 
@@ -156,7 +155,7 @@ trait CompilerPassChainTrait
      */
     public function hasHandler(CompilerPassHandlerInterface $handler)
     {
-        return (bool) (false === array_search($handler, $this->handlers) ?: true);
+        return (bool) (false === in_array($handler, $this->handlers, false) ?: true);
     }
 
     /**
@@ -172,7 +171,7 @@ trait CompilerPassChainTrait
             return (bool) ($handler->getType() === (string) $search ?: false);
         });
 
-        return (bool) (false === empty($handlerCollection) ?: false);
+        return (bool) (0 === count($handlerCollection) ?: false);
     }
 
     /**
@@ -273,7 +272,8 @@ trait CompilerPassChainTrait
      * Get a valid priority. If a priority is tagged for the service, that value is returned, otherwise it returns a
      * priority beginning at the internal priority start value.
      *
-     * @param mixed $priority
+     * @param CompilerPassHandlerInterface $handler
+     * @param mixed                        $priority
      *
      * @return int
      */

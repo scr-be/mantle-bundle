@@ -11,12 +11,10 @@
 
 namespace Scribe\Utility;
 
-use ArrayAccess;
-
 /**
- * Class ContainerAbstract.
+ * Class AbstractContainer.
  */
-abstract class AbstractContainer implements ArrayAccess
+abstract class AbstractContainer implements \ArrayAccess
 {
     /**
      * @var array
@@ -120,9 +118,12 @@ abstract class AbstractContainer implements ArrayAccess
             return $this->items[(string) $key];
         }
 
-        return;
+        return null;
     }
 
+    /**
+     * @return array
+     */
     public function getItems()
     {
         return $this->items;
@@ -155,7 +156,7 @@ abstract class AbstractContainer implements ArrayAccess
     {
         $item = $this->getItem($key);
 
-        return empty($item);
+        return (bool) (count($item) > 0 ?: false);
     }
 
     /**

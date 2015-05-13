@@ -2,40 +2,40 @@ parameters:
 
     # Controllers
 
-    s.mantle.redirect.controller.class:                                 Scribe\MantleBundle\Controller\RedirectController
-    s.mantle.maintenance.controller.class:                              Scribe\MantleBundle\Controller\MantenanceController
+    s.mantle.route_redirect.controller.class:                           Scribe\MantleBundle\Controller\RouteRedirectController
+    s.mantle.maintenance.controller.class:                              Scribe\MantleBundle\Controller\MaintenanceController
     s.mantle.search.controller.class:                                   Scribe\MantleBundle\Controller\SearchController
 
     # Entities/Repositories
 
     s.mantle.navigation_set.entity.class:                               Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationSet
-    s.mantle.navigation_set.repo.class:                                 Scribe\MantleBundle\Doctrine\EntityRepository\Navigation\NavigationSetRepository
+    s.mantle.navigation_set.repo.class:                                 Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationSetRepository
     s.mantle.navigation_item.entity.class:                              Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem
-    s.mantle.navigation_item.repo.class:                                Scribe\MantleBundle\Doctrine\EntityRepository\Navigation\NavigationItemRepository
+    s.mantle.navigation_item.repo.class:                                Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationItemRepository
     s.mantle.route.entity.class:                                        Scribe\MantleBundle\Doctrine\Entity\Route\Route
-    s.mantle.route.repo.class:                                          Scribe\MantleBundle\Doctrine\EntityRepository\Route\RouteRepository
+    s.mantle.route.repo.class:                                          Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
     s.mantle.route_redirect.entity.class:                               Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect
-    s.mantle.route_redirect.repo.class:                                 Scribe\MantleBundle\Doctrine\EntityRepository\Route\RouteRepository
+    s.mantle.route_redirect.repo.class:                                 Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
     s.mantle.icon.entity.class:                                         Scribe\MantleBundle\Doctrine\Entity\Icon\Icon
-    s.mantle.icon.repo.class:                                           Scribe\MantleBundle\Doctrine\EntityRepository\Icon\IconRepository
+    s.mantle.icon.repo.class:                                           Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
     s.mantle.icon_template.entity.class:                                Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate
-    s.mantle.icon_template.repo.class:                                  Scribe\MantleBundle\Doctrine\EntityRepository\Icon\IconTemplateRepository
+    s.mantle.icon_template.repo.class:                                  Scribe\MantleBundle\Doctrine\Repository\Icon\IconTemplateRepository
     s.mantle.icon_family.entity.class:                                  Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily
-    s.mantle.icon_family.repo.class:                                    Scribe\MantleBundle\Doctrine\EntityRepository\Icon\IconFamilyRepository
+    s.mantle.icon_family.repo.class:                                    Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository
     s.mantle.node.entity.class:                                         Scribe\MantleBundle\Doctrine\Entity\Node\Node
-    s.mantle.node.repo.class:                                           Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeRepository
+    s.mantle.node.repo.class:                                           Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository
     s.mantle.node_revision.entity.class:                                Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision
-    s.mantle.node_revision.repo.class:                                  Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeRevisionRepository
+    s.mantle.node_revision.repo.class:                                  Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionRepository
     s.mantle.node_revision_diff.entity.class:                           Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff
-    s.mantle.node_revision_diff.repo.class:                             Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeRevisionDiffRepository
+    s.mantle.node_revision_diff.repo.class:                             Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionDiffRepository
     s.mantle.node_render_engine.entity.class:                           Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine
-    s.mantle.node_render_engine.repo.class:                             Scribe\MantleBundle\Doctrine\EntityRepository\Node\NodeRenderEngineRepository
+    s.mantle.node_render_engine.repo.class:                             Scribe\MantleBundle\Doctrine\Repository\Node\NodeRenderEngineRepository
     s.mantle.asset.entity.class:                                        Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
-    s.mantle.asset.repo.class:                                          Scribe\MantleBundle\Doctrine\EntityRepository\Asset\AssetRepository
+    s.mantle.asset.repo.class:                                          Scribe\MantleBundle\Doctrine\Repository\Asset\AssetRepository
     s.mantle.asset_descriptor.entity.class:                             Scribe\MantleBundle\Doctrine\Entity\Asset\AssetDescriptor
-    s.mantle.asset_descriptor.repo.class:                               Scribe\MantleBundle\Doctrine\EntityRepository\Asset\AssetDescriptorRepository
+    s.mantle.asset_descriptor.repo.class:                               Scribe\MantleBundle\Doctrine\Repository\Asset\AssetDescriptorRepository
     s.mantle.asset_type.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType
-    s.mantle.asset_type.repo.class:                                     Scribe\MantleBundle\Doctrine\EntityRepository\Asset\AssetTypeRepository
+    s.mantle.asset_type.repo.class:                                     Scribe\MantleBundle\Doctrine\Repository\Asset\AssetTypeRepository
 
     # General Utilities
 
@@ -103,7 +103,7 @@ parameters:
 
     # Routing loaders
 
-    s.mantle.route_redirect.routing_loader.class:                       Scribe\MantleBundle\Routing\RedirectionLoader
+    s.mantle.route_redirect.routing_loader.class:                       Scribe\MantleBundle\Loader\Routing\RouteRedirectLoader
 
     # Kernel Event Listeners
 
@@ -112,15 +112,13 @@ parameters:
 
     # Old Services
 
-    s.search.class:                                                     Scribe\MantleBundle\Templating\Helper\Search\Search
-    s.twig.zoom.class:                                                  Scribe\MantleBundle\Templating\Extension\ZoomExtension
-    s.twig.search.class:                                                Scribe\MantleBundle\Templating\Extension\SearchExtension
-    s.twig.button.class:                                                Scribe\MantleBundle\Templating\Extension\BsButtonExtension
-    s.twig.highchart.class:                                             Scribe\MantleBundle\Templating\Extension\HighchartExtension
-    s.twig.jqtimeline.class:                                            Scribe\MantleBundle\Templating\Extension\JqtimelineExtension
-    s.twig.chronoline.class:                                            Scribe\MantleBundle\Templating\Extension\ChronolineExtension
-    s.twig.formscribeextras.class:                                      Scribe\MantleBundle\Templating\Extension\FormScribeExtrasExtension
-    s.twig.getlastusername.class:                                       Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
+    s.mantle.zoom.twig_extension.class:                                 Scribe\MantleBundle\Templating\Extension\ZoomExtension
+    s.mantle.bootstrap_button.twig_extension.class:                     Scribe\MantleBundle\Templating\Extension\BsButtonExtension
+    s.mantle.highchart.twig_extension.class:                            Scribe\MantleBundle\Templating\Extension\HighchartExtension
+    s.mantle.jqtimeline.twig_extension.class:                           Scribe\MantleBundle\Templating\Extension\JqtimelineExtension
+    s.mantle.chronoline.twig_extension.class:                           Scribe\MantleBundle\Templating\Extension\ChronolineExtension
+    s.mantle.scribe_form_extras.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\FormScribeExtrasExtension
+    s.mantle.last_username.twig_extension.class:                        Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
 
 services:
 
@@ -133,8 +131,8 @@ services:
 
     # Controllers
 
-    s.mantle.redirect.controller:
-        class:  %s.mantle.redirect.controller.class%
+    s.mantle.route_redirect.controller:
+        class:  %s.mantle.route_redirect.controller.class%
         parent: s.mantle.abstract.controller
 
     s.mantle.maintenance.controller:
@@ -225,7 +223,7 @@ services:
 
     # Repositories
 
-    s.mantle.redirect.repo:
+    s.mantle.route_redirect.repo:
         class: %s.mantle.route_redirect.repo.class%
         factory:
             - @doctrine
@@ -494,7 +492,7 @@ services:
     s.mantle.route_redirect.routing_loader:
         class: %s.mantle.route_redirect.routing_loader.class%
         arguments:
-            - @service_container
+            - @s.mantle.route_redirect.repo
         tags:
             - { name: routing.loader }
 
@@ -524,40 +522,41 @@ services:
 
     # Old Twig Extensions
 
-    s.twig.button:
-        class: "%s.twig.button.class%"
-        arguments: [ "@service_container" ]
+    s.mantle.bootstrap_button.twig_extension:
+        class: %s.mantle.bootstrap_button.twig_extension.class%
+        arguments:
+            - @router
         tags:
             - { name: twig.extension }
 
-    s.twig.highchart:
-        class: "%s.twig.highchart.class%"
+    s.mantle.highchart.twig_extension:
+        class: %s.mantle.highchart.twig_extension.class%
         tags:
             - { name: twig.extension }
 
-    s.twig.jqtimeline:
-        class: "%s.twig.jqtimeline.class%"
+    s.mantle.jqtimeline.twig_extension:
+        class: %s.mantle.jqtimeline.twig_extension.class%
         tags:
             - { name: twig.extension }
 
-    s.twig.chronoline:
-        class: "%s.twig.chronoline.class%"
+    s.mantle.chronoline.twig_extension:
+        class: %s.mantle.chronoline.twig_extension.class%
         tags:
             - { name: twig.extension }
 
-    s.twig.formscribeextras:
-        class: "%s.twig.formscribeextras.class%"
-        arguments: [ "@service_container" ]
+    s.mantle.scribe_form_extras.twig_extension:
+        class: %s.mantle.scribe_form_extras.twig_extension.class%
         tags:
             - { name: twig.extension }
 
-    s.twig.getlastusername:
-        class: "%s.twig.getlastusername.class%"
-        arguments: [ "@service_container" ]
+    s.mantle.last_username.twig_extension:
+        class: %s.mantle.last_username.twig_extension.class%
+        arguments:
+            - @security.authentication_utils
         tags:
             - { name: twig.extension }
 
-    s.twig.zoom:
-        class: "%s.twig.zoom.class%"
+    s.mantle.zoom.twig_extension:
+        class: %s.mantle.zoom.twig_extension.class%
         tags:
             - { name: twig.extension }

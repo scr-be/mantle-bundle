@@ -1,9 +1,6 @@
 /vendor/
-/bin/
-/build/
 /docs/_build/
 /.idea/
-src/Tests/app/cache/
 atlassian-ide-plugin.xml
 *.DS_Store*
 *.rb

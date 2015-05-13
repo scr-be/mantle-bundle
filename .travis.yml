@@ -27,9 +27,9 @@ notifications:
 
 before_install:
     - git submodule update --init --recursive && cd app/config/shared_public && git checkout master && cd ../../../
-    - sh app/config/shared_public/travis/travis-build-igbinary.sh
-    - sh app/config/shared_public/travis-build-memcached.sh
-    - phpenv config-add app/config/shared_public/travis-php.ini
+    - sh app/config/shared_public/tests/travis/php-build-igbinary.sh
+    - sh app/config/shared_public/tests/travis/php-build-memcached.sh
+    - phpenv config-add app/config/shared_public/tests/travis/config-timezone.ini
     - phpenv rehash
     - mkdir -p build/logs
     - mkdir -p bin
@@ -40,9 +40,9 @@ install:
     - travis_retry composer install --no-interaction || travis_retry composer update --no-interaction
 
 before_script:
-    - bin/mantle doctrine:database:create --no-interaction
-    - bin/mantle doctrine:schema:create --no-interaction
-    - bin/mantle doctrine:fixtures:load --no-interaction
+    - app/console doctrine:database:create --no-interaction
+    - app/console doctrine:schema:create --no-interaction
+    - app/console doctrine:fixtures:load --no-interaction
 
 script:
     - bin/phpunit --verbose --configuration phpunit.xml.dist

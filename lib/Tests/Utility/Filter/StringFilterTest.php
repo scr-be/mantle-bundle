@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Tests\Filter;
+namespace Scribe\Tests\Utility\Filter;
 
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 use Scribe\Utility\Filter\StringFilter;
@@ -38,7 +38,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->alphanumericOnly($d[0]);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -52,7 +52,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->spacesToDashes($d[0]);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -66,7 +66,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->dashedToSpaces($d[1]);
-            $this->assertEquals($d[0], $actual);
+            static::assertEquals($d[0], $actual);
         }
     }
 
@@ -80,7 +80,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->alphanumericAndDashesOnly($d[0]);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -94,7 +94,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->alphanumericAndDashesOnly($d[0], 'strtoupper');
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -108,7 +108,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->alphanumericAndDashesOnly($d[0], null);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -122,7 +122,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->parsePhoneString($d[0]);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -136,7 +136,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->formatPhoneString($d[0]);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -150,7 +150,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->titleCase($d[0]);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 
@@ -168,7 +168,7 @@ class StringFilterTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = $this->filterString->mb_strnatcasecmp($d[0], $d[1]);
-            $this->assertEquals($d[2], $actual);
+            static::assertEquals($d[2], $actual);
         }
     }
 }

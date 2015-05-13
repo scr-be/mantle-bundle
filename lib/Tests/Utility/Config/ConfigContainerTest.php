@@ -30,21 +30,11 @@ class ConfigContainerTest extends AbstractMantleKernelTestCase
 
     public function testGetParameter()
     {
-        $this->assertEquals([], $this->config->get('s.mantle.maintenance.bundles'));
-        $this->assertEquals(
+        static::assertEquals([], $this->config->get('s.mantle.maintenance.bundles'));
+        static::assertEquals(
             'Symfony\Component\HttpKernel\Controller\TraceableControllerResolver',
             $this->config->get('debug.controller_resolver.class')
         );
-    }
-
-    public function testSetParameter()
-    {
-        $this->setExpectedException(
-            'Scribe\Exception\RuntimeException',
-            'Cannot set YAML config'
-        );
-
-        $this->config->set('key', 'val');
     }
 }
 

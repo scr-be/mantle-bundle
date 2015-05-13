@@ -11,6 +11,7 @@
 
 namespace Scribe\Utility;
 
+use Scribe\Exception\RuntimeException;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
 /**
@@ -19,12 +20,13 @@ use Symfony\Component\Security\Core\Util\SecureRandom;
 class Security
 {
     /**
-     * @param int  $bytes
-     * @param bool $base64
+     * @param int         $bytes
+     * @param bool        $base64
+     * @param string|null $limitRegularExpression
      *
      * @return string
      */
-    public static function generateRandom($bytes = 10000000, $base64 = false, $limit = null)
+    public static function generateRandom($bytes = 10000000, $base64 = false, $limitRegularExpression = null)
     {
         $generator = new SecureRandom();
         $return = $generator->nextBytes($bytes);
@@ -33,8 +35,8 @@ class Security
             $return = base64_encode($return);
         }
 
-        if ($limit !== null) {
-            $return = preg_replace($limit, '', $return);
+        if ($limitRegularExpression !== null) {
+            $return = preg_replace($limitRegularExpression, '', $return);
         }
 
         return $return;
@@ -80,13 +82,34 @@ class Security
      */
     public static function generateRandomPassword($length = 8)
     {
-        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?';
+        $characters     = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?';
+        $characterCount = strlen($characters);
+        $password       = '';
+        $loopLimit      = 1000;
+        $loopCount      = 0;
 
         while (true) {
-            $password = substr(str_shuffle($chars), 0, $length);
+            $password .= substr(str_shuffle($characters), 0, ($length > $characterCount ? $characterCount : $length));
+
+            if (strlen($password) <= $length) {
+                continue;
+            }
+
+            $password = substr($password, 0, $length);
+
             if (true === self::doesPasswordMeetRequirements($password)) {
                 break;
             }
+
+            if (++$loopCount > $loopLimit) {
+                throw new RuntimeException(
+                    'Reached loop count trying to create random password in "%s". It is likely impossible based on your requirements.',
+                    null, null, null,
+                    __METHOD__
+                );
+            }
+
+            $password = '';
         }
 
         return $password;

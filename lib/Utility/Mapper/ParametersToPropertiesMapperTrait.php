@@ -42,7 +42,7 @@ trait ParametersToPropertiesMapperTrait
             [$this, 'filterPropertyAssignmentsForSelf']
         );
 
-        if (true === empty($assignmentCollection)) {
+        if (0 === count($assignmentCollection)) {
             return $this;
         }
 
@@ -63,7 +63,7 @@ trait ParametersToPropertiesMapperTrait
      *
      * @return array
      */
-    final private function filterPropertyAssignmentsForSelf(array $assignmentCollection)
+    final private function filterPropertyAssignmentsForSelf(array $assignmentCollection, array $objectProperties = [])
     {
         if (false === Arrays::isHash($assignmentCollection)) {
             return [];
@@ -72,7 +72,7 @@ trait ParametersToPropertiesMapperTrait
         $objectProperties = get_object_vars($this);
 
         return (array) array_filter($assignmentCollection, function($property) use ($objectProperties) {
-            return (bool) in_array($property, $objectProperties);
+            return (bool) in_array($property, $objectProperties, false);
         }, ARRAY_FILTER_USE_KEY);
     }
 
@@ -86,8 +86,8 @@ trait ParametersToPropertiesMapperTrait
      *
      * @internal
      *
-     * @param array         $parameters
-     * @param callable|null $assignmentCollectionFilter
+     * @param array                  $parameters
+     * @param \Closure|callable|null $assignmentCollectionFilter
      *
      * @return array
      */
@@ -95,7 +95,7 @@ trait ParametersToPropertiesMapperTrait
     {
         $assignmentCollectionMerged = [];
 
-        if (empty($parameters)) {
+        if (0 === count($parameters)) {
             return $assignmentCollectionMerged;
         }
 

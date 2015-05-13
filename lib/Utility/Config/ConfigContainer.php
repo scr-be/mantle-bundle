@@ -47,19 +47,6 @@ class ConfigContainer implements ConfigInterface, ContainerAwareInterface
             ->getParameter($key)
         ;
     }
-
-    /**
-     * Setter for YAML config cannot occur.
-     *
-     * @param string $key   config key
-     * @param mixed  $value config value
-     *
-     * @throws RuntimeException
-     */
-    public function set($key, $value)
-    {
-        throw new RuntimeException('Cannot set YAML config');
-    }
 }
 
 /* EOF */

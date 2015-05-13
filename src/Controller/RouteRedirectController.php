@@ -14,9 +14,9 @@ namespace Scribe\MantleBundle\Controller;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 
 /**
- * Class RedirectController.
+ * Class RouteRedirectController.
  */
-class RedirectController extends ControllerBehaviors
+class RouteRedirectController extends ControllerBehaviors
 {
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -37,15 +37,13 @@ class RedirectController extends ControllerBehaviors
     }
 
     /**
-     * @param string $destination
+     * @param string $path
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function handleAction($destination)
+    public function handleAction($path)
     {
-        return $this->getResponseRedirect(
-            $destination, 301
-        );
+        return $this->getResponseRedirect($path, 301);
     }
 }
 

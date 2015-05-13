@@ -11,23 +11,24 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\MantleBundle\Templating\Extension\Part\SimpleExtensionTrait;
 use Scribe\MantleBundle\Templating\Helper\Timeline\TimelineInterface;
-use Twig_Extension;
+use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
  * Class JqtimelineExtension.
  */
-class JqtimelineExtension extends Twig_Extension
+class JqtimelineExtension extends AbstractTwigExtension
 {
-    use SimpleExtensionTrait;
-
     /**
-     * constructor.
+     * Initialize the instance.
      */
     public function __construct()
     {
-        $this->init('timeline');
+        parent::__construct();
+
+        $this->enableOptionHtmlSafe();
+
+        $this->addFunction('timeline', [$this, 'renderTimeline']);
     }
 
     /**
@@ -35,7 +36,7 @@ class JqtimelineExtension extends Twig_Extension
      *
      * @return string
      */
-    public function timeline(TimelineInterface $timeline)
+    public function renderTimeline(TimelineInterface $timeline)
     {
         return $timeline->render();
     }
