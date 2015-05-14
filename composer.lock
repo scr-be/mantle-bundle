@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "07e8eeedb9e325cfc23bc18f05b9fd9a",
@@ -1060,12 +1060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "314ce2870ea9907aea1ae22b71192b1d3f5eca45"
+                "reference": "d2bbc87964a33ef9ee91132f1a426319453a6252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/314ce2870ea9907aea1ae22b71192b1d3f5eca45",
-                "reference": "314ce2870ea9907aea1ae22b71192b1d3f5eca45",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/d2bbc87964a33ef9ee91132f1a426319453a6252",
+                "reference": "d2bbc87964a33ef9ee91132f1a426319453a6252",
                 "shasum": ""
             },
             "require": {
@@ -1138,7 +1138,7 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-05-13 20:22:01"
+            "time": "2015-05-13 23:00:29"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3673,17 +3673,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v2.7.0-BETA1",
-            "target-dir": "Symfony/Bridge/PhpUnit",
+            "version": "v2.7.0-BETA2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "b4de95c4aea3590e059cd2fab1e203b354ae0381"
+                "reference": "43a5b2acfd4521fddfca0eb8b53e8d9d3e794fef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/b4de95c4aea3590e059cd2fab1e203b354ae0381",
-                "reference": "b4de95c4aea3590e059cd2fab1e203b354ae0381",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/43a5b2acfd4521fddfca0eb8b53e8d9d3e794fef",
+                "reference": "43a5b2acfd4521fddfca0eb8b53e8d9d3e794fef",
                 "shasum": ""
             },
             "require": {
@@ -3702,7 +3701,7 @@
                 "files": [
                     "bootstrap.php"
                 ],
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Bridge\\PhpUnit\\": ""
                 }
             },
@@ -3712,17 +3711,17 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony PHPUnit Bridge",
-            "homepage": "http://symfony.com",
-            "time": "2015-04-05 09:41:58"
+            "homepage": "https://symfony.com",
+            "time": "2015-05-01 14:16:41"
         }
     ],
     "aliases": [],

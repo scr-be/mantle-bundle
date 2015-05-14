@@ -19,6 +19,18 @@ namespace Scribe\Utility\UnitTest;
 trait MantleTestCaseTrait
 {
     /**
+     * @param $dirPath
+     */
+    protected function removeDirectoryIfExists($dirPath)
+    {
+        if (false === is_dir($dirPath)) {
+            return;
+        }
+
+        $this->removeDirectory($dirPath);
+    }
+
+    /**
      * Remove a directory.
      *
      * @param string $path

@@ -24,45 +24,45 @@ abstract class AbstractMantleKernelTestCase extends KernelTestCase
     use MantleTestCaseTrait;
 
     /**
+     * @var bool
+     */
+    public $populateContainerNonStatic = true;
+
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    public static $staticContainer;
+
+    /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
     public $container;
 
     public function setUp()
     {
-        $this->setupKernel();
-        $this->setupContainer();
-    }
+        static::bootKernel();
+        static::$staticContainer = static::$kernel->getContainer();
 
-    public function setupKernel()
-    {
-        self::bootKernel();
-    }
-
-    public function setupContainer()
-    {
-        $this->container = static::$kernel->getContainer();
+        if (true === $this->populateContainerNonStatic) {
+            $this->container = static::$kernel->getContainer();
+        }
     }
 
     public function tearDown()
     {
-        $this->clearKernelCache();
+        parent::tearDown();
     }
 
     public function clearKernelCache()
     {
-        return;
-
         if (!$this->container instanceof ContainerInterface) {
             return;
         }
 
         $cacheDir = $this->container->getParameter('kernel.cache_dir');
 
-        if (true === is_dir($cacheDir)) {
-            $this->removeDirectory($cacheDir);
-        }
-
-        parent::tearDown();
+        $this->removeDirectoryIfExists(realpath($cacheDir));
     }
 }
+
+/* EOF */
