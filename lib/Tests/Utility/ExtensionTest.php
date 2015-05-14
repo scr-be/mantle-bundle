@@ -26,24 +26,53 @@ class ExtensionTest extends AbstractMantleTestCase
         new Extension();
     }
 
+    public function testAreAnyEnabledSuccess()
+    {
+        static::assertEquals(
+            'memcached',
+            Extension::areAnyEnabled('not-real-extension', 'memcached', 'mbstring')
+        );
+    }
+
+    public function testAreAnyEnabledFailure()
+    {
+        static::assertFalse(
+            Extension::areAnyEnabled('not-real-extension-1', 'not-real-extension-1', 'not-real-extension-1')
+        );
+    }
+
+    public function testAreAllEnabledSuccess()
+    {
+        static::assertTrue(
+            Extension::areAllEnabled('memcached', 'igbinary', 'twig')
+        );
+    }
+
+    public function testAreAllEnabledFailure()
+    {
+        static::assertFalse(
+            Extension::areAllEnabled('memcached', 'igbinary', 'twig', 'mongo', 'pdo_mysql', 'mysql', 'not-real')
+        );
+    }
+
     public function testIgbinaryIsEnabled()
     {
-        $this->assertTrue(Extension::hasIgbinary());
+        static::assertTrue(Extension::hasIgbinary());
     }
 
     public function testJsonIsEnabled()
     {
-        $this->assertTrue(Extension::hasJson());
+        static::assertTrue(Extension::hasJson());
     }
 
     public function testReflectIsEnabled()
     {
-        $this->assertTrue(Extension::isEnabled('Reflection'));
+        static::assertTrue(Extension::isEnabled('Reflection'));
     }
 
     public function testUnknownExtensionIsNotEnabled()
     {
-        $this->assertFalse(Extension::isEnabled('this-extension-does-not-exist'));
+        static::assertFalse(Extension::isEnabled('this-extension-does-not-exist'));
     }
 
     public function testExceptionOnEmptyString()

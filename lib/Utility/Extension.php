@@ -43,6 +43,38 @@ class Extension
     }
 
     /**
+     * @param string[] ...$extensionCollection
+     *
+     * @return bool|string
+     */
+    public static function areAnyEnabled(...$extensionCollection)
+    {
+        foreach ($extensionCollection as $extension) {
+            if (true === self::isEnabled($extension)) {
+                return $extension;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string[] ...$extensionCollection
+     *
+     * @return bool
+     */
+    public static function areAllEnabled(...$extensionCollection)
+    {
+        foreach ($extensionCollection as $extension) {
+            if (false === self::isEnabled($extension)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Check if igbinary is enabled.
      *
      * @return bool
