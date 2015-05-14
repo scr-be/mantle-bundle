@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7707aa17ae09d42bf02c1f657d61821",
+    "hash": "abb111350e4c0de3978b16cdcdb94959",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1060,12 +1060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "b429be0894bfba1354eadc5f6bd872bb7c167628"
+                "reference": "d12230154ce4ea54f3df97e11b02f8795b337392"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/b429be0894bfba1354eadc5f6bd872bb7c167628",
-                "reference": "b429be0894bfba1354eadc5f6bd872bb7c167628",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/d12230154ce4ea54f3df97e11b02f8795b337392",
+                "reference": "d12230154ce4ea54f3df97e11b02f8795b337392",
                 "shasum": ""
             },
             "require": {
@@ -1138,7 +1138,7 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-05-14 16:22:59"
+            "time": "2015-05-14 18:37:56"
         },
         {
             "name": "sensio/distribution-bundle",
