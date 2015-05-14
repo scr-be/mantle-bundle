@@ -73,7 +73,7 @@
         "incenteev/composer-parameter-handler" : "~2.1",
         "zendframework/zend-json"              : "~2.3",
         "kriswallsmith/assetic"                : "~1.2",
-        "scribe/cache-bundle"                  : "dev-release/v1.9.6"
+        "scribe/cache-bundle"                  : "2.0.*@dev"
     },
     "require-dev" : {
         "ext-memcached"                        : "~2.2",
@@ -106,11 +106,11 @@
     "config" : {
         "bin-dir"           : "bin",
         "preferred-install" : "auto",
-        "minimum-stability" : "stable"
+        "minimum-stability" : "dev"
     },
     "extra": {
         "branch-alias": {
-            "dev-release/v1.9.6": "1.9.6-dev"
+            "dev-master": "2.0-dev"
         }
     },
     "repositories": [
