@@ -102,6 +102,16 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     protected $mode = self::MODE_DEFAULT;
 
     /**
+     * @var array
+     */
+    protected static $fixtureDirPaths = [
+        'public'            => '/../../../app/config/shared_public/fixtures/',
+        'proprietary'       => '/../../../app/config/shared_proprietary/fixtures/',
+        'vendorPublic'      => '/config/shared_public/fixtures/',
+        'vendorProprietary' => '/config/shared_proprietary/fixtures/'
+    ];
+
+    /**
      * @param ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container = null)
@@ -352,43 +362,75 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     }
 
     /**
+     * @param string $name
+     *
+     * @return string[]|null[]
+     */
+    protected function fixtureDataDirectoryResolver($name)
+    {
+        $kernelRoot = $this->container->get('kernel')->getRootDir();
+        $fixtureBasePath = $fixtureYamlPath = null;
+
+        foreach (static::$fixtureDirPaths as $fixtureName => $fixtureDirPath) {
+            $fixtureDirPath = $kernelRoot.DIRECTORY_SEPARATOR.$fixtureDirPath;
+
+            if (true === file_exists($fixtureDirPath)) {
+                $fixtureBasePath = $fixtureDirPath;
+                $fixtureYamlPath = $fixtureDirPath.DIRECTORY_SEPARATOR.$this->buildYamlFileName($name);
+                break;
+            }
+        }
+
+        $this->validateFixtureDataResolvedPaths(
+            $name,
+            $fixtureBasePath,
+            $fixtureYamlPath
+        );
+
+        return [
+            $fixtureBasePath,
+            $fixtureYamlPath
+        ];
+    }
+
+    /**
+     * @param string      $name
+     * @param string|null $basePath
+     * @param string|null $yamlPath
+     *
+     * @return string[]
+     */
+    protected function validateFixtureDataResolvedPaths($name, &$basePath, &$yamlPath)
+    {
+        if (null === $basePath || null === $yamlPath ||
+            null === ($basePath = realpath($basePath)) ||
+            null === ($yamlPath = realpath($yamlPath)))
+        {
+            throw new RuntimeException(sprintf(
+                'Could not find YAML fixture for %s in known paths: [%s].',
+                (string) $name,
+                (string) implode(',', static::$fixtureDirPaths)
+            ));
+        }
+
+        return [
+            $basePath,
+            $yamlPath
+        ];
+    }
+
+    /**
      * @return $this
      *
      * @throws RuntimeException
      */
     public function loadOrmFixtureData()
     {
-        $name = $this->name;
-
-        if (null === $name) {
+        if (null === ($name = $this->name)) {
             throw new RuntimeException('You must provide a fixture name.');
         }
 
-        $kernelRoot = $this
-            ->container
-            ->get('kernel')
-            ->getRootDir()
-        ;
-
-        $fixtureDirPaths = [
-            'dirPathPublic'      => $kernelRoot.'/../../../app/config/shared_proprietary/shared/fixtures/',
-            'dirPathProprietary' => $kernelRoot.'/../../../app/config/shared_public/shared/fixtures/'
-        ];
-
-        $fixtureBasePath = null;
-        $fixtureYamlPath = null;
-
-        foreach ($fixtureDirPaths as $fixtureName => $fixtureDirPath) {
-            if (file_exists($fixtureDirPath)) {
-                $fixtureBasePath = $fixtureDirPath;
-                $fixtureYamlPath = $fixtureDirPath.$this->buildYamlFileName($name);
-                break;
-            }
-        }
-
-        if (null === $fixtureBasePath && null === $fixtureYamlPath) {
-            throw new RuntimeException(sprintf('Unable to find YAML fixture file at %s or %s.', array_first($fixtureDirPaths), array_last($fixtureDirPaths)));
-        }
+        list(, $fixtureYamlPath) = $this->fixtureDataDirectoryResolver($name);
 
         $yaml = new Parser();
 
