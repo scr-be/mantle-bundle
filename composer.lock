@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "abb111350e4c0de3978b16cdcdb94959",
+    "hash": "b221928b71c95fc001c7b6f01a6dfacb",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1056,21 +1056,21 @@
         },
         {
             "name": "scribe/cache-bundle",
-            "version": "dev-release/v1.9.6",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "d12230154ce4ea54f3df97e11b02f8795b337392"
+                "reference": "349e8454a9cfd7b53772df824cf5f82d6dc4f59a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/d12230154ce4ea54f3df97e11b02f8795b337392",
-                "reference": "d12230154ce4ea54f3df97e11b02f8795b337392",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/349e8454a9cfd7b53772df824cf5f82d6dc4f59a",
+                "reference": "349e8454a9cfd7b53772df824cf5f82d6dc4f59a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6.4",
-                "scribe/mantle-bundle": "1.9.6.*@dev"
+                "scribe/mantle-bundle": "2.0.*@dev"
             },
             "require-dev": {
                 "chriskite/phactory": "~0.4.3",
@@ -1097,7 +1097,7 @@
             "type": "project",
             "extra": {
                 "branch-alias": {
-                    "dev-release/v1.9.6": "1.9.6-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -1138,7 +1138,7 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-05-14 18:37:56"
+            "time": "2015-05-14 19:49:18"
         },
         {
             "name": "sensio/distribution-bundle",
