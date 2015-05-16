@@ -127,11 +127,11 @@ trait CompilerPassChainTrait
 
         if (true === is_callable($this->addHandlerCallable)) {
             $callable = $this->addHandlerCallable;
-            $callable($this->handlers, $handler, $priority, $extra);
+            $callable($this->handlers, $handler, $this->determineHandlerPriority($handler, $priority), $extra);
         } else {
             $this->handlers[$this->determineHandlerPriority($handler, $priority)] = $handler;
-            ksort($this->handlers);
         }
+        ksort($this->handlers);
 
         return $this;
     }
