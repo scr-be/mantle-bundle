@@ -17,6 +17,16 @@ namespace Scribe\Utility\Caller;
 interface CallInterface
 {
     /**
+     * Call a global function or class method (if exists) or callable with specified arguments.
+     *
+     * @param string|array|\Closure $callable  A global function name or class method (if exists) or callable
+     * @param ...mixed              $arguments Arguments to pass to the global function
+     *
+     * @return mixed
+     */
+    public static function generic($callable, ...$arguments);
+
+    /**
      * Call a global function (if exists) with specified arguments.
      *
      * @param string   $function  A global function name
@@ -47,8 +57,20 @@ interface CallInterface
      * @return mixed
      */
     public static function staticMethod($object, $method, ...$arguments);
-}
 
-/* EOF */
+    /**
+     * Handle calling a function/method.
+     *
+     * @param string|object|null $object    An object instance or a class name
+     * @param string|null        $method    An available global function or object method name
+     * @param bool|null          $static    Whether this is a static function or not
+     * @param ...mixed           $arguments Arguments to pass to the object method
+     *
+     * @internal
+     *
+     * @return mixed
+     */
+    public static function handle($method = null, $object = null, $static = false, ...$arguments);
+}
 
 /* EOF */

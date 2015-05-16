@@ -51,7 +51,8 @@ abstract class AbstractCompilerPass implements CompilerPassInterface
         $handlerSet = $container->findTaggedServiceIds(
             $this->getHandlerTagName()
         );
-        if (true === empty($handlerSet)) {
+
+        if (0 === count($handlerSet)) {
             return;
         }
 
@@ -67,15 +68,65 @@ abstract class AbstractCompilerPass implements CompilerPassInterface
      */
     protected function registerTaggedService(Definition $chainDefinition, $serviceId, array $serviceAttributes = [])
     {
-        foreach ($serviceAttributes as $attribute) {
+        $parameters = [
+            new Reference($serviceId)
+        ];
+
+        foreach ($serviceAttributes as $attributeSet) {
             $chainDefinition->addMethodCall(
                 'addHandler',
-                [
-                    new Reference($serviceId),
-                    try_for_array_value('priority', $attribute)
-                ]
+                $this->determineTaggedServiceParameters($parameters, $attributeSet)
             );
         }
+    }
+
+    /**
+     * @param array $parameters
+     * @param array $attributeSet
+     *
+     * @return array
+     */
+    protected function determineTaggedServiceParameters(array $parameters, array $attributeSet)
+    {
+        $returnParameters = (array) array_merge(
+            $parameters,
+            $this->determineTaggedServiceParameterPriority($attributeSet),
+            $this->determineTaggedServiceParameterExtra($attributeSet)
+        );
+
+        return $returnParameters;
+    }
+
+    /**
+     * @param array $attributeSet
+     *
+     * @return array[]
+     */
+    protected function determineTaggedServiceParameterPriority(array $attributeSet)
+    {
+        if (false === array_key_exists('priority', $attributeSet)) {
+            return [];
+        }
+
+        return ['priority' => $attributeSet['priority']];
+    }
+
+    /**
+     * @param array $attributeSet
+     *
+     * @return array[]
+     */
+    protected function determineTaggedServiceParameterExtra(array $attributeSet)
+    {
+        if (true === array_key_exists('priority', $attributeSet)) {
+            unset($attributeSet['priority']);
+        }
+
+        if (0 === count($attributeSet)) {
+            return [];
+        }
+
+        return ['extra' => $attributeSet];
     }
 }
 

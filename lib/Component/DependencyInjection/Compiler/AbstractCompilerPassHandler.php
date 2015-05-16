@@ -30,7 +30,7 @@ abstract class AbstractCompilerPassHandler implements CompilerPassHandlerInterfa
      */
     public function __construct(...$parameters)
     {
-        $this->assignPropertyCollectionToSelf($parameters);
+        $this->assignPropertyCollectionToSelf(...$parameters);
     }
 
     /**

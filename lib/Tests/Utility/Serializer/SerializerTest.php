@@ -31,10 +31,12 @@ class SerializerTest extends AbstractMantleTestCase
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
         $expectedSerialized   = igbinary_serialize($expectedUnserialized);
 
-        $serialized   = Serializer::sleep($expectedUnserialized, Serializer::SERIALIZE_METHOD_IGBINARY);
-        $unserialized = Serializer::wake($serialized, Serializer::SERIALIZE_METHOD_IGBINARY);
-        $this->assertEquals($expectedSerialized, $serialized);
-        $this->assertEquals($expectedUnserialized, $unserialized);
+        Serializer::setSerializer(Serializer::SERIALIZE_METHOD_IGBINARY, Serializer::UNSERIALIZE_METHOD_IGBINARY);
+        $serialized   = Serializer::sleep($expectedUnserialized);
+        $unserialized = Serializer::wake($serialized);
+
+        static::assertEquals($expectedSerialized, $serialized);
+        static::assertEquals($expectedUnserialized, $unserialized);
     }
 
     public function testSerializerJson()
@@ -42,10 +44,12 @@ class SerializerTest extends AbstractMantleTestCase
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
         $expectedSerialized   = json_encode($expectedUnserialized);
 
-        $serialized   = Serializer::sleep($expectedUnserialized, Serializer::SERIALIZE_METHOD_JSON);
-        $unserialized = Serializer::wake($serialized, Serializer::SERIALIZE_METHOD_JSON);
-        $this->assertEquals($expectedSerialized, $serialized);
-        $this->assertEquals($expectedUnserialized, $unserialized);
+        Serializer::setSerializer(Serializer::SERIALIZE_METHOD_JSON, Serializer::UNSERIALIZE_METHOD_JSON);
+        $serialized   = Serializer::sleep($expectedUnserialized);
+        $unserialized = Serializer::wake($serialized);
+
+        static::assertEquals($expectedSerialized, $serialized);
+        static::assertEquals($expectedUnserialized, $unserialized);
     }
 
     public function testSerializerNative()
@@ -53,10 +57,58 @@ class SerializerTest extends AbstractMantleTestCase
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
         $expectedSerialized   = serialize($expectedUnserialized);
 
-        $serialized   = Serializer::sleep($expectedUnserialized, Serializer::SERIALIZE_METHOD_NATIVE);
-        $unserialized = Serializer::wake($serialized, Serializer::SERIALIZE_METHOD_NATIVE);
-        $this->assertEquals($expectedSerialized, $serialized);
-        $this->assertEquals($expectedUnserialized, $unserialized);
+        Serializer::setSerializer(Serializer::SERIALIZE_METHOD_NATIVE, Serializer::UNSERIALIZE_METHOD_NATIVE);
+        $serialized   = Serializer::sleep($expectedUnserialized);
+        $unserialized = Serializer::wake($serialized);
+
+        static::assertEquals($expectedSerialized, $serialized);
+        static::assertEquals($expectedUnserialized, $unserialized);
+    }
+
+    public function testSerializerClosure()
+    {
+        $serializerCallable = function($toSerialize) {
+            return igbinary_serialize($toSerialize);
+        };
+        $unSerializerCallable = function($toUnSerialize) {
+            return igbinary_unserialize($toUnSerialize);
+        };
+
+        $expectedUnserialized = [1, 'something', ['2, 3', 4]];
+        $expectedSerialized   = $serializerCallable($expectedUnserialized);
+
+        Serializer::setSerializer($serializerCallable, $unSerializerCallable);
+        $serialized   = Serializer::sleep($expectedUnserialized);
+        $unserialized = Serializer::wake($serialized);
+
+        static::assertEquals($expectedSerialized, $serialized);
+        static::assertEquals($expectedUnserialized, $unserialized);
+    }
+
+    public function testSerializerCallable()
+    {
+        $serializerCallable = [$this, 'serializerMethod'];
+        $unSerializerCallable = [$this, 'unSerializerMethod'];
+
+        $expectedUnserialized = [1, 'something', ['2, 3', 4]];
+        $expectedSerialized   = $this->serializerMethod($expectedUnserialized);
+
+        Serializer::setSerializer($serializerCallable, $unSerializerCallable);
+        $serialized   = Serializer::sleep($expectedUnserialized);
+        $unserialized = Serializer::wake($serialized);
+
+        static::assertEquals($expectedSerialized, $serialized);
+        static::assertEquals($expectedUnserialized, $unserialized);
+    }
+
+    public function serializerMethod($toSerialize)
+    {
+        return igbinary_serialize($toSerialize);
+    }
+
+    public function unSerializerMethod($toUnSerialize)
+    {
+        return igbinary_unserialize($toUnSerialize);
     }
 }
 

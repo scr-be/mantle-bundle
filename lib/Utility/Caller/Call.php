@@ -29,6 +29,29 @@ class Call implements CallInterface
     use StaticClassTrait;
 
     /**
+     * Call a global function or class method (if exists) or callable with specified arguments.
+     *
+     * @param string|array|\Closure $callable  A global function name or class method (if exists) or callable
+     * @param ...mixed              $arguments Arguments to pass to the global function
+     *
+     * @return mixed
+     */
+    public static function generic($callable, ...$arguments)
+    {
+        if (true === is_array($callable)) {
+            return self::handle(array_last($callable), array_first($callable), false, ...$arguments);
+        } elseif ($callable instanceof \Closure) {
+            return $callable(...$arguments);
+        } elseif (true === is_string($callable)) {
+            return self::handle($callable, null, null, ...$arguments);
+        }
+
+        throw new InvalidArgumentException(
+            sprintf('Invalid parameters provided for "%s". Unsure how to handle call.', __METHOD__)
+        );
+    }
+
+    /**
      * Call a global function (if exists) with specified arguments.
      *
      * @param string   $function  A global function name
@@ -77,6 +100,8 @@ class Call implements CallInterface
      * @param bool|null          $static    Whether this is a static function or not
      * @param ...mixed           $arguments Arguments to pass to the object method
      *
+     * @internal
+     *
      * @return mixed
      */
     public static function handle($method = null, $object = null, $static = false, ...$arguments)
@@ -93,15 +118,17 @@ class Call implements CallInterface
      * @param string|object|null $object An object class name
      * @param bool|null          $static Whether this is a static call or not
      *
-     * @return array|string
+     * @internal
      *
      * @throws InvalidArgumentException
+     *
+     * @return array|string
      */
     protected static function validateCall($method = null, $object = null, $static = null)
     {
         if (null === $method && null === $object && null === $static) {
             throw new InvalidArgumentException(
-                sprintf('Invalid parameters provided for %s::%s.', get_called_class(),  __FUNCTION__)
+                sprintf('Invalid parameters provided for %s.', __METHOD__)
             );
         }
 
@@ -117,9 +144,11 @@ class Call implements CallInterface
      *
      * @param string $function
      *
-     * @return string
+     * @internal
      *
      * @throws BadFunctionCallException
+     *
+     * @return string
      */
     protected static function validateFunction($function)
     {
@@ -138,9 +167,11 @@ class Call implements CallInterface
      * @param string|object $object The object instance or class name
      * @param bool          $static Whether this is a static call or not
      *
-     * @return string|object
+     * @internal
      *
      * @throws BadFunctionCallException
+     *
+     * @return string|object
      */
     protected static function validateClass($object, $static)
     {
@@ -148,7 +179,7 @@ class Call implements CallInterface
 
         if (false === class_exists($class)) {
             throw new BadFunctionCallException(
-                sprintf('The requested class %s cannot be found.', $class)
+                sprintf('The requested class "%s" cannot be found in "%s".', $class, __METHOD__)
             );
         }
 
@@ -162,9 +193,11 @@ class Call implements CallInterface
      * @param string|object $object The object instance or class name
      * @param bool          $static Whether this is a static call or not
      *
-     * @return string|array
+     * @internal
      *
      * @throws BadFunctionCallException
+     *
+     * @return string|array
      */
     protected static function validateMethod($method, $object, $static)
     {

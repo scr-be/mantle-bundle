@@ -63,7 +63,7 @@ trait EntitySerializableTrait
      */
     public function unserialize($serialized)
     {
-        $properties = Serializer::wake($serialized);
+        $properties = (array) Serializer::wake($serialized);
 
         foreach ($properties as $property => $value) {
             $this->$property = $value;

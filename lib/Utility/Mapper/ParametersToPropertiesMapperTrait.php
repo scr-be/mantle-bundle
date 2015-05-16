@@ -11,7 +11,6 @@
 
 namespace Scribe\Utility\Mapper;
 
-use Scribe\Exception\LogicException;
 use Scribe\Exception\RuntimeException;
 use Scribe\Utility\Arrays;
 
@@ -31,14 +30,18 @@ trait ParametersToPropertiesMapperTrait
      * Do note that any array keys that exist in multiple method parameter arrays will be overridden by the last
      * definition of that key value.
      *
-     * @param array[] $parameters
+     * @param array[] $parameterCollection
      *
      * @return $this
      */
-    protected function assignPropertyCollectionToSelf(array ...$parameters)
+    protected function assignPropertyCollectionToSelf(array ...$parameterCollection)
     {
+        if (0 === count($parameterCollection)) {
+            return $this;
+        }
+
         $assignmentCollection = (array) $this->normalizeCollectionParametersForSelf(
-            $parameters,
+            $parameterCollection,
             [$this, 'filterPropertyAssignmentsForSelf']
         );
 
@@ -46,8 +49,8 @@ trait ParametersToPropertiesMapperTrait
             return $this;
         }
 
-        foreach ($assignmentCollection as $property => $value) {
-            $this->assignPropertyToSelf($property, $value);
+        foreach ($assignmentCollection as $propertyName => $propertyValue) {
+            $this->assignPropertyToSelf($propertyName, $propertyValue);
         }
 
         return $this;
@@ -59,20 +62,19 @@ trait ParametersToPropertiesMapperTrait
      *
      * @internal
      *
-     * @param array $assignmentCollection
+     * @param array[]  $assignmentCollection
+     * @param string[] $objectPropertyCollection
      *
      * @return array
      */
-    final private function filterPropertyAssignmentsForSelf(array $assignmentCollection, array $objectProperties = [])
+    final private function filterPropertyAssignmentsForSelf(array $assignmentCollection, array $objectPropertyCollection = [])
     {
         if (false === Arrays::isHash($assignmentCollection)) {
             return [];
         }
 
-        $objectProperties = get_object_vars($this);
-
-        return (array) array_filter($assignmentCollection, function($property) use ($objectProperties) {
-            return (bool) in_array($property, $objectProperties, false);
+        return (array) array_filter($assignmentCollection, function($propertyName) use ($objectPropertyCollection) {
+            return (bool) array_key_exists($propertyName, $objectPropertyCollection);
         }, ARRAY_FILTER_USE_KEY);
     }
 
@@ -86,27 +88,26 @@ trait ParametersToPropertiesMapperTrait
      *
      * @internal
      *
-     * @param array                  $parameters
+     * @param array[]                $parameterCollection
      * @param \Closure|callable|null $assignmentCollectionFilter
      *
      * @return array
      */
-    final private function normalizeCollectionParametersForSelf(array $parameters, callable $assignmentCollectionFilter = null)
+    final private function normalizeCollectionParametersForSelf(array $parameterCollection, callable $assignmentCollectionFilter = null)
     {
+        if (false === is_callable($assignmentCollectionFilter)) {
+            $assignmentCollectionFilter = function(array $assignmentCollection) {
+                return $assignmentCollection;
+            };
+        }
+
         $assignmentCollectionMerged = [];
+        $objectPropertyCollection = get_object_vars($this);
 
-        if (0 === count($parameters)) {
-            return $assignmentCollectionMerged;
-        }
-
-        if (null === $assignmentCollectionFilter) {
-            $assignmentCollectionFilter = function($collection) { return $collection; };
-        }
-
-        foreach ($parameters as $assignmentCollection) {
+        foreach ($parameterCollection as $assignmentCollection) {
             $assignmentCollectionMerged = array_merge(
                 (array) $assignmentCollectionMerged,
-                (array) $assignmentCollectionFilter($assignmentCollection)
+                (array) $assignmentCollectionFilter($assignmentCollection, $objectPropertyCollection)
             );
         }
 
@@ -125,14 +126,7 @@ trait ParametersToPropertiesMapperTrait
      */
     final private function assignPropertyToSelf($property, $value)
     {
-        try {
-            $this->$property = $value;
-        } catch (\Exception $e) {
-            throw new RuntimeException(
-                'Could not directly assign the property "%s" in class "%s" using method "%s"',
-                RuntimeException::CODE_INVALID_ARGS, null, null, (string) $property, get_class($this), __FUNCTION__
-            );
-        }
+        $this->$property = $value;
 
         return $this;
     }

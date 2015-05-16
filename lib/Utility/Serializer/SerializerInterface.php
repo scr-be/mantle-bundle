@@ -17,46 +17,66 @@ namespace Scribe\Utility\Serializer;
 interface SerializerInterface
 {
     /**
-     * Serializer using igbinary.
+     * Serialize using igbinary.
      *
      * @var string
      */
-    const SERIALIZE_METHOD_IGBINARY = 'igbinary';
+    const SERIALIZE_METHOD_IGBINARY = 'igbinary_serialize';
 
     /**
-     * Serializer using json.
+     * Un-Serialize using igbinary.
      *
      * @var string
      */
-    const SERIALIZE_METHOD_JSON = 'json';
+    const UNSERIALIZE_METHOD_IGBINARY = 'igbinary_unserialize';
 
     /**
-     * Serializer using native PHP.
+     * Serialize using json.
      *
      * @var string
      */
-    const SERIALIZE_METHOD_NATIVE = 'native';
+    const SERIALIZE_METHOD_JSON = 'json_encode';
 
     /**
-     * Serializer default.
+     * Un-Serialize using json.
+     *
+     * @var string
+     */
+    const UNSERIALIZE_METHOD_JSON = 'json_decode';
+
+    /**
+     * Serialize using native PHP.
+     *
+     * @var string
+     */
+    const SERIALIZE_METHOD_NATIVE = 'serialize';
+
+    /**
+     * Un-Serialize using native PHP.
+     *
+     * @var string
+     */
+    const UNSERIALIZE_METHOD_NATIVE = 'unserialize';
+
+    /**
+     * Serialize default.
+     *
+     * @var string
      */
     const SERIALIZE_METHOD_DEFAULT = self::SERIALIZE_METHOD_IGBINARY;
 
     /**
-     * @param mixed  $mixed
-     * @param string $method
+     * Un-Serialize default.
      *
-     * @return mixed
+     * @var string
      */
-    public static function sleep($mixed, $method = self::SERIALIZE_METHOD_DEFAULT);
+    const UNSERIALIZE_METHOD_DEFAULT = self::UNSERIALIZE_METHOD_IGBINARY;
 
     /**
-     * @param mixed  $mixed
-     * @param string $method
-     *
-     * @return mixed
+     * @param string|array|\Closure      $serializer
+     * @param string|array|\Closure|null $unSerializer
      */
-    public static function wake($mixed, $method = self::SERIALIZE_METHOD_DEFAULT);
+    public static function setSerializer($serializer, $unSerializer);
 }
 
 /* EOF */

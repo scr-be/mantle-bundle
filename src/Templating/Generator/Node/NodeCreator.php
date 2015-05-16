@@ -13,10 +13,10 @@ namespace Scribe\MantleBundle\Templating\Generator\Node;
 
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
+use Scribe\MantleBundle\Templating\Generator\RendererInterface;
 use Scribe\MantleBundle\Templating\Generator\Node\Exception\NodeException;
 use Scribe\MantleBundle\Templating\Generator\Node\Exception\NodeORMException;
 use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
-use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererInterface;
 use Scribe\MantleBundle\Templating\Generator\Node\Rendering\NodeRendererRegistrar;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareInterface;
@@ -128,7 +128,7 @@ class NodeCreator implements NodeCreatorInterface, NodeRepositoryAwareInterface
      *
      * @throws NodeException If the requested rendering engine type cannot be found.
      *
-     * @return NodeRendererInterface
+     * @return RendererInterface
      */
     protected function findRenderer($rendererSlug)
     {
@@ -137,7 +137,7 @@ class NodeCreator implements NodeCreatorInterface, NodeRepositoryAwareInterface
             ->getHandler($rendererSlug)
         ;
 
-        if ($renderer instanceof NodeRendererInterface) {
+        if ($renderer instanceof RendererInterface) {
             return $renderer;
         }
 

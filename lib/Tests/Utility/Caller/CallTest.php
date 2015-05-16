@@ -43,37 +43,42 @@ class CallTest extends AbstractMantleTestCase
         );
 
         $result = Call::func('strtolower', ['an', 'array']);
-        $this->assertFalse($result);
+        static::assertFalse($result);
     }
 
     public function testShouldReturnResultOnFunctionCall()
     {
         $phpVersion = Call::func('phpversion');
-        $this->assertEquals($phpVersion, phpVersion());
+
+        static::assertEquals($phpVersion, phpVersion());
     }
 
     public function testShouldReturnResultOnFunctionCallWithSingleStringArgument()
     {
         $string = Call::func('strtolower', 'STRING');
-        $this->assertEquals($string, 'string');
+
+        static::assertEquals($string, 'string');
     }
 
     public function testShouldReturnResultOnFunctionCallWithSingleArrayArgument()
     {
         $array = Call::func('array_keys', ['one', 'two', 'three']);
-        $this->assertEquals($array, [0, 1, 2]);
+
+        static::assertEquals($array, [0, 1, 2]);
     }
 
     public function testShouldReturnResultOnFunctionCallWithMultipleStringArguments()
     {
         $array = Call::func('explode', ',', 'one,two,three');
-        $this->assertEquals($array, ['one', 'two', 'three']);
+
+        static::assertEquals($array, ['one', 'two', 'three']);
     }
 
     public function testShouldReturnResultOnFunctionCallWithMultipleMixedArguments()
     {
         $string = Call::func('implode', ',', ['one', 'two', 'three']);
-        $this->assertEquals($string, 'one,two,three');
+
+        static::assertEquals($string, 'one,two,three');
     }
 
     public function testShouldThrowExceptionOnInvalidMethodCall()
@@ -82,6 +87,7 @@ class CallTest extends AbstractMantleTestCase
             'Scribe\Exception\BadFunctionCallException'
         );
         $exception = new \Exception();
+
         Call::method($exception, 'method_does_not_exist');
     }
 
@@ -89,7 +95,8 @@ class CallTest extends AbstractMantleTestCase
     {
         $exception = new \Exception('This is an exception');
         $result    = Call::method($exception, 'getMessage');
-        $this->assertEquals($result, 'This is an exception');
+
+        static::assertEquals($result, 'This is an exception');
     }
 
     public function testShouldThrowExceptionOnInvalidStaticMethodCall()
@@ -97,6 +104,7 @@ class CallTest extends AbstractMantleTestCase
         $this->setExpectedException(
             'Scribe\Exception\BadFunctionCallException'
         );
+
         Call::staticMethod('\Datetime', 'static_method_does_not_exist');
     }
 
@@ -104,7 +112,38 @@ class CallTest extends AbstractMantleTestCase
     {
         $time   = time();
         $result = Call::staticMethod('\Datetime', 'createFromFormat', 'Y', $time);
-        $this->assertEquals($result, \Datetime::createFromFormat('Y', $time));
+
+        static::assertEquals($result, \Datetime::createFromFormat('Y', $time));
+    }
+
+    public function testValidateCall()
+    {
+        $this->setExpectedException(
+            'Scribe\Exception\InvalidArgumentException',
+            'Invalid parameters provided for Scribe\Utility\Caller\Call::validateCall.'
+        );
+
+        Call::func(null);
+    }
+
+    public function testStaticCallOnInvalidClass()
+    {
+        $this->setExpectedException(
+            'Scribe\Exception\BadFunctionCallException',
+            'The requested class "ThisCallDoesNotExistAnywhereIHopeIfYouMadeThisClassWhy" cannot be found in "Scribe\Utility\Caller\Call::validateClass".'
+        );
+
+        Call::staticMethod('ThisCallDoesNotExistAnywhereIHopeIfYouMadeThisClassWhy', 'someMethod', 'arg1', 'arg2');
+    }
+
+    public function testInvalidCallToSomething()
+    {
+        $this->setExpectedException(
+            'Scribe\Exception\InvalidArgumentException',
+            'Invalid parameters provided for "Scribe\Utility\Caller\Call::generic". Unsure how to handle call.'
+        );
+
+        Call::generic(42);
     }
 }
 

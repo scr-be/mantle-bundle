@@ -41,6 +41,13 @@ trait CompilerPassChainTrait
     protected $filterMode;
 
     /**
+     * An available callable for the {@see addHandler()} method to call after it has completed its initial logic.
+     *
+     * @var null|callable
+     */
+    protected $addHandlerCallable;
+
+    /**
      * Sets the handlers using the passed array. The array key is used as the priority and the array value must
      * be an instance of a handler
      *
@@ -108,10 +115,11 @@ trait CompilerPassChainTrait
      *
      * @param CompilerPassHandlerInterface $handler
      * @param int|null                     $priority
+     * @param mixed[]                      $extra
      *
      * @return $this
      */
-    public function addHandler(CompilerPassHandlerInterface $handler, $priority = null)
+    public function addHandler(CompilerPassHandlerInterface $handler, $priority = null, $extra = null)
     {
         if (false === $this->isHandlerValid($handler)) {
             return $this;
@@ -119,6 +127,11 @@ trait CompilerPassChainTrait
 
         $this->handlers[$this->determineHandlerPriority($handler, $priority)] = $handler;
         ksort($this->handlers);
+
+        if (true === is_callable($this->addHandlerCallable)) {
+            $callable = $this->addHandlerCallable;
+            $callable($handler, $priority, $extra);
+        }
 
         return $this;
     }
@@ -255,7 +268,7 @@ trait CompilerPassChainTrait
      */
     private function isHandlerValid(CompilerPassHandlerInterface $handler)
     {
-        if (true === empty($this->restrictions)) {
+        if (null === $this->restrictions || 0 === count($this->restrictions)) {
             return (bool) true;
         }
 

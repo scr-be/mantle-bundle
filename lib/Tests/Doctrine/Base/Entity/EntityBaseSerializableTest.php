@@ -24,17 +24,20 @@ class EntityBaseSerializableTest extends AbstractEntityBaseTest
 
     public function testIsCloneSafe()
     {
-        $this->assertFalse($this->baseEntity->isCloneSafe());
+        static::assertFalse($this->baseEntity->isCloneSafe());
+
         $entity = $this->reflectionAnalyser->setPropertyPublic('id');
         $entity->setValue($this->baseEntity, 100);
-        $this->assertTrue($this->baseEntity->isCloneSafe());
+
+        static::assertTrue($this->baseEntity->isCloneSafe());
     }
 
     public function testIsSerializable()
     {
         $serializedEntity = serialize($this->baseEntity);
         $unserializedEntity = unserialize($serializedEntity);
-        $this->assertEquals($this->baseEntity, $unserializedEntity);
+
+        static::assertEquals($this->baseEntity, $unserializedEntity);
     }
 }
 

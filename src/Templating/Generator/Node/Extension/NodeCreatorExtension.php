@@ -55,7 +55,7 @@ class NodeCreatorExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function getNode(Node $node, $args = [])
+    public function getNode(Node $node, array $args = [])
     {
         return (string) $this->nodeCreator->render($node, $args);
     }
@@ -66,7 +66,7 @@ class NodeCreatorExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function getNodeFromSlug($slug, $args = [])
+    public function getNodeFromSlug($slug, array $args = [])
     {
         return (string) $this->nodeCreator->renderFromSlug($slug, $args);
     }
@@ -77,7 +77,7 @@ class NodeCreatorExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function getNodeFromMaterializedPath($materializedPath, $args = [])
+    public function getNodeFromMaterializedPath($materializedPath, array $args = [])
     {
         return (string) $this->nodeCreator->renderFromMaterializedPath($materializedPath, $args);
     }

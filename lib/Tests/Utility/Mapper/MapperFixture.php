@@ -31,13 +31,49 @@ class MapperFixture
     private $propertyInt;
 
     /**
-     * @var mixed
+     * @var array
      */
-    private $someOtherRandomProperty;
+    private $propertyArray;
 
-    public function __construct($parameters)
+    /**
+     * @var callable
+     */
+    private $propertyCallable;
+
+    /**
+     * @param array[] ...$parameters
+     */
+    public function __construct(...$parameters)
     {
         $this->assignPropertyCollectionToSelf(...$parameters);
+    }
+
+    /**
+     * @param array[] ...$parameters
+     */
+    public function exposeAssignPropertyCollectionToSelf(...$parameters)
+    {
+        $this->assignPropertyCollectionToSelf(...$parameters);
+    }
+
+    public function exposeGetObjectVars()
+    {
+        return get_object_vars($this);
+    }
+
+    public function exposeFilterPropertyAssignmentsForSelf(array $assignmentCollection)
+    {
+        $this->filterPropertyAssignmentsForSelf($assignmentCollection, get_object_vars($this));
+    }
+
+    public function exposeNormalizeCollectionParametersForSelf(array $parameterCollection)
+    {
+        return $this->normalizeCollectionParametersForSelf($parameterCollection, null);
+    }
+
+    public function exposeAssignPropertyToSelf($propertyName, $propertyValue)
+    {
+        $this->assignPropertyToSelf($propertyName, $propertyValue);
     }
 
     /**
@@ -73,24 +109,35 @@ class MapperFixture
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getSomeOtherRandomProperty()
+    public function getPropertyArray()
     {
-        return $this->someOtherRandomProperty;
+        return $this->propertyArray;
     }
 
     /**
-     * @param mixed $someOtherRandomProperty
+     * @param array $propertyArray
      */
-    public function setSomeOtherRandomProperty($someOtherRandomProperty)
+    public function setPropertyArray(array $propertyArray)
     {
-        $this->someOtherRandomProperty = $someOtherRandomProperty;
+        $this->propertyArray = $propertyArray;
     }
 
-    public function exposedAssignPropertyCollectionToSelf(array ...$parameters)
+    /**
+     * @return callable
+     */
+    public function getPropertyCallable()
     {
-        $this->assignPropertyCollectionToSelf(...$parameters);
+        return $this->propertyCallable;
+    }
+
+    /**
+     * @param callable $propertyCallable
+     */
+    public function setPropertyCallable(callable $propertyCallable)
+    {
+        $this->propertyCallable = $propertyCallable;
     }
 }
 

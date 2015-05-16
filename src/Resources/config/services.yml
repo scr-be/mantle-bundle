@@ -452,11 +452,10 @@ services:
 
     s.mantle.node_creator.renderer.twig:
         class: %s.mantle.node_creator.renderer.twig.class%
-        lazy:  false
         arguments:
             - @twig
         tags:
-            - { name: node_creator.renderer, priority: 100 }
+            - { name: node_creator.renderer, priority: 100, something_else: testing, another_thing: false }
 
     s.mantle.node_creator.twig_extension:
         class: %s.mantle.node_creator.twig_extension.class%

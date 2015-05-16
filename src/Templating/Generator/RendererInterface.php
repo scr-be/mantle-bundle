@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
+namespace Scribe\MantleBundle\Templating\Generator;
 
 /**
  * Interface NodeRendererInterface.
  */
-interface NodeRendererInterface
+interface RendererInterface
 {
     /**
      * Render a node item.

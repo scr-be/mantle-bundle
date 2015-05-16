@@ -11,12 +11,13 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
+use Scribe\MantleBundle\Templating\Generator\AbstractRenderer;
 use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
 
 /**
  * Class AbstractNodeRenderer.
  */
-abstract class AbstractNodeRenderer implements NodeRendererInterface, CompilerPassHandlerInterface
+abstract class AbstractNodeRenderer extends AbstractRenderer implements CompilerPassHandlerInterface
 {
     /**
      * Given the provided rendererName, does this renderer match?
@@ -29,27 +30,6 @@ abstract class AbstractNodeRenderer implements NodeRendererInterface, CompilerPa
     {
         return (bool) ($this->normalizeRendererName(array_first($by)) === $this->getType() ?: false);
     }
-
-    /**
-     * Perform any string normalization required on the passed renderName value.
-     *
-     * @param string $rendererName
-     *
-     * @return string
-     */
-    protected function normalizeRendererName($rendererName)
-    {
-        return (string) strtolower($rendererName);
-    }
-
-    /**
-     * Get the handler type (generally this will return the class name).
-     *
-     * @param bool $fqcn
-     *
-     * @return string
-     */
-    abstract public function getType($fqcn = false);
 }
 
 /* EOF */
