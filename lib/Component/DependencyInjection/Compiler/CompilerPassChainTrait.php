@@ -125,12 +125,12 @@ trait CompilerPassChainTrait
             return $this;
         }
 
-        $this->handlers[$this->determineHandlerPriority($handler, $priority)] = $handler;
-        ksort($this->handlers);
-
         if (true === is_callable($this->addHandlerCallable)) {
             $callable = $this->addHandlerCallable;
-            $callable($handler, $priority, $extra);
+            $callable($this->handlers, $handler, $priority, $extra);
+        } else {
+            $this->handlers[$this->determineHandlerPriority($handler, $priority)] = $handler;
+            ksort($this->handlers);
         }
 
         return $this;
@@ -299,6 +299,26 @@ trait CompilerPassChainTrait
         }
 
         return (int) $priority;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getAddHandlerCallable()
+    {
+        return $this->addHandlerCallable;
+    }
+
+    /**
+     * @param callable|null $addHandlerCallable
+     *
+     * @return $this
+     */
+    public function setAddHandlerCallable(callable $addHandlerCallable = null)
+    {
+        $this->addHandlerCallable = $addHandlerCallable;
+
+        return $this;
     }
 }
 
