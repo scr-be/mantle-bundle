@@ -125,7 +125,7 @@ trait StopwatchActionsAwareTrait
      */
     protected function stopwatchEventSetAdd($name, StopwatchEvent $event)
     {
-        if (false === array_key_exists($name, $this->stopwatchEventSet)) {
+        if (false === array_key_exists($name, (array) $this->stopwatchEventSet)) {
             $this->stopwatchEventSet[$name] = [];
         }
 
