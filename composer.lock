@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b221928b71c95fc001c7b6f01a6dfacb",
+    "hash": "aaec08b81c0982c7e85a630e31757558",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1060,12 +1060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "349e8454a9cfd7b53772df824cf5f82d6dc4f59a"
+                "reference": "4784c3beaf0a11032fb80637c9b6971500af478a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/349e8454a9cfd7b53772df824cf5f82d6dc4f59a",
-                "reference": "349e8454a9cfd7b53772df824cf5f82d6dc4f59a",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/4784c3beaf0a11032fb80637c9b6971500af478a",
+                "reference": "4784c3beaf0a11032fb80637c9b6971500af478a",
                 "shasum": ""
             },
             "require": {
@@ -1138,21 +1138,21 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-05-14 19:49:18"
+            "time": "2015-05-16 11:32:23"
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.22",
+            "version": "v3.0.24",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c"
+                "reference": "79b820aee1f1daeb2717fa9471ee19275cc1d638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
-                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/79b820aee1f1daeb2717fa9471ee19275cc1d638",
+                "reference": "79b820aee1f1daeb2717fa9471ee19275cc1d638",
                 "shasum": ""
             },
             "require": {
@@ -1198,7 +1198,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-05-02 16:23:08"
+            "time": "2015-05-16 12:57:08"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3747,6 +3747,7 @@
         "symfony/monolog-bundle": 20,
         "symfony/assetic-bundle": 20,
         "scribe/cache-bundle": 20,
+        "symfony/stopwatch": 10,
         "symfony/phpunit-bridge": 10,
         "doctrine/doctrine-fixtures-bundle": 20,
         "doctrine/data-fixtures": 20,
