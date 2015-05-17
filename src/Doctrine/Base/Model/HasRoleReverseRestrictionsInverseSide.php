@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\SecurityBundle\Entity\Role;
+use Scribe\MantleBundle\Component\Security\Core\RoleInterface;
 
 /**
  * Class HasRoleReverseRestrictionsInverseSide.
@@ -27,17 +27,11 @@ trait HasRoleReverseRestrictionsInverseSide
     protected $roleReverseRestrictions;
 
     /**
-     * Set roleReverseRestrictions.
-     *
-     * @param array $roleReverseRestrictions
-     *
-     * @return $this
+     * Init trait.
      */
-    public function setRoleReverseRestrictions(array $roleReverseRestrictions = array())
+    public function initializeRoleReverseRestrictions()
     {
-        $this->roleReverseRestrictions = $roleReverseRestrictions;
-
-        return $this;
+        $this->roleReverseRestrictions = new ArrayCollection();
     }
 
     /**
@@ -63,16 +57,16 @@ trait HasRoleReverseRestrictionsInverseSide
     /**
      * Checker for specific role within roleRestrictions property.
      *
-     * @param Role $roleReverseRestriction a Role entity instance to check against the restricted collection of roles
+     * @param RoleInterface $roleReverseRestriction a Role entity instance to check against the restricted collection of roles
      *
      * @return bool
      */
-    public function hasRoleReverseRestriction(Role $roleReverseRestriction)
+    public function hasRoleReverseRestriction(RoleInterface $roleReverseRestriction)
     {
         return $this
             ->getRoleReverseRestrictions()
             ->contains($roleReverseRestriction)
-            ;
+        ;
     }
 }
 

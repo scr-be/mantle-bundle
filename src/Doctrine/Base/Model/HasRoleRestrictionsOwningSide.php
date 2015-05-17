@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\SecurityBundle\Entity\Role;
+use Scribe\MantleBundle\Component\Security\Core\RoleInterface;
 
 /**
  * Class HasRoleRestrictionsOwningSide.
@@ -64,13 +64,13 @@ trait HasRoleRestrictionsOwningSide
     /**
      * Collections adder for roleRestrictions property.
      *
-     * @param Role $roleRestriction a role instance to add to the roleRestrictions collection
-     * @param bool $unique          requires the passed role instance not already exist within
-     *                              the roleRestrictions collection
+     * @param RoleInterface $roleRestriction a role instance to add to the roleRestrictions collection
+     * @param bool          $unique          requires the passed role instance not already exist within
+     *                                       the roleRestrictions collection
      *
      * @return $this
      */
-    public function addRoleRestrictions(Role $roleRestriction, $unique = true)
+    public function addRoleRestrictions(RoleInterface $roleRestriction, $unique = true)
     {
         if ($this->hasRoleRestriction($roleRestriction) === false || $unique === false) {
             $this
@@ -85,11 +85,11 @@ trait HasRoleRestrictionsOwningSide
     /**
      * Collections remover for roleRestrictions property.
      *
-     * @param Role $roleRestriction a role instance to remove from collection
+     * @param RoleInterface $roleRestriction a role instance to remove from collection
      *
      * @return $this
      */
-    public function removeRoleRestriction(Role $roleRestriction)
+    public function removeRoleRestriction(RoleInterface $roleRestriction)
     {
         if ($this->hasRoleRestriction($roleRestriction) === true) {
             $this

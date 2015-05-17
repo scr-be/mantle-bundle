@@ -11,33 +11,80 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Scribe\MantleBundle\Component\Security\Core\RoleInterface;
 
 /**
- * Class HasRoleRestrictionsInverseSide.
+ * Class HasRoleReverseRestrictionsOwningSide.
  */
 trait HasRoleReverseRestrictionsOwningSide
 {
     use HasRoleReverseRestrictionsInverseSide;
 
     /**
-     * Init trait.
-     */
-    public function initializeRoleReverseRestrictions()
-    {
-        $this->roleReverseRestrictions = new ArrayCollection();
-    }
-
-    /**
      * Set roleReverseRestrictions.
      *
-     * @param ArrayCollection $roleReverseRestrictions
+     * @param array $roleReverseRestrictions
      *
      * @return $this
      */
-    public function setRoleReverseRestrictions(ArrayCollection $roleReverseRestrictions = null)
+    public function setRoleReverseRestrictions(array $roleReverseRestrictions = [])
     {
         $this->roleReverseRestrictions = $roleReverseRestrictions;
+
+        return $this;
+    }
+
+    /**
+     * Destroyer for roleRestrictions property.
+     *
+     * @return $this
+     */
+    public function clearRoleReverseRestrictions()
+    {
+        $this
+            ->getRoleReverseRestrictions()
+            ->clear()
+        ;
+
+        return $this;
+    }
+
+    /**
+     * Collections adder for roleRestrictions property.
+     *
+     * @param RoleInterface $roleRestriction a role instance to add to the roleRestrictions collection
+     * @param bool          $unique          requires the passed role instance not already exist within
+     *                                       the roleRestrictions collection
+     *
+     * @return $this
+     */
+    public function addRoleReverseRestrictions(RoleInterface $roleRestriction, $unique = true)
+    {
+        if ($this->hasRoleReverseRestriction($roleRestriction) === false || $unique === false) {
+            $this
+                ->getRoleReverseRestrictions()
+                ->add($roleRestriction)
+            ;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Collections remover for roleRestrictions property.
+     *
+     * @param RoleInterface $roleRestriction a role instance to remove from collection
+     *
+     * @return $this
+     */
+    public function removeRoleReverseRestriction(RoleInterface $roleRestriction)
+    {
+        if ($this->hasRoleReverseRestriction($roleRestriction) === true) {
+            $this
+                ->getRoleReverseRestrictions()
+                ->removeElement($roleRestriction)
+            ;
+        }
 
         return $this;
     }

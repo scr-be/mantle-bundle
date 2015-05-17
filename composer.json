@@ -81,6 +81,7 @@
         "ext-tidy"                             : "~2.0",
         "ext-mysql"                            : "*",
         "ext-xdebug"                           : "*",
+        "symfony/stopwatch"                    : "2.7.0-BETA2",
         "symfony/phpunit-bridge"               : "2.7.0-BETA2",
         "phpunit/phpunit"                      : "~4.6",
         "sensio/generator-bundle"              : "~2.5",

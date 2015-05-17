@@ -6,7 +6,7 @@ filter:
         - bin/*
         - build/*
         - docs/*
-        - knowledge/*
+        - app/config/shared_*
         - lib/Tests/*
         - src/Tests/*
         - src/Resources/*

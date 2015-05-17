@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\SecurityBundle\Entity\User;
+use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 
 /**
  * Class HasUser.
@@ -21,7 +21,7 @@ trait HasUser
     /**
      * The entity user property.
      *
-     * @var User
+     * @var UserInterface
      */
     protected $user;
 
@@ -36,11 +36,11 @@ trait HasUser
     /**
      * Setter for user property.
      *
-     * @param User|null $user a user entity object instance
+     * @param UserInterface|null $user a user entity object instance
      *
      * @return $this
      */
-    public function setUser(User $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 
@@ -50,7 +50,7 @@ trait HasUser
     /**
      * Getter for user property.
      *
-     * @return User|null
+     * @return UserInterface|null
      */
     public function getUser()
     {
@@ -64,7 +64,7 @@ trait HasUser
      */
     public function hasUser()
     {
-        return (bool) $this->user instanceof User;
+        return (bool) ($this->user instanceof UserInterface);
     }
 
     /**
