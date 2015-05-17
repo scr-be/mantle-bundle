@@ -93,6 +93,7 @@
         "chriskite/phactory"                   : "~0.4.3",
         "fzaninotto/faker"                     : "1.5.*@dev",
         "sami/sami"                            : "~3.0",
+        "nikic/php-parser"                     : ">=1.0,<1.2",
         "pdepend/pdepend"                      : "~2.0"
     },
     "autoload" : {
