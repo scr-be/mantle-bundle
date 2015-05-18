@@ -371,26 +371,22 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         $kernelRoot = $this->container->get('kernel')->getRootDir();
         $fixtureBasePath = $fixtureYamlPath = null;
 
+
         foreach (static::$fixtureDirPaths as $fixtureName => $fixtureDirPath) {
             $fixtureDirPath = $kernelRoot.DIRECTORY_SEPARATOR.$fixtureDirPath;
 
             if (true === file_exists($fixtureDirPath)) {
                 $fixtureBasePath = $fixtureDirPath;
                 $fixtureYamlPath = $fixtureDirPath.DIRECTORY_SEPARATOR.$this->buildYamlFileName($name);
-                break;
+                if(file_exists($fixtureYamlPath)) { break; }
             }
         }
 
-        $this->validateFixtureDataResolvedPaths(
+        return $this->validateFixtureDataResolvedPaths(
             $name,
             $fixtureBasePath,
             $fixtureYamlPath
         );
-
-        return [
-            $fixtureBasePath,
-            $fixtureYamlPath
-        ];
     }
 
     /**
@@ -400,11 +396,11 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      *
      * @return string[]
      */
-    protected function validateFixtureDataResolvedPaths($name, &$basePath, &$yamlPath)
+    protected function validateFixtureDataResolvedPaths($name, $basePath, $yamlPath)
     {
         if (null === $basePath || null === $yamlPath ||
-            null === ($basePath = realpath($basePath)) ||
-            null === ($yamlPath = realpath($yamlPath)))
+            false === ($basePath = realpath($basePath)) ||
+            false === ($yamlPath = realpath($yamlPath)))
         {
             throw new RuntimeException(sprintf(
                 'Could not find YAML fixture for %s in known paths: [%s].',
