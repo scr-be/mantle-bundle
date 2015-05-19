@@ -9,16 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Doctrine\Base\Model;
+namespace Scribe\Doctrine\Base\Model\Activity;
+
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
+use Scribe\Doctrine\Base\Model\Type\HasType;
 
 /**
- * Class HasName.
- *
- * @deprecated
+ * Class HasActivity.
  */
-trait HasName
+trait HasActivity
 {
-    use \Scribe\Doctrine\Base\Model\Name\HasName;
+    use HasType,
+        HasDescription;
 }
 
 /* EOF */

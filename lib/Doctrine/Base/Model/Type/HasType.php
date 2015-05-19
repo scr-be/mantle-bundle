@@ -50,6 +50,24 @@ trait HasType
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasType()
+    {
+        return (bool) ($this->type !== null);
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearType()
+    {
+        $this->type = null;
+
+        return $this;
+    }
 }
 
 /* EOF */

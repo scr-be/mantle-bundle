@@ -11,11 +11,16 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasDescription;
+use Scribe\Doctrine\Base\Model\Activity\HasActivityCollection;
+use Scribe\Doctrine\Base\Model\Address\HasAddressCollection;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\HasPerson;
 use Scribe\Doctrine\Base\Model\HasProperties;
 use Scribe\Doctrine\Base\Model\HasTitle;
+use Scribe\Doctrine\Base\Model\InstantMessenger\HasInstantMessengerCollection;
+use Scribe\Doctrine\Base\Model\Phone\HasPhoneCollection;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasOrg;
@@ -31,6 +36,10 @@ class User extends AbstractEntity implements UserInterface
         HasOrg,
         HasTitle,
         HasProperties,
+        HasAddressCollection,
+        HasPhoneCollection,
+        HasInstantMessengerCollection,
+        HasActivityCollection,
         HasRolesOwningSide,
         TimestampableBehaviorTrait;
 
@@ -68,6 +77,11 @@ class User extends AbstractEntity implements UserInterface
      * @var bool
      */
     protected $accountLocked;
+
+    /**
+     * @var ArrayCollection
+     */
+    protected $accountActivity;
 
     /**
      * @var \Datetime|null
@@ -242,6 +256,16 @@ class User extends AbstractEntity implements UserInterface
     public function hasAccountExpiration()
     {
         return (bool) ($this->accountExpiration instanceof \Datetime);
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearAccountExpiration()
+    {
+        $this->accountExpiration = null;
+
+        return $this;
     }
 
     /**

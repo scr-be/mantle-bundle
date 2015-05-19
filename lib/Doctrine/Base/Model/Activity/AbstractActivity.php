@@ -9,20 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Doctrine\Base\Model\Address;
+namespace Scribe\Doctrine\Base\Model\Activity;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\Name\HasName;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\Type\HasType;
+use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 
 /**
- * Class AbstractAddress.
+ * Class AbstractActivity.
  */
-class AbstractAddress extends AbstractEntity implements AddressInterface
+class AbstractActivity extends AbstractEntity implements ActivityInterface
 {
-    use HasName,
-        HasType,
-        HasAddress;
+    use HasType,
+        HasDescription,
+        TimestampableBehaviorTrait;
 }
 
 /* EOF */

@@ -11,14 +11,16 @@
 
 namespace Scribe\Doctrine\Base\Model;
 
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
+
 /**
- * Class HasName.
+ * Class HasType.
  *
  * @deprecated
  */
-trait HasName
+trait HasType
 {
-    use \Scribe\Doctrine\Base\Model\Name\HasName;
+    use \Scribe\Doctrine\Base\Model\Type\HasType;
 }
 
 /* EOF */

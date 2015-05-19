@@ -24,6 +24,11 @@ trait HasPhone
     protected $number;
 
     /**
+     * @var int|null
+     */
+    protected $extension;
+
+    /**
      * Initialize trait.
      */
     public function initializePhone()
@@ -48,7 +53,53 @@ trait HasPhone
      */
     public function getNumber()
     {
+        return (string) $this->number;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumberFormatted()
+    {
         return (string) StringFilter::formatPhoneString($this->number);
+    }
+
+    /**
+     * @param int $extension
+     *
+     * @return $this
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = preg_replace('#[^0-9]#', '', $extension);
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasExtension()
+    {
+        return (bool) ($this->extension !== null);
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearExtension()
+    {
+        $this->extension = null;
+
+        return $this;
     }
 }
 

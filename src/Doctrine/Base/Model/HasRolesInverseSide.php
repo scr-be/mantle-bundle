@@ -37,11 +37,11 @@ trait HasRolesInverseSide
     /**
      * Get role collection.
      *
-     * @return ArrayCollection
+     * @return array
      */
     public function getRoles()
     {
-        return $this->roles;
+        return $this->roles->toArray();
     }
 
     /**

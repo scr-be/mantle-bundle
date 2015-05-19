@@ -13,69 +13,12 @@ namespace Scribe\Doctrine\Base\Model;
 
 /**
  * Class HasDescription.
+ *
+ * @deprecated {@see \Scribe\Doctrine\Base\Model\Description\HasDescription}
  */
 trait HasDescription
 {
-    /**
-     * The entity description property.
-     *
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * Init trait.
-     */
-    public function initializeDescription()
-    {
-        $this->description = null;
-    }
-
-    /**
-     * Setter for description property.
-     *
-     * @param string|null $description description for entity
-     *
-     * @return $this
-     */
-    public function setDescription($description = null)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Getter for description property.
-     *
-     * @return string|null
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Checker for description property.
-     *
-     * @return bool
-     */
-    public function hasDescription()
-    {
-        return (bool) ($this->description !== null);
-    }
-
-    /**
-     * Nullify the description property.
-     *
-     * @return $this
-     */
-    public function clearDescription()
-    {
-        $this->description = null;
-
-        return $this;
-    }
+    use \Scribe\Doctrine\Base\Model\Description\HasDescription;
 }
 
 /* EOF */

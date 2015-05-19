@@ -12,13 +12,13 @@
 namespace Scribe\Doctrine\Base\Model\Phone;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\Name\HasName;
 use Scribe\Doctrine\Base\Model\Type\HasType;
 
 /**
  * Class AbstractPhone.
  */
-abstract class AbstractPhone extends AbstractEntity
+abstract class AbstractPhone extends AbstractEntity implements PhoneInterface
 {
     use HasName,
         HasType,

@@ -11,7 +11,6 @@
 
 namespace Scribe\MantleBundle\Component\Security\Core;
 
-use Scribe\Doctrine\Base\Model\Activity\ActivityCollectionInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface as SymfonyAdvancedUserInterface;
 use Scribe\Doctrine\Base\Model\Address\AddressCollectionInterface;
 use Scribe\Doctrine\Base\Model\InstantMessenger\InstantMessengerCollectionInterface;
@@ -20,7 +19,7 @@ use Scribe\Doctrine\Base\Model\Phone\PhoneCollectionInterface;
 /**
  * Class UserInterface.
  */
-interface UserInterface extends SymfonyAdvancedUserInterface, AddressCollectionInterface, PhoneCollectionInterface, InstantMessengerCollectionInterface, ActivityCollectionInterface
+interface UserInterface extends SymfonyAdvancedUserInterface, AddressCollectionInterface, PhoneCollectionInterface, InstantMessengerCollectionInterface
 {
     /**
      * @return string

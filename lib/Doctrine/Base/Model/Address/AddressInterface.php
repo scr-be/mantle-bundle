@@ -9,12 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Component\Security\Core;
+namespace Scribe\Doctrine\Base\Model\Address;
+
+use Scribe\Doctrine\Base\Model\Name\NameInterface;
+use Scribe\Doctrine\Base\Model\Type\TypeInterface;
 
 /**
  * Class AddressInterface.
  */
-interface UserInterface
+interface AddressInterface extends TypeInterface, NameInterface
 {
     /**
      * @param string $address01
