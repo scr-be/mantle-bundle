@@ -14,7 +14,8 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasDescription;
 use Scribe\Doctrine\Base\Model\HasPerson;
-use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\HasProperties;
+use Scribe\Doctrine\Base\Model\HasTitle;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasOrg;
@@ -25,10 +26,11 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasRolesOwningSide;
  */
 class User extends AbstractEntity implements UserInterface
 {
-    use HasSlug,
-        HasPerson,
+    use HasPerson,
         HasDescription,
         HasOrg,
+        HasTitle,
+        HasProperties,
         HasRolesOwningSide,
         TimestampableBehaviorTrait;
 
@@ -51,6 +53,11 @@ class User extends AbstractEntity implements UserInterface
      * @var null|string
      */
     protected $salt;
+
+    /**
+     * @var \Datetime|null
+     */
+    protected $accountInitialized;
 
     /**
      * @var \Datetime|null
@@ -95,6 +102,11 @@ class User extends AbstractEntity implements UserInterface
     public function initializeSalt()
     {
         $this->salt = null;
+    }
+
+    public function initializeAccountInitialized()
+    {
+        $this->accountInitialized = null;
     }
 
     public function initializeAccountExpiration()
@@ -237,7 +249,7 @@ class User extends AbstractEntity implements UserInterface
      */
     public function isAccountLocked()
     {
-        return (bool) $this->accountLocked;
+        return (bool) (true === $this->accountLocked);
     }
 
     /**
@@ -245,7 +257,7 @@ class User extends AbstractEntity implements UserInterface
      */
     public function isAccountNonLocked()
     {
-        return (bool) (!$this->isAccountLocked());
+        return (bool) (false === $this->accountLocked);
     }
 
     /**
@@ -253,7 +265,7 @@ class User extends AbstractEntity implements UserInterface
      */
     public function isEnabled()
     {
-        return (bool) $this->isAccountNonLocked();
+        return (bool) (false === $this->accountLocked);
     }
 
     /**
@@ -305,7 +317,7 @@ class User extends AbstractEntity implements UserInterface
      */
     public function isCredentialsNonExpired()
     {
-        return (!$this->isCredentialsExpired());
+        return (bool) (false === $this->isCredentialsExpired());
     }
 
     /**
