@@ -21,24 +21,24 @@ trait HasInstantMessengerCollection
     /**
      * @var ArrayCollection
      */
-    protected $instantMessenger;
+    protected $instantMessengers;
 
     /**
      * Initialize trait.
      */
     public function initializeInstantMessengerCollection()
     {
-        $this->instantMessenger = new ArrayCollection();
+        $this->instantMessengers = new ArrayCollection();
     }
 
     /**
-     * @param ArrayCollection $instantMessenger
+     * @param ArrayCollection $instantMessengers
      *
      * @return $this
      */
-    public function setInstantMessengerCollection(ArrayCollection $instantMessenger = null)
+    public function setInstantMessengerCollection(ArrayCollection $instantMessengers = null)
     {
-        $this->instantMessenger = $instantMessenger;
+        $this->instantMessengers = $instantMessengers;
 
         return $this;
     }
@@ -48,7 +48,7 @@ trait HasInstantMessengerCollection
      */
     public function getInstantMessengerCollection()
     {
-        return $this->instantMessenger;
+        return $this->instantMessengers;
     }
 
     /**
@@ -56,7 +56,7 @@ trait HasInstantMessengerCollection
      */
     public function hasInstantMessengerCollection()
     {
-        return (bool) (false === $this->instantMessenger->isEmpty());
+        return (bool) (false === $this->instantMessengers->isEmpty());
     }
 
     /**
@@ -64,21 +64,21 @@ trait HasInstantMessengerCollection
      */
     public function clearInstantMessengerCollection()
     {
-        $this->instantMessenger = new ArrayCollection();
+        $this->instantMessengers = new ArrayCollection();
 
         return $this;
     }
 
     /**
-     * @param ArrayCollection|null $instantMessenger
+     * @param ArrayCollection|null $instantMessengers
      *
      * @return $this
      *
      * @deprecated {@see setInstantMessengerCollection()}
      */
-    public function setInstantMessengers(ArrayCollection $instantMessenger = null)
+    public function setInstantMessengers(ArrayCollection $instantMessengers = null)
     {
-        return $this->setInstantMessengerCollection($instantMessenger);
+        return $this->setInstantMessengerCollection($instantMessengers);
     }
 
     /**
@@ -118,7 +118,7 @@ trait HasInstantMessengerCollection
      */
     public function hasInstantMessenger(InstantMessengerInterface $instantMessenger)
     {
-        return (bool) (true === $this->instantMessenger->contains($instantMessenger));
+        return (bool) (true === $this->instantMessengers->contains($instantMessenger));
     }
 
     /**
@@ -129,7 +129,7 @@ trait HasInstantMessengerCollection
     public function addInstantMessenger(InstantMessengerInterface $instantMessenger)
     {
         if (false === $this->hasInstantMessenger($instantMessenger)) {
-            $this->instantMessenger->add($instantMessenger);
+            $this->instantMessengers->add($instantMessenger);
         }
 
         return $this;
@@ -143,7 +143,7 @@ trait HasInstantMessengerCollection
     public function removeInstantMessenger(InstantMessengerInterface $instantMessenger)
     {
         if (true === $this->hasInstantMessenger($instantMessenger)) {
-            $this->instantMessenger->removeElement($instantMessenger);
+            $this->instantMessengers->removeElement($instantMessenger);
         }
 
         return $this;

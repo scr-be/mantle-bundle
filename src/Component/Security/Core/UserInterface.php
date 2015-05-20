@@ -11,6 +11,7 @@
 
 namespace Scribe\MantleBundle\Component\Security\Core;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Scribe\Doctrine\Base\Model\Activity\ActivityCollectionInterface;
 use Scribe\Doctrine\Base\Model\Address\AddressCollectionInterface;
@@ -21,7 +22,7 @@ use Scribe\Doctrine\Base\Model\Phone\PhoneCollectionInterface;
  * Class UserInterface.
  */
 interface UserInterface extends AddressCollectionInterface, PhoneCollectionInterface, InstantMessengerCollectionInterface,
-    ActivityCollectionInterface, AdvancedUserInterface
+                                ActivityCollectionInterface, AdvancedUserInterface
 {
     /**
      * @return string
@@ -152,6 +153,39 @@ interface UserInterface extends AddressCollectionInterface, PhoneCollectionInter
      * @return $this
      */
     public function eraseCredentials();
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getManagerOfCollection();
+
+    /**
+     * @param ArrayCollection $orgs
+     *
+     * @return $this
+     */
+    public function setManagerOfCollection(ArrayCollection $orgs);
+
+    /**
+     * @param OrganizationInterface $org
+     *
+     * @return $this
+     */
+    public function isManagerOf(OrganizationInterface $org);
+
+    /**
+     * @param OrganizationInterface $org
+     *
+     * @return $this
+     */
+    public function addManagerOf(OrganizationInterface $org);
+
+    /**
+     * @param OrganizationInterface $org
+     *
+     * @return $this
+     */
+    public function removeManagerOf(OrganizationInterface $org);
 }
 
 

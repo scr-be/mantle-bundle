@@ -22,6 +22,7 @@ use Scribe\Doctrine\Base\Model\HasTitle;
 use Scribe\Doctrine\Base\Model\InstantMessenger\HasInstantMessengerCollection;
 use Scribe\Doctrine\Base\Model\Phone\HasPhoneCollection;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
+use Scribe\MantleBundle\Component\Security\Core\OrganizationInterface;
 use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasOrg;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasRolesOwningSide;
@@ -380,21 +381,21 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param Organization $org
+     * @param OrganizationInterface $org
      *
      * @return $this
      */
-    public function isManagerOf(Organization $org)
+    public function isManagerOf(OrganizationInterface $org)
     {
         return (bool) (true === $this->managerOf->contains($org));
     }
 
     /**
-     * @param Organization $org
+     * @param OrganizationInterface $org
      *
      * @return $this
      */
-    public function addManagerOf(Organization $org)
+    public function addManagerOf(OrganizationInterface $org)
     {
         if (!$this->isManagerOf($org)) {
             $this->managerOf->add($org);
@@ -404,11 +405,11 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param Organization $org
+     * @param OrganizationInterface $org
      *
      * @return $this
      */
-    public function removeManagerOf(Organization $org)
+    public function removeManagerOf(OrganizationInterface $org)
     {
         if ($this->isManagerOf($org)) {
             $this->managerOf->removeElement($org);

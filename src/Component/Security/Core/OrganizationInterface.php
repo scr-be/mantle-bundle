@@ -167,39 +167,6 @@ interface OrganizationInterface extends AddressCollectionInterface, PhoneCollect
      * @return $this
      */
     public function removeManager(UserInterface $user);
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getManagerOfCollection();
-
-    /**
-     * @param ArrayCollection $orgs
-     *
-     * @return $this
-     */
-    public function setManagerOfCollection(ArrayCollection $orgs);
-
-    /**
-     * @param OrganizationInterface $org
-     *
-     * @return $this
-     */
-    public function isManagerOf(OrganizationInterface $org);
-
-    /**
-     * @param OrganizationInterface $org
-     *
-     * @return $this
-     */
-    public function addManagerOf(OrganizationInterface $org);
-
-    /**
-     * @param OrganizationInterface $org
-     *
-     * @return $this
-     */
-    public function removeManagerOf(OrganizationInterface $org);
 }
 
 
