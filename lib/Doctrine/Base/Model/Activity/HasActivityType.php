@@ -11,20 +11,18 @@
 
 namespace Scribe\Doctrine\Base\Model\Activity;
 
-use Scribe\Doctrine\Base\Model\HasCode;
-use Scribe\Doctrine\Base\Model\HasProperties;
-use Scribe\Doctrine\Base\Model\Type\HasType;
-use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
+use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class HasActivity.
  */
-trait HasActivity
+trait HasActivityType
 {
-    use HasCode,
-        HasType,
-        HasProperties,
-        TimestampableBehaviorTrait;
+    use HasSlug,
+        HasName,
+        HasDescription;
 }
 
 /* EOF */

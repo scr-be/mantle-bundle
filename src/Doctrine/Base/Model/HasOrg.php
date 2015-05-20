@@ -39,8 +39,58 @@ trait HasOrg
      * @param OrganizationInterface|null $org a organization entity object instance
      *
      * @return $this
+     *
+     * @deprecated
      */
     public function setOrg(OrganizationInterface $org = null)
+    {
+        return $this->setOrganization($org);
+    }
+
+    /**
+     * Getter for organization property.
+     *
+     * @return OrganizationInterface|null
+     *
+     * @deprecated
+     */
+    public function getOrg()
+    {
+        return $this->getOrganization();
+    }
+
+    /**
+     * Checker for organization property.
+     *
+     * @return bool
+     *
+     * @deprecated
+     */
+    public function hasOrg()
+    {
+        return $this->hasOrganization();
+    }
+
+    /**
+     * Nullify the organization property.
+     *
+     * @return $this
+     *
+     * @deprecated
+     */
+    public function clearOrg()
+    {
+        return $this->clearOrganization();
+    }
+
+    /**
+     * Setter for organization property.
+     *
+     * @param OrganizationInterface|null $org a organization entity object instance
+     *
+     * @return $this
+     */
+    public function setOrganization(OrganizationInterface $org = null)
     {
         $this->org = $org;
 
@@ -52,7 +102,7 @@ trait HasOrg
      *
      * @return OrganizationInterface|null
      */
-    public function getOrg()
+    public function getOrganization()
     {
         return $this->org;
     }
@@ -64,7 +114,7 @@ trait HasOrg
      */
     public function hasOrganization()
     {
-        return (bool) $this->org instanceof OrganizationInterface;
+        return (bool) ($this->org instanceof OrganizationInterface);
     }
 
     /**

@@ -54,6 +54,52 @@ trait HasPerson
 
         return preg_replace('#\s+#', ' ', trim($shortName));
     }
+
+    /**
+     * Setter for honorific property.
+     *
+     * @param string|null $honorific the honorific string
+     *
+     * @return $this
+     */
+    public function setHonorific($honorific = null)
+    {
+        $this->honorific = $honorific;
+
+        return $this;
+    }
+
+    /**
+     * Getter for honorific property.
+     *
+     * @return string|null
+     */
+    public function getHonorific()
+    {
+        return $this->honorific;
+    }
+
+    /**
+     * Checker for honorific property.
+     *
+     * @return bool
+     */
+    public function hasHonorific()
+    {
+        return (bool) ($this->getHonorific() !== null);
+    }
+
+    /**
+     * Nullify the honorific property.
+     *
+     * @return $this
+     */
+    public function clearHonorific()
+    {
+        $this->setHonorific(null);
+
+        return $this;
+    }
 }
 
 /* EOF */

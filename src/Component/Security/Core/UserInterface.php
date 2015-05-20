@@ -186,6 +186,200 @@ interface UserInterface extends AddressCollectionInterface, PhoneCollectionInter
      * @return $this
      */
     public function removeManagerOf(OrganizationInterface $org);
+
+    /**
+     * Compiles full name string
+     *
+     * @return string
+     */
+    public function getFullName();
+
+    /**
+     * Compiles short name string
+     *
+     * @return string
+     */
+    public function getShortName();
+
+    /**
+     * Setter for honorific property.
+     *
+     * @param string|null $honorific the honorific string
+     *
+     * @return $this
+     */
+    public function setHonorific($honorific = null);
+
+    /**
+     * Getter for honorific property.
+     *
+     * @return string|null
+     */
+    public function getHonorific();
+
+    /**
+     * Checker for honorific property.
+     *
+     * @return bool
+     */
+    public function hasHonorific();
+
+    /**
+     * Nullify the honorific property.
+     *
+     * @return $this
+     */
+    public function clearHonorific();
+
+    /**
+     * Setter for firstName property.
+     *
+     * @param string|null $firstName the firstName string
+     *
+     * @return $this
+     */
+    public function setFirstName($firstName = null);
+
+    /**
+     * Getter for firstName property.
+     *
+     * @return string|null
+     */
+    public function getFirstName();
+
+    /**
+     * Checker for firstName property.
+     *
+     * @return bool
+     */
+    public function hasFirstName();
+
+    /**
+     * Nullify the firstName property.
+     *
+     * @return $this
+     */
+    public function clearFirstName();
+
+    /**
+     * Setter for middleName property.
+     *
+     * @param string|null $middleName the middleName string
+     *
+     * @return $this
+     */
+    public function setMiddleName($middleName = null);
+
+    /**
+     * Getter for middleName property.
+     *
+     * @return string|null
+     */
+    public function getMiddleName();
+
+    /**
+     * Checker for middleName property.
+     *
+     * @return bool
+     */
+    public function hasMiddleName();
+
+    /**
+     * Nullify the middleName property.
+     *
+     * @return $this
+     */
+    public function clearMiddleName();
+
+    /**
+     * Setter for surname property.
+     *
+     * @param string|null $surname the surname string
+     *
+     * @return $this
+     */
+    public function setSurname($surname = null);
+
+    /**
+     * Getter for surname property.
+     *
+     * @return string|null
+     */
+    public function getSurname();
+
+    /**
+     * Checker for surname property.
+     *
+     * @return bool
+     */
+    public function hasSurname();
+
+    /**
+     * Nullify the surname property.
+     *
+     * @return $this
+     */
+    public function clearSurname();
+
+    /**
+     * Setter for suffix property.
+     *
+     * @param string|null $suffix the suffix string
+     *
+     * @return $this
+     */
+    public function setSuffix($suffix = null);
+
+    /**
+     * Getter for suffix property.
+     *
+     * @return string|null
+     */
+    public function getSuffix();
+
+    /**
+     * Checker for suffix property.
+     *
+     * @return bool
+     */
+    public function hasSuffix();
+
+    /**
+     * Nullify the suffix property.
+     *
+     * @return $this
+     */
+    public function clearSuffix();
+
+    /**
+     * Setter for organization property.
+     *
+     * @param OrganizationInterface|null $org a organization entity object instance
+     *
+     * @return $this
+     */
+    public function setOrganization(OrganizationInterface $org = null);
+
+    /**
+     * Getter for organization property.
+     *
+     * @return OrganizationInterface|null
+     */
+    public function getOrganization();
+
+    /**
+     * Checker for organization property.
+     *
+     * @return bool
+     */
+    public function hasOrganization();
+
+    /**
+     * Nullify the organization property.
+     *
+     * @return $this
+     */
+    public function clearOrganization();
 }
 
 
