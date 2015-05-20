@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Component\Security\Core\OrgInterface;
+use Scribe\MantleBundle\Component\Security\Core\OrganizationInterface;
 
 /**
  * Class HasOrgsInverseSide.
@@ -20,7 +20,7 @@ use Scribe\MantleBundle\Component\Security\Core\OrgInterface;
 trait HasOrgsInverseSide
 {
     /**
-     * Org collection property.
+     * Organization collection property.
      *
      * @var ArrayCollection
      */
@@ -55,21 +55,21 @@ trait HasOrgsInverseSide
     }
 
     /**
-     * @param OrgInterface $org
+     * @param OrganizationInterface $org
      *
      * @return bool
      */
-    public function hasOrg(OrgInterface $org)
+    public function hasOrg(OrganizationInterface $org)
     {
         return (true === $this->orgs->contains($org) ?: false);
     }
 
     /**
-     * @param OrgInterface $org
+     * @param OrganizationInterface $org
      *
      * @return $this
      */
-    public function addOrg(OrgInterface $org)
+    public function addOrg(OrganizationInterface $org)
     {
         if (false === $this->hasOrg($org)) {
             $this->orgs->add($org);

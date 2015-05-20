@@ -10,6 +10,7 @@
  */
 
 namespace Scribe\Doctrine\Base\Model\InstantMessenger;
+
 use Scribe\Doctrine\Base\Model\Type\TypeInterface;
 use Scribe\Doctrine\Base\Model\Name\NameInterface;
 

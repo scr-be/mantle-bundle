@@ -39,7 +39,7 @@ interface RoleInterface extends SymfonyRoleInterface
     public function hasUser(UserInterface $user);
     public function getOrgs();
     public function hasOrgs();
-    public function hasOrg(OrgInterface $org);
+    public function hasOrg(OrganizationInterface $org);
 }
 
 

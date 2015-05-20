@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Component\Security\Core\OrgInterface;
+use Scribe\MantleBundle\Component\Security\Core\OrganizationInterface;
 
 /**
  * Class HasOrganization.
@@ -21,7 +21,7 @@ trait HasOrg
     /**
      * The entity organization property.
      *
-     * @var OrgInterface
+     * @var OrganizationInterface
      */
     protected $org;
 
@@ -36,11 +36,11 @@ trait HasOrg
     /**
      * Setter for organization property.
      *
-     * @param OrgInterface|null $org a organization entity object instance
+     * @param OrganizationInterface|null $org a organization entity object instance
      *
      * @return $this
      */
-    public function setOrg(OrgInterface $org = null)
+    public function setOrg(OrganizationInterface $org = null)
     {
         $this->org = $org;
 
@@ -50,7 +50,7 @@ trait HasOrg
     /**
      * Getter for organization property.
      *
-     * @return OrgInterface|null
+     * @return OrganizationInterface|null
      */
     public function getOrg()
     {
@@ -64,7 +64,7 @@ trait HasOrg
      */
     public function hasOrganization()
     {
-        return (bool) $this->org instanceof OrgInterface;
+        return (bool) $this->org instanceof OrganizationInterface;
     }
 
     /**

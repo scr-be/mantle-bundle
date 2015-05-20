@@ -74,19 +74,24 @@ class User extends AbstractEntity implements UserInterface
     protected $accountExpiration;
 
     /**
-     * @var bool
-     */
-    protected $accountLocked;
-
-    /**
      * @var ArrayCollection
      */
     protected $accountActivity;
 
     /**
+     * @var bool
+     */
+    protected $accountLocked;
+
+    /**
      * @var \Datetime|null
      */
     protected $passwordExpiration;
+
+    /**
+     * @var ArrayCollection
+     */
+    protected $managerOf;
 
     /**
      * Support for casting from object type to string type.
@@ -136,6 +141,11 @@ class User extends AbstractEntity implements UserInterface
     public function initializePasswordExpiration()
     {
         $this->passwordExpiration = null;
+    }
+
+    public function initializeManagerOf()
+    {
+        $this->managerOf = new ArrayCollection();
     }
 
     /**
@@ -348,6 +358,64 @@ class User extends AbstractEntity implements UserInterface
      * @return $this
      */
     public function eraseCredentials() {}
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getManagerOfCollection()
+    {
+        return $this->managerOf;
+    }
+
+    /**
+     * @param ArrayCollection $orgs
+     *
+     * @return $this
+     */
+    public function setManagerOfCollection(ArrayCollection $orgs)
+    {
+        $this->managerOf = $orgs;
+
+        return $this;
+    }
+
+    /**
+     * @param Organization $org
+     *
+     * @return $this
+     */
+    public function isManagerOf(Organization $org)
+    {
+        return (bool) (true === $this->managerOf->contains($org));
+    }
+
+    /**
+     * @param Organization $org
+     *
+     * @return $this
+     */
+    public function addManagerOf(Organization $org)
+    {
+        if (!$this->isManagerOf($org)) {
+            $this->managerOf->add($org);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Organization $org
+     *
+     * @return $this
+     */
+    public function removeManagerOf(Organization $org)
+    {
+        if ($this->isManagerOf($org)) {
+            $this->managerOf->removeElement($org);
+        }
+
+        return $this;
+    }
 }
 
 /* EOF */

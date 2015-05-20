@@ -19,7 +19,7 @@ use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 /**
  * Class AbstractActivity.
  */
-class AbstractActivity extends AbstractEntity implements ActivityInterface
+abstract class AbstractActivity extends AbstractEntity implements ActivityInterface
 {
     use HasType,
         HasDescription,

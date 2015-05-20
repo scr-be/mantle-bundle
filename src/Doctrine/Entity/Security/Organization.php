@@ -13,23 +13,31 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\Activity\HasActivityCollection;
+use Scribe\Doctrine\Base\Model\Address\HasAddressCollection;
 use Scribe\Doctrine\Base\Model\HasCode;
-use Scribe\Doctrine\Base\Model\HasDescription;
-use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
+use Scribe\Doctrine\Base\Model\HasProperties;
+use Scribe\Doctrine\Base\Model\Name\HasName;
+use Scribe\Doctrine\Base\Model\Phone\HasPhoneCollection;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
-use Scribe\MantleBundle\Component\Security\Core\OrgInterface;
+use Scribe\MantleBundle\Component\Security\Core\OrganizationInterface;
 use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasRolesOwningSide;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasUsersInverseSide;
 
 /**
- * Class Org.
+ * Class Organization.
  */
-class Org extends AbstractEntity implements OrgInterface
+class Organization extends AbstractEntity implements OrganizationInterface
 {
     use HasCode,
         HasName,
         HasDescription,
+        HasProperties,
+        HasAddressCollection,
+        HasPhoneCollection,
+        HasActivityCollection,
         HasUsersInverseSide,
         HasRolesOwningSide,
         TimestampableBehaviorTrait;
@@ -103,6 +111,16 @@ class Org extends AbstractEntity implements OrgInterface
     public function hasManager(UserInterface $user)
     {
         return (bool) ($this->managers->contains($user));
+    }
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return bool
+     */
+    public function isManager(UserInterface $user)
+    {
+        return $this->hasManager($user);
     }
 
     /**

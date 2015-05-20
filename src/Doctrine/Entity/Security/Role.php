@@ -12,8 +12,8 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasDescription;
-use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
+use Scribe\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Component\Security\Core\RoleInterface;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasChildrenInverseSide;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasOrgsInverseSide;

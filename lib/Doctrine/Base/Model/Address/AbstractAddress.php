@@ -18,7 +18,7 @@ use Scribe\Doctrine\Base\Model\Type\HasType;
 /**
  * Class AbstractAddress.
  */
-class AbstractAddress extends AbstractEntity implements AddressInterface
+abstract class AbstractAddress extends AbstractEntity implements AddressInterface
 {
     use HasName,
         HasType,
