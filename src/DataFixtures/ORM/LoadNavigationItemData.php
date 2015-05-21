@@ -16,6 +16,8 @@ use Scribe\MantleBundle\DataFixtures\Doctrine\AbstractDoctrineYamlFixture;
 /**
  * LoadNavigationItemData.
  */
-class LoadNavigationItemData extends AbstractDoctrineYamlFixture {}
+class LoadNavigationItemData extends AbstractDoctrineYamlFixture
+{
+}
 
 /* EOF */

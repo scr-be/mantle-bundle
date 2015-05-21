@@ -92,7 +92,7 @@ class BsButtonExtension extends AbstractTwigExtension
     {
         if ($route !== null) {
             $data_href = $this->router->generate($route, $routeArgs);
-            $url       = '#';
+            $url = '#';
         } else {
             $data_href = $url = '#';
         }
@@ -137,7 +137,7 @@ class BsButtonExtension extends AbstractTwigExtension
     {
         if ($route !== null) {
             $data_href = $this->router->generate($route, $routeArgs);
-            $url       = '#';
+            $url = '#';
         } else {
             $data_href = $url = '#';
         }
@@ -318,7 +318,7 @@ class BsButtonExtension extends AbstractTwigExtension
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
                 'btnClasses' => $btnClasses,
-                'direction' => $direction
+                'direction' => $direction,
             ]
         );
     }
@@ -351,7 +351,7 @@ class BsButtonExtension extends AbstractTwigExtension
                 'url' => $url,
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses
+                'btnClasses' => $btnClasses,
             ]
         );
     }

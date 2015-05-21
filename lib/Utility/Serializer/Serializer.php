@@ -16,7 +16,8 @@ use Scribe\Utility\StaticClass\StaticClassTrait;
 /**
  * Class Serializer.
  */
-class Serializer extends AbstractSerializer {
+class Serializer extends AbstractSerializer
+{
     /*
      * Trait to disallow class instantiation
      */

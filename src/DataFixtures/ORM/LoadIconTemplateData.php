@@ -16,6 +16,8 @@ use Scribe\MantleBundle\DataFixtures\Doctrine\AbstractDoctrineYamlFixture;
 /**
  * LoadIconTemplateData.
  */
-class LoadIconTemplateData extends AbstractDoctrineYamlFixture {}
+class LoadIconTemplateData extends AbstractDoctrineYamlFixture
+{
+}
 
 /* EOF */

@@ -64,7 +64,7 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     {
         parent::__construct();
 
-        $this->revisions              = new ArrayCollection();
+        $this->revisions = new ArrayCollection();
         $this->containerNodeRevisions = new ArrayCollection();
     }
 

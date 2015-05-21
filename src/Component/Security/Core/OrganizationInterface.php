@@ -169,5 +169,4 @@ interface OrganizationInterface extends AddressCollectionInterface, PhoneCollect
     public function removeManager(UserInterface $user);
 }
 
-
 /* EOF */

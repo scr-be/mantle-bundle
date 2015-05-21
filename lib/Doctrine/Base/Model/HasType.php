@@ -11,8 +11,6 @@
 
 namespace Scribe\Doctrine\Base\Model;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-
 /**
  * Class HasType.
  *

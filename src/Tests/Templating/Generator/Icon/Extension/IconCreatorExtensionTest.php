@@ -51,7 +51,7 @@ class IconCreatorExtensionTest extends AbstractMantleKernelTestCase
 
         $this->mockIconEntities();
         $this->getNewHandlerChainWithAllHandlerTypes();
-        $this->ext       = new IconCreatorExtension($this->getNewIconCreatorNoEngine());
+        $this->ext = new IconCreatorExtension($this->getNewIconCreatorNoEngine());
         $this->extCached = new IconCreatorExtension($this->getNewIconCreatorNoEngine(true));
     }
 

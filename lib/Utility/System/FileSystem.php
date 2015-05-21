@@ -144,7 +144,7 @@ class FileSystem
         return [
             $pathParts,
             $pathIncrementalParts,
-            count($pathParts)
+            count($pathParts),
         ];
     }
 
@@ -169,7 +169,7 @@ class FileSystem
             self::UNIT_TYPE_MEGABYTE,
             self::UNIT_TYPE_GIGABYTE,
             self::UNIT_TYPE_TERABYTE,
-            self::UNIT_TYPE_PETABYTE
+            self::UNIT_TYPE_PETABYTE,
         ];
 
         // check for a valid provided and max unit type
@@ -183,7 +183,7 @@ class FileSystem
         }
 
         // use the unit-type array position (its key) to determine the starting step and max depth
-        $step  = array_search($providedUnitType, $units, false);
+        $step = array_search($providedUnitType, $units, false);
         $depth = array_search($maxUnitType, $units, false);
 
         // begin the conversion with the passed size
@@ -191,7 +191,6 @@ class FileSystem
 
         // continue while size is small than 1 of the next unit or we reach our max depth
         while ($size >= $unitBase && $step <= $depth) {
-
             if ($units[$step] === $maxUnitType) {
                 break;
             }
@@ -208,7 +207,7 @@ class FileSystem
             'type' => 'provided',
             'size' => $sizeToConvert,
             'unit' => $providedUnitType,
-            'base' => $unitBase
+            'base' => $unitBase,
         ];
 
         // compile an object of the new size info
@@ -216,13 +215,13 @@ class FileSystem
             'type' => 'converted',
             'size' => $size,
             'unit' => $units[$step],
-            'base' => $unitBase
+            'base' => $unitBase,
         ];
 
         // return an array with both original and new size info objects
         return [
             $convertedSizeInfo,
-            $originalSizeInfo
+            $originalSizeInfo,
         ];
     }
 }

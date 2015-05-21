@@ -48,7 +48,7 @@ trait EntityCastableTrait
     {
         return (array) array_merge(
             ['properties' => get_class_vars($this)],
-            ['methods'    => get_class_methods($this)]
+            ['methods' => get_class_methods($this)]
         );
     }
 }

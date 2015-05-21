@@ -14,7 +14,7 @@ namespace Scribe\Doctrine\Base\Model;
 /**
  * Class HasUrls.
  */
-trait HasUrls
+trait HasUris
 {
     /**
      * The urls property.

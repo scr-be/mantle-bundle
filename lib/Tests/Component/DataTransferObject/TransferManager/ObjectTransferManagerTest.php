@@ -69,7 +69,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
             'created_on' => 'createdOn',
             'updated_on' => 'updatedOn',
             'ending-bad-property' => 'wont-be-transferred',
-            'another-invalid-property' => 'nothing'
+            'another-invalid-property' => 'nothing',
         ]);
 
         $transferManager = new ObjectTransferManager($def);
@@ -117,7 +117,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
             'weight' => 'node_weight',
             'created_on' => 'createdOn',
             'updated_on' => 'updatedOn',
-            'ending-bad-property' => 'wont-be-transferred'
+            'ending-bad-property' => 'wont-be-transferred',
         ]);
 
         $transferManager = new ObjectTransferManager($def);
@@ -149,7 +149,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
             'weight' => 'node_weight',
             'created_on' => 'createdOn',
             'updated_on' => 'updatedOn',
-            'ending-bad-property' => 'wont-be-transferred'
+            'ending-bad-property' => 'wont-be-transferred',
         ]);
 
         $this->setExpectedException(

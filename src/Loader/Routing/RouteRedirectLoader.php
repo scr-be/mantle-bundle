@@ -26,7 +26,7 @@ class RouteRedirectLoader extends Loader
      * @var array
      */
     private static $routeDefaultDefaults = [
-        '_controller' => 's.mantle.route_redirect.controller:handleAction'
+        '_controller' => 's.mantle.route_redirect.controller:handleAction',
     ];
 
     /**
@@ -113,7 +113,7 @@ class RouteRedirectLoader extends Loader
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     private function isLoaded()
     {
@@ -121,7 +121,7 @@ class RouteRedirectLoader extends Loader
     }
 
     /**
-     * @param boolean $loaded
+     * @param bool $loaded
      */
     private function setLoaded($loaded)
     {
@@ -137,7 +137,7 @@ class RouteRedirectLoader extends Loader
     {
         return (string) sprintf(
             '__ScribeMantleBundle_RouteRedirectLoader_%\'.04d_%s',
-            (int)    $this->getRouteCollection()->count(),
+            (int) $this->getRouteCollection()->count(),
             (string) StringFilter::alphanumericOnly($name)
         );
     }
@@ -154,7 +154,7 @@ class RouteRedirectLoader extends Loader
             ->findAll()
         ;
 
-        if (false === is_array($customRoutes) ||0 === count($customRoutes)) {
+        if (false === is_array($customRoutes) || 0 === count($customRoutes)) {
             return [];
         }
 

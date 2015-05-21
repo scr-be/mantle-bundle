@@ -292,9 +292,9 @@ EOT;
 
     protected function mockIconEntities()
     {
-        $iconFamily    = $this->mockIconFamily();
-        $iconGlass     = $this->mockIcon_Glass();
-        $iconPhoto     = $this->mockIcon_Photo();
+        $iconFamily = $this->mockIconFamily();
+        $iconGlass = $this->mockIcon_Glass();
+        $iconPhoto = $this->mockIcon_Photo();
         $iconTemplate1 = $this->mockIconTemplate1();
         $iconTemplate2 = $this->mockIconTemplate2();
 
@@ -323,9 +323,9 @@ EOT;
             ->willReturn(new ArrayCollection([$iconFamily]))
         ;
 
-        $this->iconFamilyRepo               = $this->mockIconFamilyRepo($iconFamily);
+        $this->iconFamilyRepo = $this->mockIconFamilyRepo($iconFamily);
         $this->iconFamilyRepoNoFamilyResult = $this->mockIconFamilyRepoNoFamilyResult($iconFamily);
-        $this->engine                       = $this->mockEngineInterface();
+        $this->engine = $this->mockEngineInterface();
     }
 }
 

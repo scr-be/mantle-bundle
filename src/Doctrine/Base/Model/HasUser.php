@@ -11,73 +11,14 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Component\Security\Core\UserInterface;
-
 /**
  * Class HasUser.
+ *
+ * @deprecated {@see \Scribe\Doctrine\Base\Model\User\HasUser}
  */
 trait HasUser
 {
-    /**
-     * The entity user property.
-     *
-     * @var UserInterface
-     */
-    protected $user;
-
-    /**
-     * Init user.
-     */
-    public function initializeUser()
-    {
-        $this->user = null;
-    }
-
-    /**
-     * Setter for user property.
-     *
-     * @param UserInterface|null $user a user entity object instance
-     *
-     * @return $this
-     */
-    public function setUser(UserInterface $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Getter for user property.
-     *
-     * @return UserInterface|null
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Checker for user property.
-     *
-     * @return bool
-     */
-    public function hasUser()
-    {
-        return (bool) ($this->user instanceof UserInterface);
-    }
-
-    /**
-     * Nullify the user property.
-     *
-     * @return $this
-     */
-    public function clearUser()
-    {
-        $this->user = null;
-
-        return $this;
-    }
+    use \Scribe\Doctrine\Base\Model\User\HasUser;
 }
 
 /* EOF */

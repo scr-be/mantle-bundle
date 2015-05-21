@@ -93,7 +93,7 @@ interface CompilerPassChainInterface
 
     /**
      * Sets the handlers using the passed array. The array key is used as the priority and the array value must
-     * be an instance of a handler
+     * be an instance of a handler.
      *
      * @param array $handlerCollection
      *

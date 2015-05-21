@@ -188,14 +188,14 @@ interface UserInterface extends AddressCollectionInterface, PhoneCollectionInter
     public function removeManagerOf(OrganizationInterface $org);
 
     /**
-     * Compiles full name string
+     * Compiles full name string.
      *
      * @return string
      */
     public function getFullName();
 
     /**
-     * Compiles short name string
+     * Compiles short name string.
      *
      * @return string
      */
@@ -381,6 +381,5 @@ interface UserInterface extends AddressCollectionInterface, PhoneCollectionInter
      */
     public function clearOrganization();
 }
-
 
 /* EOF */

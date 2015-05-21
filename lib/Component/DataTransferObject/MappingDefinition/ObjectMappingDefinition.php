@@ -11,7 +11,6 @@
 
 namespace Scribe\Component\DataTransferObject\MappingDefinition;
 
-use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 
 /**
@@ -122,7 +121,7 @@ class ObjectMappingDefinition implements ObjectMappingDefinitionInterface
     public function setMappingTo(...$propertyCollection)
     {
         foreach ($this->mapping as &$toProperty) {
-            if (true === empty($propertyCollection))             {
+            if (true === empty($propertyCollection)) {
                 break;
             }
 
@@ -194,9 +193,9 @@ class ObjectMappingDefinition implements ObjectMappingDefinitionInterface
     protected function getPropertiesFiltered(array $propertyCollection)
     {
         if (false === $this->greedy) {
-            list($mappingFrom, ) = $this->getMappingSeparated($this->mapping);
+            list($mappingFrom) = $this->getMappingSeparated($this->mapping);
 
-            $propertyCollection = array_filter($propertyCollection, function($property) use ($mappingFrom) {
+            $propertyCollection = array_filter($propertyCollection, function ($property) use ($mappingFrom) {
                 return (bool) (in_array($property, $mappingFrom) ? true : false);
             });
         }
@@ -243,7 +242,7 @@ class ObjectMappingDefinition implements ObjectMappingDefinitionInterface
 
         return [
             $mappingFrom,
-            $mappingTo
+            $mappingTo,
         ];
     }
 }

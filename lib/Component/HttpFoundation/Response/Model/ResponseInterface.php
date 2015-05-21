@@ -35,7 +35,7 @@ interface ResponseInterface
     public function getFinalStatus(...$statuses);
 
     /**
-     * Last protocol passed wins
+     * Last protocol passed wins.
      *
      * @param float[] ...$protocols
      *

@@ -153,8 +153,6 @@ class NodeCreator implements NodeCreatorInterface, NodeRepositoryAwareInterface
      * @param \Exception $e
      *
      * @throws NodeORMException
-     *
-     * @return void
      */
     public function throwNotFoundEntityException($field, $criteria, \Exception $e = null)
     {

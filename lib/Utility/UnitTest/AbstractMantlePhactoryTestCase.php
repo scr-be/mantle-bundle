@@ -112,7 +112,7 @@ abstract class AbstractMantlePhactoryTestCase extends AbstractMantleEntityTestCa
     private function setupFixtureData()
     {
         $yamlPath = $this->getFixtureLocation();
-        $yaml     = new Parser();
+        $yaml = new Parser();
 
         try {
             $this->config = $yaml->parse(file_get_contents($yamlPath));

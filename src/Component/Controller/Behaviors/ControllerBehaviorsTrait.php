@@ -84,7 +84,6 @@ trait ControllerBehaviorsTrait
         $services = [];
 
         foreach ($id as $serviceId) {
-
             if (false === is_array($serviceId)) {
                 $services[(string) $serviceId] = $this->getService($serviceId);
                 continue;
@@ -143,7 +142,6 @@ trait ControllerBehaviorsTrait
         $parameters = [];
 
         foreach ($id as $parameterId) {
-
             if (false === is_array($parameterId)) {
                 $parameters[(string) $parameterId] = $this->getParameter($parameterId);
                 continue;
@@ -324,7 +322,6 @@ trait ControllerBehaviorsTrait
             if ($flush === true) {
                 $this->emFlush();
             }
-
         } catch (\Exception $e) {
             $this->emTransactionRollback();
 
@@ -347,7 +344,7 @@ trait ControllerBehaviorsTrait
      */
     public function entityCollectionFilter(ArrayCollection $collection)
     {
-        return $collection->filter(function($entity) {
+        return $collection->filter(function ($entity) {
             return (bool) ($entity instanceof AbstractEntity);
         });
     }
@@ -547,7 +544,7 @@ trait ControllerBehaviorsTrait
         $response = $this->getService('s.mantle.response.type_html');
 
         if (0 !== count($headers)) {
-            foreach($headers as $name => $value) {
+            foreach ($headers as $name => $value) {
                 $response->addHeader([$name => $value]);
             }
         }
@@ -569,7 +566,7 @@ trait ControllerBehaviorsTrait
 
     /**
      * Returns an HTML response using the provided parameters to construct the Response object instance.
-     * {@see self::getResponse()}
+     * {@see self::getResponse()}.
      *
      * @param string        $content The content for the response.
      * @param array         $headers Any headers to send with the request.
@@ -660,15 +657,15 @@ trait ControllerBehaviorsTrait
     /**
      * @param               $name
      * @param array         $arguments
-     * @param array         $headers Any headers to send with the request.
-     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
-     *                               its index representing the HTTP response code and the value representing the
-     *                               response status text description.
-     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
-     *                               after the Request object has been instantiated and configured using the previous
-     *                               parameters specified. The callable must return a response object (with no
-     *                               requirement it is the same response object passed to it). If it does not return
-     *                               a Response an error will be raised.
+     * @param array         $headers   Any headers to send with the request.
+     * @param array|int     $status    Either an integer specifying the HTTP response code or a single array element with
+     *                                 its index representing the HTTP response code and the value representing the
+     *                                 response status text description.
+     * @param callable|null $config    A callable that should expect a single parameter of type Request, which is passed
+     *                                 after the Request object has been instantiated and configured using the previous
+     *                                 parameters specified. The callable must return a response object (with no
+     *                                 requirement it is the same response object passed to it). If it does not return
+     *                                 a Response an error will be raised.
      *
      * @return mixed
      */
@@ -895,8 +892,8 @@ trait ControllerBehaviorsTrait
     /**
      * Add a session message of the specified type.
      *
-     * @param string  $type
-     * @param string  $message
+     * @param string $type
+     * @param string $message
      * @param mixed[] ...$sprintfArgs
      *
      * @return $this
@@ -980,7 +977,7 @@ trait ControllerBehaviorsTrait
     /**
      * Resolves the string value based on a provided key.
      *
-     * @param string $key          A translation key.
+     * @param string $key A translation key.
      * @param mixed  ...$parameter Parameters for the translation.
      *
      * @return string
@@ -1137,9 +1134,9 @@ trait ControllerBehaviorsTrait
     }
 
     /**
-     * Renders a node
+     * Renders a node.
      *
-     * @param Node  $node
+     * @param Node $node
      * @param mixed ...$arguments
      *
      * @return string
@@ -1235,10 +1232,10 @@ trait ControllerBehaviorsTrait
     /**
      * Get a form via it's service type definition and/or its form definition object.
      *
-     * @param string|object $type     The form type definition or a key to a form type service definition.
-     * @param string|null   $name     An optional name for the form (when multiple forms exist on a page)
-     * @param mixed|null    $data     Data for the form.
-     * @param array         $options  Options to be passed to the form.
+     * @param string|object $type    The form type definition or a key to a form type service definition.
+     * @param string|null   $name    An optional name for the form (when multiple forms exist on a page)
+     * @param mixed|null    $data    Data for the form.
+     * @param array         $options Options to be passed to the form.
      *
      * @return Form
      * @return Form
@@ -1250,7 +1247,6 @@ trait ControllerBehaviorsTrait
             $this->form()->createNamed($name, $type, $data, $options)
         ;
     }
-
 
     /**
      * Generate a url from a routename and route args.

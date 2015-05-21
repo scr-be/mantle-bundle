@@ -50,7 +50,7 @@ class ClassInfoTest extends AbstractMantleTestCase
             [
                 'Scribe',
                 'Tests',
-                'Utility'
+                'Utility',
             ],
             ClassInfo::getNamespaceSet(__CLASS__)
         );
@@ -64,7 +64,7 @@ class ClassInfoTest extends AbstractMantleTestCase
             [
                 'Scribe',
                 'Tests',
-                'Utility'
+                'Utility',
             ],
             ClassInfo::getNamespaceSetByInstance($this)
         );

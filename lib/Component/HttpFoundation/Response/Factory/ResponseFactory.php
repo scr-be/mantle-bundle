@@ -22,7 +22,7 @@ class ResponseFactory
     /**
      * @var Response
      */
-    static public $response;
+    public static $response;
 
     /**
      * @param string      $fqcn
@@ -95,7 +95,7 @@ class ResponseFactory
             list($name, $value) = explode(':', $h, 2);
 
             self::$response->headers->add([
-                $name => $value
+                $name => $value,
             ]);
         }
     }

@@ -118,7 +118,7 @@ abstract class AbstractContainer implements \ArrayAccess
             return $this->items[(string) $key];
         }
 
-        return null;
+        return;
     }
 
     /**

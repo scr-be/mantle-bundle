@@ -403,15 +403,15 @@ interface ControllerBehaviorsInterface
     /**
      * @param               $name
      * @param array         $arguments
-     * @param array         $headers Any headers to send with the request.
-     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
-     *                               its index representing the HTTP response code and the value representing the
-     *                               response status text description.
-     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
-     *                               after the Request object has been instantiated and configured using the previous
-     *                               parameters specified. The callable must return a response object (with no
-     *                               requirement it is the same response object passed to it). If it does not return
-     *                               a Response an error will be raised.
+     * @param array         $headers   Any headers to send with the request.
+     * @param array|int     $status    Either an integer specifying the HTTP response code or a single array element with
+     *                                 its index representing the HTTP response code and the value representing the
+     *                                 response status text description.
+     * @param callable|null $config    A callable that should expect a single parameter of type Request, which is passed
+     *                                 after the Request object has been instantiated and configured using the previous
+     *                                 parameters specified. The callable must return a response object (with no
+     *                                 requirement it is the same response object passed to it). If it does not return
+     *                                 a Response an error will be raised.
      *
      * @return mixed
      */
@@ -679,9 +679,9 @@ interface ControllerBehaviorsInterface
     public function getNodeRendered($search, ...$arguments);
 
     /**
-     * Renders a node
+     * Renders a node.
      *
-     * @param Node  $node
+     * @param Node $node
      * @param mixed ...$arguments
      *
      * @return string

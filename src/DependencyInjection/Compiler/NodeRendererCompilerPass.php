@@ -17,7 +17,7 @@ namespace Scribe\MantleBundle\DependencyInjection\Compiler;
 class NodeRendererCompilerPass extends AbstractCompilerPass
 {
     /**
-     * Return the name of the service that handles registering the handlers (the chain manager)
+     * Return the name of the service that handles registering the handlers (the chain manager).
      *
      * @return string
      */
@@ -27,7 +27,7 @@ class NodeRendererCompilerPass extends AbstractCompilerPass
     }
 
     /**
-     * Return the name of the service tag to attach to the chain manager (the handlers)
+     * Return the name of the service tag to attach to the chain manager (the handlers).
      *
      * @return string
      */

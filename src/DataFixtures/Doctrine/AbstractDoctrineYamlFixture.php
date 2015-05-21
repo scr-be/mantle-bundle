@@ -105,10 +105,10 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      * @var array
      */
     protected static $fixtureDirPaths = [
-        'public'            => '/../../../app/config/shared_public/fixtures/',
-        'proprietary'       => '/../../../app/config/shared_proprietary/fixtures/',
-        'vendorPublic'      => '/config/shared_public/fixtures/',
-        'vendorProprietary' => '/config/shared_proprietary/fixtures/'
+        'public' => '/../../../app/config/shared_public/fixtures/',
+        'proprietary' => '/../../../app/config/shared_proprietary/fixtures/',
+        'vendorPublic' => '/config/shared_public/fixtures/',
+        'vendorProprietary' => '/config/shared_proprietary/fixtures/',
     ];
 
     /**
@@ -133,7 +133,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
 
     protected function getFixtureNameFromClassName()
     {
-        $class  = ClassInfo::getClassNameByInstance($this);
+        $class = ClassInfo::getClassNameByInstance($this);
         $return = preg_match('#^Load(.*?)Data$#', $class, $matches);
 
         if (false === $return || 0 === $return || false === isset($matches[1])) {
@@ -200,7 +200,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     {
         foreach ($f as $name => $value) {
             $setter = 'set'.ucfirst($name);
-            $data   = $this->getFixtureDataValue($name, $f);
+            $data = $this->getFixtureDataValue($name, $f);
             try {
                 $entity->$setter($data);
             } catch (ContextErrorException $e) {
@@ -348,7 +348,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     protected function getNewFixtureEntity()
     {
         $entityName = null;
-        $entity     = null;
+        $entity = null;
 
         if (array_key_exists('entity', $this->orm)) {
             $entityName = $this->container->getParameter($this->orm['entity']);
@@ -371,14 +371,15 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         $kernelRoot = $this->container->get('kernel')->getRootDir();
         $fixtureBasePath = $fixtureYamlPath = null;
 
-
         foreach (static::$fixtureDirPaths as $fixtureName => $fixtureDirPath) {
             $fixtureDirPath = $kernelRoot.DIRECTORY_SEPARATOR.$fixtureDirPath;
 
             if (true === file_exists($fixtureDirPath)) {
                 $fixtureBasePath = $fixtureDirPath;
                 $fixtureYamlPath = $fixtureDirPath.DIRECTORY_SEPARATOR.$this->buildYamlFileName($name);
-                if(file_exists($fixtureYamlPath)) { break; }
+                if (file_exists($fixtureYamlPath)) {
+                    break;
+                }
             }
         }
 
@@ -400,8 +401,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     {
         if (null === $basePath || null === $yamlPath ||
             false === ($basePath = realpath($basePath)) ||
-            false === ($yamlPath = realpath($yamlPath)))
-        {
+            false === ($yamlPath = realpath($yamlPath))) {
             throw new RuntimeException(sprintf(
                 'Could not find YAML fixture for %s in known paths: [%s].',
                 (string) $name,
@@ -411,7 +411,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
 
         return [
             $basePath,
-            $yamlPath
+            $yamlPath,
         ];
     }
 
@@ -456,12 +456,12 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
             throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'dependencies', $fixtureYamlPath));
         }
 
-        $this->fixture      = $fixtureRoot;
-        $this->orm          = $fixtureRoot['orm'];
-        $this->data         = $fixtureRoot['data'];
-        $this->priority     = (array_key_exists('priority', $this->orm) ? $this->orm['priority'] : 0);
-        $this->cannibal     = (bool) (array_key_exists('cannibal', $this->orm) ? $this->orm['cannibal'] : false);
-        $this->mode         = (int) $this->determineMode();
+        $this->fixture = $fixtureRoot;
+        $this->orm = $fixtureRoot['orm'];
+        $this->data = $fixtureRoot['data'];
+        $this->priority = (array_key_exists('priority', $this->orm) ? $this->orm['priority'] : 0);
+        $this->cannibal = (bool) (array_key_exists('cannibal', $this->orm) ? $this->orm['cannibal'] : false);
+        $this->mode = (int) $this->determineMode();
         $this->dependencies = $fixtureRoot['dependencies'];
 
         return $this;

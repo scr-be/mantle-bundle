@@ -22,14 +22,14 @@ use Symfony\Component\DependencyInjection\Reference;
 abstract class AbstractCompilerPass implements CompilerPassInterface
 {
     /**
-     * Return the name of the service that handles registering the handlers (the chain manager)
+     * Return the name of the service that handles registering the handlers (the chain manager).
      *
      * @return string
      */
     abstract protected function getChainServiceName();
 
     /**
-     * Return the name of the service tag to attach to the chain manager (the handlers)
+     * Return the name of the service tag to attach to the chain manager (the handlers).
      *
      * @return string
      */
@@ -69,7 +69,7 @@ abstract class AbstractCompilerPass implements CompilerPassInterface
     protected function registerTaggedService(Definition $chainDefinition, $serviceId, array $serviceAttributes = [])
     {
         $parameters = [
-            new Reference($serviceId)
+            new Reference($serviceId),
         ];
 
         foreach ($serviceAttributes as $attributeSet) {

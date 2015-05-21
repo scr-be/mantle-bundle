@@ -234,7 +234,7 @@ class User extends AbstractEntity implements UserInterface
      */
     public function isAccountExpired()
     {
-        return (bool) ($this->accountExpiration instanceof \Datetime && (new \Datetime)->format('u') - $this->accountExpiration->format('u') > 0);
+        return (bool) ($this->accountExpiration instanceof \Datetime && (new \Datetime())->format('u') - $this->accountExpiration->format('u') > 0);
     }
 
     /**
@@ -344,7 +344,7 @@ class User extends AbstractEntity implements UserInterface
      */
     public function isCredentialsExpired()
     {
-        return (bool) ($this->passwordExpiration instanceof \Datetime && (new \Datetime)->format('u') - $this->passwordExpiration->format('u') > 0);
+        return (bool) ($this->passwordExpiration instanceof \Datetime && (new \Datetime())->format('u') - $this->passwordExpiration->format('u') > 0);
     }
 
     /**
@@ -358,7 +358,9 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @return $this
      */
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+    }
 
     /**
      * @return ArrayCollection

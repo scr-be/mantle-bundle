@@ -41,8 +41,8 @@ class AjaxResponse
     {
         $jsonData = [
             'status-http' => $httpStatusCode,
-            'message'     => $message,
-            'msg'         => $message,
+            'message' => $message,
+            'msg' => $message,
         ];
 
         if ($statusTextCode === 200) {

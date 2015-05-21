@@ -47,7 +47,7 @@ trait ContainerAwareTrait
     }
 
     /**
-     * Get a parameter from the container
+     * Get a parameter from the container.
      *
      * @param string $parameter
      *
@@ -77,7 +77,7 @@ trait ContainerAwareTrait
     }
 
     /**
-     * Get a service from the container
+     * Get a service from the container.
      *
      * @param string $service
      *

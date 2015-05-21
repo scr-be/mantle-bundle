@@ -14,7 +14,7 @@ namespace Scribe\MantleBundle\Controller;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 
 /**
- * Class MaintenanceController
+ * Class MaintenanceController.
  *
  * Handles display of a system offline page when maintenance mode if activated.
  */

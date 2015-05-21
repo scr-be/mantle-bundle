@@ -58,10 +58,10 @@ class Plode implements PlodeInterface
             );
         }
 
-        $plodeType         = strtolower(substr($methodName, 0, 2));
-        $plodeOn           = strtolower(substr($methodName, 2, 2));
-        $plodeSeparator    = strtolower(substr($methodName, 4));
-        $plodeValue        = $arguments[0];
+        $plodeType = strtolower(substr($methodName, 0, 2));
+        $plodeOn = strtolower(substr($methodName, 2, 2));
+        $plodeSeparator = strtolower(substr($methodName, 4));
+        $plodeValue = $arguments[0];
         $constantSeparator = __CLASS__.'::SEPARATOR_'.strtoupper($plodeSeparator);
 
         if ('im' !== $plodeType && 'ex' !== $plodeType) {

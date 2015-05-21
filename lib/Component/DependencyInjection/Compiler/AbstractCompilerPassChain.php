@@ -30,10 +30,10 @@ abstract class AbstractCompilerPassChain implements CompilerPassChainInterface
      */
     public function __construct(...$parameters)
     {
-        $this->handlers     = [];
-        $this->filterMode   = CompilerPassChainInterface::FILTER_MODE_FIRST;
+        $this->handlers = [];
+        $this->filterMode = CompilerPassChainInterface::FILTER_MODE_FIRST;
         $this->restrictions = [
-            CompilerPassChainInterface::RESTRICTION_INTERFACE_DEFAULT
+            CompilerPassChainInterface::RESTRICTION_INTERFACE_DEFAULT,
         ];
 
         $this->assignPropertyCollectionToSelf(...$parameters);

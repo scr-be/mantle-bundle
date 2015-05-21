@@ -40,14 +40,14 @@ class NavigationSet extends AbstractEntity
     }
 
     /**
-     * Fallback for auto slug creation if one is not explicitly set
+     * Fallback for auto slug creation if one is not explicitly set.
      *
      * @return array
      */
     public function getAutoSlugFields()
     {
         return [
-            'name'
+            'name',
         ];
     }
 

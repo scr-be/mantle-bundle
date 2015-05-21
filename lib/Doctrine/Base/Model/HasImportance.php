@@ -38,11 +38,11 @@ trait HasImportance
     {
         return [
            -10 => 'DEPRECATION',
-            0  => 'ANNOUNCEMENT',
+            0 => 'ANNOUNCEMENT',
             10 => 'NOTICE',
             20 => 'WARNING',
             30 => 'IMPORTANT',
-            40 => 'CRITICAL'
+            40 => 'CRITICAL',
         ];
     }
 
@@ -57,7 +57,7 @@ trait HasImportance
             return $this->getImportanceLevels()[(int) $integer];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -71,7 +71,7 @@ trait HasImportance
             return (int) $key;
         }
 
-        return null;
+        return;
     }
 
     /**

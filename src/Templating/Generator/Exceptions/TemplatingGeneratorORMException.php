@@ -17,6 +17,8 @@ use Scribe\MantleBundle\Templating\Generator\Exceptions\Model\TemplatingGenerato
 /**
  * Class TemplatingGeneratorORMException.
  */
-class TemplatingGeneratorORMException extends ORMException implements TemplatingGeneratorExtensionInterface {}
+class TemplatingGeneratorORMException extends ORMException implements TemplatingGeneratorExtensionInterface
+{
+}
 
 /* EOF */

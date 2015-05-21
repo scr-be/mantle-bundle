@@ -27,8 +27,8 @@ class NodeRendererRegistrar extends AbstractCompilerPassChain
             [
                 'restrictions' => [
                     'Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface',
-                    'Scribe\MantleBundle\Templating\Generator\Node\Rendering\AbstractNodeRenderer'
-                ]
+                    'Scribe\MantleBundle\Templating\Generator\Node\Rendering\AbstractNodeRenderer',
+                ],
             ]
         );
     }

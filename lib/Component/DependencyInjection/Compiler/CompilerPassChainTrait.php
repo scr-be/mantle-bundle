@@ -49,7 +49,7 @@ trait CompilerPassChainTrait
 
     /**
      * Sets the handlers using the passed array. The array key is used as the priority and the array value must
-     * be an instance of a handler
+     * be an instance of a handler.
      *
      * @param array $handlerCollection
      *
@@ -151,7 +151,7 @@ trait CompilerPassChainTrait
      */
     public function getHandler(...$by)
     {
-        $filteredCollection = $this->getHandlerCollectionFiltered(function(CompilerPassHandlerInterface $handler) use ($by) {
+        $filteredCollection = $this->getHandlerCollectionFiltered(function (CompilerPassHandlerInterface $handler) use ($by) {
             return (bool) $handler->isSupported(...$by);
         });
 
@@ -180,7 +180,7 @@ trait CompilerPassChainTrait
      */
     public function hasHandlerType($search)
     {
-        $handlerCollection = array_filter($this->handlers, function(CompilerPassHandlerInterface $handler) use ($search) {
+        $handlerCollection = array_filter($this->handlers, function (CompilerPassHandlerInterface $handler) use ($search) {
             return (bool) ($handler->getType() === (string) $search ?: false);
         });
 

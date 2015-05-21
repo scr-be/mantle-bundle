@@ -12,7 +12,6 @@
 namespace Scribe\Utility\Serializer;
 
 use Scribe\Utility\Caller\Call;
-use Scribe\Utility\Extension;
 
 /**
  * Class AbstractSerializer.
@@ -22,12 +21,12 @@ abstract class AbstractSerializer implements SerializerInterface
     /**
      * @var string|array|\Closure
      */
-    static protected $serializerCallable = self::SERIALIZE_METHOD_DEFAULT;
+    protected static $serializerCallable = self::SERIALIZE_METHOD_DEFAULT;
 
     /**
      * @var string|array|\Closure
      */
-    static protected $unSerializerCallable = self::UNSERIALIZE_METHOD_DEFAULT;
+    protected static $unSerializerCallable = self::UNSERIALIZE_METHOD_DEFAULT;
 
     /**
      * Perform serialization.
@@ -60,7 +59,8 @@ abstract class AbstractSerializer implements SerializerInterface
      *
      * @return array|\Closure|null|string
      */
-    protected static function determineSerializer($default, $serializer = null) {
+    protected static function determineSerializer($default, $serializer = null)
+    {
         return ($serializer === null ? $default : $serializer);
     }
 

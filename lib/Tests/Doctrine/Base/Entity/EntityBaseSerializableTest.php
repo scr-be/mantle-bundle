@@ -10,6 +10,7 @@
  */
 
 namespace Scribe\Tests\Doctrine\Base\Entity;
+
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**

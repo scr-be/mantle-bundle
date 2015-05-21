@@ -37,12 +37,12 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
         $def = new ObjectMappingDefinition(false, [
             'doesnt-exist' => null,
             'parentNode' => 'parent_node',
-            'childNodes' => 'child_nodes'
+            'childNodes' => 'child_nodes',
         ]);
 
         $expected = [
             'parentNode' => 'parent_node',
-            'childNodes' => 'child_nodes'
+            'childNodes' => 'child_nodes',
         ];
 
         $this->assertEquals($expected, $def->getTransferable($this->from));
@@ -58,7 +58,7 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
 
         $expected = [
             'parentNode' => 'parent_node',
-            'childNodes' => 'child_nodes'
+            'childNodes' => 'child_nodes',
         ];
 
         $this->assertEquals($expected, $def->getTransferable($this->from));
@@ -74,7 +74,7 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
 
         $expected = [
             'parentNode' => 'parentNode',
-            'childNodes' => 'childNodes'
+            'childNodes' => 'childNodes',
         ];
 
         $this->assertEquals($expected, $def->getTransferable($this->from));
@@ -122,7 +122,7 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
             'materializedPath' => 'materializedPath',
             'slug' => 'slug',
             'created_on' => 'created_on',
-            'updated_on' => 'updated_on'
+            'updated_on' => 'updated_on',
         ];
 
         $this->assertEquals($expected, $def->getTransferable($this->from));

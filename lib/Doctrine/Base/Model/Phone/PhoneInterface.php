@@ -10,6 +10,7 @@
  */
 
 namespace Scribe\Doctrine\Base\Model\Phone;
+
 use Scribe\Doctrine\Base\Model\Type\TypeInterface;
 use Scribe\Doctrine\Base\Model\Name\NameInterface;
 
@@ -57,6 +58,5 @@ interface PhoneInterface extends TypeInterface, NameInterface
      */
     public function clearExtension();
 }
-
 
 /* EOF */

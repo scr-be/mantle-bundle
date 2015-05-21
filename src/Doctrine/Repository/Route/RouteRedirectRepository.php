@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class RouteRedirectRepository.
  */
-class RouteRedirectRepository extends EntityRepository {}
+class RouteRedirectRepository extends EntityRepository
+{
+}
 
 /* EOF */

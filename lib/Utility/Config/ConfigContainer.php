@@ -14,7 +14,6 @@ namespace Scribe\Utility\Config;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Scribe\Component\DependencyInjection\Container\ContainerAwareInterface;
 use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
-use Scribe\Exception\RuntimeException;
 
 /**
  * Class ConfigContainer.

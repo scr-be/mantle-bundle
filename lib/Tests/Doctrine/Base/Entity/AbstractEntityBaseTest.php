@@ -36,7 +36,7 @@ abstract class AbstractEntityBaseTest extends AbstractMantleTestCase
     {
         parent::setUp();
 
-        $this->baseEntity         = new BaseAbstractEntity();
+        $this->baseEntity = new BaseAbstractEntity();
         $this->reflectionAnalyser = new ClassReflectionAnalyser();
         $this->reflectionAnalyser->setReflectionClassFromClassInstance($this->baseEntity);
     }

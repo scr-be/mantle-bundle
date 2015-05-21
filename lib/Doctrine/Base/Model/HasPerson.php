@@ -23,7 +23,7 @@ trait HasPerson
         HasPersonSuffix;
 
     /**
-     * Compiles full name string
+     * Compiles full name string.
      *
      * @return string
      */
@@ -41,7 +41,7 @@ trait HasPerson
     }
 
     /**
-     * Compiles short name string
+     * Compiles short name string.
      *
      * @return string
      */

@@ -82,9 +82,9 @@ trait IconCreatorHelperTrait
 
     protected function getNewHandlerChainWithAllHandlerTypes($disabled = false)
     {
-        $this->keyGenerator        = $this->getNewKeyGenerator();
+        $this->keyGenerator = $this->getNewKeyGenerator();
         $this->cacheTypeFilesystem = $this->getNewCacheHandlerTypeFilesystem($this->keyGenerator);
-        $this->cacheChain          = $this->getNewCacheHandlerChain($disabled);
+        $this->cacheChain = $this->getNewCacheHandlerChain($disabled);
 
         $this->setHandlerTypesToCacheChain(
             $this->cacheChain,
@@ -163,7 +163,7 @@ trait IconCreatorHelperTrait
     protected function clearFilesystemCache()
     {
         $tempDirBase = sys_get_temp_dir();
-        $tempDir     = $tempDirBase.DIRECTORY_SEPARATOR.'scribe_cache';
+        $tempDir = $tempDirBase.DIRECTORY_SEPARATOR.'scribe_cache';
 
         if (false === is_dir($tempDir)) {
             return;

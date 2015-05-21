@@ -37,8 +37,8 @@ class HierarchicalNodeSubscriber extends AbstractSubscriber
 
             $classMetadata->mapField([
                 'fieldName' => $field,
-                'type'      => 'string',
-                'length'    => 510,
+                'type' => 'string',
+                'length' => 510,
             ]);
         }
     }

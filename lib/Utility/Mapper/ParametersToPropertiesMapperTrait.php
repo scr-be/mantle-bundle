@@ -11,11 +11,10 @@
 
 namespace Scribe\Utility\Mapper;
 
-use Scribe\Exception\RuntimeException;
 use Scribe\Utility\Arrays;
 
 /**
- * Trait MagicPropertyMapperAwareTrait
+ * Trait MagicPropertyMapperAwareTrait.
  *
  * Allows for quick mapping of any indexed or hashed array of values to properties within a class.
  */
@@ -73,7 +72,7 @@ trait ParametersToPropertiesMapperTrait
             return [];
         }
 
-        return (array) array_filter($assignmentCollection, function($propertyName) use ($objectPropertyCollection) {
+        return (array) array_filter($assignmentCollection, function ($propertyName) use ($objectPropertyCollection) {
             return (bool) array_key_exists($propertyName, $objectPropertyCollection);
         }, ARRAY_FILTER_USE_KEY);
     }
@@ -96,7 +95,7 @@ trait ParametersToPropertiesMapperTrait
     final private function normalizeCollectionParametersForSelf(array $parameterCollection, callable $assignmentCollectionFilter = null)
     {
         if (false === is_callable($assignmentCollectionFilter)) {
-            $assignmentCollectionFilter = function(array $assignmentCollection) {
+            $assignmentCollectionFilter = function (array $assignmentCollection) {
                 return $assignmentCollection;
             };
         }

@@ -29,16 +29,16 @@ trait EntityDebuggableTrait
      */
     public function __debugInfo()
     {
-        $self       = __CLASS__;
-        $parent     = get_parent_class($this);
+        $self = __CLASS__;
+        $parent = get_parent_class($this);
         $properties = get_object_vars($this);
-        $methods    = get_class_methods($self);
+        $methods = get_class_methods($self);
 
         return [
-            'self'       => $self,
-            'parent'     => $parent,
+            'self' => $self,
+            'parent' => $parent,
             'properties' => $properties,
-            'methods'    => $methods,
+            'methods' => $methods,
         ];
     }
 
@@ -49,7 +49,7 @@ trait EntityDebuggableTrait
      */
     public function __debugInfoToString()
     {
-        $debug  = $this->__debugInfo();
+        $debug = $this->__debugInfo();
 
         array_walk($debug['properties'], function (&$property, $index) {
             $stringProperty = $index.':'.gettype($property).':';

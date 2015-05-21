@@ -101,7 +101,7 @@ trait EntityLifecycleableTrait
      */
     final public function callOrmLifecycleEvent($lifecycleType, EventArgs $eventArgs = null)
     {
-        $lifecycleMethodSearch    = EntityLifecycleableInterface::ORM_LC_METHOD_PREFIX.$lifecycleType;
+        $lifecycleMethodSearch = EntityLifecycleableInterface::ORM_LC_METHOD_PREFIX.$lifecycleType;
         $lifecycleMethodSearchLen = strlen($lifecycleMethodSearch);
 
         $lifecycleMethods = array_filter(

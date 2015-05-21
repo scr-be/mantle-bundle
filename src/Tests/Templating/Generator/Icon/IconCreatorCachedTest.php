@@ -42,7 +42,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         ;
 
         $formatter = $this->getNewIconCreator(true);
-        $html      = $formatter->render('glass', 'fa');
+        $html = $formatter->render('glass', 'fa');
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
@@ -58,7 +58,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         ;
 
         $formatter = $this->getNewIconCreator(true);
-        $html      = $formatter->render('glass-half-empty', 'fa');
+        $html = $formatter->render('glass-half-empty', 'fa');
 
         $this->assertXmlStringEqualsXmlString($expected, $html);
     }
@@ -74,7 +74,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         ;
 
         $formatter = $this->getNewIconCreator(true);
-        $html      = $formatter->render('glass', 'fa');
+        $html = $formatter->render('glass', 'fa');
 
         $this->assertTrue($formatter->getCacheHandlerChain()->has());
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -92,7 +92,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         ;
 
         $formatter = $this->getNewIconCreator(true);
-        $html      = $formatter->render('glass-half-empty', 'fa');
+        $html = $formatter->render('glass-half-empty', 'fa');
 
         $this->assertTrue($formatter->getCacheHandlerChain()->has());
         $this->assertXmlStringEqualsXmlString($expected, $html);
@@ -123,7 +123,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
 
         $formatter = $this->getNewIconCreator(true);
 
-        $html  = $formatter->render('glass', 'fa');
+        $html = $formatter->render('glass', 'fa');
         $html2 = $formatter->setAriaHidden(false)->render('glass-half-empty', 'fa');
         $html3 = $formatter
             ->setAriaHidden(false)

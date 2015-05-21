@@ -16,6 +16,8 @@ use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorExcep
 /**
  * Class NodeException.
  */
-class NodeException extends TemplatingGeneratorException {}
+class NodeException extends TemplatingGeneratorException
+{
+}
 
 /* EOF */

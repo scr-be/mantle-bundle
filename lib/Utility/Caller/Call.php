@@ -16,7 +16,7 @@ use Scribe\Exception\BadFunctionCallException;
 use Scribe\Utility\StaticClass\StaticClassTrait;
 
 /**
- * Class Call
+ * Class Call.
  *
  * Static function collection to call either global functions or object methods
  * indirectly with checks that the requested function/method exists.

@@ -34,7 +34,7 @@ interface ContainerAwareInterface extends SymfonyContainerAwareInterface
     public function hasContainer();
 
     /**
-     * Get a parameter from the container
+     * Get a parameter from the container.
      *
      * @param string $parameter
      *
@@ -52,7 +52,7 @@ interface ContainerAwareInterface extends SymfonyContainerAwareInterface
     public function hasContainerParameter($parameter);
 
     /**
-     * Get a service from the container
+     * Get a service from the container.
      *
      * @param string $service
      *

@@ -16,6 +16,8 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class NavigationSetRepository.
  */
-class NavigationSetRepository extends EntityRepository {}
+class NavigationSetRepository extends EntityRepository
+{
+}
 
 /* EOF */

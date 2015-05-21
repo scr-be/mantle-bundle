@@ -102,5 +102,4 @@ interface AddressInterface extends TypeInterface, NameInterface
     public function getZip();
 }
 
-
 /* EOF */

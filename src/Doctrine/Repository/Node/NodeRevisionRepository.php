@@ -16,6 +16,8 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class NodeRevisionRepository.
  */
-class NodeRevisionRepository extends EntityRepository {}
+class NodeRevisionRepository extends EntityRepository
+{
+}
 
 /* EOF */

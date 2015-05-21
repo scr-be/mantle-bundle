@@ -14,10 +14,8 @@ namespace Scribe\Doctrine\Base\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
 use Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily;
-use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Tests\Doctrine\Fixtures\BaseEntity;
 use Scribe\Tests\Doctrine\Fixtures\BaseEntityHasPerson;
-use Scribe\Tests\Doctrine\Fixtures\BaseEntityHasSlug;
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 
@@ -48,166 +46,166 @@ class EntityModelTest extends AbstractMantleTestCase
      */
     private $basicTraitAssertions = [
         'HasAlias' => [
-            'props'   => ['alias'],
+            'props' => ['alias'],
             'methods' => ['initializeAlias', 'setAlias', 'getAlias', 'hasAlias', 'clearAlias'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Alias!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Alias!'],
         ],
         'HasAliases' => [
-            'props'   => ['aliases'],
+            'props' => ['aliases'],
             'methods' => ['initializeAliases', 'setAliases', 'getAliases', 'hasAliases', 'clearAliases'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
         ],
         'HasAttributes' => [
-            'props'   => ['attributes'],
+            'props' => ['attributes'],
             'methods' => ['initializeAttributes', 'setAttributes', 'getAttributes', 'hasAttributes', 'clearAttributes'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
         ],
         'HasProperties' => [
-            'props'   => ['properties'],
+            'props' => ['properties'],
             'methods' => ['initializeProperties', 'setProperties', 'getProperties', 'hasProperties', 'clearProperties'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
         ],
         'HasCategories' => [
-            'props'   => ['categories'],
+            'props' => ['categories'],
             'methods' => ['initializeCategories', 'setCategories', 'getCategories', 'hasCategories', 'clearCategories'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
         ],
         'HasCode' => [
-            'props'   => ['code'],
+            'props' => ['code'],
             'methods' => ['initializeCode', 'setCode', 'getCode', 'hasCode', 'clearCode'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Code!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Code!'],
         ],
         'HasContext' => [
-            'props'   => ['context'],
+            'props' => ['context'],
             'methods' => ['initializeContext', 'setContext', 'getContext', 'hasContext', 'clearContext'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Context!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Context!'],
         ],
         'HasCount' => [
-            'props'   => ['count'],
+            'props' => ['count'],
             'methods' => ['initializeCount', 'setCount', 'getCount', 'hasCount', 'clearCount'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [-20, 0, 1000, 99, 38299201, 302, 3232, 4353, 34, 5, 0, 222],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [-20, 0, 1000, 99, 38299201, 302, 3232, 4353, 34, 5, 0, 222],
         ],
         'HasDescription' => [
-            'props'   => ['description'],
+            'props' => ['description'],
             'methods' => ['initializeDescription', 'setDescription', 'getDescription', 'hasDescription', 'clearDescription'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Description!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Description!'],
         ],
         'HasName' => [
-            'props'   => ['name'],
+            'props' => ['name'],
             'methods' => ['initializeName', 'setName', 'getName', 'hasName', 'clearName'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Name!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Name!'],
         ],
         'HasParameters' => [
-            'props'   => ['parameters'],
+            'props' => ['parameters'],
             'methods' => ['initializeParameters', 'setParameters', 'getParameters', 'hasParameters', 'clearParameters'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [['1', '2', '3'], [1, 2, 3], [['a', 1], 0, 4], ['Some random String']],
         ],
         'HasTitle' => [
-            'props'   => ['title'],
+            'props' => ['title'],
             'methods' => ['initializeTitle', 'setTitle', 'getTitle', 'hasTitle', 'clearTitle'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Title!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Title!'],
         ],
         'HasValue' => [
-            'props'   => ['value'],
+            'props' => ['value'],
             'methods' => ['initializeValue', 'setValue', 'getValue', 'hasValue', 'clearValue'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Value!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Value!'],
         ],
         'HasVersion' => [
-            'props'   => ['version'],
+            'props' => ['version'],
             'methods' => ['initializeVersion', 'setVersion', 'getVersion', 'hasVersion', 'clearVersion'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['123', 'something', 'anotherThing', 'This Is An Version!'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['123', 'something', 'anotherThing', 'This Is An Version!'],
         ],
         'HasWeight' => [
-            'props'   => ['weight'],
+            'props' => ['weight'],
             'methods' => ['initializeWeight', 'setWeight', 'getWeight', 'hasWeight', 'clearWeight'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [10, 1, 5, 2, 9303, 2222, 3],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [10, 1, 5, 2, 9303, 2222, 3],
         ],
         'HasPersonHonorific' => [
-            'props'   => ['honorific'],
+            'props' => ['honorific'],
             'methods' => ['initializeHonorific', 'setHonorific', 'getHonorific', 'hasHonorific', 'clearHonorific'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['Mr.', 'Mr.', 'Mr.', 'Prof.', 'Mrs.'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['Mr.', 'Mr.', 'Mr.', 'Prof.', 'Mrs.'],
         ],
         'HasPersonFirstName' => [
-            'props'   => ['firstName'],
+            'props' => ['firstName'],
             'methods' => ['initializeFirstName', 'setFirstName', 'getFirstName', 'hasFirstName', 'clearFirstName'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['Rob', 'Dan', 'Andrew', 'David', 'Chrissy'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['Rob', 'Dan', 'Andrew', 'David', 'Chrissy'],
         ],
         'HasPersonMiddleName' => [
-            'props'   => ['middleName'],
+            'props' => ['middleName'],
             'methods' => ['initializeMiddleName', 'setMiddleName', 'getMiddleName', 'hasMiddleName', 'clearMiddleName'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['Martin', 'F', 'H', 'Alan', 'M'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['Martin', 'F', 'H', 'Alan', 'M'],
         ],
         'HasPersonSurname' => [
-            'props'   => ['surname'],
+            'props' => ['surname'],
             'methods' => ['initializeSurname', 'setSurname', 'getSurname', 'hasSurname', 'clearSurname'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['Frawley', 'Corrigan', 'Thomas', 'Rech', 'Chimi'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['Frawley', 'Corrigan', 'Thomas', 'Rech', 'Chimi'],
         ],
         'HasPersonSuffix' => [
-            'props'   => ['suffix'],
+            'props' => ['suffix'],
             'methods' => ['initializeSuffix', 'setSuffix', 'getSuffix', 'hasSuffix', 'clearSuffix'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['2nd', 'Sr.', 'I', 'Sr.', 'I'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['2nd', 'Sr.', 'I', 'Sr.', 'I'],
         ],
         'HasLead' => [
-            'props'   => ['lead'],
+            'props' => ['lead'],
             'methods' => ['initializeLead', 'setLead', 'getLead', 'hasLead', 'clearLead'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [
                 'This is a text lead.',
-                'And another one.'
+                'And another one.',
             ],
         ],
         'HasContent' => [
-            'props'   => ['content'],
+            'props' => ['content'],
             'methods' => ['initializeContent', 'setContent', 'getContent', 'hasContent', 'clearContent'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [
                 'This is text content.',
-                'And another one.'
+                'And another one.',
             ],
         ],
         'HasImportance' => [
-            'props'   => ['importance'],
+            'props' => ['importance'],
             'methods' => ['initializeImportance', 'setImportance', 'getImportance', 'hasImportance', 'clearImportance'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [-10, 0, 10, 20, 30, 40],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [-10, 0, 10, 20, 30, 40],
         ],
         'HasSlug' => [
-            'props'   => ['slug'],
+            'props' => ['slug'],
             'methods' => ['initializeSlug', 'setSlug', 'getSlug', 'hasSlug', 'clearSlug'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => ['a-slug', 'second', 'some-really-long-slug', 'yeah---slug'],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => ['a-slug', 'second', 'some-really-long-slug', 'yeah---slug'],
         ],
         'HasParentOwningSide' => [
-            'props'   => ['parent'],
+            'props' => ['parent'],
             'methods' => ['initializeParent', 'setParent', 'getParent', 'hasParent', 'clearParent'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [],
         ],
         'HasChildrenOwningSide' => [
-            'props'   => ['children'],
+            'props' => ['children'],
             'methods' => ['initializeChildren', 'setChildren', 'getChildren', 'hasChildren', 'clearChildren'],
-            'op'      => [self::RUNTIME_OPERATIONS_CRUD],
-            'ops'     => [],
+            'op' => [self::RUNTIME_OPERATIONS_CRUD],
+            'ops' => [],
         ],
     ];
 
@@ -561,7 +559,7 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->randomEntityTwo->setName('icon');
         $this->basicTraitAssertions['HasParentOwningSide']['ops'] = [
             $this->randomEntityOne,
-            $this->randomEntityTwo
+            $this->randomEntityTwo,
         ];
         $trait = 'HasParentOwningSide';
         $entity = $this->setEntityBeforeTest($trait);
@@ -577,8 +575,8 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->randomEntityTwo->setName('icon');
         $this->basicTraitAssertions['HasChildrenOwningSide']['ops'] = [new ArrayCollection([
             $this->randomEntityOne,
-            $this->randomEntityTwo
-            ])
+            $this->randomEntityTwo,
+            ]),
         ];
         $trait = 'HasChildrenOwningSide';
         $entity = $this->setEntityBeforeTest($trait);
@@ -586,7 +584,7 @@ class EntityModelTest extends AbstractMantleTestCase
 
         $collection = new ArrayCollection([
             $this->randomEntityOne,
-            $this->randomEntityTwo
+            $this->randomEntityTwo,
         ]);
         $entity->setChildren($collection);
 
@@ -600,7 +598,6 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->assertEquals(2, $entity->getChildren()->count());
         $this->clearEntityAfterTest();
     }
-
 
     private function performRuntime($traitName, $entity)
     {
@@ -632,10 +629,10 @@ class EntityModelTest extends AbstractMantleTestCase
         }
 
         $initializer = $config['methods'][0];
-        $setter      = $config['methods'][1];
-        $getter      = $config['methods'][2];
-        $checker     = $config['methods'][3];
-        $clearer     = $config['methods'][4];
+        $setter = $config['methods'][1];
+        $getter = $config['methods'][2];
+        $checker = $config['methods'][3];
+        $clearer = $config['methods'][4];
 
         $this->assertEmpty($entity->$getter(), 'Property should be empty prior to initialization.');
         $entity->$initializer();

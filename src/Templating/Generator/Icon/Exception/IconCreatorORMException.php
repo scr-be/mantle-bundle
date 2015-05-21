@@ -16,6 +16,8 @@ use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorORMEx
 /**
  * Class IconCreatorORMException.
  */
-class IconCreatorORMException extends TemplatingGeneratorORMException {}
+class IconCreatorORMException extends TemplatingGeneratorORMException
+{
+}
 
 /* EOF */

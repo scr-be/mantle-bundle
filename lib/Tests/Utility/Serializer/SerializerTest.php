@@ -29,10 +29,10 @@ class SerializerTest extends AbstractMantleTestCase
     public function testSerializerIgbinary()
     {
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
-        $expectedSerialized   = igbinary_serialize($expectedUnserialized);
+        $expectedSerialized = igbinary_serialize($expectedUnserialized);
 
         Serializer::setSerializer(Serializer::SERIALIZE_METHOD_IGBINARY, Serializer::UNSERIALIZE_METHOD_IGBINARY);
-        $serialized   = Serializer::sleep($expectedUnserialized);
+        $serialized = Serializer::sleep($expectedUnserialized);
         $unserialized = Serializer::wake($serialized);
 
         static::assertEquals($expectedSerialized, $serialized);
@@ -42,10 +42,10 @@ class SerializerTest extends AbstractMantleTestCase
     public function testSerializerJson()
     {
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
-        $expectedSerialized   = json_encode($expectedUnserialized);
+        $expectedSerialized = json_encode($expectedUnserialized);
 
         Serializer::setSerializer(Serializer::SERIALIZE_METHOD_JSON, Serializer::UNSERIALIZE_METHOD_JSON);
-        $serialized   = Serializer::sleep($expectedUnserialized);
+        $serialized = Serializer::sleep($expectedUnserialized);
         $unserialized = Serializer::wake($serialized);
 
         static::assertEquals($expectedSerialized, $serialized);
@@ -55,10 +55,10 @@ class SerializerTest extends AbstractMantleTestCase
     public function testSerializerNative()
     {
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
-        $expectedSerialized   = serialize($expectedUnserialized);
+        $expectedSerialized = serialize($expectedUnserialized);
 
         Serializer::setSerializer(Serializer::SERIALIZE_METHOD_NATIVE, Serializer::UNSERIALIZE_METHOD_NATIVE);
-        $serialized   = Serializer::sleep($expectedUnserialized);
+        $serialized = Serializer::sleep($expectedUnserialized);
         $unserialized = Serializer::wake($serialized);
 
         static::assertEquals($expectedSerialized, $serialized);
@@ -67,18 +67,18 @@ class SerializerTest extends AbstractMantleTestCase
 
     public function testSerializerClosure()
     {
-        $serializerCallable = function($toSerialize) {
+        $serializerCallable = function ($toSerialize) {
             return igbinary_serialize($toSerialize);
         };
-        $unSerializerCallable = function($toUnSerialize) {
+        $unSerializerCallable = function ($toUnSerialize) {
             return igbinary_unserialize($toUnSerialize);
         };
 
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
-        $expectedSerialized   = $serializerCallable($expectedUnserialized);
+        $expectedSerialized = $serializerCallable($expectedUnserialized);
 
         Serializer::setSerializer($serializerCallable, $unSerializerCallable);
-        $serialized   = Serializer::sleep($expectedUnserialized);
+        $serialized = Serializer::sleep($expectedUnserialized);
         $unserialized = Serializer::wake($serialized);
 
         static::assertEquals($expectedSerialized, $serialized);
@@ -91,10 +91,10 @@ class SerializerTest extends AbstractMantleTestCase
         $unSerializerCallable = [$this, 'unSerializerMethod'];
 
         $expectedUnserialized = [1, 'something', ['2, 3', 4]];
-        $expectedSerialized   = $this->serializerMethod($expectedUnserialized);
+        $expectedSerialized = $this->serializerMethod($expectedUnserialized);
 
         Serializer::setSerializer($serializerCallable, $unSerializerCallable);
-        $serialized   = Serializer::sleep($expectedUnserialized);
+        $serialized = Serializer::sleep($expectedUnserialized);
         $unserialized = Serializer::wake($serialized);
 
         static::assertEquals($expectedSerialized, $serialized);

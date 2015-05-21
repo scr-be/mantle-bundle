@@ -74,7 +74,7 @@ class NodeRevision extends AbstractEntity
     {
         parent::__construct();
 
-        $this->embeddedNodes  = new ArrayCollection();
+        $this->embeddedNodes = new ArrayCollection();
         $this->embeddedAssets = new ArrayCollection();
     }
 

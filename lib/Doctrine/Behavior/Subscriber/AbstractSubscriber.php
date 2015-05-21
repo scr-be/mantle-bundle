@@ -75,17 +75,17 @@ abstract class AbstractSubscriber implements SubscriberInterface
      */
     public function __construct(ClassReflectionAnalyserInterface $classReflectionAnalyser,
                                 array $subscribedEventConstants = [],
-                                array $subscriberTriggers       = [],
-                                array $requiredTraits           = [],
-                                array $subscriberFields         = [],
-                                $recursiveAnalysis              = true
+                                array $subscriberTriggers = [],
+                                array $requiredTraits = [],
+                                array $subscriberFields = [],
+                                $recursiveAnalysis = true
     ) {
         $this->classReflectionAnalyser = $classReflectionAnalyser;
-        $this->recursiveAnalysis       = $recursiveAnalysis;
-        $this->requiredTraits          = $requiredTraits;
-        $this->subscribedEvents        = $this->resolveEventConstantsToValues($subscribedEventConstants);
-        $this->subscriberTriggers      = $subscriberTriggers;
-        $this->subscriberFields        = $subscriberFields;
+        $this->recursiveAnalysis = $recursiveAnalysis;
+        $this->requiredTraits = $requiredTraits;
+        $this->subscribedEvents = $this->resolveEventConstantsToValues($subscribedEventConstants);
+        $this->subscriberTriggers = $subscriberTriggers;
+        $this->subscriberFields = $subscriberFields;
     }
 
     /**
@@ -224,10 +224,10 @@ abstract class AbstractSubscriber implements SubscriberInterface
      */
     protected function getHelperObjectsForLifecycleEvent(LifecycleEventArgs $eventArgs)
     {
-        $em              = $eventArgs->getEntityManager();
-        $entity          = $eventArgs->getEntity();
-        $uow             = $em->getUnitOfWork();
-        $classMetadata   = $em->getClassMetadata(get_class($entity));
+        $em = $eventArgs->getEntityManager();
+        $entity = $eventArgs->getEntity();
+        $uow = $em->getUnitOfWork();
+        $classMetadata = $em->getClassMetadata(get_class($entity));
         $reflectionClass = $classMetadata->getReflectionClass();
 
         return [

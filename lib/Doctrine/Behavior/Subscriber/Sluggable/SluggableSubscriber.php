@@ -38,9 +38,9 @@ class SluggableSubscriber extends AbstractSubscriber
 
             $classMetadata->mapField([
                 'fieldName' => $field,
-                'type'      => 'string',
-                'length'    => '512',
-                'nullable'  => false,
+                'type' => 'string',
+                'length' => '512',
+                'nullable' => false,
             ]);
         }
 

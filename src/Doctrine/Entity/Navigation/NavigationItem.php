@@ -59,14 +59,14 @@ class NavigationItem extends AbstractEntity
     }
 
     /**
-     * Fallback for auto slug creation if one is not explicitly set
+     * Fallback for auto slug creation if one is not explicitly set.
      *
      * @return array
      */
     public function getAutoSlugFields()
     {
         return [
-            'name'
+            'name',
         ];
     }
 
@@ -193,7 +193,7 @@ class NavigationItem extends AbstractEntity
      */
     public function removeRestriction($restriction)
     {
-        array_filter($this->restrictions, function($r) use ($restriction) {
+        array_filter($this->restrictions, function ($r) use ($restriction) {
             return (bool) ($r === $restriction ? false : true);
         });
 
@@ -261,7 +261,7 @@ class NavigationItem extends AbstractEntity
      */
     public function removeRestrictionInverse($restrictionInverse)
     {
-        array_filter($this->restrictionsInverse, function($r) use ($restrictionInverse) {
+        array_filter($this->restrictionsInverse, function ($r) use ($restrictionInverse) {
             return (bool) ($r === $restrictionInverse ? false : true);
         });
 

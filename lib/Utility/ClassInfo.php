@@ -12,7 +12,6 @@
 namespace Scribe\Utility;
 
 use Scribe\Exception\BadFunctionCallException;
-use Scribe\Exception\InvalidArgumentException;
 use Scribe\Exception\Model\ExceptionInterface;
 use Scribe\Utility\Caller\Call;
 use Scribe\Utility\StaticClass\StaticClassTrait;
@@ -91,7 +90,7 @@ class ClassInfo
     public static function get($fqcn, $what = self::CLASS_STR)
     {
         try {
-            return Call::staticMethod(__CLASS__, 'get' . $what, $fqcn);
+            return Call::staticMethod(__CLASS__, 'get'.$what, $fqcn);
         } catch (BadFunctionCallException $e) {
             throw $e;
         }
@@ -109,7 +108,7 @@ class ClassInfo
     }
 
     /**
-     * Get the namespace of the provided class
+     * Get the namespace of the provided class.
      *
      * @param string $fqcn
      *
@@ -123,7 +122,7 @@ class ClassInfo
     }
 
     /**
-     * Get the namespace of the provided class instance
+     * Get the namespace of the provided class instance.
      *
      * @param object $instance
      *
@@ -135,7 +134,7 @@ class ClassInfo
     }
 
     /**
-     * Get the namespace parts of the provided class
+     * Get the namespace parts of the provided class.
      *
      * @param string $fqcn
      * @param int    $limit
@@ -216,7 +215,7 @@ class ClassInfo
      */
     public static function getTraitName($fqtn)
     {
-        return (string) ClassInfo::getClassName($fqtn);
+        return (string) self::getClassName($fqtn);
     }
 }
 

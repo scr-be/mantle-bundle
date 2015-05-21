@@ -16,6 +16,8 @@ use Scribe\MantleBundle\DataFixtures\Doctrine\AbstractDoctrineYamlFixture;
 /**
  * LoadNodeRenderEngine.
  */
-class LoadNodeRenderEngineData extends AbstractDoctrineYamlFixture {}
+class LoadNodeRenderEngineData extends AbstractDoctrineYamlFixture
+{
+}
 
 /* EOF */

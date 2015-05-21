@@ -181,7 +181,6 @@ abstract class AbstractTwigExtension extends \Twig_Extension implements TwigExte
             ['needs_environment' => true]
         );
 
-
         return $this;
     }
 
@@ -195,7 +194,6 @@ abstract class AbstractTwigExtension extends \Twig_Extension implements TwigExte
         $this->addOptions(
             ['is_safe' => ['html']]
         );
-
 
         return $this;
     }
@@ -298,7 +296,7 @@ abstract class AbstractTwigExtension extends \Twig_Extension implements TwigExte
         $this->validateType($type);
         $type = substr($type, 0, strlen($type) - 1);
 
-        $callableCollection     = [];
+        $callableCollection = [];
         $callableCollectionName = $type.self::PROPERTY_PART_METHOD;
         $twigExtensionClassName = 'Twig_Simple'.ucfirst($type);
 

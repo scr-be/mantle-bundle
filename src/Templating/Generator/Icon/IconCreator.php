@@ -17,7 +17,6 @@ use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
 use Scribe\MantleBundle\Templating\Generator\AbstractTwigGenerator;
 use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
 use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorORMException;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorInterface;
 use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorAccessibilityTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorServicesTrait;
 use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorAttributesTrait;
@@ -248,7 +247,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
             );
         }
 
-        $slug  = $this->getIconSlugFiltered();
+        $slug = $this->getIconSlugFiltered();
         $icons = $this
             ->getFamilyEntity()
             ->getIcons()
@@ -302,7 +301,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      */
     protected function getIconSlugFiltered()
     {
-        $slug   = $this->getIconSlug();
+        $slug = $this->getIconSlug();
         $prefix = $this
             ->getFamilyEntity()
             ->getPrefix()
@@ -351,7 +350,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
             );
         }
 
-        $slug      = $this->getTemplateSlug();
+        $slug = $this->getTemplateSlug();
         $templates = $this
             ->getFamilyEntity()
             ->getTemplates()
@@ -501,7 +500,7 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
 
         $arguments = [
             'family' => $this->getFamilyEntity(),
-            'icon'   => $this->getIconEntity(),
+            'icon' => $this->getIconEntity(),
             'styles' => $this->getOptionalStyles(),
             'helper' => $this->templateHelper(),
         ];

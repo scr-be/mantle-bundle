@@ -18,6 +18,8 @@ use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorInterface;
 /**
  * Class ActivityInterface.
  */
-interface ActivityInterface extends TypeInterface, DescriptionInterface, TimestampableBehaviorInterface {}
+interface ActivityInterface extends TypeInterface, DescriptionInterface, TimestampableBehaviorInterface
+{
+}
 
 /* EOF */

@@ -357,7 +357,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
 
     public function testOtherIconInFamilyCanBeAccessed()
     {
-        $expected  = '
+        $expected = '
             <span class="fa fa-5x fa-photo"
                   role="button"
                   aria-label="Its a PHOTO ICON!!!">
@@ -753,7 +753,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
 
         $engine = $this->getMock('Twig_Environment');
         $obj = new IconCreator($this->iconFamilyRepo, $engine);
-        $refFormat = new \ReflectionClass(IconCreatorTest::FULLY_QUALIFIED_CLASS_NAME_SELF);
+        $refFormat = new \ReflectionClass(self::FULLY_QUALIFIED_CLASS_NAME_SELF);
 
         $validateEngine = $refFormat->getMethod('validateEngine');
         $validateEngine->setAccessible(true);
@@ -768,7 +768,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             '50'
         );
         $obj = new IconCreator($this->iconFamilyRepo, $this->engine);
-        $refFormat = new \ReflectionClass(IconCreatorTest::FULLY_QUALIFIED_CLASS_NAME_SELF);
+        $refFormat = new \ReflectionClass(self::FULLY_QUALIFIED_CLASS_NAME_SELF);
 
         $setTemplateEntity = $refFormat->getMethod('setTemplateEntity');
         $setTemplateEntity->setAccessible(true);

@@ -21,13 +21,13 @@ class ParametersToPropertiesMapperTraitTest extends AbstractMantleTestCase
         $propertyString[] = 'some-random-string-value';
         $propertyInt[] = 1023;
         $propertyArray[] = ['some', 'random', 'array', 'values'];
-        $propertyCallable[] = [function() {}];
+        $propertyCallable[] = [function () {}];
         $propertyDoesNotExist[] = 'not-a-valid-property';
 
         $propertyString[] = 'another-random-string';
         $propertyInt[] = 2222;
-        $propertyArray[] = ['more' => ['complex', 'array'], 'with-callable' => function() { return true; }, 'and-integers' => [1, 2, 3, 4], 'and-more', 'oh-my!'];
-        $propertyCallable[] = [function($param1, $param2) { return $param1.$param2; }];
+        $propertyArray[] = ['more' => ['complex', 'array'], 'with-callable' => function () { return true; }, 'and-integers' => [1, 2, 3, 4], 'and-more', 'oh-my!'];
+        $propertyCallable[] = [function ($param1, $param2) { return $param1.$param2; }];
         $propertyDoesNotExist[] = ['this', 'is', 'not', 'a', 'valid', 'property'];
 
         $loopCount = count($propertyString);
@@ -37,11 +37,11 @@ class ParametersToPropertiesMapperTraitTest extends AbstractMantleTestCase
                 [
                     'propertyString' => $propertyString[$i],
                     'propertyInt' => $propertyInt[$i],
-                    'propertyDoesNotExist' => $propertyDoesNotExist[$i]
+                    'propertyDoesNotExist' => $propertyDoesNotExist[$i],
                 ],
                 [
                     'propertyArray' => $propertyArray[$i],
-                    'propertyCallable' => $propertyCallable[$i]
+                    'propertyCallable' => $propertyCallable[$i],
                 ]
             );
 
@@ -69,10 +69,10 @@ class ParametersToPropertiesMapperTraitTest extends AbstractMantleTestCase
         $mapper = new MapperFixture(
             [
                 'not-valid' => 'nope',
-                'another-invalid-property' => function() {}
+                'another-invalid-property' => function () {},
             ],
             [
-                'last-invalid-assignment' => 12
+                'last-invalid-assignment' => 12,
             ]
         );
 
@@ -100,10 +100,10 @@ class ParametersToPropertiesMapperTraitTest extends AbstractMantleTestCase
         $parameters = [
             [
                 'not-valid' => 'nope',
-                'another-invalid-property' => function() {},
+                'another-invalid-property' => function () {},
                 'last-invalid-assignment' => 12,
-                'propertyString' => 'a-string'
-            ]
+                'propertyString' => 'a-string',
+            ],
         ];
 
         $mapper = new MapperFixture(...$parameters);

@@ -16,6 +16,8 @@ use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 /**
  * Class SearchController.
  */
-class SearchController extends ControllerBehaviors {}
+class SearchController extends ControllerBehaviors
+{
+}
 
 /* EOF */

@@ -34,7 +34,7 @@ class SubjectAbstract implements SplSubject
      */
     public function __construct(array $observers = [])
     {
-        $this->notify    = true;
+        $this->notify = true;
         $this->observers = array_filter($observers, [$this, 'isObserver']);
     }
 

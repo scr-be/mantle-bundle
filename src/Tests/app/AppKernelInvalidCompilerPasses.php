@@ -36,7 +36,7 @@ class AppKernelInvalidCompilerPasses extends Kernel
             new \Scribe\CacheBundle\ScribeCacheBundle(),
             new \Scribe\MantleBundle\ScribeMantleBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new \Scribe\MantleBundle\Tests\ScribeMantleBadCompilerPassesBundle()
+            new \Scribe\MantleBundle\Tests\ScribeMantleBadCompilerPassesBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

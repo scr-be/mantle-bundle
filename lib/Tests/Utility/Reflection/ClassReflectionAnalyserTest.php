@@ -48,7 +48,7 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
     public function testFunctionsOutsideOfContainer()
     {
         $refOfClassReflectionAnalyser = new \ReflectionClass(self::FQCN);
-        $reflectionClassAnalyser      = new ClassReflectionAnalyser($refOfClassReflectionAnalyser);
+        $reflectionClassAnalyser = new ClassReflectionAnalyser($refOfClassReflectionAnalyser);
 
         $this->assertFalse($reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', $refOfClassReflectionAnalyser

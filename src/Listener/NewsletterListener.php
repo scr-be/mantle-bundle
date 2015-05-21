@@ -138,7 +138,7 @@ class NewsletterListener implements ContainerAwareInterface
             ->render(
                 'ScribeMantleBundle:Mail:newsletter-signup.html.twig',
                 [
-                    'u'         => $user,
+                    'u' => $user,
                     'host_link' => $hostLink,
                 ]
             )

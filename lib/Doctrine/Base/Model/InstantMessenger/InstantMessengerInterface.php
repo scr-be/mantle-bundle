@@ -48,5 +48,4 @@ interface InstantMessengerInterface extends TypeInterface, NameInterface
     public function getInstantMessenger();
 }
 
-
 /* EOF */

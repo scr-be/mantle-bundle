@@ -51,7 +51,7 @@ class Security
      */
     public static function generateRandomHash($hashAlgorithm = 'sha512', $hashReturnRaw = false, $bytes = 10000000)
     {
-        $random = Security::generateRandom($bytes);
+        $random = self::generateRandom($bytes);
 
         return hash(
             $hashAlgorithm,
@@ -82,11 +82,11 @@ class Security
      */
     public static function generateRandomPassword($length = 8)
     {
-        $characters     = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?';
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?';
         $characterCount = strlen($characters);
-        $password       = '';
-        $loopLimit      = 1000;
-        $loopCount      = 0;
+        $password = '';
+        $loopLimit = 1000;
+        $loopCount = 0;
 
         while (true) {
             $password .= substr(str_shuffle($characters), 0, ($length > $characterCount ? $characterCount : $length));

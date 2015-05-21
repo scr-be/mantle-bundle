@@ -122,7 +122,7 @@ trait ExceptionTrait
             return $exception;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -184,13 +184,13 @@ trait ExceptionTrait
     public function getDebugOutput()
     {
         return (array) [
-            'Exception'   => get_class($this),
-            'Message'     => $this->getMessage(),
-            'Code'        => $this->getCode(),
-            'Attributes'  => $this->getAttributes(),
-            'File Name'   => $this->getFile(),
-            'File Line'   => $this->getLine(),
-            'Trace-back'  => $this->getTraceLimited(),
+            'Exception' => get_class($this),
+            'Message' => $this->getMessage(),
+            'Code' => $this->getCode(),
+            'Attributes' => $this->getAttributes(),
+            'File Name' => $this->getFile(),
+            'File Line' => $this->getLine(),
+            'Trace-back' => $this->getTraceLimited(),
         ];
     }
 

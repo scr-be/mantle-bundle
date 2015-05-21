@@ -94,7 +94,7 @@ class CallTest extends AbstractMantleTestCase
     public function testShouldReturnResultOnMethodCall()
     {
         $exception = new \Exception('This is an exception');
-        $result    = Call::method($exception, 'getMessage');
+        $result = Call::method($exception, 'getMessage');
 
         static::assertEquals($result, 'This is an exception');
     }
@@ -110,7 +110,7 @@ class CallTest extends AbstractMantleTestCase
 
     public function testShouldReturnResultOnStaticMethodCall()
     {
-        $time   = time();
+        $time = time();
         $result = Call::staticMethod('\Datetime', 'createFromFormat', 'Y', $time);
 
         static::assertEquals($result, \Datetime::createFromFormat('Y', $time));

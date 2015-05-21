@@ -115,14 +115,14 @@ class MaintenanceListener
                                 MaintenanceController $maintenanceController, $enabled, $bundles, $exempt,
                                 $overrideArgument, $overrideValue)
     {
-        $this->requestStack          = $requestStack;
-        $this->bundleInfo            = $bundleInfo;
+        $this->requestStack = $requestStack;
+        $this->bundleInfo = $bundleInfo;
         $this->maintenanceController = $maintenanceController;
-        $this->enabled               = $enabled;
-        $this->bundles               = $bundles;
-        $this->exempt                = $exempt;
-        $this->overrideArgument      = $overrideArgument;
-        $this->overrideValue         = $overrideValue;
+        $this->enabled = $enabled;
+        $this->bundles = $bundles;
+        $this->exempt = $exempt;
+        $this->overrideArgument = $overrideArgument;
+        $this->overrideValue = $overrideValue;
     }
 
     /**
@@ -136,7 +136,7 @@ class MaintenanceListener
             return;
         }
 
-        $this->event      = $event;
+        $this->event = $event;
         $this->controller = $event->getController()[0];
 
         if ($this->isDisabled() || $this->isOverridden() ||

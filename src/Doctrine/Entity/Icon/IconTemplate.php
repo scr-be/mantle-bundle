@@ -69,7 +69,7 @@ class IconTemplate extends AbstractEntity
     public function getAutoSlugFields()
     {
         return [
-            'name'
+            'name',
         ];
     }
 

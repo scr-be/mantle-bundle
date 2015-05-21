@@ -45,7 +45,7 @@ trait IconCreatorAccessibilityTrait
      * @var array
      */
     private static $validAriaRoles = [
-        'img', 'link', 'button', 'presentation'
+        'img', 'link', 'button', 'presentation',
     ];
 
     /**

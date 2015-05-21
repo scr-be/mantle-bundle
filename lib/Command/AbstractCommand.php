@@ -22,11 +22,11 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
  */
 abstract class AbstractCommand extends ContainerAwareCommand
 {
-    protected $input    = null;
-    protected $output   = null;
-    protected $engine   = null;
+    protected $input = null;
+    protected $output = null;
+    protected $engine = null;
     protected $progress = null;
-    protected $dialog   = null;
+    protected $dialog = null;
     protected $writeIndentLog = [];
 
     protected function setupBasicServices(InputInterface $input, OutputInterface $output)
@@ -39,17 +39,17 @@ abstract class AbstractCommand extends ContainerAwareCommand
             ])
         ;
 
-        $this->input    = $input;
-        $this->output   = $output;
-        $this->engine   = $engine;
+        $this->input = $input;
+        $this->output = $output;
+        $this->engine = $engine;
         $this->progress = $progress;
-        $this->dialog   = $dialog;
+        $this->dialog = $dialog;
 
-        $style_title   = new OutputFormatterStyle('white', 'black');
-        $style_status  = new OutputFormatterStyle('black', 'blue');
+        $style_title = new OutputFormatterStyle('white', 'black');
+        $style_status = new OutputFormatterStyle('black', 'blue');
         $style_success = new OutputFormatterStyle('green', 'white');
         $style_em_info = new OutputFormatterStyle('blue', 'white');
-        $style_error   = new OutputFormatterStyle('red', 'white', ['bold']);
+        $style_error = new OutputFormatterStyle('red', 'white', ['bold']);
         $this->output->getFormatter()->setStyle('title', $style_title);
         $this->output->getFormatter()->setStyle('status', $style_status);
         $this->output->getFormatter()->setStyle('success', $style_success);
@@ -145,7 +145,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
         $out .= '>';
 
         if ($leadAndEndEmptyLine === true) {
-            $out .= "\n".str_pad('', ($width+($padding*2)), ' ', STR_PAD_BOTH)."\n";
+            $out .= "\n".str_pad('', ($width + ($padding * 2)), ' ', STR_PAD_BOTH)."\n";
         }
 
         for ($i = 0; $i < count($lines); $i++) {
@@ -156,13 +156,13 @@ abstract class AbstractCommand extends ContainerAwareCommand
             for ($j = 0; $j < $padding; $j++) {
                 $out .= ' ';
             }
-            if ($i !== (count($lines)-1) || $leadAndEndEmptyLine === true) {
+            if ($i !== (count($lines) - 1) || $leadAndEndEmptyLine === true) {
                 $out .= "\n";
             }
         }
 
         if ($leadAndEndEmptyLine === true) {
-            $out .= str_pad('', $width+($padding*2), ' ', STR_PAD_BOTH);
+            $out .= str_pad('', $width + ($padding * 2), ' ', STR_PAD_BOTH);
         }
 
         $out .= '</fg='.$fg.';bg='.$bg;
@@ -321,12 +321,12 @@ abstract class AbstractCommand extends ContainerAwareCommand
         }
 
         $first_level_with_children = '◎───┬─';
-        $first_level_no_children   = '◎─────';
-        $next_level_with_children  = '├───┬─';
-        $next_level_no_children    = '├─────';
+        $first_level_no_children = '◎─────';
+        $next_level_with_children = '├───┬─';
+        $next_level_no_children = '├─────';
 
         if (count($this->writeIndentLog) > 0) {
-            $this->previous_indent_i = $this->writeIndentLog[count($this->writeIndentLog)-1];
+            $this->previous_indent_i = $this->writeIndentLog[count($this->writeIndentLog) - 1];
         } else {
             $this->previous_indent_i = 0;
         }
@@ -403,7 +403,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
         $memoryLimitHard = $this->getMemoryLimit(false);
 
         $memoryLimitSoft = $memoryLimitHard * .75;
-        $memoryUsage     = memory_get_usage();
+        $memoryUsage = memory_get_usage();
 
         if ($memoryLimitSoft - $memoryUsage < 0) {
             return false;

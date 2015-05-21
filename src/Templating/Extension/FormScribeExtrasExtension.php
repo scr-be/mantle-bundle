@@ -51,11 +51,11 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:submit-no-wrapper.html.twig',
             [
-                'form'               => $form,
-                'title'              => $title,
-                'cancel'             => $this->getReferrer($defaultRoute),
+                'form' => $form,
+                'title' => $title,
+                'cancel' => $this->getReferrer($defaultRoute),
                 'renderCancelButton' => ($defaultRoute === null ?: false),
-                'btnClasses'         => implode(' ', $btnClasses)
+                'btnClasses' => implode(' ', $btnClasses),
             ]
         );
     }
@@ -65,11 +65,11 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:submit.html.twig',
             [
-                'form'               => $form,
-                'title'              => $title,
-                'cancel'             => $this->getReferrer($defaultRoute),
+                'form' => $form,
+                'title' => $title,
+                'cancel' => $this->getReferrer($defaultRoute),
                 'renderCancelButton' => ($defaultRoute === null ?: false),
-                'btnClasses'         => implode(' ', $btnClasses)
+                'btnClasses' => implode(' ', $btnClasses),
             ]
         );
     }
@@ -81,9 +81,9 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:label.html.twig',
             [
-                'form'    => $form,
-                'label'   => $label,
-                'classes' => $classesStr
+                'form' => $form,
+                'label' => $label,
+                'classes' => $classesStr,
             ]
         );
     }
@@ -93,9 +93,9 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:widget.html.twig',
             [
-                'form'        => $form,
+                'form' => $form,
                 'placeholder' => $placeholder,
-                'attributes'  => $attributes
+                'attributes' => $attributes,
             ]
         );
     }
@@ -105,7 +105,7 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:error.html.twig',
             [
-                'form' => $form
+                'form' => $form,
             ]
         );
     }
@@ -115,10 +115,10 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:item.html.twig',
             [
-                'label'  => $this->formLabel($twigEnvironment, $form, $label),
+                'label' => $this->formLabel($twigEnvironment, $form, $label),
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
-                'error'  => $this->formError($twigEnvironment, $form),
-                'cols'   => $cols
+                'error' => $this->formError($twigEnvironment, $form),
+                'cols' => $cols,
             ]
         );
     }
@@ -128,10 +128,10 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:itemHorizontal.html.twig',
             [
-                'label'  => $this->formLabel($twigEnvironment, $form, $label, ['col-sm-2', 'control-label']),
+                'label' => $this->formLabel($twigEnvironment, $form, $label, ['col-sm-2', 'control-label']),
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
-                'error'  => $this->formError($twigEnvironment, $form),
-                'cols'   => $cols
+                'error' => $this->formError($twigEnvironment, $form),
+                'cols' => $cols,
             ]
         );
     }
@@ -141,10 +141,10 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:item.html.twig',
             [
-                'label'  => null,
+                'label' => null,
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
-                'error'  => $this->formError($twigEnvironment, $form),
-                'cols'   => $cols
+                'error' => $this->formError($twigEnvironment, $form),
+                'cols' => $cols,
             ]
         );
     }
@@ -154,10 +154,10 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:itemNoGroup.html.twig',
             [
-                'label'  => null,
+                'label' => null,
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
-                'error'  => $this->formError($twigEnvironment, $form),
-                'cols'   => $cols
+                'error' => $this->formError($twigEnvironment, $form),
+                'cols' => $cols,
             ]
         );
     }
@@ -170,7 +170,7 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
             'ScribeMantleBundle:Form:start.html.twig',
             [
                 'form' => $form,
-                'attr' => $attr
+                'attr' => $attr,
             ]
         );
     }
@@ -187,7 +187,7 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:end.html.twig',
             [
-                'form' => $form
+                'form' => $form,
             ]
         );
     }
@@ -197,8 +197,8 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:submit-old.html.twig',
             [
-                'title'  => $title,
-                'cancel' => $this->getReferrer($defaultRoute)
+                'title' => $title,
+                'cancel' => $this->getReferrer($defaultRoute),
             ]
         );
     }

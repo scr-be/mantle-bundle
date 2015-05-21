@@ -41,5 +41,4 @@ interface TypeInterface
     public function clearType();
 }
 
-
 /* EOF */

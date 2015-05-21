@@ -47,5 +47,4 @@ interface NameInterface
     public function clearName();
 }
 
-
 /* EOF */

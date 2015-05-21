@@ -10,6 +10,7 @@
  */
 
 namespace Scribe\MantleBundle\Component\Navigation\Member;
+
 use Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassHandler;
 
 /**

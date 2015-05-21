@@ -47,7 +47,6 @@ class Response extends SymfonyResponse implements ResponseInterface
             $this->getFinalHeaders($headersGlobal, $headersTypeSpecific, $headers)
         );
 
-
         $this->setCharset($this->getFinalCharset($charsetGlobal, $charsetTypeSpecific));
         $this->setProtocolVersion($this->getFinalProtocol($protocolGlobal, $protocolTypeSpecific));
     }
@@ -119,7 +118,7 @@ class Response extends SymfonyResponse implements ResponseInterface
     }
 
     /**
-     * Last protocol passed wins
+     * Last protocol passed wins.
      *
      * @param float[] ...$protocols
      *
@@ -148,7 +147,7 @@ class Response extends SymfonyResponse implements ResponseInterface
     {
         $finalHeaders = [];
 
-        for($i = 0; $i < count($headerCollections); $i++) {
+        for ($i = 0; $i < count($headerCollections); $i++) {
             $this->getFinalHeadersMerged($finalHeaders, $headerCollections[$i]);
         }
 
@@ -167,7 +166,9 @@ class Response extends SymfonyResponse implements ResponseInterface
     {
         foreach ($new as $newHeader) {
             $headerParts = explode(':', $newHeader);
-            if (count($headerParts) !== 2) { continue; }
+            if (count($headerParts) !== 2) {
+                continue;
+            }
 
             $final[trim($headerParts[0])] = trim($headerParts[1]);
         }

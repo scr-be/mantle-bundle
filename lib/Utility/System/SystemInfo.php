@@ -70,7 +70,7 @@ class SystemInfo
             Math::toBase($load01, $cpuCount, $newBase, $newBaseMax),
             Math::toBase($load05, $cpuCount, $newBase, $newBaseMax),
             Math::toBase($load15, $cpuCount, $newBase, $newBaseMax),
-            Math::toBase($loadAverage, $cpuCount, $newBase)
+            Math::toBase($loadAverage, $cpuCount, $newBase),
         ];
     }
 

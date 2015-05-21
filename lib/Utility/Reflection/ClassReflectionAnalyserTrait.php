@@ -205,7 +205,7 @@ trait ClassReflectionAnalyserTrait
         if ($filter === false) {
             return (array) $this
                 ->reflectionClass
-                ->getProperties(\ReflectionProperty::IS_PUBLIC|\ReflectionProperty::IS_PROTECTED|\ReflectionProperty::IS_PRIVATE)
+                ->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE)
             ;
         }
 
@@ -272,7 +272,7 @@ trait ClassReflectionAnalyserTrait
      */
     public function setPropertyPublic($property, \ReflectionClass $class = null)
     {
-        $class     = $this->triggerUpdateWorkUnit($class);
+        $class = $this->triggerUpdateWorkUnit($class);
         $className = $class->getName();
 
         if (false === $this->hasProperty($property)) {
@@ -297,7 +297,7 @@ trait ClassReflectionAnalyserTrait
      */
     public function setMethodPublic($method, \ReflectionClass $class = null)
     {
-        $class     = $this->triggerUpdateWorkUnit($class);
+        $class = $this->triggerUpdateWorkUnit($class);
         $className = $class->getName();
 
         if (false === $this->hasMethod($method)) {

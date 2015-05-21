@@ -11,7 +11,6 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node;
 
-use Scribe\MantleBundle\Templating\Generator\Node\NodeCreator;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorHelperTrait;
 use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;

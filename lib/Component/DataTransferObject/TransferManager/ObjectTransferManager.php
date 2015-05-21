@@ -110,7 +110,8 @@ class ObjectTransferManager implements ObjectTransferManagerInterface
      * @param string                  $toProperty
      */
     protected function mapProperty(ClassReflectionAnalyser $refFrom, ClassReflectionAnalyser $refTo,
-                                   &$to, $from, $fromProperty, $toProperty) {
+                                   &$to, $from, $fromProperty, $toProperty)
+    {
         if (true !== $refFrom->hasProperty($fromProperty) ||
             true !== $refTo->hasProperty($toProperty)) {
             return;

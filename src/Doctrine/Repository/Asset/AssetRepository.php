@@ -16,6 +16,8 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class AssetRepository.
  */
-class AssetRepository extends EntityRepository {}
+class AssetRepository extends EntityRepository
+{
+}
 
 /* EOF */

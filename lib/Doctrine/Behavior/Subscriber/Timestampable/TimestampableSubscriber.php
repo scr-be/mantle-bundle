@@ -39,8 +39,8 @@ class TimestampableSubscriber extends AbstractSubscriber
 
             $classMetadata->mapField([
                 'fieldName' => $field,
-                'type'      => 'datetime',
-                'nullable'  => true,
+                'type' => 'datetime',
+                'nullable' => true,
             ]);
         }
 

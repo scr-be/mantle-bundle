@@ -97,7 +97,7 @@ trait EntityInitializableTrait
             return $this;
         }
 
-        $initMethodSearch    = EntityInitializableInterface::INITABLE_METHOD_PREFIX;
+        $initMethodSearch = EntityInitializableInterface::INITABLE_METHOD_PREFIX;
         $initMethodSearchLen = strlen($initMethodSearch);
 
         $this->autoInitializationMethods = array_filter(get_class_methods($this),

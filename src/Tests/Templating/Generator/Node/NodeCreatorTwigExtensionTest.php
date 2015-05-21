@@ -51,7 +51,7 @@ class NodeCreatorTwigExtensionTest extends AbstractMantleKernelTestCase
 
         $this->mockNodeTwigEntities();
         $this->getNewHandlerChainWithAllHandlerTypes();
-        $this->ext       = new NodeCreatorExtension($this->getNewNodeCreator());
+        $this->ext = new NodeCreatorExtension($this->getNewNodeCreator());
         $this->extCached = new NodeCreatorExtension($this->getNewNodeCreator(true));
     }
 

@@ -27,7 +27,7 @@ class FilesystemTest extends AbstractMantleTestCase
     public function testParseDirectoryPathToParts()
     {
         $path = '//www///some/path/to///dir//';
-        list($parts,,) = FileSystem::parseDirectoryPathToParts($path);
+        list($parts) = FileSystem::parseDirectoryPathToParts($path);
 
         static::assertEquals(5, count($parts));
 

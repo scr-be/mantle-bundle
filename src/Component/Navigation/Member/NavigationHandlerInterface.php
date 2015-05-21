@@ -16,6 +16,8 @@ use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
 /**
  * Class NavigationHandlerInterface.
  */
-interface NavigationHandlerInterface extends CompilerPassHandlerInterface {}
+interface NavigationHandlerInterface extends CompilerPassHandlerInterface
+{
+}
 
 /* EOF */

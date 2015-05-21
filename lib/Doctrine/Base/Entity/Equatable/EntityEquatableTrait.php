@@ -50,7 +50,7 @@ trait EntityEquatableTrait
         $reflectionAnalyzer->setReflectionClassFromClassInstance($entity);
 
         $reflectionProperty = $reflectionAnalyzer->setPropertyPublic('id');
-        $entityId           = $reflectionProperty->getValue($entity);
+        $entityId = $reflectionProperty->getValue($entity);
 
         return (bool) ($this->getId() === $entityId ?: false);
     }

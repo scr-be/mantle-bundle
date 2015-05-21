@@ -62,7 +62,7 @@ interface ObjectMappingDefinitionInterface
     /**
      * Returns an multi-dimentional array of key=>value pairs representing the property names to be transferred from
      * the original (from) object to the new (to) object. The key=>value relationship is the same as {@see setMapping()},
-     * representing originalPropertyName=>newPropertyName
+     * representing originalPropertyName=>newPropertyName.
      *
      * @param object $from
      *

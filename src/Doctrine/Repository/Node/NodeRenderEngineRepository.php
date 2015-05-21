@@ -16,6 +16,8 @@ use Doctrine\ORM\EntityRepository;
 /**
  * NodeRenderEngineRepository.
  */
-class NodeRenderEngineRepository extends EntityRepository {}
+class NodeRenderEngineRepository extends EntityRepository
+{
+}
 
 /* EOF */

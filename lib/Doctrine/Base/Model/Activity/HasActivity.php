@@ -14,7 +14,6 @@ namespace Scribe\Doctrine\Base\Model\Activity;
 use Scribe\Doctrine\Base\Model\HasCode;
 use Scribe\Doctrine\Base\Model\HasProperties;
 use Scribe\Doctrine\Base\Model\Type\HasType;
-use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 
 /**
  * Class HasActivity.
@@ -23,8 +22,7 @@ trait HasActivity
 {
     use HasCode,
         HasType,
-        HasProperties,
-        TimestampableBehaviorTrait;
+        HasProperties;
 }
 
 /* EOF */

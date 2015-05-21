@@ -45,7 +45,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     {
         $expected = [
             'router' => $this->container->get('router'),
-            'twig' => $this->container->get('twig')
+            'twig' => $this->container->get('twig'),
         ];
 
         $result = $this->controllerBehaviors->getServiceCollection('router', 'twig');
@@ -57,7 +57,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     {
         $expected = [
             'router' => $this->container->get('router'),
-            'twig' => $this->container->get('twig')
+            'twig' => $this->container->get('twig'),
         ];
 
         $result = $this->controllerBehaviors->getServiceCollection(['router', 'twig']);
@@ -71,7 +71,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
             'router' => $this->container->get('router'),
             'twig' => $this->container->get('twig'),
             'translator' => $this->container->get('translator'),
-            'session' => $this->container->get('session')
+            'session' => $this->container->get('session'),
         ];
 
         $result = $this->controllerBehaviors->getServiceCollection('router', 'twig', ['translator', 'session']);
@@ -117,7 +117,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     {
         $expected = [
             'router.class' => $this->container->getParameter('router.class'),
-            'twig.class' => $this->container->getParameter('twig.class')
+            'twig.class' => $this->container->getParameter('twig.class'),
         ];
 
         $result = $this->controllerBehaviors->getParameterCollection('router.class', 'twig.class');
@@ -129,7 +129,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     {
         $expected = [
             'router.class' => $this->container->getParameter('router.class'),
-            'twig.class' => $this->container->getParameter('twig.class')
+            'twig.class' => $this->container->getParameter('twig.class'),
         ];
 
         $result = $this->controllerBehaviors->getParameterCollection(['router.class', 'twig.class']);
@@ -143,7 +143,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
             'router.class' => $this->container->getParameter('router.class'),
             'twig.class' => $this->container->getParameter('twig.class'),
             'translator.class' => $this->container->getParameter('translator.class'),
-            'session.class' => $this->container->getParameter('session.class')
+            'session.class' => $this->container->getParameter('session.class'),
         ];
 
         $result = $this->controllerBehaviors->getParameterCollection('router.class', 'twig.class', ['translator.class', 'session.class']);

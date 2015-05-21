@@ -42,5 +42,4 @@ interface RoleInterface extends SymfonyRoleInterface
     public function hasOrg(OrganizationInterface $org);
 }
 
-
 /* EOF */

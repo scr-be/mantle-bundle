@@ -25,6 +25,7 @@ class NodeRepository extends EntityRepository
      * @param $slug
      *
      * @return mixed
+     *
      * @throws \Exception
      *
      * @todo move this into SlugAwareRepoTrait
@@ -50,6 +51,7 @@ class NodeRepository extends EntityRepository
      * @param $materializedPath
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function loadByMaterializedPath($materializedPath)

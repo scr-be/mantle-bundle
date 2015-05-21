@@ -16,6 +16,8 @@ use Scribe\MantleBundle\Templating\Generator\Exceptions\TemplatingGeneratorORMEx
 /**
  * Class NodeORMException.
  */
-class NodeORMException extends TemplatingGeneratorORMException {}
+class NodeORMException extends TemplatingGeneratorORMException
+{
+}
 
 /* EOF */

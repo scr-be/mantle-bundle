@@ -153,7 +153,7 @@ trait StopwatchActionsAwareTrait
             return $this->stopwatchEventSet[$name];
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -167,7 +167,7 @@ trait StopwatchActionsAwareTrait
             return array_last($this->stopwatchEventSet[$name]);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -181,7 +181,7 @@ trait StopwatchActionsAwareTrait
             return $this->stopwatch->getSectionEvents($id);
         }
 
-        return null;
+        return;
     }
 }
 
