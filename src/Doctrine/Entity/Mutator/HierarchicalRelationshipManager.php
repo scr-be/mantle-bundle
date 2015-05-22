@@ -14,7 +14,7 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Mutator;
 use Doctrine\ORM\EntityManager;
 use Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
-use Scribe\Doctrine\Manager\EntityManagerForwardableTrait;
+use Scribe\Doctrine\Manager\EntityManagerProxyTrait;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareTrait;
 use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareInterface;
 
@@ -23,7 +23,7 @@ use Scribe\MantleBundle\Doctrine\RepositoryAware\NodeRepositoryAwareInterface;
  */
 class HierarchicalRelationshipManager implements NodeRepositoryAwareInterface
 {
-    use EntityManagerForwardableTrait,
+    use EntityManagerProxyTrait,
         NodeRepositoryAwareTrait;
 
     /**

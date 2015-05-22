@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Component\DataTransferObject\MappingDefinition;
+namespace Scribe\Component\Hydrator\Mapping;
 
 /**
- * Class ObjectMappingDefinitionInterface.
+ * Class HydratorMappingInterface.
  */
-interface ObjectMappingDefinitionInterface
+interface HydratorMappingInterface
 {
     /**
      * When set to true, the {@see getTransferable()} method will return an array of all transferable properties
@@ -42,7 +42,7 @@ interface ObjectMappingDefinitionInterface
      * object. When {@see getTransferable()} is called these properties will be mapped to the array of properties
      * set via {@see setMappingTo()} to determine the property assignment in the new object.
      *
-     * @param string ...$propertyCollection
+     * @param string, ...$propertyCollection
      *
      * @return mixed
      */
@@ -53,14 +53,14 @@ interface ObjectMappingDefinitionInterface
      * correlation to the {@see setMappingFrom()} collection. Note that when {@see setGreedy()} is set to false,
      * not passing any values to this object allows {@see setMappingFrom()} to simply act as a constraint.
      *
-     * @param string ...$propertyCollection
+     * @param string,... $propertyCollection
      *
      * @return mixed
      */
     public function setMappingTo(...$propertyCollection);
 
     /**
-     * Returns an multi-dimentional array of key=>value pairs representing the property names to be transferred from
+     * Returns an multi-dimensional array of key=>value pairs representing the property names to be transferred from
      * the original (from) object to the new (to) object. The key=>value relationship is the same as {@see setMapping()},
      * representing originalPropertyName=>newPropertyName.
      *

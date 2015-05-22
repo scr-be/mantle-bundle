@@ -11,19 +11,27 @@
 
 namespace Scribe\MantleBundle\Component\Controller\Behaviors;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Scribe\Component\Controller\Exception\ControllerException;
+use Scribe\Component\DependencyInjection\Exception\InvalidContainerParameterException;
+use Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Exception\RuntimeException;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
@@ -62,8 +70,15 @@ interface ControllerBehaviorsInterface
     const SESSION_MSG_ERROR = 'error';
 
     /**
-     * Returns the container.
+     * @param ContainerInterface $serviceContainer
      *
+     * @internal
+     *
+     * @return $this
+     */
+    public function setServiceContainer(ContainerInterface $serviceContainer);
+
+    /**
      * @return ContainerInterface
      */
     public function container();
@@ -75,12 +90,14 @@ interface ControllerBehaviorsInterface
      *
      * @return mixed[]
      */
-    public function getServiceCollection(...$id);
+    public function getServiceCollection(...$ids);
 
     /**
      * Provides a service definition based on the service ID provided.
      *
      * @param string $id A service key to resolve from the container
+     *
+     * @throws InvalidContainerServiceException|\Exception
      *
      * @return mixed
      */
@@ -98,16 +115,18 @@ interface ControllerBehaviorsInterface
     /**
      * Provides an array of parameters corresponding to an array of parameter keys provided as method arguments.
      *
-     * @param string ...$id The parameter keys to resolve.
+     * @param string,... $ids The parameter keys to resolve.
      *
      * @return mixed
      */
-    public function getParameterCollection(...$id);
+    public function getParameterCollection(...$ids);
 
     /**
      * Provides a parameter value based on the key provided.
      *
      * @param string $id A parameter key to resolve.
+     *
+     * @throws InvalidContainerParameterException|\Exception
      *
      * @return mixed
      */
@@ -121,6 +140,13 @@ interface ControllerBehaviorsInterface
      * @return bool
      */
     public function hasParameter($id);
+
+    /**
+     * Get the doctrine registry service.
+     *
+     * @return Registry
+     */
+    public function doctrine();
 
     /**
      * Access the entity manager quickly through this short hand method.
@@ -162,7 +188,7 @@ interface ControllerBehaviorsInterface
     public function emTransactionRollback();
 
     /**
-     * Persist an array collection to the database.
+     * Persist an array collection of entities to the database.
      *
      * @param ArrayCollection $collection An collection of entities.
      * @param bool            $flush      Should the actions be flushed immediately?
@@ -191,6 +217,33 @@ interface ControllerBehaviorsInterface
      * @return $this
      */
     public function entityCollectionRefresh(ArrayCollection $collection, $flush = false);
+
+    /**
+     * Call an instance method on elements of an array collection.
+     *
+     * @internal
+     *
+     * @param string          $method
+     * @param ArrayCollection $collection
+     * @param bool            $flush
+     * @param bool            $filter
+     *
+     * @throws \Exception
+     *
+     * @return $this
+     */
+    public function entityCollectionAction($method, ArrayCollection $collection, $flush = false, $filter = true);
+
+    /**
+     * Filter a collection to ensure they all extend AbstractEntity.
+     *
+     * @internal
+     *
+     * @param ArrayCollection $collection A collection of entities.
+     *
+     * @return ArrayCollection
+     */
+    public function entityCollectionFilter(ArrayCollection $collection);
 
     /**
      * Persist an entity to the database.
@@ -318,9 +371,8 @@ interface ControllerBehaviorsInterface
     public function getResponse($content, array $headers = [], $status = null, callable $config = null);
 
     /**
-     * Alias for {@see self::getResponse()}.
-     *
-     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
+     * Returns an HTML response using the provided parameters to construct the Response object instance.
+     * {@see self::getResponse()}.
      *
      * @param string        $content The content for the response.
      * @param array         $headers Any headers to send with the request.
@@ -341,8 +393,6 @@ interface ControllerBehaviorsInterface
      * Returns a text response using the provided parameters to construct the Response object instance. For additional
      * parameter and usage information reference {@see getResponse()}.
      *
-     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
-     *
      * @param string        $content The content for the response.
      * @param array         $headers Any headers to send with the request.
      * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
@@ -362,8 +412,6 @@ interface ControllerBehaviorsInterface
      * Returns a JSON response using the provided parameters to construct the Response object instance. For additional
      * parameter and usage information reference {@see getResponse()}.
      *
-     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
-     *
      * @param string        $content The content for the response.
      * @param array         $headers Any headers to send with the request.
      * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
@@ -382,8 +430,6 @@ interface ControllerBehaviorsInterface
     /**
      * Returns a YAML response using the provided parameters to construct the Response object instance. For additional
      * parameter and usage information reference {@see getResponse()}.
-     *
-     * * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
      *
      * @param string        $content The content for the response.
      * @param array         $headers Any headers to send with the request.
@@ -425,6 +471,16 @@ interface ControllerBehaviorsInterface
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
+    public function getResponseRedirect($uri, $status = 302);
+
+    /**
+     * Returns a RedirectResponse configured based on the provided URI.
+     *
+     * @param string $uri
+     * @param int    $status
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function getResponseRedirectByUri($uri, $status = 302);
 
     /**
@@ -438,23 +494,25 @@ interface ControllerBehaviorsInterface
     public function getResponseRedirectByUrl($url, $status = 302);
 
     /**
-     * Returns a RedirectResponse configured based on the provided URI.
+     * Returns a RedirectResponse configured based on the passed Route entity provided.
      *
-     * @param string $uri
+     * @param Route $route
+     * @param int   $status
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getResponseRedirectByRouteEntity(Route $route, $status = 302);
+
+    /**
+     * Returns a RedirectResponse based on a route.
+     *
+     * @param string $routePath
+     * @param array  $routeParameters
      * @param int    $status
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirect($uri, $status = 302);
-
-    /**
-     * Returns a RedirectResponse configured based on the passed Route entity provided.
-     *
-     * @param Route $route
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function getResponseRedirectByRoute(Route $route);
+    public function getResponseRedirectByRouterKey($routePath, array $routeParameters = [], $status = 302);
 
     /**
      * Provides the router service from the container.
@@ -471,7 +529,7 @@ interface ControllerBehaviorsInterface
      *
      * @return string
      */
-    public function getRouteUri($key, ...$parameters);
+    public function getRouteUri($key, array $parameters = []);
 
     /**
      * Uses the Router service to create a URL based on the route key and parameters provided.
@@ -481,7 +539,7 @@ interface ControllerBehaviorsInterface
      *
      * @return string
      */
-    public function getRouteUrl($key, ...$parameters);
+    public function getRouteUrl($key, array $parameters = []);
 
     /**
      * Accepts any exception extending AbstractHttpException and returns the same exception populated with a
@@ -499,8 +557,8 @@ interface ControllerBehaviorsInterface
      * Creates and returns a generic http exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
-     * @param string  $message     The exception message string.
-     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     * @param string    $message     The exception message string.
+     * @param mixed,... $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
      *
      * @return ControllerException
      */
@@ -510,8 +568,8 @@ interface ControllerBehaviorsInterface
      * Creates and returns a not found exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
-     * @param string  $message     The exception message string.
-     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     * @param string    $message     The exception message string.
+     * @param mixed,... $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
      *
      * @return ControllerException
      */
@@ -521,8 +579,8 @@ interface ControllerBehaviorsInterface
      * Creates and returns an unauthorized exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
-     * @param string  $message     The exception message string.
-     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     * @param string    $message     The exception message string.
+     * @param mixed,... $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
      *
      * @return ControllerException
      */
@@ -531,15 +589,15 @@ interface ControllerBehaviorsInterface
     /**
      * Returns the session service from the container.
      *
-     * @return SessionInterface
+     * @return Session
      */
     public function session();
 
     /**
      * Add a flash message to the session of type "info" - shown to the user on page rendering.
      *
-     * @param string  $message
-     * @param mixed[] $sprintfArgs
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
      *
      * @return $this
      */
@@ -548,8 +606,8 @@ interface ControllerBehaviorsInterface
     /**
      * Add a flash message to the session of type "success" - shown to the user on page rendering.
      *
-     * @param string  $message
-     * @param mixed[] $sprintfArgs
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
      *
      * @return $this
      */
@@ -558,17 +616,37 @@ interface ControllerBehaviorsInterface
     /**
      * Add a flash message to the session of type "error" - shown to the user on page rendering.
      *
-     * @param string  $message
-     * @param mixed[] $sprintfArgs
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
      *
      * @return $this
      */
     public function addSessionMsgError($message, ...$sprintfArgs);
 
     /**
+     * Add a session message of the specified type.
+     *
+     * @param string    $type
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
+     *
+     * @internal
+     *
+     * @return $this
+     */
+    public function addSessionMsg($type, $message, ...$sprintfArgs);
+
+    /**
+     * Provides the user token storage service from the container.
+     *
+     * @return TokenStorage
+     */
+    public function tokenStorage();
+
+    /**
      * Provides the user token service from the container.
      *
-     * @return TokenInterface
+     * @return TokenInterface|null
      */
     public function token();
 
@@ -582,6 +660,8 @@ interface ControllerBehaviorsInterface
     /**
      * Provides the user entity for the current session, or returns null if no user is available (such as when a user
      * has not logged on).
+     *
+     * @throws RuntimeException
      *
      * @return AdvancedUserInterface|null
      */
@@ -597,11 +677,12 @@ interface ControllerBehaviorsInterface
     /**
      * Resolves the string value based on a provided key.
      *
-     * @param string $key A translation key.
+     * @param string    $key       A translation key.
+     * @param mixed,... $parameter Parameters for the translation.
      *
      * @return string
      */
-    public function getTranslation($key);
+    public function getTranslation($key, ...$parameters);
 
     /**
      * Returns the request stack service.
@@ -625,7 +706,7 @@ interface ControllerBehaviorsInterface
     public function getRequestMaster();
 
     /**
-     * Determines if the current request-scrope is the master request.
+     * Determines if the current request-scope is the master request.
      *
      * @return bool
      */
@@ -672,7 +753,9 @@ interface ControllerBehaviorsInterface
      * materialized path.
      *
      * @param Node|string $search
-     * @param mixed       ...$arguments
+     * @param mixed       $arguments
+     *
+     * @throws ControllerException
      *
      * @return string
      */
@@ -681,43 +764,98 @@ interface ControllerBehaviorsInterface
     /**
      * Renders a node.
      *
-     * @param Node $node
-     * @param mixed ...$arguments
+     * @param Node      $node
+     * @param mixed,... $arguments
      *
      * @return string
      */
     public function renderNodeEntity(Node $node, ...$arguments);
 
     /**
-     * @param $slug
-     * @param ...$arguments
+     * @param string    $slug
+     * @param mixed,... $arguments
      *
      * @return mixed
      */
     public function renderNodeBySlug($slug, ...$arguments);
 
     /**
-     * @param $materializedPath
-     * @param ...$arguments
+     * @param string    $materializedPath
+     * @param mixed,... $arguments
      *
      * @return mixed
      */
     public function renderNodeByPath($materializedPath, ...$arguments);
 
     /**
-     * @return mixed
+     * Renders a template view.
+     *
+     * @param string $view       The path to the template view
+     * @param array  $parameters An array of parameters to pass to the template renderer
+     *
+     * @return string
+     */
+    public function renderView($view, array $parameters = []);
+
+    /**
+     * Get the form factory service.
+     *
+     * @return FormFactoryInterface
      */
     public function form();
 
     /**
-     * @param string      $type
-     * @param string|null $name
-     * @param mixed|null  $data
-     * @param array       $options
+     * Get a form via it's service type definition and/or its form definition object.
+     *
+     * @param string|object $type    The form type definition or a key to a form type service definition.
+     * @param mixed|null    $data    Data for the form.
+     * @param array         $options Options to be passed to the form.
+     * @param string|null   $name    An optional name for the form (when multiple forms exist on a page)
      *
      * @return Form
      */
-    public function getForm($type, $name = null, $data = null, array $options = []);
+    public function createForm($type, $data = null, array $options = [], $name = null);
+
+    /**
+     * Get a form via it's service type definition and/or its form definition object.
+     *
+     * @param string|null   $name    An optional name for the form (when multiple forms exist on a page)
+     * @param string|object $type    The form type definition or a key to a form type service definition.
+     * @param mixed|null    $data    Data for the form.
+     * @param array         $options Options to be passed to the form.
+     *
+     * @return Form
+     */
+    public function createFormNamed($name = null, $type, $data = null, array $options = []);
+
+    /**
+     * Get a form builder.
+     *
+     * @param mixed|null  $data    Data for the form.
+     * @param array       $options Options to be passed to the form.
+     * @param string|null $name    An optional name for the form (when multiple forms exist on a page)
+     *
+     * @return FormBuilder
+     */
+    public function createFormBuilder($data = null, array $options = [], $name = null);
+
+    /**
+     * Get a named form builder.
+     *
+     * @param string|null $name    An optional name for the form (when multiple forms exist on a page)
+     * @param mixed|null  $data    Data for the form.
+     * @param array       $options Options to be passed to the form.
+     *
+     * @return FormBuilder
+     */
+    public function getFormBuilderNamed($name = null, $data = null, array $options = []);
+
+    /**
+     * Get the logger service.
+     *
+     * @return LoggerInterface
+     */
+    public function logger();
 }
 
 /* EOF */

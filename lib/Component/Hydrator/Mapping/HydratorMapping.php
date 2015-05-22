@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Component\DataTransferObject\MappingDefinition;
+namespace Scribe\Component\Hydrator\Mapping;
 
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 
 /**
- * Class ObjectMappingDefinition.
+ * Class HydratorMapping.
  */
-class ObjectMappingDefinition implements ObjectMappingDefinitionInterface
+class HydratorMapping implements HydratorMappingInterface
 {
     /**
      * Is the mapping greedy (iterates all properties in the original object) or constrained (only iterates over
@@ -162,7 +162,7 @@ class ObjectMappingDefinition implements ObjectMappingDefinitionInterface
         $analyser->setReflectionClassFromClassInstance($objectInstance);
         $refPropertyCollection = (array) $analyser->getProperties(false);
 
-        if (empty($refPropertyCollection)) {
+        if (0 === count($refPropertyCollection)) {
             return [];
         }
 
@@ -196,7 +196,7 @@ class ObjectMappingDefinition implements ObjectMappingDefinitionInterface
             list($mappingFrom) = $this->getMappingSeparated($this->mapping);
 
             $propertyCollection = array_filter($propertyCollection, function ($property) use ($mappingFrom) {
-                return (bool) (in_array($property, $mappingFrom) ? true : false);
+                return (bool) (in_array($property, $mappingFrom, false) ? true : false);
             });
         }
 
@@ -214,7 +214,7 @@ class ObjectMappingDefinition implements ObjectMappingDefinitionInterface
         $mappedCollection = [];
 
         foreach ($propertyCollection as $index => $from) {
-            if (false === ($key = array_search($from, $mappingFrom))) {
+            if (false === ($key = array_search($from, $mappingFrom, false))) {
                 $mappedCollection[$from] = $from;
                 continue;
             }

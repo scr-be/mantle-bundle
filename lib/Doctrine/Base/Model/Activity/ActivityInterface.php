@@ -11,14 +11,13 @@
 
 namespace Scribe\Doctrine\Base\Model\Activity;
 
-use Scribe\Doctrine\Base\Model\Description\DescriptionInterface;
 use Scribe\Doctrine\Base\Model\Type\TypeInterface;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorInterface;
 
 /**
  * Class ActivityInterface.
  */
-interface ActivityInterface extends TypeInterface, DescriptionInterface, TimestampableBehaviorInterface
+interface ActivityInterface extends TypeInterface, TimestampableBehaviorInterface
 {
 }
 

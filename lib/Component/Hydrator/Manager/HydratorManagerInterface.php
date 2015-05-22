@@ -9,23 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Component\DataTransferObject\TransferManager;
+namespace Scribe\Component\Hydrator\Manager;
 
-use Scribe\Component\DataTransferObject\MappingDefinition\ObjectMappingDefinitionInterface;
+use Scribe\Component\Hydrator\Mapping\HydratorMappingInterface;
 
 /**
- * Class ObjectTransferManagerInterface.
+ * Class HydratorManagerInterface.
  */
-interface ObjectTransferManagerInterface
+interface HydratorManagerInterface
 {
     /**
      * Set custom object property mapping.
      *
-     * @param ObjectMappingDefinitionInterface|null $mapping
+     * @param \Scribe\Component\Hydrator\Mapping\HydratorMappingInterface|null $mapping
      *
      * @return $this
      */
-    public function setMappingDefinition(ObjectMappingDefinitionInterface $mapping = null);
+    public function setMapping(HydratorMappingInterface $mapping = null);
 
     /**
      * @param object $from

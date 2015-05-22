@@ -9,20 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Tests\Component\DataTransferObject\TransferManager;
+namespace Scribe\Tests\Component\Hydrator\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Component\DataTransferObject\MappingDefinition\ObjectMappingDefinition;
-use Scribe\Component\DataTransferObject\TransferManager\ObjectTransferManager;
+use Scribe\Component\Hydrator\Mapping\HydratorMapping;
+use Scribe\Component\Hydrator\Manager\HydratorManager;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision;
-use Scribe\Tests\Component\DataTransferObject\TransferManager\Fixture\NodeFixture;
+use Scribe\Tests\Component\Hydrator\Manager\Fixture\NodeFixture;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 
 /**
- * Class ObjectTransferManagerTest.
+ * Class HydratorManagerTest.
  */
-class ObjectTransferManagerTest extends AbstractMantleTestCase
+class HydratorManagerTest extends AbstractMantleTestCase
 {
     /**
      * @var Node
@@ -61,7 +61,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
 
         $nodeFake = new NodeFixture();
 
-        $def = new ObjectMappingDefinition(false, [
+        $def = new HydratorMapping(false, [
             'doesnt-exist' => null,
             'author' => 'the_author',
             'title' => 'node_title',
@@ -72,7 +72,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
             'another-invalid-property' => 'nothing',
         ]);
 
-        $transferManager = new ObjectTransferManager($def);
+        $transferManager = new HydratorManager($def);
         $nodeFakeResult = $transferManager->getMappedObject($this->node, $nodeFake);
 
         $expectedNodeFaker = new NodeFixture();
@@ -109,7 +109,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
 
         $nodeFake = new NodeFixture();
 
-        $def = new ObjectMappingDefinition(true, [
+        $def = new HydratorMapping(true, [
             'doesnt-exist' => null,
             'author' => 'the_author',
             'another-invalid-property' => 'nothing',
@@ -120,7 +120,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
             'ending-bad-property' => 'wont-be-transferred',
         ]);
 
-        $transferManager = new ObjectTransferManager($def);
+        $transferManager = new HydratorManager($def);
         $nodeFakeResult = $transferManager->getMappedObject($this->node, $nodeFake);
 
         $expectedNodeFaker = new NodeFixture();
@@ -141,7 +141,7 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
 
     public function testMappingException()
     {
-        $def = new ObjectMappingDefinition(true, [
+        $def = new HydratorMapping(true, [
             'doesnt-exist' => null,
             'author' => 'the_author',
             'another-invalid-property' => 'nothing',
@@ -154,10 +154,10 @@ class ObjectTransferManagerTest extends AbstractMantleTestCase
 
         $this->setExpectedException(
             '\Scribe\Exception\InvalidArgumentException',
-            'The method Scribe\Component\DataTransferObject\TransferManager\ObjectTransferManager::getMappedObject expects to be passed two objects.'
+            'The method Scribe\Component\Hydrator\Manager\HydratorManager::getMappedObject expects to be passed two objects.'
         );
 
-        $transferManager = new ObjectTransferManager($def);
+        $transferManager = new \Scribe\Component\Hydrator\Manager\HydratorManager($def);
         $transferManager->getMappedObject($this->node, 'not-an-obj');
     }
 }

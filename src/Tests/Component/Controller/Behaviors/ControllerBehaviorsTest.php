@@ -13,10 +13,10 @@ namespace Scribe\MantleBundle\Tests\Component\Controller\Behaviors;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\TwigBundle\TwigEngine;
+use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviorsInterface;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
-use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
 
 /**
  * Class ControllerBehaviorsTest.
@@ -33,7 +33,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
         parent::setUp();
 
         $this->controllerBehaviors = new ControllerBehaviors();
-        $this->controllerBehaviors->setContainer($this->container);
+        $this->controllerBehaviors->setServiceContainer($this->container);
     }
 
     public function testContainer()

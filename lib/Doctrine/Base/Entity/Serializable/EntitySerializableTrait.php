@@ -49,7 +49,7 @@ trait EntitySerializableTrait
      */
     public function serialize()
     {
-        return Serializer::sleep((array) get_object_vars($this));
+        return Serializer::sleep(get_object_vars($this));
     }
 
     /**

@@ -13,13 +13,14 @@ namespace Scribe\Doctrine\Manager;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Scribe\Component\DependencyInjection\Aware\EntityManagerAwareTrait;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
- * Class EntityManagerForwardableTrait.
+ * Class EntityManagerProxyTrait.
  */
-trait EntityManagerForwardableTrait
+trait EntityManagerProxyTrait
 {
     use EntityManagerAwareTrait;
 
@@ -29,7 +30,7 @@ trait EntityManagerForwardableTrait
      *
      * @return $this
      */
-    protected function flush()
+    public function flush()
     {
         $this->em->flush();
 
@@ -43,7 +44,7 @@ trait EntityManagerForwardableTrait
      *
      * @return $this
      */
-    protected function remove(AbstractEntity $entity)
+    public function remove(AbstractEntity $entity)
     {
         $this->em->remove($entity);
 
@@ -57,7 +58,7 @@ trait EntityManagerForwardableTrait
      *
      * @return $this
      */
-    protected function persist(AbstractEntity $entity)
+    public function persist(AbstractEntity $entity)
     {
         $this->em->persist($entity);
 
@@ -133,17 +134,28 @@ trait EntityManagerForwardableTrait
     }
 
     /**
-     * Changes the current hydrator mode.
+     * Changes the current hydration mode. {@see Doctrine\ORM\Query} for acceptable constants you can pass to this method.
      *
      * @param int $mode
      *
      * @return $this
      */
-    public function setHydrator($mode = Query::HYDRATE_OBJECT)
+    public function setHydration($mode = Query::HYDRATE_OBJECT)
     {
         $this->em->newHydrator($mode);
 
         return $this;
+    }
+
+    /**
+     * Changes the current hydration mode back to the default. The default is {@see Doctrine\ORM\Query::HYDRATE_OBJECT}
+     * which returns hydrated object entities for queries.
+     *
+     * @return $this
+     */
+    public function resetHydration()
+    {
+        return $this->setHydration(Query::HYDRATE_OBJECT);
     }
 
     /**
@@ -173,13 +185,33 @@ trait EntityManagerForwardableTrait
     }
 
     /**
+     * Returns a new query builder, allowing you to build a Doctrine query using DQL and execute it.
+     *
+     * @return QueryBuilder
+     */
+    public function getQueryCreator()
+    {
+        return $this->em->createQueryBuilder();
+    }
+
+    /**
      * Checks if the entity manager is open or closed and returns a corresponding boolean value.
      *
      * @return bool
      */
     public function isOpen()
     {
-        return $this->em->isOpen();
+        return (bool) $this->em->isOpen();
+    }
+
+    /**
+     * Checks if the entity manager is closed. Inverse of {@see isOpen()}.
+     *
+     * @return bool
+     */
+    public function isClosed()
+    {
+        return (bool) !$this->isOpen();
     }
 }
 

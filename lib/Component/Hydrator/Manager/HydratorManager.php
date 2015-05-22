@@ -9,43 +9,43 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Component\DataTransferObject\TransferManager;
+namespace Scribe\Component\Hydrator\Manager;
 
-use Scribe\Component\DataTransferObject\MappingDefinition\ObjectMappingDefinition;
-use Scribe\Component\DataTransferObject\MappingDefinition\ObjectMappingDefinitionInterface;
+use Scribe\Component\Hydrator\Mapping\HydratorMapping;
+use Scribe\Component\Hydrator\Mapping\HydratorMappingInterface;
 use Scribe\Exception\InvalidArgumentException;
 use Scribe\Utility\Reflection\ClassReflectionAnalyser;
 
 /**
- * Class ObjectTransferManager.
+ * Class HydratorManager.
  */
-class ObjectTransferManager implements ObjectTransferManagerInterface
+class HydratorManager implements HydratorManagerInterface
 {
     /**
-     * @var ObjectMappingDefinitionInterface
+     * @var \Scribe\Component\Hydrator\Mapping\HydratorMappingInterface
      */
     protected $mapping;
 
     /**
      * Object can be instantiated with the mapping definition directly.
      *
-     * @param ObjectMappingDefinitionInterface $mapping
+     * @param \Scribe\Component\Hydrator\Mapping\HydratorMappingInterface $mapping
      */
-    public function __construct(ObjectMappingDefinitionInterface $mapping = null)
+    public function __construct(HydratorMappingInterface $mapping = null)
     {
-        $this->setMappingDefinition(
-            (null === $mapping ? new ObjectMappingDefinition() : $mapping)
+        $this->setMapping(
+            (null === $mapping ? new HydratorMapping() : $mapping)
         );
     }
 
     /**
      * Set custom object property mapping.
      *
-     * @param ObjectMappingDefinitionInterface|null $mapping
+     * @param \Scribe\Component\Hydrator\Mapping\HydratorMappingInterface|null $mapping
      *
      * @return $this
      */
-    public function setMappingDefinition(ObjectMappingDefinitionInterface $mapping = null)
+    public function setMapping(HydratorMappingInterface $mapping = null)
     {
         $this->mapping = $mapping;
 

@@ -39,7 +39,7 @@ parameters:
 
     # General Utilities
 
-    s.mantle.entity_manager.forwardable.class:                          Scribe\Doctrine\Manager\EntityManagerForwardable
+    s.mantle.em_proxy.class:                                            Scribe\Doctrine\Manager\EntityManagerProxy
     s.mantle.reflection_analyser.class:                                 Scribe\Utility\Reflection\ClassReflectionAnalyser
     s.mantle.logger_callable.class:                                     Scribe\Utility\Logger\LoggerCallable
     s.mantle.service_finder.class:                                      Scribe\Component\DependencyInjection\Container\ServiceFinder
@@ -128,7 +128,7 @@ services:
     s.mantle.abstract.controller:
         abstract: true
         calls:
-            - [setContainer, [@service_container]]
+            - [setServiceContainer, [@service_container]]
 
     # Controllers
 
@@ -146,11 +146,11 @@ services:
 
     # General Utilities
 
-    s.mantle.entity_manager.forwardable:
-        class:  %s.mantle.entity_manager.forwardable.class%
+    s.mantle.em_proxy:
+        class:  %s.mantle.em_proxy.class%
         public: false
         arguments:
-            - @?doctrine.orm.entity_manager
+            - @doctrine.orm.entity_manager
 
     s.mantle.reflection_analyser:
         class:  %s.mantle.reflection_analyser.class%

@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\Listener;
 
-use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
-use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
+use Scribe\Component\Bundle\BundleInformation;
+use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Scribe\MantleBundle\Controller\MaintenanceController;
-use Scribe\Component\Bundle\BundleInformation;
 
 /**
  * Class MaintenanceListener
@@ -25,7 +25,7 @@ use Scribe\Component\Bundle\BundleInformation;
  */
 class MaintenanceListener
 {
-    use ContainerAwareTrait;
+    use ServiceContainerAwareTrait;
 
     /**
      * Instance of bundle info object.
@@ -166,7 +166,7 @@ class MaintenanceListener
      */
     private function isInvalidController()
     {
-        return (bool) ($this->controller instanceof ControllerBehaviors ? false : true);
+        return (bool) (false === ($this->controller instanceof ControllerBehaviors));
     }
 
     /**
@@ -192,11 +192,7 @@ class MaintenanceListener
      */
     private function isOverridden()
     {
-        if ($this->requestStack->getCurrentRequest()->get($this->overrideArgument) === $this->overrideValue) {
-            return true;
-        }
-
-        return false;
+        return ($this->requestStack->getCurrentRequest()->get($this->overrideArgument) === $this->overrideValue ?: false);
     }
 
     /**
@@ -207,7 +203,7 @@ class MaintenanceListener
      */
     private function isBundleEnabled()
     {
-        if (sizeof($this->bundles) === 0) {
+        if (0 === count($this->bundles)) {
             return true;
         }
 

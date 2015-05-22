@@ -11,15 +11,17 @@
 
 namespace Scribe\MantleBundle\Component\Controller\Behaviors;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
+use Psr\Log\LoggerInterface;
+use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -47,29 +49,14 @@ use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
  */
 trait ControllerBehaviorsTrait
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return $this
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
+    use ServiceContainerAwareTrait;
 
     /**
      * @return ContainerInterface
      */
     public function container()
     {
-        return $this->container;
+        return $this->serviceContainer;
     }
 
     /**
@@ -79,11 +66,11 @@ trait ControllerBehaviorsTrait
      *
      * @return mixed[]
      */
-    public function getServiceCollection(...$id)
+    public function getServiceCollection(...$ids)
     {
         $services = [];
 
-        foreach ($id as $serviceId) {
+        foreach ($ids as $serviceId) {
             if (false === is_array($serviceId)) {
                 $services[(string) $serviceId] = $this->getService($serviceId);
                 continue;
@@ -110,12 +97,12 @@ trait ControllerBehaviorsTrait
     public function getService($id)
     {
         if (true === $this->hasService($id)) {
-            return $this->container->get($id);
+            return $this->serviceContainer->get($id);
         }
 
-        throw $this->processException(new InvalidContainerServiceException(
-            null, null, null, null, $id
-        ));
+        throw $this->processException(
+            new InvalidContainerServiceException(null, null, null, null, $id)
+        );
     }
 
     /**
@@ -127,21 +114,21 @@ trait ControllerBehaviorsTrait
      */
     public function hasService($id)
     {
-        return (bool) ($this->container->has($id) === true ?: false);
+        return (bool) ($this->serviceContainer->has($id) === true ?: false);
     }
 
     /**
      * Provides an array of parameters corresponding to an array of parameter keys provided as method arguments.
      *
-     * @param string[] ...$id The parameter keys to resolve.
+     * @param string,... $ids The parameter keys to resolve.
      *
      * @return mixed
      */
-    public function getParameterCollection(...$id)
+    public function getParameterCollection(...$ids)
     {
         $parameters = [];
 
-        foreach ($id as $parameterId) {
+        foreach ($ids as $parameterId) {
             if (false === is_array($parameterId)) {
                 $parameters[(string) $parameterId] = $this->getParameter($parameterId);
                 continue;
@@ -168,12 +155,12 @@ trait ControllerBehaviorsTrait
     public function getParameter($id)
     {
         if (true === $this->hasParameter($id)) {
-            return $this->container->getParameter($id);
+            return $this->serviceContainer->getParameter($id);
         }
 
-        throw $this->processException(new InvalidContainerParameterException(
-            null, null, null, null, $id
-        ));
+        throw $this->processException(
+            new InvalidContainerParameterException(null, null, null, null, $id)
+        );
     }
 
     /**
@@ -185,7 +172,17 @@ trait ControllerBehaviorsTrait
      */
     public function hasParameter($id)
     {
-        return (bool) ($this->container->hasParameter($id) === true ?: false);
+        return (bool) ($this->serviceContainer->hasParameter($id) === true ?: false);
+    }
+
+    /**
+     * Get the doctrine registry service.
+     *
+     * @return Registry
+     */
+    public function doctrine()
+    {
+        return $this->getService('doctrine');
     }
 
     /**
@@ -197,7 +194,7 @@ trait ControllerBehaviorsTrait
      */
     public function em($id = null)
     {
-        return $this->getService($id !== null ? $id : ControllerBehaviorsInterface::EM_DEFAULT_ID);
+        return $this->getService($id ?: ControllerBehaviorsInterface::EM_DEFAULT_ID);
     }
 
     /**
@@ -444,25 +441,23 @@ trait ControllerBehaviorsTrait
     }
 
     /**
-     * Perform an action on an entity.
+     * @param string         $method
+     * @param AbstractEntity $entity
+     * @param bool           $flush
      *
      * @internal
      *
-     * @param string         $method The method to call on the entity manager.
-     * @param AbstractEntity $entity An entity instance.
-     * @param bool           $flush  Should the manager flush the change-set after performing this action?
+     * @throws \Exception
      *
      * @return $this
      */
     private function entityAction($method, AbstractEntity $entity, $flush)
     {
         try {
-            Call::method($this->em(), $method, $entity);
+            Call::method($this->em(), (string) $method, $entity);
             $this->emFlush($flush);
         } catch (\Exception $e) {
-            throw $this->processException(new ORMException(
-                null, null, null, null, $e->getMessage()
-            ));
+            throw $this->processException(new ORMException(null, null, $e, null, $e->getMessage()));
         }
 
         return $this;
@@ -684,6 +679,19 @@ trait ControllerBehaviorsTrait
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
+    public function getResponseRedirect($uri, $status = 302)
+    {
+        return new RedirectResponse($uri, $status);
+    }
+
+    /**
+     * Returns a RedirectResponse configured based on the provided URI.
+     *
+     * @param string $uri
+     * @param int    $status
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function getResponseRedirectByUri($uri, $status = 302)
     {
         return $this->getResponseRedirect($uri, $status);
@@ -703,30 +711,34 @@ trait ControllerBehaviorsTrait
     }
 
     /**
-     * Returns a RedirectResponse configured based on the provided URI.
+     * Returns a RedirectResponse configured based on the passed Route entity provided.
      *
-     * @param string $uri
+     * @param Route $route
+     * @param int   $status
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getResponseRedirectByRouteEntity(Route $route, $status = 302)
+    {
+        $this->getResponseRedirect(
+            $this->getRouteUri($route->getName(), $route->getParameters()), $status
+        );
+    }
+
+    /**
+     * Returns a RedirectResponse based on a route.
+     *
+     * @param string $routePath
+     * @param array  $routeParameters
      * @param int    $status
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function getResponseRedirect($uri, $status = 302)
+    public function getResponseRedirectByRouterKey($routePath, array $routeParameters = [], $status = 302)
     {
-        return new RedirectResponse($uri, $status);
-    }
-
-    /**
-     * Returns a RedirectResponse configured based on the passed Route entity provided.
-     *
-     * @param Route $route
-     *
-     * @throws ControllerException
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function getResponseRedirectByRoute(Route $route)
-    {
-        throw new ControllerException('Not yet implemented...'.__METHOD__);
+        return new RedirectResponse(
+            $this->getRouteUri($routePath, $routeParameters), $status
+        );
     }
 
     /**
@@ -747,7 +759,7 @@ trait ControllerBehaviorsTrait
      *
      * @return string
      */
-    public function getRouteUri($key, ...$parameters)
+    public function getRouteUri($key, array $parameters = [])
     {
         return $this
             ->router()
@@ -763,7 +775,7 @@ trait ControllerBehaviorsTrait
      *
      * @return string
      */
-    public function getRouteUrl($key, ...$parameters)
+    public function getRouteUrl($key, array $parameters = [])
     {
         return $this
             ->router()
@@ -790,8 +802,8 @@ trait ControllerBehaviorsTrait
      * Creates and returns a generic http exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
-     * @param string  $message     The exception message string.
-     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     * @param string    $message     The exception message string.
+     * @param mixed,... $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
      *
      * @return ControllerException
      */
@@ -804,8 +816,8 @@ trait ControllerBehaviorsTrait
      * Creates and returns a not found exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
-     * @param string  $message     The exception message string.
-     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     * @param string    $message     The exception message string.
+     * @param mixed,... $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
      *
      * @return ControllerException
      */
@@ -818,8 +830,8 @@ trait ControllerBehaviorsTrait
      * Creates and returns an unauthorized exception. This method handles passing the exception through {@see self::processException()}
      * so the returned exception is populated with additional request-specific info and can simply be thrown.
      *
-     * @param string  $message     The exception message string.
-     * @param mixed[] $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
+     * @param string    $message     The exception message string.
+     * @param mixed,... $sprintfArgs Optional additional parameters that are passed to sprintf against the passed message.
      *
      * @return ControllerException
      */
@@ -841,60 +853,49 @@ trait ControllerBehaviorsTrait
     /**
      * Add a flash message to the session of type "info" - shown to the user on page rendering.
      *
-     * @param string  $message
-     * @param mixed[] $sprintfArgs
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
      *
      * @return $this
      */
     public function addSessionMsgInfo($message, ...$sprintfArgs)
     {
-        return $this->addSessionMsg(
-            ControllerBehaviorsInterface::SESSION_MSG_INFO,
-            $message,
-            ...$sprintfArgs
-        );
+        return $this->addSessionMsg(ControllerBehaviorsInterface::SESSION_MSG_INFO, $message, ...$sprintfArgs);
     }
 
     /**
      * Add a flash message to the session of type "success" - shown to the user on page rendering.
      *
-     * @param string  $message
-     * @param mixed[] $sprintfArgs
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
      *
      * @return $this
      */
     public function addSessionMsgSuccess($message, ...$sprintfArgs)
     {
-        return $this->addSessionMsg(
-            ControllerBehaviorsInterface::SESSION_MSG_SUCCESS,
-            $message,
-            ...$sprintfArgs
-        );
+        return $this->addSessionMsg(ControllerBehaviorsInterface::SESSION_MSG_SUCCESS, $message, ...$sprintfArgs);
     }
 
     /**
      * Add a flash message to the session of type "error" - shown to the user on page rendering.
      *
-     * @param string  $message
-     * @param mixed[] $sprintfArgs
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
      *
      * @return $this
      */
     public function addSessionMsgError($message, ...$sprintfArgs)
     {
-        return $this->addSessionMsg(
-            ControllerBehaviorsInterface::SESSION_MSG_ERROR,
-            $message,
-            ...$sprintfArgs
+        return $this->addSessionMsg(ControllerBehaviorsInterface::SESSION_MSG_ERROR, $message, ...$sprintfArgs
         );
     }
 
     /**
      * Add a session message of the specified type.
      *
-     * @param string $type
-     * @param string $message
-     * @param mixed[] ...$sprintfArgs
+     * @param string    $type
+     * @param string    $message
+     * @param mixed,... $sprintfArgs
      *
      * @return $this
      */
@@ -940,7 +941,34 @@ trait ControllerBehaviorsTrait
      */
     public function auth()
     {
-        $this->getService('security.authorization_checker');
+        return $this->getService('security.authorization_checker');
+    }
+
+    /**
+     * @param string,... $attributeCollection
+     *
+     * @return bool
+     */
+    public function isGranted(...$attributeCollection)
+    {
+        foreach ($attributeCollection as $attribute) {
+            if (false === $this->auth()->isGranted($attribute)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $attribute
+     * @param mixed  $object
+     *
+     * @return bool
+     */
+    public function isGrantedFor($attribute, $object)
+    {
+        return (bool) $this->auth()->isGranted($attribute, $object);
     }
 
     /**
@@ -977,8 +1005,8 @@ trait ControllerBehaviorsTrait
     /**
      * Resolves the string value based on a provided key.
      *
-     * @param string $key A translation key.
-     * @param mixed  ...$parameter Parameters for the translation.
+     * @param string    $key       A translation key.
+     * @param mixed,... $parameter Parameters for the translation.
      *
      * @return string
      */
@@ -986,7 +1014,8 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->translator()
-            ->trans($key, $parameters);
+            ->trans($key, $parameters)
+        ;
     }
 
     /**
@@ -1008,7 +1037,8 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->requestStack()
-            ->getCurrentRequest();
+            ->getCurrentRequest()
+        ;
     }
 
     /**
@@ -1020,21 +1050,18 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->requestStack()
-            ->getMasterRequest();
+            ->getMasterRequest()
+        ;
     }
 
     /**
-     * Determines if the current request-scrope is the master request.
+     * Determines if the current request-scope is the master request.
      *
      * @return bool
      */
     public function isRequestMaster()
     {
-        if ($this->getRequestParent()) {
-            return false;
-        }
-
-        return true;
+        return $this->requestStack()->getParentRequest() ? true : false;
     }
 
     /**
@@ -1044,9 +1071,16 @@ trait ControllerBehaviorsTrait
      */
     public function getRequestParent()
     {
+        if ($this->isRequestMaster() === true) {
+            $this->processException(
+                new RuntimeException('Cannot get the parent request as this is the master request.')
+            );
+        }
+
         return $this
             ->requestStack()
-            ->getParentRequest();
+            ->getParentRequest()
+        ;
     }
 
     /**
@@ -1058,8 +1092,9 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->requestStack()
-            ->getMasterRequest()
-            ->getScheme();
+            ->getCurrentRequest()
+            ->getScheme()
+        ;
     }
 
     /**
@@ -1071,8 +1106,9 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->requestStack()
-            ->getMasterRequest()
-            ->getHost();
+            ->getCurrentRequest()
+            ->getHost()
+        ;
     }
 
     /**
@@ -1085,8 +1121,9 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->requestStack()
-            ->getMasterRequest()
-            ->getSchemeAndHttpHost();
+            ->getCurrentRequest()
+            ->getSchemeAndHttpHost()
+        ;
     }
 
     /**
@@ -1167,7 +1204,8 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->node()
-            ->renderFromMaterializedPath($materializedPath, $arguments);
+            ->renderFromMaterializedPath($materializedPath, $arguments)
+        ;
     }
 
     /**
@@ -1181,48 +1219,15 @@ trait ControllerBehaviorsTrait
     public function renderView($view, array $parameters = [])
     {
         return $this
-            ->getService('templating')
-            ->render(
-                $view,
-                $parameters
-            )
+            ->templating()
+            ->render($view, $parameters)
         ;
-    }
-
-    /**
-     * Return JSON response object instance.
-     *
-     * @param array  $data     JSON data to return
-     * @param int    $status   HTTP status code
-     * @param array  $headers  Additional HTTP headers to return with response
-     * @param string $protocol HTTP protocol to use
-     *
-     * @return JsonResponse
-     */
-    public function jsonResponse(array $data = null, $status = Response::HTTP_OK, array $headers = null, $protocol = '1.1')
-    {
-        $response = (new JsonResponse($data))
-            ->setProtocolVersion($protocol)
-            ->setDate(new \DateTime(null, new \DateTimeZone('UTC')))
-        ;
-
-        if (is_array($status)) {
-            $response->setStatusCode(reset($status), key($status));
-        } else {
-            $response->setStatusCode($status);
-        }
-
-        if (is_array($headers)) {
-            $response->headers->add($headers);
-        }
-
-        return $response;
     }
 
     /**
      * Get the form factory service.
      *
-     * @return mixed
+     * @return FormFactoryInterface
      */
     public function form()
     {
@@ -1233,14 +1238,13 @@ trait ControllerBehaviorsTrait
      * Get a form via it's service type definition and/or its form definition object.
      *
      * @param string|object $type    The form type definition or a key to a form type service definition.
-     * @param string|null   $name    An optional name for the form (when multiple forms exist on a page)
      * @param mixed|null    $data    Data for the form.
      * @param array         $options Options to be passed to the form.
+     * @param string|null   $name    An optional name for the form (when multiple forms exist on a page)
      *
      * @return Form
-     * @return Form
      */
-    public function getForm($type, $name = null, $data = null, array $options = [])
+    public function createForm($type, $data = null, array $options = [], $name = null)
     {
         return $name === null ?
             $this->form()->create($type, $data, $options) :
@@ -1249,63 +1253,59 @@ trait ControllerBehaviorsTrait
     }
 
     /**
-     * Generate a url from a routename and route args.
+     * Get a form via it's service type definition and/or its form definition object.
      *
-     * @param string $route         route name
-     * @param array  $parameters    route parameters
-     * @param string $referenceType the url reference type
+     * @param string|null   $name    An optional name for the form (when multiple forms exist on a page)
+     * @param string|object $type    The form type definition or a key to a form type service definition.
+     * @param mixed|null    $data    Data for the form.
+     * @param array         $options Options to be passed to the form.
      *
-     * @deprecated To be removed in v1.1.0
-     *
-     * @return string
+     * @return Form
      */
-    public function deprecatedGenerateUrl($route, array $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    public function createFormNamed($name = null, $type, $data = null, array $options = [])
     {
-        return $this
-            ->getService('router')
-            ->generate(
-                $route,
-                $parameters,
-                $referenceType
-            )
-            ;
+        return $this->createForm($type, $data, $options, $name);
     }
 
     /**
-     * return redirect response from a provided symfony route and its (optional) arguments.
+     * Get a form builder.
      *
-     * @param string $uri     uri to redirect to
-     * @param int    $status  http status code to return
-     * @param array  $headers additional headers to return
+     * @param mixed|null  $data    Data for the form.
+     * @param array       $options Options to be passed to the form.
+     * @param string|null $name    An optional name for the form (when multiple forms exist on a page)
      *
-     * @deprecated To be removed in v1.1.0
-     *
-     * @return RedirectResponse
+     * @return FormBuilder
      */
-    public function deprecatedRedirectResponse($uri, $status = 302, array $headers = [])
+    public function createFormBuilder($data = null, array $options = [], $name = null)
     {
-        return new RedirectResponse($uri, $status, $headers);
+        return $name === null ?
+            $this->form()->createBuilder('form', $data, $options) :
+            $this->form()->createNamedBuilder($name, 'form', $data, $options)
+        ;
     }
 
     /**
-     * return redirect response from a provided symfony route and its (optional) arguments.
+     * Get a named form builder.
      *
-     * @param string $routeName      name of the symfony route
-     * @param array  $routeArguments optional arguments array for route
-     * @param int    $status         http status code to return
-     * @param array  $headers        additional headers to return
+     * @param string|null $name    An optional name for the form (when multiple forms exist on a page)
+     * @param mixed|null  $data    Data for the form.
+     * @param array       $options Options to be passed to the form.
      *
-     * @deprecated To be removed in v1.1.0
-     *
-     * @return RedirectResponse
+     * @return FormBuilder
      */
-    public function deprecatedRouteRedirectResponse($routeName, array $routeArguments = [], $status = 302, array $headers = [])
+    public function getFormBuilderNamed($name = null, $data = null, array $options = [])
     {
-        return $this->deprecatedRedirectResponse(
-            $this->deprecatedGenerateUrl($routeName, $routeArguments),
-            $status,
-            $headers
-        );
+        return $this->createFormBuilder($data, $options, $name);
+    }
+
+    /**
+     * Get the logger service.
+     *
+     * @return LoggerInterface
+     */
+    public function logger()
+    {
+        return $this->getService('logger');
     }
 }
 

@@ -11,42 +11,29 @@
 
 namespace Scribe\MantleBundle\Listener;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Scribe\Component\DependencyInjection\Aware\RequestAwareTrait;
+use Swift_Message;
+use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController;
 use Symfony\Component\HttpFoundation\Request;
-use Scribe\MantleBundle\Entity\NewsletterUser;
-use Swift_Message;
 
 /**
  * handles accepting newsletter signup posts from any page.
  */
-class NewsletterListener implements ContainerAwareInterface
+class NewsletterListener
 {
-    /**
-     * @var ContainerInterface|null
-     */
-    private $container = null;
+    use ServiceContainerAwareTrait,
+        RequestAwareTrait;
 
     /**
      * @param $container ContainerInterface
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->setContainer($container);
-    }
-
-    /**
-     * @param $container ContainerInterface
-     *
-     * @return $this
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-
-        return $this;
+        $this->setServiceContainer($container);
+        $this->setRequestFromContainer($container);
     }
 
     /**
@@ -55,7 +42,7 @@ class NewsletterListener implements ContainerAwareInterface
     public function onKernelController(FilterControllerEvent $event)
     {
         $request = $this
-            ->container
+            ->serviceContainer
             ->get('request')
         ;
 
@@ -69,7 +56,7 @@ class NewsletterListener implements ContainerAwareInterface
             return;
         }
 
-        if ($request->isMethod('POST')) {
+        if ($this->getRequest()->isMethod('POST')) {
             $this->handleNewsletterPost($request, $event);
         }
     }
@@ -89,7 +76,7 @@ class NewsletterListener implements ContainerAwareInterface
         }
 
         $em = $this
-            ->container
+            ->serviceContainer
             ->get('doctrine.orm.default_entity_manager')
         ;
 
@@ -108,6 +95,13 @@ class NewsletterListener implements ContainerAwareInterface
                 ->add('info', 'You are already signed up for the Scribe newsletter.')
             ;
         } else {
+            $session
+                ->getFlashBag()
+                ->add('success', 'An error occured while trying to sign you up for the Scribe newsletter.')
+            ;
+
+            return;
+
             $user = new NewsletterUser();
             $user->setEmail($email);
 

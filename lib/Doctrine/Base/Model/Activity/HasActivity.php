@@ -14,6 +14,7 @@ namespace Scribe\Doctrine\Base\Model\Activity;
 use Scribe\Doctrine\Base\Model\HasCode;
 use Scribe\Doctrine\Base\Model\HasProperties;
 use Scribe\Doctrine\Base\Model\Type\HasType;
+use Scribe\Doctrine\Base\Model\User\HasUser;
 
 /**
  * Class HasActivity.
@@ -22,6 +23,7 @@ trait HasActivity
 {
     use HasCode,
         HasType,
+        HasUser,
         HasProperties;
 }
 

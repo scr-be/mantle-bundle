@@ -11,26 +11,24 @@
 
 namespace Scribe\Component\DependencyInjection\Aware;
 
-use Scribe\Doctrine\Manager\EntityManagerForwardableInterface;
+use Scribe\Doctrine\Manager\EntityManagerProxyInterface;
 
 /**
  * Class EntityManagerHandlerAwareTrait.
  */
-trait EntityManagerForwardableAwareTrait
+trait EntityManagerProxyAwareTrait
 {
     /**
-     * @var EntityManagerForwardableInterface|null
+     * @var EntityManagerProxyInterface|null
      */
     protected $manager = null;
 
     /**
-     * Setter for manager.
-     *
-     * @param EntityManagerForwardableInterface|null $manager manager instance
+     * @param EntityManagerProxyInterface|null $manager
      *
      * @return $this
      */
-    public function setManagerForwardable(EntityManagerForwardableInterface $manager = null)
+    public function setManagerProxy(EntityManagerProxyInterface $manager = null)
     {
         $this->manager = $manager;
 
@@ -38,11 +36,9 @@ trait EntityManagerForwardableAwareTrait
     }
 
     /**
-     * Getter for manager.
-     *
-     * @return EntityManagerForwardableInterface|null
+     * @return EntityManagerProxyInterface|null
      */
-    public function getManagerForwardable()
+    public function getManagerProxy()
     {
         return $this->manager;
     }

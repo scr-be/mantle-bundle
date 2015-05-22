@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Tests\Component\DataTransferObject\MappingDefinition;
+namespace Scribe\Tests\Component\Hydrator\Mapping;
 
-use Scribe\Component\DataTransferObject\MappingDefinition\ObjectMappingDefinition;
+use Scribe\Component\Hydrator\Mapping\HydratorMapping;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 
 /**
- * Class ObjectMappingDefinitionTest.
+ * Class HydratorMappingTest.
  */
-class ObjectMappingDefinitionTest extends AbstractMantleTestCase
+class HydratorMappingTest extends AbstractMantleTestCase
 {
     /**
      * @var \stdClass
@@ -34,7 +34,7 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
 
     public function testConstructorUsage()
     {
-        $def = new ObjectMappingDefinition(false, [
+        $def = new \Scribe\Component\Hydrator\Mapping\HydratorMapping(false, [
             'doesnt-exist' => null,
             'parentNode' => 'parent_node',
             'childNodes' => 'child_nodes',
@@ -50,7 +50,7 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
 
     public function testVariadic()
     {
-        $def = new ObjectMappingDefinition(false);
+        $def = new HydratorMapping(false);
         $def
             ->setMappingFrom('doesnt-exist', 'parentNode', 'childNodes', 'childNodes')
             ->setMappingTo('doesnt-exist', 'parent_node', 'child_nodes', 'should-be-ignored')
@@ -66,7 +66,7 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
 
     public function testEmptyTo()
     {
-        $def = new ObjectMappingDefinition(false);
+        $def = new HydratorMapping(false);
         $def
             ->setMappingFrom('doesnt-exist', 'parentNode', 'childNodes', 'childNodes')
             ->setMappingTo()
@@ -82,14 +82,14 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
 
     public function testInvalidObject()
     {
-        $def = new ObjectMappingDefinition(false);
+        $def = new HydratorMapping(false);
 
         $this->assertEquals([], $def->getTransferable('not-an-object'));
     }
 
     public function testNoProperties()
     {
-        $def = new ObjectMappingDefinition(false);
+        $def = new HydratorMapping(false);
         $def
             ->setMappingFrom('doesnt-exist', 'parentNode', 'childNodes', 'childNodes')
             ->setMappingTo()
@@ -100,7 +100,7 @@ class ObjectMappingDefinitionTest extends AbstractMantleTestCase
 
     public function testGreedy()
     {
-        $def = new ObjectMappingDefinition();
+        $def = new HydratorMapping();
         $def
             ->setMappingFrom('doesnt-exist', 'parentNode', 'childNodes', 'childNodes')
             ->setMappingTo('doesnt-exist', 'parent_node', 'child_nodes', 'should-be-ignored')

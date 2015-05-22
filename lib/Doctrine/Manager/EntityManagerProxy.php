@@ -14,21 +14,17 @@ namespace Scribe\Doctrine\Manager;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Class EntityManagerForwardable.
+ * Class EntityManagerProxy.
  */
-class EntityManagerForwardable implements EntityManagerForwardableInterface
+class EntityManagerProxy implements EntityManagerProxyInterface
 {
-    use EntityManagerForwardableTrait;
+    use EntityManagerProxyTrait;
 
     /**
-     * @param EntityManager|null $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager = null)
+    public function __construct(EntityManager $entityManager)
     {
-        if (null === $entityManager) {
-            return;
-        }
-
         $this->setEntityManager($entityManager);
     }
 }

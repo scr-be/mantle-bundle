@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Tests\Component\DataTransferObject\TransferManager\Fixture;
+namespace Scribe\Tests\Component\Hydrator\Manager\Fixture;
 
 /**
  * Class NodeFixture.
