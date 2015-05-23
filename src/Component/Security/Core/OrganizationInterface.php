@@ -26,6 +26,11 @@ interface OrganizationInterface extends AddressCollectionInterface, PhoneCollect
                                         NameInterface, ActivityCollectionInterface, TimestampableBehaviorInterface
 {
     /**
+     * @return int|null
+     */
+    public function getId();
+
+    /**
      * Setter for code property.
      *
      * @param string|null $code the code string

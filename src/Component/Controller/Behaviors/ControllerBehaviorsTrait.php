@@ -15,6 +15,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Psr\Log\LoggerInterface;
 use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
+use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,7 +28,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Scribe\Doctrine\Exception\ORMException;
 use Scribe\Doctrine\Exception\TransactionORMException;
@@ -864,6 +864,19 @@ trait ControllerBehaviorsTrait
     }
 
     /**
+     * Add a flash message to the session of type "info" via a translation key - shown to the user on page rendering.
+     *
+     * @param string    $translationKey
+     * @param mixed,... $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgInfoByTrans($translationKey, ...$sprintfArgs)
+    {
+        return $this->addSessionMsgInfo($this->translator()->trans($translationKey), ...$sprintfArgs);
+    }
+
+    /**
      * Add a flash message to the session of type "success" - shown to the user on page rendering.
      *
      * @param string    $message
@@ -874,6 +887,19 @@ trait ControllerBehaviorsTrait
     public function addSessionMsgSuccess($message, ...$sprintfArgs)
     {
         return $this->addSessionMsg(ControllerBehaviorsInterface::SESSION_MSG_SUCCESS, $message, ...$sprintfArgs);
+    }
+
+    /**
+     * Add a flash message to the session of type "success" via a translation key - shown to the user on page rendering.
+     *
+     * @param string    $translationKey
+     * @param mixed,... $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgSuccessByTrans($translationKey, ...$sprintfArgs)
+    {
+        return $this->addSessionMsgSuccess($this->translator()->trans($translationKey), ...$sprintfArgs);
     }
 
     /**
@@ -888,6 +914,19 @@ trait ControllerBehaviorsTrait
     {
         return $this->addSessionMsg(ControllerBehaviorsInterface::SESSION_MSG_ERROR, $message, ...$sprintfArgs
         );
+    }
+
+    /**
+     * Add a flash message to the session of type "error" via a translation key - shown to the user on page rendering.
+     *
+     * @param string    $translationKey
+     * @param mixed,... $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgErrorByTrans($translationKey, ...$sprintfArgs)
+    {
+        return $this->addSessionMsgError($this->translator()->trans($translationKey), ...$sprintfArgs);
     }
 
     /**
@@ -977,7 +1016,7 @@ trait ControllerBehaviorsTrait
      *
      * @throws RuntimeException
      *
-     * @return AdvancedUserInterface|null
+     * @return UserInterface|null
      */
     public function user()
     {

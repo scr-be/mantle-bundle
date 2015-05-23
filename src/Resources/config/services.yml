@@ -111,6 +111,10 @@ parameters:
     s.mantle.maintenance.kernel_listener.class:                         Scribe\MantleBundle\Listener\MaintenanceListener
     s.mantle.newsletter_form.kernel_listener.class:                     Scribe\MantleBundle\Listener\NewsletterListener
 
+    # HTTP Utils
+
+    s.mantle.http_utils.class:                                          Scribe\Component\Http\Utils\HttpUtils
+
     # Old Services
 
     s.mantle.zoom.twig_extension.class:                                 Scribe\MantleBundle\Templating\Extension\ZoomExtension
@@ -525,6 +529,17 @@ services:
             - @service_container
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 2 }
+
+    # HTTP Utils
+
+    s.mantle.http_utils:
+        class: %s.mantle.http_utils.class%
+        factory:
+            - %s.mantle.http_utils.class%
+            - getInstance
+        arguments:
+            - @request_stack
+            - @router.default
 
     # Old Twig Extensions
 

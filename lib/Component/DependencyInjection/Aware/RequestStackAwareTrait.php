@@ -40,6 +40,8 @@ trait RequestStackAwareTrait
      * Set the request stack and determine the master and current requests.
      *
      * @param RequestStack $requestStack
+     *
+     * @return $this
      */
     public function setRequestStackAndDetermineMasterAndCurrentRequest(RequestStack $requestStack)
     {
@@ -48,6 +50,8 @@ trait RequestStackAwareTrait
             ->determineRequestMasterFromRequestStack()
             ->determineRequestCurrentFromRequestStack()
         ;
+
+        return $this;
     }
 
     /**

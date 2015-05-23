@@ -14,7 +14,7 @@ namespace Scribe\Component\DependencyInjection\Aware;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * Class EntityManagerHandlerAwareTrait.
+ * Class TokenStorageAwareTrait.
  */
 trait TokenStorageAwareTrait
 {

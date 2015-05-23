@@ -604,6 +604,16 @@ interface ControllerBehaviorsInterface
     public function addSessionMsgInfo($message, ...$sprintfArgs);
 
     /**
+     * Add a flash message to the session of type "info" via a translation key - shown to the user on page rendering.
+     *
+     * @param string    $translationKey
+     * @param mixed,... $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgInfoByTrans($translationKey, ...$sprintfArgs);
+
+    /**
      * Add a flash message to the session of type "success" - shown to the user on page rendering.
      *
      * @param string    $message
@@ -614,6 +624,16 @@ interface ControllerBehaviorsInterface
     public function addSessionMsgSuccess($message, ...$sprintfArgs);
 
     /**
+     * Add a flash message to the session of type "success" via a translation key - shown to the user on page rendering.
+     *
+     * @param string    $translationKey
+     * @param mixed,... $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgSuccessByTrans($translationKey, ...$sprintfArgs);
+
+    /**
      * Add a flash message to the session of type "error" - shown to the user on page rendering.
      *
      * @param string    $message
@@ -622,6 +642,16 @@ interface ControllerBehaviorsInterface
      * @return $this
      */
     public function addSessionMsgError($message, ...$sprintfArgs);
+
+    /**
+     * Add a flash message to the session of type "error" via a translation key - shown to the user on page rendering.
+     *
+     * @param string    $translationKey
+     * @param mixed,... $sprintfArgs
+     *
+     * @return $this
+     */
+    public function addSessionMsgErrorByTrans($translationKey, ...$sprintfArgs);
 
     /**
      * Add a session message of the specified type.

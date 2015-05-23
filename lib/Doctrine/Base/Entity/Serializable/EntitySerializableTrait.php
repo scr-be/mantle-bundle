@@ -11,6 +11,8 @@
 
 namespace Scribe\Doctrine\Base\Entity\Serializable;
 
+use Doctrine\ORM\PersistentCollection;
+use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Utility\Serializer\Serializer;
 
 /**
@@ -49,7 +51,16 @@ trait EntitySerializableTrait
      */
     public function serialize()
     {
-        return Serializer::sleep(get_object_vars($this));
+        $properties = array_filter(get_object_vars($this), function ($propertyValue) {
+            if ($propertyValue instanceof PersistentCollection ||
+               $propertyValue instanceof AbstractEntity) {
+                return false;
+            }
+
+            return true;
+        });
+
+        return Serializer::sleep($properties);
     }
 
     /**

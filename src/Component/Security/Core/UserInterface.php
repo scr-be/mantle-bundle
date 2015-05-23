@@ -25,6 +25,11 @@ interface UserInterface extends AddressCollectionInterface, PhoneCollectionInter
                                 ActivityCollectionInterface, AdvancedUserInterface
 {
     /**
+     * @return int|null
+     */
+    public function getId();
+
+    /**
      * @return string
      */
     public function getUsername();

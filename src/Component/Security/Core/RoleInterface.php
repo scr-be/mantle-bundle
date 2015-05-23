@@ -20,6 +20,11 @@ use Symfony\Component\Security\Core\Role\RoleInterface as SymfonyRoleInterface;
  */
 interface RoleInterface extends SymfonyRoleInterface
 {
+    /**
+     * @return int|null
+     */
+    public function getId();
+
     public function setDescription($description);
     public function getDescription();
     public function setName($name);
