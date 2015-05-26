@@ -114,7 +114,7 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
                 'url' => $url,
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses
+                'btnClasses' => $btnClasses,
             ]
         );
     }
@@ -160,7 +160,7 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
                 'btnClasses' => $btnClasses,
-                'selector' => $selector
+                'selector' => $selector,
             ]
         );
     }

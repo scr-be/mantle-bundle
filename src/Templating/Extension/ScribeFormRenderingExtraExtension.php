@@ -136,7 +136,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
             [
                 'form' => $form,
                 'placeholder' => $placeholder,
-                'attributes' => $attributes
+                'attributes' => $attributes,
             ]
         );
     }
@@ -152,7 +152,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:error.html.twig',
             [
-                'form' => $form
+                'form' => $form,
             ]
         );
     }
@@ -175,7 +175,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
                 'label' => $this->formLabel($twigEnvironment, $form, $label),
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols
+                'cols' => $cols,
             ]
         );
     }
@@ -198,7 +198,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
                 'label' => $this->formLabel($twigEnvironment, $form, $label, ['col-sm-2', 'control-label']),
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols
+                'cols' => $cols,
             ]
         );
     }
@@ -221,7 +221,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
                 'label' => null,
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols
+                'cols' => $cols,
             ]
         );
     }
@@ -244,7 +244,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
                 'label' => null,
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols
+                'cols' => $cols,
             ]
         );
     }
@@ -265,7 +265,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
             'ScribeMantleBundle:Form:start.html.twig',
             [
                 'form' => $form,
-                'attr' => $attr
+                'attr' => $attr,
             ]
         );
     }
@@ -296,7 +296,7 @@ class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:end.html.twig',
             [
-                'form' => $form
+                'form' => $form,
             ]
         );
     }
