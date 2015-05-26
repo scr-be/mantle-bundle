@@ -16,9 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
- * Class BsButtonExtension.
+ * Class BootstrapComponentButtonExtension.
  */
-class BsButtonExtension extends AbstractTwigExtension
+class BootstrapComponentButtonExtension extends AbstractTwigExtension
 {
     /**
      * @var Router
@@ -41,15 +41,15 @@ class BsButtonExtension extends AbstractTwigExtension
             ->enableOptionNeedsEnv()
         ;
 
-        $this->addFunction('bs_btn', [$this, 'getBootstrapButton']);
-        $this->addFunction('bs_btn_default', [$this, 'getButtonDefault']);
-        $this->addFunction('bs_btn_delete', [$this, 'getButtonDelete']);
-        $this->addFunction('bs_btn_ajax_delete', [$this, 'getButtonAjaxDelete']);
+        $this->addFunction('bs_btn',              [$this, 'getBootstrapButton']);
+        $this->addFunction('bs_btn_default',      [$this, 'getButtonDefault']);
+        $this->addFunction('bs_btn_delete',       [$this, 'getButtonDelete']);
+        $this->addFunction('bs_btn_ajax_delete',  [$this, 'getButtonAjaxDelete']);
         $this->addFunction('bs_btn_delete_in_hr', [$this, 'getButtonDeleteInHeader']);
-        $this->addFunction('bs_btn_in_hr', [$this, 'getButtonInHeader']);
-        $this->addFunction('bs_btn_cancel', [$this, 'getButtonAjaxDelete']);
-        $this->addFunction('bs_btn_prev', [$this, 'getButtonPrevious']);
-        $this->addFunction('bs_btn_next', [$this, 'getButtonNext']);
+        $this->addFunction('bs_btn_in_hr',        [$this, 'getButtonInHeader']);
+        $this->addFunction('bs_btn_cancel',       [$this, 'getButtonAjaxDelete']);
+        $this->addFunction('bs_btn_prev',         [$this, 'getButtonPrevious']);
+        $this->addFunction('bs_btn_next',         [$this, 'getButtonNext']);
     }
 
     /**
@@ -114,7 +114,7 @@ class BsButtonExtension extends AbstractTwigExtension
                 'url' => $url,
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses,
+                'btnClasses' => $btnClasses
             ]
         );
     }
@@ -160,7 +160,7 @@ class BsButtonExtension extends AbstractTwigExtension
                 'icon' => $icon,
                 'groupClasses' => $groupClasses,
                 'btnClasses' => $btnClasses,
-                'selector' => $selector,
+                'selector' => $selector
             ]
         );
     }
@@ -356,3 +356,5 @@ class BsButtonExtension extends AbstractTwigExtension
         );
     }
 }
+
+/* EOF */

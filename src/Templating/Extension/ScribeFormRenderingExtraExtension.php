@@ -12,19 +12,26 @@
 namespace Scribe\MantleBundle\Templating\Extension;
 
 use Twig_Environment;
+use Scribe\Component\Http\Utils\HttpUtils;
 use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
- * Class FormScribeExtrasExtension.
+ * Class ScribeFormRenderingExtraExtension.
  */
-class FormScribeExtrasExtension extends AbstractTwigExtension
+class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
 {
+    /**
+     * @var HttpUtils
+     */
+    protected $httpUtils;
+
     /**
      * Initialize the instance.
      */
-    public function __construct()
+    public function __construct(HttpUtils $httpUtils)
     {
         parent::__construct();
+        $this->httpUtils = $httpUtils;
 
         $this
             ->enableOptionHtmlSafe()
@@ -46,6 +53,15 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         $this->addFunction('form_scribe_error',                  [$this, 'formError']);
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string           $title
+     * @param string|null      $defaultRoute
+     * @param array            $btnClasses
+     *
+     * @return string
+     */
     public function formSubmitNoWrap(Twig_Environment $twigEnvironment, $form, $title, $defaultRoute = null, $btnClasses = [])
     {
         return $twigEnvironment->render(
@@ -60,6 +76,15 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string           $title
+     * @param string|null      $defaultRoute
+     * @param array            $btnClasses
+     *
+     * @return string
+     */
     public function formSubmit(Twig_Environment $twigEnvironment, $form, $title, $defaultRoute = null, $btnClasses = [])
     {
         return $twigEnvironment->render(
@@ -74,6 +99,14 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string|null      $label
+     * @param array            $classes
+     *
+     * @return string
+     */
     public function formLabel(Twig_Environment $twigEnvironment, $form, $label = null, $classes = [])
     {
         $classesStr = implode(' ', $classes);
@@ -88,6 +121,14 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string           $placeholder
+     * @param array            $attributes
+     *
+     * @return string
+     */
     public function formWidget(Twig_Environment $twigEnvironment, $form, $placeholder, array $attributes = [])
     {
         return $twigEnvironment->render(
@@ -95,21 +136,37 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
             [
                 'form' => $form,
                 'placeholder' => $placeholder,
-                'attributes' => $attributes,
+                'attributes' => $attributes
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     *
+     * @return string
+     */
     public function formError(Twig_Environment $twigEnvironment, $form)
     {
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:error.html.twig',
             [
-                'form' => $form,
+                'form' => $form
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string           $label
+     * @param string           $placeholder
+     * @param null             $cols
+     * @param array            $attributes
+     *
+     * @return string
+     */
     public function formItem(Twig_Environment $twigEnvironment, $form, $label, $placeholder, $cols = null, array $attributes = [])
     {
         return $twigEnvironment->render(
@@ -118,11 +175,21 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
                 'label' => $this->formLabel($twigEnvironment, $form, $label),
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols,
+                'cols' => $cols
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string           $label
+     * @param string           $placeholder
+     * @param null             $cols
+     * @param array            $attributes
+     *
+     * @return string
+     */
     public function formItemHorizontal(Twig_Environment $twigEnvironment, $form, $label, $placeholder, $cols = null, array $attributes = [])
     {
         return $twigEnvironment->render(
@@ -131,11 +198,21 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
                 'label' => $this->formLabel($twigEnvironment, $form, $label, ['col-sm-2', 'control-label']),
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols,
+                'cols' => $cols
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string           $label
+     * @param string           $placeholder
+     * @param int|null         $cols
+     * @param array            $attributes
+     *
+     * @return string
+     */
     public function formItemNoLabel(Twig_Environment $twigEnvironment, $form, $label, $placeholder, $cols = null, array $attributes = [])
     {
         return $twigEnvironment->render(
@@ -144,11 +221,21 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
                 'label' => null,
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols,
+                'cols' => $cols
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param string           $label
+     * @param string           $placeholder
+     * @param int|null         $cols
+     * @param array            $attributes
+     *
+     * @return string
+     */
     public function formItemNoLabelOrGroup(Twig_Environment $twigEnvironment, $form, $label, $placeholder, $cols = null, array $attributes = [])
     {
         return $twigEnvironment->render(
@@ -157,11 +244,19 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
                 'label' => null,
                 'widget' => $this->formWidget($twigEnvironment, $form, $placeholder, $attributes),
                 'error' => $this->formError($twigEnvironment, $form),
-                'cols' => $cols,
+                'cols' => $cols
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param string           $form
+     * @param array            $classes
+     * @param array            $attr
+     *
+     * @return string
+     */
     public function formStart(Twig_Environment $twigEnvironment, $form, $classes = [], $attr = [])
     {
         $attr['class'] = implode(' ', $classes);
@@ -170,11 +265,19 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
             'ScribeMantleBundle:Form:start.html.twig',
             [
                 'form' => $form,
-                'attr' => $attr,
+                'attr' => $attr
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     * @param array            $classes
+     * @param array            $attr
+     *
+     * @return string
+     */
     public function formStartHorizontal(Twig_Environment $twigEnvironment, $form, $classes = [], $attr = [])
     {
         $classes = array_merge(['form-horizontal'], $classes);
@@ -182,16 +285,29 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         return $this->formStart($twigEnvironment, $form, $classes, $attr);
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param mixed            $form
+     *
+     * @return string
+     */
     public function formEnd(Twig_Environment $twigEnvironment, $form)
     {
         return $twigEnvironment->render(
             'ScribeMantleBundle:Form:end.html.twig',
             [
-                'form' => $form,
+                'form' => $form
             ]
         );
     }
 
+    /**
+     * @param Twig_Environment $twigEnvironment
+     * @param string           $title
+     * @param string|null      $defaultRoute
+     *
+     * @return string
+     */
     public function formSubmitOld(Twig_Environment $twigEnvironment, $title, $defaultRoute = null)
     {
         return $twigEnvironment->render(
@@ -203,8 +319,15 @@ class FormScribeExtrasExtension extends AbstractTwigExtension
         );
     }
 
+    /**
+     * @param string $defaultRoute
+     *
+     * @return mixed
+     */
     public function getReferrer($defaultRoute)
     {
-        return $defaultRoute;
+        return $this->httpUtils->getReferrer() ?: $defaultRoute;
     }
 }
+
+/* EOF */

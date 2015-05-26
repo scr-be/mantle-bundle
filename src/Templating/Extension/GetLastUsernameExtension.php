@@ -50,3 +50,5 @@ class GetLastUsernameExtension extends AbstractTwigExtension
         return $this->authenticationUtils->getLastUsername();
     }
 }
+
+/* EOF */

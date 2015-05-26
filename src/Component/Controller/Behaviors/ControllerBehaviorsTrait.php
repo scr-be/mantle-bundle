@@ -495,7 +495,7 @@ trait ControllerBehaviorsTrait
     {
         return $this
             ->templating()
-            ->render($templateName, ...$parameters)
+            ->render($templateName, $parameters)
         ;
     }
 

@@ -654,19 +654,6 @@ interface ControllerBehaviorsInterface
     public function addSessionMsgErrorByTrans($translationKey, ...$sprintfArgs);
 
     /**
-     * Add a session message of the specified type.
-     *
-     * @param string    $type
-     * @param string    $message
-     * @param mixed,... $sprintfArgs
-     *
-     * @internal
-     *
-     * @return $this
-     */
-    public function addSessionMsg($type, $message, ...$sprintfArgs);
-
-    /**
      * Provides the user token storage service from the container.
      *
      * @return TokenStorage

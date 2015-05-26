@@ -48,7 +48,7 @@ class HttpUtils
      *
      * @return HttpUtils
      */
-    public function getInstance(RequestStack $requestStack, RouterInterface $router)
+    static public function getInstance(RequestStack $requestStack, RouterInterface $router)
     {
         return new self($requestStack, $router);
     }

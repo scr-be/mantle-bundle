@@ -68,7 +68,6 @@ abstract class AbstractTwigExtension extends \Twig_Extension implements TwigExte
     {
         $this
             ->setOptions($optionCollection)
-            ->addOptions([])
         ;
 
         if (true === $htmlSafe) {
@@ -291,6 +290,11 @@ abstract class AbstractTwigExtension extends \Twig_Extension implements TwigExte
         );
     }
 
+    /**
+     * @param string $type
+     *
+     * @return array
+     */
     private function getCallableCollectionForType($type)
     {
         $this->validateType($type);

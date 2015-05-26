@@ -37,16 +37,24 @@ parameters:
     s.mantle.asset_type.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType
     s.mantle.asset_type.repo.class:                                     Scribe\MantleBundle\Doctrine\Repository\Asset\AssetTypeRepository
 
+    # Bundle Information Service/Twig-Extension
+
+    s.mantle.bundle_information.class:                                  Scribe\Component\Bundle\BundleInformation
+    s.mantle.bundle_information.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
+
     # General Utilities
 
     s.mantle.em_proxy.class:                                            Scribe\Doctrine\Manager\EntityManagerProxy
     s.mantle.reflection_analyser.class:                                 Scribe\Utility\Reflection\ClassReflectionAnalyser
     s.mantle.logger_callable.class:                                     Scribe\Utility\Logger\LoggerCallable
     s.mantle.service_finder.class:                                      Scribe\Component\DependencyInjection\Container\ServiceFinder
-    s.mantle.bundle_information.class:                                  Scribe\Component\Bundle\BundleInformation
-    s.mantle.bundle_information.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
-    s.mantle.config.yml.class:                                          Scribe\Utility\Config\ConfigContainer
-    s.mantle.config.yml.twig_extension.class:                           Scribe\MantleBundle\Templating\Extension\ConfigExtension
+
+    # Twig Extensions
+
+    s.mantle.twig_extension.service_param_access.class:                 Scribe\MantleBundle\Templating\Extension\ContainerParamAccessExtension
+    s.mantle.twig_extension.bootstrap_button.class:                     Scribe\MantleBundle\Templating\Extension\BootstrapComponentButtonExtension
+    s.mantle.twig_extension.scribe_form_extras.class:                   Scribe\MantleBundle\Templating\Extension\ScribeFormRenderingExtraExtension
+    s.mantle.twig_extension.lookup_last_username.class:                 Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
 
     # Doctrine Subscribers
 
@@ -115,16 +123,6 @@ parameters:
 
     s.mantle.http_utils.class:                                          Scribe\Component\Http\Utils\HttpUtils
 
-    # Old Services
-
-    s.mantle.zoom.twig_extension.class:                                 Scribe\MantleBundle\Templating\Extension\ZoomExtension
-    s.mantle.bootstrap_button.twig_extension.class:                     Scribe\MantleBundle\Templating\Extension\BsButtonExtension
-    s.mantle.highchart.twig_extension.class:                            Scribe\MantleBundle\Templating\Extension\HighchartExtension
-    s.mantle.jqtimeline.twig_extension.class:                           Scribe\MantleBundle\Templating\Extension\JqtimelineExtension
-    s.mantle.chronoline.twig_extension.class:                           Scribe\MantleBundle\Templating\Extension\ChronolineExtension
-    s.mantle.scribe_form_extras.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\FormScribeExtrasExtension
-    s.mantle.last_username.twig_extension.class:                        Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
-
 services:
 
     # The abstract service definition to inject the service container into the ControllerBehavior class.
@@ -170,16 +168,6 @@ services:
         class: %s.mantle.service_finder.class%
         arguments:
             - @service_container
-
-    s.mantle.config.yml:
-        class: %s.mantle.config.yml.class%
-        arguments: [ @service_container ]
-
-    s.mantle.config.yml.twig_extension:
-        class: %s.mantle.config.yml.twig_extension.class%
-        arguments: [ @s.mantle.config.yml ]
-        tags:
-            - { name: twig.extension }
 
     # Response Factories
 
@@ -543,41 +531,30 @@ services:
 
     # Old Twig Extensions
 
-    s.mantle.bootstrap_button.twig_extension:
-        class: %s.mantle.bootstrap_button.twig_extension.class%
+    s.mantle.twig_extension.bootstrap_button:
+        class: %s.mantle.twig_extension.bootstrap_button.class%
         arguments:
             - @router
         tags:
             - { name: twig.extension }
 
-    s.mantle.highchart.twig_extension:
-        class: %s.mantle.highchart.twig_extension.class%
+    s.mantle.twig_extension.service_param_access:
+        class: %s.mantle.twig_extension.service_param_access.class%
+        arguments:
+            - @service_container
         tags:
             - { name: twig.extension }
 
-    s.mantle.jqtimeline.twig_extension:
-        class: %s.mantle.jqtimeline.twig_extension.class%
+    s.mantle.twig_extension.scribe_form_extras:
+        class: %s.mantle.twig_extension.scribe_form_extras.class%
+        arguments:
+            - @s.mantle.http_utils
         tags:
             - { name: twig.extension }
 
-    s.mantle.chronoline.twig_extension:
-        class: %s.mantle.chronoline.twig_extension.class%
-        tags:
-            - { name: twig.extension }
-
-    s.mantle.scribe_form_extras.twig_extension:
-        class: %s.mantle.scribe_form_extras.twig_extension.class%
-        tags:
-            - { name: twig.extension }
-
-    s.mantle.last_username.twig_extension:
-        class: %s.mantle.last_username.twig_extension.class%
+    s.mantle.twig_extension.lookup_last_username:
+        class: %s.mantle.twig_extension.lookup_last_username.class%
         arguments:
             - @security.authentication_utils
-        tags:
-            - { name: twig.extension }
-
-    s.mantle.zoom.twig_extension:
-        class: %s.mantle.zoom.twig_extension.class%
         tags:
             - { name: twig.extension }

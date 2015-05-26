@@ -11,6 +11,7 @@
 
 namespace Scribe\Component\DependencyInjection;
 
+use Scribe\Utility\Error\DeprecationErrorHandler;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -36,7 +37,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * @var string[]
      */
     private $serviceFiles = [
-        'services.yml',
+        'services.yml'
     ];
 
     /**
@@ -151,7 +152,8 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
 
         $this
             ->autoLoadConfiguration($configs, $configuration, $prefix)
-            ->autoLoadServices($container);
+            ->autoLoadServices($container)
+        ;
     }
 
     /**
@@ -296,10 +298,17 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      */
     protected function handleConfigsToParameterWhenArray($built, $outer, $i, $v)
     {
-        if (false === Arrays::isHash($v, false)) {
+        if (true === (substr($i, 0, 4) === '!a::')) {
+            DeprecationErrorHandler::trigger(
+                __METHOD__, __LINE__,
+                'The configuration builder node prefix "!a::" has been replaced in favor of the postfix "_list".',
+                '2015-05-25 04:40:00 -0400', '2.0.0'
+            );
+            $this->handleConfigsToParameterWhenArrayHash($built, $i, $v, 'a::');
+        } elseif (true === (substr($i, -5, 5) === '_list')) {
+            $this->handleConfigsToParameterWhenArrayHash($built, $i, $v, '_list');
+        } elseif (false === Arrays::isHash($v, false)) {
             $this->handleConfigsToParameterWhenArrayInt($built, $v);
-        } elseif (true === (substr($i, 0, 4) === '!a::')) {
-            $this->handleConfigsToParameterWhenArrayHash($built, $i, $v);
         } else {
             $this->processConfigsToParameters($v, $outer.$this->getIndexSeparator().$i);
         }
@@ -330,14 +339,15 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * is specifically configured not to handle using the default means of treating
      * it as an integer list, as {@see handleConfigsToParameterSetAsIntArray} would.
      *
-     * @param string $built Final index (with prefix)
-     * @param string $i     Current index
-     * @param mixed  $v     Parameter value
+     * @param string $built  Final index (with prefix)
+     * @param string $i      Current index
+     * @param mixed  $v      Parameter value
+     * @param string $search Value to search and replace with nothing from key
      */
-    public function handleConfigsToParameterWhenArrayHash($built, $i, $v)
+    public function handleConfigsToParameterWhenArrayHash($built, $i, $v, $search = '')
     {
         $this->setContainerParameter(
-            str_replace(substr($i, 1), substr($i, 4), $built),
+            str_replace($search, '', $built),
             $v
         );
     }

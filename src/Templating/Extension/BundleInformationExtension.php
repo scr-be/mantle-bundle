@@ -33,9 +33,18 @@ class BundleInformationExtension extends AbstractTwigExtension
 
         $this->bundleInformation = $bundleInformation;
 
-        $this->addFunction('get_info_bundle', [$this, 'getBundleName']);
+        $this->addFunction('get_info_object',     [$this, 'getBundleObject']);
+        $this->addFunction('get_info_bundle',     [$this, 'getBundleName']);
         $this->addFunction('get_info_controller', [$this, 'getControllerName']);
-        $this->addFunction('get_info_action', [$this, 'getActionName']);
+        $this->addFunction('get_info_action',     [$this, 'getActionName']);
+    }
+
+    /**
+     * @return BundleInformation
+     */
+    public function getBundleObject()
+    {
+        return $this->bundleInformation;
     }
 
     /**
@@ -62,3 +71,5 @@ class BundleInformationExtension extends AbstractTwigExtension
         return $this->bundleInformation->getAction();
     }
 }
+
+/* EOF */
