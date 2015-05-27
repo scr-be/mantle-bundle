@@ -86,7 +86,7 @@ interface ControllerBehaviorsInterface
     /**
      * Provides an array of services corresponding to the array of service IDs provided as parameters.
      *
-     * @param string,... $id An array of service IDs to resolve from the container.
+     * @param string,... $ids An array of service IDs to resolve from the container.
      *
      * @return mixed[]
      */
@@ -694,8 +694,8 @@ interface ControllerBehaviorsInterface
     /**
      * Resolves the string value based on a provided key.
      *
-     * @param string    $key       A translation key.
-     * @param mixed,... $parameter Parameters for the translation.
+     * @param string    $key        A translation key.
+     * @param mixed,... $parameters Parameters for the translation.
      *
      * @return string
      */

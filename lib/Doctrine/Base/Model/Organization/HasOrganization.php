@@ -34,7 +34,7 @@ trait HasOrganization
     /**
      * Setter for organization property.
      *
-     * @param OrganizationInterface|null $org a organization entity object instance
+     * @param OrganizationInterface|null $organization An organization entity object instance.
      *
      * @return $this
      */

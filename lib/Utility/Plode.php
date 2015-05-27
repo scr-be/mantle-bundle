@@ -27,21 +27,6 @@ class Plode implements PlodeInterface
     use StaticClassTrait;
 
     /**
-     * @var string Comma separator
-     */
-    const SEPARATOR_COMMA = ',';
-
-    /**
-     * @var string Colon separator
-     */
-    const SEPARATOR_COLON = ':';
-
-    /**
-     * @var string Default separator for [ex/im]plosion
-     */
-    const SEPARATOR_DEFAULT = ',';
-
-    /**
      * [Ex/Im]plode a [string/array] based on the separator specified in the
      * method name and the value passed as an argument.
      *

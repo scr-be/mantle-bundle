@@ -95,10 +95,10 @@ class Call implements CallInterface
     /**
      * Handle calling a function/method.
      *
-     * @param string|object|null $object    An object instance or a class name
      * @param string|null        $method    An available global function or object method name
-     * @param bool|null          $static    Whether this is a static function or not
-     * @param ...mixed           $arguments Arguments to pass to the object method
+     * @param string|object|null $object    An object instance or a class name
+     * @param bool               $static    Whether this is a static function or not
+     * @param mixed,...          $arguments Arguments to pass to the object method
      *
      * @internal
      *

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
@@ -10,6 +11,7 @@
 
 use Sami\Sami;
 use Symfony\Component\Finder\Finder;
+use Sami\RemoteRepository\GitHubRemoteRepository;
 
 $projectRootPath = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 
@@ -27,5 +29,6 @@ return new Sami($iterator, [
     'title'                => 'scribe/mantle-bundle',
     'build_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'api',
     'cache_dir'            => $projectRootPath . DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR . 'sami',
-    'default_opened_level' => 4,
+    'default_opened_level' => 3,
+    'remote_repository'    => new GitHubRemoteRepository('scribenet/symfony-mantle-bundle', '/home/rmf/External/code/world/SymfonyMantleBundle/'),
 ]);

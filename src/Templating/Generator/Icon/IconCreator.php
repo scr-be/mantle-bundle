@@ -123,10 +123,11 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
     /**
      * Render the requested icon.
      *
-     * @param string|null $family
+     *
      * @param string|null $icon
+     * @param string|null $family
      * @param string|null $template
-     * @param string[]    $styles
+     * @param string,...  $styles
      *
      * @return string
      *

@@ -20,6 +20,21 @@ use Scribe\Exception\BadFunctionCallException;
 interface PlodeInterface
 {
     /**
+     * @var string Comma separator
+     */
+    const SEPARATOR_COMMA = ',';
+
+    /**
+     * @var string Colon separator
+     */
+    const SEPARATOR_COLON = ':';
+
+    /**
+     * @var string Default separator for [ex/im]plosion
+     */
+    const SEPARATOR_DEFAULT = ',';
+
+    /**
      * [Ex/Im]plode a [string/array] based on the separator specified in the
      * method name and the value passed as an argument.
      *
@@ -37,7 +52,7 @@ interface PlodeInterface
      *
      * @throws BadFunctionCallException
      */
-    public static function __callStaticInvalid();
+    public static function __callStaticInvalid($message = null);
 
     /**
      * Implode array using default separator ({@see DEFAULT_SEPARATOR}).
@@ -60,7 +75,5 @@ interface PlodeInterface
      */
     public static function ex($toExplode, $separator = self::SEPARATOR_DEFAULT);
 }
-
-/* EOF */
 
 /* EOF */

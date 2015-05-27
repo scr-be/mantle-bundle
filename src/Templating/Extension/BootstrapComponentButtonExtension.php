@@ -123,9 +123,10 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @param Twig_Environment $twigEnvironment
      * @param string           $title
      * @param string           $what
-     * @param string           $route
+     * @param string|null      $route
      * @param array            $routeArgs
      * @param string           $icon
+     * @param string|null      $selector
      * @param array            $groupClasses
      * @param array            $btnClasses
      *
@@ -232,9 +233,10 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @param Twig_Environment $twigEnvironment
      * @param string           $title
      * @param string           $desc
-     * @param string           $route
+     * @param string           $type
+     * @param string|null      $route
      * @param array            $routeArgs
-     * @param string           $icon
+     * @param string|null      $icon
      * @param array            $groupClasses
      * @param array            $btnClasses
      *
