@@ -107,7 +107,7 @@ class SystemExecuteTest extends AbstractMantleTestCase
         static::assertTrue($cmd->hasReturn());
         static::assertEquals(0, $cmd->getReturn());
         static::assertTrue($cmd->hasOutput());
-        static::assertEquals(['8'], $cmd->getOutput());
+        static::assertInternalType('integer', (int) $cmd->getOutput()[0]);
     }
 }
 
