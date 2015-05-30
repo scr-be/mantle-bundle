@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dd9a69ff35caa52e19fb5586dbf1ad33",
+    "hash": "c3f2bae3b2a4d77b22453ee2d44b0337",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -356,16 +356,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "1986ff3a945b584c6505d07eae92d77e41131078"
+                "reference": "0b9e27037c4fdbad515ee5ec89842e9091a6480f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/1986ff3a945b584c6505d07eae92d77e41131078",
-                "reference": "1986ff3a945b584c6505d07eae92d77e41131078",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/0b9e27037c4fdbad515ee5ec89842e9091a6480f",
+                "reference": "0b9e27037c4fdbad515ee5ec89842e9091a6480f",
                 "shasum": ""
             },
             "require": {
@@ -373,6 +373,7 @@
                 "doctrine/doctrine-cache-bundle": "~1.0",
                 "jdorn/sql-formatter": "~1.1",
                 "php": ">=5.3.2",
+                "symfony/console": "~2.3",
                 "symfony/doctrine-bridge": "~2.2",
                 "symfony/framework-bundle": "~2.3"
             },
@@ -391,7 +392,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.5.x-dev"
                 }
             },
             "autoload": {
@@ -429,7 +430,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-02-28 11:04:45"
+            "time": "2015-05-28 12:27:15"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1060,12 +1061,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "d659510cda58416b8ae3636d6e53e5baf2ac4f50"
+                "reference": "28eba4b65c66cb2b045f57e410cda234c433cbed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/d659510cda58416b8ae3636d6e53e5baf2ac4f50",
-                "reference": "d659510cda58416b8ae3636d6e53e5baf2ac4f50",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/28eba4b65c66cb2b045f57e410cda234c433cbed",
+                "reference": "28eba4b65c66cb2b045f57e410cda234c433cbed",
                 "shasum": ""
             },
             "require": {
@@ -1079,21 +1080,28 @@
                 "doctrine/dbal": "~2.5",
                 "doctrine/doctrine-bundle": "~1.4",
                 "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
+                "doctrine/doctrine-migrations-bundle": "~1.0",
+                "doctrine/migrations": "~1.0@dev",
                 "doctrine/orm": "~2.5",
                 "ext-igbinary": "~1.2",
                 "ext-memcached": "~2.2",
+                "ext-mysqli": "*",
                 "ext-tidy": "~2.0",
+                "fzaninotto/faker": "~1.5.0",
                 "nikic/php-parser": ">=1.0,<1.2",
                 "pdepend/pdepend": "~2.0",
                 "phpunit/phpunit": "~4.6",
                 "sami/sami": "~3.0",
                 "satooshi/php-coveralls": "dev-multipleroot",
-                "scrutinizer/ocular": "dev-master",
+                "scrutinizer/ocular": "~1.1.1",
                 "sensio/generator-bundle": "~2.5",
-                "sensiolabs/security-checker": "2.0.*@dev",
-                "symfony/framework-bundle": "2.7.0-BETA2",
-                "symfony/phpunit-bridge": "2.7.0-BETA2",
-                "symfony/symfony": "2.7.0-BETA2"
+                "sensiolabs/security-checker": "~2.0",
+                "symfony/debug-bundle": "~2.7.0",
+                "symfony/framework-bundle": "~2.7.0",
+                "symfony/phpunit-bridge": "~2.7.0",
+                "symfony/stopwatch": "~2.7.0",
+                "symfony/symfony": "~2.7.0",
+                "symfony/var-dumper": "~2.7.0"
             },
             "type": "project",
             "extra": {
@@ -1139,21 +1147,21 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-05-26 03:19:45"
+            "time": "2015-05-30 19:46:43"
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.24",
+            "version": "v3.0.25",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "79b820aee1f1daeb2717fa9471ee19275cc1d638"
+                "reference": "01931139b0f067a4016d5d56e82c2b3086533b89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/79b820aee1f1daeb2717fa9471ee19275cc1d638",
-                "reference": "79b820aee1f1daeb2717fa9471ee19275cc1d638",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/01931139b0f067a4016d5d56e82c2b3086533b89",
+                "reference": "01931139b0f067a4016d5d56e82c2b3086533b89",
                 "shasum": ""
             },
             "require": {
@@ -1199,21 +1207,20 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-05-16 12:57:08"
+            "time": "2015-05-29 22:35:41"
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v3.0.7",
-            "target-dir": "Sensio/Bundle/FrameworkExtraBundle",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "5c37623576ea9e841b87dc0d85414d98fa6f7abb"
+                "reference": "a30fc18bf147bc25faf6b1d54bf55cfad4b63cba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/5c37623576ea9e841b87dc0d85414d98fa6f7abb",
-                "reference": "5c37623576ea9e841b87dc0d85414d98fa6f7abb",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/a30fc18bf147bc25faf6b1d54bf55cfad4b63cba",
+                "reference": "a30fc18bf147bc25faf6b1d54bf55cfad4b63cba",
                 "shasum": ""
             },
             "require": {
@@ -1226,6 +1233,7 @@
             },
             "suggest": {
                 "symfony/expression-language": "",
+                "symfony/psr-http-message-bridge": "To use the PSR-7 converters",
                 "symfony/security-bundle": ""
             },
             "type": "symfony-bundle",
@@ -1235,8 +1243,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Sensio\\Bundle\\FrameworkExtraBundle": ""
+                "psr-4": {
+                    "Sensio\\Bundle\\FrameworkExtraBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1254,7 +1262,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2015-04-02 12:28:58"
+            "time": "2015-05-29 18:27:23"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -1262,12 +1270,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "da6f5d725884b9d7d6f21415405bb4b96614785a"
+                "reference": "2c2a71f1c77d9765c12638c4724d9ca23658a810"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/da6f5d725884b9d7d6f21415405bb4b96614785a",
-                "reference": "da6f5d725884b9d7d6f21415405bb4b96614785a",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/2c2a71f1c77d9765c12638c4724d9ca23658a810",
+                "reference": "2c2a71f1c77d9765c12638c4724d9ca23658a810",
                 "shasum": ""
             },
             "require": {
@@ -1299,7 +1307,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2015-05-26 16:22:24"
+            "time": "2015-05-28 14:22:40"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1539,16 +1547,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.7.0-BETA2",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "5cfcce37fa070f7765559156634c9ef2724e9545"
+                "reference": "9975b1eca3de4db792a2c3e4e16f676a4aadcd46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/5cfcce37fa070f7765559156634c9ef2724e9545",
-                "reference": "5cfcce37fa070f7765559156634c9ef2724e9545",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9975b1eca3de4db792a2c3e4e16f676a4aadcd46",
+                "reference": "9975b1eca3de4db792a2c3e4e16f676a4aadcd46",
                 "shasum": ""
             },
             "require": {
@@ -1657,7 +1665,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-13 20:25:22"
+            "time": "2015-05-30 16:52:28"
         },
         {
             "name": "twig/extensions",
@@ -2039,24 +2047,24 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "target-dir": "Doctrine/Bundle/MigrationsBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "81575a4316951125ce408c70f30547c77d98f78a"
+                "reference": "1e8cd4415bd2f893eb828216b529a75e8b61d579"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/81575a4316951125ce408c70f30547c77d98f78a",
-                "reference": "81575a4316951125ce408c70f30547c77d98f78a",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/1e8cd4415bd2f893eb828216b529a75e8b61d579",
+                "reference": "1e8cd4415bd2f893eb828216b529a75e8b61d579",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "~1.0",
                 "doctrine/migrations": "~1.0@dev",
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": "~2.1"
+                "symfony/framework-bundle": "~2.3|~3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2094,7 +2102,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2014-08-17 07:53:47"
+            "time": "2015-05-06 08:32:15"
         },
         {
             "name": "doctrine/migrations",
@@ -2102,23 +2110,28 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "a4f14d3a3d397104e557ec65d1a4e43bb86e4ddf"
+                "reference": "abb87d84ed21fd30c27bd3b52252a495a36d32fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/a4f14d3a3d397104e557ec65d1a4e43bb86e4ddf",
-                "reference": "a4f14d3a3d397104e557ec65d1a4e43bb86e4ddf",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/abb87d84ed21fd30c27bd3b52252a495a36d32fb",
+                "reference": "abb87d84ed21fd30c27bd3b52252a495a36d32fb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "~2.0",
-                "php": ">=5.3.2"
+                "php": ">=5.3.2",
+                "symfony/console": "~2.3",
+                "symfony/yaml": "~2.3"
+            },
+            "conflict": {
+                "doctrine/orm": "<2.4"
             },
             "require-dev": {
+                "doctrine/coding-standard": "dev-master",
                 "doctrine/orm": "2.*",
                 "phpunit/phpunit": "~4.0",
-                "symfony/console": "2.*",
-                "symfony/yaml": "2.*"
+                "satooshi/php-coveralls": "0.6.*"
             },
             "suggest": {
                 "symfony/console": "to run the migration from the console"
@@ -2154,7 +2167,90 @@
                 "database",
                 "migrations"
             ],
-            "time": "2015-05-02 06:20:23"
+            "time": "2015-05-26 15:30:26"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "b9e5228e92e5f5c17d7774cfb2de8e5e8362de1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/b9e5228e92e5f5c17d7774cfb2de8e5e8362de1a",
+                "reference": "b9e5228e92e5f5c17d7774cfb2de8e5e8362de1a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2015-04-29 20:22:24"
+        },
+        {
+            "name": "erusev/parsedown-extra",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown-extra.git",
+                "reference": "11a44e076d02ffcc4021713398a60cd73f78b6f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown-extra/zipball/11a44e076d02ffcc4021713398a60cd73f78b6f5",
+                "reference": "11a44e076d02ffcc4021713398a60cd73f78b6f5",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown": "~1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ParsedownExtra": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "An extension of Parsedown that adds support for Markdown Extra.",
+            "homepage": "https://github.com/erusev/parsedown-extra",
+            "keywords": [
+                "markdown",
+                "markdown extra",
+                "parsedown",
+                "parser"
+            ],
+            "time": "2015-01-25 14:52:34"
         },
         {
             "name": "fzaninotto/faker",
@@ -2805,16 +2901,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.0.17",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "c4e8e7725e351184a76544634855b8a9c405a6e3"
+                "reference": "ba315f46873fd6e86fdb98685a1a900e7379c886"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c4e8e7725e351184a76544634855b8a9c405a6e3",
-                "reference": "c4e8e7725e351184a76544634855b8a9c405a6e3",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ba315f46873fd6e86fdb98685a1a900e7379c886",
+                "reference": "ba315f46873fd6e86fdb98685a1a900e7379c886",
                 "shasum": ""
             },
             "require": {
@@ -2837,7 +2933,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
@@ -2863,7 +2959,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-05-25 05:11:59"
+            "time": "2015-05-30 12:58:40"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3051,16 +3147,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.6.7",
+            "version": "4.6.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "57bf06dd4eebe2a5ced79a8de71509e7d5c18b25"
+                "reference": "816d12536a7a032adc3b68737f82cfbbf98b79c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/57bf06dd4eebe2a5ced79a8de71509e7d5c18b25",
-                "reference": "57bf06dd4eebe2a5ced79a8de71509e7d5c18b25",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/816d12536a7a032adc3b68737f82cfbbf98b79c1",
+                "reference": "816d12536a7a032adc3b68737f82cfbbf98b79c1",
                 "shasum": ""
             },
             "require": {
@@ -3119,20 +3215,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-05-25 05:18:18"
+            "time": "2015-05-29 06:00:03"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "74ffb87f527f24616f72460e54b595f508dccb5c"
+                "reference": "253c005852591fd547fc18cd5b7b43a1ec82d8f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/74ffb87f527f24616f72460e54b595f508dccb5c",
-                "reference": "74ffb87f527f24616f72460e54b595f508dccb5c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/253c005852591fd547fc18cd5b7b43a1ec82d8f7",
+                "reference": "253c005852591fd547fc18cd5b7b43a1ec82d8f7",
                 "shasum": ""
             },
             "require": {
@@ -3174,7 +3270,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-04-02 05:36:41"
+            "time": "2015-05-29 05:19:18"
         },
         {
             "name": "pimple/pimple",
@@ -3224,16 +3320,16 @@
         },
         {
             "name": "sami/sami",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/Sami.git",
-                "reference": "66dc7592ecd73d8a9f612ffd7a29c0635a53dd93"
+                "reference": "0828c3700604eee9ec3f6f4affa6a9224f4ce76a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/Sami/zipball/66dc7592ecd73d8a9f612ffd7a29c0635a53dd93",
-                "reference": "66dc7592ecd73d8a9f612ffd7a29c0635a53dd93",
+                "url": "https://api.github.com/repos/FriendsOfPHP/Sami/zipball/0828c3700604eee9ec3f6f4affa6a9224f4ce76a",
+                "reference": "0828c3700604eee9ec3f6f4affa6a9224f4ce76a",
                 "shasum": ""
             },
             "require": {
@@ -3278,7 +3374,7 @@
             "keywords": [
                 "phpdoc"
             ],
-            "time": "2015-05-20 16:44:31"
+            "time": "2015-05-30 16:31:24"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -3349,6 +3445,107 @@
                 "source": "https://github.com/scribenet/php-coveralls/tree/v0.6.2"
             },
             "time": "2015-04-04 18:19:58"
+        },
+        {
+            "name": "scribe/swim-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scribenet/symfony-swim-bundle.git",
+                "reference": "b2c1cc6e051804b9f6807473cc21e483869997f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scribenet/symfony-swim-bundle/zipball/b2c1cc6e051804b9f6807473cc21e483869997f1",
+                "reference": "b2c1cc6e051804b9f6807473cc21e483869997f1",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown": "~1.5.3",
+                "erusev/parsedown-extra": "~0.7.0",
+                "php": ">=5.6.4",
+                "scribe/cache-bundle": "2.0.*@dev",
+                "scribe/mantle-bundle": "2.0.*@dev",
+                "symfony/console": "~2.7.0",
+                "symfony/dependency-injection": "~2.7.0",
+                "symfony/twig-bridge": "~2.7.0",
+                "symfony/twig-bundle": "~2.7.0",
+                "twig/twig": "~1.18"
+            },
+            "require-dev": {
+                "chriskite/phactory": "~0.4.3",
+                "doctrine/common": "~2.5",
+                "doctrine/data-fixtures": "1.0.*@dev",
+                "doctrine/dbal": "~2.5",
+                "doctrine/doctrine-bundle": "~1.4",
+                "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
+                "doctrine/doctrine-migrations-bundle": "~1.0",
+                "doctrine/migrations": "1.0.*@dev",
+                "doctrine/orm": "~2.5",
+                "ext-igbinary": "~1.2",
+                "ext-memcached": "~2.2",
+                "ext-tidy": "~2.0",
+                "nikic/php-parser": ">=1.0,<1.2",
+                "pdepend/pdepend": "~2.0",
+                "phpunit/phpunit": "~4.6",
+                "sami/sami": "~3.0",
+                "satooshi/php-coveralls": "dev-multipleroot",
+                "scrutinizer/ocular": "~1.1.1",
+                "sensio/generator-bundle": "~2.5",
+                "sensiolabs/security-checker": "~2.0",
+                "symfony/framework-bundle": "~2.7.0",
+                "symfony/phpunit-bridge": "~2.7.0",
+                "symfony/stopwatch": "~2.7.0",
+                "symfony/symfony": "~2.7.0"
+            },
+            "type": "project",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Scribe\\SwimBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Frawley 2nd",
+                    "email": "rmf@scr.be",
+                    "homepage": "https://scr.be/rmf",
+                    "role": "Project Lead"
+                },
+                {
+                    "name": "Dan Corrigan",
+                    "email": "dfc@scr.be",
+                    "homepage": "https://scr.be/dfc",
+                    "role": "Developer (Rogue Rubyist)"
+                }
+            ],
+            "description": "Simple and extensible parser library for markdown, Swim, and more...",
+            "homepage": "https://scr.be/swim-bundle",
+            "keywords": [
+                "Scribe",
+                "Symfony2",
+                "bundle",
+                "cache",
+                "mantle-cache",
+                "scr",
+                "scribe-cache-bundle",
+                "scribe-services",
+                "scribe-software",
+                "scribeinc",
+                "scribenet",
+                "symfony",
+                "symfony-cache-bundle",
+                "symfony-framework"
+            ],
+            "time": "2015-05-30 19:49:31"
         },
         {
             "name": "scrutinizer/ocular",
@@ -3807,7 +4004,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v2.7.0-BETA2",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
@@ -3861,19 +4058,10 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/symfony": 10,
-        "symfony/framework-bundle": 10,
-        "symfony/yaml": 10,
-        "symfony/filesystem": 10,
-        "symfony/finder": 10,
-        "symfony/dependency-injection": 10,
         "symfony/monolog-bundle": 20,
         "symfony/assetic-bundle": 20,
         "scribe/cache-bundle": 20,
-        "symfony/stopwatch": 10,
-        "symfony/var-dumper": 10,
-        "symfony/debug-bundle": 10,
-        "symfony/phpunit-bridge": 10,
+        "scribe/swim-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "doctrine/data-fixtures": 20,
         "doctrine/migrations": 20,

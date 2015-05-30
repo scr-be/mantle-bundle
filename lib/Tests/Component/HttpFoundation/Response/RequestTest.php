@@ -22,11 +22,11 @@ class RequestTest extends AbstractMantleKernelTestCase
     {
         $response = $this->container->get('s.mantle.response.type_html');
 
-        $this->assertInstanceOf('Scribe\Component\HttpFoundation\Response\Model\ResponseInterface', $response);
-        $this->assertTrue($response->isOk());
-        $this->assertEquals('', $response->getContent());
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1.1, $response->getProtocolVersion());
-        $this->assertEquals('utf-8', $response->getCharset());
+        static::assertInstanceOf('Scribe\Component\HttpFoundation\Response\Model\ResponseInterface', $response);
+        static::assertTrue($response->isOk());
+        static::assertEquals('', $response->getContent());
+        static::assertEquals(200, $response->getStatusCode());
+        static::assertEquals(1.1, $response->getProtocolVersion());
+        static::assertEquals('utf-8', $response->getCharset());
     }
 }

@@ -235,9 +235,9 @@ class EntityModelTest extends AbstractMantleTestCase
     {
         $entity = new BaseEntity();
 
-        $this->assertTrue(method_exists($entity, '__toString'));
-        $this->assertEquals('Scribe\Tests\Doctrine\Fixtures\BaseEntity', (string) $entity);
-        $this->assertTrue(method_exists($entity, '__toArray'));
+        static::assertTrue(method_exists($entity, '__toString'));
+        static::assertEquals('Scribe\Tests\Doctrine\Fixtures\BaseEntity', (string) $entity);
+        static::assertTrue(method_exists($entity, '__toArray'));
     }
 
     public function testEntityTraitHasAlias()
@@ -255,12 +255,12 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->performRuntime($trait, $entity);
 
         $entity->setAliases(['key' => 'value']);
-        $this->assertTrue($entity->hasAlias('key'));
-        $this->assertFalse($entity->hasAlias('doesn-have-key'));
-        $this->assertEquals('value', $entity->getAlias('key'), 'Should return the value to the key.');
+        static::assertTrue($entity->hasAlias('key'));
+        static::assertFalse($entity->hasAlias('doesn-have-key'));
+        static::assertEquals('value', $entity->getAlias('key'), 'Should return the value to the key.');
         $entity->clearAliases();
-        $this->assertFalse($entity->hasAlias('key'));
-        $this->assertNull($entity->getAlias('key'));
+        static::assertFalse($entity->hasAlias('key'));
+        static::assertNull($entity->getAlias('key'));
 
         $this->clearEntityAfterTest();
     }
@@ -272,23 +272,23 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->performRuntime($trait, $entity);
 
         $entity->setAttributes(['key' => 'value']);
-        $this->assertTrue($entity->hasAttributeKey('key'));
-        $this->assertTrue($entity->hasAttributeValue('value'));
-        $this->assertFalse($entity->hasAttributeKey('doesn-have-key'));
-        $this->assertFalse($entity->hasAttributeValue('doesn-have-this-value'));
-        $this->assertEquals('value', $entity->getAttributeValue('key'), 'Should return the value to the key.');
+        static::assertTrue($entity->hasAttributeKey('key'));
+        static::assertTrue($entity->hasAttributeValue('value'));
+        static::assertFalse($entity->hasAttributeKey('doesn-have-key'));
+        static::assertFalse($entity->hasAttributeValue('doesn-have-this-value'));
+        static::assertEquals('value', $entity->getAttributeValue('key'), 'Should return the value to the key.');
         $entity->setAttributeValue('key', 'different-value', false);
-        $this->assertTrue($entity->hasAttributeKey('key'));
-        $this->assertTrue($entity->hasAttributeValue('value'));
+        static::assertTrue($entity->hasAttributeKey('key'));
+        static::assertTrue($entity->hasAttributeValue('value'));
         $entity->setAttributeValue('key', 'different-value', true);
-        $this->assertFalse($entity->hasAttributeValue('value'));
-        $this->assertTrue($entity->hasAttributeKey('key'));
-        $this->assertTrue($entity->hasAttributeValue('different-value'));
+        static::assertFalse($entity->hasAttributeValue('value'));
+        static::assertTrue($entity->hasAttributeKey('key'));
+        static::assertTrue($entity->hasAttributeValue('different-value'));
         $entity->clearAttributes();
-        $this->assertFalse($entity->hasAttributeKey('key'));
-        $this->assertFalse($entity->hasAttributeValue('value'));
-        $this->assertFalse($entity->hasAttributeValue('different-value'));
-        $this->assertNull($entity->getAttributeValue('key'));
+        static::assertFalse($entity->hasAttributeKey('key'));
+        static::assertFalse($entity->hasAttributeValue('value'));
+        static::assertFalse($entity->hasAttributeValue('different-value'));
+        static::assertNull($entity->getAttributeValue('key'));
 
         $this->clearEntityAfterTest();
     }
@@ -300,23 +300,23 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->performRuntime($trait, $entity);
 
         $entity->setProperties(['key' => 'value']);
-        $this->assertTrue($entity->hasPropertyKey('key'));
-        $this->assertTrue($entity->hasPropertyValue('value'));
-        $this->assertFalse($entity->hasPropertyKey('doesn-have-key'));
-        $this->assertFalse($entity->hasPropertyValue('doesn-have-this-value'));
-        $this->assertEquals('value', $entity->getPropertyValue('key'), 'Should return the value to the key.');
+        static::assertTrue($entity->hasPropertyKey('key'));
+        static::assertTrue($entity->hasPropertyValue('value'));
+        static::assertFalse($entity->hasPropertyKey('doesn-have-key'));
+        static::assertFalse($entity->hasPropertyValue('doesn-have-this-value'));
+        static::assertEquals('value', $entity->getPropertyValue('key'), 'Should return the value to the key.');
         $entity->setPropertyValue('key', 'different-value', false);
-        $this->assertTrue($entity->hasPropertyKey('key'));
-        $this->assertTrue($entity->hasPropertyValue('value'));
+        static::assertTrue($entity->hasPropertyKey('key'));
+        static::assertTrue($entity->hasPropertyValue('value'));
         $entity->setPropertyValue('key', 'different-value', true);
-        $this->assertFalse($entity->hasPropertyValue('value'));
-        $this->assertTrue($entity->hasPropertyKey('key'));
-        $this->assertTrue($entity->hasPropertyValue('different-value'));
+        static::assertFalse($entity->hasPropertyValue('value'));
+        static::assertTrue($entity->hasPropertyKey('key'));
+        static::assertTrue($entity->hasPropertyValue('different-value'));
         $entity->clearProperties();
-        $this->assertFalse($entity->hasPropertyKey('key'));
-        $this->assertFalse($entity->hasPropertyValue('value'));
-        $this->assertFalse($entity->hasPropertyValue('different-value'));
-        $this->assertNull($entity->getPropertyValue('key'));
+        static::assertFalse($entity->hasPropertyKey('key'));
+        static::assertFalse($entity->hasPropertyValue('value'));
+        static::assertFalse($entity->hasPropertyValue('different-value'));
+        static::assertNull($entity->getPropertyValue('key'));
 
         $this->clearEntityAfterTest();
     }
@@ -328,12 +328,12 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->performRuntime($trait, $entity);
 
         $entity->setCategories(['key' => 'value']);
-        $this->assertTrue($entity->hasCategory('key'));
-        $this->assertFalse($entity->hasCategory('doesn-have-key'));
-        $this->assertEquals('value', $entity->getCategory('key'), 'Should return the value to the key.');
+        static::assertTrue($entity->hasCategory('key'));
+        static::assertFalse($entity->hasCategory('doesn-have-key'));
+        static::assertEquals('value', $entity->getCategory('key'), 'Should return the value to the key.');
         $entity->clearCategories();
-        $this->assertFalse($entity->hasCategory('key'));
-        $this->assertNull($entity->getCategory('key'));
+        static::assertFalse($entity->hasCategory('key'));
+        static::assertNull($entity->getCategory('key'));
 
         $this->clearEntityAfterTest();
     }
@@ -361,13 +361,13 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->performRuntime($trait, $entity);
         $entity->setCount(5000);
         $entity->incrementCount();
-        $this->assertEquals(5001, $entity->getCount());
+        static::assertEquals(5001, $entity->getCount());
         $entity->incrementCount(28);
-        $this->assertEquals(5029, $entity->getCount());
+        static::assertEquals(5029, $entity->getCount());
         $entity->decrementCount();
-        $this->assertEquals(5028, $entity->getCount());
+        static::assertEquals(5028, $entity->getCount());
         $entity->decrementCount(100);
-        $this->assertEquals(4928, $entity->getCount());
+        static::assertEquals(4928, $entity->getCount());
         $this->clearEntityAfterTest();
     }
 
@@ -395,23 +395,23 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->clearEntityAfterTest();
 
         $entity->setParameters(['key' => 'value']);
-        $this->assertTrue($entity->hasParameterKey('key'));
-        $this->assertTrue($entity->hasParameterValue('value'));
-        $this->assertFalse($entity->hasParameterKey('doesn-have-key'));
-        $this->assertFalse($entity->hasParameterValue('doesn-have-this-value'));
-        $this->assertEquals('value', $entity->getParameterValue('key'), 'Should return the value to the key.');
+        static::assertTrue($entity->hasParameterKey('key'));
+        static::assertTrue($entity->hasParameterValue('value'));
+        static::assertFalse($entity->hasParameterKey('doesn-have-key'));
+        static::assertFalse($entity->hasParameterValue('doesn-have-this-value'));
+        static::assertEquals('value', $entity->getParameterValue('key'), 'Should return the value to the key.');
         $entity->setParameterValue('key', 'different-value', false);
-        $this->assertTrue($entity->hasParameterKey('key'));
-        $this->assertTrue($entity->hasParameterValue('value'));
+        static::assertTrue($entity->hasParameterKey('key'));
+        static::assertTrue($entity->hasParameterValue('value'));
         $entity->setParameterValue('key', 'different-value', true);
-        $this->assertFalse($entity->hasParameterValue('value'));
-        $this->assertTrue($entity->hasParameterKey('key'));
-        $this->assertTrue($entity->hasParameterValue('different-value'));
+        static::assertFalse($entity->hasParameterValue('value'));
+        static::assertTrue($entity->hasParameterKey('key'));
+        static::assertTrue($entity->hasParameterValue('different-value'));
         $entity->clearParameters();
-        $this->assertFalse($entity->hasParameterKey('key'));
-        $this->assertFalse($entity->hasParameterValue('value'));
-        $this->assertFalse($entity->hasParameterValue('different-value'));
-        $this->assertNull($entity->getParameterValue('key'));
+        static::assertFalse($entity->hasParameterKey('key'));
+        static::assertFalse($entity->hasParameterValue('value'));
+        static::assertFalse($entity->hasParameterValue('different-value'));
+        static::assertNull($entity->getParameterValue('key'));
     }
 
     public function testEntityTraitHasTitle()
@@ -497,8 +497,8 @@ class EntityModelTest extends AbstractMantleTestCase
             ->setSuffix('2nd')
         ;
 
-        $this->assertEquals('Mr. Rob Martin Frawley 2nd', $entity->getFullName());
-        $this->assertEquals('Rob Frawley', $entity->getShortName());
+        static::assertEquals('Mr. Rob Martin Frawley 2nd', $entity->getFullName());
+        static::assertEquals('Rob Frawley', $entity->getShortName());
 
         $entity = new BaseEntityHasPerson();
         $entity
@@ -507,8 +507,8 @@ class EntityModelTest extends AbstractMantleTestCase
             ->setSurname('Corrigan')
         ;
 
-        $this->assertEquals('Dan F Corrigan', $entity->getFullName());
-        $this->assertEquals('Dan Corrigan', $entity->getShortName());
+        static::assertEquals('Dan F Corrigan', $entity->getFullName());
+        static::assertEquals('Dan Corrigan', $entity->getShortName());
     }
 
     public function testEntityTraitHasLead()
@@ -534,11 +534,11 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->performRuntime($trait, $entity);
 
         $entity->setImportance($entity->getImportanceLevelByName('CRITICAL'));
-        $this->assertEquals(40, $entity->getImportance());
+        static::assertEquals(40, $entity->getImportance());
 
-        $this->assertNull($entity->getImportanceLevelByName('BADNAME'));
-        $this->assertEquals('DEPRECATION', $entity->getImportanceLevelByInt(-10));
-        $this->assertNull($entity->getImportanceLevelByInt(-10000));
+        static::assertNull($entity->getImportanceLevelByName('BADNAME'));
+        static::assertEquals('DEPRECATION', $entity->getImportanceLevelByInt(-10));
+        static::assertNull($entity->getImportanceLevelByInt(-10000));
 
         $this->clearEntityAfterTest();
     }
@@ -588,14 +588,14 @@ class EntityModelTest extends AbstractMantleTestCase
         ]);
         $entity->setChildren($collection);
 
-        $this->assertTrue($entity->hasChild($this->randomEntityOne));
+        static::assertTrue($entity->hasChild($this->randomEntityOne));
 
         $entity->addChild($this->randomEntityOne);
-        $this->assertEquals(2, $entity->getChildren()->count());
+        static::assertEquals(2, $entity->getChildren()->count());
         $entity->addChild($this->randomEntityOne, false);
-        $this->assertEquals(3, $entity->getChildren()->count());
+        static::assertEquals(3, $entity->getChildren()->count());
         $entity->removeChild($this->randomEntityTwo);
-        $this->assertEquals(2, $entity->getChildren()->count());
+        static::assertEquals(2, $entity->getChildren()->count());
         $this->clearEntityAfterTest();
     }
 
@@ -607,14 +607,14 @@ class EntityModelTest extends AbstractMantleTestCase
             $this->reflectionAnalyser->setRequireFQN(false);
         }
 
-        $this->assertTrue($this->reflectionAnalyser->hasTrait($traitName));
+        static::assertTrue($this->reflectionAnalyser->hasTrait($traitName));
 
         foreach ($config['props'] as $property) {
-            $this->assertTrue($this->reflectionAnalyser->hasProperty($property));
+            static::assertTrue($this->reflectionAnalyser->hasProperty($property));
         }
 
         foreach ($config['methods'] as $method) {
-            $this->assertTrue($this->reflectionAnalyser->hasMethod($method), 'Should have method '.$method);
+            static::assertTrue($this->reflectionAnalyser->hasMethod($method), 'Should have method '.$method);
         }
 
         foreach ($config['op'] as $operation) {
@@ -634,21 +634,21 @@ class EntityModelTest extends AbstractMantleTestCase
         $checker = $config['methods'][3];
         $clearer = $config['methods'][4];
 
-        $this->assertEmpty($entity->$getter(), 'Property should be empty prior to initialization.');
+        static::assertEmpty($entity->$getter(), 'Property should be empty prior to initialization.');
         $entity->$initializer();
 
         for ($i = 0; $i < count($config['ops']); $i++) {
-            $this->assertFalse($entity->$checker());
+            static::assertFalse($entity->$checker());
             $entity->$setter($config['ops'][$i]);
-            $this->assertEquals($config['ops'][$i], $entity->$getter(),
+            static::assertEquals($config['ops'][$i], $entity->$getter(),
                 sprintf(
                     'Property should have value of "%s".',
                     (is_array($config['ops'][$i]) ? print_r($config['ops'][$i], true) : $config['ops'][$i])
                 )
             );
-            $this->assertTrue($entity->$checker());
+            static::assertTrue($entity->$checker());
             $entity->$clearer();
-            $this->assertFalse($entity->$checker());
+            static::assertFalse($entity->$checker());
         }
     }
 }

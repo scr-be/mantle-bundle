@@ -11,8 +11,9 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks;
 
-use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChain;
-use Scribe\CacheBundle\Cache\Handler\Type\HandlerTypeFilesystem;
+use Scribe\CacheBundle\Cache\Handler\Chain\CacheChain;
+use Scribe\CacheBundle\Cache\Handler\Chain\CacheChainInterface;
+use Scribe\CacheBundle\Cache\Handler\Engine\CacheEngineFilesystem;
 use Scribe\CacheBundle\KeyGenerator\KeyGenerator;
 use Scribe\CacheBundle\KeyGenerator\KeyGeneratorInterface;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
@@ -28,7 +29,7 @@ trait IconCreatorHelperTrait
     {
         if ($cached) {
             $iconGenerator = new IconCreatorCached($this->iconFamilyRepo, $this->engine);
-            $iconGenerator->setCacheHandlerChain($this->cacheChain);
+            $iconGenerator->setCacheChain($this->cacheChain);
         } else {
             $iconGenerator = new IconCreator($this->iconFamilyRepo, $this->engine);
         }
@@ -40,7 +41,7 @@ trait IconCreatorHelperTrait
     {
         if ($cached) {
             $iconGenerator = new IconCreatorCached($this->iconFamilyRepo);
-            $iconGenerator->setCacheHandlerChain($this->cacheChain);
+            $iconGenerator->setCacheChain($this->cacheChain);
         } else {
             $iconGenerator = new IconCreator($this->iconFamilyRepo);
         }
@@ -62,18 +63,18 @@ trait IconCreatorHelperTrait
             $tempDirectory = sys_get_temp_dir();
         }
 
-        $filesystemCacheType = new HandlerTypeFilesystem($keyGenerator, 1800, 20);
+        $filesystemCacheType = new CacheEngineFilesystem($keyGenerator, 1800, 20);
         $filesystemCacheType->proposeCacheDirectory($tempDirectory);
 
         return $filesystemCacheType;
     }
 
-    protected function getNewCacheHandlerChain($disabled = false)
+    protected function getNewCacheChain($disabled = false)
     {
-        return new HandlerChain($disabled);
+        return new CacheChain($disabled);
     }
 
-    protected function setHandlerTypesToCacheChain($chain, ...$types)
+    protected function setHandlerTypesToCacheChain(CacheChainInterface $chain, ...$types)
     {
         foreach ($types as $priority => $type) {
             $chain->addHandler($type, $priority);
@@ -84,7 +85,7 @@ trait IconCreatorHelperTrait
     {
         $this->keyGenerator = $this->getNewKeyGenerator();
         $this->cacheTypeFilesystem = $this->getNewCacheHandlerTypeFilesystem($this->keyGenerator);
-        $this->cacheChain = $this->getNewCacheHandlerChain($disabled);
+        $this->cacheChain = $this->getNewCacheChain($disabled);
 
         $this->setHandlerTypesToCacheChain(
             $this->cacheChain,

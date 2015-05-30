@@ -11,13 +11,13 @@
 
 namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
+use Scribe\CacheBundle\Cache\Handler\Chain\CacheChain;
+use Scribe\CacheBundle\Cache\Handler\Engine\CacheEngineFilesystem;
 use Scribe\Component\DependencyInjection\Container\ServiceFinder;
 use Scribe\MantleBundle\Templating\Generator\Node\NodeCreator;
 use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached;
 use Scribe\CacheBundle\KeyGenerator\KeyGenerator;
-use Scribe\CacheBundle\Cache\Handler\Type\HandlerTypeFilesystem;
 use Scribe\CacheBundle\KeyGenerator\KeyGeneratorInterface;
-use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChain;
 
 /**
  * Class NodeCreatorHelperTrait.
@@ -29,7 +29,7 @@ trait NodeCreatorHelperTrait
         $serviceFinder = new ServiceFinder($this->container);
         if (true === (bool) $cached) {
             $nodeGenerator = new NodeCreatorCached($this->nodeRepo, $this->getNewNodeRendererRegistrar());
-            $nodeGenerator->setCacheHandlerChain($this->cacheChain);
+            $nodeGenerator->setCacheChain($this->cacheChain);
         } else {
             $nodeGenerator = new NodeCreator($this->nodeRepo, $this->getNewNodeRendererRegistrar());
         }
@@ -85,15 +85,15 @@ trait NodeCreatorHelperTrait
             $tempDirectory = sys_get_temp_dir();
         }
 
-        $filesystemCacheType = new HandlerTypeFilesystem($keyGenerator, 1800, 20);
+        $filesystemCacheType = new CacheEngineFilesystem($keyGenerator, 1800, 20);
         $filesystemCacheType->proposeCacheDirectory($tempDirectory);
 
         return $filesystemCacheType;
     }
 
-    protected function getNewCacheHandlerChain($disabled = false)
+    protected function getNewCacheChain($disabled = false)
     {
-        return new HandlerChain($disabled);
+        return new CacheChain($disabled);
     }
 
     protected function setHandlerTypesToCacheChain($chain, ...$types)
@@ -107,7 +107,7 @@ trait NodeCreatorHelperTrait
     {
         $this->keyGenerator = $this->getNewKeyGenerator();
         $this->cacheTypeFilesystem = $this->getNewCacheHandlerTypeFilesystem($this->keyGenerator);
-        $this->cacheChain = $this->getNewCacheHandlerChain($disabled);
+        $this->cacheChain = $this->getNewCacheChain($disabled);
 
         $this->setHandlerTypesToCacheChain(
             $this->cacheChain,

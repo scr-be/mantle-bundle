@@ -38,8 +38,8 @@ class NodeCreatorCachedTest extends AbstractMantleKernelTestCase
         $creator = $this->getNewNodeCreator(true);
         $actual = $creator->render($this->node);
 
-        $this->assertTrue($creator->getCacheHandlerChain()->has());
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertTrue($creator->getCacheChain()->has());
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function tearDown()

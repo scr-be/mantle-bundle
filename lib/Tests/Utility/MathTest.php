@@ -47,7 +47,7 @@ class MathTest extends AbstractMantleTestCase
 
         foreach ($provider as $p) {
             $result = Math::toBase($p[0], $p[1], $p[2], $p[3], $p[4]);
-            $this->assertEquals($result, $p[5]);
+            static::assertEquals($result, $p[5]);
         }
     }
 

@@ -67,7 +67,7 @@ class IconCreatorExtensionTest extends AbstractMantleKernelTestCase
 
         $html = $this->ext->getIcon($this->twig, 'glass', 'fa');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanRenderCached()
@@ -83,7 +83,7 @@ class IconCreatorExtensionTest extends AbstractMantleKernelTestCase
         $html1 = $this->extCached->getIcon($this->twig, 'glass', 'fa');
         $html2 = $this->extCached->getIcon($this->twig, 'glass', 'fa');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html1);
-        $this->assertXmlStringEqualsXmlString($expected, $html2);
+        static::assertXmlStringEqualsXmlString($expected, $html1);
+        static::assertXmlStringEqualsXmlString($expected, $html2);
     }
 }

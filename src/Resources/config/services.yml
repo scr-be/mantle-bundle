@@ -407,14 +407,14 @@ services:
             - @s.mantle.icon_family.repo
             - @twig
         calls:
-            - [setCacheHandlerChain, [@s.cache.handler_chain]]
+            - [setCacheChain, [@s.cache.handler_chain]]
 
     s.mantle.icon_creator.notemplating:
         class: %s.mantle.icon_creator_cached.class%
         arguments:
             - @s.mantle.icon_family.repo
         calls:
-            - [setCacheHandlerChain, [@s.cache.handler_chain]]
+            - [setCacheChain, [@s.cache.handler_chain]]
 
     s.mantle.icon_creator.twig_extension:
         class: %s.mantle.icon_creator.twig_extension.class%
@@ -431,7 +431,7 @@ services:
             - @s.mantle.node.repo
             - @s.mantle.node_creator.renderer.registrar
         calls:
-            - [setCacheHandlerChain, [@s.cache.handler_chain]]
+            - [setCacheChain, [@s.cache.handler_chain]]
 
     s.mantle.node_creator_caching_disabled:
         class: %s.mantle.node_creator_caching_disabled.class%

@@ -53,8 +53,8 @@ class NodeTest extends AbstractMantlePhactoryTestCase
         $this->setupAndExercise(2);
         $secondNode = $this->nodes[1];
         $secondNode->setChildNodeOf($this->firstNode);
-        $this->assertSame($this->firstNode, $secondNode->getParentNode());
-        $this->assertSame($secondNode, $this->firstNode->getChildNodes()[0]);
+        static::assertSame($this->firstNode, $secondNode->getParentNode());
+        static::assertSame($secondNode, $this->firstNode->getChildNodes()[0]);
     }
 
     public function testTree()
@@ -75,13 +75,13 @@ class NodeTest extends AbstractMantlePhactoryTestCase
         $root = $this->repo->getTree();
 
         // finds root correctly
-        $this->assertSame($this->firstNode, $root->getRootNode());
+        static::assertSame($this->firstNode, $root->getRootNode());
 
         // tree returns nested array
-        $this->assertSame($this->firstNode, $root);
-        $this->assertSame($secondNode, $root[0]);
-        $this->assertSame($thirdNode, $root[0][0]);
-        $this->assertSame($fourthNode, $root[0][0][0]);
+        static::assertSame($this->firstNode, $root);
+        static::assertSame($secondNode, $root[0]);
+        static::assertSame($thirdNode, $root[0][0]);
+        static::assertSame($fourthNode, $root[0][0][0]);
     }
 
     public function testMultipleRoots()
@@ -103,11 +103,11 @@ class NodeTest extends AbstractMantlePhactoryTestCase
         $tree1 = $this->repo->getTree('/foo');
         $tree2 = $this->repo->getTree('/bar');
 
-        $this->assertSame($this->firstNode, $tree1);
-        $this->assertSame($secondNode, $tree1[0]);
+        static::assertSame($this->firstNode, $tree1);
+        static::assertSame($secondNode, $tree1[0]);
 
-        $this->assertSame($thirdNode, $tree2);
-        $this->assertSame($fourthNode, $tree2[0]);
+        static::assertSame($thirdNode, $tree2);
+        static::assertSame($fourthNode, $tree2[0]);
     }
 
     public function testCanMoveBranchToBranch()
@@ -121,13 +121,13 @@ class NodeTest extends AbstractMantlePhactoryTestCase
 
         $this->em->flush();
 
-        $this->assertSame(1, sizeof($this->nodes[0]->getChildNodes()));
+        static::assertSame(1, sizeof($this->nodes[0]->getChildNodes()));
 
         $this->nodes[2]->setChildNodeOf($this->nodes[0]);
 
         $this->em->flush();
 
-        $this->assertSame(2, sizeof($this->nodes[0]->getChildNodes()));
+        static::assertSame(2, sizeof($this->nodes[0]->getChildNodes()));
     }
 
     public function testSetAsRoot()
@@ -140,7 +140,7 @@ class NodeTest extends AbstractMantlePhactoryTestCase
 
         $tree = $this->repo->getTree($path);
 
-        $this->assertSame($this->firstNode, $tree);
+        static::assertSame($this->firstNode, $tree);
     }
 
     public function testSetAsRootFromBranch()
@@ -161,9 +161,9 @@ class NodeTest extends AbstractMantlePhactoryTestCase
 
         $tree = $this->repo->getTree($path);
 
-        $this->assertSame($branch, $tree);
+        static::assertSame($branch, $tree);
         /* $children = $tree->getChildNodes(); */
-        /* $this->assertSame($leaf, $children[0]); */
+        /* static::assertSame($leaf, $children[0]); */
     }
 
     public function testIsTimestampable()
@@ -174,16 +174,16 @@ class NodeTest extends AbstractMantlePhactoryTestCase
 
         $this->em->flush();
 
-        $this->assertTrue(($this->nodes[0]->getCreatedOn() instanceof \Datetime));
-        $this->assertTrue(($this->nodes[0]->getUpdatedOn() instanceof \Datetime));
+        static::assertTrue(($this->nodes[0]->getCreatedOn() instanceof \Datetime));
+        static::assertTrue(($this->nodes[0]->getUpdatedOn() instanceof \Datetime));
 
         $previousCreatedOn = clone $this->nodes[0]->getCreatedOn();
         $previousUpdatedOn = clone $this->nodes[0]->getUpdatedOn();
 
-        $this->assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
-        $this->assertTrue($this->nodes[0]->getUpdatedOn() <= (new \Datetime()));
+        static::assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
+        static::assertTrue($this->nodes[0]->getUpdatedOn() <= (new \Datetime()));
 
-        $this->assertSame(0, sizeof($this->nodes[0]->getChildNodes()));
+        static::assertSame(0, sizeof($this->nodes[0]->getChildNodes()));
 
         $this->nodes[0]->setSlug('something');
         $this->nodes[1]->setChildNodeOf($this->nodes[0]);
@@ -194,10 +194,10 @@ class NodeTest extends AbstractMantlePhactoryTestCase
         $this->em->refresh($this->nodes[0]);
         $this->em->refresh($this->nodes[1]);
 
-        $this->assertSame(1, sizeof($this->nodes[0]->getChildNodes()));
+        static::assertSame(1, sizeof($this->nodes[0]->getChildNodes()));
 
-        $this->assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
-        $this->assertTrue($this->nodes[0]->getUpdatedOn() > $previousUpdatedOn);
+        static::assertTrue($this->nodes[0]->getCreatedOn() == $previousCreatedOn);
+        static::assertTrue($this->nodes[0]->getUpdatedOn() > $previousUpdatedOn);
     }
 
     /* public function testCanDeleteWholeBranch() */

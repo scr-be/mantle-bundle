@@ -40,7 +40,7 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
         $creator = $this->getNewNodeCreator();
         $actual = $creator->render($this->node);
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function testRenderFromSlug()
@@ -51,7 +51,7 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
         $creator = $this->getNewNodeCreator();
         $actual = $creator->renderFromSlug($this->node->getSlug());
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function testRenderFromMaterializedPath()
@@ -62,7 +62,7 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
         $creator = $this->getNewNodeCreator();
         $actual = $creator->renderFromMaterializedPath($this->node->getMaterializedPath());
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function testRenderFromBadSlugThrowsException()
@@ -90,7 +90,7 @@ class NodeCreatorTest extends AbstractMantleKernelTestCase
         $creator = $this->getNewNodeCreator();
         $actual = $creator->render($this->node);
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function testNoService()

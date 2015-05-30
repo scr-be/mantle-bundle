@@ -20,7 +20,7 @@ class EntityBaseInitializableTest extends AbstractEntityBaseTest
 {
     public function testBaseEntityWasInitialized()
     {
-        $this->assertTrue($this->baseEntity->isAutoInitialized());
+        static::assertTrue($this->baseEntity->isAutoInitialized());
     }
 
     public function testInitializedMethods()
@@ -29,15 +29,15 @@ class EntityBaseInitializableTest extends AbstractEntityBaseTest
             0 => 'initializeId',
         ];
 
-        $this->assertEquals($expected, $this->baseEntity->getAutoInitializedMethods());
+        static::assertEquals($expected, $this->baseEntity->getAutoInitializedMethods());
     }
 
     public function testDoNotInitialize()
     {
         $noInitEntity = new BaseAbstractNoInitEntity();
 
-        $this->assertFalse($noInitEntity->isAutoInitialized());
-        $this->assertEquals([], $noInitEntity->getAutoInitializedMethods());
+        static::assertFalse($noInitEntity->isAutoInitialized());
+        static::assertEquals([], $noInitEntity->getAutoInitializedMethods());
     }
 
     public function testDoNotInitializeForced()
@@ -49,8 +49,8 @@ class EntityBaseInitializableTest extends AbstractEntityBaseTest
         $noInitEntity = new BaseAbstractNoInitEntity();
         $noInitEntity->callInitializationMethods(true);
 
-        $this->assertTrue($noInitEntity->isAutoInitialized());
-        $this->assertEquals($expected, $noInitEntity->getAutoInitializedMethods());
+        static::assertTrue($noInitEntity->isAutoInitialized());
+        static::assertEquals($expected, $noInitEntity->getAutoInitializedMethods());
     }
 
     public function testDoNotInitializeManualEnable()
@@ -63,8 +63,8 @@ class EntityBaseInitializableTest extends AbstractEntityBaseTest
         $noInitEntity->enableAutoInitialization();
         $noInitEntity->callInitializationMethods();
 
-        $this->assertTrue($noInitEntity->isAutoInitialized());
-        $this->assertEquals($expected, $noInitEntity->getAutoInitializedMethods());
+        static::assertTrue($noInitEntity->isAutoInitialized());
+        static::assertEquals($expected, $noInitEntity->getAutoInitializedMethods());
     }
 }
 

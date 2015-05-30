@@ -49,7 +49,7 @@ class ORMExceptionTest extends AbstractMantleTestCase
 
         $castException = (string) $exception;
 
-        $this->assertContains('Scribe\Doctrine\Exception\ORMException', $castException);
+        static::assertContains('Scribe\Doctrine\Exception\ORMException', $castException);
     }
 }
 

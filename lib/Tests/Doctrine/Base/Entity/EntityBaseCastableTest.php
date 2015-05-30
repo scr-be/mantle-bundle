@@ -20,8 +20,8 @@ class EntityBaseCastableTest extends AbstractEntityBaseTest
     {
         $expected = self::FQCN.':unknown-id';
 
-        $this->assertEquals($expected, (string) $this->baseEntity);
-        $this->assertEquals($expected, (string) $this->baseEntity->__toString());
+        static::assertEquals($expected, (string) $this->baseEntity);
+        static::assertEquals($expected, (string) $this->baseEntity->__toString());
     }
 
     public function testStringCastableWithValidId()
@@ -31,8 +31,8 @@ class EntityBaseCastableTest extends AbstractEntityBaseTest
 
         $expected = self::FQCN.':123';
 
-        $this->assertEquals($expected, (string) $this->baseEntity);
-        $this->assertEquals($expected, (string) $this->baseEntity->__toString());
+        static::assertEquals($expected, (string) $this->baseEntity);
+        static::assertEquals($expected, (string) $this->baseEntity->__toString());
     }
 
     public function testArrayCastable()
@@ -70,7 +70,7 @@ class EntityBaseCastableTest extends AbstractEntityBaseTest
             ],
         ];
 
-        $this->assertEquals($expected, $this->baseEntity->__toArray());
+        static::assertEquals($expected, $this->baseEntity->__toArray());
     }
 }
 

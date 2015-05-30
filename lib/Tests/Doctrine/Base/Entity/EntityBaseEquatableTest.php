@@ -20,7 +20,7 @@ class EntityBaseEquatableTest extends AbstractEntityBaseTest
 {
     public function testIsEqualTo()
     {
-        $this->assertTrue($this->baseEntity->isEqualTo($this->baseEntity));
+        static::assertTrue($this->baseEntity->isEqualTo($this->baseEntity));
     }
 
     public function testIsEqualToId()
@@ -34,10 +34,10 @@ class EntityBaseEquatableTest extends AbstractEntityBaseTest
         $reflectionProperty2 = $this->reflectionAnalyser->setPropertyPublic('id');
         $reflectionProperty2->setValue($thirdBaseEntity, '456');
 
-        $this->assertFalse($this->baseEntity->isEqualTo($secondBaseEntity));
-        $this->assertFalse($this->baseEntity->isEqualTo($thirdBaseEntity));
-        $this->assertTrue($this->baseEntity->isEqualToId($secondBaseEntity));
-        $this->assertFalse($this->baseEntity->isEqualToId($thirdBaseEntity));
+        static::assertFalse($this->baseEntity->isEqualTo($secondBaseEntity));
+        static::assertFalse($this->baseEntity->isEqualTo($thirdBaseEntity));
+        static::assertTrue($this->baseEntity->isEqualToId($secondBaseEntity));
+        static::assertFalse($this->baseEntity->isEqualToId($thirdBaseEntity));
     }
 
     public function testIsEqualToProperties()
@@ -52,9 +52,9 @@ class EntityBaseEquatableTest extends AbstractEntityBaseTest
         $reflectionProperty2 = $this->reflectionAnalyser->setPropertyPublic('id');
         $reflectionProperty2->setValue($thirdBaseEntity, '456');
 
-        $this->assertTrue($this->baseEntity->isEqualToProperties($secondBaseEntity));
-        $this->assertFalse($this->baseEntity->isEqualToProperties($thirdBaseEntity));
-        $this->assertFalse($this->baseEntity->isEqualToProperties($forthBaseEntity));
+        static::assertTrue($this->baseEntity->isEqualToProperties($secondBaseEntity));
+        static::assertFalse($this->baseEntity->isEqualToProperties($thirdBaseEntity));
+        static::assertFalse($this->baseEntity->isEqualToProperties($forthBaseEntity));
     }
 }
 

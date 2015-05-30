@@ -53,7 +53,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass', 'fa')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testRenderLongForm()
@@ -73,7 +73,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render()
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
@@ -82,7 +82,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render()
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAcceptsPrefixedAndNonPrefixIconSlug_ShortForm()
@@ -99,13 +99,13 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->getNewIconCreator()
             ->render('fa-glass', 'fa');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
             ->render('glass', 'fa');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAcceptsPrefixedAndNonPrefixIconSlug_LongForm()
@@ -125,7 +125,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render()
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
             ->getNewIconCreator()
@@ -134,7 +134,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render()
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testSupportForOptionalStyles_ShortForm()
@@ -152,7 +152,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testSupportForOptionalStyles_LongForm()
@@ -171,7 +171,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass', 'fa')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testSupportForOptionalStylesOverwrittenByRender_LongForm()
@@ -190,7 +190,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass', 'fa', null, 'fa-5x')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testThrowsExceptionOnInvalidOptionalStyles_ShortForm()
@@ -237,7 +237,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAriaLabelCanBeSetExplicitly()
@@ -256,7 +256,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testAriaRoleCanBeSetExplicitly()
@@ -276,7 +276,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testIconLookupByAlias()
@@ -296,7 +296,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('glass-half-full', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testIconLookupByAlias2()
@@ -316,7 +316,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render('photograph', 'fa', null, 'fa-fw', 'fa-lg')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testThrowsExceptionOnInvalidAriaRoleValue()
@@ -352,7 +352,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render()
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testOtherIconInFamilyCanBeAccessed()
@@ -376,7 +376,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render()
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testObjectIsClearedAfterReaderForFreshRun_RealWorldTest()
@@ -398,7 +398,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->setStyles('fa-fw', 'fa-lg')
             ->render();
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
 
         $expected = '
             <span class="fa fa-5x fa-photo"
@@ -415,7 +415,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->setStyles('fa-5x')
             ->render('photo');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testObjectIsClearedAfterReaderForFreshRun_PropertyInspectionTest()
@@ -441,20 +441,20 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->render()
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
-        $this->assertAttributeEquals(null,           'familyEntity',   $formatter);
-        $this->assertAttributeEquals(null,           'iconEntity',     $formatter);
-        $this->assertAttributeEquals(null,           'iconSlug',       $formatter);
-        $this->assertAttributeEquals(null,           'templateEntity', $formatter);
-        $this->assertAttributeEquals(null,           'templateSlug',   $formatter);
-        $this->assertAttributeEquals([],             'optionalStyles', $formatter);
-        $this->assertAttributeEquals(true,           'ariaHidden',     $formatter);
-        $this->assertAttributeEquals(null,           'ariaLabel',      $formatter);
-        $this->assertAttributeEquals('presentation', 'ariaRole',       $formatter);
-        $this->assertAttributeEquals($validRoles,    'validAriaRoles', $formatter);
-        $this->assertAttributeInstanceOf(
+        static::assertXmlStringEqualsXmlString($expected, $html);
+        static::assertAttributeEquals(null,           'familyEntity',   $formatter);
+        static::assertAttributeEquals(null,           'iconEntity',     $formatter);
+        static::assertAttributeEquals(null,           'iconSlug',       $formatter);
+        static::assertAttributeEquals(null,           'templateEntity', $formatter);
+        static::assertAttributeEquals(null,           'templateSlug',   $formatter);
+        static::assertAttributeEquals([],             'optionalStyles', $formatter);
+        static::assertAttributeEquals(true,           'ariaHidden',     $formatter);
+        static::assertAttributeEquals(null,           'ariaLabel',      $formatter);
+        static::assertAttributeEquals('presentation', 'ariaRole',       $formatter);
+        static::assertAttributeEquals($validRoles,    'validAriaRoles', $formatter);
+        static::assertAttributeInstanceOf(
             self::FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO, 'iconFamilyRepo',    $formatter);
-        $this->assertAttributeInstanceOf(
+        static::assertAttributeInstanceOf(
             self::FULLY_QUALIFIED_CLASS_NAME_TWIG_ENVIRONMENT, 'engineEnvironment', $formatter);
     }
 
@@ -565,91 +565,91 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
     {
         list($obj, $hasIconEntity, $setIconEntity) = $this->getReflectionOfIconCreatorForMethods('hasIconEntity', 'setIconEntity');
 
-        $this->assertFalse($hasIconEntity->invokeArgs($obj, []));
+        static::assertFalse($hasIconEntity->invokeArgs($obj, []));
         $setIconEntity->invokeArgs($obj, [$this->mockIcon_Photo()]);
 
-        $this->assertTrue($hasIconEntity->invokeArgs($obj, []));
+        static::assertTrue($hasIconEntity->invokeArgs($obj, []));
     }
 
     public function testAttributesHasTemplateEntity()
     {
         list($obj, $hasTemplateEntity, $setTemplateEntity) = $this->getReflectionOfIconCreatorForMethods('hasTemplateEntity', 'setTemplateEntity');
 
-        $this->assertFalse($hasTemplateEntity->invokeArgs($obj, []));
+        static::assertFalse($hasTemplateEntity->invokeArgs($obj, []));
         $setTemplateEntity->invokeArgs($obj, [$this->mockIconTemplate1()]);
 
-        $this->assertTrue($hasTemplateEntity->invokeArgs($obj, []));
+        static::assertTrue($hasTemplateEntity->invokeArgs($obj, []));
     }
 
     public function testAttributesHasTemplateSlug()
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('hasTemplateSlug');
 
-        $this->assertFalse($method->invokeArgs($obj, []));
+        static::assertFalse($method->invokeArgs($obj, []));
 
         $obj->setTemplate('fa-basic');
-        $this->assertTrue($method->invokeArgs($obj, []));
+        static::assertTrue($method->invokeArgs($obj, []));
     }
 
     public function testAttributesHasOptionalStyles()
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('hasOptionalStyles');
 
-        $this->assertFalse($method->invokeArgs($obj, []));
+        static::assertFalse($method->invokeArgs($obj, []));
 
         $obj->setStyles('style1', 'style2');
-        $this->assertTrue($method->invokeArgs($obj, []));
+        static::assertTrue($method->invokeArgs($obj, []));
     }
 
     public function testAccessibilityGetAriaHidden()
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('getAriaHidden');
 
-        $this->assertTrue($method->invokeArgs($obj, []));
+        static::assertTrue($method->invokeArgs($obj, []));
 
         $obj->setAriaHidden(false);
-        $this->assertFalse($method->invokeArgs($obj, []));
+        static::assertFalse($method->invokeArgs($obj, []));
 
         $obj->setAriaHidden();
-        $this->assertTrue($method->invokeArgs($obj, []));
+        static::assertTrue($method->invokeArgs($obj, []));
     }
 
     public function testAccessibilityIsAriaHidden()
     {
         list($obj, $method) = $this->getReflectionOfIconCreatorForMethod('isAriaHidden');
 
-        $this->assertTrue($method->invokeArgs($obj, []));
+        static::assertTrue($method->invokeArgs($obj, []));
 
         $obj->setAriaHidden(false);
-        $this->assertFalse($method->invokeArgs($obj, []));
+        static::assertFalse($method->invokeArgs($obj, []));
 
         $obj->setAriaHidden();
-        $this->assertTrue($method->invokeArgs($obj, []));
+        static::assertTrue($method->invokeArgs($obj, []));
     }
 
     public function testAccessibilityIsAriaLabel()
     {
         list($obj, $has, $get) = $this->getReflectionOfIconCreatorForMethods('hasAriaLabel', 'getAriaLabel');
 
-        $this->assertFalse($has->invokeArgs($obj, []));
+        static::assertFalse($has->invokeArgs($obj, []));
 
         $obj->setAriaLabel('A label');
-        $this->assertTrue($has->invokeArgs($obj, []));
-        $this->assertEquals('A label', $get->invokeArgs($obj, []));
+        static::assertTrue($has->invokeArgs($obj, []));
+        static::assertEquals('A label', $get->invokeArgs($obj, []));
 
         $obj->setAriaLabel();
-        $this->assertFalse($has->invokeArgs($obj, []));
+        static::assertFalse($has->invokeArgs($obj, []));
     }
 
     public function testAccessibilityIsAriaRole()
     {
         list($obj, $has, $get) = $this->getReflectionOfIconCreatorForMethods('hasAriaRole', 'getAriaRole');
 
-        $this->assertTrue($has->invokeArgs($obj, []));
+        static::assertTrue($has->invokeArgs($obj, []));
 
         $obj->setAriaRole('button');
-        $this->assertTrue($has->invokeArgs($obj, []));
-        $this->assertEquals('button', $get->invokeArgs($obj, []));
+        static::assertTrue($has->invokeArgs($obj, []));
+        static::assertEquals('button', $get->invokeArgs($obj, []));
     }
 
     public function testValidateIconExceptionHandling()

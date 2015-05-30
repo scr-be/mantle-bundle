@@ -29,13 +29,13 @@ class PlodeTest extends AbstractMantleTestCase
     public function testShouldImplodeArrayToString()
     {
         $result = Plode::im(['one', 'two', 'three'], Plode::SEPARATOR_COMMA);
-        $this->assertEquals($result, 'one,two,three');
+        static::assertEquals($result, 'one,two,three');
     }
 
     public function testShouldExplodeStringToArray()
     {
         $result = Plode::ex('one,two,three', Plode::SEPARATOR_COMMA);
-        $this->assertEquals($result, ['one', 'two', 'three']);
+        static::assertEquals($result, ['one', 'two', 'three']);
     }
 
     public function testShouldThrowExceptionOnInvalidArgumentCountNotEnoughMagicMethodCall()
@@ -96,13 +96,13 @@ class PlodeTest extends AbstractMantleTestCase
     public function testShouldImplodeArrayToStringUsingMagicMethodWithCommaSeparator()
     {
         $result = Plode::imOnComma(['one', 'two', 'three']);
-        $this->assertEquals($result, 'one,two,three');
+        static::assertEquals($result, 'one,two,three');
     }
 
     public function testShouldImplodeArrayToStringUsingMagicMethodWithColonSeparator()
     {
         $result = Plode::imOnColon(['one', 'two', 'three']);
-        $this->assertEquals($result, 'one:two:three');
+        static::assertEquals($result, 'one:two:three');
     }
 }
 

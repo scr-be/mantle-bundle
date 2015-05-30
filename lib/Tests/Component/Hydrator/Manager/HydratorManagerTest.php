@@ -84,7 +84,7 @@ class HydratorManagerTest extends AbstractMantleTestCase
             ->setUpdatedOn($updatedOn)
         ;
 
-        $this->assertEquals($expectedNodeFaker, $nodeFakeResult);
+        static::assertEquals($expectedNodeFaker, $nodeFakeResult);
     }
 
     public function testConstructorGreedyWithFixtureUsage()
@@ -136,7 +136,7 @@ class HydratorManagerTest extends AbstractMantleTestCase
             ->setUpdatedOn($updatedOn)
         ;
 
-        $this->assertEquals($expectedNodeFaker, $nodeFakeResult);
+        static::assertEquals($expectedNodeFaker, $nodeFakeResult);
     }
 
     public function testMappingException()

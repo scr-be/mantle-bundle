@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
 
-use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainAwareTrait;
+use Scribe\CacheBundle\DependencyInjection\Aware\CacheChainAwareTrait;
 
 /**
  * Trait IconCreatorCachedServicesTrait.
@@ -19,7 +19,7 @@ use Scribe\CacheBundle\Cache\Handler\Chain\HandlerChainAwareTrait;
 trait IconCreatorCachedServicesTrait
 {
     use IconCreatorServicesTrait,
-        HandlerChainAwareTrait;
+        CacheChainAwareTrait;
 }
 
 /* EOF */

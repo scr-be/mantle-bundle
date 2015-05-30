@@ -44,7 +44,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         $formatter = $this->getNewIconCreator(true);
         $html = $formatter->render('glass', 'fa');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanRenderByAlias()
@@ -60,7 +60,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         $formatter = $this->getNewIconCreator(true);
         $html = $formatter->render('glass-half-empty', 'fa');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanCache()
@@ -76,9 +76,9 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         $formatter = $this->getNewIconCreator(true);
         $html = $formatter->render('glass', 'fa');
 
-        $this->assertTrue($formatter->getCacheHandlerChain()->has());
-        $this->assertXmlStringEqualsXmlString($expected, $html);
-        $this->assertXmlStringEqualsXmlString($expected, $formatter->getCacheHandlerChain()->get());
+        static::assertTrue($formatter->getCacheChain()->has());
+        static::assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $formatter->getCacheChain()->get());
     }
 
     public function testCanCacheByAlias()
@@ -94,9 +94,9 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         $formatter = $this->getNewIconCreator(true);
         $html = $formatter->render('glass-half-empty', 'fa');
 
-        $this->assertTrue($formatter->getCacheHandlerChain()->has());
-        $this->assertXmlStringEqualsXmlString($expected, $html);
-        $this->assertXmlStringEqualsXmlString($expected, $formatter->getCacheHandlerChain()->get());
+        static::assertTrue($formatter->getCacheChain()->has());
+        static::assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $formatter->getCacheChain()->get());
     }
 
     public function testCanAdvanced()
@@ -132,15 +132,15 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
             ->render('photograph')
         ;
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
-        $this->assertXmlStringEqualsXmlString($expected2, $html2);
-        $this->assertXmlStringEqualsXmlString($expected3, $html3);
+        static::assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected2, $html2);
+        static::assertXmlStringEqualsXmlString($expected3, $html3);
 
         $formatter->render('glass', 'fa');
-        $this->assertXmlStringEqualsXmlString($expected, $formatter->getCacheHandlerChain()->get());
+        static::assertXmlStringEqualsXmlString($expected, $formatter->getCacheChain()->get());
 
         $formatter->setAriaHidden(false)->render('glass-half-empty', 'fa');
-        $this->assertXmlStringEqualsXmlString($expected2, $formatter->getCacheHandlerChain()->get());
+        static::assertXmlStringEqualsXmlString($expected2, $formatter->getCacheChain()->get());
 
         $formatter
             ->setAriaHidden(false)
@@ -148,7 +148,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
             ->setStyles('fa-5x')
             ->render('photograph')
         ;
-        $this->assertXmlStringEqualsXmlString($expected3, $formatter->getCacheHandlerChain()->get());
+        static::assertXmlStringEqualsXmlString($expected3, $formatter->getCacheChain()->get());
     }
 
     public function testDoesNotCacheIncorrectly()
@@ -172,7 +172,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
                   ->setAriaRole('img');
         $html2 = $formatter->render();
 
-        $this->assertXmlStringNotEqualsXmlString($html1, $html2);
+        static::assertXmlStringNotEqualsXmlString($html1, $html2);
     }
 
     public function testShortFormWorksCorrectly()
@@ -181,7 +181,7 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         $html1 = $formatter->render('photo', 'fa', 'fa-basic', 'fa-lg', 'fa-fw');
         $html2 = $formatter->render('photo', 'fa', 'fa-basic', 'fa-lg', 'fa-fw');
 
-        $this->assertXmlStringEqualsXmlString($html1, $html2);
+        static::assertXmlStringEqualsXmlString($html1, $html2);
     }
 
     public function testCanDetermineFamilyEntityLastMinute()
@@ -203,14 +203,14 @@ class IconCreatorCachedTest extends AbstractMantleKernelTestCase
         ;
         $html = $formatter->render('glass');
 
-        $this->assertXmlStringEqualsXmlString($expected, $html);
+        static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanGetCacheGeneratorAsService()
     {
         $formatter = $this->container->get('s.mantle.icon_creator');
 
-        $this->assertInstanceOf('Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached', $formatter);
+        static::assertInstanceOf('Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached', $formatter);
     }
 
     public function tearDown()

@@ -50,11 +50,11 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $refOfClassReflectionAnalyser = new \ReflectionClass(self::FQCN);
         $reflectionClassAnalyser = new ClassReflectionAnalyser($refOfClassReflectionAnalyser);
 
-        $this->assertFalse($reflectionClassAnalyser->hasTrait(
+        static::assertFalse($reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', $refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($reflectionClassAnalyser->hasTrait(
+        static::assertTrue($reflectionClassAnalyser->hasTrait(
             'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $refOfClassReflectionAnalyser
         ));
     }
@@ -78,11 +78,11 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $this->refOfClassReflectionAnalyser =
             new \ReflectionClass(self::FQCN);
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+        static::assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $this->refOfClassReflectionAnalyser
         ));
     }
@@ -95,11 +95,11 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
 
         $this->reflectionClassAnalyser->setReflectionClass(new \ReflectionClass(self::FQCN));
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+        static::assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $this->refOfClassReflectionAnalyser
         ));
     }
@@ -109,31 +109,31 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $iconEntity = new Icon();
         $this->reflectionClassAnalyser->setReflectionClassFromClassInstance($iconEntity);
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', null, true
         ));
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', null, false
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+        static::assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Model\HasName', null, true
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+        static::assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Model\HasName', null, false
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+        static::assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Entity\Serializable\EntitySerializableTrait', null, true
         ));
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Doctrine\Base\Entity\Serializable\EntitySerializableTrait', null, false
         ));
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', null, true
         ));
     }
@@ -142,11 +142,11 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
     {
         $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait(
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait(
             'doesNotHaveThisTrait', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasTrait(
+        static::assertTrue($this->reflectionClassAnalyser->hasTrait(
             'Scribe\Utility\Reflection\ClassReflectionAnalyserTrait', $this->refOfClassReflectionAnalyser
         ));
     }
@@ -156,11 +156,11 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $this->refOfClassReflectionAnalyser =
             new \ReflectionClass(self::FQCN);
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasMethod(
+        static::assertFalse($this->reflectionClassAnalyser->hasMethod(
             'doesNotHaveThisMethod', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasMethod(
+        static::assertTrue($this->reflectionClassAnalyser->hasMethod(
             'hasMethod', $this->refOfClassReflectionAnalyser
         ));
     }
@@ -184,15 +184,15 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $iconEntity = new Icon();
         $this->reflectionClassAnalyser->setReflectionClassFromClassInstance($iconEntity);
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasProperty(
+        static::assertFalse($this->reflectionClassAnalyser->hasProperty(
             'doesNotHaveThisProperty', $this->refOfClassReflectionAnalyser
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasProperty(
+        static::assertTrue($this->reflectionClassAnalyser->hasProperty(
             'families', $this->refOfClassReflectionAnalyser, true
         ));
 
-        $this->assertTrue($this->reflectionClassAnalyser->hasProperty(
+        static::assertTrue($this->reflectionClassAnalyser->hasProperty(
             'id', $this->refOfClassReflectionAnalyser, true
         ));
     }
@@ -217,15 +217,15 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
 
         $this->reflectionClassAnalyser->setRequireFQN(true);
-        $this->assertTrue($this->reflectionClassAnalyser->getRequireFQN());
+        static::assertTrue($this->reflectionClassAnalyser->getRequireFQN());
 
         $reflectionProperty = $this->reflectionClassAnalyser->setPropertyPublic('requireFQN');
 
         $reflectionProperty->setValue($this->reflectionClassAnalyser, false);
-        $this->assertFalse($this->reflectionClassAnalyser->getRequireFQN());
+        static::assertFalse($this->reflectionClassAnalyser->getRequireFQN());
 
         $reflectionProperty->setValue($this->reflectionClassAnalyser, true);
-        $this->assertTrue($this->reflectionClassAnalyser->getRequireFQN());
+        static::assertTrue($this->reflectionClassAnalyser->getRequireFQN());
     }
 
     public function testSetPropertyPublicException()
@@ -251,7 +251,7 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $expected = ['Scribe\Utility\Reflection\ClassReflectionAnalyserTrait'];
         $traits = $reflectionMethod->invoke($this->reflectionClassAnalyser, $this->reflectionClassAnalyser->getReflectionClass());
 
-        $this->assertEquals($expected, $traits);
+        static::assertEquals($expected, $traits);
     }
 
     public function testSetMethodPublicException()
@@ -272,10 +272,10 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $this->reflectionClassAnalyser->unsetReflectionClass();
         $this->reflectionClassAnalyser->setReflectionClassFromClassName(self::FQCN);
 
-        $this->assertEquals(2, count($this->reflectionClassAnalyser->getProperties(false)));
-        $this->assertEquals(0, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PUBLIC)));
-        $this->assertEquals(0, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PROTECTED)));
-        $this->assertEquals(2, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PRIVATE)));
+        static::assertEquals(2, count($this->reflectionClassAnalyser->getProperties(false)));
+        static::assertEquals(0, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PUBLIC)));
+        static::assertEquals(0, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PROTECTED)));
+        static::assertEquals(2, count($this->reflectionClassAnalyser->getProperties(\ReflectionProperty::IS_PRIVATE)));
     }
 
     public function testGetPropertiesException()
@@ -296,7 +296,7 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         $this->reflectionClassAnalyser->unsetReflectionClass();
         $this->reflectionClassAnalyser->setReflectionClassFromClassInstance(new \stdClass());
 
-        $this->assertFalse($this->reflectionClassAnalyser->hasTrait('Anything'));
+        static::assertFalse($this->reflectionClassAnalyser->hasTrait('Anything'));
     }
 }
 

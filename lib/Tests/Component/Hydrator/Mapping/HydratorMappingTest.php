@@ -45,7 +45,7 @@ class HydratorMappingTest extends AbstractMantleTestCase
             'childNodes' => 'child_nodes',
         ];
 
-        $this->assertEquals($expected, $def->getTransferable($this->from));
+        static::assertEquals($expected, $def->getTransferable($this->from));
     }
 
     public function testVariadic()
@@ -61,7 +61,7 @@ class HydratorMappingTest extends AbstractMantleTestCase
             'childNodes' => 'child_nodes',
         ];
 
-        $this->assertEquals($expected, $def->getTransferable($this->from));
+        static::assertEquals($expected, $def->getTransferable($this->from));
     }
 
     public function testEmptyTo()
@@ -77,14 +77,14 @@ class HydratorMappingTest extends AbstractMantleTestCase
             'childNodes' => 'childNodes',
         ];
 
-        $this->assertEquals($expected, $def->getTransferable($this->from));
+        static::assertEquals($expected, $def->getTransferable($this->from));
     }
 
     public function testInvalidObject()
     {
         $def = new HydratorMapping(false);
 
-        $this->assertEquals([], $def->getTransferable('not-an-object'));
+        static::assertEquals([], $def->getTransferable('not-an-object'));
     }
 
     public function testNoProperties()
@@ -95,7 +95,7 @@ class HydratorMappingTest extends AbstractMantleTestCase
             ->setMappingTo()
         ;
 
-        $this->assertEquals([], $def->getTransferable(new \stdClass()));
+        static::assertEquals([], $def->getTransferable(new \stdClass()));
     }
 
     public function testGreedy()
@@ -125,6 +125,6 @@ class HydratorMappingTest extends AbstractMantleTestCase
             'updated_on' => 'updated_on',
         ];
 
-        $this->assertEquals($expected, $def->getTransferable($this->from));
+        static::assertEquals($expected, $def->getTransferable($this->from));
     }
 }

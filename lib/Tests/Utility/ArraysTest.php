@@ -37,7 +37,7 @@ class ArraysTest extends AbstractMantleTestCase
 
         foreach ($data as $d) {
             $actual = Arrays::isHash($d[0]);
-            $this->assertEquals($d[1], $actual);
+            static::assertEquals($d[1], $actual);
         }
     }
 

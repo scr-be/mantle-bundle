@@ -58,7 +58,7 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
             ],
         ];
 
-        $this->assertEquals($expected, $this->baseEntity->__debugInfo());
+        static::assertEquals($expected, $this->baseEntity->__debugInfo());
     }
 
     public function testDebugInfoToString()
@@ -70,7 +70,7 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
                 'autoInitializationMethods:array:[initializeId]; '.
             '{methods}__construct,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,isCloneSafe,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId;';
 
-        $this->assertEquals($expected, $this->baseEntity->__debugInfoToString());
+        static::assertEquals($expected, $this->baseEntity->__debugInfoToString());
     }
 
     public function testDebugInfoToStringNested()
@@ -84,7 +84,7 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
             '{methods}__construct,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,isCloneSafe,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId;';
 
         $this->baseEntity->innerClone = clone $this->baseEntity;
-        $this->assertEquals($expected, $this->baseEntity->__debugInfoToString());
+        static::assertEquals($expected, $this->baseEntity->__debugInfoToString());
     }
 }
 

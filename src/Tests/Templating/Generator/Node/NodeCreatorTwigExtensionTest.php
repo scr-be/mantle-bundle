@@ -61,7 +61,7 @@ class NodeCreatorTwigExtensionTest extends AbstractMantleKernelTestCase
 
         $actual = $this->ext->getNode($this->node);
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function testCanRenderFromSlug()
@@ -70,7 +70,7 @@ class NodeCreatorTwigExtensionTest extends AbstractMantleKernelTestCase
 
         $actual = $this->ext->getNodeFromSlug($this->node->getSlug());
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function testCanRenderFromMaterializedPath()
@@ -79,7 +79,7 @@ class NodeCreatorTwigExtensionTest extends AbstractMantleKernelTestCase
 
         $actual = $this->ext->getNodeFromMaterializedPath($this->node->getMaterializedPath());
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual);
+        static::assertXmlStringEqualsXmlString($expected, $actual);
     }
 
     public function testCanRenderCached()
@@ -89,8 +89,8 @@ class NodeCreatorTwigExtensionTest extends AbstractMantleKernelTestCase
         $actual1 = $this->extCached->getNode($this->node);
         $actual2 = $this->extCached->getNode($this->node);
 
-        $this->assertXmlStringEqualsXmlString($expected, $actual1);
-        $this->assertXmlStringEqualsXmlString($expected, $actual2);
+        static::assertXmlStringEqualsXmlString($expected, $actual1);
+        static::assertXmlStringEqualsXmlString($expected, $actual2);
     }
 
     public function tearDown()
