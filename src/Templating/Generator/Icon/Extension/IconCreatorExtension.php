@@ -40,7 +40,10 @@ class IconCreatorExtension extends AbstractTwigExtension
             ->enableOptionNeedsEnv()
         ;
 
-        $this->addFunction('get_icon', [$this, 'getIcon']);
+        $this
+            ->addFunction('get_icon', [$this, 'getIcon'])
+            ->addFunction('icon', [$this, 'getIcon'])
+        ;
     }
 
     /**

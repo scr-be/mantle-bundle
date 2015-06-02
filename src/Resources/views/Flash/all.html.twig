@@ -3,7 +3,7 @@
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
                 <div class="alert alert-{{ label }} alert-slide-fade in">
-                    <span class="alert-close">{{ get_icon('times-circle', 'fa') }}</span>
+                    <span class="alert-close">{{ icon('times-circle', 'fa') }}</span>
                     <strong>{{ label | title }}</strong> {{ flash | replace({ "Bad credentials": "An invalid username or password was provided. Please try again." }) }}
                 </div>
             {% endfor %}
