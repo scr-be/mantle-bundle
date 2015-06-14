@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new \Scribe\CacheBundle\ScribeCacheBundle(),
             new \Scribe\MantleBundle\ScribeMantleBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

@@ -11,10 +11,10 @@
 
 namespace Scribe\MantleBundle\Event\Listener;
 
-use Scribe\Component\Bundle\BundleInformation;
-use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Scribe\Component\Bundle\BundleInformation;
+use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Scribe\MantleBundle\Controller\MaintenanceController;
 
