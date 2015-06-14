@@ -128,7 +128,7 @@ class SystemStorage implements SystemStorageInterface
             if (false !== ($unitBaseKey = array_search((string) $unit, (array) $unitIecAbbr, true))) {
                 return [
                     (int) $unitIecKey,
-                    (int) $unitBaseKey
+                    (int) $unitBaseKey,
                 ];
             }
         }

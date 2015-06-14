@@ -74,7 +74,7 @@ trait ResponseTrait
      */
     public function clearHeaderCollection()
     {
-        foreach($this->headers->keys() as $key) {
+        foreach ($this->headers->keys() as $key) {
             $this->headers->remove($key);
         }
 

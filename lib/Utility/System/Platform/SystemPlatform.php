@@ -67,7 +67,7 @@ class SystemPlatform
     }
 
     /**
-     * @param mixed  $platform
+     * @param mixed $platform
      *
      * @return bool
      */

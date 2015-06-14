@@ -65,13 +65,15 @@ class IconCreatorExtensionTest extends AbstractMantleKernelTestCase
             </span>'
         ;
 
-        $html = $this->ext->getIcon($this->twig, 'glass', 'fa');
+        $html = $this->ext->getIconDeprecated($this->twig, 'glass', 'fa');
 
         static::assertXmlStringEqualsXmlString($expected, $html);
     }
 
     public function testCanRenderCached()
     {
+        $this->extCached->getIconCreator()->getCacheChain()->flushAll();
+
         $expected = '
             <span class="fa fa-glass"
                   role="presentation"
@@ -80,10 +82,52 @@ class IconCreatorExtensionTest extends AbstractMantleKernelTestCase
             </span>'
         ;
 
-        $html1 = $this->extCached->getIcon($this->twig, 'glass', 'fa');
-        $html2 = $this->extCached->getIcon($this->twig, 'glass', 'fa');
-
+        $html1 = $this->extCached->getIconDeprecated($this->twig, 'glass', 'fa');
         static::assertXmlStringEqualsXmlString($expected, $html1);
+        static::assertFalse($this->extCached->getIconCreator()->isCachedResult());
+
+        $html2 = $this->extCached->getIconDeprecated($this->twig, 'glass', 'fa');
+        static::assertXmlStringEqualsXmlString($expected, $html2);
+        static::assertTrue($this->extCached->getIconCreator()->isCachedResult());
+    }
+
+    public function testCanRenderNew()
+    {
+        $extCached = static::$staticContainer->get('s.mantle.icon_creator.twig_extension');
+
+        $expected = '
+            <span class="fa fa-fw fa-user"
+                  role="presentation"
+                  aria-hidden="true"
+                  aria-label="Icon: User (Category: Web Application Icons)">
+            </span>'
+        ;
+
+        $html1 = $extCached->getIcon($this->twig, 'user', 'fa', 'fa-fw');
+        static::assertXmlStringEqualsXmlString($expected, $html1);
+
+        $html2 = $extCached->getIcon($this->twig, 'user', 'fa', 'fa-fw');
+        static::assertXmlStringEqualsXmlString($expected, $html2);
+    }
+
+    public function testCanRenderNewCached()
+    {
+        $extCached = static::$staticContainer->get('s.mantle.icon_creator.twig_extension');
+        $extCached->getIconCreator()->getCacheChain()->flushAll();
+
+        $expected = '
+            <i class="material-icons md-info"
+                  role="presentation"
+                  aria-hidden="true"
+                  aria-label="Icon: Swap Vertical Circle">swap_vertical_circle</i>'
+        ;
+
+        $html1 = $extCached->getIcon($this->twig, 'swap_vertical_circle', 'md', 'md-info');
+        static::assertFalse($extCached->getIconCreator()->isCachedResult());
+        static::assertXmlStringEqualsXmlString($expected, $html1);
+
+        $html2 = $extCached->getIcon($this->twig, 'swap_vertical_circle', 'md', 'md-info');
+        static::assertTrue($extCached->getIconCreator()->isCachedResult());
         static::assertXmlStringEqualsXmlString($expected, $html2);
     }
 }

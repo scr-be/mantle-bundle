@@ -11,7 +11,6 @@
 
 namespace Scribe\Component\DependencyInjection;
 
-use Scribe\Utility\Error\DeprecationErrorHandler;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -37,7 +36,7 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      * @var string[]
      */
     private $serviceFiles = [
-        'services.yml'
+        'services.yml',
     ];
 
     /**

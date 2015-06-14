@@ -72,13 +72,13 @@ class DeprecationErrorHandler
      * @param string|\DateTime $deprecatedOn Either the version or date the deprecation notice was added.
      * @param string|\DateTime $removalOn    Either the version or date the feature will be removed.
      */
-    static public function trigger($methodName, $methodLine, $message, $deprecatedOn, $removalOn)
+    public static function trigger($methodName, $methodLine, $message, $deprecatedOn, $removalOn)
     {
         $message = sprintf(
             self::MSG_FINAL,
             self::MSG_PKG_NAME,
             (string) $methodName,
-            (int)    $methodLine,
+            (int) $methodLine,
             (string) $message,
             self::getDeprecatedOnMessage($deprecatedOn),
             self::getRemovalOnMessage($removalOn)
@@ -95,7 +95,7 @@ class DeprecationErrorHandler
      *
      * @return string mixed
      */
-    static protected function getFinalCleanedMessage($message)
+    protected static function getFinalCleanedMessage($message)
     {
         $message = preg_replace('#[\s]{2,}#', ' ', $message);
         $message = preg_replace('#[\.]{2,}#', '.', $message);
@@ -110,7 +110,7 @@ class DeprecationErrorHandler
      *
      * @return string
      */
-    static protected function getDeprecatedOnMessage($when)
+    protected static function getDeprecatedOnMessage($when)
     {
         return self::getMessagePartOn($when, self::MSG_PART_DEPRECATED_ON);
     }
@@ -122,7 +122,7 @@ class DeprecationErrorHandler
      *
      * @return string
      */
-    static protected function getRemovalOnMessage($when)
+    protected static function getRemovalOnMessage($when)
     {
         return self::getMessagePartOn($when, self::MSG_PART_REMOVAL_ON);
     }
@@ -135,7 +135,7 @@ class DeprecationErrorHandler
      *
      * @return string
      */
-    static protected function getMessagePartOn($when, $messageTemplate)
+    protected static function getMessagePartOn($when, $messageTemplate)
     {
         if (false !== ($dateTimeFromStr = self::getDateTimeFromString($when))) {
             $when = $dateTimeFromStr;
@@ -161,7 +161,7 @@ class DeprecationErrorHandler
      *
      * @return bool|\DateTime
      */
-    static protected function getDateTimeFromString($when)
+    protected static function getDateTimeFromString($when)
     {
         if ($when instanceof \Datetime || 1 !== preg_match(self::DATETIME_REGEX, $when, $matches) || ($matchCount = count($matches)) < 4) {
             return false;
@@ -188,7 +188,7 @@ class DeprecationErrorHandler
      * @param \DateTime $dateTime
      * @param int       $timezoneOffset
      */
-    static protected function attemptDateTimeZoneFromString(\DateTime &$dateTime, $timezoneOffset)
+    protected static function attemptDateTimeZoneFromString(\DateTime & $dateTime, $timezoneOffset)
     {
         $timezoneOffsetLength = strlen((int) $timezoneOffset);
 

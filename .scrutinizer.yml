@@ -3,18 +3,18 @@ imports:
 
 filter:
     excluded_paths:
-        - bin/*
-        - build/*
-        - docs/*
-        - app/config/shared_*
-        - lib/Tests/*
-        - src/Tests/*
-        - src/Resources/*
-        - vendor/*
+        - app/
+        - bin/
+        - build/
+        - docs/
+        - lib/Tests/
+        - src/Tests/
+        - src/Resources/
+        - vendor/
 
 tools:
     external_code_coverage:
-        timeout: 1200
+        timeout: 1800
     php_code_sniffer:
         config:
             standard: psr2

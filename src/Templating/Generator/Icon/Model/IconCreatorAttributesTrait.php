@@ -26,6 +26,11 @@ trait IconCreatorAttributesTrait
     private $familyEntity = null;
 
     /**
+     * @var null|string
+     */
+    protected $iconFamilySlug = null;
+
+    /**
      * @var null|Icon
      */
     private $iconEntity = null;
@@ -92,6 +97,42 @@ trait IconCreatorAttributesTrait
     public function resetFamilyEntity()
     {
         $this->familyEntity = null;
+
+        return $this;
+    }
+
+    /**
+     * Setter for icon family slug.
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
+    protected function setIconFamilySlug($slug)
+    {
+        $this->iconFamilySlug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Checker for icon family slug.
+     *
+     * @return bool
+     */
+    protected function hasIconFamilySlug()
+    {
+        return (bool) ($this->iconFamilySlug !== null);
+    }
+
+    /**
+     * Reset icon family slug instance property.
+     *
+     * @return $this
+     */
+    public function resetIconFamilySlug()
+    {
+        $this->iconFamilySlug = null;
 
         return $this;
     }

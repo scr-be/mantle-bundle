@@ -11,8 +11,6 @@
 
 namespace Scribe\Utility\System\Storage;
 
-use Scribe\Exception\InvalidArgumentException;
-
 /**
  * Class SystemStorage.
  */
@@ -89,7 +87,7 @@ interface SystemStorageInterface
         'G' => ['GIGABYTE', 'GIBIBYTE'],
         'T' => ['TERABYTE', 'TEBIBYTE'],
         'P' => ['PETABYTE', 'PEBIBYTE'],
-        'E' => ['EXABYTE', 'EXIBYTE',],
+        'E' => ['EXABYTE', 'EXIBYTE'],
         'Z' => ['ZETTABYTE', 'ZEBIBYTE'],
         'Y' => ['YOTTABYTE', 'YOBIBYTE'],
     ];

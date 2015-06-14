@@ -11,8 +11,6 @@
 
 namespace Scribe\Utility\System\Execute;
 
-use Scribe\Exception\RuntimeException;
-
 /**
  * Class AbstractSystemExecute.
  */
@@ -143,11 +141,11 @@ abstract class AbstractSystemExecute
     {
         $output = (array) $output;
 
-        array_walk($output, function(&$line) {
+        array_walk($output, function (&$line) {
             $line = trim($line);
         });
 
-        $this->output = array_filter($output, function($line) {
+        $this->output = array_filter($output, function ($line) {
             return (bool) (strlen($line) > 0);
         });
 

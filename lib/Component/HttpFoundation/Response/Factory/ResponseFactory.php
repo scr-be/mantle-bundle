@@ -44,7 +44,7 @@ class ResponseFactory
         try {
             $response = new $fqcn($content, $status, $headers, $headersGlobal, $headersTypeSpecific,
                                       $charsetGlobal, $charsetTypeSpecific, $protocolGlobal, $protocolTypeSpecific);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             throw new LogicException('Could not instantiate Response object "%s".', null, $e, null, (string) $fqcn);
         }
 

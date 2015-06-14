@@ -421,6 +421,9 @@ services:
 
     # Icon Creator Services
 
+    s.mantle.icon:
+        alias: s.mantle.icon_creator
+
     s.mantle.icon_creator:
         class: %s.mantle.icon_creator_cached.class%
         arguments:

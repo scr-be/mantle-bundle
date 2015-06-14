@@ -14,7 +14,7 @@ namespace Scribe\Tests\Utility\System\Storage;
 use Scribe\Utility\System\Storage\SystemStorage;
 use Scribe\Utility\UnitTest\AbstractMantleTestCase;
 
-class SystemStorageTest extends AbstractMantleTestCase
+class FilesystemTest extends AbstractMantleTestCase
 {
     public function testGenerateRandom()
     {
@@ -38,7 +38,7 @@ class SystemStorageTest extends AbstractMantleTestCase
             '/www/some',
             '/www/some/path',
             '/www/some/path/to',
-            '/www/some/path/to/dir'
+            '/www/some/path/to/dir',
         ];
         $resulted = $systemStorage->getPathExplodedConcat($path);
 

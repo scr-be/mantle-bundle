@@ -149,7 +149,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
 
         $html = $this
             ->getNewIconCreator()
-            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -187,7 +187,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         $html = $this
             ->getNewIconCreator()
             ->setStyles('fa-fw', 'fa-lg')
-            ->render('glass', 'fa', null, 'fa-5x')
+            ->render('glass', 'fa', 'fa-5x')
         ;
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -202,7 +202,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         );
         $this
             ->getNewIconCreator()
-            ->render('glass', 'fa', null, 'fa-foo')
+            ->render('glass', 'fa', 'fa-foo')
         ;
     }
 
@@ -234,7 +234,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         $html = $this
             ->getNewIconCreator()
             ->setAriaHidden(false)
-            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -253,7 +253,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         $html = $this
             ->getNewIconCreator()
             ->setAriaLabel('Glass is half full!')
-            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -273,7 +273,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->getNewIconCreator()
             ->setAriaRole('img')
             ->setAriaLabel('Glass is half full!')
-            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -293,7 +293,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->getNewIconCreator()
             ->setAriaRole('img')
             ->setAriaLabel('Glass is half full!')
-            ->render('glass-half-full', 'fa', null, 'fa-fw', 'fa-lg')
+            ->render('glass-half-full', 'fa', 'fa-fw', 'fa-lg')
         ;
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -313,7 +313,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             ->getNewIconCreator()
             ->setAriaRole('img')
             ->setAriaLabel('Photo label!')
-            ->render('photograph', 'fa', null, 'fa-fw', 'fa-lg')
+            ->render('photograph', 'fa', 'fa-fw', 'fa-lg')
         ;
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -329,7 +329,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         $this
             ->getNewIconCreator()
             ->setAriaRole('does-not-exists')
-            ->render('glass', 'fa', null, 'fa-fw', 'fa-lg')
+            ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
     }
 
@@ -492,7 +492,8 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         );
         $this
             ->getNewIconCreator()
-            ->render('glass', 'fa', 'bad-template')
+            ->setTemplate('bad-template')
+            ->render('glass', 'fa')
         ;
     }
 
@@ -714,7 +715,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             'No icon templates are associated with the Font Awesome icon family.',
             '5040'
         );
-        list($obj, $l, $g, $s) = $this->getReflectionOfIconCreatorForMethods('lookupTemplate', 'getFamilyEntity', 'setFamilyEntity');
+        list($obj, $l, , $s) = $this->getReflectionOfIconCreatorForMethods('lookupTemplate', 'getFamilyEntity', 'setFamilyEntity');
 
         $family = $this->mockIconFamily();
         $family
@@ -728,9 +729,10 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
 
     public function testLookupStylesUserSpecifiedByNoFontFamilySpecifiedOptionalStylesExceptionHandling()
     {
+        // Simplified implementation, this exception no longer exists: No available optional styles to select for Font Awesome font family.
         $this->setExpectedException(
             'Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException',
-            'No available optional styles to select for Font Awesome font family.',
+            'The requested optional style one is not compatible with the Font Awesome font family.',
             '51'
         );
         list($obj, $l, $o, $s) = $this->getReflectionOfIconCreatorForMethods('lookupStyles', 'setOptionalStyles', 'setFamilyEntity');
@@ -777,5 +779,62 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         $validateEngine = $refFormat->getMethod('validateEngine');
         $validateEngine->setAccessible(true);
         $validateEngine->invokeArgs($obj, []);
+    }
+
+    public function testSingleArgumentForIcon()
+    {
+        $expected = '
+            <span class="fa fa-glass"
+                  role="presentation"
+                  aria-hidden="true"
+                  aria-label="Icon: Glass (Category: Web Application Icons)">
+            </span>
+        ';
+
+        $result = $this
+            ->getNewIconCreator()
+            ->render('fa-glass')
+        ;
+
+        static::assertXmlStringEqualsXmlString($expected, $result);
+    }
+
+    public function testSingleArgumentFromContainer()
+    {
+        $iconService = self::$staticContainer->get('s.mantle.icon');
+
+        static::assertInstanceOf('Scribe\MantleBundle\Templating\Generator\Icon\IconCreator', $iconService);
+
+        $expected = '
+            <i aria-hidden="true" aria-label="Icon: Account Balance Wallet" class="material-icons " role="presentation">account_balance_wallet</i>
+        ';
+
+        $result = $iconService->render('account_balance_wallet', 'md');
+
+        static::assertXmlStringEqualsXmlString($expected, $result);
+    }
+
+    public function testSingleArgumentFromContainerWithAlias()
+    {
+        $iconService = self::$staticContainer->get('s.mantle.icon');
+        $iconService->getCacheChain()->flushAll();
+
+        static::assertInstanceOf('Scribe\MantleBundle\Templating\Generator\Icon\IconCreator', $iconService);
+
+        $expected = '
+            <i aria-hidden="true" aria-label="Icon: Account Balance Wallet" class="material-icons " role="presentation">account_balance_wallet</i>
+        ';
+
+        $result = $iconService->render('account-balance-wallet', 'md');
+        static::assertFalse($iconService->isCachedResult());
+        static::assertXmlStringEqualsXmlString($expected, $result);
+
+        $result = $iconService->render('account-balance-wallet', 'md');
+        static::assertTrue($iconService->isCachedResult());
+        static::assertXmlStringEqualsXmlString($expected, $result);
+
+        $result = $iconService->render('md-account-balance-wallet');
+        static::assertFalse($iconService->isCachedResult());
+        static::assertXmlStringEqualsXmlString($expected, $result);
     }
 }

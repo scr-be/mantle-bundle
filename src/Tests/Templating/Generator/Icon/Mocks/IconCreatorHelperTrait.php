@@ -92,6 +92,8 @@ trait IconCreatorHelperTrait
             $this->cacheTypeFilesystem
         );
 
+        $this->cacheChain->flushAll();
+
         return $this->cacheChain;
     }
 

@@ -1,0 +1,15 @@
+---
+
+languages:
+    PHP        : true
+    JavaScript : true
+
+exclude_paths:
+    - app/
+    - bin/
+    - build/
+    - docs/
+    - lib/Tests/
+    - src/Tests/
+    - src/Resources/config
+    - vendor/

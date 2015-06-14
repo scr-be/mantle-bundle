@@ -11,9 +11,8 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\Extension;
 
-use Twig_Environment;
-use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorInterface;
+use Twig_Environment;
 use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**
@@ -22,7 +21,7 @@ use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 class IconCreatorExtension extends AbstractTwigExtension
 {
     /**
-     * @var IconCreator|IconCreatorInterface
+     * @var IconCreatorInterface|IconCreatorInterface
      */
     private $iconCreator;
 
@@ -41,9 +40,32 @@ class IconCreatorExtension extends AbstractTwigExtension
         ;
 
         $this
-            ->addFunction('get_icon', [$this, 'getIcon'])
+            ->addFunction('get_icon', [$this, 'getIconDeprecated'])
             ->addFunction('icon', [$this, 'getIcon'])
+            ->addFunction('get_icon_enviornment', [$this, 'getIconCreator'])
         ;
+    }
+
+    /**
+     * @return IconCreatorInterface
+     */
+    public function getIconCreator()
+    {
+        return $this->iconCreator;
+    }
+
+    /**
+     * @param Twig_Environment $engine
+     *
+     * @return $this
+     */
+    protected function setTwigEnviornmentWithinIconCreator(Twig_Environment $engine)
+    {
+        if (false === $this->getIconCreator()->hasEngineEnvironment()) {
+            $this->getIconCreator()->setEngineEnvironment($engine);
+        }
+
+        return $this;
     }
 
     /**
@@ -55,13 +77,31 @@ class IconCreatorExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function getIcon(Twig_Environment $engineEnvironment, $icon, $family = null, $template = null, ...$styles)
+    public function getIconDeprecated(Twig_Environment $engineEnvironment, $icon, $family = null, $template = null, ...$styles)
     {
-        if (false === $this->iconCreator->hasEngineEnvironment()) {
-            $this->iconCreator->setEngineEnvironment($engineEnvironment);
-        }
+        return (string) $this
+            ->setTwigEnviornmentWithinIconCreator($engineEnvironment)
+            ->getIconCreator()
+            ->setTemplate($template)
+            ->render($icon, $family, ...$styles)
+        ;
+    }
 
-        return (string) $this->iconCreator->render($icon, $family, $template, ...$styles);
+    /**
+     * @param Twig_Environment $engineEnvironment
+     * @param string           $icon
+     * @param string|null      $family
+     * @param ...string        $styles
+     *
+     * @return string
+     */
+    public function getIcon(Twig_Environment $engineEnvironment, $icon, $family = null, ...$styles)
+    {
+        return (string) $this
+            ->setTwigEnviornmentWithinIconCreator($engineEnvironment)
+            ->getIconCreator()
+            ->render($icon, $family, ...$styles)
+        ;
     }
 }
 

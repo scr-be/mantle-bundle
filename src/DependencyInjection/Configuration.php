@@ -72,15 +72,16 @@ class Configuration implements ConfigurationInterface
      *
      * @return NodeDefinition
      */
-    protected function getHttpResponseTypeNode($type, $default) {
+    protected function getHttpResponseTypeNode($type, $default)
+    {
         return (new TreeBuilder())
             ->root($type)
                 ->addDefaultsIfNotSet()
                 ->beforeNormalization()
-                    ->always(function($configuration) {
+                    ->always(function ($configuration) {
                         if (array_key_exists('headers_list', $configuration)) {
                             $headers = $configuration['headers_list'];
-                            for($i = 0; $i < count($headers); $i++) {
+                            for ($i = 0; $i < count($headers); $i++) {
                                 if (strtolower(str_replace('_', '-', $headers[$i]['key'])) === 'content-type') {
                                     return $configuration;
                                 }
