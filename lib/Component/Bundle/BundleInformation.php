@@ -12,8 +12,9 @@
 namespace Scribe\Component\Bundle;
 
 use Scribe\Component\DependencyInjection\Aware\RequestStackAwareTrait;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Scribe\Utility\Error\DeprecationErrorHandler;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Scribe\Exception\InvalidArgumentException;
 use Scribe\Exception\RuntimeException;
 
@@ -78,21 +79,12 @@ class BundleInformation implements BundleInformationInterface
      */
     public function __construct(RequestStack $requestStack)
     {
-        $this
-            ->setRequestStack($requestStack)
-            ->determineRequestMasterFromRequestStack()
-        ;
-
-        if (false === ($this->requestStack instanceof RequestStack)) {
-            throw new InvalidArgumentException('Invalid Request Stack provided in '.__CLASS__);
-        }
+        $this->requestStack = $requestStack;
 
         $this
             ->setRegex(self::CONTROLLER_SERVICE_ID_REGEX)
             ->handle()
         ;
-
-        return $this;
     }
 
     /**
@@ -272,7 +264,7 @@ class BundleInformation implements BundleInformationInterface
      */
     public function handle()
     {
-        if (false === $this->hasRequestMaster()) {
+        if (false === ($this->getParentRequest() instanceof Request)) {
             return $this;
         }
 
@@ -309,12 +301,14 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Alias for {@see $this->parseRequestController()} for backwards comparability.
      *
-     * @todo   Remove in v2.0.0
+     * @deprecated Remove in v2.0.0
      *
      * @return $this
      */
     public function parse()
     {
+        DeprecationErrorHandler::trigger(__METHOD__, __LINE__, 'See parseRequestController() moving forward', '2015-06-10', '2.0.0');
+
         $this->parseControllerAttributeValue();
 
         return $this;
@@ -329,7 +323,7 @@ class BundleInformation implements BundleInformationInterface
     {
         $this->setControllerAttributeValue(
             $this
-                ->requestMaster
+                ->getMasterRequest()
                 ->attributes
                 ->get('_controller')
             )
@@ -347,18 +341,14 @@ class BundleInformation implements BundleInformationInterface
     {
         $matchResult = preg_match($this->getRegex(), $this->getControllerAttributeValue(), $matches);
 
-        $errorReturnArray = ['ukn', 'ukn', 'ukn', 'ukn'];
+        $errorReturnArray = ['?', '?', '?', '?'];
 
-        if (empty($this->getControllerAttributeValue())) {
+        if (0 === $matchResult || false === (strlen($this->getControllerAttributeValue()) > 0)) {
             return $errorReturnArray;
         }
 
-        if (false === $matchResult) {
-            throw new RuntimeException('Encountered an error running preg_match.');
-        } elseif (0 === $matchResult) {
-            return $errorReturnArray;
-        } elseif (4 === count($matches)) {
-            throw new RuntimeException('Regular expression did not contain four sub expressions.');
+        if (false === $matchResult || 5 !== count($matches)) {
+            throw new RuntimeException('Encountered an error running preg_match trying to determine request origination.');
         }
 
         array_walk($matches, function (&$v, $i) { $v = strtolower($v); });

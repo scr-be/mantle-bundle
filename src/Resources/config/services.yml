@@ -540,7 +540,7 @@ services:
         class: %s.mantle.http_utils.class%
         factory:
             - %s.mantle.http_utils.class%
-            - getInstance
+            - create
         arguments:
             - @request_stack
             - @router.default

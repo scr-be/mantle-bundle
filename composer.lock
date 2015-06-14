@@ -585,16 +585,16 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119"
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f976e5de371104877ebc89bd8fecb0019ed9c119",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
                 "shasum": ""
             },
             "require": {
@@ -605,7 +605,7 @@
                 "ext-pdo": "*",
                 "ext-phar": "*",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "2.0.*@ALPHA"
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
@@ -614,8 +614,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Instantiator\\": "src"
+                "psr-4": {
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -635,7 +635,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-10-13 12:58:55"
+            "time": "2015-06-14 21:17:01"
         },
         {
             "name": "doctrine/lexer",
@@ -1060,12 +1060,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-cache-bundle.git",
-                "reference": "28eba4b65c66cb2b045f57e410cda234c433cbed"
+                "reference": "c6bae3f673865c1c651b5c37def0d0f119e32e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/28eba4b65c66cb2b045f57e410cda234c433cbed",
-                "reference": "28eba4b65c66cb2b045f57e410cda234c433cbed",
+                "url": "https://api.github.com/repos/scribenet/symfony-cache-bundle/zipball/c6bae3f673865c1c651b5c37def0d0f119e32e27",
+                "reference": "c6bae3f673865c1c651b5c37def0d0f119e32e27",
                 "shasum": ""
             },
             "require": {
@@ -1080,7 +1080,7 @@
                 "doctrine/doctrine-bundle": "~1.4",
                 "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
                 "doctrine/doctrine-migrations-bundle": "~1.0",
-                "doctrine/migrations": "~1.0@dev",
+                "doctrine/migrations": "1.0.*@dev",
                 "doctrine/orm": "~2.5",
                 "ext-igbinary": "~1.2",
                 "ext-memcached": "~2.2",
@@ -1146,7 +1146,7 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-05-30 19:46:43"
+            "time": "2015-06-14 21:56:13"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3450,12 +3450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/scribenet/symfony-swim-bundle.git",
-                "reference": "b2c1cc6e051804b9f6807473cc21e483869997f1"
+                "reference": "1a4d9b416e07a2a89eb4637b97b8d9ec88bc2508"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribenet/symfony-swim-bundle/zipball/b2c1cc6e051804b9f6807473cc21e483869997f1",
-                "reference": "b2c1cc6e051804b9f6807473cc21e483869997f1",
+                "url": "https://api.github.com/repos/scribenet/symfony-swim-bundle/zipball/1a4d9b416e07a2a89eb4637b97b8d9ec88bc2508",
+                "reference": "1a4d9b416e07a2a89eb4637b97b8d9ec88bc2508",
                 "shasum": ""
             },
             "require": {
@@ -3543,7 +3543,7 @@
                 "symfony-cache-bundle",
                 "symfony-framework"
             ],
-            "time": "2015-05-30 19:49:31"
+            "time": "2015-06-14 22:02:41"
         },
         {
             "name": "scrutinizer/ocular",

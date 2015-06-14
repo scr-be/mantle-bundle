@@ -85,3 +85,7 @@ scribe_mantle:
             headers_list:
                 - { key: 'something', value: 'value' }
                 - { key: 'Content-Type', value: 'text/html' }
+
+scribe_cache:
+    global:
+        enabled: true

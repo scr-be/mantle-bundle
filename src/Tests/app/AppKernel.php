@@ -30,7 +30,6 @@ class AppKernel extends Kernel
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new \Scribe\CacheBundle\ScribeCacheBundle(),
             new \Scribe\MantleBundle\ScribeMantleBundle(),
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
@@ -42,6 +41,8 @@ class AppKernel extends Kernel
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
             $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
+            $bundles[] = new \Scribe\SwimBundle\ScribeSwimBundle();
+            $bundles[] = new \Scribe\CacheBundle\ScribeCacheBundle();
         }
 
         return $bundles;

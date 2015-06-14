@@ -11,7 +11,6 @@
 
 namespace Scribe\Component\DependencyInjection\Aware;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -20,8 +19,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 trait RequestStackAwareTrait
 {
-    use RequestAwareTrait;
-
     /**
      * request stack instance.
      *
@@ -30,34 +27,9 @@ trait RequestStackAwareTrait
     protected $requestStack = null;
 
     /**
-     * master request instance.
+     * Set request stack.
      *
-     * @var Request|null
-     */
-    protected $requestMaster = null;
-
-    /**
-     * Set the request stack and determine the master and current requests.
-     *
-     * @param RequestStack $requestStack
-     *
-     * @return $this
-     */
-    public function setRequestStackAndDetermineMasterAndCurrentRequest(RequestStack $requestStack)
-    {
-        $this
-            ->setRequestStack($requestStack)
-            ->determineRequestMasterFromRequestStack()
-            ->determineRequestCurrentFromRequestStack()
-        ;
-
-        return $this;
-    }
-
-    /**
-     * set request stack.
-     *
-     * @param  $requestStack RequestStack
+     * @param $requestStack RequestStack
      *
      * @return $this
      */
@@ -69,7 +41,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * get request stack.
+     * Get request stack.
      *
      * @return RequestStack|null
      */
@@ -79,7 +51,7 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * checks if request stack is set.
+     * Checks for request stack.
      *
      * @return bool
      */
@@ -89,51 +61,13 @@ trait RequestStackAwareTrait
     }
 
     /**
-     * set request master.
-     *
-     * @param  $requestMaster Request
-     *
-     * @return $this
-     */
-    public function setRequestMaster(Request $requestMaster)
-    {
-        $this->requestMaster = $requestMaster;
-
-        return $this;
-    }
-
-    /**
      * get request master.
      *
      * @return Request|null
      */
-    public function getRequestMaster()
+    public function getMasterRequest()
     {
-        return $this->requestMaster;
-    }
-
-    /**
-     * checks if request master is set.
-     *
-     * @return bool
-     */
-    public function hasRequestMaster()
-    {
-        return (bool) ($this->requestMaster instanceof Request);
-    }
-
-    /**
-     * set request current.
-     *
-     * @param  $request Request
-     *
-     * @return $this
-     */
-    public function setRequestCurrent(Request $request)
-    {
-        $this->request = $request;
-
-        return $this;
+        return $this->requestStack->getMasterRequest();
     }
 
     /**
@@ -141,57 +75,19 @@ trait RequestStackAwareTrait
      *
      * @return Request|null
      */
-    public function getRequestCurrent()
+    public function getCurrentRequest()
     {
-        return $this->request;
+        return $this->requestStack->getCurrentRequest();
     }
 
     /**
-     * checks if request current is set.
+     * Get the parent request.
      *
-     * @return bool
+     * @return Request|null
      */
-    public function hasRequestCurrent()
+    public function getParentRequest()
     {
-        return (bool) ($this->request instanceof Request);
-    }
-
-    /**
-     * Determine the master request from the request stack.
-     *
-     * @return $this
-     */
-    public function determineRequestMasterFromRequestStack()
-    {
-        $this->requestMaster = $this->requestStack->getMasterRequest();
-
-        return $this;
-    }
-
-    /**
-     * Determine the current request from the request stack.
-     *
-     * @return $this
-     */
-    public function determineRequestCurrentFromRequestStack()
-    {
-        $this->request = $this->requestStack->getCurrentRequest();
-
-        return $this;
-    }
-
-    /**
-     * Sets the request stack from a passed service container object.
-     *
-     * @param ContainerInterface $container container object
-     *
-     * @return $this
-     */
-    public function setRequestStackFromContainer(ContainerInterface $container)
-    {
-        $this->requestStack = $container->get('request_stack');
-
-        return $this;
+        return $this->requestStack->getParentRequest();
     }
 }
 

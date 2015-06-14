@@ -13,9 +13,10 @@ namespace Scribe\MantleBundle\Tests;
 
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
-use Scribe\MantleBundle\ScribeMantleBundle;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Scribe\MantleBundle\ScribeMantleBundle;
+use Scribe\MantleBundle\Tests\app\AppKernelInvalidCompilerPasses;
 
 /**
  * Class ScribeMantleBundleTest.
@@ -53,7 +54,7 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 
     public function testInvalidCompilerPasses()
     {
-        $kernel = new \Scribe\MantleBundle\Tests\app\AppKernelInvalidCompilerPasses('test', true);
+        $kernel = new AppKernelInvalidCompilerPasses('test', true);
         $kernel->boot();
         $container = $kernel->getContainer();
 
@@ -91,7 +92,7 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 
         static::assertNotEquals([], $nodeRenderer->getHandlerCollection());
         static::assertTrue($nodeRenderer->hasHandlerCollection());
-        static::assertEquals(1, count($nodeRenderer->getHandlerCollection()));
+        static::assertEquals(2, count($nodeRenderer->getHandlerCollection()));
     }
 
     public function tearDown()

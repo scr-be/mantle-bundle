@@ -22,8 +22,8 @@ use Scribe\Component\DependencyInjection\Aware\RouterAwareTrait;
  */
 class HttpUtils
 {
-    use RequestStackAwareTrait,
-        RouterAwareTrait;
+    use RequestStackAwareTrait;
+    use RouterAwareTrait;
 
     /**
      * @var string
@@ -48,7 +48,7 @@ class HttpUtils
      *
      * @return HttpUtils
      */
-    public static function getInstance(RequestStack $requestStack, RouterInterface $router)
+    public static function create(RequestStack $requestStack, RouterInterface $router)
     {
         return new self($requestStack, $router);
     }
@@ -83,20 +83,16 @@ class HttpUtils
 
     /**
      * @param string|null $fallbackRouteIndex
-     * @param array       $fallbackRouteArguments
+     * @param mixed[]     $fallbackRouteArguments
      *
      * @return $this
      */
     public function setRedirectFromReferrer($fallbackRouteIndex = null, array $fallbackRouteArguments = [])
     {
         if (false !== ($referrer = $this->getReferrer())) {
-            $this->setRedirect(
-                $referrer
-            );
+            $this->setRedirect($referrer);
         } elseif (null !== $fallbackRouteIndex) {
-            $this->setRedirect(
-                $this->getRouteUrl($fallbackRouteIndex, $fallbackRouteArguments)
-            );
+            $this->setRedirect($this->getRouteUrl($fallbackRouteIndex, $fallbackRouteArguments));
         } else {
             throw new RuntimeException(
                 'No HTTP referer present in request and no default provided in "%s".', null, null, null, __METHOD__
@@ -111,9 +107,12 @@ class HttpUtils
      */
     public function getReferrer()
     {
-        $master = $this->getRequestStack()->getMasterRequest();
-
-        return $master->request->has('referer') ? $master->request->get('referer') : false;
+        return $this
+            ->getRequestStack()
+            ->getMasterRequest()
+            ->request
+            ->has('referer') ? $master->request->get('referer') : false
+        ;
     }
 
     /**

@@ -11,6 +11,7 @@
 
 namespace Scribe\Exception\Model;
 
+use Scribe\Utility\Error\DeprecationErrorHandler;
 use Symfony\Component\Debug\Exception\ContextErrorException;
 use Scribe\Utility\ClassInfo;
 
@@ -38,6 +39,12 @@ trait ExceptionTrait
      */
     public static function getInstance($message, ...$sprintfArgs)
     {
+        DeprecationErrorHandler::trigger(
+            __METHOD__, __LINE__,
+            'Exception factory construction is no longer supported: exceptions must be manually instantiated.',
+            '2015-06-06 23:00 -0400', '2.0.0'
+        );
+
         return new self($message, null, null, null, ...$sprintfArgs);
     }
 
@@ -52,6 +59,12 @@ trait ExceptionTrait
      */
     public static function getDefaultInstance(...$sprintfArgs)
     {
+        DeprecationErrorHandler::trigger(
+            __METHOD__, __LINE__,
+            'Exception factory construction is no longer supported: exceptions must be manually instantiated.',
+            '2015-06-06 23:00 -0400', '2.0.0'
+        );
+
         return new self(null, null, null, null, ...$sprintfArgs);
     }
 
