@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Listener;
+namespace Scribe\MantleBundle\Event\Listener;
 
 use Scribe\Component\Bundle\BundleInformation;
 use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;

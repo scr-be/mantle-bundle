@@ -11,12 +11,12 @@
 
 namespace Scribe\Component\HttpFoundation\Response;
 
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Symfony\Component\HttpFoundation\JsonResponse as SymfonyJsonResponse;
 
 /**
- * Class Response.
+ * Class JsonResponse.
  */
-class Response extends SymfonyResponse implements ResponseInterface
+class JsonResponse extends SymfonyJsonResponse implements ResponseInterface
 {
     use ResponseTrait;
 
@@ -43,11 +43,12 @@ class Response extends SymfonyResponse implements ResponseInterface
                                 $protocolGlobal = null, $protocolTypeSpecific = null)
     {
         parent::__construct(
-            $this->getFinalContent($content),
+            null,
             $this->getFinalStatus($status),
             $this->getFinalHeaders($headersGlobal, $headersTypeSpecific, $headers)
         );
 
+        $this->setData($this->getFinalContent($content));
         $this->setCharset($this->getFinalCharset($charsetGlobal, $charsetTypeSpecific));
         $this->setProtocolVersion($this->getFinalProtocol($protocolGlobal, $protocolTypeSpecific));
     }

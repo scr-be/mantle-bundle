@@ -14,6 +14,7 @@ namespace Scribe\MantleBundle\Component\Controller\Behaviors;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Psr\Log\LoggerInterface;
+use Scribe\Component\HttpFoundation\Response\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
@@ -351,100 +352,105 @@ interface ControllerBehaviorsInterface
     public function renderTwigStr($templateString, array $parameters = []);
 
     /**
+     * Returns an HTML response using the provided parameters to construct the Response object instance. This is aimply
+     * an alias for {@see $this->getResponseTypeHtml()}.
+     *
+     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
+     *
+     * @param string        $content The content for the response.
+     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
+     *                               after the Request object has been instantiated and configured using the previous
+     *                               parameters specified. The callable must return a response object (with no
+     *                               requirement it is the same response object passed to it). If it does not return
+     *                               a Response an error will be raised.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param array         $headers Any headers to send with the request.
+     *
+     * @return Response
+     */
+    public function getResponse($content, callable $config = null, $status = null, array $headers = []);
+
+    /**
      * Returns an HTML response using the provided parameters to construct the Response object instance.
      *
      * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
      *
      * @param string        $content The content for the response.
-     * @param array         $headers Any headers to send with the request.
-     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
-     *                               its index representing the HTTP response code and the value representing the
-     *                               response status text description.
      * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
      *                               after the Request object has been instantiated and configured using the previous
      *                               parameters specified. The callable must return a response object (with no
      *                               requirement it is the same response object passed to it). If it does not return
      *                               a Response an error will be raised.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param array         $headers Any headers to send with the request.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function getResponse($content, array $headers = [], $status = null, callable $config = null);
+    public function getResponseTypeHtml($content, callable $config = null, $status = null, array $headers = []);
 
     /**
-     * Returns an HTML response using the provided parameters to construct the Response object instance.
-     * {@see self::getResponse()}.
+     * Returns a plaintext response using the provided parameters to construct the Response object instance.
+     *
+     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
      *
      * @param string        $content The content for the response.
-     * @param array         $headers Any headers to send with the request.
-     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
-     *                               its index representing the HTTP response code and the value representing the
-     *                               response status text description.
      * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
      *                               after the Request object has been instantiated and configured using the previous
      *                               parameters specified. The callable must return a response object (with no
      *                               requirement it is the same response object passed to it). If it does not return
      *                               a Response an error will be raised.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param array         $headers Any headers to send with the request.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function getResponseTypeHtml($content, array $headers = [], $status = null, callable $config = null);
+    public function getResponseTypeText($content, callable $config = null, $status = null, array $headers = []);
 
     /**
-     * Returns a text response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see getResponse()}.
+     * Returns a json response using the provided parameters to construct the Response object instance.
+     *
+     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
      *
      * @param string        $content The content for the response.
-     * @param array         $headers Any headers to send with the request.
-     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
-     *                               its index representing the HTTP response code and the value representing the
-     *                               response status text description.
      * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
      *                               after the Request object has been instantiated and configured using the previous
      *                               parameters specified. The callable must return a response object (with no
      *                               requirement it is the same response object passed to it). If it does not return
      *                               a Response an error will be raised.
+     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
+     *                               its index representing the HTTP response code and the value representing the
+     *                               response status text description.
+     * @param array         $headers Any headers to send with the request.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function getResponseTypeText($content, array $headers = [], $status = null, callable $config = null);
+    public function getResponseTypeJson($content, callable $config = null, $status = null, array $headers = []);
 
     /**
-     * Returns a JSON response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see getResponse()}.
+     * Returns a plaintext response using the provided parameters to construct the Response object instance.
+     *
+     * @link http://api.symfony.com/2.7/Symfony/Component/HttpFoundation/Response.html}.
      *
      * @param string        $content The content for the response.
-     * @param array         $headers Any headers to send with the request.
-     * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
-     *                               its index representing the HTTP response code and the value representing the
-     *                               response status text description.
      * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
      *                               after the Request object has been instantiated and configured using the previous
      *                               parameters specified. The callable must return a response object (with no
      *                               requirement it is the same response object passed to it). If it does not return
      *                               a Response an error will be raised.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getResponseTypeJson($content, array $headers = [], $status = null, callable $config = null);
-
-    /**
-     * Returns a YAML response using the provided parameters to construct the Response object instance. For additional
-     * parameter and usage information reference {@see getResponse()}.
-     *
-     * @param string        $content The content for the response.
-     * @param array         $headers Any headers to send with the request.
      * @param array|int     $status  Either an integer specifying the HTTP response code or a single array element with
      *                               its index representing the HTTP response code and the value representing the
      *                               response status text description.
-     * @param callable|null $config  A callable that should expect a single parameter of type Request, which is passed
-     *                               after the Request object has been instantiated and configured using the previous
-     *                               parameters specified. The callable must return a response object (with no
-     *                               requirement it is the same response object passed to it). If it does not return
-     *                               a Response an error will be raised.
+     * @param array         $headers Any headers to send with the request.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function getResponseTypeYaml($content, array $headers = [], $status = null, callable $config = null);
+    public function getResponseTypeYaml($content, callable $config = null, $status = null, array $headers = []);
 
     /**
      * @param               $name

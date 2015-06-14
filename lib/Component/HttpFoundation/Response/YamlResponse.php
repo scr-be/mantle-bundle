@@ -12,18 +12,24 @@
 namespace Scribe\Component\HttpFoundation\Response;
 
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class Response.
+ * Class YamlResponse.
  */
-class Response extends SymfonyResponse implements ResponseInterface
+class YamlResponse extends SymfonyResponse implements ResponseInterface
 {
     use ResponseTrait;
 
     /**
+     * @var string
+     */
+    protected $data;
+
+    /**
      * Construct the basic instance properties.
      *
-     * @param mixed|null  $content              The response content {@see setFinalContent()}
+     * @param array|null  $content              The response content {@see setFinalContent()}
      * @param int|null    $status               Status for this response.
      * @param array       $headers              Headers specific to this response.
      * @param array       $headersGlobal        The global headers configured.
@@ -43,13 +49,29 @@ class Response extends SymfonyResponse implements ResponseInterface
                                 $protocolGlobal = null, $protocolTypeSpecific = null)
     {
         parent::__construct(
-            $this->getFinalContent($content),
+            null,
             $this->getFinalStatus($status),
             $this->getFinalHeaders($headersGlobal, $headersTypeSpecific, $headers)
         );
 
+        $this->setData($content);
+
         $this->setCharset($this->getFinalCharset($charsetGlobal, $charsetTypeSpecific));
         $this->setProtocolVersion($this->getFinalProtocol($protocolGlobal, $protocolTypeSpecific));
+    }
+
+    /**
+     * @param array|object $content
+     */
+    public function setData($content)
+    {
+        $this->data = Yaml::dump($content, 2, 4, false, true);
+        $this->update();
+    }
+
+    public function update()
+    {
+        $this->setFinalContent($this->data);
     }
 }
 

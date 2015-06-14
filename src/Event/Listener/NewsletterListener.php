@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Listener;
+namespace Scribe\MantleBundle\Event\Listener;
 
 use Scribe\Component\DependencyInjection\Aware\RequestAwareTrait;
+use Scribe\MantleBundle\Listener\NewsletterUser;
 use Swift_Message;
 use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;

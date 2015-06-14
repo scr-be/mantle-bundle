@@ -298,20 +298,19 @@ abstract class AbstractExtension extends Extension implements ContainerAwareInte
      */
     protected function handleConfigsToParameterWhenArray($built, $outer, $i, $v)
     {
-        if (true === (substr($i, 0, 4) === '!a::')) {
-            DeprecationErrorHandler::trigger(
-                __METHOD__, __LINE__,
-                'The configuration builder node prefix "!a::" has been replaced in favor of the postfix "_list".',
-                '2015-05-25 04:40:00 -0400', '2.0.0'
-            );
-            $this->handleConfigsToParameterWhenArrayHash($built, $i, $v, 'a::');
-        } elseif (true === (substr($i, -5, 5) === '_list')) {
+        if (true === (substr($i, -5, 5) === '_list')) {
             $this->handleConfigsToParameterWhenArrayHash($built, $i, $v, '_list');
-        } elseif (false === Arrays::isHash($v, false)) {
-            $this->handleConfigsToParameterWhenArrayInt($built, $v);
-        } else {
-            $this->processConfigsToParameters($v, $outer.$this->getIndexSeparator().$i);
+
+            return;
         }
+
+        if (false === Arrays::isHash($v, false)) {
+            $this->handleConfigsToParameterWhenArrayInt($built, $v);
+
+            return;
+        }
+
+        $this->processConfigsToParameters($v, $outer.$this->getIndexSeparator().$i);
     }
 
     /**

@@ -22,9 +22,34 @@ class RequestTest extends AbstractMantleKernelTestCase
     {
         $response = $this->container->get('s.mantle.response.type_html');
 
-        static::assertInstanceOf('Scribe\Component\HttpFoundation\Response\Model\ResponseInterface', $response);
+        static::assertInstanceOf('Scribe\Component\HttpFoundation\Response\ResponseInterface', $response);
         static::assertTrue($response->isOk());
         static::assertEquals('', $response->getContent());
+        static::assertEquals(200, $response->getStatusCode());
+        static::assertEquals(1.1, $response->getProtocolVersion());
+        static::assertEquals('utf-8', $response->getCharset());
+        static::assertTrue($response->hasHeader('content-type'));
+    }
+
+    public function testRequestFactoryServiceForJson()
+    {
+        $response = $this->container->get('s.mantle.response.type_json');
+        $response->setData(['some' => 'array']);
+        static::assertInstanceOf('Scribe\Component\HttpFoundation\Response\JsonResponse', $response);
+        static::assertTrue($response->isOk());
+        static::assertEquals('{"some":"array"}', $response->getContent());
+        static::assertEquals(200, $response->getStatusCode());
+        static::assertEquals(1.1, $response->getProtocolVersion());
+        static::assertEquals('utf-8', $response->getCharset());
+    }
+
+    public function testRequestFactoryServiceForYaml()
+    {
+        $response = $this->container->get('s.mantle.response.type_yaml');
+        $response->setData(['some' => 'array']);
+        static::assertInstanceOf('Scribe\Component\HttpFoundation\Response\YamlResponse', $response);
+        static::assertTrue($response->isOk());
+        static::assertEquals(trim('some: array'), trim($response->getContent()));
         static::assertEquals(200, $response->getStatusCode());
         static::assertEquals(1.1, $response->getProtocolVersion());
         static::assertEquals('utf-8', $response->getCharset());

@@ -14,6 +14,7 @@ namespace Scribe\MantleBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Form\Exception\InvalidConfigurationException;
 
 /**
  * Class Configuration.
@@ -37,7 +38,6 @@ class Configuration implements ConfigurationInterface
                 ->append($this->getNodeCreatorNode())
                 ->append($this->getMetadataNode())
                 ->append($this->getHTMLNode())
-                //->append($this->getSelfNode())
                 ->append($this->getDateNode())
                 ->append($this->getBootstrapNode())
             ->end()
@@ -57,79 +57,64 @@ class Configuration implements ConfigurationInterface
             ->root('response')
             ->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('global')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('headers')
-                            ->defaultValue(['X-Framework-Powered-By: PHP-Symfony-Mantle'])
-                            ->info('Any additional header to append on each HTTP response.')
-                            ->prototype('scalar')->end()
-                        ->end()
-                        ->floatNode('protocol')
-                            ->defaultValue(1.1)
-                            ->info('The HTTP protocol to use for the response.')
-                        ->end()
-                        ->scalarNode('charset')
-                            ->defaultValue('utf-8')
-                            ->info('The charset to use for the HTTP response.')
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('html')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('headers')
-                            ->defaultValue(['Content-Type: text/html'])
-                            ->info('Any additional header to append on each HTTP response.')
-                            ->prototype('scalar')->end()
-                        ->end()
-                        ->floatNode('protocol')
-                            ->defaultValue(1.1)
-                            ->info('The HTTP protocol to use for the response.')
-                        ->end()
-                        ->scalarNode('charset')
-                            ->defaultValue('utf-8')
-                            ->info('The charset to use for the HTTP response.')
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('json')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('headers')
-                            ->defaultValue(['Content-Type: application/json'])
-                            ->info('Any additional header to append on each HTTP response.')
-                            ->prototype('scalar')->end()
-                        ->end()
-                        ->floatNode('protocol')
-                            ->defaultValue(1.1)
-                            ->info('The HTTP protocol to use for the response.')
-                        ->end()
-                        ->scalarNode('charset')
-                            ->defaultValue('utf-8')
-                            ->info('The charset to use for the HTTP response.')
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('text')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('headers')
-                            ->defaultValue(['Content-Type: text/plain'])
-                            ->info('Any additional header to append on each HTTP response.')
-                            ->prototype('scalar')->end()
-                        ->end()
-                        ->floatNode('protocol')
-                            ->defaultValue(1.1)
-                            ->info('The HTTP protocol to use for the response.')
-                        ->end()
-                        ->scalarNode('charset')
-                            ->defaultValue('utf-8')
-                            ->info('The charset to use for the HTTP response.')
-                        ->end()
-                    ->end()
-                ->end()
+                ->append($this->getHttpResponseTypeNode('global', [['key' => 'X-Framework-Layers', 'value' => 'Symfony/Mantle']]))
+                ->append($this->getHttpResponseTypeNode('html', [['key' => 'Content-Type', 'value' => 'text/html']]))
+                ->append($this->getHttpResponseTypeNode('json', [['key' => 'Content-Type', 'value' => 'application/json']]))
+                ->append($this->getHttpResponseTypeNode('yaml', [['key' => 'Content-Type', 'value' => 'application/yaml']]))
+                ->append($this->getHttpResponseTypeNode('text', [['key' => 'Content-Type', 'value' => 'Symfony/Mantle']]))
             ->end()
+        ;
+    }
+
+    /**
+     * @param string       $type
+     * @param array[array] $default
+     *
+     * @return NodeDefinition
+     */
+    protected function getHttpResponseTypeNode($type, $default) {
+        return (new TreeBuilder())
+            ->root($type)
+                ->addDefaultsIfNotSet()
+                ->beforeNormalization()
+                    ->always(function($configuration) {
+                        if (array_key_exists('headers_list', $configuration)) {
+                            $headers = $configuration['headers_list'];
+                            for($i = 0; $i < count($headers); $i++) {
+                                if (strtolower(str_replace('_', '-', $headers[$i]['key'])) === 'content-type') {
+                                    return $configuration;
+                                }
+                            }
+                        }
+                        throw new InvalidConfigurationException('If you change the headers_list values, you must provide a Content-Type.    ');
+                    })
+                ->end()
+                ->children()
+                    ->arrayNode('headers_list')
+                        ->defaultValue($default)
+                        ->info('Headers to be appends to HTTP response type group '.$type.'.')
+                        ->prototype('array')
+                            ->children()
+                                ->scalarNode('key')
+                                    ->isRequired()
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->scalarNode('value')
+                                    ->isRequired()
+                                    ->cannotBeEmpty()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                    ->floatNode('protocol')
+                        ->defaultValue(1.1)
+                        ->info('The HTTP protocol to use for the response type group '.$type.'.')
+                    ->end()
+                    ->scalarNode('charset')
+                        ->defaultValue('utf-8')
+                        ->info('The HTTP charset to use for the response type group '.$type.'.')
+                    ->end()
+                ->end()
         ;
     }
 

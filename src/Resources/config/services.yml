@@ -104,6 +104,8 @@ parameters:
 
     s.mantle.response.factory.class:                                    Scribe\Component\HttpFoundation\Response\Factory\ResponseFactory
     s.mantle.response.type_generic.class:                               Scribe\Component\HttpFoundation\Response\Response
+    s.mantle.response.type_json.class:                                  Scribe\Component\HttpFoundation\Response\JsonResponse
+    s.mantle.response.type_yaml.class:                                  Scribe\Component\HttpFoundation\Response\YamlResponse
 
     # Navigation Creator Services
 
@@ -116,8 +118,8 @@ parameters:
 
     # Kernel Event Listeners
 
-    s.mantle.maintenance.kernel_listener.class:                         Scribe\MantleBundle\Listener\MaintenanceListener
-    s.mantle.newsletter_form.kernel_listener.class:                     Scribe\MantleBundle\Listener\NewsletterListener
+    s.mantle.maintenance.kernel_listener.class:                         Scribe\MantleBundle\Event\Listener\MaintenanceListener
+    s.mantle.newsletter_form.kernel_listener.class:                     Scribe\MantleBundle\Event\Listener\NewsletterListener
 
     # HTTP Utils
 
@@ -175,7 +177,7 @@ services:
         class: %s.mantle.response.type_generic.class%
         factory:
             - %s.mantle.response.factory.class%
-            - getResponse
+            - create
         arguments:
             - %s.mantle.response.type_generic.class%
             - null
@@ -192,8 +194,9 @@ services:
         class: %s.mantle.response.type_generic.class%
         factory:
             - %s.mantle.response.factory.class%
-            - getResponse
+            - create
         arguments:
+            - %s.mantle.response.type_generic.class%
             - null
             - null
             - [ ]
@@ -205,11 +208,12 @@ services:
             - %s.mantle.response.text.protocol%
 
     s.mantle.response.type_json:
-        class: %s.mantle.response.type_generic.class%
+        class: %s.mantle.response.type_json.class%
         factory:
             - %s.mantle.response.factory.class%
-            - getResponse
+            - create
         arguments:
+            - %s.mantle.response.type_json.class%
             - null
             - null
             - [ ]
@@ -219,6 +223,23 @@ services:
             - %s.mantle.response.json.charset%
             - %s.mantle.response.global.protocol%
             - %s.mantle.response.json.protocol%
+
+    s.mantle.response.type_yaml:
+        class: %s.mantle.response.type_yaml.class%
+        factory:
+            - %s.mantle.response.factory.class%
+            - create
+        arguments:
+            - %s.mantle.response.type_yaml.class%
+            - null
+            - null
+            - [ ]
+            - %s.mantle.response.global.headers%
+            - %s.mantle.response.yaml.headers%
+            - %s.mantle.response.global.charset%
+            - %s.mantle.response.yaml.charset%
+            - %s.mantle.response.global.protocol%
+            - %s.mantle.response.yaml.protocol%
 
     # Repositories
 
