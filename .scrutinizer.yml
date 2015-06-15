@@ -3,18 +3,18 @@ imports:
 
 filter:
     excluded_paths:
-        - app/
-        - bin/
-        - build/
-        - docs/
-        - lib/Tests/
-        - src/Tests/
-        - src/Resources/
-        - vendor/
+        - 'app/'
+        - 'bin/'
+        - 'build/'
+        - 'docs/'
+        - 'lib/Tests/'
+        - 'src/Tests/'
+        - 'src/Resources/'
+        - 'vendor/'
 
 tools:
     external_code_coverage:
-        timeout: 1800
+        timeout: 1200
     php_code_sniffer:
         config:
             standard: psr2
@@ -50,7 +50,7 @@ checks:
         classes_in_camel_caps: true
         naming_conventions:
             local_variable: '^[a-z][a-zA-Z0-9]*$'
-            abstract_class_name: ^Abstract|Factory$
+            abstract_class_name: '^Abstract|Factory$'
             utility_class_name: 'Utils?$'
             constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$'
             property_name: '^[a-z][a-zA-Z0-9]*$'

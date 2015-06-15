@@ -264,7 +264,7 @@ class BundleInformation implements BundleInformationInterface
      */
     public function handle()
     {
-        if (false === ($this->getParentRequest() instanceof Request)) {
+        if (false === ($this->getMasterRequest() instanceof Request)) {
             return $this;
         }
 
