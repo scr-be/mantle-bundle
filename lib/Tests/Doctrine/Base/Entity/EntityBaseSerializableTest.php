@@ -38,7 +38,7 @@ class EntityBaseSerializableTest extends AbstractEntityBaseTest
         $serializedEntity = serialize($this->baseEntity);
         $unserializedEntity = unserialize($serializedEntity);
 
-        static::assertEquals($this->baseEntity, $unserializedEntity);
+        static::assertTrue($this->baseEntity->isEqualToId($unserializedEntity));
     }
 }
 

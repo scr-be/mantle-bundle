@@ -26,9 +26,11 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
                 'autoInitializationEnabled' => true,
                 'autoInitializationCalled' => true,
                 'autoInitializationMethods' => [0 => 'initializeId'],
+                'serializablePropertyCollection' => ['id']
             ],
             'methods' => [
                 '__construct',
+                'isCloneSafe',
                 'triggerError',
                 '__toString',
                 '__toArray',
@@ -37,7 +39,6 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
                 'isEqualTo',
                 'isEqualToId',
                 'isEqualToProperties',
-                'isCloneSafe',
                 'serialize',
                 'unserialize',
                 'callOrmPreRemove',
@@ -55,6 +56,8 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
                 'callInitializationMethods',
                 'initializeId',
                 'getId',
+                'setSerializablePropertyCollection',
+                'addSerializableProperty'
             ],
         ];
 
@@ -65,10 +68,10 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
     {
         $expected = '{self} Scribe\Doctrine\Base\Entity\AbstractEntity; '.
             '{parent} Scribe\Doctrine\Base\Entity\AbstractEntity; '.
-            '{properties} id:NULL:,autoInitializationEnabled:boolean:1,'.
+            '{properties} id:NULL:,serializablePropertyCollection:array:[id],autoInitializationEnabled:boolean:1,'.
                 'autoInitializationCalled:boolean:1,'.
                 'autoInitializationMethods:array:[initializeId]; '.
-            '{methods}__construct,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,isCloneSafe,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId;';
+            '{methods}__construct,isCloneSafe,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId,setSerializablePropertyCollection,addSerializableProperty;';
 
         static::assertEquals($expected, $this->baseEntity->__debugInfoToString());
     }
@@ -77,11 +80,11 @@ class EntityBaseDebuggableTest extends AbstractEntityBaseTest
     {
         $expected = '{self} Scribe\Doctrine\Base\Entity\AbstractEntity; '.
             '{parent} Scribe\Doctrine\Base\Entity\AbstractEntity; '.
-            '{properties} id:NULL:,autoInitializationEnabled:boolean:1,'.
+            '{properties} id:NULL:,serializablePropertyCollection:array:[id],autoInitializationEnabled:boolean:1,'.
                 'autoInitializationCalled:boolean:1,'.
                 'autoInitializationMethods:array:[initializeId],'.
-                'innerClone:object:({self} Scribe\Doctrine\Base\Entity\AbstractEntity; {parent} Scribe\Doctrine\Base\Entity\AbstractEntity; {properties} id:NULL:,autoInitializationEnabled:boolean:1,autoInitializationCalled:boolean:1,autoInitializationMethods:array:[initializeId]; {methods}__construct,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,isCloneSafe,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId;); '.
-            '{methods}__construct,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,isCloneSafe,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId;';
+                'innerClone:object:({self} Scribe\Doctrine\Base\Entity\AbstractEntity; {parent} Scribe\Doctrine\Base\Entity\AbstractEntity; {properties} id:NULL:,serializablePropertyCollection:array:[id],autoInitializationEnabled:boolean:1,autoInitializationCalled:boolean:1,autoInitializationMethods:array:[initializeId]; {methods}__construct,isCloneSafe,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId,setSerializablePropertyCollection,addSerializableProperty;); '.
+            '{methods}__construct,isCloneSafe,triggerError,__toString,__toArray,__debugInfo,__debugInfoToString,isEqualTo,isEqualToId,isEqualToProperties,serialize,unserialize,callOrmPreRemove,callOrmPostRemove,callOrmPrePersist,callOrmPostPersist,callOrmPreUpdate,callOrmPostUpdate,callOrmPostLoad,callOrmLifecycleEvent,disableAutoInitialization,enableAutoInitialization,isAutoInitialized,getAutoInitializedMethods,callInitializationMethods,initializeId,getId,setSerializablePropertyCollection,addSerializableProperty;';
 
         $this->baseEntity->innerClone = clone $this->baseEntity;
         static::assertEquals($expected, $this->baseEntity->__debugInfoToString());

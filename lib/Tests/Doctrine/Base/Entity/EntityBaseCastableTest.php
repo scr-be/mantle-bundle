@@ -41,6 +41,7 @@ class EntityBaseCastableTest extends AbstractEntityBaseTest
             'properties' => false,
             'methods' => [
                 '__construct',
+                'isCloneSafe',
                 'triggerError',
                 '__toString',
                 '__toArray',
@@ -49,7 +50,6 @@ class EntityBaseCastableTest extends AbstractEntityBaseTest
                 'isEqualTo',
                 'isEqualToId',
                 'isEqualToProperties',
-                'isCloneSafe',
                 'serialize',
                 'unserialize',
                 'callOrmPreRemove',
@@ -67,6 +67,8 @@ class EntityBaseCastableTest extends AbstractEntityBaseTest
                 'callInitializationMethods',
                 'initializeId',
                 'getId',
+                'setSerializablePropertyCollection',
+                'addSerializableProperty'
             ],
         ];
 

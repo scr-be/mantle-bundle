@@ -104,6 +104,13 @@ class User extends AbstractEntity implements UserInterface
         return (string) $this->getFullName();
     }
 
+    public function initializeSerializable()
+    {
+        $this->setSerializablePropertyCollection(
+            'id', 'username', 'email', 'password', 'accountLocked', 'accountExpiration', 'passwordExpiration'
+        );
+    }
+
     public function initializeUsername()
     {
         $this->username = null;

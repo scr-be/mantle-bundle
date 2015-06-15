@@ -50,6 +50,22 @@ abstract class AbstractEntity implements
     }
 
     /**
+     * Clone is used internally by Doctrine prior to an entity obtaining an id;
+     * therefore this method should be called within any __clone implementation
+     * to determine if it is safe to implement custom logic.
+     *
+     * @return bool
+     */
+    final public function isCloneSafe()
+    {
+        if ($this->getId()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Will trigger (throw) an ORM error from within an entity. Intended to ensure all exceptions throw
      * by an entity will inherit from our base ORMException class.
      *

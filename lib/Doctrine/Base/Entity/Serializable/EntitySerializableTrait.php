@@ -13,74 +13,91 @@ namespace Scribe\Doctrine\Base\Entity\Serializable;
 
 use Doctrine\ORM\PersistentCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Scribe\Utility\Serializer\Serializer;
+use Symfony\Component\Validator\Constraints\All;
 
 /**
  * Class EntitySerializable
+ *
  * Provides basic serializable functionality for any entity that extends from it.
  */
 trait EntitySerializableTrait
 {
     /**
-     * @return int|null
+     * Simple array of property names to include in serialization of entity.
+     *
+     * @var string[]
      */
-    abstract public function getId();
+    private $serializablePropertyCollection = ['id'];
 
     /**
-     * Clone is used internally by Doctrine prior to an entity obtaining an id;
-     * therefore this method should be called within any __clone implementation
-     * to determine if it is safe to implement custom logic.
+     * Sets (overwriting) the array of property names to serialize.
      *
-     * @return bool
+     * @param string $propertyNames
+     *
+     * @return $this
      */
-    final public function isCloneSafe()
+    public function setSerializablePropertyCollection(...$propertyNames)
     {
-        if ($this->getId()) {
-            return true;
-        }
+        $this->serializablePropertyCollection = $propertyNames;
 
-        return false;
+        return $this;
     }
 
     /**
-     * To serialize object, get its properties or, if it has none, provide an
-     * empty array to pass to the serialize function, which then returns its
-     * output.
+     * Add a property you would like serialized to the collection.
+     *
+     * @param string $property
+     *
+     * @return $this
+     */
+    public function addSerializableProperty($property)
+    {
+        $this->serializablePropertyCollection[] = (string) $property;
+
+        return $this;
+    }
+
+    /**
+     * Basic support for serialization based on a user-assignable collection of property names.
      *
      * @return string
      */
     public function serialize()
     {
-        $properties = array_filter(get_object_vars($this), function ($propertyValue) {
-            if ($propertyValue instanceof PersistentCollection ||
-               $propertyValue instanceof AbstractEntity) {
-                return false;
-            }
+        $serializable = $this->serializablePropertyCollection;
 
-            return true;
+        if ($this instanceof UserInterface && false === in_array('id', $serializable, true)) {
+            $serializable[] = 'id';
+        }
+
+        $canonicalized = [];
+        array_walk($serializable, function ($value) use (&$canonicalized) {
+            if (true === property_exists($this, $value)) {
+                $canonicalized[$value] = $this->$value;
+            }
         });
 
-        return Serializer::sleep($properties);
+        return Serializer::sleep($canonicalized);
     }
 
     /**
-     * To unserialize object, take the passed serialized string and unserialize
-     * it, after which each key=>value pair of the returned array is assigned
-     * back as propertyName=>value within the class.
+     * Basic implementation of un-serializing a collection of key -> value pairs back into the object.
      *
-     * @param string $serialized serialized object properties
+     * @param string $serialized Serialized property collection.
      *
      * @return array
      */
     public function unserialize($serialized)
     {
-        $properties = (array) Serializer::wake($serialized);
+        $unSerializable = (array) Serializer::wake($serialized);
 
-        foreach ($properties as $property => $value) {
+        foreach ($unSerializable as $property => $value) {
             $this->$property = $value;
         }
 
-        return $properties;
+        return $unSerializable;
     }
 }
 
