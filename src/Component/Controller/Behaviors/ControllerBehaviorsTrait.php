@@ -665,8 +665,12 @@ trait ControllerBehaviorsTrait
             $response->addHeader($name, $value);
         }
 
-        if ($content !== null) {
+        if ($content !== null && is_scalar($content)) {
             $response->setContent($content);
+        }
+
+        if ($content !== null && is_array($content)) {
+            $response->setData($content);
         }
 
         if ($status !== null) {
