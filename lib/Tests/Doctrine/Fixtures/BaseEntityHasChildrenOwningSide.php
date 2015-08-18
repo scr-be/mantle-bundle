@@ -17,7 +17,7 @@ use Scribe\Doctrine\Base\Model\Hierarchy\HasChildCollectionOwningSide;
 /**
  * BaseEntityHasChildrenOwningSide.
  */
-class BaseEntityHasChildOwningSide extends AbstractEntity
+class BaseEntityHasChildrenOwningSide extends AbstractEntity
 {
     use HasChildCollectionOwningSide;
 }
