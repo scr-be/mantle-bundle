@@ -51,7 +51,7 @@ trait HasRoleReverseRestrictionsInverseSide
      */
     public function hasRoleReverseRestrictions()
     {
-        return (bool) ($this->roleReverseRestrictions->count() > 0);
+        return (bool) ($this->roleReverseRestrictions->isEmpty() === false);
     }
 
     /**

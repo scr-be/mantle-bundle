@@ -11,10 +11,12 @@
 
 namespace Scribe\Component\Bundle;
 
-use Scribe\Component\DependencyInjection\Aware\RequestStackAwareTrait;
-use Scribe\Utility\Error\DeprecationErrorHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Scribe\Component\DependencyInjection\Aware\RequestStackAwareTrait;
+use Scribe\Component\DependencyInjection\Aware\RouterAwareTrait;
+use Scribe\Utility\Error\DeprecationErrorHandler;
 use Scribe\Exception\InvalidArgumentException;
 use Scribe\Exception\RuntimeException;
 
@@ -71,20 +73,29 @@ class BundleInformation implements BundleInformationInterface
     private $org;
 
     /**
-     * Set's up the request environment and then parses the controller request string.
+     * @var string
+     */
+    private $mode = self::MODE_REQUEST;
+
+    /**
+     * Set's up the request environment and then parses the controller request string if auto handling is enabled.
      *
      * @param RequestStack $requestStack
+     * @param bool         $autoHandle
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, Router $router, $autoHandle = true)
     {
         $this->requestStack = $requestStack;
+        $this->router = $router;
 
-        $this
-            ->setRegex(self::CONTROLLER_SERVICE_ID_REGEX)
-            ->handle()
-        ;
+        $this->setRegex(self::CONTROLLER_SERVICE_ID_REGEX);
+
+        if ($autoHandle === true) {
+            $this->handle(self::MODE_REQUEST);
+            dump($this);
+        }
     }
 
     /**
@@ -260,18 +271,75 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Handle determining the bundle information, or bailing if no request is present.
      *
+     * @param string      $mode
+     * @param null|string $value
+     *
      * @return $this
      */
-    public function handle()
+    public function handle($mode = self::MODE_REQUEST, $value = null)
     {
-        if (false === ($this->getMasterRequest() instanceof Request)) {
-            return $this;
+        if ($mode === self::MODE_REQUEST && true === ($this->getMasterRequest() instanceof Request)) {
+            $this->determineControllerAttributeValueFromRequest();
+        } elseif ($mode === self::MODE_ROUTE && $value !== null) {
+            $this->determineControllerAttributeValueFromRoute($value);
+        } elseif ($mode === self::MODE_STRING && $value !== null) {
+            $this->determineControllerAttributeValueFromString($value);
         }
 
-        $this
-            ->determineControllerAttributeValue()
-            ->parseControllerAttributeValue()
+        $this->parseControllerAttributeValue();
+
+        return $this;
+    }
+
+    /**
+     * Get the request _controller parameter.
+     *
+     * @return $this
+     */
+    private function determineControllerAttributeValueFromRequest()
+    {
+        $this->setControllerAttributeValue(
+            $this
+                ->getMasterRequest()
+                ->attributes
+                ->get('_controller')
+            )
         ;
+
+        return $this;
+    }
+
+    /**
+     * Get the route default _controller parameter.
+     *
+     * @param string $routeName
+     *
+     * @return $this
+     */
+    private function determineControllerAttributeValueFromRoute($routeName)
+    {
+        $route = $this
+            ->router
+            ->getRouteCollection()
+            ->get($routeName);
+
+        $this->setControllerAttributeValue(
+            $route->getDefault('_controller')
+        );
+
+        return $this;
+    }
+
+    /**
+     * Get the route from provided string.
+     *
+     * @param string $string
+     *
+     * @return $this
+     */
+    private function determineControllerAttributeValueFromString($string)
+    {
+        $this->setControllerAttributeValue($string);
 
         return $this;
     }
@@ -310,24 +378,6 @@ class BundleInformation implements BundleInformationInterface
         DeprecationErrorHandler::trigger(__METHOD__, __LINE__, 'See parseRequestController() moving forward', '2015-06-10', '2.0.0');
 
         $this->parseControllerAttributeValue();
-
-        return $this;
-    }
-
-    /**
-     * Get the request _controller parameter.
-     *
-     * @return $this
-     */
-    private function determineControllerAttributeValue()
-    {
-        $this->setControllerAttributeValue(
-            $this
-                ->getMasterRequest()
-                ->attributes
-                ->get('_controller')
-            )
-        ;
 
         return $this;
     }

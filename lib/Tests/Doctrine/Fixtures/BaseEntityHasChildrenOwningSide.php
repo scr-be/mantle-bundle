@@ -12,14 +12,14 @@
 namespace Scribe\Tests\Doctrine\Fixtures;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasChildrenOwningSide;
+use Scribe\Doctrine\Base\Model\Hierarchy\HasChildCollectionOwningSide;
 
 /**
  * BaseEntityHasChildrenOwningSide.
  */
-class BaseEntityHasChildrenOwningSide extends AbstractEntity
+class BaseEntityHasChildOwningSide extends AbstractEntity
 {
-    use HasChildrenOwningSide;
+    use HasChildCollectionOwningSide;
 }
 
 /* EOF */

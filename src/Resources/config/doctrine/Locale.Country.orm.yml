@@ -1,0 +1,42 @@
+Scribe\MantleBundle\Doctrine\Entity\Locale\Country:
+
+    type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
+    table:           MantleBundle_LocaleCountry
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Locale\CountryRepository
+
+    id:
+
+        id:
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+
+    uniqueConstraints:
+
+        countryCodeUnique:
+            columns:
+                - code
+
+    fields:
+
+        code:
+            type   : string
+            length : 2
+            fixed  : true
+
+        name:
+            type   : string
+            length : 512
+            fixed  : false
+
+        codeAlpha3:
+            type   : string
+            length : 3
+            fixed  : true
+
+        codeNumeric:
+            type     : smallint
+            unsigned : true

@@ -12,10 +12,10 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Route;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasName;
-use Scribe\Doctrine\Base\Model\HasDescription;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\HasParameters;
 use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class Route.

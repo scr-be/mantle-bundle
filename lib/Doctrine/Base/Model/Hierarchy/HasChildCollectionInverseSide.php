@@ -9,62 +9,62 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\Doctrine\Base\Model;
+namespace Scribe\Doctrine\Base\Model\Hierarchy;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 
 /**
- * Class HasChildrenInverseSide.
+ * Class HasChildCollectionInverseSide.
  */
-trait HasChildrenInverseSide
+trait HasChildCollectionInverseSide
 {
     /**
-     * Children collections.
+     * ChildCollection collections.
      *
      * @var ArrayCollection
      */
-    protected $children;
+    protected $childCollection;
 
     /**
      * Init trait.
      */
-    public function initializeChildren()
+    public function initializeChildCollection()
     {
-        $this->children = new ArrayCollection();
+        $this->childCollection = new ArrayCollection();
     }
 
     /**
-     * Getter for children.
+     * Getter for childCollection.
      *
      * @return ArrayCollection
      */
-    public function getChildren()
+    public function getChildCollection()
     {
-        return $this->children;
+        return $this->childCollection;
     }
 
     /**
-     * Checker for children.
+     * Checker for childCollection.
      *
      * @return bool
      */
-    public function hasChildren()
+    public function hasChildCollection()
     {
-        return (bool) ($this->getChildren()->isEmpty() === false);
+        return (bool) ($this->getChildCollection()->isEmpty() === false);
     }
 
     /**
-     * Checker for specific child within children.
+     * Checker for specific child within childCollection.
      *
-     * @param AbstractEntity $child entity object to search of in collection of children
+     * @param AbstractEntity $child entity object to search of in collection of childCollection
      *
      * @return bool
      */
     public function hasChild(AbstractEntity $child)
     {
         return $this
-            ->getChildren()
+            ->getChildCollection()
             ->contains($child)
         ;
     }

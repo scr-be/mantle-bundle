@@ -1,6 +1,8 @@
 Scribe\MantleBundle\Doctrine\Entity\Icon\Icon:
 
     type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
     table:           MantleBundle_Icon
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
 

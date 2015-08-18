@@ -1,6 +1,8 @@
 Scribe\MantleBundle\Doctrine\Entity\Asset\AssetDescriptor:
 
     type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
     table:           MantleBundle_AssetDescriptor
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetDescriptorRepository
 

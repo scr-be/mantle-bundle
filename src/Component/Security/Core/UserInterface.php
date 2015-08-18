@@ -15,14 +15,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Scribe\Doctrine\Base\Model\Activity\ActivityCollectionInterface;
 use Scribe\Doctrine\Base\Model\Address\AddressCollectionInterface;
-use Scribe\Doctrine\Base\Model\InstantMessenger\InstantMessengerCollectionInterface;
 use Scribe\Doctrine\Base\Model\Phone\PhoneCollectionInterface;
 
 /**
  * Class UserInterface.
  */
-interface UserInterface extends AddressCollectionInterface, PhoneCollectionInterface, InstantMessengerCollectionInterface,
-                                ActivityCollectionInterface, AdvancedUserInterface
+interface UserInterface extends
+    AddressCollectionInterface,
+    PhoneCollectionInterface,
+    ActivityCollectionInterface,
+    AdvancedUserInterface
 {
     /**
      * @return int|null

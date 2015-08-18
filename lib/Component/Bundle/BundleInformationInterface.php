@@ -17,6 +17,27 @@ namespace Scribe\Component\Bundle;
 interface BundleInformationInterface
 {
     /**
+     * Handle info parseing/determenation using master request controller attribute
+     *
+     * @var string
+     */
+    const MODE_REQUEST = 'request';
+
+    /**
+     * Handle info parseing/determenation using provided string
+     *
+     * @var string
+     */
+    const MODE_STRING = 'string';
+
+    /**
+     * Handle info parseing/determenation using controller determined from route name
+     *
+     * @var string
+     */
+    const MODE_ROUTE = 'route';
+
+    /**
      * Setter for regex property.
      *
      * @param string $regex The regex to parse bundle info from request _controller paramiter

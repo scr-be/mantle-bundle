@@ -40,6 +40,7 @@ parameters:
     # Bundle Information Service/Twig-Extension
 
     s.mantle.bundle_information.class:                                  Scribe\Component\Bundle\BundleInformation
+    s.mantle.bundle_information_factory.class:                          Scribe\Component\Bundle\BundleInformationFactory
     s.mantle.bundle_information.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
 
     # General Utilities
@@ -500,6 +501,18 @@ services:
         class: %s.mantle.bundle_information.class%
         arguments:
             - @request_stack
+            - @router
+            - true
+
+    s.mantle.bundle_information_factory:
+        class: %s.mantle.bundle_information.class%
+        factory:
+            - %s.mantle.bundle_information_factory.class%
+            - getInstance
+        arguments:
+            - @request_stack
+            - @router
+            - false
 
     s.mantle.bundle_information.twig_extension:
         class: %s.mantle.bundle_information.twig_extension.class%

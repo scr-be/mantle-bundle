@@ -37,8 +37,8 @@ abstract class AbstractEntity implements
         EntityCastableTrait,
         EntityDebuggableTrait,
         EntityEquatableTrait,
-        EntitySerializableTrait,
         EntityLifecycleableTrait,
+        EntitySerializableTrait,
         EntityInitializableTrait;
 
     /**

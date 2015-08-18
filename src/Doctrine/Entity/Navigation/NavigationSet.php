@@ -12,10 +12,10 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Navigation;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\HasAttributes;
 use Scribe\Doctrine\Base\Model\HasChildrenInverseSide;
-use Scribe\Doctrine\Base\Model\HasDescription;
-use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\Name\HasName;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
 
 /**
@@ -23,11 +23,11 @@ use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
  */
 class NavigationSet extends AbstractEntity
 {
-    use HasName,
-        HasDescription,
-        HasAttributes,
-        HasChildrenInverseSide,
-        SluggableBehaviorTrait;
+    use HasName;
+    use HasDescription;
+    use HasAttributes;
+    use HasChildrenInverseSide;
+    use SluggableBehaviorTrait;
 
     /**
      * Support casting to string.

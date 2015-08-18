@@ -1,6 +1,8 @@
 Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType:
 
     type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
     table:           MantleBundle_AssetType
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetTypeRepository
 

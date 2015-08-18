@@ -1,0 +1,23 @@
+Scribe\MantleBundle\Doctrine\Entity\Locale\Locale:
+
+    type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
+    table:           MantleBundle_Locale
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
+
+    id:
+
+        id:
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+##
+#    uniqueConstraints:
+##
+#        scribe_mantle_locales_unique:
+#            columns:
+#                - slug
+#                - locale
+##

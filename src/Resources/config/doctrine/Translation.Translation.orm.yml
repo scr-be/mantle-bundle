@@ -1,0 +1,50 @@
+Scribe\MantleBundle\Doctrine\Entity\Translation\Translation:
+
+    type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
+    table:           MantleBundle_Translation
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationRepository
+
+    id:
+
+        id:
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+##
+#    indexes:
+##
+#        smtransindex:
+#            columns:
+#                - slug
+#                - locale
+##
+#    fields:
+##
+#        slug:
+#            type   : string
+#            length : 2048
+##
+#        value:
+#            type : text
+##
+#        dynamic:
+#            type     : boolean
+#            nullable : true
+##
+#    manyToOne:
+##
+#        locale:
+#            targetEntity: Scribe\MantleBundle\Doctrine\Entity\Locale\Locale
+#            joinColumn:
+#                name: languageId
+#                referencedColumnName: id
+##
+#    uniqueConstraints:
+##
+#        smtransunique:
+#            columns:
+#                - slug
+#                - locale

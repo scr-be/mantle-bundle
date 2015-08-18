@@ -12,28 +12,30 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Navigation;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\HasAttributes;
 use Scribe\Doctrine\Base\Model\HasChildrenInverseSide;
-use Scribe\Doctrine\Base\Model\HasDescription;
-use Scribe\Doctrine\Base\Model\HasName;
 use Scribe\Doctrine\Base\Model\HasParentOwningSide;
 use Scribe\Doctrine\Base\Model\HasWeight;
-use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
+use Scribe\Doctrine\Base\Model\Name\HasName;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasRoleReverseRestrictionsOwningSide;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasRoute;
+use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
 
 /**
  * Class NavigationItem.
  */
 class NavigationItem extends AbstractEntity
 {
-    use HasName,
-        HasWeight,
-        HasAttributes,
-        HasRoute,
-        HasDescription,
-        HasChildrenInverseSide,
-        HasParentOwningSide,
-        SluggableBehaviorTrait;
+    use HasName;
+    use HasDescription;
+    use HasWeight;
+    use HasAttributes;
+    use HasRoute;
+    use HasChildrenInverseSide;
+    use HasParentOwningSide;
+    use HasRoleReverseRestrictionsOwningSide;
+    use SluggableBehaviorTrait;
 
     /**
      * @var NavigationSet|null

@@ -21,14 +21,14 @@ trait HasOrganization
     /**
      * @var OrganizationInterface
      */
-    protected $org;
+    protected $organization;
 
     /**
      * Init organization property.
      */
     public function initializeOrg()
     {
-        $this->org = null;
+        $this->organization = null;
     }
 
     /**
@@ -40,7 +40,7 @@ trait HasOrganization
      */
     public function setOrganization(OrganizationInterface $organization = null)
     {
-        $this->org = $organization;
+        $this->organization = $organization;
 
         return $this;
     }
@@ -52,7 +52,7 @@ trait HasOrganization
      */
     public function getOrganization()
     {
-        return $this->org;
+        return $this->organization;
     }
 
     /**
@@ -62,7 +62,7 @@ trait HasOrganization
      */
     public function hasOrganization()
     {
-        return (bool) ($this->org instanceof OrganizationInterface);
+        return (bool) ($this->organization instanceof OrganizationInterface);
     }
 
     /**
@@ -72,7 +72,7 @@ trait HasOrganization
      */
     public function clearOrganization()
     {
-        $this->org = null;
+        $this->organization = null;
 
         return $this;
     }
@@ -80,15 +80,15 @@ trait HasOrganization
     /**
      * Setter for organization property.
      *
-     * @param OrganizationInterface|null $org a organization entity object instance
+     * @param OrganizationInterface|null $organization a organization entity object instance
      *
      * @return $this
      *
      * @deprecated
      */
-    public function setOrg(OrganizationInterface $org = null)
+    public function setOrg(OrganizationInterface $organization = null)
     {
-        return $this->setOrganization($org);
+        return $this->setOrganization($organization);
     }
 
     /**

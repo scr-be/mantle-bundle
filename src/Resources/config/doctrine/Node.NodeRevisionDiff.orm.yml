@@ -1,6 +1,8 @@
 Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff:
 
     type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
     table:           MantleBundle_NodeRevisionDiff
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionDiffRepository
 

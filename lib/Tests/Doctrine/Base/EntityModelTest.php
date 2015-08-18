@@ -573,7 +573,7 @@ class EntityModelTest extends AbstractMantleTestCase
         $this->randomEntityOne->setName('family');
         $this->randomEntityTwo = new Icon();
         $this->randomEntityTwo->setName('icon');
-        $this->basicTraitAssertions['HasChildrenOwningSide']['ops'] = [new ArrayCollection([
+        $this->basicTraitAssertions['HasChildCollectionOwningSide']['ops'] = [new ArrayCollection([
             $this->randomEntityOne,
             $this->randomEntityTwo,
             ]),
@@ -586,7 +586,7 @@ class EntityModelTest extends AbstractMantleTestCase
             $this->randomEntityOne,
             $this->randomEntityTwo,
         ]);
-        $entity->setChildren($collection);
+        $entity->setChildCollection($collection);
 
         static::assertTrue($entity->hasChild($this->randomEntityOne));
 

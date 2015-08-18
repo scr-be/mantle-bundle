@@ -19,12 +19,11 @@ use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\HasPerson;
 use Scribe\Doctrine\Base\Model\HasProperties;
 use Scribe\Doctrine\Base\Model\HasTitle;
-use Scribe\Doctrine\Base\Model\InstantMessenger\HasInstantMessengerCollection;
+use Scribe\Doctrine\Base\Model\Organization\HasOrganization;
 use Scribe\Doctrine\Base\Model\Phone\HasPhoneCollection;
 use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 use Scribe\MantleBundle\Component\Security\Core\OrganizationInterface;
 use Scribe\MantleBundle\Component\Security\Core\UserInterface;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasOrg;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasRolesOwningSide;
 
 /**
@@ -34,12 +33,11 @@ class User extends AbstractEntity implements UserInterface
 {
     use HasPerson,
         HasDescription,
-        HasOrg,
+        HasOrganization,
         HasTitle,
         HasProperties,
         HasAddressCollection,
         HasPhoneCollection,
-        HasInstantMessengerCollection,
         HasActivityCollection,
         HasRolesOwningSide,
         TimestampableBehaviorTrait;

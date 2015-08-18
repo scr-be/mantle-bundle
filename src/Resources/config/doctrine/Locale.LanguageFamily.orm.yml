@@ -1,0 +1,33 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageFamily:
+
+    type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
+    table:           MantleBundle_LocaleLanguageFamily
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageFamilyRepository
+
+    id:
+
+        id:
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+
+    indexes:
+
+        languageFamilySlug:
+            columns:
+                - slug
+
+    fields:
+
+        slug:
+            type   : string
+            length : 256
+
+        name:
+            type   : string
+            length : 256
+...

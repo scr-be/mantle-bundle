@@ -1,6 +1,8 @@
 Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem:
 
     type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
     table:           MantleBundle_NavigationItem
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationItemRepository
 

@@ -1,6 +1,8 @@
 Scribe\MantleBundle\Doctrine\Entity\Node\Node:
 
     type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
     table:           MantleBundle_Node
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository
 
@@ -19,7 +21,7 @@ Scribe\MantleBundle\Doctrine\Entity\Node\Node:
 
         title:
             type:   string
-            length: '500'
+            length: 500
 
         weight:
             type:     integer

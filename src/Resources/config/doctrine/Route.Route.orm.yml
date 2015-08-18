@@ -1,6 +1,8 @@
 Scribe\MantleBundle\Doctrine\Entity\Route\Route:
 
     type:            entity
+    charset:         utf8mb4
+    collate:         utf8mb4_unicode_ci
     table:           MantleBundle_Route
     repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
 
