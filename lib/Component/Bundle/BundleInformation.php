@@ -94,7 +94,6 @@ class BundleInformation implements BundleInformationInterface
 
         if ($autoHandle === true) {
             $this->handle(self::MODE_REQUEST);
-            dump($this);
         }
     }
 
