@@ -137,6 +137,8 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      */
     public function render($icon = null, $family = null, ...$styles)
     {
+        list($icon, $family) = $this->canonicalizeSlugs($icon, $family);
+
         $html = $this
             ->validateFamily($family, $icon)
             ->validateIcon($icon)
@@ -149,6 +151,16 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
         $this->resetState();
 
         return $html;
+    }
+
+    protected function canonicalizeSlugs(...$slugs) {
+        $canonicalizedSlugs = [];
+
+        for ($i = 0; $i < count($slugs); $i++) {
+            $canonicalizedSlugs[] = preg_replace('#[^a-z0-9_-]#i', '', $slugs[$i]);
+        }
+
+        return $canonicalizedSlugs;
     }
 
     /**
