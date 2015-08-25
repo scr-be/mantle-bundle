@@ -1,57 +1,69 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Icon\Icon:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_Icon
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_Icon
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : integer
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    indexes:
+
+        iconSlugIndex:
+            columns: [ slug ]
 
     fields:
 
         slug:
-            type:     string
-            length:   512
-            nullable: false
+            type     : string
+            length   : 512
+            nullable : false
 
         unicode:
-            type:     string
-            length:   10
-            nullable: true
+            type     : string
+            length   : 64
+            nullable : true
 
         name:
-            type:   string
-            length: 40
+            type   : string
+            length : 128
 
         aliases:
-            type:     json_array
-            nullable: true
+            type     : json_array
+            nullable : true
 
         categories:
-            type:     json_array
-            nullable: true
+            type     : json_array
+            nullable : true
 
         attributes:
-            type:     json_array
-            nullable: true
+            type     : json_array
+            nullable : true
 
     manyToMany:
 
         families:
-            targetEntity: IconFamily
-            inversedBy:   icons
-            joinTable:
-                name: MantleBundle_Icon_MaptoFamilies
-                joinColumns:
+            targetEntity : IconFamily
+            inversedBy   : icons
+            joinTable    :
+                name        : MantleBundle_Icon_MaptoFamilies
+                joinColumns :
                     iconId:
                         referencedColummnName: id
                 inverseJoinColumns:
                     iconFamilyId:
                         referencedColummnName: id
+
+...

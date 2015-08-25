@@ -192,7 +192,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
 
     /**
      * @param object $entity
-     * @param array  $f
+     * @param mixed  $f
      *
      * @return object
      */
@@ -201,11 +201,21 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         foreach ($f as $name => $value) {
             $setter = 'set'.ucfirst($name);
             $data = $this->getFixtureDataValue($name, $f);
+
             try {
                 $entity->$setter($data);
             } catch (ContextErrorException $e) {
-                $dataCollection = new ArrayCollection($data);
-                $entity->$setter($dataCollection);
+                try {
+                    $dataCollection = new ArrayCollection((array)$data);
+                    $entity->$setter($dataCollection);
+                } catch (ContextErrorException $ei) {
+                    throw new RuntimeException(
+                        'Unrecoverable error for entiry "%s" and setter "%s".',
+                        RuntimeException::CODE_FIXTURE_DATA_INCONSISTENT,
+                        null, null,
+                        get_class($entity), $setter
+                    );
+                }
             }
         }
 

@@ -1,0 +1,60 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageName:
+
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_LocaleLanguageName
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageNameRepository
+
+    id:
+
+        id:
+            type: integer
+            id:   true
+            generator:
+                strategy: AUTO
+
+    uniqueConstraints:
+
+        languageNameCodeUnique:
+            columns: [ code ]
+
+    fields:
+
+        name:
+            type   : string
+            length : 512
+
+        code:
+            type   : string
+            length : 2
+            fixed  : true
+
+        codeA3:
+            type     : string
+            length   : 3
+            fixed    : true
+            nullable : true
+
+        nativeNames:
+            type     : json_array
+            nullable : true
+
+        aka:
+            type     : json_array
+            nullable : true
+
+    manyToOne:
+
+        family:
+            targetEntity : LanguageFamily
+            inversedBy   : languageCollection
+            fetch        : EAGER
+            joinColumn   :
+                name            : family
+                referenceColumn : id
+
+...

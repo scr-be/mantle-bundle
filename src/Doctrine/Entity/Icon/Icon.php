@@ -40,12 +40,12 @@ class Icon extends AbstractEntity
     /**
      * @var ArrayCollection|IconFamily[]
      */
-    private $families;
+    protected $families;
 
     /**
      * @var string
      */
-    private $unicode;
+    protected $unicode;
 
     /**
      * perform any entity setup.

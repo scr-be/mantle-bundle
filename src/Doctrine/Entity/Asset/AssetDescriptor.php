@@ -22,27 +22,27 @@ class AssetDescriptor extends AbstractEntity
     /**
      * @var string
      */
-    private $binContent;
+    protected $binContent;
 
     /**
      * @var string
      */
-    private $markup;
+    protected $markup;
 
     /**
      * @var int
      */
-    private $height;
+    protected $height;
 
     /**
      * @var int
      */
-    private $width;
+    protected $width;
 
     /**
      * @var ArrayCollection
      */
-    private $assets;
+    protected $assets;
 
     /**
      * perform any entity setup.

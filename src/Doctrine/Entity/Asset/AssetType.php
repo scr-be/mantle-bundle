@@ -28,12 +28,12 @@ class AssetType extends AbstractEntity
     /**
      * @var string
      */
-    private $element;
+    protected $element;
 
     /**
      * @var ArrayCollection
      */
-    private $assets;
+    protected $assets;
 
     /**
      * perform any entity setup.

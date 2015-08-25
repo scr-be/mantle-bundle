@@ -1,29 +1,36 @@
-Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff:
+---
+Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff :
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_NodeRevisionDiff
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionDiffRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_NodeRevisionDiff
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionDiffRepository
 
-    id:
+    id :
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : bigint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
-    fields:
+    fields :
 
-        diff:
-            type: text
+        diff :
+            type : text
 
-    oneToOne:
+    oneToOne :
 
-        nodeRevision:
-            targetEntity: NodeRevision
-            inversedBy:   diff
-            joinColumn:
-                name:            nodeRevisionId
-                referencedColumn: id
+        nodeRevision :
+            targetEntity : NodeRevision
+            inversedBy   : diff
+            joinColumn   :
+                name             : nodeRevisionId
+                referencedColumn : id
+
+...

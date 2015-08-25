@@ -1,0 +1,49 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationMessage:
+
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_TranslationMessage
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationMessageRepository
+
+    id:
+
+        id:
+            type      : integer
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    indexes:
+
+        translationMessageIndex:
+            columns: [ locale, translation ]
+
+    fields:
+
+        value :
+            type : text
+
+    manyToOne:
+
+        locale:
+            targetEntity : Scribe\MantleBundle\Doctrine\Entity\Locale\Locale
+            fetch        : EAGER
+            joinColumn:
+                name                 : locale
+                referencedColumnName : id
+
+        translation:
+            targetEntity : Translation
+            inversedBy   : messageCollection
+            fetch        : EAGER
+            joinColumn   :
+                name                 : translation
+                referencedColumnName : id
+
+...

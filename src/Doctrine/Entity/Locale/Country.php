@@ -22,47 +22,6 @@ class Country extends AbstractEntity
 {
     use HasName;
     use HasCode;
-
-    /**
-     * @var string
-     */
-    protected $codeAlpha3;
-
-    /**
-     * @var int
-     */
-    protected $codeNumeric;
-
-    /**
-     * @param  string $codeAlpha3
-     *
-     * @return $this
-     */
-    public function setCodeAlpha3($codeAlpha3)
-    {
-        $this->codeAlpha3 = $codeAlpha3;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCodeAlpha3()
-    {
-        return $this->codeAlpha3;
-    }
-
-    /**
-     * @param  int $codeNumeric
-     * @return $this
-     */
-    public function setCodeNumeric($codeNumeric)
-    {
-        $this->codeNumeric = $codeNumeric;
-
-        return $this;
-    }
 }
 
 /* EOF */

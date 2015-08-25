@@ -1,30 +1,37 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_AssetType
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetTypeRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_AssetType
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Asset\AssetTypeRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : smallint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
     fields:
 
         element:
-            type:   string
-            length: 255
+            type   : string
+            length : 255
 
         attributes:
-            type: json_array
+            type : json_array
 
     oneToMany:
 
         assets:
-            targetEntity: Asset
-            mappedBy:     assetType
+            targetEntity : Asset
+            mappedBy     : assetType
+
+...

@@ -1,33 +1,53 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageFamily:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_LocaleLanguageFamily
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageFamilyRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_LocaleLanguageFamily
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageFamilyRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : smallint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
-    indexes:
+    uniqueConstraints:
 
         languageFamilySlug:
-            columns:
-                - slug
+            columns: [ slug ]
 
     fields:
 
         slug:
             type   : string
-            length : 256
+            length : 128
 
         name:
             type   : string
             length : 256
+
+        src:
+            type     : string
+            length   : 1024
+            nullable : true
+
+        description:
+            type     : text
+            nullable : true
+
+    oneToMany:
+
+        languageCollection:
+            targetEntity : LanguageName
+            mappedBy     : family
+            fetch        : LAZY
+
 ...

@@ -1,45 +1,56 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_RouteRedirect
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_RouteRedirect
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : smallint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
     fields:
 
         path:
-            type: string
-            length: 510
+            type   : string
+            length : 510
 
         pathRedirect:
-            type: string
-            length: 510
+            type   : string
+            length : 510
+
+        pathMatchRegex:
+            type    : boolean
+            default : false
 
         routeDefaults:
-            type:     json_array
-            nullable: true
+            type     : json_array
+            nullable : true
 
         routeMethods:
-            type:     json_array
-            nullable: true
+            type     : json_array
+            nullable : true
 
         routeSchemas:
-            type:     json_array
-            nullable: true
+            type     : json_array
+            nullable : true
 
         routeRequirements:
-            type:     json_array
-            nullable: true
+            type     : json_array
+            nullable : true
 
         routeHost:
-            type:     string
-            nullable: true
+            type     : string
+            nullable : true
+
+...

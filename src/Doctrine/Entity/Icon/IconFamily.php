@@ -38,27 +38,27 @@ class IconFamily extends AbstractEntity
     /**
      * @var string
      */
-    private $url;
+    protected $url;
 
     /**
      * @var string
      */
-    private $prefix;
+    protected $prefix;
 
     /**
      * @var array
      */
-    private $requiredClasses;
+    protected $requiredClasses;
 
     /**
      * @var array
      */
-    private $optionalClasses;
+    protected $optionalClasses;
 
     /**
      * @var IconTemplate[]
      */
-    private $templates;
+    protected $templates;
 
     /**
      * perform any entity setup.

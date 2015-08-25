@@ -1,0 +1,37 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationDomain:
+
+    type           : entity
+    charset        : utf8mb4
+    collate        : utf8mb4_unicode_ci
+    options        :
+        row_format : DYNAMIC
+    table          : MantleBundle_TranslationDomain
+    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationDomainRepository
+
+    id:
+
+        id:
+            type      : smallint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    uniqueConstraints:
+
+       translationDomainIndex:
+           columns: [name]
+
+    fields:
+
+        name:
+            type   : string
+            length : 512
+
+        description:
+            type     : text
+            nullable : true
+
+...

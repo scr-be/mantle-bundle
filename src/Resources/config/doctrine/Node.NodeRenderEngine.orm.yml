@@ -1,20 +1,28 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_NodeRenderEngine
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRenderEngineRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_NodeRenderEngine
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRenderEngineRepository
 
     id:
 
         id:
-            type:      integer
-            id:        true
-            generator: { strategy: AUTO }
+            type      : smallint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
     oneToMany:
 
         revisions:
-            targetEntity: NodeRevision
-            mappedBy:     renderEngine
+            targetEntity : NodeRevision
+            mappedBy     : renderEngine
+
+...

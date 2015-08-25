@@ -11,10 +11,9 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\HasSlug;
-use Scribe\Doctrine\Base\Model\HasValue;
-use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 
 /**
  * Class Translation;
@@ -22,15 +21,16 @@ use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 class Translation extends AbstractEntity
 {
     use HasSlug;
-    use HasValue;
-    use TimestampableBehaviorTrait;
 
     /**
-     * @var bool
+     * @var TranslationDomain
      */
-    protected $dynamic;
+    protected $domain;
 
-    protected $locale;
+    /**
+     * @var TranslationMessage[]|ArrayCollection
+     */
+    protected $messageCollection;
 
     /**
      * Support for casting from object type to string type.
@@ -49,21 +49,135 @@ class Translation extends AbstractEntity
      */
     public function initializeSerializable()
     {
-        $this->setSerializablePropertyCollection('id', 'slug', 'content', 'dynamic');
+        $this->setSerializablePropertyCollection('id', 'slug', 'domain', 'locale', 'value');
 
         return $this;
     }
 
     /**
-     * Define the default value for dynamic property.
+     * @return $this
+     */
+    public function initializeMessageCollection()
+    {
+        $this->messageCollection = new ArrayCollection;
+
+        return $this;
+    }
+
+    /**
+     * @param null|TranslationMessage[]|ArrayCollection $messageCollection
      *
      * @return $this
      */
-    public function initializeDynamic()
+    public function setMessageCollection($messageCollection)
     {
-        $this->dynamic = false;
+        if (is_array($messageCollection)) {
+            $messageCollection = new ArrayCollection($messageCollection);
+        }
+
+        if ($messageCollection === null) {
+            $messageCollection = new ArrayCollection;
+        }
+
+        if ($messageCollection instanceof ArrayCollection) {
+            $this->messageCollection = $messageCollection;
+        }
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection|TranslationMessage[]
+     */
+    public function getMessageCollection()
+    {
+        return $this->messageCollection;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasMessageCollection()
+    {
+        return (bool) ($this->messageCollection->isEmpty() !== true);
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearMessageCollection()
+    {
+        return $this->initializeMessageCollection();
+    }
+
+    /**
+     * @param TranslationMessage $message
+     *
+     * @return $this
+     */
+    public function addMessage(TranslationMessage $message)
+    {
+        if ($this->hasMessage($message) !== true) {
+            $this->messageCollection->add($message);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param TranslationMessage $message
+     *
+     * @return bool
+     */
+    public function hasMessage(TranslationMessage $message)
+    {
+        return (bool) ($this->messageCollection->contains($message));
+    }
+
+    /**
+     * @return $this
+     */
+    public function initializeDomain()
+    {
+        $this->domain = null;
+
+        return $this;
+    }
+
+    /**
+     * @param TranslationDomain $domain
+     *
+     * @return $this
+     */
+    public function setDomain(TranslationDomain $domain)
+    {
+        $this->domain = $domain;
+
+        return $this;
+    }
+
+    /**
+     * @return TranslationDomain
+     */
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDomain()
+    {
+        return (bool) ($this->domain !== null);
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearDomain()
+    {
+        return $this->initializeDomain();
     }
 }
 

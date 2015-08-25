@@ -31,27 +31,27 @@ class IconTemplate extends AbstractEntity
     /**
      * @var array
      */
-    private $variables;
+    protected $variables;
 
     /**
      * @var string
      */
-    private $engine;
+    protected $engine;
 
     /**
      * @var string
      */
-    private $template;
+    protected $template;
 
     /**
      * @var IconFamily
      */
-    private $family;
+    protected $family;
 
     /**
      * @var int
      */
-    private $priority;
+    protected $priority;
 
     /**
      * Support for casting from object type to string type.

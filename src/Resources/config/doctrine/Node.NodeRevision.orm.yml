@@ -1,59 +1,79 @@
-Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision:
+---
+Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision :
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_NodeRevision
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_NodeRevision
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionRepository
 
-    id:
+    id :
 
         id:
-            type:      integer
-            id:        true
-            generator: { strategy: AUTO }
+            type      : bigint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
-    fields:
+    fields :
 
         content:
-            type: text
+            type : text
 
-    oneToOne:
+    oneToOne :
 
-        diff:
-            targetEntity: NodeRevisionDiff
-            mappedBy:     nodeRevision
-        owningNode:
-            targetEntity: Node
-            mappedBy:     latestRevision
+        diff :
+            targetEntity : NodeRevisionDiff
+            mappedBy     :     nodeRevision
 
-    manyToOne:
+        owningNode :
+            targetEntity : Node
+            mappedBy     : latestRevision
 
-        node:
-            targetEntity: Node
-            inversedBy:   revisions
-            joinColumn:
-                name:            nodeId
-                referenceColumn: id
+    manyToOne :
 
-        renderEngine:
-            targetEntity: NodeRenderEngine
-            inversedBy:   revisions
-            joinColumn:   { name: nodeRenderEngineId, referencedColumn: id }
+        node :
+            targetEntity : Node
+            inversedBy   : revisions
+            joinColumn   :
+                name            : nodeId
+                referenceColumn : id
 
-    manyToMany:
-        embeddedNodes:
-            targetEntity: Node
-            inversedBy:   containerNodeRevisions
-            joinTable:
-                name:               MantleBundle_NodeRevision_MapTo_EmbeddedNode
-                joinColumns:        { nodeRevisionId: { referencedColumnId: id } }
-                inverseJoinColumns: { nodeId: { referencedColumnId: id } }
+        renderEngine :
+            targetEntity : NodeRenderEngine
+            inversedBy   : revisions
+            joinColumn   :
+                name             : nodeRenderEngineId
+                referencedColumn : id
 
-        embeddedAssets:
-            targetEntity: Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
-            inversedBy:   containerNodeRevisions
-            joinTable:
-                name:               MantleBundle_NodeRevision_MapTo_Asset
-                joinColumns:        { nodeRevisionId: { referencedColumnId: id } }
-                inverseJoinColumns: { assetId:        { referencedColumnId: id } }
+    manyToMany :
+
+        embeddedNodes :
+            targetEntity : Node
+            inversedBy   : containerNodeRevisions
+            joinTable    :
+                name               : MantleBundle_NodeRevision_MapTo_EmbeddedNode
+                joinColumns        :
+                    nodeRevisionId:
+                        referencedColumnId: id
+                inverseJoinColumns :
+                    nodeId:
+                        referencedColumnId: id
+
+        embeddedAssets :
+            targetEntity : Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
+            inversedBy   : containerNodeRevisions
+            joinTable    :
+                name               : MantleBundle_NodeRevision_MapTo_Asset
+                joinColumns        :
+                    nodeRevisionId:
+                        referencedColumnId: id
+                inverseJoinColumns :
+                    assetId:
+                        referencedColumnId: id
+
+...

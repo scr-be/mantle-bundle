@@ -1,59 +1,70 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Asset\Asset:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_Asset
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_Asset
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Asset\AssetRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : integer
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
     fields:
 
         path:
-            type:     text
-            nullable: true
+            type     : text
+            nullable : true
 
         embeddedCode:
-            type:     text
-            nullable: true
+            type     : text
+            nullable : true
 
         height:
-            type:     integer
-            nullable: true
+            type     : integer
+            options  :
+                unsigned : true
+            nullable : true
 
         width:
-            type:     integer
-            nullable: true
+            type     : smallint
+            options  :
+                unsigned : true
+            nullable : true
 
         altText:
-            type:     text
-            nullable: true
+            type     : text
+            nullable : true
 
     manyToOne:
 
         assetType:
-            targetEntity: AssetType
-            inversedBy:   assets
-            joinColumn:
-                name:            assetTypeId
-                referenceColumn: id
+            targetEntity : AssetType
+            inversedBy   : assets
+            joinColumn   :
+                name            : assetTypeId
+                referenceColumn : id
 
         assetDescriptor:
-            targetEntity: AssetDescriptor
-            inversedBy:   assets
-            joinColumn:
-                name:            assetDescriptorId
-                referenceColumn: id
+            targetEntity : AssetDescriptor
+            inversedBy   : assets
+            joinColumn   :
+                name            : assetDescriptorId
+                referenceColumn : id
 
     manyToMany:
 
         containerNodeRevisions:
-            targetEntity: Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision
-            mappedBy:     embeddedAssets
+            targetEntity : Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision
+            mappedBy     : embeddedAssets
+
+...

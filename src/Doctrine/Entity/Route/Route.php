@@ -36,7 +36,7 @@ class Route extends AbstractEntity
      *
      * @var string
      */
-    private $referenceType;
+    protected $referenceType;
 
     /**
      * Support for casting from object type to string type.

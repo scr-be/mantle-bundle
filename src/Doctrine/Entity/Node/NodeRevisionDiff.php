@@ -21,12 +21,12 @@ class NodeRevisionDiff extends AbstractEntity
     /**
      * @var string
      */
-    private $diff;
+    protected $diff;
 
     /**
      * @var NodeRevision
      */
-    private $nodeRevision;
+    protected $nodeRevision;
 
     /**
      * perform any entity setup.

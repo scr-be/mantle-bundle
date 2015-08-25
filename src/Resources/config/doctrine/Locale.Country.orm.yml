@@ -1,24 +1,28 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Locale\Country:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_LocaleCountry
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Locale\CountryRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_LocaleCountry
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\CountryRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : integer
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
     uniqueConstraints:
 
         countryCodeUnique:
-            columns:
-                - code
+            columns: [ code ]
 
     fields:
 
@@ -29,14 +33,7 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\Country:
 
         name:
             type   : string
-            length : 512
+            length : 1024
             fixed  : false
 
-        codeAlpha3:
-            type   : string
-            length : 3
-            fixed  : true
-
-        codeNumeric:
-            type     : smallint
-            unsigned : true
+...

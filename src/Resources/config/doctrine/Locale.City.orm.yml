@@ -1,0 +1,54 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\Locale\City:
+
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_LocaleCity
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\CityRepository
+
+    id:
+
+        id:
+            type      : bigint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    fields:
+
+        name:
+            type   : string
+            length : 2048
+
+        latitude:
+            type     : float
+            unsigned : false
+            nullable : true
+
+        longitude:
+            type     : float
+            unsigned : false
+            nullable : true
+
+    manyToOne:
+
+        country:
+            targetEntity : Country
+            fetch        : EAGER
+            joinColumn   :
+                name            : country
+                referenceColumn : id
+
+        language:
+            targetEntity : LanguageName
+            fetch        : EAGER
+            joinColumn   :
+                name            : language
+                referenceColumn : id
+
+...

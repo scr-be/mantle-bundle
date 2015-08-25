@@ -1,23 +1,49 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Locale\Locale:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_Locale
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_Locale
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
-##
-#    uniqueConstraints:
-##
-#        scribe_mantle_locales_unique:
-#            columns:
-#                - slug
-#                - locale
-##
+            type      : integer
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    uniqueConstraints:
+
+        localeNameUnique:
+            columns: [ name ]
+
+    fields:
+
+        name:
+            type   : string
+            length : 5
+
+    manyToOne:
+
+        language:
+            targetEntity : LanguageName
+            fetch        : EAGER
+            joinColumn   :
+                name            : language
+                referenceColumn : id
+
+        country:
+            targetEntity : Country
+            fetch        : EAGER
+            joinColumn   :
+                name            : country
+                referenceColumn : id
+
+...

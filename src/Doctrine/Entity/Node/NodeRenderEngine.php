@@ -27,7 +27,7 @@ class NodeRenderEngine extends AbstractEntity
     /**
      * @var ArrayCollection
      */
-    private $revisions;
+    protected $revisions;
 
     /**
      * perform any entity setup.

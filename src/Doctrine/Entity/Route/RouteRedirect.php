@@ -12,37 +12,52 @@ class RouteRedirect extends AbstractEntity
     /**
      * @var string
      */
-    private $path;
+    protected $path;
 
     /**
      * @var string
      */
-    private $pathRedirect;
+    protected $pathRedirect;
+
+    /**
+     * @var bool
+     */
+    protected $pathMatchRegex;
 
     /**
      * @var array|null
      */
-    private $routeDefaults;
+    protected $routeDefaults;
 
     /**
      * @var array|null
      */
-    private $routeMethods;
+    protected $routeMethods;
 
     /**
      * @var array|null
      */
-    private $routeSchemas;
+    protected $routeSchemas;
 
     /**
      * @var array|null
      */
-    private $routeRequirements;
+    protected $routeRequirements;
 
     /**
      * @var string|null
      */
-    private $routeHost;
+    protected $routeHost;
+
+    /**
+     * @return $this
+     */
+    public function initializePathMatchRegex()
+    {
+        $this->pathMatchRegex = false;
+
+        return $this;
+    }
 
     /**
      * @return $this

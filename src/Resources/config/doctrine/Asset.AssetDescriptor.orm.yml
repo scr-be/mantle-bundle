@@ -1,39 +1,46 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Asset\AssetDescriptor:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_AssetDescriptor
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Asset\AssetDescriptorRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_AssetDescriptor
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Asset\AssetDescriptorRepository
 
     id:
 
         id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+            type      : integer
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
     fields:
 
         binContent:
-            type:     blob
-            nullable: true
+            type     :  blob
+            nullable : true
 
         markup:
-            type:     text
-            nullable: true
+            type     : text
+            nullable : true
 
         height:
-            type:     integer
-            nullable: true
+            type     : integer
+            nullable : true
 
         width:
-            type:     integer
-            nullable: true
+            type     : integer
+            nullable : true
 
     oneToMany:
 
         assets:
-            targetEntity: Asset
-            mappedBy:     assetDescriptor
+            targetEntity : Asset
+            mappedBy     : assetDescriptor
+
+...

@@ -36,6 +36,35 @@ parameters:
     s.mantle.asset_descriptor.repo.class:                               Scribe\MantleBundle\Doctrine\Repository\Asset\AssetDescriptorRepository
     s.mantle.asset_type.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType
     s.mantle.asset_type.repo.class:                                     Scribe\MantleBundle\Doctrine\Repository\Asset\AssetTypeRepository
+    s.mantle.locale_language_family.entity.class:                       Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageFamily
+    s.mantle.locale_language_family.repo.class:                         Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageFamilyRepository
+    s.mantle.locale_language_name.entity.class:                         Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageName
+    s.mantle.locale_language_name.repo.class:                           Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageNameRepository
+    s.mantle.locale_country.entity.class:                               Scribe\MantleBundle\Doctrine\Entity\Locale\Country
+    s.mantle.locale_country.repo.class:                                 Scribe\MantleBundle\Doctrine\Repository\Locale\CountryRepository
+    s.mantle.locale.entity.class:                                       Scribe\MantleBundle\Doctrine\Entity\Locale\Locale
+    s.mantle.locale.repo.class:                                         Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
+    s.mantle.locale_city.entity.class:                                  Scribe\MantleBundle\Doctrine\Entity\Locale\City
+    s.mantle.locale_city.repo.class:                                    Scribe\MantleBundle\Doctrine\Repository\Locale\CityRepository
+    s.mantle.state_runtime_bundle.entity.class:                         Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle
+    s.mantle.state_runtime_bundle.repo.class:                           Scribe\MantleBundle\Doctrine\Repository\State\RuntimeBundleRepository
+    s.mantle.state_runtime_controller.entity.class:                     Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController
+    s.mantle.state_runtime_controller.repo.class:                       Scribe\MantleBundle\Doctrine\Repository\State\RuntimeControllerRepository
+    s.mantle.state_runtime_action.entity.class:                         Scribe\MantleBundle\Doctrine\Entity\State\RuntimeAction
+    s.mantle.state_runtime_action.repo.class:                           Scribe\MantleBundle\Doctrine\Repository\State\RuntimeActionRepository
+    s.mantle.translation.entity.class:                                  Scribe\MantleBundle\Doctrine\Entity\Translation\Translation
+    s.mantle.translation.repo.class:                                    Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationRepository
+    s.mantle.translation_domain.entity.class:                           Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationDomain
+    s.mantle.translation_domain.repo.class:                             Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationDomainRepository
+    s.mantle.translation_message.entity.class:                          Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationMessage
+    s.mantle.translation_message.repo.class:                            Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationMessageRepository
+    s.mantle.meta_title.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle
+    s.mantle.meta_title.repo.class:                                     Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository
+
+    # Meta Provider/Manager/Twig-Extension
+    s.mantle.meta_title_manager.class:                                  Scribe\MantleBundle\Component\Meta\Title\TitleManager
+    s.mantle.meta_title_provider.class:                                 Scribe\MantleBundle\Component\Meta\Title\TitleProvider
+    s.mantle.meta_title_manager.twig_extension.class:                   Scribe\MantleBundle\Component\Meta\Title\TitleProviderExtension
 
     # Bundle Information Service/Twig-Extension
 
@@ -355,6 +384,102 @@ services:
         arguments:
             - %s.mantle.asset_type.entity.class%
 
+    s.mantle.locale_language_family.repo:
+        class: %s.mantle.locale_language_family.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.locale_language_family.entity.class%
+
+    s.mantle.locale_language_name.repo:
+        class: %s.mantle.locale_language_name.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.locale_language_name.entity.class%
+
+    s.mantle.locale_country.repo:
+        class: %s.mantle.locale_country.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.locale_country.entity.class%
+
+    s.mantle.locale.repo:
+        class: %s.mantle.locale.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.locale.entity.class%
+
+    s.mantle.locale_city.repo:
+        class: %s.mantle.locale_city.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.locale_city.entity.class%
+
+    s.mantle.state_runtime_bundle.repo:
+        class: %s.mantle.state_runtime_bundle.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.state_runtime_bundle.entity.class%
+
+    s.mantle.state_runtime_controller.repo:
+        class: %s.mantle.state_runtime_controller.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.state_runtime_controller.entity.class%
+
+    s.mantle.state_runtime_action.repo:
+        class: %s.mantle.state_runtime_action.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.state_runtime_action.entity.class%
+
+    s.mantle.translation.repo:
+        class: %s.mantle.translation.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.translation.entity.class%
+
+    s.mantle.translation_domain.repo:
+        class: %s.mantle.translation_domain.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.translation_domain.entity.class%
+
+    s.mantle.translation_message.repo:
+        class: %s.mantle.translation_message.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.translation_message.entity.class%
+
+    s.mantle.meta_title.repo:
+        class: %s.mantle.meta_title.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.meta_title.entity.class%
+
     # Doctrine Subscribers
 
     s.mantle.doctrine.behaviors.timestampable.subscriber:
@@ -494,6 +619,21 @@ services:
         arguments:
             - @doctrine.orm.entity_manager
             - @s.mantle.node.repo
+
+    # Meta Title
+
+    s.mantle.meta_title_provider:
+        class: %s.mantle.meta_title_provider.class%
+        arguments:
+            - @s.mantle.meta_title.repo
+            - @s.mantle.bundle_information
+            - @translator
+
+    s.mantle.meta_title_manager:
+        class: %s.mantle.meta_title_manager.class%
+        arguments:
+            - @s.mantle.meta_title_provider
+            - {'digitalhub': 'Digital Hub', 'security': 'Your Account', 'blog': 'Articles & Book'}
 
     # Bundle Information Services
 

@@ -1,0 +1,37 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController:
+
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_State_RuntimeController
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\State\RuntimeControllerRepository
+
+    id:
+
+        id:
+            type      : smallint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    indexes :
+
+        stateRtControllerIndex:
+            columns: [ name ]
+
+    fields:
+
+        name:
+            type   : string
+            length : 256
+
+        description:
+            type     : text
+            nullable : true
+
+...

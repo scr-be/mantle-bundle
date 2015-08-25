@@ -12,12 +12,18 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\Name\HasName;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasCountry;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasLanguage;
 
 /**
  * Class Locale
  */
 class Locale extends AbstractEntity
 {
+    use HasName;
+    use HasLanguage;
+    use HasCountry;
 }
 
 /* EOF */

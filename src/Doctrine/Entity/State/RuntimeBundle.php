@@ -9,23 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
+namespace Scribe\MantleBundle\Doctrine\Entity\State;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasCode;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\Name\HasName;
 
 /**
- * Class Locale;
+ * Class RuntimeBundle
  */
-class Language extends AbstractEntity
+class RuntimeBundle extends AbstractEntity
 {
     use HasName;
-    use HasCode;
-
-    protected $nativeNames;
-
-    protected $altNames;
+    use HasDescription;
 }
 
 /* EOF */

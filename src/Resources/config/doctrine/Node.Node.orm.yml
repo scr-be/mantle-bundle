@@ -1,49 +1,57 @@
+---
 Scribe\MantleBundle\Doctrine\Entity\Node\Node:
 
-    type:            entity
-    charset:         utf8mb4
-    collate:         utf8mb4_unicode_ci
-    table:           MantleBundle_Node
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_Node
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRepository
 
     id:
 
         id:
-            type:      integer
-            id:        true
-            generator: { strategy: AUTO }
+            type      : integer
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
 
     fields:
 
         slug:
-            type: string
-            unique: true
+            type   : string
+            unique : true
 
         title:
-            type:   string
-            length: 500
+            type   : string
+            length : 500
 
         weight:
-            type:     integer
-            nullable: true
+            type     : integer
+            nullable : true
 
     oneToOne:
 
         latestRevision:
-            targetEntity: NodeRevision
-            inversedBy:   owningNode
-            joinColumn:
-                name:            latestRevisionId
-                referenceColumn: id
+            targetEntity : NodeRevision
+            inversedBy   : owningNode
+            joinColumn   :
+                name            : latestRevisionId
+                referenceColumn : id
 
     oneToMany:
 
         revisions:
-            targetEntity: NodeRevision
-            mappedBy:     node
+            targetEntity : NodeRevision
+            mappedBy     : node
 
     manyToMany:
 
         containerNodeRevisions:
-            targetEntity: NodeRevision
-            mappedBy:     embeddedNodes
+            targetEntity : NodeRevision
+            mappedBy     : embeddedNodes
+
+...

@@ -40,22 +40,22 @@ class Node extends AbstractEntity implements HierarchicalNodeInterface, \ArrayAc
     /**
      * @var User
      */
-    private $author;
+    protected $author;
 
     /**
      * @var ArrayCollection
      */
-    private $revisions;
+    protected $revisions;
 
     /**
      * @var NodeRevision
      */
-    private $latestRevision;
+    protected $latestRevision;
 
     /**
      * @var ArrayCollection
      */
-    private $containerNodeRevisions;
+    protected $containerNodeRevisions;
 
     /**
      * perform any entity setup.

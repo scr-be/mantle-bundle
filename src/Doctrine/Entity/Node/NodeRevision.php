@@ -30,42 +30,42 @@ class NodeRevision extends AbstractEntity
     /**
      * @var string
      */
-    private $content;
+    protected $content;
 
     /**
      * @var mixed
      */
-    private $author;
+    protected $author;
 
     /**
      * @var NodeRenderEngine
      */
-    private $renderEngine;
+    protected $renderEngine;
 
     /**
      * @var ArrayCollection
      */
-    private $embeddedNodes;
+    protected $embeddedNodes;
 
     /**
      * @var ArrayCollection
      */
-    private $embeddedAssets;
+    protected $embeddedAssets;
 
     /**
      * @var NodeRevisionDiff
      */
-    private $diff;
+    protected $diff;
 
     /**
      * @var Node
      */
-    private $owningNode;
+    protected $owningNode;
 
     /**
      * @var Node
      */
-    private $node;
+    protected $node;
 
     /**
      * perform any entity setup.

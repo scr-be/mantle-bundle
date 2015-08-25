@@ -22,42 +22,42 @@ class Asset extends AbstractEntity
     /**
      * @var string
      */
-    private $path;
+    protected $path;
 
     /**
      * @var string
      */
-    private $embeddedCode;
+    protected $embeddedCode;
 
     /**
      * @var int
      */
-    private $height;
+    protected $height;
 
     /**
      * @var int
      */
-    private $width;
+    protected $width;
 
     /**
      * @var string
      */
-    private $altText;
+    protected $altText;
 
     /**
      * @var AssetType
      */
-    private $assetType;
+    protected $assetType;
 
     /**
      * @var AssetDescriptor
      */
-    private $assetDescriptor;
+    protected $assetDescriptor;
 
     /**
      * @var ArrayCollection
      */
-    private $containerNodeRevisions;
+    protected $containerNodeRevisions;
 
     /**
      * perform any entity setup.

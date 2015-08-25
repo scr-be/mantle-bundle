@@ -1,0 +1,59 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle:
+
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_MetaTitle
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository
+
+    id:
+
+        id:
+            type      : smallint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    indexes :
+
+        metaTitleAllIndexed:
+            columns: [ locale, bundle, controller, action ]
+
+    fields:
+
+        title:
+            type   : string
+            length : 1024
+
+    manyToOne:
+
+        locale:
+            targetEntity : Scribe\MantleBundle\Doctrine\Entity\Locale\Locale
+            joinColumn   :
+                name            : locale
+                referenceColumn : id
+
+        bundle:
+            targetEntity : Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle
+            joinColumn   :
+                name            : bundle
+                referenceColumn : id
+
+        controller:
+            targetEntity : Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController
+            joinColumn   :
+                name            : controller
+                referenceColumn : id
+
+        action:
+            targetEntity : Scribe\MantleBundle\Doctrine\Entity\State\RuntimeAction
+            joinColumn   :
+                name            : action
+                referenceColumn : id
+
+...

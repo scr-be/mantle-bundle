@@ -1,0 +1,50 @@
+---
+Scribe\MantleBundle\Doctrine\Entity\Locale\StateTerritory:
+
+    type            : entity
+    charset         : utf8mb4
+    collate         : utf8mb4_unicode_ci
+    options         :
+        row_format  : DYNAMIC
+    table           : MantleBundle_LocaleStateTerritory
+    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\StateTerritoryRepository
+
+    id:
+
+        id:
+            type      : bigint
+            id        : true
+            options   :
+                unsigned : true
+            generator :
+                strategy : AUTO
+
+    fields:
+
+        code:
+            type   : string
+            length : 2
+            fixed  : true
+
+        name:
+            type   : string
+            length : 2048
+
+        abbr:
+            type   : string
+            length : 256
+
+        capital:
+            type   : string
+            length : 1024
+
+    manyToOne:
+
+        country:
+            targetEntity : Country
+            fetch        : EAGER
+            joinColumn   :
+                name            : country
+                referenceColumn : id
+
+...
