@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Route\Route:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_Route
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Route
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
 
     id :

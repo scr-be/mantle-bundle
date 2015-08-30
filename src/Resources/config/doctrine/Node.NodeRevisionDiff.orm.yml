@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff :
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_NodeRevisionDiff
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Node_RevisionDiff
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionDiffRepository
 
     id :

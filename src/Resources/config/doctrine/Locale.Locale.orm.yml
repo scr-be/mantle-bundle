@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Locale\Locale:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_Locale
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Locale
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
 
     id:

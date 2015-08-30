@@ -13,8 +13,8 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\Name\HasName;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasCountry;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasLanguage;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLanguageCollection;
 
 /**
  * Class City
@@ -22,7 +22,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasLanguage;
 class City extends AbstractEntity
 {
     use HasName;
-    use HasLanguage;
+    use HasLanguageCollection;
     use HasCountry;
 
     /**
@@ -34,6 +34,14 @@ class City extends AbstractEntity
      * @var float|null
      */
     protected $longitude;
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->name;
+    }
 
     /**
      * @return $this

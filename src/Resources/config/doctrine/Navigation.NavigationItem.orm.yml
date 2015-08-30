@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_NavigationItem
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Navigation_Item
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationItemRepository
 
     id:

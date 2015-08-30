@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Translation\Translation:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_Translation
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Translation
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationRepository
 
     id:
@@ -30,7 +30,7 @@ Scribe\MantleBundle\Doctrine\Entity\Translation\Translation:
 
         slug:
             type   : string
-            length : 768
+            length : 512
 
     manyToOne:
 

@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_MetaTitle
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Meta_Title
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository
 
     id:

@@ -11,63 +11,16 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Doctrine\Entity\Locale\Country;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry as HasLocaleCountry;
 
 /**
  * Class HasCountry.
+ *
+ * @deprecated Use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry
  */
 trait HasCountry
 {
-    /**
-     * @var Country
-     */
-    protected $country;
-
-    /**
-     * @return $this
-     */
-    public function initializeCountry()
-    {
-        $this->country = null;
-
-        return $this;
-    }
-
-    /**
-     * @param Country $country
-     *
-     * @return $this
-     */
-    public function setCountry(Country $country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @return Country
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasCountry()
-    {
-        return (bool) ($this->country !== null);
-    }
-
-    /**
-     * @return $this
-     */
-    public function clearCountry()
-    {
-        return $this->initializeCountry();
-    }
+    use HasLocaleCountry;
 }
 
 /* EOF */

@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Icon\Icon:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_Icon
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Icon
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
 
     id:
@@ -58,7 +58,7 @@ Scribe\MantleBundle\Doctrine\Entity\Icon\Icon:
             targetEntity : IconFamily
             inversedBy   : icons
             joinTable    :
-                name        : MantleBundle_Icon_MaptoFamilies
+                name        : Mantle_Icon_MaptoFamilies
                 joinColumns :
                     iconId:
                         referencedColummnName: id

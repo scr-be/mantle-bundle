@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Locale\StateTerritory:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_LocaleStateTerritory
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Locale_StateTerritory
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\StateTerritoryRepository
 
     id:

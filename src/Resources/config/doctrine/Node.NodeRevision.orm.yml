@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision :
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_NodeRevision
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Node_Revision
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionRepository
 
     id :
@@ -56,7 +56,7 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision :
             targetEntity : Node
             inversedBy   : containerNodeRevisions
             joinTable    :
-                name               : MantleBundle_NodeRevision_MapTo_EmbeddedNode
+                name               : Mantle_NodeRevision_MapTo_EmbeddedNode
                 joinColumns        :
                     nodeRevisionId:
                         referencedColumnId: id
@@ -68,7 +68,7 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision :
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
             inversedBy   : containerNodeRevisions
             joinTable    :
-                name               : MantleBundle_NodeRevision_MapTo_Asset
+                name               : Mantle_NodeRevision_MapTo_Asset
                 joinColumns        :
                     nodeRevisionId:
                         referencedColumnId: id

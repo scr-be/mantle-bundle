@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Locale\City:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_LocaleCity
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Locale_City
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\CityRepository
 
     id:
@@ -44,11 +44,18 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\City:
                 name            : country
                 referenceColumn : id
 
-        language:
+    manyToMany:
+
+        languageCollection:
             targetEntity : LanguageName
             fetch        : EAGER
-            joinColumn   :
-                name            : language
-                referenceColumn : id
+            joinTable    :
+                name        : Locale_City_Mapto_Language
+                joinColumns :
+                    city:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    language:
+                        referencedColumnName: id
 
 ...

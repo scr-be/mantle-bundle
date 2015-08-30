@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_State_RuntimeController
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_State_RuntimeController
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\State\RuntimeControllerRepository
 
     id:

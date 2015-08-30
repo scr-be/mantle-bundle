@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Node\NodeRenderEngine:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_NodeRenderEngine
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Node_RenderEngine
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRenderEngineRepository
 
     id:

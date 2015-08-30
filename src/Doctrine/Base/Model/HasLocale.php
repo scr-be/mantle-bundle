@@ -11,63 +11,16 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Doctrine\Entity\Locale\Locale;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLocale as HasLocaleLocale;
 
 /**
  * Class HasLocale.
+ *
+ * @deprecated Use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLocale
  */
 trait HasLocale
 {
-    /**
-     * @var Locale
-     */
-    protected $locale;
-
-    /**
-     * @return $this
-     */
-    public function initializeLocale()
-    {
-        $this->locale = null;
-
-        return $this;
-    }
-
-    /**
-     * @param Locale $locale
-     *
-     * @return $this
-     */
-    public function setLocale(Locale $locale)
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
-
-    /**
-     * @return Locale
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasLocale()
-    {
-        return (bool) ($this->locale !== null);
-    }
-
-    /**
-     * @return $this
-     */
-    public function clearLocale()
-    {
-        return $this->initializeLocale();
-    }
+    use HasLocaleLocale;
 }
 
 /* EOF */

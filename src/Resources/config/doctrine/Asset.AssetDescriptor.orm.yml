@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Asset\AssetDescriptor:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_AssetDescriptor
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Asset_Descriptor
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Asset\AssetDescriptorRepository
 
     id:

@@ -81,6 +81,7 @@ class BundleInformation implements BundleInformationInterface
      * Set's up the request environment and then parses the controller request string if auto handling is enabled.
      *
      * @param RequestStack $requestStack
+     * @param Router       $router
      * @param bool         $autoHandle
      *
      * @throws InvalidArgumentException
@@ -277,7 +278,7 @@ class BundleInformation implements BundleInformationInterface
      */
     public function handle($mode = self::MODE_REQUEST, $value = null)
     {
-        if ($mode === self::MODE_REQUEST && true === ($this->getMasterRequest() instanceof Request)) {
+        if ($mode === self::MODE_REQUEST && $this->getMasterRequest() instanceof Request) {
             $this->determineControllerAttributeValueFromRequest();
         } elseif ($mode === self::MODE_ROUTE && $value !== null) {
             $this->determineControllerAttributeValueFromRoute($value);
@@ -297,13 +298,16 @@ class BundleInformation implements BundleInformationInterface
      */
     private function determineControllerAttributeValueFromRequest()
     {
-        $this->setControllerAttributeValue(
-            $this
-                ->getMasterRequest()
-                ->attributes
-                ->get('_controller')
-            )
-        ;
+        if ($this->getMasterRequest()->attributes->has('_controller') === true) {
+
+            $this->setControllerAttributeValue(
+                $this
+                    ->getMasterRequest()
+                    ->attributes
+                    ->get('_controller')
+            );
+
+        }
 
         return $this;
     }
@@ -322,9 +326,11 @@ class BundleInformation implements BundleInformationInterface
             ->getRouteCollection()
             ->get($routeName);
 
-        $this->setControllerAttributeValue(
-            $route->getDefault('_controller')
-        );
+        if ($route) {
+            $this->setControllerAttributeValue(
+                $route->getDefault('_controller')
+            );
+        }
 
         return $this;
     }

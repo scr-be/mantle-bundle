@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationMessage:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_TranslationMessage
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Translation_Message
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationMessageRepository
 
     id:

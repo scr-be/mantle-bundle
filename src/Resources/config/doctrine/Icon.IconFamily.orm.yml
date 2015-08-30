@@ -2,11 +2,11 @@
 Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily:
 
     type            : entity
-    charset         : utf8mb4
-    collate         : utf8mb4_unicode_ci
     options         :
         row_format  : DYNAMIC
-    table           : MantleBundle_IconFamily
+        charset     : utf8mb4
+        collate     : utf8mb4_unicode_ci
+    table           : Mantle_Icon_Family
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository
 
     id:

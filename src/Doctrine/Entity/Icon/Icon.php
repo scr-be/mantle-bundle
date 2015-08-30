@@ -12,12 +12,12 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Icon;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Model\HasName;
+use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\HasAliases;
 use Scribe\Doctrine\Base\Model\HasCategories;
 use Scribe\Doctrine\Base\Model\HasAttributes;
-use Scribe\Doctrine\Base\Model\HasDescription;
 use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\Base\Model\Name\HasName;
 use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
 use Scribe\Doctrine\Exception\SubscriberEventORMException;
 use Scribe\Exception\Model\ExceptionInterface;
@@ -30,12 +30,12 @@ class Icon extends AbstractEntity
     /*
      * import name and description entity property traits
      */
-    use HasName,
-        HasAliases,
-        HasCategories,
-        HasAttributes,
-        HasDescription,
-        SluggableBehaviorTrait;
+    use HasName;
+    use HasAliases;
+    use HasCategories;
+    use HasAttributes;
+    use HasDescription;
+    use SluggableBehaviorTrait;
 
     /**
      * @var ArrayCollection|IconFamily[]
