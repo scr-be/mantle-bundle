@@ -31,12 +31,14 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\StateTerritory:
             length : 2048
 
         abbr:
-            type   : string
-            length : 256
+            type     : string
+            length   : 256
+            nullable : true
 
         capital:
-            type   : string
-            length : 1024
+            type     : string
+            length   : 1024
+            nullable : true
 
     manyToOne:
 

@@ -54,18 +54,18 @@ Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem:
             targetEntity : NavigationItem
             inversedBy   : children
             joinColumn   :
-                name             : parentId
+                name             : parent
                 referencedColumn : id
 
         root:
             targetEntity : NavigationSet
             inversedBy   : children
             joinColumn   :
-                name             : rootId
+                name             : root
                 referencedColumn : id
 
         route:
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\Route\Route
             joinColumn   :
-                name             : routeId
+                name             : route
                 referencedColumn : id

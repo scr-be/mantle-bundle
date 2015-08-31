@@ -189,7 +189,7 @@ class ClassReflectionAnalyserTest extends AbstractMantleKernelTestCase
         ));
 
         static::assertTrue($this->reflectionClassAnalyser->hasProperty(
-            'families', $this->refOfClassReflectionAnalyser, true
+            'familyCollection', $this->refOfClassReflectionAnalyser, true
         ));
 
         static::assertTrue($this->reflectionClassAnalyser->hasProperty(

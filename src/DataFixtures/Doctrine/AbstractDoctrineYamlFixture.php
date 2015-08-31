@@ -15,6 +15,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -102,12 +103,34 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     protected $mode = self::MODE_DEFAULT;
 
     /**
+     * @var array|false
+     */
+    protected $references;
+
+    /**
+     * @var bool
+     */
+    protected $referencesById;
+
+    /**
+     * @var array
+     */
+    protected $referencesByColumns;
+
+    /**
+     * @var int
+     */
+    protected $batchSize = 1000;
+
+    /**
      * @var array
      */
     protected static $fixtureDirPaths = [
-        'public' => '/../../../app/config/shared_public/fixtures/',
-        'proprietary' => '/../../../app/config/shared_proprietary/fixtures/',
-        'vendorPublic' => '/config/shared_public/fixtures/',
+        'public'            => '/../../../app/config/shared_public/fixtures/',
+        'proprietary'       => '/../../../app/config/shared_proprietary/fixtures/',
+        'selfPublic'        => 'app/config/shared_public/fixtures/',
+        'selfProprietary'   => 'app/config/shared_proprietary/fixtures/',
+        'vendorPublic'      => '/config/shared_public/fixtures/',
         'vendorProprietary' => '/config/shared_proprietary/fixtures/',
     ];
 
@@ -127,25 +150,29 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     {
         $this
             ->setOrmFixtureName($this->getFixtureNameFromClassName())
-            ->loadOrmFixtureData()
-        ;
+            ->loadOrmFixtureData();
     }
 
+    /**
+     * @throws RuntimeException
+     *
+     * @return mixed
+     */
     protected function getFixtureNameFromClassName()
     {
         $class = ClassInfo::getClassNameByInstance($this);
         $return = preg_match('#^Load(.*?)Data$#', $class, $matches);
 
-        if (false === $return || 0 === $return || false === isset($matches[1])) {
-            throw new RuntimeException(
-                'Could not determine the fixture name from the class loader name "%s".'.
-                RuntimeException::CODE_FIXTURE_DATA_INCONSISTENT,
-                null, null,
-                $class
-            );
+        if (false !== $return && 0 !== $return && false !== isset($matches[1])) {
+            return $matches[1];
         }
 
-        return $matches[1];
+        throw new RuntimeException(
+            'Could not determine the fixture name from the class loader name "%s".'.
+            RuntimeException::CODE_FIXTURE_DATA_INCONSISTENT,
+            null, null,
+            $class
+        );
     }
 
     /**
@@ -196,7 +223,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      *
      * @return object
      */
-    protected function setNewFixtureDataForEntity($entity, $f)
+    protected function setNewFixtureDataForEntity($entity, $f, $i)
     {
         foreach ($f as $name => $value) {
             $setter = 'set'.ucfirst($name);
@@ -208,12 +235,12 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
                 try {
                     $dataCollection = new ArrayCollection((array)$data);
                     $entity->$setter($dataCollection);
-                } catch (ContextErrorException $ei) {
+                } catch (\Exception $ei) {
                     throw new RuntimeException(
-                        'Unrecoverable error for entiry "%s" and setter "%s".',
+                        'Unrecoverable error for fixture "%s", entity "%s", id "%s", and setter "%s".',
                         RuntimeException::CODE_FIXTURE_DATA_INCONSISTENT,
                         null, null,
-                        get_class($entity), $setter
+                        $this->name, get_class($entity), (string) $i, $setter
                     );
                 }
             }
@@ -230,7 +257,7 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      */
     protected function getFixtureDataValue($i, array $f = null)
     {
-        if (!is_array($f) || !array_key_exists($i, $f)) {
+        if (false === is_array($f) || false === array_key_exists($i, $f)) {
             throw new RuntimeException(
                 'Could not find data "%s" in fixtures array for "%s".',
                 RuntimeException::CODE_FIXTURE_DATA_INCONSISTENT,
@@ -243,17 +270,17 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
     }
 
     /**
-     * @param array $values
+     * @param array $valueCollection
      *
      * @return array
      */
-    protected function getFixtureValueAsArrayWithRefs(array $values = [])
+    protected function getFixtureValueAsArrayWithRefs(array $valueCollection = [])
     {
-        foreach ($values as &$value) {
+        foreach ($valueCollection as &$value) {
             $value = $this->getFixtureValueWithRefs($value);
         }
 
-        return $values;
+        return $valueCollection;
     }
 
     /**
@@ -263,93 +290,116 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      */
     protected function getFixtureValueWithRefs($value)
     {
+        $return = null;
         $matches = null;
         if (0 !== preg_match('#^@([A-Za-z]*)\?([^=]*)=([^&]*)$#', $value, $matches)) {
-            return $this->getFixtureValueBySearchRef($value, $matches);
+            $return = $this->getFixtureValueBySearchRef($matches);
         }
 
         $matches = null;
-        if (0 !== preg_match('#^\+([a-zA-Z]*:[0-9]+)$#', $value, $matches)) {
-            return $this->getFixtureValueByInternalRef($value, $matches);
+        if ($return === null && 0 !== preg_match('#^\+([a-zA-Z]*:[0-9]+)$#', $value, $matches)) {
+            $return = $this->getFixtureValueByInternalRef($matches);
         }
 
-        return $value;
+        $matches = null;
+        if ($return === null && 0 !== preg_match('#^\+\+(.*)$#', $value, $matches)) {
+            $return = $this->getFixtureValueByInternalCustomRef($matches);
+        }
+
+        return ($return !== null ? $return : $value);
     }
 
-    protected function getFixtureValueByInternalRef($value, $matches)
+    /**
+     * @param array $matches
+     *
+     * @return null|object
+     */
+    protected function getFixtureValueByInternalCustomRef($matches)
     {
-        if (count($matches) !== 2) {
-            return $value;
-        }
+        if (count($matches) !== 2) { return null; }
 
         return $this->getReference($matches[1]);
     }
 
-    protected function getFixtureValueBySearchRef($value, $matches)
+    /**
+     * @param array $matches
+     *
+     * @return null|object
+     */
+    protected function getFixtureValueByInternalRef($matches)
     {
-        if (count($matches) !== 4) {
-            return $value;
-        }
+        if (count($matches) !== 2) { return null; }
 
-        $depName = $matches[1];
-        $depCol = $matches[2];
-        $depSch = $matches[3];
+        return $this->getReference($matches[1]);
+    }
 
-        if (!array_key_exists($depName, $this->dependencies)) {
+    /**
+     * @param array $matches
+     *
+     * @return null|object
+     */
+    protected function getFixtureValueBySearchRef($matches)
+    {
+        if (count($matches) !== 4) { return null; }
+
+        $dependencyName = $matches[1];
+        $dependencyColumn = $matches[2];
+        $dependencySearch = $matches[3];
+
+        if (false === array_key_exists($dependencyName, $this->dependencies)) {
             throw new RuntimeException(
-                'You must specify dependency repos/entities in your YAML file for %s.',
-                RuntimeException::CODE_MISSING_ARGS,
-                null, null, $depName
+                'You must specify dependency values for repository and entity services in your YAML file for %s.',
+                RuntimeException::CODE_MISSING_ARGS, null, null, $dependencyName
             );
         }
 
-        $dep = $this->dependencies[$depName];
+        $dependency = $this->dependencies[$dependencyName];
 
-        if (false === array_key_exists('repository', $dep)) {
+        if (false === array_key_exists('repository', $dependency)) {
             throw new RuntimeException(
-                sprintf(
-                    'You must specify dependency repo service in your YAML file for %s.',
-                    $dep['repository']
-                )
+                'You must specify dependency repo service in your YAML file for %s.',
+                null, null, null, $dependency['repository']
+            );
+        } elseif (false === $this->container->has($dependency['repository'])) {
+            throw new RuntimeException(
+                'The dependency repo service "%s" cannot be found in the container.',
+                null, null, null, $dependency['repository']
             );
         }
 
-        if (false === $this->container->has($dep['repository'])) {
-            throw new RuntimeException(
-                sprintf(
-                    'The dependency repo service "%s" cannot be found in the container.',
-                    $dep['repository']
-                )
-            );
-        }
+        $dependencyRepository = $this->container->get($dependency['repository']);
 
-        $depRepo = $this->container->get($dep['repository']);
-
-        if (true === array_key_exists('findMethod', $dep)) {
-            $findMethod = $dep['findMethod'];
+        if (true === array_key_exists('findMethod', $dependency)) {
+            $repositoryMethod = $dependency['findMethod'];
         } else {
-            $findMethod = 'findBy'.ucwords($depCol);
+            $repositoryMethod = 'findBy' . ucwords($dependencyColumn);
         }
 
         try {
-            $results = $depRepo->$findMethod($depSch);
+            $searchResult = $dependencyRepository->$repositoryMethod($dependencySearch);
         } catch (ORMException $e) {
             throw new RuntimeException(
                 'The requested dependency search "%s(%s)" threw an exception: %s.',
-                ExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL,
-                $e,
-                null,
-                $findMethod,
-                $depSch,
-                $e->getMessage()
+                ExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL, $e, null, $repositoryMethod, $dependencySearch, $e->getMessage()
             );
         }
 
-        if ($results instanceof ArrayCollection) {
-            return $results->first();
+        if (($searchResult instanceof ArrayCollection && $searchResult->count() > 1) ||
+            (is_array($searchResult) && count($searchResult) > 1))
+        {
+            throw new RuntimeException(
+                'The requested search reference returned more than one result: %s, %s, %s',
+                null, null, null, (string) $dependencyName, (string) $dependencyColumn, (string) $dependencySearch
+            );
         }
 
-        return array_pop($results);
+        if ($searchResult instanceof ArrayCollection) {
+            return $searchResult->first();
+        } elseif (is_array($searchResult)) {
+            return $searchResult[0];
+        }
+
+        return $searchResult;
     }
 
     /**
@@ -357,18 +407,18 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      */
     protected function getNewFixtureEntity()
     {
-        $entityName = null;
-        $entity = null;
+        $e = null;
+        $n = $this->name;
 
         if (array_key_exists('entity', $this->orm)) {
-            $entityName = $this->container->getParameter($this->orm['entity']);
-        } else {
-            $entityName = $this->name;
+            $n = $this
+                ->container
+                ->getParameter($this->orm['entity']);
         }
 
-        $entity = new $entityName();
+        $e = new $n();
 
-        return $entity;
+        return $e;
     }
 
     /**
@@ -378,8 +428,13 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
      */
     protected function fixtureDataDirectoryResolver($name)
     {
-        $kernelRoot = $this->container->get('kernel')->getRootDir();
-        $fixtureBasePath = $fixtureYamlPath = null;
+        $fixtureBasePath = null;
+        $fixtureYamlPath = null;
+
+        $kernelRoot = $this
+            ->container
+            ->get('kernel')
+            ->getRootDir();
 
         foreach (static::$fixtureDirPaths as $fixtureName => $fixtureDirPath) {
             $fixtureDirPath = $kernelRoot.DIRECTORY_SEPARATOR.$fixtureDirPath;
@@ -445,25 +500,38 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         } catch (ParseException $e) {
             throw new RuntimeException(
                 'Unable to parse the YAML string: %s',
-                ExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL,
-                $e,
-                null,
-                $e->getMessage()
+                ExceptionInterface::CODE_GENERIC_FROM_MANTLE_BDL, $e, null, $e->getMessage()
             );
         }
 
-        if (!isset($fixture[$name])) {
-            throw new RuntimeException(sprintf('Unable to parse the YAML root %s in file %s.', $name, $fixtureYamlPath));
+        if (false === isset($fixture[$name])) {
+            throw new RuntimeException(
+                'Unable to parse the YAML root %s in file %s.',
+                null, null, null, $name, $fixtureYamlPath
+            );
         } else {
             $fixtureRoot = $fixture[$name];
         }
 
-        if (!isset($fixtureRoot['orm'])) {
-            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'orm', $fixtureYamlPath));
-        } elseif (null !== $fixtureRoot['data'] && !isset($fixtureRoot['data'])) {
-            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'data', $fixtureYamlPath));
-        } elseif (!array_key_exists('dependencies', $fixtureRoot)) {
-            throw new RuntimeException(sprintf('Unable to find required fixture section %s in file %s.', 'dependencies', $fixtureYamlPath));
+        if (false === isset($fixtureRoot['orm'])) {
+            throw new RuntimeException(
+                'Unable to find required fixture section %s in file %s.',
+                null, null, null, 'orm', $fixtureYamlPath
+            );
+        }
+
+        if (false === isset($fixtureRoot['data']) && null !== $fixtureRoot['data']) {
+            throw new RuntimeException(
+                'Unable to find required fixture section %s in file %s.',
+                null, null, null, 'data', $fixtureYamlPath
+            );
+        }
+
+        if (false === array_key_exists('dependencies', $fixtureRoot)) {
+            throw new RuntimeException(
+                'Unable to find required fixture section %s in file %s.',
+                null, null, null, 'dependencies', $fixtureYamlPath)
+            ;
         }
 
         $this->fixture = $fixtureRoot;
@@ -473,10 +541,16 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
         $this->cannibal = (bool) (array_key_exists('cannibal', $this->orm) ? $this->orm['cannibal'] : false);
         $this->mode = (int) $this->determineMode();
         $this->dependencies = $fixtureRoot['dependencies'];
+        $this->references = (array_key_exists('references', $fixtureRoot) ? $fixtureRoot['references'] : []);
+        $this->referencesById = (bool) (array_key_exists('usingId', $this->references) ? $this->references['usingId'] : false);
+        $this->referencesByColumns = (array) (array_key_exists('usingColumns', $this->references) ? $this->references['usingColumns'] : []);
 
         return $this;
     }
 
+    /**
+     * @return int|mixed
+     */
     protected function determineMode()
     {
         if (false === array_key_exists('mode', $this->orm) ||
@@ -502,20 +576,37 @@ abstract class AbstractDoctrineYamlFixture extends AbstractFixture implements Or
             return;
         }
 
+        echo "Running";
+
         foreach ($this->data as $i => $f) {
             $entity = $this->getNewFixtureEntity();
-            $entity = $this->setNewFixtureDataForEntity($entity, $f);
+            $entity = $this->setNewFixtureDataForEntity($entity, $f, $i);
 
             $manager->persist($entity);
 
-            $this->addReference($this->name.':'.$i, $entity);
+            if ($this->referencesById === true) {
+                $this->addReference($this->name.':'.$i, $entity);
+            }
 
-            if ($this->cannibal === true) {
+            if (count($this->referencesByColumns) > 0) {
+                $referenceString = $this->name;
+                foreach ($this->referencesByColumns as $referenceColumn) {
+                    $referenceString .= ':'.$this->data[$i][$referenceColumn];
+                }
+                $this->addReference($referenceString, $entity);
+            }
+
+            if ($this->cannibal === true || ($i % $this->batchSize) === 0) {
+                echo ".";
                 $manager->flush();
+                $manager->clear();
             }
         }
 
+        echo "done!" . PHP_EOL;
+
         $manager->flush();
+        $manager->clear();
     }
 
     /**

@@ -11,71 +11,80 @@
 
 namespace Scribe\Component\Bundle;
 
+use Scribe\Component\DependencyInjection\Aware\RouterAwareTrait;
+use Scribe\Exception\LogicException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Scribe\Component\DependencyInjection\Aware\RequestStackAwareTrait;
-use Scribe\Component\DependencyInjection\Aware\RouterAwareTrait;
 use Scribe\Utility\Error\DeprecationErrorHandler;
 use Scribe\Exception\InvalidArgumentException;
 use Scribe\Exception\RuntimeException;
+use Symfony\Component\Routing\Route;
 
 /**
  * BundleInformation
+ *
+ * Determine the org, bundle name, controller name, and action name. This can be determined via
+ * the current request, a provided route index or route object, or a provided string. The values
+ * are parsed from the string from one of the mentioned methods using a regular expression.
+ *
+ * If you use the default Symfony folder layout and do not use the "controller as a service"
+ * setup, you may have luck using the {@see BundleInformation::REGEX_CONTROLLER_NAMESPACE} const.
+ *
+ * Alternatively, if you use the "controller as a service" setup, as we at Scribe do, you will
+ * may use the {@see BundleInformation::REGEX_CONTROLLER_SERVICE_ID} const, but this assumes you
+ * have used our controller service name syntax:
+ *     {org}.{bundle}.{controller}.controller
+ * For example, a controller within the namespace Scribe\BlogBundle\Controller\SiteMapController
+ * would be defined as a service with the following name:
+ *     scribe.blog.site_map.controller
+ * If you use your own standard for controller service names, you will need to
+ *
+ *
+ *
  * Parses the org, bundle, controller, and action from the Request's _controller
  * attribute based on the provided specified regular expression.
  */
 class BundleInformation implements BundleInformationInterface
 {
-    /*
-     * Use the RequestStack trait
-     */
     use RequestStackAwareTrait;
+    use RouterAwareTrait;
 
     /**
-     * @var string
+     * @var null|string
      */
-    const CONTROLLER_SERVICE_ID_REGEX = '#([^\.]*)\.([^\.]*)\.([^\.]*)\.controller:(.*?)Action#i';
+    protected $frameworkProvidedLocation;
 
     /**
-     * @var string
+     * @var null|string
      */
-    const CONTROLLER_NAMESPACE_REGEX = '#(.*?)\\\(.*?)Bundle\\\Controller\\\(.*?)Controller::(.*?)Action#i';
+    protected $mode;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $controllerAttributeValue;
+    protected $regex;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $regex;
+    protected $bundle;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $bundle;
+    protected $controller;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $controller;
+    protected $action;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $action;
-
-    /**
-     * @var string
-     */
-    private $org;
-
-    /**
-     * @var string
-     */
-    private $mode = self::MODE_REQUEST;
+    protected $org;
 
     /**
      * Set's up the request environment and then parses the controller request string if auto handling is enabled.
@@ -83,31 +92,52 @@ class BundleInformation implements BundleInformationInterface
      * @param RequestStack $requestStack
      * @param Router       $router
      * @param bool         $autoHandle
+     * @param null|string  $mode
+     * @param null|string  $regex
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(RequestStack $requestStack, Router $router, $autoHandle = true)
+    public function __construct(RequestStack $requestStack, Router $router, $autoHandle = true, $mode = null, $regex = null)
     {
-        $this->requestStack = $requestStack;
-        $this->router = $router;
+        $this
+            ->setRequestStack($requestStack)
+            ->setRouter($router)
+            ->setMode($mode !== null ? $mode : self::MODE_REQUEST)
+            ->setRegex($regex !== null ? $regex : self::REGEX_CONTROLLER_SERVICE_ID);
 
-        $this->setRegex(self::CONTROLLER_SERVICE_ID_REGEX);
+        if ($autoHandle === true) { $this->handle(); }
+    }
 
-        if ($autoHandle === true) {
-            $this->handle(self::MODE_REQUEST);
-        }
+    /**
+     * @param string $mode
+     *
+     * @return $this
+     */
+    public function setMode($mode)
+    {
+        $this->mode = (string) $mode;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMode()
+    {
+        return $this->mode;
     }
 
     /**
      * Set the controller string derived from the request object variable.
      *
-     * @param  $controllerAttributeValue string
+     * @param string $frameworkProvidedLocation
      *
      * @return $this
      */
-    public function setControllerAttributeValue($controllerAttributeValue)
+    public function setFrameworkProvidedLocation($frameworkProvidedLocation)
     {
-        $this->controllerAttributeValue = $controllerAttributeValue;
+        $this->frameworkProvidedLocation = (string) $frameworkProvidedLocation;
 
         return $this;
     }
@@ -115,11 +145,11 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Get the request controller string.
      *
-     * @return string
+     * @return null|string
      */
-    public function getControllerAttributeValue()
+    public function getFrameworkProvidedLocation()
     {
-        return (string) $this->controllerAttributeValue;
+        return $this->frameworkProvidedLocation;
     }
 
     /**
@@ -139,11 +169,11 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Getter for regex property.
      *
-     * @return string
+     * @return null|string
      */
     public function getRegex()
     {
-        return (string) $this->regex;
+        return $this->regex;
     }
 
     /**
@@ -163,11 +193,11 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Getter for org property.
      *
-     * @return string
+     * @return null|string
      */
     public function getOrg()
     {
-        return (string) $this->org;
+        return $this->org;
     }
 
     /**
@@ -187,11 +217,11 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Getter for bundle property.
      *
-     * @return string
+     * @return null|string
      */
     public function getBundle()
     {
-        return (string) $this->bundle;
+        return $this->bundle;
     }
 
     /**
@@ -211,11 +241,11 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Getter for controller property.
      *
-     * @return string
+     * @return null|string
      */
     public function getController()
     {
-        return (string) $this->controller;
+        return $this->controller;
     }
 
     /**
@@ -235,11 +265,11 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Getter for action property.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getAction()
     {
-        return (string) $this->action;
+        return $this->action;
     }
 
     /**
@@ -271,22 +301,33 @@ class BundleInformation implements BundleInformationInterface
     /**
      * Handle determining the bundle information, or bailing if no request is present.
      *
-     * @param string      $mode
+     * @param null|string $mode
      * @param null|string $value
      *
      * @return $this
      */
-    public function handle($mode = self::MODE_REQUEST, $value = null)
+    public function handle($mode = null, $value = null)
     {
-        if ($mode === self::MODE_REQUEST && $this->getMasterRequest() instanceof Request) {
-            $this->determineControllerAttributeValueFromRequest();
-        } elseif ($mode === self::MODE_ROUTE && $value !== null) {
-            $this->determineControllerAttributeValueFromRoute($value);
-        } elseif ($mode === self::MODE_STRING && $value !== null) {
-            $this->determineControllerAttributeValueFromString($value);
+        $mode = $mode !== null ? $mode : $this->getMode();
+
+        switch($mode) {
+            case self::MODE_REQUEST:
+                $this->determineFrameworkLocationByRequest();
+                break;
+
+            case self::MODE_ROUTE:
+                $this->determineFrameworkLocationByRoute($value);
+                break;
+
+            case self::MODE_STRING:
+                $this->setFrameworkProvidedLocation($value);
+                break;
+
+            default:
+                throw new LogicException('Invalid mode provided to %s method in %s.', null, null, null, __FUNCTION__, __CLASS__);
         }
 
-        $this->parseControllerAttributeValue();
+        $this->determineParts();
 
         return $this;
     }
@@ -296,17 +337,14 @@ class BundleInformation implements BundleInformationInterface
      *
      * @return $this
      */
-    private function determineControllerAttributeValueFromRequest()
+    protected function determineFrameworkLocationByRequest()
     {
-        if ($this->getMasterRequest()->attributes->has('_controller') === true) {
-
-            $this->setControllerAttributeValue(
-                $this
-                    ->getMasterRequest()
-                    ->attributes
-                    ->get('_controller')
+        if ($this->hasRequestStack() === true && $this->hasMasterRequest() === true &&
+            $this->getMasterRequest()->attributes->has('_controller'))
+        {
+            $this->setFrameworkProvidedLocation(
+                $this->getMasterRequest()->attributes->get('_controller')
             );
-
         }
 
         return $this;
@@ -319,32 +357,20 @@ class BundleInformation implements BundleInformationInterface
      *
      * @return $this
      */
-    private function determineControllerAttributeValueFromRoute($routeName)
+    protected function determineFrameworkLocationByRoute($routeName)
     {
         $route = $this
-            ->router
+            ->getRouter()
             ->getRouteCollection()
             ->get($routeName);
 
-        if ($route) {
-            $this->setControllerAttributeValue(
-                $route->getDefault('_controller')
-            );
+        if (false === ($route instanceof Route) || false === $route->hasDefault('_controller')) {
+            return $this;
         }
 
-        return $this;
-    }
-
-    /**
-     * Get the route from provided string.
-     *
-     * @param string $string
-     *
-     * @return $this
-     */
-    private function determineControllerAttributeValueFromString($string)
-    {
-        $this->setControllerAttributeValue($string);
+        $this->setFrameworkProvidedLocation(
+            $route->getDefault('_controller')
+        );
 
         return $this;
     }
@@ -355,10 +381,10 @@ class BundleInformation implements BundleInformationInterface
      *
      * @return $this
      */
-    public function parseControllerAttributeValue()
+    public function determineParts()
     {
         list($org, $bundle, $controller, $action) =
-            $this->parseRequestControllerParts()
+            $this->parseParts()
         ;
 
         $this
@@ -372,38 +398,22 @@ class BundleInformation implements BundleInformationInterface
     }
 
     /**
-     * Alias for {@see $this->parseRequestController()} for backwards comparability.
-     *
-     * @deprecated Remove in v2.0.0
-     *
-     * @return $this
-     */
-    public function parse()
-    {
-        DeprecationErrorHandler::trigger(__METHOD__, __LINE__, 'See parseRequestController() moving forward', '2015-06-10', '2.0.0');
-
-        $this->parseControllerAttributeValue();
-
-        return $this;
-    }
-
-    /**
      * Handle the actual parsing of the _controller Request parameter.
      *
      * @return string[]
      */
-    private function parseRequestControllerParts()
+    protected function parseParts()
     {
-        $matchResult = preg_match($this->getRegex(), $this->getControllerAttributeValue(), $matches);
+        $unknownReturnArray = [null, null, null, null];
 
-        $errorReturnArray = ['?', '?', '?', '?'];
-
-        if (0 === $matchResult || false === (strlen($this->getControllerAttributeValue()) > 0)) {
-            return $errorReturnArray;
+        if (false === (strlen($this->frameworkProvidedLocation) > 0) || false === (strlen($this->regex) > 0)) {
+            return $unknownReturnArray;
         }
 
-        if (false === $matchResult || 5 !== count($matches)) {
-            throw new RuntimeException('Encountered an error running preg_match trying to determine request origination.');
+        if (false === preg_match($this->regex, $this->frameworkProvidedLocation, $matches) ||
+            false === (count($matches) > 0))
+        {
+            return $unknownReturnArray;
         }
 
         array_walk($matches, function (&$v, $i) { $v = strtolower($v); });

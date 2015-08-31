@@ -40,14 +40,14 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision :
             targetEntity : Node
             inversedBy   : revisions
             joinColumn   :
-                name            : nodeId
+                name            : node
                 referenceColumn : id
 
         renderEngine :
             targetEntity : NodeRenderEngine
             inversedBy   : revisions
             joinColumn   :
-                name             : nodeRenderEngineId
+                name             : nodeRenderEngine
                 referencedColumn : id
 
     manyToMany :
@@ -56,24 +56,24 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevision :
             targetEntity : Node
             inversedBy   : containerNodeRevisions
             joinTable    :
-                name               : Mantle_NodeRevision_MapTo_EmbeddedNode
-                joinColumns        :
-                    nodeRevisionId:
+                name        : Mantle_Node_Revision_MapTo_EmbeddedNode
+                joinColumns :
+                    nodeRevision:
                         referencedColumnId: id
                 inverseJoinColumns :
-                    nodeId:
+                    node:
                         referencedColumnId: id
 
         embeddedAssets :
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\Asset\Asset
             inversedBy   : containerNodeRevisions
             joinTable    :
-                name               : Mantle_NodeRevision_MapTo_Asset
-                joinColumns        :
-                    nodeRevisionId:
+                name        : Mantle_Node_Revision_MapTo_Asset
+                joinColumns :
+                    nodeRevision:
                         referencedColumnId: id
                 inverseJoinColumns :
-                    assetId:
+                    asset:
                         referencedColumnId: id
 
 ...

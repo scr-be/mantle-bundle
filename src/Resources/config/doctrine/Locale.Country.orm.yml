@@ -24,6 +24,12 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\Country:
         countryCodeUnique:
             columns: [ code ]
 
+        countryCode3Unique:
+            columns: [ codeAlpha3 ]
+
+        countrycodeNUnique:
+            columns: [ codeNumeric ]
+
     fields:
 
         code:
@@ -31,9 +37,21 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\Country:
             length : 2
             fixed  : true
 
+        codeAlpha3:
+            type   : string
+            length : 3
+            fixed  : true
+
+        codeNumeric:
+            type     : smallint
+
         name:
             type   : string
             length : 1024
-            fixed  : false
+
+        nameProper:
+            type     : string
+            length   : 1024
+            nullable : true
 
 ...

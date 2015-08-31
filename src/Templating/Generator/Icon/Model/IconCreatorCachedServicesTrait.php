@@ -18,8 +18,7 @@ use Scribe\CacheBundle\DependencyInjection\Aware\CacheChainAwareTrait;
  */
 trait IconCreatorCachedServicesTrait
 {
-    use IconCreatorServicesTrait,
-        CacheChainAwareTrait;
+    use CacheChainAwareTrait;
 }
 
 /* EOF */

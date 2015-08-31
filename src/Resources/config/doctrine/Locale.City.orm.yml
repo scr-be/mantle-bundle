@@ -50,7 +50,7 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\City:
             targetEntity : LanguageName
             fetch        : EAGER
             joinTable    :
-                name        : Locale_City_Mapto_Language
+                name        : Mantle_Locale_City_MapTo_Language
                 joinColumns :
                     city:
                         referencedColumnName: id

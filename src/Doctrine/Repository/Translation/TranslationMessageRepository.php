@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Doctrine\Repository\Meta;
+namespace Scribe\MantleBundle\Doctrine\Repository\Translation;
 
 use Doctrine\ORM\EntityRepository;
 

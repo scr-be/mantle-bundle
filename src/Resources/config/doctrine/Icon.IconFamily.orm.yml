@@ -66,6 +66,6 @@ Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily:
 
         icons:
             targetEntity : Icon
-            mappedBy     : families
+            mappedBy     : familyCollection
 
 ...

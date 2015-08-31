@@ -134,6 +134,16 @@ namespace {
 
         return true;
     }
+
+    /**
+     * @param string $string
+     *
+     * @return bool
+     */
+    function is_null_or_empty_string($string)
+    {
+        return (bool) ($string === null || strlen((string) $string) === 0);
+    }
 }
 
 /* EOF */

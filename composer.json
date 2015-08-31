@@ -93,7 +93,7 @@
         "doctrine/data-fixtures"               : "1.0.*@dev",
         "doctrine/migrations"                  : "~1.0@dev",
         "doctrine/doctrine-migrations-bundle"  : "1.0.*",
-        "sensiolabs/security-checker"          : "2.0.*@dev",
+        "sensiolabs/security-checker"          : "~2.0",
         "scrutinizer/ocular"                   : "dev-master",
         "satooshi/php-coveralls"               : "dev-multipleroot",
         "chriskite/phactory"                   : "~0.4.3",

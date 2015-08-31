@@ -17,35 +17,82 @@ namespace Scribe\Component\Bundle;
 interface BundleInformationInterface
 {
     /**
-     * Handle info parseing/determenation using master request controller attribute
+     * Handle info parsing/determination using master request controller attribute
      *
      * @var string
      */
     const MODE_REQUEST = 'request';
 
     /**
-     * Handle info parseing/determenation using provided string
-     *
-     * @var string
-     */
-    const MODE_STRING = 'string';
-
-    /**
-     * Handle info parseing/determenation using controller determined from route name
+     * Handle info parsing/determination using controller determined from route name
      *
      * @var string
      */
     const MODE_ROUTE = 'route';
 
     /**
+     * Handle info parsing/determination using provided string
+     *
+     * @var string
+     */
+    const MODE_STRING = 'string';
+
+    /**
+     * Regular expression to use for Scribe's controller service name convention.
+     *
+     * @var string
+     */
+    const REGEX_CONTROLLER_SERVICE_ID = '#([^\.]*)\.([^\.]*)\.([^\.]*)\.controller:(.*?)Action#i';
+
+    /**
+     * Regular expression to use for Symfony's default file layout for controller (not
+     * defined as services).
+     *
+     * @var string
+     */
+    const REGEX_CONTROLLER_NAMESPACE = '#(.*?)\\\(.*?)Bundle\\\Controller\\\(.*?)Controller::(.*?)Action#i';
+
+    /**
+     * @param string $mode
+     *
+     * @return $this
+     */
+    public function setMode($mode);
+
+    /**
+     * @return null|string
+     */
+    public function getMode();
+
+    /**
+     * Set the controller string derived from the request object variable.
+     *
+     * @param string $frameworkProvidedLocation
+     *
+     * @return $this
+     */
+    public function setFrameworkProvidedLocation($frameworkProvidedLocation);
+
+    /**
+     * Get the request controller string.
+     *
+     * @return null|string
+     */
+    public function getFrameworkProvidedLocation();
+
+    /**
      * Setter for regex property.
      *
-     * @param string $regex The regex to parse bundle info from request _controller paramiter
+     * @param string $regex The regex to parse bundle info from request _controller parameter
+     *
+     * @return $this
      */
     public function setRegex($regex);
 
     /**
      * Getter for regex property.
+     *
+     * @return null|string
      */
     public function getRegex();
 
@@ -53,11 +100,15 @@ interface BundleInformationInterface
      * Setter for org property.
      *
      * @param string $org An org name
+     *
+     * @return $this
      */
     public function setOrg($org);
 
     /**
      * Getter for org property.
+     *
+     * @return null|string
      */
     public function getOrg();
 
@@ -65,11 +116,15 @@ interface BundleInformationInterface
      * Setter for bundle property.
      *
      * @param string $bundle A bundle name
+     *
+     * @return $this
      */
     public function setBundle($bundle);
 
     /**
      * Getter for bundle property.
+     *
+     * @return null|string
      */
     public function getBundle();
 
@@ -77,11 +132,15 @@ interface BundleInformationInterface
      * Setter for controller property.
      *
      * @param string $controller A controller name
+     *
+     * @return $this
      */
     public function setController($controller);
 
     /**
      * Getter for controller property.
+     *
+     * @return null|string
      */
     public function getController();
 
@@ -89,23 +148,41 @@ interface BundleInformationInterface
      * Setter for action property.
      *
      * @param string $action An action name
+     *
+     * @return $this
      */
     public function setAction($action);
 
     /**
      * Getter for action property.
+     *
+     * @return null|string
      */
     public function getAction();
 
     /**
      * Getter for the full bundle name.
+     *
+     * @return string
      */
     public function getFullBundleName();
 
     /**
      * Get all bundle-related property elements as an array.
+     *
+     * @return string[]
      */
     public function getAll();
+
+    /**
+     * Handle determining the bundle information, or bailing if no request is present.
+     *
+     * @param null|string $mode
+     * @param null|string $value
+     *
+     * @return $this
+     */
+    public function handle($mode = null, $value = null);
 
     /**
      * Parse the Request _controller parameter using the provided regex to populate
@@ -113,7 +190,7 @@ interface BundleInformationInterface
      *
      * @return $this
      */
-    public function parse();
+    public function determineParts();
 }
 
 /* EOF */

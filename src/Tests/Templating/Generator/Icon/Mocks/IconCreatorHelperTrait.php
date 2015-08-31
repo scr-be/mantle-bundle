@@ -28,10 +28,10 @@ trait IconCreatorHelperTrait
     protected function getNewIconCreator($cached = false)
     {
         if ($cached) {
-            $iconGenerator = new IconCreatorCached($this->iconFamilyRepo, $this->engine);
+            $iconGenerator = new IconCreatorCached($this->iconFamilyRepo, $this->iconRepo, $this->engine);
             $iconGenerator->setCacheChain($this->cacheChain);
         } else {
-            $iconGenerator = new IconCreator($this->iconFamilyRepo, $this->engine);
+            $iconGenerator = new IconCreator($this->iconFamilyRepo, $this->iconRepo, $this->engine);
         }
 
         return $iconGenerator;

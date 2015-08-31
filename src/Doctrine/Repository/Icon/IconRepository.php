@@ -13,6 +13,7 @@ namespace Scribe\MantleBundle\Doctrine\Repository\Icon;
 
 use Doctrine\ORM\EntityRepository;
 use Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily;
+use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
 
 /**
  * Class IconRepository.
@@ -25,23 +26,26 @@ class IconRepository extends EntityRepository
      *
      * @throws \Exception
      *
-     * @return array
+     * @return Icon|null
      */
     public function loadIconByFamilyAndSlug(IconFamily $family, $iconSlug)
     {
         $q = $this
             ->createQueryBuilder('i')
             ->where('i.slug = :slug')
-            ->where('i.families MEMBER OF :family')
-            ->setParameter('slug', $iconSlug)
-            ->setParameter('family', $family)
+            ->andWhere(':family MEMBER OF i.familyCollection')
+            ->setParameters([
+                'slug' => $iconSlug,
+                'family' => $family
+            ])
+            ->setMaxResults(1)
             ->getQuery()
         ;
 
         try {
-            return $q->getResult();
+            return $q->getSingleResult();
         } catch (\Exception $e) {
-            throw $e;
+            return null;
         }
     }
 }

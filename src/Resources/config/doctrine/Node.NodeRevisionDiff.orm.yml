@@ -6,7 +6,7 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff :
         row_format  : DYNAMIC
         charset     : utf8mb4
         collate     : utf8mb4_unicode_ci
-    table           : Mantle_Node_RevisionDiff
+    table           : Mantle_Node_Revision_Diff
     repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Node\NodeRevisionDiffRepository
 
     id :
@@ -30,7 +30,7 @@ Scribe\MantleBundle\Doctrine\Entity\Node\NodeRevisionDiff :
             targetEntity : NodeRevision
             inversedBy   : diff
             joinColumn   :
-                name             : nodeRevisionId
+                name             : nodeRevision
                 referencedColumn : id
 
 ...

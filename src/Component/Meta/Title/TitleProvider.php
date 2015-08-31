@@ -61,8 +61,6 @@ class TitleProvider
             ->setMetaTitleRepo($metaTitleRepo)
             ->setLocale($translator->getLocale())
             ->extractBundleParts($bundleInfo);
-
-        dump($this);
     }
 
     /**

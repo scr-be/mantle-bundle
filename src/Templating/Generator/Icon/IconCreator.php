@@ -13,6 +13,7 @@ namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
 use Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate;
+use Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository;
 use Twig_Environment;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
@@ -38,10 +39,11 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      * @param IconFamilyRepository $iconFamilyRepo
      * @param Twig_Environment     $engineEnvironment
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $engineEnvironment = null)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, IconRepository $iconRepo, Twig_Environment $engineEnvironment = null)
     {
         $this->setIconFamilyRepo($iconFamilyRepo);
         $this->setEngineEnvironment($engineEnvironment);
+        $this->setIconRepo($iconRepo);
     }
 
     /**
@@ -175,11 +177,25 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      */
     protected function validateFamily($familySlug = null, $iconSlug = null)
     {
-        $this->attemptForgivingLookupFamily($familySlug, $iconSlug);
+        if (is_null_or_empty_string($familySlug) && is_null_or_empty_string($iconSlug)) {
+            throw new IconCreatorException('Neither an icon slug or family slug was provided.');
+        }
+
+        try {
+            if (false === is_null_or_empty_string($familySlug)) {
+                $this->attemptExplicitFamilyLookup($familySlug);
+            } else {
+                $this->attemptImplicitFamilyLookup($iconSlug);
+            }
+        } catch (\Exception $e) {
+            $this
+                ->resetIconFamilySlug()
+                ->resetFamilyEntity();
+        }
 
         if (true !== $this->hasFamilyEntity()) {
             throw new IconCreatorException(
-                'An icon family type was not provided.',
+                'An icon family type was not provided or could not be found.',
                 IconCreatorException::CODE_MISSING_ARGS
             );
         }
@@ -188,30 +204,31 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
     }
 
     /**
-     * Allow for single-argument look-ups that include family, such as fa-book for "Font Awesome" icon "Book".
-     *
-     * @param string|null $familySlug
-     * @param string|null $iconSlug
+     * @param string|null $slug
      *
      * @return $this
      */
-    protected function attemptForgivingLookupFamily($familySlug = null, $iconSlug = null)
+    protected function attemptExplicitFamilyLookup($slug)
     {
-        if (null !== $familySlug) {
-            $this->lookupFamily($familySlug);
-        }
+        $this->lookupFamily($slug);
 
-        if (null === $familySlug && null === $iconSlug) {
+        return $this;
+    }
+
+    /**
+     * @param string|null $slug
+     *
+     * @return $this
+     */
+    protected function attemptImplicitFamilyLookup($slug = null)
+    {
+        if (true === is_null_or_empty_string($slug)) {
             return $this;
         }
 
-        try {
-            if (false !== ($slugSeparatorPosition = strpos($iconSlug, '-')) && $slugSeparatorPosition === 2) {
-                $this->lookupFamily(substr($iconSlug, 0, 2));
-            }
-        } catch (\Exception $e) {
-            $this->resetIconFamilySlug();
-        }
+        $familySlugSeparatorPosition = strpos($slug, '-');
+
+        $this->lookupFamily(substr($slug, 0, $familySlugSeparatorPosition));
 
         return $this;
     }
@@ -238,8 +255,8 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
             $this->setFamilyEntity($family);
         } catch (\Exception $e) {
             throw new IconCreatorORMException(
-                'IconFamily with slug %s could not be found.', IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING,
-                $e, null, $slug
+                'IconFamily with slug %s could not be found.',
+                IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING, $e, null, $slug
             );
         }
 
@@ -257,14 +274,11 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      */
     protected function validateIcon($slug = null)
     {
-        if (null !== $slug) {
-            $this->setIconSlug($slug);
-        }
-
-        if (true !== $this->hasIconSlug()) {
+        if (is_null_or_empty_string($slug)) {
             throw new IconCreatorException('An icon type was not provided.', IconCreatorException::CODE_MISSING_ARGS);
         }
 
+        $this->setIconSlug($slug);
         $this->lookupIcon();
 
         return $this;
@@ -279,35 +293,20 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      */
     private function lookupIcon()
     {
-        if (true !== $this->hasFamilyEntity()) {
-            throw new IconCreatorException(
-                'Could not validate/lookup icon entity without a valid icon family entity.',
-                IconCreatorException::CODE_TEMPLATING_GENERATOR_GENERIC
-            );
-        }
-
         $slug = $this->getIconSlugFiltered();
-        $icons = $this
-            ->getFamilyEntity()
-            ->getIcons()
-            ->filter(
-                function (Icon $icon) use ($slug) {
-                    return (bool) ((string) $icon->getSlug() === (string) $slug);
-                }
-            )
-        ;
 
-        if ((false === ($icons instanceof ArrayCollection) || 1 !== $icons->count()) &&
-            (false === ($icons = $this->lookupIconByAlias($slug)) || 1 !== $icons->count())) {
-            throw new IconCreatorORMException(
-                'Could not find icon slug %s in icon family %s.',
-                IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING, null, null, $slug, $this->getFamilyEntity()->getName()
-            );
+        $icon = $this
+            ->getIconRepo()
+            ->loadIconByFamilyAndSlug($this->getFamilyEntity(), $slug);
+
+        if (true === ($icon instanceof Icon) || false !== ($icon = $this->lookupIconByAlias($slug))) {
+            return $this->setIconEntity($icon);
         }
 
-        $this->setIconEntity($icons->first());
-
-        return $this;
+        throw new IconCreatorORMException(
+            'Could not find icon slug %s in icon family %s.',
+            IconCreatorORMException::CODE_ORM_STATE_ENTITY_MISSING, null, null, $slug, $this->getFamilyEntity()->getName()
+        );
     }
 
     /**
@@ -315,13 +314,13 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
      *
      * @param string $alias
      *
-     * @return bool|ArrayCollection
+     * @return Icon|bool
      */
     private function lookupIconByAlias($alias)
     {
         foreach ($this->getFamilyEntity()->getIcons() as $icon) {
             if (in_array($alias, $icon->getAliases(), true)) {
-                return new ArrayCollection([$icon]);
+                return $icon;
             }
         }
 

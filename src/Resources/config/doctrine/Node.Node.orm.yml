@@ -39,7 +39,7 @@ Scribe\MantleBundle\Doctrine\Entity\Node\Node:
             targetEntity : NodeRevision
             inversedBy   : owningNode
             joinColumn   :
-                name            : latestRevisionId
+                name            : latestRevision
                 referenceColumn : id
 
     oneToMany:

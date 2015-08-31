@@ -12,6 +12,7 @@
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Scribe\CacheBundle\Cache\Handler\Chain\CacheChainInterface;
+use Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository;
 use Twig_Environment;
 use Doctrine\ORM\EntityRepository;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository;
@@ -38,9 +39,9 @@ class IconCreatorCached extends IconCreator
      * @param IconFamilyRepository $iconFamilyRepo
      * @param Twig_Environment     $engineEnvironment
      */
-    public function __construct(IconFamilyRepository $iconFamilyRepo, Twig_Environment $engineEnvironment = null)
+    public function __construct(IconFamilyRepository $iconFamilyRepo, IconRepository $iconRepo, Twig_Environment $engineEnvironment = null)
     {
-        parent::__construct($iconFamilyRepo, $engineEnvironment);
+        parent::__construct($iconFamilyRepo, $iconRepo, $engineEnvironment);
     }
 
     /**
@@ -70,6 +71,7 @@ class IconCreatorCached extends IconCreator
         $this->cachedResult = true;
 
         if (null === ($renderedHtml = $this->getCacheChain()->get())) {
+            dump([$icon, $family, $styles]);
             $renderedHtml = parent::render($icon, $family, ...$styles);
 
             $this->getCacheChain()->set($renderedHtml);
@@ -93,7 +95,7 @@ class IconCreatorCached extends IconCreator
     protected function setCurrentStateAndCacheKey($icon, $family, ...$styles)
     {
         if ($family !== null) {
-            $this->validateFamily($family);
+            $this->setIconFamilySlug($family);
         }
 
         if ($icon !== null) {

@@ -46,6 +46,8 @@ parameters:
     s.mantle.locale.repo.class:                                         Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
     s.mantle.locale_city.entity.class:                                  Scribe\MantleBundle\Doctrine\Entity\Locale\City
     s.mantle.locale_city.repo.class:                                    Scribe\MantleBundle\Doctrine\Repository\Locale\CityRepository
+    s.mantle.locale_state_territory.entity.class:                       Scribe\MantleBundle\Doctrine\Entity\Locale\StateTerritory
+    s.mantle.locale_state_territory.repo.class:                         Scribe\MantleBundle\Doctrine\Repository\Locale\StateTerritoryRepository
     s.mantle.state_runtime_bundle.entity.class:                         Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle
     s.mantle.state_runtime_bundle.repo.class:                           Scribe\MantleBundle\Doctrine\Repository\State\RuntimeBundleRepository
     s.mantle.state_runtime_controller.entity.class:                     Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController
@@ -424,6 +426,14 @@ services:
         arguments:
             - %s.mantle.locale_city.entity.class%
 
+    s.mantle.locale_state_territory.repo:
+        class: %s.mantle.locale_state_territory.repo.class%
+        factory:
+            - @doctrine
+            - getRepository
+        arguments:
+            - %s.mantle.locale_state_territory.entity.class%
+
     s.mantle.state_runtime_bundle.repo:
         class: %s.mantle.state_runtime_bundle.repo.class%
         factory:
@@ -554,6 +564,7 @@ services:
         class: %s.mantle.icon_creator_cached.class%
         arguments:
             - @s.mantle.icon_family.repo
+            - @s.mantle.icon.repo
             - @twig
         calls:
             - [setCacheChain, [@s.cache.handler_chain]]
@@ -562,6 +573,7 @@ services:
         class: %s.mantle.icon_creator_cached.class%
         arguments:
             - @s.mantle.icon_family.repo
+            - @s.mantle.icon.repo
         calls:
             - [setCacheChain, [@s.cache.handler_chain]]
 

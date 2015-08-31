@@ -51,14 +51,14 @@ Scribe\MantleBundle\Doctrine\Entity\Asset\Asset:
             targetEntity : AssetType
             inversedBy   : assets
             joinColumn   :
-                name            : assetTypeId
+                name            : assetType
                 referenceColumn : id
 
         assetDescriptor:
             targetEntity : AssetDescriptor
             inversedBy   : assets
             joinColumn   :
-                name            : assetDescriptorId
+                name            : assetDescriptor
                 referenceColumn : id
 
     manyToMany:

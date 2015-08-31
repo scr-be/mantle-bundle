@@ -20,6 +20,8 @@ trait IconCreatorMocksTrait
 {
     private $iconFamilyRepo;
 
+    private $iconRepo;
+
     private $engine;
 
     protected function mockIcon_Glass()
@@ -174,6 +176,28 @@ trait IconCreatorMocksTrait
         return $iconFamilyRepo;
     }
 
+    protected function mockIconRepo($family, ...$icons)
+    {
+        $iconRepo = $this
+            ->getMockBuilder('Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository')
+            ->setMethods(['loadIconByFamilyAndSlug'])
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $map = [];
+        foreach ($icons as $icon) {
+            $map[] = [$family, $icon->getSlug(), $icon];
+        }
+
+        $iconRepo
+            ->method('loadIconByFamilyAndSlug')
+            ->with($this->returnValueMap($map));
+        ;
+
+        return $iconRepo;
+    }
+
     protected function mockIconFamilyRepoNoFamilyResult($iconFamily)
     {
         $iconFamilyRepo = $this
@@ -299,11 +323,11 @@ EOT;
         $iconTemplate2 = $this->mockIconTemplate2();
 
         $iconGlass
-            ->method('getFamilies')
+            ->method('getFamilyCollection')
             ->willReturn(new ArrayCollection([$iconFamily]))
         ;
         $iconPhoto
-            ->method('getFamilies')
+            ->method('getFamilyCollection')
             ->willReturn(new ArrayCollection([$iconFamily]))
         ;
         $iconFamily
@@ -315,15 +339,16 @@ EOT;
             ->willReturn(new ArrayCollection([$iconTemplate1, $iconTemplate2]))
         ;
         $iconTemplate1
-            ->method('getFamilies')
+            ->method('getFamilyCollection')
             ->willReturn(new ArrayCollection([$iconFamily]))
         ;
         $iconTemplate2
-            ->method('getFamilies')
+            ->method('getFamilyCollection')
             ->willReturn(new ArrayCollection([$iconFamily]))
         ;
 
         $this->iconFamilyRepo = $this->mockIconFamilyRepo($iconFamily);
+        $this->iconRepo = $this->mockIconRepo($iconFamily, $iconGlass, $iconPhoto);
         $this->iconFamilyRepoNoFamilyResult = $this->mockIconFamilyRepoNoFamilyResult($iconFamily);
         $this->engine = $this->mockEngineInterface();
     }
