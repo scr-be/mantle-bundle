@@ -71,11 +71,10 @@ class IconCreatorCached extends IconCreator
         $this->cachedResult = true;
 
         if (null === ($renderedHtml = $this->getCacheChain()->get())) {
-            dump([$icon, $family, $styles]);
+            $this->cachedResult = false;
             $renderedHtml = parent::render($icon, $family, ...$styles);
 
             $this->getCacheChain()->set($renderedHtml);
-            $this->cachedResult = false;
         }
 
         $this->resetState();
