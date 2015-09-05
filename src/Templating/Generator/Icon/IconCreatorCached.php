@@ -34,10 +34,9 @@ class IconCreatorCached extends IconCreator
     protected $cachedResult = false;
 
     /**
-     * Setup the object instance.
-     *
-     * @param IconFamilyRepository $iconFamilyRepo
-     * @param Twig_Environment     $engineEnvironment
+     * @param IconFamilyRepository  $iconFamilyRepo
+     * @param IconRepository        $iconRepo
+     * @param Twig_Environment|null $engineEnvironment
      */
     public function __construct(IconFamilyRepository $iconFamilyRepo, IconRepository $iconRepo, Twig_Environment $engineEnvironment = null)
     {
