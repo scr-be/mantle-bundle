@@ -149,9 +149,14 @@ class User extends AbstractEntity implements UserInterface
         $this->passwordExpiration = null;
     }
 
-    public function initializeManagerOf()
+    /**
+     * @return $this
+     */
+    public function initializeManagerOfCollection()
     {
         $this->managerOf = new ArrayCollection();
+
+        return $this;
     }
 
     /**
@@ -376,13 +381,17 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param ArrayCollection $orgs
+     * @param ArrayCollection $organizations
      *
      * @return $this
      */
-    public function setManagerOfCollection(ArrayCollection $orgs)
+    public function setManagerOfCollection(ArrayCollection $organizations = null)
     {
-        $this->managerOf = $orgs;
+        if ($organizations === null) {
+            $this->clearManagerOfCollection();
+        } else {
+            $this->managerOf = $organizations;
+        }
 
         return $this;
     }
@@ -423,6 +432,14 @@ class User extends AbstractEntity implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clearManagerOfCollection()
+    {
+        return $this->initializeManagerOfCollection();
     }
 }
 

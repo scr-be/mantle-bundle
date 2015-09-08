@@ -167,11 +167,11 @@ interface UserInterface extends
     public function getManagerOfCollection();
 
     /**
-     * @param ArrayCollection $orgs
+     * @param ArrayCollection $organizations
      *
      * @return $this
      */
-    public function setManagerOfCollection(ArrayCollection $orgs);
+    public function setManagerOfCollection(ArrayCollection $organizations);
 
     /**
      * @param OrganizationInterface $org
