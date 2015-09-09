@@ -15,8 +15,8 @@ use Scribe\Doctrine\Base\Entity\AbstractEntity;
 use Scribe\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\Doctrine\Base\Model\Name\HasName;
 use Scribe\Doctrine\Base\Model\HasChildrenInverseSide;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasParentsOwningSide;
 use Scribe\MantleBundle\Component\Security\Core\RoleInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasParentsOwningSide;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasOrgsInverseSide;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasUsersInverseSide;
 
@@ -25,13 +25,16 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasUsersInverseSide;
  */
 class Role extends AbstractEntity implements RoleInterface
 {
-    use HasName,
-        HasDescription,
-        HasParentsOwningSide,
-        HasChildrenInverseSide,
-        HasUsersInverseSide,
-        HasOrgsInverseSide;
+    use HasName;
+    use HasDescription;
+    use HasParentsOwningSide;
+    use HasChildrenInverseSide;
+    use HasUsersInverseSide;
+    use HasOrgsInverseSide;
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->getName();
