@@ -22,6 +22,16 @@ trait HasRolesOwningSide
     use HasRolesInverseSide;
 
     /**
+     * @return $this
+     */
+    public function initializeRoles()
+    {
+        $this->roles = new ArrayCollection;
+
+        return $this;
+    }
+
+    /**
      * Set role collection.
      *
      * @param ArrayCollection $roles
@@ -68,9 +78,7 @@ trait HasRolesOwningSide
      */
     public function clearRoles()
     {
-        $this->roles = new ArrayCollection();
-
-        return $this;
+        return $this->initializeRoles();
     }
 }
 

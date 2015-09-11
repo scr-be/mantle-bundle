@@ -144,9 +144,7 @@ class Organization extends AbstractEntity implements OrganizationInterface
      */
     public function removeManager(UserInterface $user)
     {
-        if (true === $this->hasManager($user)) {
-            $this->managers->removeElement($user);
-        }
+        $this->managers->removeElement($user);
 
         return $this;
     }

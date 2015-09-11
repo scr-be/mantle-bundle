@@ -47,6 +47,14 @@ class Role extends AbstractEntity implements RoleInterface
     {
         return (string) $this->__toString();
     }
+
+    /**
+     * @return string
+     */
+    public function getNameHuman()
+    {
+        return (string) str_replace('ROLE_', '', $this->getRole());
+    }
 }
 
 /* EOF */

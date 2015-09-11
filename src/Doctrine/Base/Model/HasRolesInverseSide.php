@@ -45,6 +45,14 @@ trait HasRolesInverseSide
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getRoleCollection()
+    {
+        return $this->roles;
+    }
+
+    /**
      * Check for roles.
      *
      * @return bool
