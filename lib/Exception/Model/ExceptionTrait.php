@@ -93,7 +93,7 @@ trait ExceptionTrait
             $message = $this->getDefaultMessage();
         }
 
-        if (true === is_array_empty($sprintfArgs)) {
+        if (true === is_iterable_empty($sprintfArgs)) {
             return (string) $message;
         }
 

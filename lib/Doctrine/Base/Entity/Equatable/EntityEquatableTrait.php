@@ -74,7 +74,7 @@ trait EntityEquatableTrait
         $reflectionAnalyzer->setReflectionClassFromClassInstance($this);
         $thisProperties = $reflectionAnalyzer->getProperties(false);
 
-        if (count_array($entityProperties) !== count_array($thisProperties)) {
+        if (get_iterable_count($entityProperties) !== get_iterable_count($thisProperties)) {
             return false;
         }
 

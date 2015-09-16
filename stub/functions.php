@@ -11,75 +11,105 @@
 
 namespace {
 
+    use Doctrine\Common\Collections\ArrayCollection;
+
     /**
-     * @param mixed ...$comparisonSet
+     * Variadic function that performs a strict comparison on all arguments passed to it and determines if they are
+     * equal or not.
      *
-     * @throws Exception
+     * @param mixed,... $comparisonSet
+     *
+     * @throws \RuntimeException
      *
      * @return bool
      */
     function compare_strict(...$comparisonSet)
     {
-        if (empty($comparisonSet) === true || (count($comparisonSet) < 2) === true) {
-            throw new \Exception('You must provide at least two items to compare.');
+        if (false === is_iterable($comparisonSet) || true === is_iterable_empty($comparisonSet) || count($comparisonSet) < 2) {
+            throw new \RuntimeException('You must provide at least two items to compare.');
         }
 
-        $first = array_shift($comparisonSet);
+        $firstItem = array_shift($comparisonSet);
 
-        foreach ($comparisonSet as $setItem) {
-            if ($setItem !== $first) {
-                return false;
-            }
+        try {
+            array_walk($comparisonSet, function ($value) use ($firstItem) {
+                if ($firstItem !== $value) { throw new \Exception; }
+            });
+        } catch (\Exception $e) {
+            return false;
         }
 
         return true;
     }
 
     /**
-     * @param mixed $item
+     * Checks if the passed item is an iterable type: an array, or an object with support for
+     * iteration: \Iterator, \ArrayAccess, \Countable, and Doctrin's ArrayCollection.
+     *
+     * @param array|\Iterator|\ArrayAccess|\Countable|ArrayCollection|mixed $iterable
      *
      * @return bool
      */
-    function is_array_empty($item)
+    function is_iterable($iterable)
     {
-        if (false === is_array($item)) {
-            return false;
-        }
-
-        if (false === empty($item)) {
-            return false;
-        }
-
-        return true;
+        return (bool) (
+            true === is_array($iterable) ||
+            true === ($iterable instanceof \Iterator) ||
+            true === ($iterable instanceof \ArrayAccess) ||
+            true === ($iterable instanceof \Countable) ||
+            true === ($iterable instanceof ArrayCollection)
+        );
     }
 
     /**
-     * @param mixed $array
+     * Checks if an iterable item is empty. {@see is_iterable_not_empty} for its inverse.
      *
-     * @return bool|int
+     * @param mixed $iterable
+     *
+     * @return bool
      */
-    function count_array($array = [])
+    function is_iterable_empty($iterable)
     {
-        if (false === is_array($array) && false === ($array instanceof \Countable)) {
-            return false;
-        }
-
-        return (int)count($array);
+        return (bool) (false === is_iterable($iterable) || true === (count($iterable) > 0) ? false : true);
     }
 
     /**
+     * Checks if an iterable item is not empty. {@see is_iterable_empty} for its inverse.
+     *
+     * @param mixed $iterable
+     *
+     * @return bool
+     */
+    function is_iterable_not_empty($iterable)
+    {
+        return (bool) !is_iterable_empty($iterable);
+    }
+
+    /**
+     * Returns the count of an iterable item, or false if the item is not iterable.
+     *
+     * @param mixed $iterable
+     *
+     * @return false|int
+     */
+    function get_iterable_count($iterable)
+    {
+        return is_iterable($iterable) ? (bool) false : (int) count($iterable);
+    }
+
+    /**
+     * Get the value of an iterable item via its key.
+     *
      * @param string $key
-     * @param array  $array
+     * @param mixed $iterable
      *
-     * @return null|mixed
+     * @return null
      */
-    function try_for_array_value($key, array $array)
+    function get_iterable_value_by_key($key, $iterable)
     {
-        if (false === array_key_exists($key, $array)) {
-            return null;
-        }
+        if (true !== is_iterable($iterable) || false === array_key_exists($key, $iterable)) { return null; }
 
-        return $array[$key];
+        return $iterable[$key];
     }
 
     /**
@@ -136,6 +166,8 @@ namespace {
     }
 
     /**
+     * Checks for null or empty string.
+     *
      * @param string $string
      *
      * @return bool
@@ -143,6 +175,18 @@ namespace {
     function is_null_or_empty_string($string)
     {
         return (bool) ($string === null || strlen((string) $string) === 0);
+    }
+
+    /**
+     * Checks for null or empty value.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    function is_null_or_empty($value)
+    {
+        return (bool) ($value === null || true === empty($value));
     }
 }
 

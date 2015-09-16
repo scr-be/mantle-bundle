@@ -12,7 +12,7 @@
 namespace Scribe\Component\DependencyInjection\Aware;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class SessionAwareTrait.
@@ -22,7 +22,7 @@ trait SessionAwareTrait
     /**
      * Session property.
      *
-     * @var SessionInterface|null
+     * @var Session|null
      */
     protected $session = null;
 
@@ -43,11 +43,11 @@ trait SessionAwareTrait
     /**
      * Setter for session.
      *
-     * @param SessionInterface $session session instance
+     * @param Session $session
      *
      * @return $this
      */
-    public function setSession(SessionInterface $session = null)
+    public function setSession(Session $session = null)
     {
         $this->session = $session;
 
@@ -57,7 +57,7 @@ trait SessionAwareTrait
     /**
      * Getter for session.
      *
-     * @return SessionInterface|null
+     * @return Session|null
      */
     public function getSession()
     {
