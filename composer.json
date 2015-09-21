@@ -3,7 +3,7 @@
     "license"     : "MIT",
     "type"        : "project",
     "homepage"    : "https://scr.be/mantle-bundle",
-    "description" : "Scribe Mantle Bundle provides the core dependencies and specific functionality need for the devvelopment of our internal (proprietary) application as well as our other external projects, both professional and personal. Mantle provides a solid foundation for us to develope all our applications in tandem, while providing a common version- and feature-set throughout. In addition to the collection of external dependencies required, we have also spent a great deal of time abstracting as much as as posible with the intend of providing a solid foundation (or \"mantle\") for all our Symfony-based work. If anyone has any qyestions, please feel free to contact the maintainers (try Rob Frawley 2nd first, as he would be most keen to open a dialoge). Otherwise, as this is MIT Licenced, feel free to disect, pull-apart, and use whatever functionality you find most-appropriate for your enviornment.",
+    "description" : "Scribe Mantle Bundle provides the core dependencies and specific functionality need for the development of our internal (proprietary) application as well as our other external projects, both professional and personal. Mantle provides a solid foundation for us to develope all our applications in tandem, while providing a common version- and feature-set throughout. In addition to the collection of external dependencies required, we have also spent a great deal of time abstracting as much as as posible with the intend of providing a solid foundation (or \"mantle\") for all our Symfony-based work. If anyone has any qyestions, please feel free to contact the maintainers (try Rob Frawley 2nd first, as he would be most keen to open a dialoge). Otherwise, as this is MIT Licenced, feel free to disect, pull-apart, and use whatever functionality you find most-appropriate for your enviornment.",
     "support" : {
         "email"  : "rmf@scr.be",
         "issues" : "https://symfony-mantle-bundle.docs.scribe.tools/issues",
@@ -50,15 +50,13 @@
         }
     ],
     "require" : {
-        "php"                                  : ">=5.6.4",
-        "ext-curl"                             : "*",
-        "ext-json"                             : "*",
-        "symfony/symfony"                      : "~2.7|~2.8|~2.8@dev",
-        "symfony/framework-bundle"             : "~2.7|~2.8|~2.8@dev",
-        "symfony/yaml"                         : "~2.7|~2.8|~2.8@dev",
-        "symfony/filesystem"                   : "~2.7|~2.8|~2.8@dev",
-        "symfony/finder"                       : "~2.7|~2.8|~2.8@dev",
-        "symfony/dependency-injection"         : "~2.7|~2.8|~2.8@dev",
+        "php"                                  : ">=5.6.4,~5.6",
+        "symfony/symfony"                      : "~2.7|~2.8@dev",
+        "symfony/framework-bundle"             : "~2.7|~2.8@dev",
+        "symfony/yaml"                         : "~2.7|~2.8@dev",
+        "symfony/filesystem"                   : "~2.7|~2.8@dev",
+        "symfony/finder"                       : "~2.7|~2.8@dev",
+        "symfony/dependency-injection"         : "~2.7|~2.8@dev",
         "symfony/swiftmailer-bundle"           : "~2.3",
         "symfony/monolog-bundle"               : "~2.7",
         "swiftmailer/swiftmailer"              : "~5.4",
@@ -77,13 +75,16 @@
         "ext-memcached"                        : "~2.2",
         "ext-igbinary"                         : "~1.2",
         "ext-tidy"                             : "~2.0",
+        "ext-curl"                             : "*",
+        "ext-json"                             : "*",
         "ext-mysqli"                           : "*",
-        "scribe/swim-bundle"                   : "~2.0|~2.1|~2.1@dev",
-        "scribe/cache-bundle"                  : "~2.0|~2.1|~2.1@dev",
-        "symfony/stopwatch"                    : "~2.7|~2.8|~2.8@dev",
-        "symfony/var-dumper"                   : "~2.7|~2.8|~2.8@dev",
-        "symfony/debug-bundle"                 : "~2.7|~2.8|~2.8@dev",
-        "symfony/phpunit-bridge"               : "~2.7|~2.8|~2.8@dev",
+        "ext-pdo"                              : "*",
+        "scribe/swim-bundle"                   : "~2.0|~2.1@dev",
+        "scribe/cache-bundle"                  : "~2.0|~2.1@dev",
+        "symfony/stopwatch"                    : "~2.7|~2.8@dev",
+        "symfony/var-dumper"                   : "~2.7|~2.8@dev",
+        "symfony/debug-bundle"                 : "~2.7|~2.8@dev",
+        "symfony/phpunit-bridge"               : "~2.7|~2.8@dev",
         "phpunit/phpunit"                      : "~4.8",
         "symfony/assetic-bundle"               : "~2.7",
         "kriswallsmith/assetic"                : "~1.3",
@@ -117,7 +118,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.1-dev"
+            "dev-master" : "2.0-dev"
         }
     },
     "repositories": [
