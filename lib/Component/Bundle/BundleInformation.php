@@ -359,6 +359,8 @@ class BundleInformation implements BundleInformationInterface
      */
     protected function determineFrameworkLocationByRoute($routeName)
     {
+        return $this;
+
         $route = $this
             ->getRouter()
             ->getRouteCollection()
