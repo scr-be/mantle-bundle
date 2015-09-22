@@ -12,14 +12,14 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Node;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasTitle;
-use Scribe\Doctrine\Base\Model\HasWeight;
-use Scribe\Doctrine\Behavior\Model\Hierarchical\HierarchicalNodeBehaviorTrait;
-use Scribe\Doctrine\Behavior\Model\Hierarchical\HierarchicalNodeInterface;
-use Scribe\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait;
-use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasTitle;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasWeight;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Hierarchical\HierarchicalNodeBehaviorTrait;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Hierarchical\HierarchicalNodeInterface;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 use Symfony\Component\Security\Core\User\User;
 
 /**

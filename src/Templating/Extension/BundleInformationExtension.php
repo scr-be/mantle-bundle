@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\Component\Bundle\BundleInformation;
+use Scribe\MantleBundle\Component\Bundle\BundleInformation;
 use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**

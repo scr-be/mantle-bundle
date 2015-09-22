@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
-use Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain;
+use Scribe\MantleBundle\Component\DependencyInjection\Compiler\AbstractCompilerPassChain;
 
 /**
  * Class NodeRendererRegistrar.
@@ -26,7 +26,7 @@ class NodeRendererRegistrar extends AbstractCompilerPassChain
         parent::__construct(
             [
                 'restrictions' => [
-                    'Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface',
+                    'Scribe\MantleBundle\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface',
                     'Scribe\MantleBundle\Templating\Generator\Node\Rendering\AbstractNodeRenderer',
                 ],
             ]

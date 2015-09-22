@@ -12,8 +12,8 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Asset;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasAttributes;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasAttributes;
 
 /**
  * AssetType.

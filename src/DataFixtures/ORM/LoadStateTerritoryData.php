@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Scribe\MantleBundle\DataFixtures\Doctrine\AbstractDoctrineYamlFixture;
+use Scribe\WonkaBundle\DataFixtures\Doctrine\AbstractDoctrineYamlFixture;
 
 /**
  * LoadStateTerritoryData.

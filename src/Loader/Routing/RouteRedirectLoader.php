@@ -5,8 +5,8 @@ namespace Scribe\MantleBundle\Loader\Routing;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use Scribe\Exception\RuntimeException;
-use Scribe\Utility\Filter\StringFilter;
+use Scribe\Wonka\Exception\RuntimeException;
+use Scribe\Wonka\Utility\Filter\StringFilter;
 use Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect;
 use Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository;
 
@@ -223,9 +223,7 @@ class RouteRedirectLoader extends Loader
     {
         if (true === $this->isLoaded()) {
             throw new RuntimeException(
-                'Cannot add the redirection route loader "%s" to the route resolver more than once.',
-                null, null, null,
-                __CLASS__
+                'Cannot add the redirection route loader "%s" to the route resolver more than once.', null, null, __CLASS__
             );
         }
 

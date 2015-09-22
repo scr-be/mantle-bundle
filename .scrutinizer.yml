@@ -7,7 +7,6 @@ filter:
         - 'bin/'
         - 'build/'
         - 'docs/'
-        - 'lib/Tests/'
         - 'src/Tests/'
         - 'src/Resources/'
         - 'vendor/'

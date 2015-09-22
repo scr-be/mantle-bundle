@@ -1,0 +1,14 @@
+{% if cols is not null %}
+	<div class="col-md-{{ cols }}">
+{% endif %}
+	<div class="form-errors">
+		{{ error|raw }}
+	</div>
+	{% if label != null %}
+		{{ label|raw }}
+	{% endif %}
+	{{ widget|raw }}
+
+{% if cols is not null %}
+	</div>
+{% endif %}

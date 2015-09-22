@@ -12,16 +12,16 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\Activity\HasActivityCollection;
-use Scribe\Doctrine\Base\Model\Address\HasAddressCollection;
-use Scribe\Doctrine\Base\Model\Description\HasDescription;
-use Scribe\Doctrine\Base\Model\HasPerson;
-use Scribe\Doctrine\Base\Model\HasProperties;
-use Scribe\Doctrine\Base\Model\HasTitle;
-use Scribe\Doctrine\Base\Model\Organization\HasOrganization;
-use Scribe\Doctrine\Base\Model\Phone\HasPhoneCollection;
-use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\Activity\HasActivityCollection;
+use Scribe\MantleBundle\Doctrine\Base\Model\Address\HasAddressCollection;
+use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasPerson;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasProperties;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasTitle;
+use Scribe\MantleBundle\Doctrine\Base\Model\Organization\HasOrganization;
+use Scribe\MantleBundle\Doctrine\Base\Model\Phone\HasPhoneCollection;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
 use Scribe\MantleBundle\Component\Security\Core\OrganizationInterface;
 use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasRolesOwningSide;

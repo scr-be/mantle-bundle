@@ -11,8 +11,8 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\Name\HasName;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasCountry;
 
 /**

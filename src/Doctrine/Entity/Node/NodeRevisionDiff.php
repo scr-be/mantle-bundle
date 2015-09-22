@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Node;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * NodeRevisionDiff.

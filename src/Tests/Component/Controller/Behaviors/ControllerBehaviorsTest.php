@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Tests\Component\Controller\Behaviors;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\TwigBundle\TwigEngine;
-use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\KernelTestCase;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviorsInterface;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
@@ -21,7 +21,7 @@ use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 /**
  * Class ControllerBehaviorsTest.
  */
-class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
+class ControllerBehaviorsTest extends KernelTestCase
 {
     /**
      * @var ControllerBehaviors
@@ -82,7 +82,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     public function testGetServiceCollectionException()
     {
         $this->setExpectedException(
-            'Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException',
+            'Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerServiceException',
             'The requested container service "abcdef0123" could not be found.'
         );
 
@@ -100,7 +100,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     public function testGetServiceException()
     {
         $this->setExpectedException(
-            'Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException',
+            'Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerServiceException',
             'The requested container service "abcdef0123" could not be found.'
         );
 
@@ -154,7 +154,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     public function testGetServiceParameterException()
     {
         $this->setExpectedException(
-            'Scribe\Component\DependencyInjection\Exception\InvalidContainerParameterException',
+            'Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerParameterException',
             'The requested container parameter "abcdef0123" could not be found.'
         );
 
@@ -172,7 +172,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
     public function testGetParameterException()
     {
         $this->setExpectedException(
-            'Scribe\Component\DependencyInjection\Exception\InvalidContainerParameterException',
+            'Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerParameterException',
             'The requested container parameter "abcdef0123" could not be found.'
         );
 
@@ -265,7 +265,7 @@ class ControllerBehaviorsTest extends AbstractMantleKernelTestCase
         $routeCollection = new ArrayCollection([$route1, $route2]);
 
         $this->setExpectedException(
-            'Scribe\Doctrine\Exception\TransactionORMException'
+            'Scribe\MantleBundle\Doctrine\Exception\TransactionORMException'
         );
         $this->controllerBehaviors->entityCollectionPersist($routeCollection, true);
 

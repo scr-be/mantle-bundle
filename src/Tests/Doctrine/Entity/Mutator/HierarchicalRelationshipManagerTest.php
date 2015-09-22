@@ -12,14 +12,14 @@
 namespace Scribe\MantleBundle\Tests\Doctrine\Entity\Node;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Utility\UnitTest\AbstractMantlePhactoryTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\PhactoryTestCase;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Entity\Mutator\HierarchicalRelationshipManager;
 
 /**
  * Class NodeTest.
  */
-class HierarchicalRelationshipManagerTest extends AbstractMantlePhactoryTestCase
+class HierarchicalRelationshipManagerTest extends PhactoryTestCase
 {
     /**
      * @var Node

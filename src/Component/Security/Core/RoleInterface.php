@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Component\Security\Core;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 use Symfony\Component\Security\Core\Role\RoleInterface as SymfonyRoleInterface;
 
 /**

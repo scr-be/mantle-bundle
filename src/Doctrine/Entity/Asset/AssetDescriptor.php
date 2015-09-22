@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Asset;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * AssetDescriptor.

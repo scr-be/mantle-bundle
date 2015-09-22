@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Scribe\MantleBundle\Doctrine\Entity\Locale\Locale;
 use Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle;
-use Scribe\Doctrine\Exception\ORMException;
+use Scribe\MantleBundle\Doctrine\Exception\ORMException;
 use Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationDomain;
 
 /**

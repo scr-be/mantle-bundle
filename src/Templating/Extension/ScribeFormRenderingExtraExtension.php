@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Templating\Extension;
 
 use Twig_Environment;
-use Scribe\Component\Http\Utils\HttpUtils;
+use Scribe\MantleBundle\Component\Http\Utils\HttpUtils;
 use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 
 /**

@@ -11,53 +11,33 @@
 
 namespace Scribe\MantleBundle\Tests\app;
 
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
-
 /**
  * Class AppKernelInvalidCompilerPasses.
  */
-class AppKernelInvalidCompilerPasses extends Kernel
+class AppKernelInvalidCompilerPasses extends \Scribe\WonkaBundle\Component\HttpKernel\Kernel
 {
     /**
-     * Return array of bundles requires for tests.
-     *
-     * @return array
+     * @return void
      */
-    public function registerBundles()
+    public function setup()
     {
-        $bundles = [
-            new \Symfony\Bundle\MonologBundle\MonologBundle(),
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            new \Symfony\Bundle\TwigBundle\TwigBundle(),
-            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new \Scribe\CacheBundle\ScribeCacheBundle(),
-            new \Scribe\MantleBundle\ScribeMantleBundle(),
-            new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new \Scribe\MantleBundle\Tests\ScribeMantleBadCompilerPassesBundle(),
-        ];
-
-        if (in_array($this->getEnvironment(), ['dev', 'test'])) {
-            $bundles[] = new \Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
-        }
-
-        return $bundles;
-    }
-
-    /**
-     * Load the required config file based on the environment.
-     *
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     */
-    public function registerContainerConfiguration(LoaderInterface $loader)
-    {
-        $loader->load(
-            __DIR__.'/config/config_'.$this->getEnvironment().'.yml'
-        );
+        $this
+            ->addBundle('\Symfony\Bundle\MonologBundle\MonologBundle')
+            ->addBundle('\Symfony\Bundle\FrameworkBundle\FrameworkBundle')
+            ->addBundle('\Symfony\Bundle\SecurityBundle\SecurityBundle')
+            ->addBundle('\Symfony\Bundle\TwigBundle\TwigBundle')
+            ->addBundle('\Doctrine\Bundle\DoctrineBundle\DoctrineBundle')
+            ->addBundle('\Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle')
+            ->addBundle('\Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle')
+            ->addBundle('\Scribe\WonkaBundle\ScribeWonkaBundle')
+            ->addBundle('\Scribe\MantleBundle\ScribeMantleBundle')
+            ->addBundle('\Scribe\MantleBundle\Tests\ScribeMantleBadCompilerPassesBundle')
+            ->addBundle('\Sensio\Bundle\DistributionBundle\SensioDistributionBundle', 'dev', 'test')
+            ->addBundle('\Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle', 'dev', 'test')
+            ->addBundle('\Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle', 'dev', 'test')
+            ->addBundle('\Symfony\Bundle\DebugBundle\DebugBundle', 'dev', 'test')
+            ->addBundle('\Scribe\SwimBundle\ScribeSwimBundle', 'dev', 'test')
+            ->addBundle('\Scribe\CacheBundle\ScribeCacheBundle', 'dev', 'test');
     }
 }
 

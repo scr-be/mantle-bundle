@@ -13,17 +13,17 @@ namespace Scribe\MantleBundle\Tests\Templating\Extension;
 
 use Twig_Environment;
 use Scribe\MantleBundle\Templating\Generator\Node\Extension\NodeCreatorExtension;
-use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\KernelTestCase;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorHelperTrait;
 
 /**
  * Class NodeCreatorExtensionTest.
  */
-class NodeCreatorTwigExtensionTest extends AbstractMantleKernelTestCase
+class NodeCreatorTwigExtensionTest extends KernelTestCase
 {
-    use NodeCreatorMocksTrait,
-        NodeCreatorHelperTrait;
+    use NodeCreatorMocksTrait;
+    use NodeCreatorHelperTrait;
 
     /**
      * @var NodeCreatorExtension

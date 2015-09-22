@@ -12,13 +12,13 @@
 namespace Scribe\MantleBundle\Tests\Doctrine\Entity\Node;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Utility\UnitTest\AbstractMantlePhactoryTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\PhactoryTestCase;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 
 /**
  * Class NodeTest.
  */
-class NodeTest extends AbstractMantlePhactoryTestCase
+class NodeTest extends PhactoryTestCase
 {
     /**
      * @var Node

@@ -1,9 +1,9 @@
 {
-    "name"        : "scr-be/mantle-bundle",
+    "name"        : "scribe/mantle-bundle",
     "license"     : "MIT",
     "type"        : "project",
     "homepage"    : "https://scr.be/mantle-bundle",
-    "description" : "Scribe Mantle Bundle provides the core dependencies and specific functionality need for the development of our internal (proprietary) application as well as our other external projects, both professional and personal. Mantle provides a solid foundation for us to develope all our applications in tandem, while providing a common version- and feature-set throughout. In addition to the collection of external dependencies required, we have also spent a great deal of time abstracting as much as as posible with the intend of providing a solid foundation (or \"mantle\") for all our Symfony-based work. If anyone has any qyestions, please feel free to contact the maintainers (try Rob Frawley 2nd first, as he would be most keen to open a dialoge). Otherwise, as this is MIT Licenced, feel free to disect, pull-apart, and use whatever functionality you find most-appropriate for your enviornment.",
+    "description" : "An MIT licensed bundle used primarily by Scribe Inc for their own website and client sites. It includes the collection of packages required for our development needs.",
     "support" : {
         "email"  : "rmf@scr.be",
         "issues" : "https://symfony-mantle-bundle.docs.scribe.tools/issues",
@@ -11,23 +11,7 @@
         "irc"    : "irc://irc.efnet.org/scribe"
     },
     "keywords"    : [
-        "scribe-mantle-bundle",
-        "symfony-mantle-bundle",
-        "mantle-bundle",
-        "mantle",
-        "foundation",
-        "core",
-        "libs",
-        "bundle",
-        "symfony",
-        "symfony2",
-        "symfony-framework",
-        "scribe",
-        "scr",
-        "scribenet",
-        "scribeinc",
-        "scribe-software",
-        "scribe-services"
+        "scribe-mantle-bundle", "mantle-bundle", "mantle", "foundation", "bundle", "symfony", "symfony-framework", "scribe", "scr.be", "scribenet", "scribe-software", "scribe-services"
     ],
     "authors"     : [
         {
@@ -51,20 +35,24 @@
     ],
     "require" : {
         "php"                                  : ">=5.6.4,~5.6",
-        "symfony/symfony"                      : "~2.7|~2.8|2.8.*@dev",
-        "symfony/framework-bundle"             : "~2.7|~2.8|2.8.*@dev",
-        "symfony/yaml"                         : "~2.7|~2.8|2.8.*@dev",
-        "symfony/filesystem"                   : "~2.7|~2.8|2.8.*@dev",
-        "symfony/finder"                       : "~2.7|~2.8|2.8.*@dev",
-        "symfony/dependency-injection"         : "~2.7|~2.8|2.8.*@dev",
+        "scribe/wonka-library"                 : "~0.1@dev",
+        "scribe/wonka-bundle"                  : "~0.1@dev",
+        "symfony/symfony"                      : "~2.7|~2.8@dev",
+        "symfony/framework-bundle"             : "~2.7|~2.8@dev",
+        "symfony/yaml"                         : "~2.7|~2.8@dev",
+        "symfony/filesystem"                   : "~2.7|~2.8@dev",
+        "symfony/finder"                       : "~2.7|~2.8@dev",
+        "symfony/dependency-injection"         : "~2.7|~2.8@dev",
+        "symfony/monolog-bundle"               : "~2.7|~2.8@dev",
+        "symfony/assetic-bundle"               : "~2.7|~2.8@dev",
+        "kriswallsmith/assetic"                : "~1.3",
         "symfony/swiftmailer-bundle"           : "~2.3",
-        "symfony/monolog-bundle"               : "~2.7",
         "swiftmailer/swiftmailer"              : "~5.4",
         "doctrine/orm"                         : "~2.5",
-        "doctrine/common"                      : "~2.5",
-        "doctrine/dbal"                        : "~2.5",
-        "doctrine/doctrine-bundle"             : "~1.5",
-        "twig/twig"                            : "~1.22",
+        "doctrine/common"                      : ">=2.5.1,~2.5",
+        "doctrine/dbal"                        : ">=2.5.1,~2.5",
+        "doctrine/doctrine-bundle"             : ">=1.5.1,~1.5",
+        "twig/twig"                            : ">=1.22,~1.22",
         "twig/extensions"                      : "~1.3",
         "sensio/distribution-bundle"           : "~4.0",
         "sensio/framework-extra-bundle"        : "~3.0",
@@ -79,23 +67,21 @@
         "ext-json"                             : "*",
         "ext-mysqli"                           : "*",
         "ext-pdo"                              : "*",
-        "scribe/swim-bundle"                   : "2.0.*|2.1.*@dev",
-        "scribe/cache-bundle"                  : "2.0.*|2.1.*@dev",
-        "symfony/stopwatch"                    : "~2.7|~2.8|2.8.*@dev",
-        "symfony/var-dumper"                   : "~2.7|~2.8|2.8.*@dev",
-        "symfony/debug-bundle"                 : "~2.7|~2.8|2.8.*@dev",
-        "symfony/phpunit-bridge"               : "~2.7|~2.8|2.8.*@dev",
+        "scribe/swim-bundle"                   : "~2.0@dev",
+        "scribe/cache-bundle"                  : "~2.0@dev",
+        "symfony/stopwatch"                    : "~2.7|~2.8@dev",
+        "symfony/var-dumper"                   : "~2.7|~2.8@dev",
+        "symfony/debug-bundle"                 : "~2.7|~2.8@dev",
+        "symfony/phpunit-bridge"               : "~2.7|~2.8@dev",
         "phpunit/phpunit"                      : "~4.8",
-        "symfony/assetic-bundle"               : "~2.7",
-        "kriswallsmith/assetic"                : "~1.3",
         "sensio/generator-bundle"              : "~2.5",
-        "doctrine/doctrine-fixtures-bundle"    : "~3.0@dev",
+        "doctrine/doctrine-fixtures-bundle"    : "~2.0@dev",
         "doctrine/data-fixtures"               : "~1.1",
         "doctrine/migrations"                  : "~1.0@dev",
         "doctrine/doctrine-migrations-bundle"  : "~1.0",
         "sensiolabs/security-checker"          : "~3.0",
-        "scrutinizer/ocular"                   : "dev-master",
-        "satooshi/php-coveralls"               : "dev-multipleroot",
+        "scrutinizer/ocular"                   : "~1.1",
+        "satooshi/php-coveralls"               : "~0.6",
         "chriskite/phactory"                   : "~0.4",
         "fzaninotto/faker"                     : "~1.5",
         "sami/sami"                            : "~3.0",
@@ -103,12 +89,8 @@
     },
     "autoload" : {
         "psr-4" : {
-            "Scribe\\MantleBundle\\" : "src/",
-            "Scribe\\"               : "lib/"
-        },
-        "files" : [
-            "stub/functions.php"
-        ]
+            "Scribe\\MantleBundle\\" : "src/"
+        }
     },
     "config" : {
         "bin-dir"           : "bin",
@@ -117,13 +99,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master" : "2.0-dev"
+            "dev-master" : "2.1-dev"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "https://github.com/scribenet/php-coveralls.git"
-        }
-    ]
+    }
 }

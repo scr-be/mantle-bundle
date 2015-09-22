@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
 use Scribe\MantleBundle\Templating\Generator\AbstractRenderer;
-use Scribe\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
+use Scribe\MantleBundle\Component\DependencyInjection\Compiler\CompilerPassHandlerInterface;
 
 /**
  * Class AbstractNodeRenderer.

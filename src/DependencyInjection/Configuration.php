@@ -11,15 +11,15 @@
 
 namespace Scribe\MantleBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Form\Exception\InvalidConfigurationException;
+use Scribe\WonkaBundle\Component\DependencyInjection\AbstractConfiguration;
 
 /**
  * Class Configuration.
  */
-class Configuration implements ConfigurationInterface
+class Configuration extends AbstractConfiguration
 {
     /**
      * Create the config tree builder object.
@@ -28,10 +28,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('scribe_mantle');
-
-        $rootNode
+        $this
+            ->getBuilderRoot()
+            ->getNodeBuilder()
             ->children()
                 ->append($this->getHttpResponseNode())
                 ->append($this->getMaintenanceNode())
@@ -40,21 +39,23 @@ class Configuration implements ConfigurationInterface
                 ->append($this->getHTMLNode())
                 ->append($this->getDateNode())
                 ->append($this->getBootstrapNode())
-            ->end()
-        ;
+            ->end();
 
-        return $treeBuilder;
+        return $this
+            ->getBuilderRoot()
+            ->getTreeBuilder();
     }
 
     /**
      * Create maintenance mode node.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @return NodeDefinition
      */
     private function getHttpResponseNode()
     {
-        return (new TreeBuilder())
-            ->root('response')
+        return $this
+            ->getBuilder('response')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->append($this->getHttpResponseTypeNode('global', [['key' => 'X-Framework-Layers', 'value' => 'Symfony/Mantle']]))
@@ -62,8 +63,7 @@ class Configuration implements ConfigurationInterface
                 ->append($this->getHttpResponseTypeNode('json', [['key' => 'Content-Type', 'value' => 'application/json']]))
                 ->append($this->getHttpResponseTypeNode('yaml', [['key' => 'Content-Type', 'value' => 'application/yaml']]))
                 ->append($this->getHttpResponseTypeNode('text', [['key' => 'Content-Type', 'value' => 'Symfony/Mantle']]))
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -74,60 +74,61 @@ class Configuration implements ConfigurationInterface
      */
     protected function getHttpResponseTypeNode($type, $default)
     {
-        return (new TreeBuilder())
-            ->root($type)
-                ->addDefaultsIfNotSet()
-                ->beforeNormalization()
-                    ->always(function ($configuration) {
-                        if (array_key_exists('headers_list', $configuration)) {
-                            $headers = $configuration['headers_list'];
-                            for ($i = 0; $i < count($headers); $i++) {
-                                if (strtolower(str_replace('_', '-', $headers[$i]['key'])) === 'content-type') {
-                                    return $configuration;
-                                }
+        return $this
+            ->getBuilder($type)
+            ->getNodeBuilder()
+            ->addDefaultsIfNotSet()
+            ->beforeNormalization()
+                ->always(function ($configuration) {
+                    if (array_key_exists('headers_list', $configuration)) {
+                        $headers = $configuration['headers_list'];
+                        for ($i = 0; $i < count($headers); $i++) {
+                            if (strtolower(str_replace('_', '-', $headers[$i]['key'])) === 'content-type') {
+                                return $configuration;
                             }
                         }
-                        throw new InvalidConfigurationException('If you change the headers_list values, you must provide a Content-Type.    ');
-                    })
-                ->end()
-                ->children()
-                    ->arrayNode('headers_list')
-                        ->defaultValue($default)
-                        ->info('Headers to be appends to HTTP response type group '.$type.'.')
-                        ->prototype('array')
-                            ->children()
-                                ->scalarNode('key')
-                                    ->isRequired()
-                                    ->cannotBeEmpty()
-                                ->end()
-                                ->scalarNode('value')
-                                    ->isRequired()
-                                    ->cannotBeEmpty()
-                                ->end()
+                    }
+                    throw new InvalidConfigurationException('If you change the headers_list values, you must provide a Content-Type.    ');
+                })
+            ->end()
+            ->children()
+                ->arrayNode('headers_list')
+                    ->defaultValue($default)
+                    ->info('Headers to be appends to HTTP response type group '.$type.'.')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('key')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('value')
+                                ->isRequired()
+                                ->cannotBeEmpty()
                             ->end()
                         ->end()
                     ->end()
-                    ->floatNode('protocol')
-                        ->defaultValue(1.1)
-                        ->info('The HTTP protocol to use for the response type group '.$type.'.')
-                    ->end()
-                    ->scalarNode('charset')
-                        ->defaultValue('utf-8')
-                        ->info('The HTTP charset to use for the response type group '.$type.'.')
-                    ->end()
                 ->end()
-        ;
+                ->floatNode('protocol')
+                    ->defaultValue(1.1)
+                    ->info('The HTTP protocol to use for the response type group '.$type.'.')
+                ->end()
+                ->scalarNode('charset')
+                    ->defaultValue('utf-8')
+                    ->info('The HTTP charset to use for the response type group '.$type.'.')
+                ->end()
+            ->end();
     }
 
     /**
      * Create maintenance mode node.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @return NodeDefinition
      */
     private function getMaintenanceNode()
     {
-        return (new TreeBuilder())
-            ->root('maintenance')
+        return $this
+            ->getBuilder('maintenance')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('enabled')
@@ -157,27 +158,26 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
      * Create node creator node.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @return NodeDefinition
      */
     private function getNodeCreatorNode()
     {
-        return (new TreeBuilder())
-            ->root('node_creator')
+        return $this
+            ->getBuilder('node_creator')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('caching')
                     ->defaultTrue()
                     ->info('Enables or disabled node caching.')
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -187,8 +187,9 @@ class Configuration implements ConfigurationInterface
      */
     private function getMetadataNode()
     {
-        return (new TreeBuilder())
-            ->root('meta')
+        return $this
+            ->getBuilder('meta')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('charset')
@@ -220,8 +221,7 @@ class Configuration implements ConfigurationInterface
                 ->append($this->getMetadataOpenGraphNode())
                 ->append($this->getMetadataGPlusNode())
                 ->append($this->getMetadataSchemaNode())
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -231,8 +231,9 @@ class Configuration implements ConfigurationInterface
      */
     private function getMetadataTwitterNode()
     {
-        return (new TreeBuilder())
-            ->root('twitter')
+        return $this
+            ->getBuilder('twitter')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('card')
@@ -244,8 +245,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('image')
                     ->defaultValue('https://static.scribenet.com/images/logo/logo-web_0200.png')
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -255,8 +255,9 @@ class Configuration implements ConfigurationInterface
      */
     private function getMetadataOpenGraphNode()
     {
-        return (new TreeBuilder())
-            ->root('open_graph')
+        return $this
+            ->getBuilder('open_graph')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('site_name')
@@ -271,8 +272,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('image')
                     ->defaultValue('https://static.scribenet.com/images/logo/logo-web_0400.png')
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -282,15 +282,15 @@ class Configuration implements ConfigurationInterface
      */
     private function getMetadataGPlusNode()
     {
-        return (new TreeBuilder())
-            ->root('gplus')
+        return $this
+            ->getBuilder('gplus')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('profile')
                     ->defaultValue('https://plus.google.com/+Scribenet')
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -300,8 +300,9 @@ class Configuration implements ConfigurationInterface
      */
     private function getMetadataSchemaNode()
     {
-        return (new TreeBuilder())
-            ->root('organization')
+        return $this
+            ->getBuilder('organization')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('name')
@@ -404,19 +405,19 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
      * Create HTML node.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @return NodeDefinition
      */
     private function getHTMLNode()
     {
-        return (new TreeBuilder())
-            ->root('html')
+        return $this
+            ->getBuilder('html')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('title_post')
@@ -430,19 +431,19 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('footer_text')
                     ->info('This value is added to page footer globally.')
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
      * Create date node.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @return NodeDefinition
      */
     private function getDateNode()
     {
-        return (new TreeBuilder())
-            ->root('date')
+        return $this
+            ->getBuilder('date')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('format')
@@ -453,27 +454,26 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('D, M j @ G:i:s')
                     ->info('The detailed date format passed to php\'s date function.')
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
      * Create date node.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @return NodeDefinition
      */
     private function getBootstrapNode()
     {
-        return (new TreeBuilder())
-            ->root('bs')
+        return $this
+            ->getBuilder('bs')
+            ->getNodeBuilder()
             ->addDefaultsIfNotSet()
             ->children()
                 ->integerNode('affix_top_offset')
                     ->defaultValue('100')
                     ->info('This value is applied as the value of data-offset-top on bootstrap affix-ed elements.')
                 ->end()
-            ->end()
-        ;
+            ->end();
     }
 }
 

@@ -22,8 +22,11 @@ use Scribe\MantleBundle\DependencyInjection\Compiler\NavigationRegistrarCompiler
 class ScribeMantleBundle extends Bundle
 {
     /**
-     * Build the container for Mantle bundle!
-     *
+     * @var ContainerBuilder
+     */
+    protected $containerBuilder;
+
+    /**
      * @param ContainerBuilder $container
      */
     public function build(ContainerBuilder $container)

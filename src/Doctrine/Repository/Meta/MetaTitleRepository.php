@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Doctrine\Repository\Meta;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
-use Scribe\Doctrine\Exception\ORMException;
+use Scribe\MantleBundle\Doctrine\Exception\ORMException;
 
 /**
  * Class MetaTitleRepository.

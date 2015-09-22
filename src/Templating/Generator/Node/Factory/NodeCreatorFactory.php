@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Factory;
 
-use Scribe\Component\DependencyInjection\Container\ServiceFinder;
+use Scribe\WonkaBundle\Component\DependencyInjection\Container\ServiceFinder;
 use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 
 /**

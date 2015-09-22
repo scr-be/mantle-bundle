@@ -13,15 +13,15 @@ namespace Scribe\MantleBundle\Tests\Templating\Generator\Node;
 
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks\NodeCreatorHelperTrait;
-use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\KernelTestCase;
 
 /**
  * Class NodeCreatorTest.
  */
-class NodeCreatorTest extends AbstractMantleKernelTestCase
+class NodeCreatorTest extends KernelTestCase
 {
-    use NodeCreatorMocksTrait,
-        NodeCreatorHelperTrait;
+    use NodeCreatorMocksTrait;
+    use NodeCreatorHelperTrait;
 
     const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\Doctrine\Repository\Node\NodeFamilyRepository';
 

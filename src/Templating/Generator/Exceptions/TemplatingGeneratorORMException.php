@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Exceptions;
 
-use Scribe\Doctrine\Exception\ORMException;
+use Scribe\MantleBundle\Doctrine\Exception\ORMException;
 use Scribe\MantleBundle\Templating\Generator\Exceptions\Model\TemplatingGeneratorExtensionInterface;
 
 /**

@@ -11,11 +11,11 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Route;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\Description\HasDescription;
-use Scribe\Doctrine\Base\Model\HasParameters;
-use Scribe\Doctrine\Base\Model\HasSlug;
-use Scribe\Doctrine\Base\Model\Name\HasName;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasParameters;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
+use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class Route.
@@ -25,10 +25,10 @@ class Route extends AbstractEntity
     /*
      * import name, description, and parameters traits
      */
-    use HasSlug,
-        HasName,
-        HasDescription,
-        HasParameters;
+    use HasSlug;
+    use HasName;
+    use HasDescription;
+    use HasParameters;
 
     /**
      * A routing reference type for the Symfony routing components. Reference the constants within

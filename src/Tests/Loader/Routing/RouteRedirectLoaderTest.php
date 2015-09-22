@@ -13,12 +13,12 @@ namespace Scribe\MantleBundle\Tests\Component\Controller\Behaviors;
 
 use Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository;
 use Scribe\MantleBundle\Loader\Routing\RouteRedirectLoader;
-use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\KernelTestCase;
 
 /**
  * RouteRedirectLoaderTest.
  */
-class RouteRedirectLoaderTest extends AbstractMantleKernelTestCase
+class RouteRedirectLoaderTest extends KernelTestCase
 {
     /**
      * @var RouteRedirectRepository
@@ -59,7 +59,7 @@ class RouteRedirectLoaderTest extends AbstractMantleKernelTestCase
     public function testLoadTwiceException()
     {
         $this->setExpectedException(
-            'Scribe\Exception\RuntimeException',
+            'Scribe\Wonka\Exception\RuntimeException',
             'Cannot add the redirection route loader "Scribe\MantleBundle\Loader\Routing\RouteRedirectLoader" to the route resolver more than once.'
         );
 

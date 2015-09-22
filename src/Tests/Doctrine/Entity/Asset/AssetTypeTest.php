@@ -13,12 +13,12 @@ namespace Scribe\MantleBundle\Tests\Doctrine\Entity\Asset;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Doctrine\Entity\Asset\AssetType;
-use Scribe\Utility\UnitTest\AbstractMantlePhactoryTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\PhactoryTestCase;
 
 /**
  * Class AssetTypeTest.
  */
-class AssetTypeTest extends AbstractMantlePhactoryTestCase
+class AssetTypeTest extends PhactoryTestCase
 {
     /**
      * @var AssetType

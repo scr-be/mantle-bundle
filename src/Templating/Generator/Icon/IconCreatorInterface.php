@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
 use Twig_Environment;
-use Scribe\Exception\RuntimeException;
+use Scribe\Wonka\Exception\RuntimeException;
 use Scribe\MantleBundle\Templating\Generator\Icon\Exception\IconCreatorException;
 
 /**

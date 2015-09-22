@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Component\Navigation\Member;
 
-use Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassHandler;
+use Scribe\MantleBundle\Component\DependencyInjection\Compiler\AbstractCompilerPassHandler;
 
 /**
  * Class NavigationHandler.

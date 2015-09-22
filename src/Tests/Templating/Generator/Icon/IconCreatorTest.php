@@ -15,15 +15,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Templating\Generator\Icon\IconCreator;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorMocksTrait;
 use Scribe\MantleBundle\Tests\Templating\Generator\Icon\Mocks\IconCreatorHelperTrait;
-use Scribe\Utility\UnitTest\AbstractMantleKernelTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\KernelTestCase;
 
 /**
  * Class IconCreatorTest.
  */
-class IconCreatorTest extends AbstractMantleKernelTestCase
+class IconCreatorTest extends KernelTestCase
 {
-    use IconCreatorMocksTrait,
-        IconCreatorHelperTrait;
+    use IconCreatorMocksTrait;
+    use IconCreatorHelperTrait;
 
     const FULLY_QUALIFIED_CLASS_NAME_ICON_FAMILY_REPO = 'Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository';
 
@@ -41,7 +41,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
     public function testRenderShortForm()
     {
         $expected = '
-            <span class="fa fa-glass"
+            <span class="fa  fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
@@ -49,7 +49,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->render('glass', 'fa')
         ;
 
@@ -59,7 +59,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
     public function testRenderLongForm()
     {
         $expected = '
-            <span class="fa fa-glass"
+            <span class="fa  fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
@@ -67,7 +67,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setFamily('fa')
             ->setIcon('glass')
             ->render()
@@ -76,7 +76,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         static::assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setIcon('glass')
             ->setFamily('fa')
             ->render()
@@ -88,7 +88,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
     public function testAcceptsPrefixedAndNonPrefixIconSlug_ShortForm()
     {
         $expected = '
-            <span class="fa fa-glass"
+            <span class="fa  fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
@@ -96,13 +96,13 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->render('fa-glass', 'fa');
 
         static::assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->render('glass', 'fa');
 
         static::assertXmlStringEqualsXmlString($expected, $html);
@@ -111,7 +111,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
     public function testAcceptsPrefixedAndNonPrefixIconSlug_LongForm()
     {
         $expected = '
-            <span class="fa fa-glass"
+            <span class="fa  fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
@@ -119,7 +119,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setFamily('fa')
             ->setIcon('fa-glass')
             ->render()
@@ -128,7 +128,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         static::assertXmlStringEqualsXmlString($expected, $html);
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setFamily('fa')
             ->setIcon('glass')
             ->render()
@@ -148,7 +148,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
 
@@ -166,7 +166,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setStyles('fa-fw', 'fa-lg')
             ->render('glass', 'fa')
         ;
@@ -185,7 +185,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setStyles('fa-fw', 'fa-lg')
             ->render('glass', 'fa', 'fa-5x')
         ;
@@ -201,7 +201,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             '51'
         );
         $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->render('glass', 'fa', 'fa-foo')
         ;
     }
@@ -214,7 +214,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             '51'
         );
         $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setFamily('fa')
             ->setIcon('glass')
             ->setStyles('fa-bad-style')
@@ -232,7 +232,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaHidden(false)
             ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
@@ -251,7 +251,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaLabel('Glass is half full!')
             ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
@@ -270,7 +270,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaRole('img')
             ->setAriaLabel('Glass is half full!')
             ->render('glass', 'fa', 'fa-fw', 'fa-lg')
@@ -290,7 +290,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaRole('img')
             ->setAriaLabel('Glass is half full!')
             ->render('glass-half-full', 'fa', 'fa-fw', 'fa-lg')
@@ -310,7 +310,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaRole('img')
             ->setAriaLabel('Photo label!')
             ->render('photograph', 'fa', 'fa-fw', 'fa-lg')
@@ -327,7 +327,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             '50'
         );
         $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaRole('does-not-exists')
             ->render('glass', 'fa', 'fa-fw', 'fa-lg')
         ;
@@ -344,7 +344,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setFamily('fa')
             ->setIcon('glass')
             ->setStyles('fa-fw', 'fa-lg')
@@ -365,7 +365,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ;
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaHidden(false)
             ->setAriaRole('button')
             ->setAriaLabel('Its a PHOTO ICON!!!')
@@ -389,7 +389,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaHidden(false)
             ->setAriaRole('img')
             ->setAriaLabel('Foo!')
@@ -409,7 +409,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $html = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setAriaHidden(true)
             ->setFamily('fa')
             ->setStyles('fa-5x')
@@ -429,7 +429,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
 
         $validRoles = ['img', 'link', 'button', 'presentation'];
 
-        $formatter = $this->getNewIconCreator();
+        $formatter = $this->container->get('s.mantle.icon_creator');
 
         $html = $formatter
             ->setAriaHidden(false)
@@ -491,7 +491,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
             '5040'
         );
         $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->setTemplate('bad-template')
             ->render('glass', 'fa')
         ;
@@ -784,7 +784,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
     public function testSingleArgumentForIcon()
     {
         $expected = '
-            <span class="fa fa-glass"
+            <span class="fa  fa-glass"
                   role="presentation"
                   aria-hidden="true"
                   aria-label="Icon: Glass (Category: Web Application Icons)">
@@ -792,7 +792,7 @@ class IconCreatorTest extends AbstractMantleKernelTestCase
         ';
 
         $result = $this
-            ->getNewIconCreator()
+            ->container->get('s.mantle.icon_creator')
             ->render('fa-glass')
         ;
 

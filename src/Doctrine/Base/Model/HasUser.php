@@ -14,11 +14,11 @@ namespace Scribe\MantleBundle\Doctrine\Base\Model;
 /**
  * Class HasUser.
  *
- * @deprecated {@see \Scribe\Doctrine\Base\Model\User\HasUser}
+ * @deprecated {@see \Scribe\MantleBundle\Doctrine\Base\Model\User\HasUser}
  */
 trait HasUser
 {
-    use \Scribe\Doctrine\Base\Model\User\HasUser;
+    use \Scribe\MantleBundle\Doctrine\Base\Model\User\HasUser;
 }
 
 /* EOF */

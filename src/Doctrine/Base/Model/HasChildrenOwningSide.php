@@ -3,7 +3,7 @@
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
- * (c) Scribe Inc. <https://scribe.software>
+ * (c) Scribe Inc. <source@scribe.software>
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -12,21 +12,26 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class HasChildrenOwningSide.
  */
 trait HasChildrenOwningSide
 {
+    /*
+     * Import inverse-side trait (read functions)
+     */
     use HasChildrenInverseSide;
 
     /**
-     * @param ArrayCollection $children
+     * Setter for children property.
+     *
+     * @param ArrayCollection $children collection of children objects
      *
      * @return $this
      */
-    public function setChildren(ArrayCollection $children)
+    public function setChildren(ArrayCollection $children = null)
     {
         $this->children = $children;
 
@@ -34,39 +39,54 @@ trait HasChildrenOwningSide
     }
 
     /**
-     * @param AbstractEntity $child
+     * Empty children collection.
      *
      * @return $this
      */
-    public function addChild(AbstractEntity $child)
+    public function clearChildren()
     {
-        if (false === $this->hasChild($child)) {
-            $this->children->add($child);
-        }
+        $this
+            ->getChildren()
+            ->clear()
+        ;
 
         return $this;
     }
 
     /**
-     * @param AbstractEntity $child
+     * Element adder for children collection.
+     *
+     * @param AbstractEntity $child  an entity instance to add to the collection
+     * @param bool           $unique requires the passed object instance does not already exist within
+     *                               the collection
+     *
+     * @return $this
+     */
+    public function addChild(AbstractEntity $child, $unique = true)
+    {
+        if ($this->hasChild($child) === false || $unique === false) {
+            $this
+                ->getChildren()
+                ->add($child)
+            ;
+        }
+    }
+
+    /**
+     * Element remover for children collection.
+     *
+     * @param AbstractEntity $child an entity instance to remove from the collection
      *
      * @return $this
      */
     public function removeChild(AbstractEntity $child)
     {
-        if (true === $this->hasChild($child)) {
-            $this->children->removeElement($child);
+        if ($this->hasChild($child) === true) {
+            $this
+                ->getChildren()
+                ->removeElement($child)
+            ;
         }
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function clearChildren()
-    {
-        $this->children = new ArrayCollection();
 
         return $this;
     }

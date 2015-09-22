@@ -13,8 +13,8 @@ namespace Scribe\MantleBundle\Event\Listener;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Scribe\Component\Bundle\BundleInformation;
-use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
+use Scribe\MantleBundle\Component\Bundle\BundleInformation;
+use Scribe\MantleBundle\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
 use Scribe\MantleBundle\Component\Controller\Behaviors\ControllerBehaviors;
 use Scribe\MantleBundle\Controller\MaintenanceController;
 

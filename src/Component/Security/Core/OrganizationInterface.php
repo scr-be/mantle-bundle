@@ -12,12 +12,12 @@
 namespace Scribe\MantleBundle\Component\Security\Core;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Model\Activity\ActivityCollectionInterface;
-use Scribe\Doctrine\Base\Model\Address\AddressCollectionInterface;
-use Scribe\Doctrine\Base\Model\Description\DescriptionInterface;
-use Scribe\Doctrine\Base\Model\Name\NameInterface;
-use Scribe\Doctrine\Base\Model\Phone\PhoneCollectionInterface;
-use Scribe\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Activity\ActivityCollectionInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Address\AddressCollectionInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Description\DescriptionInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Name\NameInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Phone\PhoneCollectionInterface;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorInterface;
 
 /**
  * Class OrganizationInterface.

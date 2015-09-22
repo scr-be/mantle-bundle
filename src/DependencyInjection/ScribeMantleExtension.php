@@ -11,25 +11,13 @@
 
 namespace Scribe\MantleBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Scribe\Component\DependencyInjection\AbstractExtension;
+use Scribe\WonkaBundle\Component\DependencyInjection\AbstractExtension;
 
 /**
  * Class ScribeMantleExtension.
  */
 class ScribeMantleExtension extends AbstractExtension
 {
-    /**
-     * Load the configuration from the yaml config based on definitions defined
-     * within the {@see Configuration.php} file.
-     *
-     * @param array            $configs   the configs to load
-     * @param ContainerBuilder $container symfony container for configurations
-     */
-    public function load(array $configs, ContainerBuilder $container)
-    {
-        $this->autoLoad($configs, $container, new Configuration(), 's.mantle');
-    }
 }
 
 /* EOF */

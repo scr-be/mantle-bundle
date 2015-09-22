@@ -13,9 +13,9 @@ namespace Scribe\MantleBundle\Component\Security\Core;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Scribe\Doctrine\Base\Model\Activity\ActivityCollectionInterface;
-use Scribe\Doctrine\Base\Model\Address\AddressCollectionInterface;
-use Scribe\Doctrine\Base\Model\Phone\PhoneCollectionInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Activity\ActivityCollectionInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Address\AddressCollectionInterface;
+use Scribe\MantleBundle\Doctrine\Base\Model\Phone\PhoneCollectionInterface;
 
 /**
  * Class UserInterface.

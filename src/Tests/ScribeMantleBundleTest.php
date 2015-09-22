@@ -82,11 +82,11 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 
         $nodeRenderer = static::$container->get('s.mantle.node_creator.renderer.registrar');
         static::assertInstanceOf(
-            'Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain',
+            'Scribe\MantleBundle\Component\DependencyInjection\Compiler\AbstractCompilerPassChain',
             $nodeRenderer
         );
         static::assertInstanceOf(
-            'Scribe\Component\DependencyInjection\Compiler\AbstractCompilerPassChain',
+            'Scribe\MantleBundle\Component\DependencyInjection\Compiler\AbstractCompilerPassChain',
             $nodeRenderer
         );
 

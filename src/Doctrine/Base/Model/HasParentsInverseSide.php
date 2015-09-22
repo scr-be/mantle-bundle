@@ -3,7 +3,7 @@
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
- * (c) Scribe Inc. <https://scribe.software>
+ * (c) Scribe Inc. <source@scribe.software>
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -11,8 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class HasParentsInverseSide.
@@ -20,20 +19,24 @@ use Scribe\Doctrine\Base\Entity\AbstractEntity;
 trait HasParentsInverseSide
 {
     /**
-     * @var ArrayCollection
+     * Parents entity.
+     *
+     * @var AbstractEntity
      */
     protected $parents;
 
     /**
-     * Initialize as empty {@see ArrayCollection}.
+     * init trait.
      */
     public function initializeParents()
     {
-        $this->parents = new ArrayCollection();
+        $this->parents = null;
     }
 
     /**
-     * @return ArrayCollection
+     * Getter for parents.
+     *
+     * @return AbstractEntity
      */
     public function getParents()
     {
@@ -41,19 +44,13 @@ trait HasParentsInverseSide
     }
 
     /**
+     * Checker for parents.
+     *
      * @return bool
      */
     public function hasParents()
     {
-        return (bool) ($this->parents->count() > 0 ?: false);
-    }
-
-    /**
-     * @return $this
-     */
-    public function hasParent(AbstractEntity $entity)
-    {
-        return (bool) ($this->parents->contains($entity) === true ?: false);
+        return (bool) ($this->getParents() !== null);
     }
 }
 

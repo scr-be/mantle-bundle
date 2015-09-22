@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\Tests\Doctrine\Entity\Node;
 
-use Scribe\Utility\UnitTest\AbstractMantlePhactoryTestCase;
+use Scribe\WonkaBundle\Utility\TestCase\PhactoryTestCase;
 
 /**
  * Class NodeRenderEngineTest.
  */
-class NodeRenderEngine extends AbstractMantlePhactoryTestCase
+class NodeRenderEngine extends PhactoryTestCase
 {
     /**
      * @var string

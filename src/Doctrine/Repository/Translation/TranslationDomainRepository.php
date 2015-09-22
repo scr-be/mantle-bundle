@@ -14,7 +14,7 @@ namespace Scribe\MantleBundle\Doctrine\Repository\Translation;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle;
-use Scribe\Doctrine\Exception\ORMException;
+use Scribe\MantleBundle\Doctrine\Exception\ORMException;
 
 /**
  * Class TranslationDomainRepository.

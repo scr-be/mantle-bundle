@@ -12,10 +12,10 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Node;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Doctrine\Exception\SubscriberEventORMException;
-use Scribe\Exception\Model\ExceptionInterface;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
+use Scribe\MantleBundle\Doctrine\Exception\SubscriberEventORMException;
+use Scribe\Wonka\Exception\ExceptionInterface;
 
 /**
  * NodeRenderEngine.

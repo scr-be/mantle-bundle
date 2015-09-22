@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Repository\Node;
 
 use Doctrine\ORM\EntityRepository;
-use Scribe\Doctrine\Behavior\Repository\Hierarchical\HierarchicalNodeTreeBehaviorTrait;
+use Scribe\MantleBundle\Doctrine\Behavior\Repository\Hierarchical\HierarchicalNodeTreeBehaviorTrait;
 
 /**
  * Class NodeRepository.

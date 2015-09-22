@@ -12,13 +12,13 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Icon;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Model\HasAttributes;
-use Scribe\Doctrine\Base\Model\HasName;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasVersion;
-use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
-use Scribe\Exception\Model\ExceptionInterface;
-use Scribe\Doctrine\Exception\SubscriberEventORMException;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasAttributes;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasName;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasVersion;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
+use Scribe\Wonka\Exception\ExceptionInterface;
+use Scribe\MantleBundle\Doctrine\Exception\SubscriberEventORMException;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasIconsOwningSide;
 
 /**
@@ -29,11 +29,11 @@ class IconFamily extends AbstractEntity
     /*
      * import name and description entity property traits
      */
-    use HasName,
-        HasVersion,
-        HasAttributes,
-        HasIconsOwningSide,
-        SluggableBehaviorTrait;
+    use HasName;
+use HasVersion;
+use HasAttributes;
+use HasIconsOwningSide;
+use SluggableBehaviorTrait;
 
     /**
      * @var string

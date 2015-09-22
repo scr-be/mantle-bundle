@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\Component\DependencyInjection\Container\ContainerAwareTrait;
+use Scribe\WonkaBundle\Component\DependencyInjection\Container\ContainerAwareTrait;
 use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

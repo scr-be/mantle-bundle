@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Component\Meta\Title;
 
 use Scribe\CacheBundle\DependencyInjection\Aware\CacheChainAwareTrait;
-use Scribe\Component\Bundle\BundleInformationInterface;
+use Scribe\MantleBundle\Component\Bundle\BundleInformationInterface;
 use Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle;
 use Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository;
 use Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository;

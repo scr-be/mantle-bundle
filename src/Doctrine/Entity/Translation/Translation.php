@@ -12,8 +12,8 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasSlug;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
 
 /**
  * Class Translation;

@@ -1,0 +1,51 @@
+{#
+ # This file is part of the Scribe Mantle Bundle.
+ #
+ # (c) Scribe Inc. <source@scribe.software>
+ #
+ # For the full copyright and license information, please view the LICENSE.md
+ # file that was distributed with this source code.
+ #}
+
+{#
+ # create a basic scribe/bootstrap linked list group
+ #}
+{% macro listGroup(listCollection) %}
+
+    <ul class="list-group scr-list-group">
+        {% for link in listCollection if listCollection|length > 0 %}
+
+            <li class="list-group-item{% if link.active == true %} active{% endif %}">
+
+                <a href="{% if  link.link is defined %}{{ link.link }}{% else %}#{% endif %}"
+                    {% if link['classes'] is defined %}class="{% for linkClass in link.classes %}{{ linkClass }} {% endfor %}"{% endif %}
+                >
+                    {% if link['subTitle'] is defined %}<small class="text-muted">{{ link.subTitle }}</small>{% endif %}
+                    {{ link.title }}
+                </a>
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
+{% endmacro %}
+
+{#
+ # create a basic bootstrap based panel
+ #}
+{% macro panel(header, content, affix = true, classCollection = null, icon = null, label = null) %}
+
+    <div class="panel scr-panel{% if affix == true %} container-affix{% endif %}{% for class in classCollection if class is not null %} {{ class }}{% endfor %}">
+
+        <div class="panel-heading">
+            {% if label is not null %}{{ label }}{% endif %}
+            {% if icon  is not null %}{{ icon  }}{% endif %}
+            {{ header }}
+        </div>
+
+        {{ content }}
+
+    </div>
+
+{% endmacro %}

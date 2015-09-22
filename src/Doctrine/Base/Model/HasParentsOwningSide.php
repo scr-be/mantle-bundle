@@ -3,7 +3,7 @@
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
- * (c) Scribe Inc. <https://scribe.software>
+ * (c) Scribe Inc. <source@scribe.software>
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -12,17 +12,22 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 
 /**
- * Class HasParentsOwningSide.
+ * Class HasParentsInverseSide.
  */
 trait HasParentsOwningSide
 {
+    /*
+     * Import inverse-side trait (read functions)
+     */
     use HasParentsInverseSide;
 
     /**
-     * @param ArrayCollection $parents
+     * Setter for parents.
+     *
+     * @param ArrayCollection $parents a parents entity instance
      *
      * @return $this
      */
@@ -34,39 +39,13 @@ trait HasParentsOwningSide
     }
 
     /**
-     * @param AbstractEntity $parent
+     * Nullify parents property.
      *
-     * @return $this
-     */
-    public function addParent(AbstractEntity $parent)
-    {
-        if (false === $this->hasParent($parent)) {
-            $this->parents->add($parent);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param AbstractEntity $parent
-     *
-     * @return $this
-     */
-    public function removeParent(AbstractEntity $parent)
-    {
-        if (true === $this->hasParent($parent)) {
-            $this->parents->removeElement($parent);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return $this
      */
     public function clearParents()
     {
-        $this->parents = new ArrayCollection();
+        $this->setParents(null);
 
         return $this;
     }

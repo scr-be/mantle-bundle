@@ -2,7 +2,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Route;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * RouteRedirect.

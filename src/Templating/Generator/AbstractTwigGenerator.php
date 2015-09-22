@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator;
 
-use Scribe\Component\DependencyInjection\Aware\TwigEngineAwareTrait;
+use Scribe\MantleBundle\Component\DependencyInjection\Aware\TwigEngineAwareTrait;
 
 /**
  * Class AbstractTwigGenerator.

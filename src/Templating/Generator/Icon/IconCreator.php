@@ -29,9 +29,9 @@ use Scribe\MantleBundle\Templating\Generator\Icon\Model\IconCreatorAttributesTra
  */
 class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
 {
-    use IconCreatorServicesTrait,
-        IconCreatorAccessibilityTrait,
-        IconCreatorAttributesTrait;
+    use IconCreatorServicesTrait;
+    use IconCreatorAccessibilityTrait;
+    use IconCreatorAttributesTrait;
 
     /**
      * Setup the object instance.

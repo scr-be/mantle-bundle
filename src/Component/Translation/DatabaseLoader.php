@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Component\Translation;
 
-use Scribe\Component\DependencyInjection\Aware\EntityManagerAwareTrait;
+use Scribe\MantleBundle\Component\DependencyInjection\Aware\EntityManagerAwareTrait;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 

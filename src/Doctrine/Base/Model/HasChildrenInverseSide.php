@@ -3,7 +3,7 @@
 /*
  * This file is part of the Scribe Mantle Bundle.
  *
- * (c) Scribe Inc. <https://scribe.software>
+ * (c) Scribe Inc. <source@scribe.software>
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 
 /**
  * Class HasChildrenInverseSide.
@@ -20,12 +20,14 @@ use Scribe\Doctrine\Base\Entity\AbstractEntity;
 trait HasChildrenInverseSide
 {
     /**
+     * Children collections.
+     *
      * @var ArrayCollection
      */
     protected $children;
 
     /**
-     * Initialize as empty {@see ArrayCollection}.
+     * Init trait.
      */
     public function initializeChildren()
     {
@@ -33,6 +35,8 @@ trait HasChildrenInverseSide
     }
 
     /**
+     * Getter for children.
+     *
      * @return ArrayCollection
      */
     public function getChildren()
@@ -41,19 +45,28 @@ trait HasChildrenInverseSide
     }
 
     /**
+     * Checker for children.
+     *
      * @return bool
      */
     public function hasChildren()
     {
-        return (bool) ($this->children->count() > 0 ?: false);
+        return (bool) ($this->getChildren()->isEmpty() === false);
     }
 
     /**
-     * @return $this
+     * Checker for specific child within children.
+     *
+     * @param AbstractEntity $child entity object to search of in collection of children
+     *
+     * @return bool
      */
-    public function hasChild(AbstractEntity $entity)
+    public function hasChild(AbstractEntity $child)
     {
-        return (bool) ($this->children->contains($entity) === true ?: false);
+        return $this
+            ->getChildren()
+            ->contains($child)
+        ;
     }
 }
 

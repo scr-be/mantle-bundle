@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node\Rendering;
 
-use Scribe\Utility\ClassInfo;
+use Scribe\Wonka\Utility\ClassInfo;
 use Twig_Environment;
 
 /**

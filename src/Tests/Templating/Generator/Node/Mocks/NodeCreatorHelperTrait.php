@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Tests\Templating\Generator\Node\Mocks;
 
 use Scribe\CacheBundle\Cache\Handler\Chain\CacheChain;
 use Scribe\CacheBundle\Cache\Handler\Engine\CacheEngineFilesystem;
-use Scribe\Component\DependencyInjection\Container\ServiceFinder;
+use Scribe\WonkaBundle\Component\DependencyInjection\Container\ServiceFinder;
 use Scribe\MantleBundle\Templating\Generator\Node\NodeCreator;
 use Scribe\MantleBundle\Templating\Generator\Node\NodeCreatorCached;
 use Scribe\CacheBundle\KeyGenerator\KeyGenerator;

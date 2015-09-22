@@ -11,8 +11,8 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Meta;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasTitle;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasTitle;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasLocale;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeAction;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle;

@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Mutator;
 
-use Scribe\Doctrine\Exception\ORMException;
+use Scribe\MantleBundle\Doctrine\Exception\ORMException;
 
 /**
  * Class HierarchicalRelationshipException.

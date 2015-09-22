@@ -14,9 +14,9 @@ namespace Scribe\MantleBundle\Component\Controller\Behaviors;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Psr\Log\LoggerInterface;
-use Scribe\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
-use Scribe\Component\HttpFoundation\Response\Response;
-use Scribe\Component\HttpFoundation\Response\ResponseInterface;
+use Scribe\MantleBundle\Component\DependencyInjection\Aware\ServiceContainerAwareTrait;
+use Scribe\MantleBundle\Component\HttpFoundation\Response\Response;
+use Scribe\MantleBundle\Component\HttpFoundation\Response\ResponseInterface;
 use Scribe\MantleBundle\Component\Security\Core\UserInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
@@ -31,17 +31,17 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Scribe\Doctrine\Exception\ORMException;
-use Scribe\Doctrine\Exception\TransactionORMException;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Exception\RuntimeException;
-use Scribe\Utility\Caller\Call;
-use Scribe\Component\DependencyInjection\Exception\InvalidContainerParameterException;
-use Scribe\Component\DependencyInjection\Exception\InvalidContainerServiceException;
-use Scribe\Component\Controller\Exception\ControllerException;
-use Scribe\Component\HttpFoundation\Exception\HttpException;
-use Scribe\Component\HttpFoundation\Exception\NotFoundHttpException;
-use Scribe\Component\HttpFoundation\Exception\UnauthorizedHttpException;
+use Scribe\MantleBundle\Doctrine\Exception\ORMException;
+use Scribe\MantleBundle\Doctrine\Exception\TransactionORMException;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Wonka\Exception\RuntimeException;
+use Scribe\Wonka\Utility\Caller\Call;
+use Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerParameterException;
+use Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerServiceException;
+use Scribe\MantleBundle\Component\Controller\Exception\ControllerException;
+use Scribe\MantleBundle\Component\HttpFoundation\Exception\HttpException;
+use Scribe\MantleBundle\Component\HttpFoundation\Exception\NotFoundHttpException;
+use Scribe\MantleBundle\Component\HttpFoundation\Exception\UnauthorizedHttpException;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
 use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
@@ -103,7 +103,7 @@ trait ControllerBehaviorsTrait
         }
 
         throw $this->processException(
-            new InvalidContainerServiceException(null, null, null, null, $id)
+            new InvalidContainerServiceException(null, null, null, $id)
         );
     }
 
@@ -161,7 +161,7 @@ trait ControllerBehaviorsTrait
         }
 
         throw $this->processException(
-            new InvalidContainerParameterException(null, null, null, null, $id)
+            new InvalidContainerParameterException(null, null, null,  $id)
         );
     }
 
@@ -325,7 +325,7 @@ trait ControllerBehaviorsTrait
             $this->emTransactionRollback();
 
             throw $this->processException(new TransactionORMException(
-                null, null, $e, null, $e->getMessage()
+                null, null, $e, $e->getMessage()
             ));
         }
 
@@ -459,7 +459,7 @@ trait ControllerBehaviorsTrait
             Call::method($this->em(), (string) $method, $entity);
             $this->emFlush($flush);
         } catch (\Exception $e) {
-            throw $this->processException(new ORMException(null, null, $e, null, $e->getMessage()));
+            throw $this->processException(new ORMException(null, null, $e, $e->getMessage()));
         }
 
         return $this;
@@ -844,7 +844,7 @@ trait ControllerBehaviorsTrait
      */
     public function getExceptionGeneric($message = null, ...$sprintfArgs)
     {
-        return $this->processException(new HttpException($message, null, null, null, ...$sprintfArgs));
+        return $this->processException(new HttpException($message, null, null, ...$sprintfArgs));
     }
 
     /**

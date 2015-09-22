@@ -12,14 +12,14 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Icon;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\Base\Model\Description\HasDescription;
-use Scribe\Doctrine\Base\Model\HasAliases;
-use Scribe\Doctrine\Base\Model\HasCategories;
-use Scribe\Doctrine\Base\Model\HasAttributes;
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasSlug;
-use Scribe\Doctrine\Base\Model\Name\HasName;
-use Scribe\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorStaticTrait;
+use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasAliases;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasCategories;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasAttributes;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
+use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
+use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorStaticTrait;
 
 /**
  * Class Icon.

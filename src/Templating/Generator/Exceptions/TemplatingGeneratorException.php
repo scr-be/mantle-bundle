@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Exceptions;
 
-use Scribe\Exception\RuntimeException;
+use Scribe\Wonka\Exception\RuntimeException;
 use Scribe\MantleBundle\Templating\Generator\Exceptions\Model\TemplatingGeneratorExtensionInterface;
 
 /**

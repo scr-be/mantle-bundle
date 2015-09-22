@@ -11,8 +11,8 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
-use Scribe\Doctrine\Base\Entity\AbstractEntity;
-use Scribe\Doctrine\Base\Model\HasValue;
+use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasValue;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasLocale;
 
 /**

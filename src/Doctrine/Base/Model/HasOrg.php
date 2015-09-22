@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\Doctrine\Base\Model\Organization\HasOrganization;
+use Scribe\MantleBundle\Doctrine\Base\Model\Organization\HasOrganization;
 
 /**
  * Class HasOrganization.
  *
- * @deprecated {@see Scribe\Doctrine\Base\Model\Organization\HasOrganization}
+ * @deprecated {@see Scribe\MantleBundle\Doctrine\Base\Model\Organization\HasOrganization}
  */
 trait HasOrg
 {
