@@ -1,0 +1,30 @@
+<script>
+
+    var ttBloodhound = new Bloodhound({
+        datumTokenizer: function customTokenizer(datum) { return datum.tokens; },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        limit: {{ search.getLimit }},
+        prefetch: '{{ path(search.getSearchPath)|raw }}'
+    });
+
+    ttBloodhound.initialize();
+
+    jQuery(document).ready(function() {
+
+        $('{{ search.getFormSelector|raw }}').typeahead(null, {
+            displayKey: 'value',
+            source:     ttBloodhound.ttAdapter()
+        });
+
+        $('#form-search-input').bind('typeahead:selected', function(obj, datum, name) {
+            window.location.href = datum.url;
+        });
+        $('#form-search-input').bind('typeahead:autocompleted', function(obj, datum, name) {
+            window.location.href = datum.url;
+        });
+
+        $("#scr-navbar").scribeSearchToggle();
+
+    });
+
+</script>
