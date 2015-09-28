@@ -11,14 +11,14 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
 
-use Scribe\CacheBundle\DependencyInjection\Aware\CacheChainAwareTrait;
+use Scribe\CacheBundle\DependencyInjection\Aware\CacheManagerAwareTrait;
 
 /**
  * Trait IconCreatorCachedServicesTrait.
  */
 trait IconCreatorCachedServicesTrait
 {
-    use CacheChainAwareTrait;
+    use CacheManagerAwareTrait;
 }
 
 /* EOF */

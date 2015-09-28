@@ -49,6 +49,22 @@ trait HasParentsOwningSide
 
         return $this;
     }
+
+    public function addParent(AbstractEntity $parent)
+    {
+        if (!$this->hasParent($parent)) {
+            $this->parents->add($parent);
+        }
+
+        return $this;
+    }
+
+    public function removeParent(AbstractEntity $parent)
+    {
+        $this->parents->removeElement($parent);
+
+        return $this;
+    }
 }
 
 /* EOF */

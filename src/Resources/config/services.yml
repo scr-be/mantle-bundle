@@ -139,11 +139,6 @@ parameters:
     s.mantle.response.type_json.class:                                  Scribe\MantleBundle\Component\HttpFoundation\Response\JsonResponse
     s.mantle.response.type_yaml.class:                                  Scribe\MantleBundle\Component\HttpFoundation\Response\YamlResponse
 
-    # Navigation Creator Services
-
-    s.mantle.navigation_registrar.class:                                Scribe\MantleBundle\Component\Navigation\Registrar\NavigationRegistrar
-    s.mantle.navigation_member.root.class:                              Scribe\MantleBundle\Component\Navigation\Resolver\RootFixtureNavigationResolver
-
     # Routing loaders
 
     s.mantle.route_redirect.routing_loader.class:                       Scribe\MantleBundle\Loader\Routing\RouteRedirectLoader
@@ -526,20 +521,6 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    # Navigation system
-
-    s.mantle.navigation_registrar:
-        class: %s.mantle.navigation_registrar.class%
-        arguments:
-            - @s.mantle.bundle_information
-
-    s.mantle.navigation_member.root:
-        class: %s.mantle.navigation_member.root.class%
-        arguments:
-            - @s.mantle.navigation_set.repo
-        tags:
-            - { name: navigation.handler, priority: 1 }
-
     # Icon Creator Services
 
     s.mantle.icon:
@@ -552,7 +533,7 @@ services:
             - @s.mantle.icon.repo
             - @twig
         calls:
-            - [setCacheChain, [@s.cache.handler_chain]]
+            - [setCacheManager, [@s.cache]]
 
     s.mantle.icon_creator.notemplating:
         class: %s.mantle.icon_creator_cached.class%
@@ -560,7 +541,7 @@ services:
             - @s.mantle.icon_family.repo
             - @s.mantle.icon.repo
         calls:
-            - [setCacheChain, [@s.cache.handler_chain]]
+            - [setCacheManager, [@s.cache]]
 
     s.mantle.icon_creator.twig_extension:
         class: %s.mantle.icon_creator.twig_extension.class%
@@ -577,7 +558,7 @@ services:
             - @s.mantle.node.repo
             - @s.mantle.node_creator.renderer.registrar
         calls:
-            - [setCacheChain, [@s.cache.handler_chain]]
+            - [setCacheManager, [@s.cache]]
 
     s.mantle.node_creator_caching_disabled:
         class: %s.mantle.node_creator_caching_disabled.class%

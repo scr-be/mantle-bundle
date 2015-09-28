@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
-use Scribe\CacheBundle\Cache\Handler\Chain\CacheChainInterface;
+use Scribe\CacheBundle\Component\Manager\CacheManagerInterface;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository;
 use Twig_Environment;
 use Doctrine\ORM\EntityRepository;
@@ -69,11 +69,11 @@ class IconCreatorCached extends IconCreator
         $this->setCurrentStateAndCacheKey($icon, $family, ...$styles);
         $this->cachedResult = true;
 
-        if (null === ($renderedHtml = $this->getCacheChain()->get())) {
+        if (null === ($renderedHtml = $this->getCache()->get())) {
             $this->cachedResult = false;
             $renderedHtml = parent::render($icon, $family, ...$styles);
 
-            $this->getCacheChain()->set($renderedHtml);
+            $this->getCache()->set($renderedHtml);
         }
 
         $this->resetState();
@@ -105,7 +105,7 @@ class IconCreatorCached extends IconCreator
         }
 
         $this
-            ->getCacheChain()
+            ->getCache()
             ->setKey(...$this->getCachableProperties())
         ;
 
@@ -142,7 +142,7 @@ class IconCreatorCached extends IconCreator
             return 'isCachedProperty';
         }
 
-        if ($value instanceof CacheChainInterface) {
+        if ($value instanceof CacheManagerInterface) {
             return 'handlerChainInstance';
         }
 

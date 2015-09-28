@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Node;
 
-use Scribe\CacheBundle\DependencyInjection\Aware\CacheChainAwareTrait;
+use Scribe\CacheBundle\DependencyInjection\Aware\CacheManagerAwareTrait;
 use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 
 /**
@@ -19,7 +19,7 @@ use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
  */
 class NodeCreatorCached extends NodeCreator
 {
-    use CacheChainAwareTrait;
+    use CacheManagerAwareTrait;
 
     /**
      * Render template from Node, caching enabled.
@@ -31,9 +31,9 @@ class NodeCreatorCached extends NodeCreator
      */
     public function render(Node $node, array $args = [])
     {
-        if (null === ($renderedNode = $this->getCacheChain()->get($node->getMaterializedPath()))) {
+        if (null === ($renderedNode = $this->getCache()->get($node->getMaterializedPath()))) {
             $renderedNode = parent::render($node, $args);
-            $this->getCacheChain()->set($renderedNode, $node->getMaterializedPath());
+            $this->getCache()->set($renderedNode, $node->getMaterializedPath());
         }
 
         return $renderedNode;

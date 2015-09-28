@@ -11,29 +11,15 @@
 
 namespace Scribe\MantleBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Scribe\MantleBundle\DependencyInjection\Compiler\NodeRendererCompilerPass;
-use Scribe\MantleBundle\DependencyInjection\Compiler\NavigationRegistrarCompilerPass;
+use Scribe\WonkaBundle\Component\Bundle\AbstractCompilerAwareBundle;
 
 /**
  * Class ScribeMantleBundle.
  */
-class ScribeMantleBundle extends Bundle
+class ScribeMantleBundle extends AbstractCompilerAwareBundle
 {
-    /**
-     * @var ContainerBuilder
-     */
-    protected $containerBuilder;
-
-    /**
-     * @param ContainerBuilder $container
-     */
-    public function build(ContainerBuilder $container)
+    public function getCompilerPassInstances()
     {
-        parent::build($container);
-
-        $container->addCompilerPass(new NavigationRegistrarCompilerPass());
-        $container->addCompilerPass(new NodeRendererCompilerPass());
+        return [];
     }
 }
