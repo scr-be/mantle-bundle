@@ -1,0 +1,15 @@
+{%
+	set attr = {
+		'placeholder': placeholder,
+		'class'      : 'form-control input-sm'
+	}
+%}
+{{
+	form_widget
+	(
+		form,
+		{
+			'attr': attr|merge(attributes)
+		}
+	)
+}}

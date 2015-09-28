@@ -1,0 +1,8 @@
+<div class="scr-form-submit-wrapper">
+    <div class="btn-group">
+        <input id="scr-blog-create-submit" type="submit" class="btn btn-success" value="{{ title }}"/>
+        {% if app.request.server.has('HTTP_REFERER') %}
+            <a href="{{ app.request.server.get('HTTP_REFERER') }}" class="btn btn-warning">Cancel</a>
+        {% endif %}
+    </div>
+</div>
