@@ -11,13 +11,13 @@
 
 namespace Scribe\MantleBundle\Templating\Extension;
 
-use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Scribe\WonkaBundle\Component\Templating\AbstractTwigExtension;
 
 /**
- * Class GetLastUsernameExtension.
+ * Class SecurityUtilitiesExtension.
  */
-class GetLastUsernameExtension extends AbstractTwigExtension
+class SecurityUtilitiesExtension extends AbstractTwigExtension
 {
     /**
      * Initialize the instance.
@@ -37,9 +37,9 @@ class GetLastUsernameExtension extends AbstractTwigExtension
 
         $this->authenticationUtils = $authenticationUtils;
 
-        $this->enableOptionHtmlSafe();
-
-        $this->addFunction('get_last_username', [$this, 'getLastUsername']);
+        $this
+            ->enableOptionHtmlSafe()
+            ->addFunction('get_last_username', [$this, 'getLastUsername']);
     }
 
     /**
@@ -47,7 +47,7 @@ class GetLastUsernameExtension extends AbstractTwigExtension
      */
     public function getLastUsername()
     {
-        return $this->authenticationUtils->getLastUsername();
+        return (string) $this->authenticationUtils->getLastUsername();
     }
 }
 

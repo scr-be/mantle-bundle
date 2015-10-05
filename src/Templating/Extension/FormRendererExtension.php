@@ -13,12 +13,12 @@ namespace Scribe\MantleBundle\Templating\Extension;
 
 use Twig_Environment;
 use Scribe\MantleBundle\Component\Http\Utils\HttpUtils;
-use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
+use Scribe\WonkaBundle\Component\Templating\AbstractTwigExtension;
 
 /**
- * Class ScribeFormRenderingExtraExtension.
+ * Class FormRendererExtension.
  */
-class ScribeFormRenderingExtraExtension extends AbstractTwigExtension
+class FormRendererExtension extends AbstractTwigExtension
 {
     /**
      * @var HttpUtils

@@ -12,12 +12,12 @@
 namespace Scribe\MantleBundle\Templating\Extension;
 
 use Scribe\MantleBundle\Component\Bundle\BundleInformation;
-use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
+use Scribe\WonkaBundle\Component\Templating\AbstractTwigExtension;
 
 /**
- * Class BundleInformationExtension.
+ * Class BundleIntrospectionExtension.
  */
-class BundleInformationExtension extends AbstractTwigExtension
+class BundleIntrospectionExtension extends AbstractTwigExtension
 {
     /**
      * @var BundleInformation

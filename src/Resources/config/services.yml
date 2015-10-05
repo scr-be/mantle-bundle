@@ -1,4 +1,4 @@
-parameters:
+parameters :
 
     # Controllers
 
@@ -66,13 +66,12 @@ parameters:
     # Meta Provider/Manager/Twig-Extension
     s.mantle.meta_title_manager.class:                                  Scribe\MantleBundle\Component\Meta\Title\TitleManager
     s.mantle.meta_title_provider.class:                                 Scribe\MantleBundle\Component\Meta\Title\TitleProvider
-    s.mantle.meta_title_manager.twig_extension.class:                   Scribe\MantleBundle\Component\Meta\Title\TitleProviderExtension
 
     # Bundle Information    Service/Twig-Extension
 
     s.mantle.bundle_information.class:                                  Scribe\MantleBundle\Component\Bundle\BundleInformation
     s.mantle.bundle_information_factory.class:                          Scribe\MantleBundle\Component\Bundle\BundleInformationFactory
-    s.mantle.bundle_information.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\BundleInformationExtension
+    s.mantle.bundle_information.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\BundleIntrospectionExtension
 
     # General Utilities
 
@@ -83,10 +82,11 @@ parameters:
 
     # Twig Extensions
 
-    s.mantle.twig_extension.service_param_access.class:                 Scribe\MantleBundle\Templating\Extension\ContainerParamAccessExtension
-    s.mantle.twig_extension.bootstrap_button.class:                     Scribe\MantleBundle\Templating\Extension\BootstrapComponentButtonExtension
-    s.mantle.twig_extension.scribe_form_extras.class:                   Scribe\MantleBundle\Templating\Extension\ScribeFormRenderingExtraExtension
-    s.mantle.twig_extension.lookup_last_username.class:                 Scribe\MantleBundle\Templating\Extension\GetLastUsernameExtension
+    s.mantle.twig_extension.parameter.class:                            Scribe\MantleBundle\Templating\Extension\ParameterExtension
+    s.mantle.twig_extension.button_renderer.class:                      Scribe\MantleBundle\Templating\Extension\ButtonRendererExtension
+    s.mantle.twig_extension.form_renderer.class:                        Scribe\MantleBundle\Templating\Extension\FormRendererExtension
+    s.mantle.twig_extension.security_utilities.class:                   Scribe\MantleBundle\Templating\Extension\SecurityUtilitiesExtension
+    s.mantle.twig_extension.ternary_operator.class:                     Scribe\MantleBundle\Templating\Extension\TernaryOperatorExtension
 
     # Doctrine Subscribers
 
@@ -151,45 +151,42 @@ parameters:
 
     s.mantle.http_utils.class:                                          Scribe\MantleBundle\Component\Http\Utils\HttpUtils
 
-services:
+services :
 
     # The abstract service definition to inject the service container into the ControllerBehavior class.
 
-    s.mantle.abstract.controller:
+    s.mantle.abstract.controller :
         abstract: true
-        calls:
+        calls :
             - [setServiceContainer, [@service_container]]
 
     # Controllers
 
-    s.mantle.route_redirect.controller:
+    s.mantle.route_redirect.controller :
         class:  %s.mantle.route_redirect.controller.class%
         parent: s.mantle.abstract.controller
 
-    s.mantle.maintenance.controller:
+    s.mantle.maintenance.controller :
         class:  %s.mantle.maintenance.controller.class%
         parent: s.mantle.abstract.controller
 
-    s.mantle.search.controller:
+    s.mantle.search.controller :
         class:  %s.mantle.search.controller.class%
         parent: s.mantle.abstract.controller
 
     # General Utilities
 
-    s.mantle.em_proxy:
-        class:  %s.mantle.em_proxy.class%
-        public: false
-        arguments:
+    s.mantle.em_proxy :
+        class     : %s.mantle.em_proxy.class%
+        public    : false
+        arguments :
             - @doctrine.orm.entity_manager
 
     # Response Factories
 
-    s.mantle.response.type_html:
-        class: %s.mantle.response.type_generic.class%
-        factory:
-            - %s.mantle.response.factory.class%
-            - create
-        arguments:
+    s.mantle.response.type_html :
+        class     : %s.mantle.response.type_generic.class%
+        arguments :
             - %s.mantle.response.type_generic.class%
             - null
             - null
@@ -200,13 +197,13 @@ services:
             - %s.mantle.response.html.charset%
             - %s.mantle.response.global.protocol%
             - %s.mantle.response.html.protocol%
-
-    s.mantle.response.type_text:
-        class: %s.mantle.response.type_generic.class%
-        factory:
+        factory :
             - %s.mantle.response.factory.class%
             - create
-        arguments:
+
+    s.mantle.response.type_text :
+        class     : %s.mantle.response.type_generic.class%
+        arguments :
             - %s.mantle.response.type_generic.class%
             - null
             - null
@@ -217,13 +214,13 @@ services:
             - %s.mantle.response.text.charset%
             - %s.mantle.response.global.protocol%
             - %s.mantle.response.text.protocol%
-
-    s.mantle.response.type_json:
-        class: %s.mantle.response.type_json.class%
-        factory:
+        factory :
             - %s.mantle.response.factory.class%
             - create
-        arguments:
+
+    s.mantle.response.type_json :
+        class     : %s.mantle.response.type_json.class%
+        arguments :
             - %s.mantle.response.type_json.class%
             - null
             - null
@@ -234,13 +231,13 @@ services:
             - %s.mantle.response.json.charset%
             - %s.mantle.response.global.protocol%
             - %s.mantle.response.json.protocol%
-
-    s.mantle.response.type_yaml:
-        class: %s.mantle.response.type_yaml.class%
-        factory:
+        factory :
             - %s.mantle.response.factory.class%
             - create
-        arguments:
+
+    s.mantle.response.type_yaml :
+        class     : %s.mantle.response.type_yaml.class%
+        arguments :
             - %s.mantle.response.type_yaml.class%
             - null
             - null
@@ -251,409 +248,414 @@ services:
             - %s.mantle.response.yaml.charset%
             - %s.mantle.response.global.protocol%
             - %s.mantle.response.yaml.protocol%
+        factory :
+            - %s.mantle.response.factory.class%
+            - create
 
     # Repositories
 
-    s.mantle.route_redirect.repo:
-        class: %s.mantle.route_redirect.repo.class%
-        factory:
-            - @doctrine
-            - getRepository
-        arguments:
+    s.mantle.route_redirect.repo :
+        class     : %s.mantle.route_redirect.repo.class%
+        arguments :
             - %s.mantle.route_redirect.entity.class%
-
-    s.mantle.route.repo:
-        class: %s.mantle.route.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.route.repo :
+        class     : %s.mantle.route.repo.class%
+        arguments :
             - %s.mantle.route.entity.class%
-
-    s.mantle.navigation_set.repo:
-        class: %s.mantle.navigation_set.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.navigation_set.repo :
+        class     : %s.mantle.navigation_set.repo.class%
+        arguments :
             - %s.mantle.navigation_set.entity.class%
-
-    s.mantle.navigation_item.repo:
-        class: %s.mantle.navigation_item.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.navigation_item.repo :
+        class     : %s.mantle.navigation_item.repo.class%
+        arguments :
             - %s.mantle.navigation_item.entity.class%
-
-    s.mantle.icon.repo:
-        class: %s.mantle.icon.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.icon.repo :
+        class     : %s.mantle.icon.repo.class%
+        arguments :
             - %s.mantle.icon.entity.class%
-
-    s.mantle.icon_template.repo:
-        class: %s.mantle.icon_template.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.icon_template.repo :
+        class     : %s.mantle.icon_template.repo.class%
+        arguments :
             - %s.mantle.icon_template.entity.class%
-
-    s.mantle.icon_family.repo:
-        class: %s.mantle.icon_family.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.icon_family.repo :
+        class     : %s.mantle.icon_family.repo.class%
+        arguments :
             - %s.mantle.icon_family.entity.class%
-
-    s.mantle.node.repo:
-        class: %s.mantle.node.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.node.repo :
+        class     : %s.mantle.node.repo.class%
+        arguments :
             - %s.mantle.node.entity.class%
-
-    s.mantle.node_revision.repo:
-        class: %s.mantle.node_revision.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.node_revision.repo :
+        class     : %s.mantle.node_revision.repo.class%
+        arguments :
             - %s.mantle.node_revision.entity.class%
-
-    s.mantle.node_revision_diff.repo:
-        class: %s.mantle.node_revision_diff.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.node_revision_diff.repo :
+        class     : %s.mantle.node_revision_diff.repo.class%
+        arguments :
             - %s.mantle.node_revision_diff.entity.class%
-
-    s.mantle.node_render_engine.repo:
-        class: %s.mantle.node_render_engine.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.node_render_engine.repo :
+        class     : %s.mantle.node_render_engine.repo.class%
+        arguments :
             - %s.mantle.node_render_engine.entity.class%
-
-    s.mantle.asset.repo:
-        class: %s.mantle.asset.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.asset.repo :
+        class     : %s.mantle.asset.repo.class%
+        arguments :
             - %s.mantle.asset.entity.class%
-
-    s.mantle.asset_descriptor.repo:
-        class: %s.mantle.asset_descriptor.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.asset_descriptor.repo :
+        class     : %s.mantle.asset_descriptor.repo.class%
+        arguments :
             - %s.mantle.asset_descriptor.entity.class%
-
-    s.mantle.asset_type.repo:
-        class: %s.mantle.asset_type.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.asset_type.repo :
+        class     : %s.mantle.asset_type.repo.class%
+        arguments :
             - %s.mantle.asset_type.entity.class%
-
-    s.mantle.locale_language_family.repo:
-        class: %s.mantle.locale_language_family.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.locale_language_family.repo :
+        class     : %s.mantle.locale_language_family.repo.class%
+        arguments :
             - %s.mantle.locale_language_family.entity.class%
-
-    s.mantle.locale_language_name.repo:
-        class: %s.mantle.locale_language_name.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.locale_language_name.repo :
+        class     : %s.mantle.locale_language_name.repo.class%
+        arguments :
             - %s.mantle.locale_language_name.entity.class%
-
-    s.mantle.locale_country.repo:
-        class: %s.mantle.locale_country.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.locale_country.repo :
+        class     : %s.mantle.locale_country.repo.class%
+        arguments :
             - %s.mantle.locale_country.entity.class%
-
-    s.mantle.locale.repo:
-        class: %s.mantle.locale.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.locale.repo :
+        class     : %s.mantle.locale.repo.class%
+        arguments :
             - %s.mantle.locale.entity.class%
-
-    s.mantle.locale_city.repo:
-        class: %s.mantle.locale_city.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.locale_city.repo :
+        class     : %s.mantle.locale_city.repo.class%
+        arguments :
             - %s.mantle.locale_city.entity.class%
-
-    s.mantle.locale_state_territory.repo:
-        class: %s.mantle.locale_state_territory.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.locale_state_territory.repo :
+        class     : %s.mantle.locale_state_territory.repo.class%
+        arguments :
             - %s.mantle.locale_state_territory.entity.class%
-
-    s.mantle.state_runtime_bundle.repo:
-        class: %s.mantle.state_runtime_bundle.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.state_runtime_bundle.repo :
+        class     : %s.mantle.state_runtime_bundle.repo.class%
+        arguments :
             - %s.mantle.state_runtime_bundle.entity.class%
-
-    s.mantle.state_runtime_controller.repo:
-        class: %s.mantle.state_runtime_controller.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.state_runtime_controller.repo :
+        class     : %s.mantle.state_runtime_controller.repo.class%
+        arguments :
             - %s.mantle.state_runtime_controller.entity.class%
-
-    s.mantle.state_runtime_action.repo:
-        class: %s.mantle.state_runtime_action.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.state_runtime_action.repo :
+        class     : %s.mantle.state_runtime_action.repo.class%
+        arguments :
             - %s.mantle.state_runtime_action.entity.class%
-
-    s.mantle.translation.repo:
-        class: %s.mantle.translation.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.translation.repo :
+        class     : %s.mantle.translation.repo.class%
+        arguments :
             - %s.mantle.translation.entity.class%
-
-    s.mantle.translation_domain.repo:
-        class: %s.mantle.translation_domain.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.translation_domain.repo :
+        class     : %s.mantle.translation_domain.repo.class%
+        arguments :
             - %s.mantle.translation_domain.entity.class%
-
-    s.mantle.translation_message.repo:
-        class: %s.mantle.translation_message.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.translation_message.repo :
+        class     : %s.mantle.translation_message.repo.class%
+        arguments :
             - %s.mantle.translation_message.entity.class%
-
-    s.mantle.meta_title.repo:
-        class: %s.mantle.meta_title.repo.class%
-        factory:
+        factory :
             - @doctrine
             - getRepository
-        arguments:
+
+    s.mantle.meta_title.repo :
+        class     : %s.mantle.meta_title.repo.class%
+        arguments :
             - %s.mantle.meta_title.entity.class%
+        factory :
+            - @doctrine
+            - getRepository
 
     # Doctrine Subscribers
 
-    s.mantle.doctrine.behaviors.timestampable.subscriber:
-        class:  %s.mantle.doctrine.behaviors.timestampable.subscriber.class%
-        public: false
-        arguments:
+    s.mantle.doctrine.behaviors.timestampable.subscriber :
+        class     : %s.mantle.doctrine.behaviors.timestampable.subscriber.class%
+        public    : false
+        arguments :
             - @s.wonka.utility.reflection_analyser
             - %s.mantle.doctrine.behaviors.timestampable.subscriber.events%
             - %s.mantle.doctrine.behaviors.timestampable.subscriber.triggers%
             - %s.mantle.doctrine.behaviors.timestampable.model.traits%
             - %s.mantle.doctrine.behaviors.timestampable.model.fields%
-        tags:
-            - { name: doctrine.event_subscriber }
+        tags :
+            - { name : doctrine.event_subscriber }
 
-    s.mantle.doctrine.behaviors.loggable.subscriber:
-        class:  %s.mantle.doctrine.behaviors.loggable.subscriber.class%
-        public: false
-        arguments:
+    s.mantle.doctrine.behaviors.loggable.subscriber :
+        class     : %s.mantle.doctrine.behaviors.loggable.subscriber.class%
+        public    : false
+        arguments :
             - @s.wonka.utility.reflection_analyser
             - %s.mantle.doctrine.behaviors.loggable.subscriber.events%
             - %s.mantle.doctrine.behaviors.loggable.subscriber.triggers%
             - %s.mantle.doctrine.behaviors.loggable.model.traits%
-        calls:
+        calls :
             - [ setLoggerCallable, [ @s.wonka.utility.logger_callable ] ]
-        tags:
-            - { name: doctrine.event_subscriber }
+        tags :
+            - { name : doctrine.event_subscriber }
 
-    s.mantle.doctrine.behaviors.sluggable.subscriber:
-        class:  %s.mantle.doctrine.behaviors.sluggable.subscriber.class%
-        public: false
-        arguments:
+    s.mantle.doctrine.behaviors.sluggable.subscriber :
+        class     : %s.mantle.doctrine.behaviors.sluggable.subscriber.class%
+        public    : false
+        arguments :
             - @s.wonka.utility.reflection_analyser
             - %s.mantle.doctrine.behaviors.sluggable.subscriber.events%
             - %s.mantle.doctrine.behaviors.sluggable.subscriber.triggers%
             - %s.mantle.doctrine.behaviors.sluggable.model.traits%
             - %s.mantle.doctrine.behaviors.sluggable.model.fields%
-        tags:
-            - { name: doctrine.event_subscriber }
+        tags :
+            - { name : doctrine.event_subscriber }
 
-    s.mantle.doctrine.behaviors.hierarchical_node.subscriber:
-        class:  %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.class%
-        public: false
-        arguments:
+    s.mantle.doctrine.behaviors.hierarchical_node.subscriber :
+        class     :  %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.class%
+        public    : false
+        arguments :
             - @s.wonka.utility.reflection_analyser
             - %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.events%
             - %s.mantle.doctrine.behaviors.hierarchical_node.subscriber.triggers%
             - %s.mantle.doctrine.behaviors.hierarchical_node.model.traits%
             - %s.mantle.doctrine.behaviors.hierarchical_node.model.fields%
-        tags:
-            - { name: doctrine.event_subscriber }
+        tags :
+            - { name : doctrine.event_subscriber }
 
     # Icon Creator Services
 
-    s.mantle.icon:
-        alias: s.mantle.icon_creator
+    s.mantle.icon :
+        alias : s.mantle.icon_creator
 
-    s.mantle.icon_creator:
-        class: %s.mantle.icon_creator_cached.class%
-        arguments:
+    s.mantle.icon_creator :
+        class     : %s.mantle.icon_creator_cached.class%
+        arguments :
             - @s.mantle.icon_family.repo
             - @s.mantle.icon.repo
             - @twig
-        calls:
+        calls :
             - [setCacheManager, [@s.cache]]
 
-    s.mantle.icon_creator.notemplating:
-        class: %s.mantle.icon_creator_cached.class%
-        arguments:
+    s.mantle.icon_creator.notemplating :
+        class     : %s.mantle.icon_creator_cached.class%
+        arguments :
             - @s.mantle.icon_family.repo
             - @s.mantle.icon.repo
-        calls:
+        calls :
             - [setCacheManager, [@s.cache]]
 
-    s.mantle.icon_creator.twig_extension:
-        class: %s.mantle.icon_creator.twig_extension.class%
-        arguments:
+    s.mantle.icon_creator.twig_extension :
+        class     : %s.mantle.icon_creator.twig_extension.class%
+        arguments :
             - @s.mantle.icon_creator.notemplating
-        tags:
-            - { name: twig.extension }
+        tags :
+            - { name : twig.extension }
 
     # Node Creator Services
 
-    s.mantle.node_creator_caching_enabled:
-        class: %s.mantle.node_creator_caching_enabled.class%
-        arguments:
+    s.mantle.node_creator_caching_enabled :
+        class     : %s.mantle.node_creator_caching_enabled.class%
+        arguments :
             - @s.mantle.node.repo
             - @s.mantle.node_creator.renderer.registrar
-        calls:
+        calls :
             - [setCacheManager, [@s.cache]]
 
-    s.mantle.node_creator_caching_disabled:
-        class: %s.mantle.node_creator_caching_disabled.class%
-        arguments:
+    s.mantle.node_creator_caching_disabled :
+        class     : %s.mantle.node_creator_caching_disabled.class%
+        arguments :
             - @s.mantle.node.repo
             - @s.mantle.node_creator.renderer.registrar
 
-    s.mantle.node_creator:
-        class: %s.mantle.node_creator_caching_enabled.class%
-        factory: [%s.mantle.node_creator.factory.class%, getNodeRenderer]
-        arguments:
+    s.mantle.node_creator :
+        class     : %s.mantle.node_creator_caching_enabled.class%
+        arguments :
             - @s.wonka.utility.service_finder
             - %s.mantle.node_creator.caching%
+        factory :
+            - %s.mantle.node_creator.factory.class%
+            - getNodeRenderer
 
-    s.mantle.node_creator.renderer.registrar:
-        class: %s.mantle.node_creator.renderer.registrar.class%
+    s.mantle.node_creator.renderer.registrar :
+        class : %s.mantle.node_creator.renderer.registrar.class%
 
-    s.mantle.node_creator.renderer.twig:
-        class: %s.mantle.node_creator.renderer.twig.class%
-        arguments:
+    s.mantle.node_creator.renderer.twig :
+        class     : %s.mantle.node_creator.renderer.twig.class%
+        arguments :
             - @twig
-        tags:
-            - { name: node_creator.renderer, priority: 100, something_else: testing, another_thing: false }
+        tags :
+            - { name : node_creator.renderer, priority: 100, something_else: testing, another_thing: false }
 
-    s.mantle.node_creator.twig_extension:
-        class: %s.mantle.node_creator.twig_extension.class%
-        arguments:
+    s.mantle.node_creator.twig_extension :
+        class     : %s.mantle.node_creator.twig_extension.class%
+        arguments :
             - @s.mantle.node_creator
-        tags:
-            - { name: twig.extension }
+        tags :
+            - { name : twig.extension }
 
     # Node Handler Services
 
-    s.mantle.hier_rel_manager:
-        class: %s.mantle.hier_rel_manager.class%
-        arguments:
+    s.mantle.hier_rel_manager :
+        class     : %s.mantle.hier_rel_manager.class%
+        arguments :
             - @doctrine.orm.entity_manager
             - @s.mantle.node.repo
 
     # Meta Title
 
-    s.mantle.meta_title_provider:
-        class: %s.mantle.meta_title_provider.class%
-        arguments:
+    s.mantle.meta_title_provider :
+        class     : %s.mantle.meta_title_provider.class%
+        arguments :
             - @s.mantle.meta_title.repo
             - @s.mantle.bundle_information
             - @translator
 
-    s.mantle.meta_title_manager:
-        class: %s.mantle.meta_title_manager.class%
-        arguments:
+    s.mantle.meta_title_manager :
+        class     : %s.mantle.meta_title_manager.class%
+        arguments :
             - @s.mantle.meta_title_provider
             - {'digitalhub': 'Digital Hub', 'security': 'Your Account', 'blog': 'Articles & Book'}
 
     # Bundle Information Services
 
-    s.mantle.bundle_information:
-        class: %s.mantle.bundle_information.class%
-        arguments:
+    s.mantle.bundle_information :
+        class     : %s.mantle.bundle_information.class%
+        arguments :
             - @request_stack
             - @router
             - true
 
-    s.mantle.bundle_information_factory:
-        class: %s.mantle.bundle_information.class%
-        factory:
-            - %s.mantle.bundle_information_factory.class%
-            - getInstance
-        arguments:
+    s.mantle.bundle_information_factory :
+        class     : %s.mantle.bundle_information.class%
+        arguments :
             - @request_stack
             - @router
             - false
+        factory :
+            - %s.mantle.bundle_information_factory.class%
+            - getInstance
 
-    s.mantle.bundle_information.twig_extension:
-        class: %s.mantle.bundle_information.twig_extension.class%
-        arguments:
+    s.mantle.bundle_information.twig_extension :
+        class     : %s.mantle.bundle_information.twig_extension.class%
+        arguments :
             - @s.mantle.bundle_information
-        tags:
-            - { name: twig.extension }
+        tags :
+            - { name : twig.extension }
 
     # Routing Loader Services
 
-    s.mantle.route_redirect.routing_loader:
-        class: %s.mantle.route_redirect.routing_loader.class%
-        arguments:
+    s.mantle.route_redirect.routing_loader :
+        class     : %s.mantle.route_redirect.routing_loader.class%
+        arguments :
             - @s.mantle.route_redirect.repo
-        tags:
-            - { name: routing.loader }
+        tags :
+            - { name : routing.loader }
 
     # Kernel Event Listeners
 
-    s.mantle.maintenance.kernel_listener:
-        class:  %s.mantle.maintenance.kernel_listener.class%
-        parent: s.mantle.abstract.controller
-        arguments:
+    s.mantle.maintenance.kernel_listener :
+        class     : %s.mantle.maintenance.kernel_listener.class%
+        parent    : s.mantle.abstract.controller
+        arguments :
             - @request_stack
             - @s.mantle.bundle_information
             - @s.mantle.maintenance.controller
@@ -662,46 +664,51 @@ services:
             - %s.mantle.maintenance.exempt%
             - %s.mantle.maintenance.override.request_argument%
             - %s.mantle.maintenance.override.request_value%
-        tags:
-            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 1 }
+        tags :
+            - { name : kernel.event_listener, event : kernel.controller, method : onKernelController, priority : 1 }
 
     # HTTP Utils
 
-    s.mantle.http_utils:
-        class: %s.mantle.http_utils.class%
-        factory:
-            - %s.mantle.http_utils.class%
-            - create
-        arguments:
+    s.mantle.http_utils :
+        class     : %s.mantle.http_utils.class%
+        arguments :
             - @request_stack
             - @router.default
+        factory :
+            - %s.mantle.http_utils.class%
+            - create
 
     # Old Twig Extensions
 
-    s.mantle.twig_extension.bootstrap_button:
-        class: %s.mantle.twig_extension.bootstrap_button.class%
-        arguments:
+    s.mantle.twig_extension.button_renderer :
+        class     : %s.mantle.twig_extension.button_renderer.class%
+        arguments :
             - @router
-        tags:
-            - { name: twig.extension }
+        tags :
+            - { name : twig.extension }
 
-    s.mantle.twig_extension.service_param_access:
-        class: %s.mantle.twig_extension.service_param_access.class%
-        arguments:
+    s.mantle.twig_extension.parameter :
+        class     : %s.mantle.twig_extension.parameter.class%
+        arguments :
             - @service_container
-        tags:
-            - { name: twig.extension }
+        tags :
+            - { name : twig.extension }
 
-    s.mantle.twig_extension.scribe_form_extras:
-        class: %s.mantle.twig_extension.scribe_form_extras.class%
-        arguments:
+    s.mantle.twig_extension.form_renderer :
+        class     : %s.mantle.twig_extension.form_renderer.class%
+        arguments :
             - @s.mantle.http_utils
-        tags:
-            - { name: twig.extension }
+        tags :
+            - { name : twig.extension }
 
-    s.mantle.twig_extension.lookup_last_username:
-        class: %s.mantle.twig_extension.lookup_last_username.class%
-        arguments:
+    s.mantle.twig_extension.security_utilities :
+        class     : %s.mantle.twig_extension.security_utilities.class%
+        arguments :
             - @security.authentication_utils
-        tags:
-            - { name: twig.extension }
+        tags :
+            - { name : twig.extension }
+
+    s.mantle.twig_extension.ternary_operator :
+        class : %s.mantle.twig_extension.ternary_operator.class%
+        tags  :
+            - { name : twig.extension }

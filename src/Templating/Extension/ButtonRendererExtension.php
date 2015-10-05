@@ -13,12 +13,12 @@ namespace Scribe\MantleBundle\Templating\Extension;
 
 use Twig_Environment;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Scribe\MantleBundle\Templating\Twig\AbstractTwigExtension;
+use Scribe\WonkaBundle\Component\Templating\AbstractTwigExtension;
 
 /**
- * Class BootstrapComponentButtonExtension.
+ * Class ButtonRendererExtension.
  */
-class BootstrapComponentButtonExtension extends AbstractTwigExtension
+class ButtonRendererExtension extends AbstractTwigExtension
 {
     /**
      * @var Router
@@ -38,8 +38,7 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
 
         $this
             ->enableOptionHtmlSafe()
-            ->enableOptionNeedsEnv()
-        ;
+            ->enableOptionNeedsEnv();
 
         $this->addFunction('bs_btn',              [$this, 'getBootstrapButton']);
         $this->addFunction('bs_btn_default',      [$this, 'getButtonDefault']);
@@ -64,10 +63,9 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function getButtonDeleteInHeader(Twig_Environment $twigEnvironment, $title, $what, $route = null,
-                                            array $routeArgs = [], $icon = null, array $groupClasses = [],
-                                            array $btnClasses = [])
-    {
+    public function getButtonDeleteInHeader(Twig_Environment $twigEnvironment, $title, $what, $route = null, array $routeArgs = [],
+                                            $icon = null, array $groupClasses = [], array $btnClasses = []
+    ) {
         array_push($groupClasses, 'btn-group-in-header');
         array_push($groupClasses, 'pull-right');
 
@@ -86,37 +84,26 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function getButtonDelete(Twig_Environment $twigEnvironment, $title, $what, $route = null,
-                                    array $routeArgs = [], $icon = null, array $groupClasses = [],
-                                    array $btnClasses = [])
-    {
-        if ($route !== null) {
-            $data_href = $this->router->generate($route, $routeArgs);
-            $url = '#';
-        } else {
-            $data_href = $url = '#';
-        }
+    public function getButtonDelete(Twig_Environment $twigEnvironment, $title, $what, $route = null, array $routeArgs = [],
+                                    $icon = null, array $groupClasses = [], array $btnClasses = []
+    ) {
+        $icon     = $icon === null ? 'icon-minus-sign' : $icon;
+        $desc     = $title . ' ' . $what;
+        $hrefReal = '#';
+        $hrefData = $route !== null ? $this->router->generate($route, $routeArgs) : $hrefReal;
 
-        if ($icon === null) {
-            $icon = 'icon-minus-sign';
-        }
-
-        $desc = $title.' '.$what;
         array_push($btnClasses, 'btn-danger');
 
-        return $twigEnvironment->render(
-            'ScribeMantleBundle:Button:bs_btn_delete.html.twig',
-            [
-                'title' => $title,
-                'desc' => $desc,
-                'what' => $what,
-                'data_href' => $data_href,
-                'url' => $url,
-                'icon' => $icon,
-                'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses,
-            ]
-        );
+        return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_delete.html.twig', [
+            'title'        => $title,
+            'desc'         => $desc,
+            'what'         => $what,
+            'data_href'    => $hrefData,
+            'url'          => $hrefReal,
+            'icon'         => $icon,
+            'groupClasses' => $groupClasses,
+            'btnClasses'   => $btnClasses
+        ]);
     }
 
     /**
@@ -132,38 +119,27 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function getButtonAjaxDelete(Twig_Environment $twigEnvironment, $title, $what, $route = null,
-                                       array $routeArgs = [], $icon = null, $selector = null, array $groupClasses = [],
-                                       array $btnClasses = [])
-    {
-        if ($route !== null) {
-            $data_href = $this->router->generate($route, $routeArgs);
-            $url = '#';
-        } else {
-            $data_href = $url = '#';
-        }
+    public function getButtonAjaxDelete(Twig_Environment $twigEnvironment, $title, $what, $route = null, array $routeArgs = [],
+                                       $icon = null, $selector = null, array $groupClasses = [], array $btnClasses = []
+    ) {
+        $icon     = $icon === null ? 'icon-minus-sign' : $icon;
+        $desc     = $title . ' ' . $what;
+        $hrefReal = '#';
+        $hrefData = $route !== null ? $this->router->generate($route, $routeArgs) : $hrefReal;
 
-        if ($icon === null) {
-            $icon = 'icon-minus-sign';
-        }
-
-        $desc = $title.' '.$what;
         array_push($btnClasses, 'btn-danger');
 
-        return $twigEnvironment->render(
-            'ScribeMantleBundle:Button:bs_btn_ajax_delete.html.twig',
-            [
-                'title' => $title,
-                'desc' => $desc,
-                'what' => $what,
-                'data_href' => $data_href,
-                'url' => $url,
-                'icon' => $icon,
-                'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses,
-                'selector' => $selector,
-            ]
-        );
+        return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_ajax_delete.html.twig', [
+            'title'        => $title,
+            'desc'         => $desc,
+            'what'         => $what,
+            'data_href'    => $hrefData,
+            'url'          => $hrefReal,
+            'icon'         => $icon,
+            'groupClasses' => $groupClasses,
+            'btnClasses'   => $btnClasses,
+            'selector'     => $selector
+        ]);
     }
 
     /**
@@ -179,12 +155,12 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @return string
      */
     public function getButtonCancel(Twig_Environment $twigEnvironment, $title, $desc, $route = null, array $routeArgs = [],
-                                  $icon = null, array $groupClasses = [], array $btnClasses = [])
-    {
-        $icon = 'fa-reply';
+                                    $icon = null, array $groupClasses = [], array $btnClasses = []
+    ) {
         array_push($btnClasses, 'btn-warning');
 
-        return $this->getButtonInHeader($twigEnvironment, $title, $desc, $route, $routeArgs, $icon, $groupClasses, $btnClasses);
+        return $this->getButtonInHeader($twigEnvironment, $title, $desc, $route, $routeArgs, 'fa-reply', $groupClasses,
+            $btnClasses);
     }
 
     /**
@@ -200,13 +176,13 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @return string
      */
     public function getButtonInHeader(Twig_Environment $twigEnvironment, $title, $desc, $route = null, array $routeArgs = [],
-                                 $icon = null, array $groupClasses = [], array $btnClasses = [])
-    {
-        $type = 'btn-default';
+                                      $icon = null, array $groupClasses = [], array $btnClasses = []
+    ) {
         array_push($groupClasses, 'btn-group-in-header');
         array_push($groupClasses, 'pull-right');
 
-        return $this->getBootstrapButton($twigEnvironment, $title, $desc, $type, $route, $routeArgs, $icon, $groupClasses, $btnClasses);
+        return $this->getBootstrapButton($twigEnvironment, $title, $desc, 'btn-default', $route, $routeArgs, $icon,
+            $groupClasses, $btnClasses);
     }
 
     /**
@@ -222,11 +198,10 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @return string
      */
     public function getButtonDefault(Twig_Environment $twigEnvironment, $title, $desc, $route = null, array $routeArgs = [],
-                                   $icon = null, array $groupClasses = [], array $btnClasses = [])
-    {
-        $type = 'btn-default';
-
-        return $this->getBootstrapButton($twigEnvironment, $title, $desc, $type, $route, $routeArgs, $icon, $groupClasses, $btnClasses);
+                                     $icon = null, array $groupClasses = [], array $btnClasses = []
+    ) {
+        return $this->getBootstrapButton($twigEnvironment, $title, $desc, 'btn-default', $route, $routeArgs, $icon,
+            $groupClasses, $btnClasses);
     }
 
     /**
@@ -243,8 +218,8 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @return string
      */
     public function getBootstrapButton(Twig_Environment $twigEnvironment, $title, $desc, $type = 'btn-default', $route = null,
-                           array $routeArgs = [], $icon = null, array $groupClasses = [], array $btnClasses = [])
-    {
+                                       array $routeArgs = [], $icon = null, array $groupClasses = [], array $btnClasses = []
+    ) {
         array_push($btnClasses, $type);
 
         return $this->renderDefault($twigEnvironment, $title, $desc, $route, $routeArgs, $icon, $groupClasses, $btnClasses);
@@ -262,12 +237,12 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @return string
      */
     public function getButtonNext(Twig_Environment $twigEnvironment, $title, $desc, $route = null, array $routeArgs = [],
-                                array $groupClasses = [], array $btnClasses = [])
-    {
+                                  array $groupClasses = [], array $btnClasses = []
+    ) {
         array_push($btnClasses, 'btn-default');
-        $icon = 'fa-angle-right';
 
-        return $this->renderPrevNext($twigEnvironment, $title, $desc, $route, $routeArgs, $icon, $groupClasses, $btnClasses, 'next');
+        return $this->renderPrevNext($twigEnvironment, $title, $desc, $route, $routeArgs, 'fa-angle-right', $groupClasses,
+            $btnClasses, 'next');
     }
 
     /**
@@ -282,12 +257,12 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      * @return string
      */
     public function getButtonPrevious(Twig_Environment $twigEnvironment, $title, $desc, $route = null, array $routeArgs = [],
-                                array $groupClasses = [], array $btnClasses = [])
-    {
+                                      array $groupClasses = [], array $btnClasses = []
+    ) {
         array_push($btnClasses, 'btn-default');
-        $icon = 'fa-angle-left';
 
-        return $this->renderPrevNext($twigEnvironment, $title, $desc, $route, $routeArgs, $icon, $groupClasses, $btnClasses, 'prev');
+        return $this->renderPrevNext($twigEnvironment, $title, $desc, $route, $routeArgs, 'fa-angle-left', $groupClasses,
+            $btnClasses, 'prev');
     }
 
     /**
@@ -303,26 +278,20 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function renderPrevNext(Twig_Environment $twigEnvironment, $title, $desc, $route, $routeArgs, $icon, $groupClasses, $btnClasses, $direction = null)
-    {
-        if ($route !== null) {
-            $url = $this->router->generate($route, $routeArgs);
-        } else {
-            $url = '#';
-        }
+    public function renderPrevNext(Twig_Environment $twigEnvironment, $title, $desc, $route, $routeArgs, $icon,
+                                   $groupClasses, $btnClasses, $direction = null
+    ) {
+        $hrefReal = $route !== null ? $this->router->generate($route, $routeArgs) : '#';
 
-        return $twigEnvironment->render(
-            'ScribeMantleBundle:Button:bs_btn_prevnext.html.twig',
-            [
-                'title' => $title,
-                'desc' => $desc,
-                'url' => $url,
-                'icon' => $icon,
-                'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses,
-                'direction' => $direction,
-            ]
-        );
+        return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_prevnext.html.twig', [
+            'title'        => $title,
+            'desc'         => $desc,
+            'url'          => $hrefReal,
+            'icon'         => $icon,
+            'groupClasses' => $groupClasses,
+            'btnClasses'   => $btnClasses,
+            'direction'    => $direction,
+        ]);
     }
 
     /**
@@ -337,25 +306,19 @@ class BootstrapComponentButtonExtension extends AbstractTwigExtension
      *
      * @return string
      */
-    public function renderDefault(Twig_Environment $twigEnvironment, $title, $desc, $route, $routeArgs, $icon, $groupClasses, $btnClasses)
-    {
-        if ($route !== null) {
-            $url = $this->router->generate($route, $routeArgs);
-        } else {
-            $url = '#';
-        }
+    public function renderDefault(Twig_Environment $twigEnvironment, $title, $desc, $route, $routeArgs, $icon,
+                                  $groupClasses, $btnClasses
+    ) {
+        $hrefReal = $route !== null ? $this->router->generate($route, $routeArgs) : '#';
 
-        return $twigEnvironment->render(
-            'ScribeMantleBundle:Button:bs_btn_default.html.twig',
-            [
-                'title' => $title,
-                'desc' => $desc,
-                'url' => $url,
-                'icon' => $icon,
-                'groupClasses' => $groupClasses,
-                'btnClasses' => $btnClasses,
-            ]
-        );
+        return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_default.html.twig', [
+            'title'        => $title,
+            'desc'         => $desc,
+            'url'          => $hrefReal,
+            'icon'         => $icon,
+            'groupClasses' => $groupClasses,
+            'btnClasses'   => $btnClasses,
+        ]);
     }
 }
 

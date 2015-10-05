@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\Templating\Twig;
+namespace Scribe\MantleBundle\Templating\Twig\Extension;
 
 /**
  * Class TwigExtensionInterface.
