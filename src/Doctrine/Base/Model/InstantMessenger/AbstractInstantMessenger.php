@@ -11,14 +11,14 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\InstantMessenger;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\Type\HasType;
 
 /**
  * Class AbstractInstantMessenger.
  */
-abstract class AbstractInstantMessenger extends AbstractEntity implements InstantMessengerInterface
+abstract class AbstractInstantMessenger extends IdEntity implements InstantMessengerInterface
 {
     use HasName;
     use HasType;

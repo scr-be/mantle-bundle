@@ -11,14 +11,14 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class TranslationDomain
  */
-class TranslationDomain extends AbstractEntity
+class TranslationDomain extends IdEntity
 {
     use HasName;
     use HasDescription;

@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\Hierarchy;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class HasParentInverseSide.
@@ -26,11 +26,11 @@ trait HasParentOwningSide
     /**
      * Setter for parent.
      *
-     * @param AbstractEntity|null $parent a parent entity instance
+     * @param Entity|null $parent a parent entity instance
      *
      * @return $this
      */
-    public function setParent(AbstractEntity $parent = null)
+    public function setParent(Entity $parent = null)
     {
         $this->parent = $parent;
 

@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\Type;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class TypeInterface.
@@ -19,16 +19,16 @@ use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 interface TypeInterface
 {
     /**
-     * @return AbstractEntity|null
+     * @return Entity|null
      */
     public function getType();
 
     /**
-     * @param AbstractEntity|null $type
+     * @param Entity|null $type
      *
      * @return $this
      */
-    public function setType(AbstractEntity $type = null);
+    public function setType(Entity $type = null);
 
     /**
      * @return bool

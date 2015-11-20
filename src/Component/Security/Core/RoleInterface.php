@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Component\Security\Core;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Security\Core\Role\RoleInterface as SymfonyRoleInterface;
 
 /**
@@ -33,12 +33,12 @@ interface RoleInterface extends SymfonyRoleInterface
     public function setParents(ArrayCollection $parents);
     public function hasParents();
     public function clearParents();
-    public function hasParent(AbstractEntity $parent);
-    public function addParent(AbstractEntity $parent);
-    public function removeParent(AbstractEntity $parent);
+    public function hasParent(Entity $parent);
+    public function addParent(Entity $parent);
+    public function removeParent(Entity $parent);
     public function getChildren();
     public function hasChildren();
-    public function hasChild(AbstractEntity $child);
+    public function hasChild(Entity $child);
     public function getUsers();
     public function hasUsers();
     public function hasUser(UserInterface $user);

@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class HasChildrenInverseSide.
@@ -57,11 +57,11 @@ trait HasChildrenInverseSide
     /**
      * Checker for specific child within children.
      *
-     * @param AbstractEntity $child entity object to search of in collection of children
+     * @param Entity $child entity object to search of in collection of children
      *
      * @return bool
      */
-    public function hasChild(AbstractEntity $child)
+    public function hasChild(Entity $child)
     {
         return $this
             ->getChildren()

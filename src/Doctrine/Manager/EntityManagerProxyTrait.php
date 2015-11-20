@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Scribe\MantleBundle\Component\DependencyInjection\Aware\EntityManagerAwareTrait;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class EntityManagerProxyTrait.
@@ -40,11 +40,11 @@ trait EntityManagerProxyTrait
     /**
      * Removed the provided entity from the database.
      *
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      *
      * @return $this
      */
-    public function remove(AbstractEntity $entity)
+    public function remove(Entity $entity)
     {
         $this->em->remove($entity);
 
@@ -54,11 +54,11 @@ trait EntityManagerProxyTrait
     /**
      * Persists the provided entity to the database.
      *
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      *
      * @return $this
      */
-    public function persist(AbstractEntity $entity)
+    public function persist(Entity $entity)
     {
         $this->em->persist($entity);
 
@@ -68,11 +68,11 @@ trait EntityManagerProxyTrait
     /**
      * Refreshes the persistent state of the passed entity back to that of the DB state.
      *
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      *
      * @return $this
      */
-    public function refresh(AbstractEntity $entity)
+    public function refresh(Entity $entity)
     {
         $this->em->refresh($entity);
 
@@ -83,11 +83,11 @@ trait EntityManagerProxyTrait
      * Detaches the passed entity from the current manager such that it is no longer consider a "managed" entity
      * and will therefore not be persisted in any way.
      *
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      *
      * @return $this
      */
-    public function detach(AbstractEntity $entity)
+    public function detach(Entity $entity)
     {
         $this->em->detach($entity);
 
@@ -98,11 +98,11 @@ trait EntityManagerProxyTrait
      * Merges a detached entity back into a managed state by this managers, essentially reverting the effect of
      * {@see detach()}.
      *
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      *
      * @return $this
      */
-    public function merge(AbstractEntity $entity)
+    public function merge(Entity $entity)
     {
         $this->em->merge($entity);
 
@@ -162,12 +162,12 @@ trait EntityManagerProxyTrait
      * Creates a copy of the passed object and returns it. By default this is a shallow copy, but a deep copy can be
      * toggled via the second parameter.
      *
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      * @param bool           $deep
      *
-     * @return AbstractEntity
+     * @return Entity
      */
-    public function getCopy(AbstractEntity $entity, $deep = false)
+    public function getCopy(Entity $entity, $deep = false)
     {
         return $this->em->copy($entity, $deep);
     }
@@ -175,7 +175,7 @@ trait EntityManagerProxyTrait
     /**
      * Returns the mapping metadata for the passed entity instance or entity class name string.
      *
-     * @param AbstractEntity|string $entity
+     * @param Entity|string $entity
      *
      * @return ClassMetadata
      */

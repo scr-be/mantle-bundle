@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasChildrenInverseSide;
@@ -23,7 +23,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasUsersInverseSide;
 /**
  * Class Role.
  */
-class Role extends AbstractEntity implements RoleInterface
+class Role extends IdEntity implements RoleInterface
 {
     use HasName;
     use HasDescription;

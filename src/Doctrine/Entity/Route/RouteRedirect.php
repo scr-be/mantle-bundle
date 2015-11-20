@@ -2,12 +2,12 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Route;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 
 /**
  * RouteRedirect.
  */
-class RouteRedirect extends AbstractEntity
+class RouteRedirect extends IdEntity
 {
     /**
      * @var string

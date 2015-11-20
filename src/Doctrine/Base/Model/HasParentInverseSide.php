@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class HasParentInverseSide.
@@ -21,14 +21,14 @@ trait HasParentInverseSide
     /**
      * Parent entity.
      *
-     * @var AbstractEntity
+     * @var Entity
      */
     protected $parent;
 
     /**
      * Getter for parent.
      *
-     * @return AbstractEntity
+     * @return Entity
      */
     public function getParent()
     {

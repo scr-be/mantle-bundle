@@ -11,14 +11,14 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\Phone;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\Type\HasType;
 
 /**
  * Class AbstractPhone.
  */
-abstract class AbstractPhone extends AbstractEntity implements PhoneInterface
+abstract class AbstractPhone extends IdEntity implements PhoneInterface
 {
     use HasName;
     use HasType;

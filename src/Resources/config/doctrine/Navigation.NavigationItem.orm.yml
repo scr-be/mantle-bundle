@@ -12,7 +12,7 @@ Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem:
     id:
 
         id:
-            type      : smallint
+            type      : int
             id        : true
             options   :
                 unsigned : true

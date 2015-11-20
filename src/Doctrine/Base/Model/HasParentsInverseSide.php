@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -37,7 +37,7 @@ trait HasParentsInverseSide
     /**
      * Getter for parents.
      *
-     * @return AbstractEntity
+     * @return Entity
      */
     public function getParents()
     {
@@ -54,7 +54,7 @@ trait HasParentsInverseSide
         return (bool) ($this->getParents() !== null);
     }
 
-    public function hasParent(AbstractEntity $parent)
+    public function hasParent(Entity $parent)
     {
         return (bool) ($this->parents->contains($parent));
     }

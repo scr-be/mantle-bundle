@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class HasParentsInverseSide.
@@ -50,7 +50,7 @@ trait HasParentsOwningSide
         return $this;
     }
 
-    public function addParent(AbstractEntity $parent)
+    public function addParent(Entity $parent)
     {
         if (!$this->hasParent($parent)) {
             $this->parents->add($parent);
@@ -59,7 +59,7 @@ trait HasParentsOwningSide
         return $this;
     }
 
-    public function removeParent(AbstractEntity $parent)
+    public function removeParent(Entity $parent)
     {
         $this->parents->removeElement($parent);
 

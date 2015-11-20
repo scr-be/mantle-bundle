@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Route;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasParameters;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
@@ -20,7 +20,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 /**
  * Class Route.
  */
-class Route extends AbstractEntity
+class Route extends IdEntity
 {
     /*
      * import name, description, and parameters traits

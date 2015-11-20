@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\Activity;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\Type\HasType;
 use Scribe\MantleBundle\Doctrine\Behavior\Model\Timestampable\TimestampableBehaviorTrait;
@@ -19,7 +19,7 @@ use Scribe\MantleBundle\Doctrine\Behavior\Model\Timestampable\TimestampableBehav
 /**
  * Class AbstractActivity.
  */
-abstract class AbstractActivity extends AbstractEntity implements ActivityInterface
+abstract class AbstractActivity extends IdEntity implements ActivityInterface
 {
     use HasType;
     use HasDescription;

@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Navigation;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasAttributes;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasChildrenInverseSide;
@@ -25,7 +25,7 @@ use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait
 /**
  * Class NavigationItem.
  */
-class NavigationItem extends AbstractEntity
+class NavigationItem extends IdEntity
 {
     use HasName;
     use HasDescription;

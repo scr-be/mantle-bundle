@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
@@ -20,7 +20,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
 /**
  * Class LanguageFamily;
  */
-class LanguageFamily extends AbstractEntity
+class LanguageFamily extends IdEntity
 {
     use HasSlug;
     use HasName;

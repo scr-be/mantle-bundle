@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Activity\HasActivityCollection;
 use Scribe\MantleBundle\Doctrine\Base\Model\Address\HasAddressCollection;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
@@ -29,7 +29,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasRolesOwningSide;
 /**
  * Class User.
  */
-class User extends AbstractEntity implements UserInterface
+class User extends IdEntity implements UserInterface
 {
     use HasPerson,
         HasDescription,

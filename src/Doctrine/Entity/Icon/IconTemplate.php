@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Icon;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasDescription;
 use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
@@ -19,7 +19,7 @@ use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait
 /**
  * Class Icon.
  */
-class IconTemplate extends AbstractEntity
+class IconTemplate extends IdEntity
 {
     /*
      * import name and description entity property traits

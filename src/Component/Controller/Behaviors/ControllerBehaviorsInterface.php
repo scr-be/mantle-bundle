@@ -31,11 +31,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Scribe\MantleBundle\Component\Controller\Exception\ControllerException;
 use Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerParameterException;
 use Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerServiceException;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 use Scribe\Wonka\Exception\RuntimeException;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
-use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
-use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 
 /**
  * Interface ControllerBehaviorsInterface.
@@ -236,7 +234,7 @@ interface ControllerBehaviorsInterface
     public function entityCollectionAction($method, ArrayCollection $collection, $flush = false, $filter = true);
 
     /**
-     * Filter a collection to ensure they all extend AbstractEntity.
+     * Filter a collection to ensure they all extend Entity.
      *
      * @internal
      *
@@ -249,73 +247,73 @@ interface ControllerBehaviorsInterface
     /**
      * Persist an entity to the database.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      * @param bool           $flush  Whether to flush ORM change-set immediately or not.
      *
      * @return $this
      */
-    public function entityPersist(AbstractEntity $entity, $flush = false);
+    public function entityPersist(Entity $entity, $flush = false);
 
     /**
      * Remove an orm entity and optionally flush the transaction.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      * @param bool           $flush  Whether to flush ORM change-set immediately or not.
      *
      * @return $this
      */
-    public function entityRemove(AbstractEntity $entity, $flush = false);
+    public function entityRemove(Entity $entity, $flush = false);
 
     /**
      * Refreshes an entity, discarding local changes and bringing its state in-line with
      * that of the database.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
      * @return $this
      */
-    public function entityRefresh(AbstractEntity $entity);
+    public function entityRefresh(Entity $entity);
 
     /**
      * Clears the entity from Doctrine's entity map. This ensures you receive a new object instance
      * when re-requesting the entity.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
      * @return $this
      */
-    public function entityClear(AbstractEntity $entity);
+    public function entityClear(Entity $entity);
 
     /**
      * Detaches an entity from the manager. Any unfinished/pending changes to the entity will not
      * be persisted!
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
      * @return $this
      */
-    public function entityDetach(AbstractEntity $entity);
+    public function entityDetach(Entity $entity);
 
     /**
      * Re-attaches (merges) an entity back into the manager and returns the managed version of the
      * entity. The passed version of the entity remains un-managed.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
-     * @return AbstractEntity
+     * @return Entity
      */
-    public function entityAttach(AbstractEntity $entity);
+    public function entityAttach(Entity $entity);
 
     /**
      * Returns a new copy of the passed entity that is by default shallow-copied. A deep copy will
      * recursively copy the passed entities associations as well.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      * @param bool           $deep   Determines if deep copy is performed (associated entities are copied).
      *
-     * @return AbstractEntity
+     * @return Entity
      */
-    public function entityCopy(AbstractEntity $entity, $deep = false);
+    public function entityCopy(Entity $entity, $deep = false);
 
     /**
      * Access the templating engine service.
@@ -763,52 +761,6 @@ interface ControllerBehaviorsInterface
      * @return string|null
      */
     public function getRequestSchemeAndHost();
-
-    /**
-     * Return node creator service.
-     *
-     * @return NodeCreatorInterface
-     */
-    public function node();
-
-    /**
-     * Attempts to render a node. Tries to do so in the following order: by Node entity, by node slug, by node
-     * materialized path.
-     *
-     * @param Node|string $search
-     * @param mixed       $arguments
-     *
-     * @throws ControllerException
-     *
-     * @return string
-     */
-    public function getNodeRendered($search, ...$arguments);
-
-    /**
-     * Renders a node.
-     *
-     * @param Node      $node
-     * @param mixed,... $arguments
-     *
-     * @return string
-     */
-    public function renderNodeEntity(Node $node, ...$arguments);
-
-    /**
-     * @param string    $slug
-     * @param mixed,... $arguments
-     *
-     * @return mixed
-     */
-    public function renderNodeBySlug($slug, ...$arguments);
-
-    /**
-     * @param string    $materializedPath
-     * @param mixed,... $arguments
-     *
-     * @return mixed
-     */
-    public function renderNodeByPath($materializedPath, ...$arguments);
 
     /**
      * Renders a template view.

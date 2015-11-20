@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasCountry;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasLanguage;
@@ -19,7 +19,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasLanguage;
 /**
  * Class Locale
  */
-class Locale extends AbstractEntity
+class Locale extends IdEntity
 {
     use HasName;
     use HasLanguage;

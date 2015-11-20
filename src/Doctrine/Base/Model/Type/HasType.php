@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\Type;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class HasType.
@@ -19,7 +19,7 @@ use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
 trait HasType
 {
     /**
-     * @var AbstractEntity|null
+     * @var Entity|null
      */
     protected $type;
 
@@ -32,7 +32,7 @@ trait HasType
     }
 
     /**
-     * @return AbstractEntity|null
+     * @return Entity|null
      */
     public function getType()
     {
@@ -40,11 +40,11 @@ trait HasType
     }
 
     /**
-     * @param AbstractEntity|null $type
+     * @param Entity|null $type
      *
      * @return $this
      */
-    public function setType(AbstractEntity $type = null)
+    public function setType(Entity $type = null)
     {
         $this->type = $type;
 

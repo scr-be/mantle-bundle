@@ -12,13 +12,13 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
 
 /**
  * Class Translation;
  */
-class Translation extends AbstractEntity
+class Translation extends IdEntity
 {
     use HasSlug;
 

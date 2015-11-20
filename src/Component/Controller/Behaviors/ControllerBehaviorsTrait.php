@@ -33,7 +33,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Scribe\MantleBundle\Doctrine\Exception\ORMException;
 use Scribe\MantleBundle\Doctrine\Exception\TransactionORMException;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 use Scribe\Wonka\Exception\RuntimeException;
 use Scribe\Wonka\Utility\Caller\Call;
 use Scribe\WonkaBundle\Component\DependencyInjection\Exception\InvalidContainerParameterException;
@@ -42,9 +42,7 @@ use Scribe\MantleBundle\Component\Controller\Exception\ControllerException;
 use Scribe\MantleBundle\Component\HttpFoundation\Exception\HttpException;
 use Scribe\MantleBundle\Component\HttpFoundation\Exception\NotFoundHttpException;
 use Scribe\MantleBundle\Component\HttpFoundation\Exception\UnauthorizedHttpException;
-use Scribe\MantleBundle\Doctrine\Entity\Node\Node;
 use Scribe\MantleBundle\Doctrine\Entity\Route\Route;
-use Scribe\MantleBundle\Templating\Generator\Node\Model\NodeCreatorInterface;
 
 /**
  * Class ControllerBehaviorsTrait.
@@ -333,7 +331,7 @@ trait ControllerBehaviorsTrait
     }
 
     /**
-     * Filter a collection to ensure they all extend AbstractEntity.
+     * Filter a collection to ensure they all extend Entity.
      *
      * @internal
      *
@@ -344,19 +342,19 @@ trait ControllerBehaviorsTrait
     public function entityCollectionFilter(ArrayCollection $collection)
     {
         return $collection->filter(function ($entity) {
-            return (bool) ($entity instanceof AbstractEntity);
+            return (bool) ($entity instanceof Entity);
         });
     }
 
     /**
      * Persist an entity to the database.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      * @param bool           $flush  Whether to flush ORM change-set immediately or not.
      *
      * @return $this
      */
-    public function entityPersist(AbstractEntity $entity, $flush = false)
+    public function entityPersist(Entity $entity, $flush = false)
     {
         return $this->entityAction('persist', $entity, $flush);
     }
@@ -364,12 +362,12 @@ trait ControllerBehaviorsTrait
     /**
      * Remove an orm entity and optionally flush the transaction.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      * @param bool           $flush  Whether to flush ORM change-set immediately or not.
      *
      * @return $this
      */
-    public function entityRemove(AbstractEntity $entity, $flush = false)
+    public function entityRemove(Entity $entity, $flush = false)
     {
         return $this->entityAction('remove', $entity, $flush);
     }
@@ -378,11 +376,11 @@ trait ControllerBehaviorsTrait
      * Refreshes an entity, discarding local changes and bringing its state in-line with
      * that of the database.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
      * @return $this
      */
-    public function entityRefresh(AbstractEntity $entity)
+    public function entityRefresh(Entity $entity)
     {
         return $this->entityAction('refresh', $entity, false);
     }
@@ -391,11 +389,11 @@ trait ControllerBehaviorsTrait
      * Clears the entity from Doctrine's entity map. This ensures you receive a new object instance
      * when re-requesting the entity.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
      * @return $this
      */
-    public function entityClear(AbstractEntity $entity)
+    public function entityClear(Entity $entity)
     {
         return $this->entityAction('clear', $entity, false);
     }
@@ -404,11 +402,11 @@ trait ControllerBehaviorsTrait
      * Detaches an entity from the manager. Any unfinished/pending changes to the entity will not
      * be persisted!
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
      * @return $this
      */
-    public function entityDetach(AbstractEntity $entity)
+    public function entityDetach(Entity $entity)
     {
         $this->em()->detach($entity);
 
@@ -419,11 +417,11 @@ trait ControllerBehaviorsTrait
      * Re-attaches (merges) an entity back into the manager and returns the managed version of the
      * entity. The passed version of the entity remains un-managed.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      *
-     * @return AbstractEntity
+     * @return Entity
      */
-    public function entityAttach(AbstractEntity $entity)
+    public function entityAttach(Entity $entity)
     {
         return $this->em()->merge($entity);
     }
@@ -432,19 +430,19 @@ trait ControllerBehaviorsTrait
      * Returns a new copy of the passed entity that is by default shallow-copied. A deep copy will
      * recursively copy the passed entities associations as well.
      *
-     * @param AbstractEntity $entity An entity instance.
+     * @param Entity $entity An entity instance.
      * @param bool           $deep   Determines if deep copy is performed (associated entities are copied).
      *
-     * @return AbstractEntity
+     * @return Entity
      */
-    public function entityCopy(AbstractEntity $entity, $deep = false)
+    public function entityCopy(Entity $entity, $deep = false)
     {
         return $this->em()->copy($entity, (bool) $deep);
     }
 
     /**
      * @param string         $method
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      * @param bool           $flush
      *
      * @internal
@@ -453,7 +451,7 @@ trait ControllerBehaviorsTrait
      *
      * @return $this
      */
-    private function entityAction($method, AbstractEntity $entity, $flush)
+    private function entityAction($method, Entity $entity, $flush)
     {
         try {
             Call::method($this->em(), (string) $method, $entity);
@@ -1197,88 +1195,6 @@ trait ControllerBehaviorsTrait
             ->requestStack()
             ->getCurrentRequest()
             ->getSchemeAndHttpHost()
-        ;
-    }
-
-    /**
-     * Return node creator service.
-     *
-     * @return NodeCreatorInterface
-     */
-    public function node()
-    {
-        return $this->getService('s.mantle.node_creator');
-    }
-
-    /**
-     * Attempts to render a node. Tries to do so in the following order: by Node entity, by node slug, by node
-     * materialized path.
-     *
-     * @param Node|string $search
-     * @param mixed       $arguments
-     *
-     * @throws ControllerException
-     *
-     * @return string
-     */
-    public function getNodeRendered($search, ...$arguments)
-    {
-        try {
-            return $this->renderNodeEntity($search, $arguments);
-        } catch (\Exception $e) {
-            // Ignore as we will try finding node by slug next
-        }
-
-        try {
-            return $this->renderNodeBySlug($search, $arguments);
-        } catch (\Exception $e) {
-            // Ignore as we will try finding node by slug next
-        }
-
-        try {
-            return $this->renderNodeByPath($search, $arguments);
-        } catch (\Exception $e) {
-            // Ignore as we throw specific exception for this situation next
-        }
-
-        throw $this->getExceptionGeneric('Could not find the requested node in %s.', __METHOD__);
-    }
-
-    /**
-     * Renders a node.
-     *
-     * @param Node $node
-     * @param mixed ...$arguments
-     *
-     * @return string
-     */
-    public function renderNodeEntity(Node $node, ...$arguments)
-    {
-        return $this->node()->render($node, $arguments);
-    }
-
-    /**
-     * @param $slug
-     * @param ...$arguments
-     *
-     * @return mixed
-     */
-    public function renderNodeBySlug($slug, ...$arguments)
-    {
-        return $this->node()->renderFromSlug($slug, $arguments);
-    }
-
-    /**
-     * @param $materializedPath
-     * @param ...$arguments
-     *
-     * @return mixed
-     */
-    public function renderNodeByPath($materializedPath, ...$arguments)
-    {
-        return $this
-            ->node()
-            ->renderFromMaterializedPath($materializedPath, $arguments)
         ;
     }
 

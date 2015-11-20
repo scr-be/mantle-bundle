@@ -13,7 +13,7 @@ namespace Scribe\MantleBundle\Doctrine\Base\Model\Hierarchy;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\Entity;
 
 /**
  * Class HasChildCollectionOwningSide.
@@ -57,13 +57,13 @@ trait HasChildCollectionOwningSide
     /**
      * Element adder for childCollection collection.
      *
-     * @param AbstractEntity $child  an entity instance to add to the collection
+     * @param Entity $child  an entity instance to add to the collection
      * @param bool           $unique requires the passed object instance does not already exist within
      *                               the collection
      *
      * @return $this
      */
-    public function addChild(AbstractEntity $child, $unique = true)
+    public function addChild(Entity $child, $unique = true)
     {
         if ($this->hasChild($child) === false || $unique === false) {
             $this
@@ -76,11 +76,11 @@ trait HasChildCollectionOwningSide
     /**
      * Element remover for childCollection collection.
      *
-     * @param AbstractEntity $child an entity instance to remove from the collection
+     * @param Entity $child an entity instance to remove from the collection
      *
      * @return $this
      */
-    public function removeChild(AbstractEntity $child)
+    public function removeChild(Entity $child)
     {
         if ($this->hasChild($child) === true) {
             $this

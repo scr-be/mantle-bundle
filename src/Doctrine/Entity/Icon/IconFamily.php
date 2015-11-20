@@ -14,7 +14,7 @@ namespace Scribe\MantleBundle\Doctrine\Entity\Icon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasAttributes;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasName;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasVersion;
 use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorTrait;
 use Scribe\Wonka\Exception\ExceptionInterface;
@@ -24,7 +24,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasIconsOwningSide;
 /**
  * Class Icon.
  */
-class IconFamily extends AbstractEntity
+class IconFamily extends IdEntity
 {
     /*
      * import name and description entity property traits

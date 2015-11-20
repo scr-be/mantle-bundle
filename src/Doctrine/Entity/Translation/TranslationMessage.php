@@ -11,14 +11,14 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasValue;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasLocale;
 
 /**
  * Class TranslationMessage
  */
-class TranslationMessage extends AbstractEntity
+class TranslationMessage extends IdEntity
 {
     use HasValue;
     use HasLocale;

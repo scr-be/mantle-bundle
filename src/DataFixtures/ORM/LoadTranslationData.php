@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Scribe\WonkaBundle\DataFixtures\Doctrine\OrderedYamlDoctrineFixture;
+use Scribe\Doctrine\DataFixtures\YamlOrderedFixture;
 
 /**
  * Class LoadTranslationData
  */
-class LoadTranslationData extends OrderedYamlDoctrineFixture
+class LoadTranslationData extends YamlOrderedFixture
 {
 }
 

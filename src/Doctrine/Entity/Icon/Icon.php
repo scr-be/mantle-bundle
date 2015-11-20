@@ -16,7 +16,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasAliases;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasCategories;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasAttributes;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorStaticTrait;
@@ -24,7 +24,7 @@ use Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable\SluggableBehaviorStati
 /**
  * Class Icon.
  */
-class Icon extends AbstractEntity
+class Icon extends IdEntity
 {
     /*
      * import name and description entity property traits

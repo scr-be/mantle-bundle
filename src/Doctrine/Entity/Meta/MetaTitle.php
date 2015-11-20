@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Meta;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasTitle;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasLocale;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeAction;
@@ -21,7 +21,7 @@ use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController;
 /**
  * Class Locale;
  */
-class MetaTitle extends AbstractEntity
+class MetaTitle extends IdEntity
 {
     use HasTitle;
     use HasLocale;

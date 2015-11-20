@@ -11,14 +11,14 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\Address;
 
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\Type\HasType;
 
 /**
  * Class AbstractAddress.
  */
-abstract class AbstractAddress extends AbstractEntity implements AddressInterface
+abstract class AbstractAddress extends IdEntity implements AddressInterface
 {
     use HasName;
     use HasType;

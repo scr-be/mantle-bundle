@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Security;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\MantleBundle\Doctrine\Base\Entity\AbstractEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Activity\HasActivityCollection;
 use Scribe\MantleBundle\Doctrine\Base\Model\Address\HasAddressCollection;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasCode;
@@ -29,7 +29,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasUsersInverseSide;
 /**
  * Class Organization.
  */
-class Organization extends AbstractEntity implements OrganizationInterface
+class Organization extends IdEntity implements OrganizationInterface
 {
     use HasCode,
         HasName,
