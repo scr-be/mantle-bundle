@@ -38,6 +38,11 @@ class NavigationItem extends IdEntity
     use SluggableBehaviorTrait;
 
     /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
+
+    /**
      * @var NavigationSet|null
      */
     protected $root;

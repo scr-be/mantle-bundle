@@ -30,7 +30,7 @@ class Configuration extends AbstractConfiguration
     {
         $this
             ->getBuilderRoot()
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->children()
                 ->append($this->getHttpResponseNode())
                 ->append($this->getMaintenanceNode())
@@ -55,7 +55,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('response')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->append($this->getHttpResponseTypeNode('global', [['key' => 'X-Framework-Layers', 'value' => 'Symfony/Mantle']]))
@@ -76,7 +76,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder($type)
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->beforeNormalization()
                 ->always(function ($configuration) {
@@ -128,7 +128,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('maintenance')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('enabled')
@@ -170,7 +170,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('node_creator')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->booleanNode('caching')
@@ -189,7 +189,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('meta')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('charset')
@@ -233,7 +233,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('twitter')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('card')
@@ -257,7 +257,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('open_graph')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('site_name')
@@ -284,7 +284,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('gplus')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('profile')
@@ -302,7 +302,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('organization')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('name')
@@ -417,7 +417,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('html')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('title_post')
@@ -443,7 +443,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('date')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('format')
@@ -466,7 +466,7 @@ class Configuration extends AbstractConfiguration
     {
         return $this
             ->getBuilder('bs')
-            ->getNodeBuilder()
+            ->getNodeDefinition()
             ->addDefaultsIfNotSet()
             ->children()
                 ->integerNode('affix_top_offset')

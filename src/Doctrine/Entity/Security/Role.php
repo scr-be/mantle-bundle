@@ -17,7 +17,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasChildrenInverseSide;
 use Scribe\MantleBundle\Component\Security\Core\RoleInterface;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasParentsOwningSide;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasOrgsInverseSide;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasOrganizationsInverseSide;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasUsersInverseSide;
 
 /**
@@ -30,7 +30,12 @@ class Role extends IdEntity implements RoleInterface
     use HasParentsOwningSide;
     use HasChildrenInverseSide;
     use HasUsersInverseSide;
-    use HasOrgsInverseSide;
+    use HasOrganizationsInverseSide;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @return string

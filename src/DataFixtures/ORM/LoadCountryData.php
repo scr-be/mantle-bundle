@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Scribe\Doctrine\DataFixtures\YamlOrderedFixture;
+use Scribe\Arthur\DoctrineFixturesBundle\DataFixtures\YamlFixture;
 
 /**
- * LoadCountryData.
+ * Class LoadCountryData.
  */
-class LoadCountryData extends YamlOrderedFixture
+class LoadCountryData extends YamlFixture
 {
 }
 

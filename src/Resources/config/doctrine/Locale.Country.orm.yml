@@ -1,55 +1,58 @@
 ---
+
+#
+# This file is part of the Teavee HTML Generator Bundle.
+#
+# (c) Rob Frawley 2nd <rmf@build.fail>
+#
+# For the full copyright and license information, please view the LICENSE.md
+# file that was distributed with this source code.
+#
+
 Scribe\MantleBundle\Doctrine\Entity\Locale\Country:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Locale_Country
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\CountryRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Locale_Country
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Locale\CountryRepository
 
     id:
 
-        id:
-            type      : integer
-            id        : true
-            options   :
-                unsigned : true
+        slug:
+            type   : string
+            length : 64
+            id     : true
             generator :
-                strategy : AUTO
+                strategy: NONE
 
     uniqueConstraints:
 
-        countryCodeUnique:
-            columns: [ code ]
-
         countryCode3Unique:
-            columns: [ codeAlpha3 ]
+            columns: [ codeA3 ]
 
         countrycodeNUnique:
-            columns: [ codeNumeric ]
+            columns: [ codeN ]
 
     fields:
-
-        code:
-            type   : string
-            length : 2
-            fixed  : true
-
-        codeAlpha3:
-            type   : string
-            length : 3
-            fixed  : true
-
-        codeNumeric:
-            type     : smallint
 
         name:
             type   : string
             length : 1024
 
-        nameProper:
+        codeA3:
+            type   : string
+            length : 3
+            fixed  : true
+
+        codeN:
+            type     : smallint
+
+        proper:
             type     : string
             length   : 1024
             nullable : true

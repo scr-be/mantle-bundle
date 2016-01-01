@@ -2,6 +2,7 @@
 
 namespace Scribe\MantleBundle\Loader\Routing;
 
+use Scribe\Teavee\ObjectCacheBundle\DependencyInjection\Aware\CacheManagerAwareTrait;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
@@ -12,44 +13,49 @@ use Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository;
 
 /**
  * Class RouteRedirectLoader.
- *
- * Loader service to handle redirection urls.
  */
 class RouteRedirectLoader extends Loader
 {
+    use CacheManagerAwareTrait;
+
     /**
      * @var string
      */
-    const SUPPORTED_TYPE = 'MantleBundle_RouteRedirectLoader';
+    const SUPPORTED_TYPE = 's.mantle.redirects';
 
     /**
-     * @var array
+     * @var string[]
      */
-    private static $routeDefaultDefaults = [
+    const DEFAULTS = [
         '_controller' => 's.mantle.route_redirect.controller:handleAction',
     ];
 
     /**
      * @var RouteRedirectRepository
      */
-    private $routeRedirectRepo;
+    protected $redirectRepo;
 
     /**
      * @var RouteCollection
      */
-    private $routeCollection;
+    protected $routeCollection;
+
+    /**
+     * @var string|null
+     */
+    protected $loaderContext;
 
     /**
      * @var bool
      */
-    private $loaded = false;
+    protected $loaded = false;
 
     /**
-     * @param $routeRedirectRepo RouteRedirectRepository
+     * @param RouteRedirectRepository $redirectRepo
      */
-    public function __construct(RouteRedirectRepository $routeRedirectRepo)
+    public function __construct(RouteRedirectRepository $redirectRepo)
     {
-        $this->routeRedirectRepo = $routeRedirectRepo;
+        $this->redirectRepo = $redirectRepo;
     }
 
     /**
@@ -60,39 +66,40 @@ class RouteRedirectLoader extends Loader
      */
     public function supports($resource, $type = null)
     {
-        return (bool) ($type === self::SUPPORTED_TYPE ?: false);
+        $this->loaderContext = (string) ($resource === '.' ? null : $resource);
+
+        return (bool) ($type === self::SUPPORTED_TYPE);
     }
 
-    /**
-     * @return array
-     */
-    private static function getRouteDefaultDefaults()
-    {
-        return self::$routeDefaultDefaults;
-    }
+
 
     /**
+     * @param mixed $resource
+     * @param null  $type
+     *
      * @return RouteCollection
      */
-    private function getRouteCollection()
+    public function load($resource, $type = null)
     {
-        return $this->routeCollection;
-    }
+        if ($this->loaded) {
+            throw RuntimeException::create('Cannot add redirect loader "%s" more than once.', get_class($this));
+        }
 
-    /**
-     * @param RouteCollection $routeCollection
-     */
-    private function setRouteCollection($routeCollection)
-    {
-        $this->routeCollection = $routeCollection;
+        foreach ($this->lookupRoutesEntities() as $entry) {
+            $this->addRoute($this->createRoute($entry));
+        }
+
+        $this->loaded = true;
+
+        return $this->routeCollection;
     }
 
     /**
      * @return bool
      */
-    private function hasRoute(Route $route)
+    protected function hasRoute(Route $route)
     {
-        return (bool) (in_array($route, $this->getRouteCollection()->all(), true) ?: false);
+        return (bool) (in_array($route, $this->routeCollection->all(), true) ?: false);
     }
 
     /**
@@ -100,65 +107,35 @@ class RouteRedirectLoader extends Loader
      *
      * @return $this
      */
-    private function addRoute(Route $route)
+    protected function addRoute(Route $route)
     {
         if (true !== $this->hasRoute($route)) {
-            $this->getRouteCollection()->add(
-                $this->getDynamicRouteName($route->getPath()),
-                $route
-            );
+            $this->routeCollection->add($this->createRouteIndex(), $route);
         }
 
         return $this;
     }
 
     /**
-     * @return bool
-     */
-    private function isLoaded()
-    {
-        return $this->loaded;
-    }
-
-    /**
-     * @param bool $loaded
-     */
-    private function setLoaded($loaded)
-    {
-        $this->loaded = $loaded;
-    }
-
-    /**
-     * @param string $name
-     *
      * @return string
      */
-    private function getDynamicRouteName($name)
+    protected function createRouteIndex()
     {
-        return (string) sprintf(
-            '__ScribeMantleBundle_RouteRedirectLoader_%\'.04d_%s',
-            (int) $this->getRouteCollection()->count(),
-            (string) StringFilter::alphanumericOnly($name)
-        );
+        return (string) sprintf('_s_mantle_redirect_%\'.04d', (int) $this->routeCollection->count());
     }
 
     /**
-     * @return RouteRedirect[]
+     * @return array[]
      */
-    private function initializeRouteRedirectCollection()
+    protected function lookupRoutesEntities()
     {
-        $this->setRouteCollection(new RouteCollection());
-
-        $customRoutes = $this
-            ->routeRedirectRepo
-            ->findAll()
-        ;
-
-        if (false === is_array($customRoutes) || 0 === count($customRoutes)) {
+        try {
+            return (array) $this
+                ->redirectRepo
+                ->fineByContext($this->loaderContext);
+        } catch (\Exception $exception) {
             return [];
         }
-
-        return $customRoutes;
     }
 
     /**
@@ -166,31 +143,37 @@ class RouteRedirectLoader extends Loader
      *
      * @return array
      */
-    private function getDynamicRouteDefaults(RouteRedirect $route)
+    protected function getDynamicRouteDefaults(RouteRedirect $route)
     {
-        $defaults = self::getRouteDefaultDefaults();
-
         if (true === $route->hasRouteDefaults()) {
-            $defaults = array_merge(
-                $defaults,
-                $route->getRouteDefaults()
-            );
+            $defaults = array_merge(self::DEFAULTS, $route->getRouteDefaults());
         }
 
-        $defaults['path'] = $route->getPathRedirect();
+        $defaults['path'] = $route->getSearchPath();
 
         return $defaults;
     }
 
     /**
-     * @param RouteRedirect $routeEntity
+     * @param array $entry
      *
      * @return Route
      */
-    private function createRoute(RouteRedirect $routeEntity)
+    protected function createRoute($entry)
     {
+        $route = new Route();
+
+        $searchPath = getArrayElement('searchPath', $entry);
+
+        if (getArrayElement('regex', $entry)) {
+            $route->setPattern($searchPath);
+        } else {
+            $route->setPath($searchPath);
+        }
+
+
         $route = new Route(
-            $routeEntity->getPath(),
+            $routeEntity->getRedirectPath(),
             $this->getDynamicRouteDefaults($routeEntity)
         );
 
@@ -211,31 +194,6 @@ class RouteRedirectLoader extends Loader
         }
 
         return $route;
-    }
-
-    /**
-     * @param mixed $resource
-     * @param null  $type
-     *
-     * @return RouteCollection
-     */
-    public function load($resource, $type = null)
-    {
-        if (true === $this->isLoaded()) {
-            throw new RuntimeException(
-                'Cannot add the redirection route loader "%s" to the route resolver more than once.', null, null, __CLASS__
-            );
-        }
-
-        $customRouteCollection = $this->initializeRouteRedirectCollection();
-
-        foreach ($customRouteCollection as $routeKey => $routeEntity) {
-            $this->addRoute($this->createRoute($routeEntity));
-        }
-
-        $this->setLoaded(true);
-
-        return $this->getRouteCollection();
     }
 }
 

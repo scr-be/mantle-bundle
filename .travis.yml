@@ -1,54 +1,71 @@
-language: php
+---
 
-branches:
-    only:
-        - master
+##
+# This file is part of `scr-be/mantle-bundle`
+#
+# (c) Rob Frawley 2nd <rmf@src.run>
+#
+# For the full copyright and license information, view the LICENSE.md
+# file distributed with this source code.
+##
 
-env:
-    global:
-        - SYMFONY_DEPRECATIONS_HELPER=weak
-        - secure: GFZ4RQeYo9a57V0HUxJjIheB1q+bIRBvLt3j26TB5wusu3AEI3BAM4v/uyCAWEKO0fafW2J4L/RM5lINclH8u2C1gtzGG2nZ5NlKt7b8dM3WawZOqQaMbhgjgzR1NO3oIzSDouwvsPlTnz3pNvec73CJYsydllQJcCRNJLOEEEw=
+# Set the required project language environment and advise
+# Travis that this project fully supports the new, speedy,
+# container-built infrastructure.
+language : php
+sudo     : false
 
-matrix:
-    include:
-        - php: 5.6
-        - php: nightly
-        - php: hhvm-nightly
-    allow_failures:
-        - php: nightly
-        - php: hhvm-nightly
-    fast_finish: true
+# Build against the following engines: Zend 5.6.x, 7.0.x, and
+# 7-nightly, and HHVM-stable and -nightly builds.
+php :
+  - 5.6
+  - 7.0
+  - hhvm-nightly
 
-services:
+# Define build matrix to allow both HHVM environments to fail,
+# as we are only testing it right now. Also, turn on fast-finish
+# so results are finalized quickly (prior to allowed-failures
+# finishing).
+matrix :
+  fast_finish    : true
+  allow_failures :
+    - php : hhvm-nightly
+
+# Set a sane clone depth for Git.
+git :
+  depth : 3
+
+# List of services to enable. Globally we make sure Memcached and
+# MySQL is installed and running.
+services :
+  - mysql
   - memcached
 
-notifications:
-    slack:
-        secure: fQJkH85f60YbHu0y3y7lptnouX3IULkX9f8wrEq4+SFI7n7Uy6RLRhz1wRioOR0gjRcX4dH+40ZZit3GpLB0M781cOwuBAcnobrU6coE8YdbFLrK/EFD/qXM/6RlwRik/3TA3ZX5C1WQfrBxnxq3jvuTFDplrXoxThS3lIl/KCo=
+# Add custom Hostname to build environment.
+addons :
+  hosts :
+    - mainline.src.run
 
-before_install:
-    - git submodule update --init --recursive && cd app/config/shared_public && git checkout master && cd ../../../
-    - sh app/config/shared_public/tests/travis/php-build-igbinary.sh
-    - sh app/config/shared_public/tests/travis/php-build-memcached.sh
-    - sh app/config/shared_public/tests/travis/php-build-twig.sh
-    - phpenv config-add app/config/shared_public/tests/travis/config-timezone.ini
-    - phpenv rehash
-    - mkdir -p build/logs
-    - mkdir -p bin
+# Define any required global enviornment variables. Specifically,
+# the package_builder variable must be set to true to enable the
+# automated package builder scripts.
+env :
+  global :
+    - build_package=true
 
-install:
-    - travis_retry composer self-update
-    - travis_retry composer clear-cache
-    - travis_retry composer install --no-interaction || travis_retry composer update --no-interaction
+# Use builder to install system environment and application
+# requirements.
+install :
+  - bash .config/builders/build-reqs/build-reqs.bash up-env
+  - bash .config/builders/build-reqs/build-reqs.bash up-app
 
-before_script:
-    - app/console doctrine:database:create --no-interaction
-    - app/console doctrine:schema:create --no-interaction
-    - app/console doctrine:fixtures:load --no-interaction
+# Run unit tests!
+script : bin/phpunit -vvv
 
-script:
-    - bin/phpunit --verbose --configuration phpunit.xml.dist
+# Use builder to run post-operations, most importantly handle
+# statistics submissions for text coverage.
+after_script :
+  - bash .config/builders/build-reqs/build-reqs.bash dn-app
+  - bash .config/builders/build-reqs/build-reqs.bash dn-env
 
-after_script:
-    - bin/coveralls -c .coveralls.yml -vvv
-    - bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
+...

@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Scribe\MantleBundle\DataFixtures\ORM;
+namespace Scribe\MantleBundle\Doctrine\Repository\Content;
 
-use Scribe\Doctrine\DataFixtures\YamlOrderedFixture;
+use Doctrine\ORM\EntityRepository;
 
 /**
- * LoadIconData.
+ * Class BlockRepository.
  */
-class LoadIconData extends YamlOrderedFixture
+class BlockRepository extends EntityRepository
 {
 }
 

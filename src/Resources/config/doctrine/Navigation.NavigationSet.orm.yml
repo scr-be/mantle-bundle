@@ -1,13 +1,15 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationSet:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Navigation_Set
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationSetRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Navigation_Set
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationSetRepository
 
     id:
 

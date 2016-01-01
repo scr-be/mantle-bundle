@@ -11,19 +11,22 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
-use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasCountry;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasLanguage;
 
 /**
  * Class Locale
  */
-class Locale extends IdEntity
+class Locale extends SlugEntity
 {
-    use HasName;
     use HasLanguage;
     use HasCountry;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 }
 
 /* EOF */

@@ -1,49 +1,41 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Translation\Translation:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Translation
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Translation
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationRepository
 
-    id:
-
-        id:
-            type      : smallint
-            id        : true
-            options   :
-                unsigned : true
-            generator :
-                strategy : AUTO
-
-    uniqueConstraints:
-
-        translationSlugDomainUnique:
-            columns:
-                - slug
-                - domain
-
-    fields:
+    id :
 
         slug:
             type   : string
-            length : 512
+            length : 64
+            id     : true
+            generator :
+                strategy: NONE
 
-    manyToOne:
+    uniqueConstraints :
 
-        domain:
+        translationSlugDomainUnique :
+            columns : [ domain ]
+
+    manyToOne :
+
+        domain :
             targetEntity : TranslationDomain
             fetch        : EAGER
             joinColumn   :
                 name                 : domain
-                referencedColumnName : id
+                referencedColumnName : slug
 
-    oneToMany:
+    oneToMany :
 
-        messageCollection:
+        messageCollection :
             targetEntity : TranslationMessage
             mappedBy     : translation
             fetch        : EAGER

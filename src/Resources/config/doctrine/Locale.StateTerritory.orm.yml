@@ -1,30 +1,26 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Locale\StateTerritory:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Locale_StateTerritory
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\StateTerritoryRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Locale_StateTerritory
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Locale\StateTerritoryRepository
 
     id:
 
-        id:
-            type      : bigint
-            id        : true
-            options   :
-                unsigned : true
+        slug:
+            type   : string
+            length : 16
+            id     : true
             generator :
-                strategy : AUTO
+                strategy: NONE
 
     fields:
-
-        code:
-            type   : string
-            length : 2
-            fixed  : true
 
         name:
             type   : string
@@ -46,7 +42,7 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\StateTerritory:
             targetEntity : Country
             fetch        : EAGER
             joinColumn   :
-                name            : country
-                referenceColumn : id
+                name                 : country
+                referencedColumnName : slug
 
 ...

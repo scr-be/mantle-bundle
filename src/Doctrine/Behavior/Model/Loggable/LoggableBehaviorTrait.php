@@ -35,7 +35,7 @@ trait LoggableBehaviorTrait
                 $message[] = sprintf(
                     '%s #%d : property "%s" changed from "%s" to "%s"',
                     __CLASS__,
-                    $this->getId(),
+                    $this->getIdentity(),
                     $property,
                     !is_array($changeSet[0]) ? $changeSet[0] : print_r($changeSet[0], true),
                     !is_array($changeSet[1]) ? $changeSet[1] : print_r($changeSet[0], true)
@@ -51,7 +51,7 @@ trait LoggableBehaviorTrait
      */
     public function triggerPostPersistLoggableEvent()
     {
-        return sprintf('%s #%d : created', __CLASS__, $this->getId());
+        return sprintf('%s #%d : created', __CLASS__, $this->getIdentity());
     }
 
     /**
@@ -59,7 +59,7 @@ trait LoggableBehaviorTrait
      */
     public function triggerPreRemoveLoggableEvent()
     {
-        return sprintf('%s #%d : created', __CLASS__, $this->getId());
+        return sprintf('%s #%d : created', __CLASS__, $this->getIdentity());
     }
 }
 

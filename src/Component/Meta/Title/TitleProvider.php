@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Component\Meta\Title;
 
-use Scribe\CacheBundle\DependencyInjection\Aware\CacheManagerAwareTrait;
+use Scribe\Teavee\ObjectCacheBundle\DependencyInjection\Aware\CacheManagerAwareTrait;
 use Scribe\MantleBundle\Component\Bundle\BundleInformationInterface;
 use Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle;
 use Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository;

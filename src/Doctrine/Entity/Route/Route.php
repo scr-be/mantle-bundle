@@ -11,24 +11,24 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Route;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasParameters;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class Route.
  */
-class Route extends IdEntity
+class Route extends SlugEntity
 {
-    /*
-     * import name, description, and parameters traits
-     */
-    use HasSlug;
     use HasName;
     use HasDescription;
     use HasParameters;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * A routing reference type for the Symfony routing components. Reference the constants within

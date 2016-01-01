@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\UuidEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry;
 use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLanguageCollection;
@@ -19,11 +19,16 @@ use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLanguageCollection;
 /**
  * Class City
  */
-class City extends IdEntity
+class City extends UuidEntity
 {
     use HasName;
     use HasLanguageCollection;
     use HasCountry;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var float|null
@@ -41,26 +46,6 @@ class City extends IdEntity
     public function __toString()
     {
         return (string) $this->name;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeLatitude()
-    {
-        $this->latitude = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeLongitude()
-    {
-        $this->longitude = null;
-
-        return $this;
     }
 
     /**
@@ -88,7 +73,9 @@ class City extends IdEntity
      */
     public function clearLatitude()
     {
-        return $this->initializeLatitude();
+        $this->latitude = null;
+
+        return $this;
     }
 
     /**
@@ -124,7 +111,9 @@ class City extends IdEntity
      */
     public function clearLongitude()
     {
-        return $this->initializeLongitude();
+        $this->longitude = null;
+
+        return $this;
     }
 
     /**

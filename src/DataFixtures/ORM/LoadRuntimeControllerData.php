@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Scribe\Doctrine\DataFixtures\YamlOrderedFixture;
+use Scribe\Arthur\DoctrineFixturesBundle\DataFixtures\YamlFixture;
 
 /**
- * LoadRuntimeControllerData.
+ * Class LoadRuntimeControllerData.
  */
-class LoadRuntimeControllerData extends YamlOrderedFixture
+class LoadRuntimeControllerData extends YamlFixture
 {
 }
 

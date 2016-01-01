@@ -1,55 +1,60 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Route_Redirect
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Route_Redirect
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository
 
-    id:
+    id :
 
-        id:
-            type      : smallint
-            id        : true
-            options   :
-                unsigned : true
+        slug :
+            type      : string
+            length    : 128
             generator :
-                strategy : AUTO
+                strategy : NONE
 
     fields:
 
-        path:
+        searchPath :
             type   : string
             length : 510
 
-        pathRedirect:
+        redirectPath :
             type   : string
             length : 510
 
-        pathMatchRegex:
-            type    : boolean
-            default : false
+        regex :
+            type     : boolean
+            nullable : true
 
-        routeDefaults:
+        context :
+            type     : string
+            length   : 32
+            nullable : true
+
+        routeDefaults :
             type     : json_array
             nullable : true
 
-        routeMethods:
+        routeMethods :
             type     : json_array
             nullable : true
 
-        routeSchemas:
+        routeSchemas :
             type     : json_array
             nullable : true
 
-        routeRequirements:
+        routeRequirements :
             type     : json_array
             nullable : true
 
-        routeHost:
+        routeHost :
             type     : string
             nullable : true
 

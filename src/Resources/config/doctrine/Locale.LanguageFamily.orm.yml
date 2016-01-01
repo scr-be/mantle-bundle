@@ -1,40 +1,42 @@
 ---
+
+#
+# This file is part of the Teavee HTML Generator Bundle.
+#
+# (c) Rob Frawley 2nd <rmf@build.fail>
+#
+# For the full copyright and license information, please view the LICENSE.md
+# file that was distributed with this source code.
+#
+
 Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageFamily:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Locale_LanguageFamily
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageFamilyRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Locale_LanguageFamily
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageFamilyRepository
 
     id:
 
-        id:
-            type      : smallint
-            id        : true
-            options   :
-                unsigned : true
-            generator :
-                strategy : AUTO
-
-    uniqueConstraints:
-
-        languageFamilySlug:
-            columns: [ slug ]
-
-    fields:
-
         slug:
             type   : string
-            length : 128
+            length : 64
+            id     : true
+            generator :
+                strategy: NONE
+
+    fields:
 
         name:
             type   : string
             length : 256
 
-        src:
+        referenceUrl:
             type     : string
             length   : 1024
             nullable : true
@@ -49,5 +51,4 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageFamily:
             targetEntity : LanguageName
             mappedBy     : family
             fetch        : LAZY
-
 ...

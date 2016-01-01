@@ -12,16 +12,24 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
 use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\HasAliases;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasCode;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class Locale;
  */
-class LanguageName extends IdEntity
+class LanguageName extends SlugEntity
 {
     use HasName;
     use HasCode;
+    use HasAliases;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var LanguageFamily
@@ -39,46 +47,11 @@ class LanguageName extends IdEntity
     protected $nativeNames;
 
     /**
-     * @var array|null
-     */
-    protected $aka;
-
-    /**
-     * @return $this
-     */
-    public function initializeFamily()
-    {
-        $this->family = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeCodeA3()
-    {
-        $this->codeA3 = null;
-
-        return $this;
-    }
-
-    /**
      * @return $this
      */
     public function initializeNativeNames()
     {
         $this->nativeNames = [];
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeAka()
-    {
-        $this->aka = [];
 
         return $this;
     }
@@ -128,7 +101,9 @@ class LanguageName extends IdEntity
      */
     public function clearCodeA3()
     {
-        return $this->initializeCodeA3();
+        $this->codeA3 = null;
+
+        return $this;
     }
 
     /**
@@ -173,42 +148,6 @@ class LanguageName extends IdEntity
     public function hadNativeNames()
     {
         return (bool) ($this->nativeNames !== null || count($this->nativeNames) > 0);
-    }
-
-    /**
-     * @param array $aka
-     *
-     * @return $this
-     */
-    public function setAka(array $aka = null)
-    {
-        $this->aka = $aka;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAka()
-    {
-        return $this->aka;
-    }
-
-    /**
-     * @return $this
-     */
-    public function clearAka()
-    {
-        return $this->initializeAka();
-    }
-
-    /**
-     * @return bool
-     */
-    public function hadAka()
-    {
-        return (bool) ($this->aka !== null || count($this->aka) > 0);
     }
 }
 

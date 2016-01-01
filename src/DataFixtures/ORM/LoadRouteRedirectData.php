@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Scribe\Doctrine\DataFixtures\YamlOrderedFixture;
+use Scribe\Arthur\DoctrineFixturesBundle\DataFixtures\YamlFixture;
 
 /**
- * LoadRouteRedirectData.
+ * Class LoadRouteRedirectData.
  */
-class LoadRouteRedirectData extends YamlOrderedFixture
+class LoadRouteRedirectData extends YamlFixture
 {
 }
 

@@ -1,34 +1,23 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Locale\Locale:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Locale
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Local
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Locale\LocaleRepository
 
     id:
 
-        id:
-            type      : integer
-            id        : true
-            options   :
-                unsigned : true
-            generator :
-                strategy : AUTO
-
-    uniqueConstraints:
-
-        localeNameUnique:
-            columns: [ name ]
-
-    fields:
-
-        name:
+        slug:
             type   : string
-            length : 5
+            length : 64
+            id     : true
+            generator :
+                strategy: NONE
 
     manyToOne:
 
@@ -36,14 +25,14 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\Locale:
             targetEntity : LanguageName
             fetch        : EAGER
             joinColumn   :
-                name            : language
-                referenceColumn : id
+                name                 : language
+                referencedColumnName : slug
 
         country:
             targetEntity : Country
             fetch        : EAGER
             joinColumn   :
-                name            : country
-                referenceColumn : id
+                name                 : country
+                referencedColumnName : slug
 
 ...

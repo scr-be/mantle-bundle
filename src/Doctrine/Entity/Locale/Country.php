@@ -11,41 +11,45 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasCode;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class Country;
  */
-class Country extends IdEntity
+class Country extends SlugEntity
 {
     use HasName;
-    use HasCode;
 
     /**
      * @var string
      */
-    protected $nameProper;
+    const VERSION = '0.1.0';
 
     /**
      * @var string
      */
-    protected $codeAlpha3;
+    protected $proper;
+
+    /**
+     * @var string
+     */
+    protected $codeA3;
 
     /**
      * @var int
      */
-    protected $codeNumeric;
+    protected $codeN;
 
     /**
-     * @param string $nameProper
+     * @param string $proper
      *
      * @return $this
      */
-    public function setNameProper($nameProper)
+    public function setProper($proper)
     {
-        $this->nameProper = (string) $nameProper;
+        $this->proper = (string) $proper;
 
         return $this;
     }
@@ -53,9 +57,9 @@ class Country extends IdEntity
     /**
      * @return string
      */
-    public function getNameProper()
+    public function getProper()
     {
-        return $this->nameProper;
+        return $this->proper;
     }
 
     /**
@@ -63,17 +67,17 @@ class Country extends IdEntity
      */
     public function hasNameProper()
     {
-        return (bool) ($this->nameProper !== null);
+        return (bool) ($this->proper !== null);
     }
 
     /**
-     * @param string $codeAlpha3
+     * @param string $codeA3
      *
      * @return $this
      */
-    public function setCodeAlpha3($codeAlpha3)
+    public function setCodeA3($codeA3)
     {
-        $this->codeAlpha3 = (string) $codeAlpha3;
+        $this->codeA3 = (string) $codeA3;
 
         return $this;
     }
@@ -81,9 +85,9 @@ class Country extends IdEntity
     /**
      * @return string
      */
-    public function getCodeAlpha3()
+    public function getCodeA3()
     {
-        return $this->codeAlpha3;
+        return $this->codeA3;
     }
 
     /**
@@ -91,17 +95,17 @@ class Country extends IdEntity
      */
     public function hasCodeAlpha3()
     {
-        return (bool) ($this->codeAlpha3 !== null);
+        return (bool) ($this->codeA3 !== null);
     }
 
     /**
-     * @param int $codeNumeric
+     * @param int $codeN
      *
      * @return $this
      */
-    public function setCodeNumeric($codeNumeric)
+    public function setCodeN($codeN)
     {
-        $this->codeNumeric = (int) $codeNumeric;
+        $this->codeN = (int) $codeN;
 
         return $this;
     }
@@ -109,9 +113,9 @@ class Country extends IdEntity
     /**
      * @return int
      */
-    public function getCodeNumeric()
+    public function getCodeN()
     {
-        return $this->codeNumeric;
+        return $this->codeN;
     }
 
     /**
@@ -119,7 +123,7 @@ class Country extends IdEntity
      */
     public function hasCodeNumeric()
     {
-        return (bool) ($this->codeNumeric !== null);
+        return (bool) ($this->codeN !== null);
     }
 }
 

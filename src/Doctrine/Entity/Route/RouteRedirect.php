@@ -2,27 +2,37 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Route;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 
 /**
  * RouteRedirect.
  */
-class RouteRedirect extends IdEntity
+class RouteRedirect extends SlugEntity
 {
     /**
      * @var string
      */
-    protected $path;
+    const VERSION = '0.1.0';
 
     /**
      * @var string
      */
-    protected $pathRedirect;
+    protected $redirectPath;
+
+    /**
+     * @var string
+     */
+    protected $searchPath;
 
     /**
      * @var bool
      */
-    protected $pathMatchRegex;
+    protected $regex;
+
+    /**
+     * @var string|null
+     */
+    protected $context;
 
     /**
      * @var array|null
@@ -50,119 +60,91 @@ class RouteRedirect extends IdEntity
     protected $routeHost;
 
     /**
-     * @return $this
-     */
-    public function initializePathMatchRegex()
-    {
-        $this->pathMatchRegex = false;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeRouteDefaults()
-    {
-        $this->routeDefaults = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeRouteMethods()
-    {
-        $this->routeMethods = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeRouteSchemas()
-    {
-        $this->routeSchemas = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeRouteRequirements()
-    {
-        $this->routeRequirements = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeRouteHost()
-    {
-        $this->routeHost = null;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->path.' -> '.$this->pathRedirect;
+        return $this->redirectPath.' -> '.$this->searchPath;
     }
 
     /**
-     * Set pathFrom.
-     *
-     * @param string $path
+     * @param string $redirectPath
      *
      * @return $this
      */
-    public function setPath($path)
+    public function setRedirectPath($redirectPath)
     {
-        $this->path = $path;
+        $this->redirectPath = $redirectPath;
 
         return $this;
     }
 
     /**
-     * Get pathFrom.
-     *
      * @return string
      */
-    public function getPath()
+    public function getRedirectPath()
     {
-        return $this->path;
+        return $this->redirectPath;
     }
 
     /**
-     * Set pathTo.
-     *
-     * @param string $pathRedirect
+     * @param string $searchPath
      *
      * @return $this
      */
-    public function setPathRedirect($pathRedirect)
+    public function setSearchPath($searchPath)
     {
-        $this->pathRedirect = $pathRedirect;
+        $this->searchPath = $searchPath;
 
         return $this;
     }
 
     /**
-     * Get pathTo.
-     *
      * @return string
      */
-    public function getPathRedirect()
+    public function getSearchPath()
     {
-        return $this->pathRedirect;
+        return $this->searchPath;
+    }
+
+    /**
+     * @param bool $regex
+     *
+     * @return $this
+     */
+    public function setRegex($regex)
+    {
+        $this->regex = (bool) $regex;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRegex()
+    {
+        return $this->regex;
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return $this
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getContext()
+    {
+        return $this->context;
     }
 
     /**

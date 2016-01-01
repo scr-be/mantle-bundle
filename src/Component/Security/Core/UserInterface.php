@@ -162,7 +162,7 @@ interface UserInterface extends
     public function eraseCredentials();
 
     /**
-     * @return ArrayCollection
+     * @return \Doctrine\ORM\PersistentCollection
      */
     public function getManagerOfCollection();
 

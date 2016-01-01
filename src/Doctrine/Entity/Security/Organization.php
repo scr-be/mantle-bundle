@@ -31,16 +31,21 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasUsersInverseSide;
  */
 class Organization extends IdEntity implements OrganizationInterface
 {
-    use HasCode,
-        HasName,
-        HasDescription,
-        HasProperties,
-        HasAddressCollection,
-        HasPhoneCollection,
-        HasActivityCollection,
-        HasUsersInverseSide,
-        HasRolesOwningSide,
-        TimestampableBehaviorTrait;
+    use HasCode;
+    use HasName;
+    use HasDescription;
+    use HasProperties;
+    use HasAddressCollection;
+    use HasPhoneCollection;
+    use HasActivityCollection;
+    use HasUsersInverseSide;
+    use HasRolesOwningSide;
+    use TimestampableBehaviorTrait;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var ArrayCollection

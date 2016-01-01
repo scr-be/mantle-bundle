@@ -11,9 +11,9 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Meta;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\UuidEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasTitle;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasLocale;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLocale;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeAction;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController;
@@ -21,10 +21,15 @@ use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController;
 /**
  * Class Locale;
  */
-class MetaTitle extends IdEntity
+class MetaTitle extends UuidEntity
 {
     use HasTitle;
     use HasLocale;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var RuntimeBundle
@@ -40,36 +45,6 @@ class MetaTitle extends IdEntity
      * @var RuntimeAction
      */
     protected $action;
-
-    /**
-     * @return $this
-     */
-    public function initializeBundle()
-    {
-        $this->bundle = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeController()
-    {
-        $this->controller = null;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeAction()
-    {
-        $this->controller = null;
-
-        return $this;
-    }
 
     /**
      * @param  RuntimeBundle $bundle

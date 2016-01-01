@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
@@ -20,11 +20,15 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
 /**
  * Class LanguageFamily;
  */
-class LanguageFamily extends IdEntity
+class LanguageFamily extends SlugEntity
 {
-    use HasSlug;
     use HasName;
     use HasDescription;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var LanguageName[]|ArrayCollection
@@ -34,7 +38,7 @@ class LanguageFamily extends IdEntity
     /**
      * @var string|null
      */
-    protected $src;
+    protected $referenceUrl;
 
     /**
      * @return $this
@@ -47,31 +51,21 @@ class LanguageFamily extends IdEntity
     }
 
     /**
-     * @return $this
-     */
-    public function initializeSrc()
-    {
-        $this->src = null;
-
-        return $this;
-    }
-
-    /**
      * @return null|string
      */
-    public function getSrc()
+    public function getReferenceUrl()
     {
-        return $this->src;
+        return $this->referenceUrl;
     }
 
     /**
-     * @param string $src
+     * @param string $referenceUrl
      *
      * @return $this
      */
-    public function setSrc($src)
+    public function setReferenceUrl($referenceUrl)
     {
-        $this->src = $src;
+        $this->referenceUrl = $referenceUrl;
 
         return $this;
     }

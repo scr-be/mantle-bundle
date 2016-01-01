@@ -15,23 +15,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\MantleBundle\Component\Security\Core\OrganizationInterface;
 
 /**
- * Class HasOrgsInverseSide.
+ * Class HasOrganizationsInverseSide.
  */
-trait HasOrgsInverseSide
+trait HasOrganizationsInverseSide
 {
     /**
      * Organization collection property.
      *
      * @var ArrayCollection
      */
-    protected $orgs;
+    protected $organizations;
 
     /**
      * Initialize orgs as {@see ArrayCollection}.
      */
-    public function initializeOrgs()
+    public function initializeOrganizations()
     {
-        $this->orgs = new ArrayCollection();
+        $this->organizations = new ArrayCollection();
     }
 
     /**
@@ -39,9 +39,9 @@ trait HasOrgsInverseSide
      *
      * @return ArrayCollection
      */
-    public function getOrgs()
+    public function getOrganizations()
     {
-        return $this->orgs;
+        return $this->organizations;
     }
 
     /**
@@ -49,30 +49,30 @@ trait HasOrgsInverseSide
      *
      * @return bool
      */
-    public function hasOrgs()
+    public function hasOrganizations()
     {
-        return (bool) ($this->orgs->count() > 0 ?: false);
+        return (bool) (!$this->organizations->isEmpty());
     }
 
     /**
-     * @param OrganizationInterface $org
+     * @param OrganizationInterface $organization
      *
      * @return bool
      */
-    public function hasOrg(OrganizationInterface $org)
+    public function hasOrganization(OrganizationInterface $organization)
     {
-        return (true === $this->orgs->contains($org) ?: false);
+        return (bool) $this->organizations->contains($organization);
     }
 
     /**
-     * @param OrganizationInterface $org
+     * @param OrganizationInterface $organization
      *
      * @return $this
      */
-    public function addOrg(OrganizationInterface $org)
+    public function addOrganization(OrganizationInterface $organization)
     {
-        if (false === $this->hasOrg($org)) {
-            $this->orgs->add($org);
+        if (!$this->hasOrganization($organization)) {
+            $this->organizations->add($organization);
         }
 
         return $this;

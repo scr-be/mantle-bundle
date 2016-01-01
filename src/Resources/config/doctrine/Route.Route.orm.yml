@@ -1,38 +1,34 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Route\Route:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Route
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Route
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
 
     id :
 
-        id:
-            type      : smallint
-            id        : true
-            options   :
-                unsigned : true
+        slug:
+            type   : string
+            length : 64
+            id     : true
             generator :
-                strategy : AUTO
-
-    indexes :
-
-        routeSlugIndex :
-            columns : [slug]
+                strategy: NONE
 
     fields :
-
-        slug :
-            type   : string
-            length : 256
 
         name :
             type   : string
             length : 256
+
+        description :
+            type     : string
+            length   : 400
+            nullable : true
 
         parameters :
             type     : json_array
@@ -41,11 +37,6 @@ Scribe\MantleBundle\Doctrine\Entity\Route\Route:
         referenceType :
             type     : string
             length   : 40
-            nullable : true
-
-        description :
-            type     : string
-            length   : 400
             nullable : true
 
 ...

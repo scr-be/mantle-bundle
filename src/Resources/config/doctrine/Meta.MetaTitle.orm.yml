@@ -1,28 +1,38 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Meta_Title
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Meta_Title
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository
 
     id:
 
-        id:
-            type      : smallint
-            id        : true
-            options   :
-                unsigned : true
+        uuid :
+            type      : bin_uuid
             generator :
-                strategy : AUTO
+                strategy : CUSTOM
+            customIdGenerator :
+                class : Scribe\Doctrine\ORM\Id\BinaryUuid4PessimisticGenerator
 
     indexes :
 
-        metaTitleAllIndexed:
-            columns: [ locale, bundle, controller, action ]
+        metaLocaleIndexed:
+            columns: [ locale ]
+
+        metaBundleIndexed:
+            columns: [ bundle ]
+
+        metaControllerIndexed:
+            columns: [ controller ]
+
+        metaActionIndexed:
+            columns: [ action ]
 
     fields:
 
@@ -35,25 +45,25 @@ Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle:
         locale:
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\Locale\Locale
             joinColumn   :
-                name            : locale
-                referenceColumn : id
+                name                 : locale
+                referencedColumnName : slug
 
         bundle:
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle
             joinColumn   :
-                name            : bundle
-                referenceColumn : id
+                name                 : bundle
+                referencedColumnName : slug
 
         controller:
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController
             joinColumn   :
-                name            : controller
-                referenceColumn : id
+                name                 : controller
+                referencedColumnName : slug
 
         action:
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\State\RuntimeAction
             joinColumn   :
-                name            : action
-                referenceColumn : id
+                name                 : action
+                referencedColumnName : slug
 
 ...

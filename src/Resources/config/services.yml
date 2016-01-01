@@ -16,12 +16,6 @@ parameters :
     s.mantle.route.repo.class:                                          Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
     s.mantle.route_redirect.entity.class:                               Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect
     s.mantle.route_redirect.repo.class:                                 Scribe\MantleBundle\Doctrine\Repository\Route\RouteRepository
-    s.mantle.icon.entity.class:                                         Scribe\MantleBundle\Doctrine\Entity\Icon\Icon
-    s.mantle.icon.repo.class:                                           Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository
-    s.mantle.icon_template.entity.class:                                Scribe\MantleBundle\Doctrine\Entity\Icon\IconTemplate
-    s.mantle.icon_template.repo.class:                                  Scribe\MantleBundle\Doctrine\Repository\Icon\IconTemplateRepository
-    s.mantle.icon_family.entity.class:                                  Scribe\MantleBundle\Doctrine\Entity\Icon\IconFamily
-    s.mantle.icon_family.repo.class:                                    Scribe\MantleBundle\Doctrine\Repository\Icon\IconFamilyRepository
     s.mantle.locale_language_family.entity.class:                       Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageFamily
     s.mantle.locale_language_family.repo.class:                         Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageFamilyRepository
     s.mantle.locale_language_name.entity.class:                         Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageName
@@ -48,6 +42,8 @@ parameters :
     s.mantle.translation_message.repo.class:                            Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationMessageRepository
     s.mantle.meta_title.entity.class:                                   Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle
     s.mantle.meta_title.repo.class:                                     Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository
+    s.mantle.content_block.entity.class:                                Scribe\MantleBundle\Doctrine\Entity\Content\Block
+    s.mantle.content_block.repo.class:                                  Scribe\MantleBundle\Doctrine\Repository\Content\BlockRepository
 
     # Meta Provider/Manager/Twig-Extension
     s.mantle.meta_title_manager.class:                                  Scribe\MantleBundle\Component\Meta\Title\TitleManager
@@ -92,12 +88,6 @@ parameters :
     s.mantle.doctrine.behaviors.loggable.subscriber.events:             [ 'Events::postPersist', 'Events::postUpdate', 'Events::preRemove' ]
     s.mantle.doctrine.behaviors.loggable.subscriber.triggers:           [ 'triggerPostPersistLoggableEvent', 'triggerPostUpdateLoggableEvent', 'triggerPreRemoveLoggableEvent' ]
     s.mantle.doctrine.behaviors.loggable.model.traits:                  [ 'Scribe\MantleBundle\Doctrine\Behavior\Model\Loggable\LoggableBehaviorTrait' ]
-
-    # Icon Creator Services
-
-    s.mantle.icon_creator.class:                                        Scribe\MantleBundle\Templating\Generator\Icon\IconCreator
-    s.mantle.icon_creator_cached.class:                                 Scribe\MantleBundle\Templating\Generator\Icon\IconCreatorCached
-    s.mantle.icon_creator.twig_extension.class:                         Scribe\MantleBundle\Templating\Generator\Icon\Extension\IconCreatorExtension
 
     # Response Factory
 
@@ -253,30 +243,6 @@ services :
             - '@doctrine'
             - getRepository
 
-    s.mantle.icon.repo :
-        class     : %s.mantle.icon.repo.class%
-        arguments :
-            - %s.mantle.icon.entity.class%
-        factory :
-            - '@doctrine'
-            - getRepository
-
-    s.mantle.icon_template.repo :
-        class     : %s.mantle.icon_template.repo.class%
-        arguments :
-            - %s.mantle.icon_template.entity.class%
-        factory :
-            - '@doctrine'
-            - getRepository
-
-    s.mantle.icon_family.repo :
-        class     : %s.mantle.icon_family.repo.class%
-        arguments :
-            - %s.mantle.icon_family.entity.class%
-        factory :
-            - '@doctrine'
-            - getRepository
-
     s.mantle.locale_language_family.repo :
         class     : %s.mantle.locale_language_family.repo.class%
         arguments :
@@ -381,6 +347,14 @@ services :
             - '@doctrine'
             - getRepository
 
+    s.mantle.content_block.repo :
+       class     : %s.mantle.content_block.repo.class%
+       arguments :
+           - %s.mantle.content_block.entity.class%
+       factory :
+           - '@doctrine'
+           - getRepository
+
     # Doctrine Subscribers
 
     s.mantle.doctrine.behaviors.timestampable.subscriber :
@@ -419,38 +393,6 @@ services :
             - %s.mantle.doctrine.behaviors.sluggable.model.fields%
         tags :
             - { name : doctrine.event_subscriber }
-
-    # Icon Creator Services
-
-    s.icon :
-        alias : s.mantle.icon_creator
-
-    s.mantle.icon :
-        alias : s.mantle.icon_creator
-
-    s.mantle.icon_creator :
-        class     : %s.mantle.icon_creator_cached.class%
-        arguments :
-            - '@s.mantle.icon_family.repo'
-            - '@s.mantle.icon.repo'
-            - '@twig'
-        calls :
-            - [setCacheManager, ['@s.cache']]
-
-    s.mantle.icon_creator.notemplating :
-        class     : %s.mantle.icon_creator_cached.class%
-        arguments :
-            - '@s.mantle.icon_family.repo'
-            - '@s.mantle.icon.repo'
-        calls :
-            - [setCacheManager, ['@s.cache']]
-
-    s.mantle.icon_creator.twig_extension :
-        class     : %s.mantle.icon_creator.twig_extension.class%
-        arguments :
-            - '@s.mantle.icon_creator.notemplating'
-        tags :
-            - { name : twig.extension }
 
     # Meta Title
 
@@ -499,6 +441,8 @@ services :
         class     : %s.mantle.route_redirect.routing_loader.class%
         arguments :
             - '@s.mantle.route_redirect.repo'
+        calls :
+            - [setCacheManager, ["@s.cache"]]
         tags :
             - { name : routing.loader }
 
@@ -531,13 +475,6 @@ services :
             - create
 
     # Old Twig Extensions
-
-    s.mantle.twig_extension.button_renderer :
-        class     : %s.mantle.twig_extension.button_renderer.class%
-        arguments :
-            - '@router'
-        tags :
-            - { name : twig.extension }
 
     s.mantle.twig_extension.parameter :
         class     : %s.mantle.twig_extension.parameter.class%

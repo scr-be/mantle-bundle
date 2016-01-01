@@ -30,6 +30,11 @@ class NavigationSet extends IdEntity
     use SluggableBehaviorTrait;
 
     /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
+
+    /**
      * Support casting to string.
      *
      * @return string

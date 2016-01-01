@@ -11,17 +11,20 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
-use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
  * Class TranslationDomain
  */
-class TranslationDomain extends IdEntity
+class TranslationDomain extends SlugEntity
 {
-    use HasName;
     use HasDescription;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 }
 
 /* EOF */

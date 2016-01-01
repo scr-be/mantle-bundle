@@ -11,17 +11,22 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\UuidEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasValue;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasLocale;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLocale;
 
 /**
  * Class TranslationMessage
  */
-class TranslationMessage extends IdEntity
+class TranslationMessage extends UuidEntity
 {
     use HasValue;
     use HasLocale;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var Translation
@@ -36,16 +41,6 @@ class TranslationMessage extends IdEntity
     public function __toString()
     {
         return (string) $this->getValue();
-    }
-
-    /**
-     * @return $this
-     */
-    public function initializeTranslation()
-    {
-        $this->translation = null;
-
-        return $this;
     }
 
     /**
@@ -81,7 +76,9 @@ class TranslationMessage extends IdEntity
      */
     public function clearTranslation()
     {
-        return $this->initializeTranslation();
+        $this->translation = null;
+
+        return $this;
     }
 }
 

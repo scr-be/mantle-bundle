@@ -31,16 +31,21 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasRolesOwningSide;
  */
 class User extends IdEntity implements UserInterface
 {
-    use HasPerson,
-        HasDescription,
-        HasOrganization,
-        HasTitle,
-        HasProperties,
-        HasAddressCollection,
-        HasPhoneCollection,
-        HasActivityCollection,
-        HasRolesOwningSide,
-        TimestampableBehaviorTrait;
+    use HasPerson;
+    use HasDescription;
+    use HasOrganization;
+    use HasTitle;
+    use HasProperties;
+    use HasAddressCollection;
+    use HasPhoneCollection;
+    use HasActivityCollection;
+    use HasRolesOwningSide;
+    use TimestampableBehaviorTrait;
+
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var string

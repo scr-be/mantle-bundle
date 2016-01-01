@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon;
 
-use Scribe\CacheBundle\Component\Manager\CacheManagerInterface;
+use Scribe\Teavee\ObjectCacheBundle\Component\Manager\CacheManagerInterface;
 use Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository;
 use Twig_Environment;
 use Doctrine\ORM\EntityRepository;

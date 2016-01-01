@@ -1,34 +1,25 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationDomain:
 
-    type           : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table          : Mantle_Translation_Domain
-    repositoryClass: Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationDomainRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Translation_Domain
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationDomainRepository
 
     id:
 
-        id:
-            type      : smallint
-            id        : true
-            options   :
-                unsigned : true
+        slug:
+            type   : string
+            length : 64
+            id     : true
             generator :
-                strategy : AUTO
-
-    uniqueConstraints:
-
-       translationDomainIndex:
-           columns: [name]
+                strategy: NONE
 
     fields:
-
-        name:
-            type   : string
-            length : 512
 
         description:
             type     : text

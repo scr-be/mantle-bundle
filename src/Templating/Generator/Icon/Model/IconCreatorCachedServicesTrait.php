@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Templating\Generator\Icon\Model;
 
-use Scribe\CacheBundle\DependencyInjection\Aware\CacheManagerAwareTrait;
+use Scribe\Teavee\ObjectCacheBundle\DependencyInjection\Aware\CacheManagerAwareTrait;
 
 /**
  * Trait IconCreatorCachedServicesTrait.

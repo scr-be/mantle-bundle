@@ -1,0 +1,55 @@
+---
+
+Scribe\MantleBundle\Doctrine\Entity\Content\Asset:
+
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Content_Asset
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Content\AssetRepository
+
+    id:
+
+        uuid :
+            type      : bin_uuid
+            generator :
+                strategy : CUSTOM
+            customIdGenerator:
+                class: Scribe\Doctrine\ORM\Id\BinaryUuid4PessimisticGenerator
+
+    fields:
+
+        name :
+            type     : string
+            length   : 512
+            nullable : false
+
+        description :
+            type     : text
+            nullable : true
+
+        content :
+            type     : blob
+
+        attributes:
+            type     : json_array
+            nullable : true
+
+    manyToMany:
+
+        blocks :
+            targetEntity : Block
+            inversedBy   : assets
+            joinTable    :
+                name        : Mantle_Content_Asset_MapTo_Block
+                joinColumns :
+                    asset:
+                        referencedColumnName: uuid
+                inverseJoinColumns:
+                    block:
+                        referencedColumnName: slug
+
+...

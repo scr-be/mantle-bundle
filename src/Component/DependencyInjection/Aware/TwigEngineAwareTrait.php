@@ -28,7 +28,7 @@ trait TwigEngineAwareTrait
     /**
      * @var Twig_Template
      */
-    private $twigTpl;
+    private $twigTemplate;
 
     /**
      * Getter for twig enviornment.
@@ -92,12 +92,11 @@ trait TwigEngineAwareTrait
      */
     public function getEngineRendering($template, $arguments)
     {
-        $this->twigTpl = $this
+        $this->twigTemplate = $this
             ->getEngineEnvironment()
-            ->createTemplate($template)
-        ;
+            ->createTemplate($template);
 
-        return $this->twigTpl->render($arguments);
+        return $this->twigTemplate->render($arguments);
     }
 }
 

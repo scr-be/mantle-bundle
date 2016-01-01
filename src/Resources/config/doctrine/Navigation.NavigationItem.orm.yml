@@ -1,18 +1,20 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Navigation_Item
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationItemRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Navigation_Item
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Navigation\NavigationItemRepository
 
     id:
 
         id:
-            type      : int
+            type      : integer
             id        : true
             options   :
                 unsigned : true
@@ -67,5 +69,5 @@ Scribe\MantleBundle\Doctrine\Entity\Navigation\NavigationItem:
         route:
             targetEntity : Scribe\MantleBundle\Doctrine\Entity\Route\Route
             joinColumn   :
-                name             : route
-                referencedColumn : id
+                name                 : route
+                referencedColumnName : slug

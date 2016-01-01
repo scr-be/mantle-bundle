@@ -12,15 +12,17 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Translation;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 
 /**
  * Class Translation;
  */
-class Translation extends IdEntity
+class Translation extends SlugEntity
 {
-    use HasSlug;
+    /**
+     * @var string
+     */
+    const VERSION = '0.1.0';
 
     /**
      * @var TranslationDomain
@@ -39,19 +41,15 @@ class Translation extends IdEntity
      */
     public function __toString()
     {
-        return (string) $this->getSlug();
+        return (string) $this->getIdentity();
     }
 
     /**
-     * Define the values that should be serialized for this entity.
-     *
-     * @return $this
+     * @return string[]
      */
-    public function initializeSerializable()
+    protected function getEntitySerializerProperties()
     {
-        $this->setSerializablePropertyCollection('id', 'slug', 'domain', 'locale', 'value');
-
-        return $this;
+        return ['slug', 'domain', 'locale', 'value'];
     }
 
     /**
@@ -59,7 +57,7 @@ class Translation extends IdEntity
      */
     public function initializeMessageCollection()
     {
-        $this->messageCollection = new ArrayCollection;
+        $this->messageCollection = new ArrayCollection();
 
         return $this;
     }
@@ -69,7 +67,7 @@ class Translation extends IdEntity
      *
      * @return $this
      */
-    public function setMessageCollection($messageCollection)
+    public function setMessageCollection($messageCollection = null)
     {
         if (is_array($messageCollection)) {
             $messageCollection = new ArrayCollection($messageCollection);
@@ -87,7 +85,7 @@ class Translation extends IdEntity
     }
 
     /**
-     * @return ArrayCollection|TranslationMessage[]
+     * @return ArrayCollection
      */
     public function getMessageCollection()
     {
@@ -135,16 +133,6 @@ class Translation extends IdEntity
     }
 
     /**
-     * @return $this
-     */
-    public function initializeDomain()
-    {
-        $this->domain = null;
-
-        return $this;
-    }
-
-    /**
      * @param TranslationDomain $domain
      *
      * @return $this
@@ -177,7 +165,9 @@ class Translation extends IdEntity
      */
     public function clearDomain()
     {
-        return $this->initializeDomain();
+        $this->domain = null;
+
+        return $this;
     }
 }
 

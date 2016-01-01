@@ -1,7 +1,1 @@
-/vendor/
-/docs/_build/
-/.idea/
-atlassian-ide-plugin.xml
-*.DS_Store*
-*.rb
-tags
+.config/builders/build-skel/.build-skel-tpls/gitignore.txt

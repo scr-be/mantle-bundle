@@ -11,22 +11,22 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
+use Scribe\Doctrine\ORM\Mapping\SlugEntity;
+use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasCountry;
 
 /**
  * Class StateTerritory
  */
-class StateTerritory extends IdEntity
+class StateTerritory extends SlugEntity
 {
-    use HasName;
     use HasCountry;
+    use HasName;
 
     /**
      * @var string
      */
-    protected $code;
+    const VERSION = '0.1.0';
 
     /**
      * @var string
@@ -37,26 +37,6 @@ class StateTerritory extends IdEntity
      * @var string
      */
     protected $capital;
-
-    /**
-     * @param string $code
-     *
-     * @return $this
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
 
     /**
      * @param string $abbr

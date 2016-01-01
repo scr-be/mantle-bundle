@@ -1,36 +1,38 @@
 ---
+
+#
+# This file is part of the Teavee HTML Generator Bundle.
+#
+# (c) Rob Frawley 2nd <rmf@build.fail>
+#
+# For the full copyright and license information, please view the LICENSE.md
+# file that was distributed with this source code.
+#
+
 Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_State_RuntimeBundle
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\State\RuntimeBundleRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_State_RuntimeBundle
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\State\RuntimeBundleRepository
 
-    id:
+    id :
 
-        id:
-            type      : smallint
-            id        : true
-            options   :
-                unsigned : true
-            generator :
-                strategy : AUTO
-
-    indexes :
-
-        stateRtControllerIndex:
-            columns: [ name ]
-
-    fields:
-
-        name:
+        slug :
             type   : string
-            length : 256
+            length : 128
+            id     : true
+            generator :
+                strategy: NONE
 
-        description:
+    fields :
+
+        description :
             type     : text
             nullable : true
 ...

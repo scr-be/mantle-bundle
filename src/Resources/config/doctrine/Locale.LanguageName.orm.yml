@@ -1,49 +1,57 @@
 ---
+
+#
+# This file is part of the Teavee HTML Generator Bundle.
+#
+# (c) Rob Frawley 2nd <rmf@build.fail>
+#
+# For the full copyright and license information, please view the LICENSE.md
+# file that was distributed with this source code.
+#
+
 Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageName:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Locale_LanguageName
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageNameRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Locale_LanguageName
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    readOnly             : true
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Locale\LanguageNameRepository
 
     id:
 
-        id:
-            type: integer
-            id:   true
-            generator:
-                strategy: AUTO
+        slug:
+            type   : string
+            length : 64
+            id     : true
+            generator :
+                strategy: NONE
 
     uniqueConstraints:
 
         languageNameCodeUnique:
-            columns: [ code ]
+            columns: [ codeA3 ]
 
     fields:
 
-        name:
+        name :
             type   : string
             length : 512
 
-        code:
-            type   : string
-            length : 2
-            fixed  : true
-
-        codeA3:
+        codeA3 :
             type     : string
             length   : 3
             fixed    : true
             nullable : true
 
-        nativeNames:
+        nativeNames :
             type     : json_array
             nullable : true
 
-        aka:
+        aliases :
             type     : json_array
             nullable : true
 
@@ -54,7 +62,7 @@ Scribe\MantleBundle\Doctrine\Entity\Locale\LanguageName:
             inversedBy   : languageCollection
             fetch        : EAGER
             joinColumn   :
-                name            : family
-                referenceColumn : id
+                name                 : family
+                referencedColumnName : slug
 
 ...

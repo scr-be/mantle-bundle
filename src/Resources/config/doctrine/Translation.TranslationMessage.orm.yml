@@ -1,28 +1,23 @@
 ---
 Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationMessage:
 
-    type            : entity
-    options         :
-        row_format  : DYNAMIC
-        charset     : utf8mb4
-        collate     : utf8mb4_unicode_ci
-    table           : Mantle_Translation_Message
-    repositoryClass : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationMessageRepository
+    type                 : entity
+    options              :
+        row_format       : DYNAMIC
+        charset          : utf8mb4
+        collate          : utf8mb4_unicode_ci
+    table                : Mantle_Translation_Message
+    changeTrackingPolicy : DEFERRED_EXPLICIT
+    repositoryClass      : Scribe\MantleBundle\Doctrine\Repository\Translation\TranslationMessageRepository
 
     id:
 
-        id:
-            type      : integer
-            id        : true
-            options   :
-                unsigned : true
+        uuid :
+            type      : bin_uuid
             generator :
-                strategy : AUTO
-
-    indexes:
-
-        translationMessageIndex:
-            columns: [ locale, translation ]
+                strategy : CUSTOM
+            customIdGenerator:
+                class: Scribe\Doctrine\ORM\Id\BinaryUuid4PessimisticGenerator
 
     fields:
 
@@ -36,7 +31,7 @@ Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationMessage:
             fetch        : EAGER
             joinColumn:
                 name                 : locale
-                referencedColumnName : id
+                referencedColumnName : slug
 
         translation:
             targetEntity : Translation
@@ -44,6 +39,6 @@ Scribe\MantleBundle\Doctrine\Entity\Translation\TranslationMessage:
             fetch        : EAGER
             joinColumn   :
                 name                 : translation
-                referencedColumnName : id
+                referencedColumnName : slug
 
 ...
