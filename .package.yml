@@ -4,11 +4,11 @@ api_cfgmod : clone
 api_runner : ~
 api_paths  : lib
 env_make : ~
-env_prep : get-composer
+env_prep : get-composer,db-config
 env_post : ci-coveralls,ci-codacy
 php_conf : timezone
 php_exts : igbinary,memcached,yaml
-app_prep : dep-composer,db-create,db-load
+app_prep : dep-composer,db-create-mantle,db-load
 app_post : db-unload
 app_path : bin/mantle
 pkg_name : mantle-bundle

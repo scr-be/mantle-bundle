@@ -38,13 +38,13 @@ git :
 # List of services to enable. Globally we make sure Memcached and
 # MySQL is installed and running.
 services :
-  - mysql
   - memcached
 
-# Add custom Hostname to build environment.
+# Add custom Hostname to build environment and install mariadb.
 addons :
   hosts :
     - mainline.src.run
+  mariadb: 10.1
 
 # Define any required global enviornment variables. Specifically,
 # the package_builder variable must be set to true to enable the

@@ -41,7 +41,7 @@ class HttpException extends SymfonyHttpException implements HttpExceptionInterfa
         parent::__construct(
             $this->getFinalCode((int) $code),
             $this->getFinalMessage((string) $message, ...$sprintfArgs),
-            $this->getFinalPreviousException($previous),
+            $this->getFinalPrevious($previous),
             $this->getFinalCode((int) $code)
         );
 

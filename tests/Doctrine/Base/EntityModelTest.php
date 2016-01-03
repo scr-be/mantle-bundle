@@ -551,55 +551,6 @@ class EntityModelTest extends WonkaTestCase
         $this->clearEntityAfterTest();
     }
 
-    public function testEntityTraitHasParentOwningSide()
-    {
-        $this->randomEntityOne = new IconFamily();
-        $this->randomEntityOne->setName('family');
-        $this->randomEntityTwo = new Icon();
-        $this->randomEntityTwo->setName('icon');
-        $this->basicTraitAssertions['HasParentOwningSide']['ops'] = [
-            $this->randomEntityOne,
-            $this->randomEntityTwo,
-        ];
-        $trait = 'HasParentOwningSide';
-        $entity = $this->setEntityBeforeTest($trait);
-        $this->performRuntime($trait, $entity);
-        $this->clearEntityAfterTest();
-    }
-
-    public function testEntityTraitHasChildrenOwningSide()
-    {
-        $this->markTestSkipped();
-        $this->randomEntityOne = new IconFamily();
-        $this->randomEntityOne->setName('family');
-        $this->randomEntityTwo = new Icon();
-        $this->randomEntityTwo->setName('icon');
-        $this->basicTraitAssertions['HasChildCollectionOwningSide']['ops'] = [new ArrayCollection([
-            $this->randomEntityOne,
-            $this->randomEntityTwo,
-            ]),
-        ];
-        $trait = 'HasChildrenOwningSide';
-        $entity = $this->setEntityBeforeTest($trait);
-        $this->performRuntime($trait, $entity);
-
-        $collection = new ArrayCollection([
-            $this->randomEntityOne,
-            $this->randomEntityTwo,
-        ]);
-        $entity->setChildCollection($collection);
-
-        static::assertTrue($entity->hasChild($this->randomEntityOne));
-
-        $entity->addChild($this->randomEntityOne);
-        static::assertEquals(2, $entity->getChildren()->count());
-        $entity->addChild($this->randomEntityOne, false);
-        static::assertEquals(3, $entity->getChildren()->count());
-        $entity->removeChild($this->randomEntityTwo);
-        static::assertEquals(2, $entity->getChildren()->count());
-        $this->clearEntityAfterTest();
-    }
-
     private function performRuntime($traitName, $entity)
     {
         $config = $this->basicTraitAssertions[$traitName];

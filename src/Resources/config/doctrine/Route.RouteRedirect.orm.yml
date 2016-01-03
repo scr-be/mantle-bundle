@@ -46,7 +46,7 @@ Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect:
             type     : json_array
             nullable : true
 
-        routeSchemas :
+        routeSchemes :
             type     : json_array
             nullable : true
 

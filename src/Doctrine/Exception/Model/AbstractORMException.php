@@ -37,7 +37,7 @@ abstract class AbstractORMException extends ORMException implements ORMException
         parent::__construct(
             $this->getFinalMessage((string) $message, ...$sprintfArgs),
             $this->getFinalCode((int) $code),
-            $this->getFinalPreviousException($previous)
+            $this->getFinalPrevious($previous)
         );
 
         $this->setAttributes([]);

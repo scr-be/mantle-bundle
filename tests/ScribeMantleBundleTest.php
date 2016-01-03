@@ -53,10 +53,10 @@ class ScribeMantleBundleTest extends PHPUnit_Framework_TestCase
 
     public function testCanAccessContainerServices()
     {
-        static::assertTrue(static::$container->has('s.mantle.icon.repo'));
+        static::assertTrue(static::$container->has('s.mantle.route_redirect.repo'));
         static::assertInstanceOf(
-            'Scribe\MantleBundle\Doctrine\Repository\Icon\IconRepository',
-            static::$container->get('s.mantle.icon.repo')
+            'Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository',
+            static::$container->get('s.mantle.route_redirect.repo')
         );
     }
 

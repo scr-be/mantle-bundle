@@ -41,12 +41,12 @@ class RouteRedirectLoaderTest extends KernelTestCase
     public function testSupports()
     {
         static::assertFalse(static::$loader->supports('.', 'invalid-type'));
-        static::assertTrue(static::$loader->supports('.', 'MantleBundle_RouteRedirectLoader'));
+        static::assertTrue(static::$loader->supports('.', 's.mantle.redirects'));
     }
 
     public function testLoad()
     {
-        $routeCollection = static::$loader->load('.', 'MantleBundle_RouteRedirectLoader');
+        $routeCollection = static::$loader->load('.', 's.mantle.redirects');
 
         static::assertInstanceOf('Symfony\Component\Routing\RouteCollection', $routeCollection);
         static::assertNotEquals(0, $routeCollection->count());
@@ -60,11 +60,11 @@ class RouteRedirectLoaderTest extends KernelTestCase
     {
         $this->setExpectedException(
             'Scribe\Wonka\Exception\RuntimeException',
-            'Cannot add the redirection route loader "Scribe\MantleBundle\Loader\Routing\RouteRedirectLoader" to the route resolver more than once.'
+            'Cannot add redirect loader "Scribe\MantleBundle\Loader\Routing\RouteRedirectLoader" more than once.'
         );
 
-        static::$loader->load('.', 'MantleBundle_RouteRedirectLoader');
-        static::$loader->load('.', 'MantleBundle_RouteRedirectLoader');
+        static::$loader->load('.', 's.mantle.redirects');
+        static::$loader->load('.', 's.mantle.redirects');
     }
 }
 

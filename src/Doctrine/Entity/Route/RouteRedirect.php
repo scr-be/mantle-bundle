@@ -47,7 +47,7 @@ class RouteRedirect extends SlugEntity
     /**
      * @var array|null
      */
-    protected $routeSchemas;
+    protected $routeSchemes;
 
     /**
      * @var array|null
@@ -198,25 +198,25 @@ class RouteRedirect extends SlugEntity
     /**
      * @return array|null
      */
-    public function getRouteSchemas()
+    public function getRouteSchemes()
     {
-        return $this->routeSchemas;
+        return $this->routeSchemes;
     }
 
     /**
-     * @param array|null $routeSchemas
+     * @param array|null $routeSchemes
      */
-    public function setRouteSchemas($routeSchemas)
+    public function setRouteSchemes($routeSchemes)
     {
-        $this->routeSchemas = $routeSchemas;
+        $this->routeSchemes = $routeSchemes;
     }
 
     /**
      * @return bool
      */
-    public function hasRouteSchemas()
+    public function hasRouteSchemes()
     {
-        return (bool) ($this->routeSchemas !== null ?: false);
+        return (bool) ($this->routeSchemes !== null ?: false);
     }
 
     /**

@@ -1,5 +1,5 @@
 ---
 
-ScribeMantleBundle_RouteRedirectLoader:
-    resource: .
-    type: routeRedirectLoader
+s.mantle.redirects :
+    resource : .
+    type     : s.mantle.redirects

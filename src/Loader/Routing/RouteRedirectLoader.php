@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Scribe\Wonka\Exception\RuntimeException;
 use Scribe\Wonka\Utility\Filter\StringFilter;
-use Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect;
 use Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository;
 
 /**
@@ -56,6 +55,7 @@ class RouteRedirectLoader extends Loader
     public function __construct(RouteRedirectRepository $redirectRepo)
     {
         $this->redirectRepo = $redirectRepo;
+        $this->routeCollection = new RouteCollection();
     }
 
     /**
@@ -85,7 +85,7 @@ class RouteRedirectLoader extends Loader
             throw RuntimeException::create('Cannot add redirect loader "%s" more than once.', get_class($this));
         }
 
-        foreach ($this->lookupRoutesEntities() as $entry) {
+        foreach ($this->lookupRouteEntities() as $entry) {
             $this->addRoute($this->createRoute($entry));
         }
 
@@ -125,9 +125,9 @@ class RouteRedirectLoader extends Loader
     }
 
     /**
-     * @return array[]
+     * @return mixed[]
      */
-    protected function lookupRoutesEntities()
+    protected function lookupRouteEntities()
     {
         try {
             return (array) $this
@@ -139,61 +139,50 @@ class RouteRedirectLoader extends Loader
     }
 
     /**
-     * @param RouteRedirect $route
+     * @param mixed $entry
      *
      * @return array
      */
-    protected function getDynamicRouteDefaults(RouteRedirect $route)
+    protected function getDynamicRouteDefaults(array $entry)
     {
-        if (true === $route->hasRouteDefaults()) {
-            $defaults = array_merge(self::DEFAULTS, $route->getRouteDefaults());
-        }
+        $defaults = array_merge(self::DEFAULTS, ['path' => $entry['redirectPath']]);
 
-        $defaults['path'] = $route->getSearchPath();
+        if (array_key_exists('routeDefaults', $entry)) {
+            $defaults = array_merge($defaults, $entry['routeDefaults']);
+        }
 
         return $defaults;
     }
 
     /**
-     * @param array $entry
+     * @param mixed[] $entry
      *
      * @return Route
      */
     protected function createRoute($entry)
     {
-        $route = new Route();
+        $route = new Route(getArrayElement('searchPath', $entry));
+        $route->setDefaults($this->getDynamicRouteDefaults($entry));
 
-        $searchPath = getArrayElement('searchPath', $entry);
-
-        if (getArrayElement('regex', $entry)) {
-            $route->setPattern($searchPath);
-        } else {
-            $route->setPath($searchPath);
-        }
-
-
-        $route = new Route(
-            $routeEntity->getRedirectPath(),
-            $this->getDynamicRouteDefaults($routeEntity)
-        );
-
-        if ($routeEntity->hasRouteHost()) {
-            $route->setHost($routeEntity->getRouteHost());
-        }
-
-        if ($routeEntity->hasRouteMethods()) {
-            $route->setMethods($routeEntity->getRouteMethods());
-        }
-
-        if ($routeEntity->hasRouteRequirements()) {
-            $route->setRequirements($routeEntity->getRouteRequirements());
-        }
-
-        if ($routeEntity->hasRouteSchemas()) {
-            $route->setSchemes($routeEntity->getRouteSchemas());
-        }
+        $this->assignRouteValue('host', $entry, $route);
+        $this->assignRouteValue('methods', $entry, $route);
+        $this->assignRouteValue('requirements', $entry, $route);
+        $this->assignRouteValue('schemas', $entry, $route);
 
         return $route;
+    }
+
+    /**
+     * @param string  $what
+     * @param mixed[] $entry
+     * @param Route   $route
+     */
+    protected function assignRouteValue($what, array $entry, Route $route)
+    {
+        if ($value = getArrayElement('route' . ucfirst($what), $entry)) {
+            $method = 'set' . ucfirst($what);
+            $route->{$method}($value);
+        }
     }
 }
 

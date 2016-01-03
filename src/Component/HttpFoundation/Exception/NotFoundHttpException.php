@@ -41,7 +41,7 @@ class NotFoundHttpException extends SymfonyNotFoundHttpException implements Http
         parent::__construct(
             $this->getFinalCode((int) $code),
             $this->getFinalMessage((string) $message, ...$sprintfArgs),
-            $this->getFinalPreviousException($previous),
+            $this->getFinalPrevious($previous),
             $attributes,
             $this->getFinalCode((int) $code)
         );
