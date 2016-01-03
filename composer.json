@@ -11,7 +11,7 @@
         "irc"    : "irc://irc.efnet.org/scribe"
     },
     "keywords"    : [
-        "scribe-mantle-bundle", "mantle-bundle", "mantle", "foundation", "bundle", "symfony", "symfony-framework", "scribe", "scr.be", "scribenet", "scribe-software", "scribe-services"
+        "scribe-mantle-bundle", "mantle-bundle", "mantle", "foundation", "bundle", "symfony", "symfony-framework", "scribe", "scr.be", "scribenet"
     ],
     "authors"     : [
         {
