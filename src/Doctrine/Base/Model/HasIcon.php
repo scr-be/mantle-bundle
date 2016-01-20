@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model;
 
-use Scribe\MantleBundle\Doctrine\Entity\Icon\Icon;
+use Scribe\Teavee\HtmlGeneratorBundle\Doctrine\Entity\Icon;
 
 /**
  * Class HasIcon.

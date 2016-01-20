@@ -476,6 +476,13 @@ services :
 
     # Old Twig Extensions
 
+    s.mantle.twig_extension.button_renderer :
+        class     : %s.mantle.twig_extension.button_renderer.class%
+        arguments :
+            - @router
+        tags :
+            - { name : twig.extension }
+
     s.mantle.twig_extension.parameter :
         class     : %s.mantle.twig_extension.parameter.class%
         arguments :
