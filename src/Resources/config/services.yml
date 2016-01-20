@@ -479,7 +479,7 @@ services :
     s.mantle.twig_extension.button_renderer :
         class     : %s.mantle.twig_extension.button_renderer.class%
         arguments :
-            - @router
+            - "@router"
         tags :
             - { name : twig.extension }
 
