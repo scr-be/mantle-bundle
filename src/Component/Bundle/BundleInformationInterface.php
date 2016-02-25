@@ -17,21 +17,21 @@ namespace Scribe\MantleBundle\Component\Bundle;
 interface BundleInformationInterface
 {
     /**
-     * Handle info parsing/determination using master request controller attribute
+     * Handle info parsing/determination using master request controller attribute.
      *
      * @var string
      */
     const MODE_REQUEST = 'request';
 
     /**
-     * Handle info parsing/determination using controller determined from route name
+     * Handle info parsing/determination using controller determined from route name.
      *
      * @var string
      */
     const MODE_ROUTE = 'route';
 
     /**
-     * Handle info parsing/determination using provided string
+     * Handle info parsing/determination using provided string.
      *
      * @var string
      */

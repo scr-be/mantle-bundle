@@ -57,8 +57,8 @@ trait HasParentCollectionOwningSide
      * Element adder for parentCollection collection.
      *
      * @param Entity $parent an entity instance to add to the collection
-     * @param bool           $unique requires the passed object instance does not already exist within
-     *                               the collection
+     * @param bool   $unique requires the passed object instance does not already exist within
+     *                       the collection
      *
      * @return $this
      */

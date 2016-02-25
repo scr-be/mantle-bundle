@@ -163,7 +163,7 @@ trait EntityManagerProxyTrait
      * toggled via the second parameter.
      *
      * @param Entity $entity
-     * @param bool           $deep
+     * @param bool   $deep
      *
      * @return Entity
      */

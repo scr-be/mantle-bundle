@@ -15,10 +15,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasSlug;
 
 /**
- * Class LanguageFamily;
+ * Class LanguageFamily;.
  */
 class LanguageFamily extends SlugEntity
 {
@@ -45,7 +44,7 @@ class LanguageFamily extends SlugEntity
      */
     public function initializeLanguageCollection()
     {
-        $this->languageCollection = new ArrayCollection;
+        $this->languageCollection = new ArrayCollection();
 
         return $this;
     }

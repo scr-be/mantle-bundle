@@ -11,12 +11,12 @@
 
 namespace Scribe\MantleBundle\DataFixtures\ORM;
 
-use Scribe\Arthur\DoctrineFixturesBundle\DataFixtures\YamlDependentFixture;
+use Scribe\Arthur\DoctrineFixturesBundle\DataFixtures\YamlFixture;
 
 /**
- * Class LoadMetaTitleData.
+ * Class LoadLanguageFamilyData.
  */
-class LoadMetaTitleData extends YamlDependentFixture
+class LoadLanguageFamilyData extends YamlFixture
 {
 }
 

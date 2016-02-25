@@ -26,7 +26,7 @@ trait HasRolesOwningSide
      */
     public function initializeRoles()
     {
-        $this->roles = new ArrayCollection;
+        $this->roles = new ArrayCollection();
 
         return $this;
     }

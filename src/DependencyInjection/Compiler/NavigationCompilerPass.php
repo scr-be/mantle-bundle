@@ -19,7 +19,7 @@ use Scribe\WonkaBundle\Component\DependencyInjection\Compiler\Pass\AbstractCompi
 class NavigationCompilerPass extends AbstractCompilerPass
 {
     /**
-     * {@inherit-doc}
+     * {@inherit-doc}.
      *
      * @return string
      */

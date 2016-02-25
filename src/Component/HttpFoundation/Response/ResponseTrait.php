@@ -170,7 +170,7 @@ trait ResponseTrait
         $headerCount = count($headerCollections);
         $finalHeaders = [];
 
-        for ($i = 0; $i < $headerCount; $i++) {
+        for ($i = 0; $i < $headerCount; ++$i) {
             if (count($headerCollections) === 0) {
                 continue;
             }

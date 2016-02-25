@@ -33,7 +33,7 @@ class ParameterExtension extends AbstractTwigExtension
 
         $this
             ->enableOptionHtmlSafe()
-            ->addFunction('param', [ $this, 'getParameter' ]);
+            ->addFunction('param', [$this, 'getParameter']);
     }
 
     /**
@@ -61,11 +61,13 @@ class ParameterExtension extends AbstractTwigExtension
      */
     protected function getParameterArrayInnerValue(array $parameter, $inner)
     {
-        $keySet     = explode('.', $inner);
+        $keySet = explode('.', $inner);
         $resolution = $parameter;
 
         foreach ($keySet as $key) {
-            if (!array_key_exists($key, $resolution)) { return null; }
+            if (!array_key_exists($key, $resolution)) {
+                return;
+            }
             $resolution = $resolution[$key];
         }
 

@@ -18,7 +18,7 @@ use Scribe\MantleBundle\Doctrine\Repository\Meta\MetaTitleRepository;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Class TitleProvider
+ * Class TitleProvider.
  */
 class TitleProvider
 {
@@ -167,7 +167,7 @@ class TitleProvider
      */
     protected function extractBundleParts(BundleInformationInterface $bundleInfo)
     {
-        list(, $bundle, $controller, $action, ) = $bundleInfo->getAll();
+        list(, $bundle, $controller, $action) = $bundleInfo->getAll();
 
         $this
             ->setBundle($bundle)
@@ -182,8 +182,12 @@ class TitleProvider
      */
     public function determineMetaTitle()
     {
-        if (false !== ($title = $this->lookupExactMatch())) { return $title; }
-        if (false !== ($title = $this->lookupFuzzyMatch())) { return $title; }
+        if (false !== ($title = $this->lookupExactMatch())) {
+            return $title;
+        }
+        if (false !== ($title = $this->lookupFuzzyMatch())) {
+            return $title;
+        }
 
         return $this->lookupDefault();
     }
@@ -200,7 +204,7 @@ class TitleProvider
                 $this->getController(),
                 $this->getAction()
             );
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -234,7 +238,7 @@ class TitleProvider
                 $this->getBundle(),
                 $this->getController()
             );
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -253,7 +257,7 @@ class TitleProvider
                 null,
                 null
             );
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 

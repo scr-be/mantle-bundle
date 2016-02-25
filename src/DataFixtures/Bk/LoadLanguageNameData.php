@@ -14,9 +14,9 @@ namespace Scribe\MantleBundle\DataFixtures\ORM;
 use Scribe\Arthur\DoctrineFixturesBundle\DataFixtures\YamlDependentFixture;
 
 /**
- * Class LoadMetaTitleData.
+ * Class LoadLanguageNameData.
  */
-class LoadMetaTitleData extends YamlDependentFixture
+class LoadLanguageNameData extends YamlDependentFixture
 {
 }
 

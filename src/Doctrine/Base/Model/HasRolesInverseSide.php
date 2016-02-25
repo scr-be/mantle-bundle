@@ -69,7 +69,7 @@ trait HasRolesInverseSide
      */
     public function hasRole(RoleInterface $role)
     {
-        return (true === $this->roles->contains($role) ?: false);
+        return true === $this->roles->contains($role) ?: false;
     }
 
     /**

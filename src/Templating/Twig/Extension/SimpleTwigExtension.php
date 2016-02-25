@@ -59,9 +59,8 @@ abstract class SimpleTwigExtension extends \Twig_Extension implements TwigExtens
     private $functionCallableCollection;
 
     /**
-     * @param array $optionCollection
-     *
-     * @param bool|true $htmlSafe
+     * @param array      $optionCollection
+     * @param bool|true  $htmlSafe
      * @param bool|false $needsEnv
      */
     public function __construct(array $optionCollection = [], $htmlSafe = true, $needsEnv = false)
@@ -90,7 +89,7 @@ abstract class SimpleTwigExtension extends \Twig_Extension implements TwigExtens
     }
 
     /**
-     * @param  array $option
+     * @param array $option
      *
      * @return $this
      */
@@ -112,7 +111,7 @@ abstract class SimpleTwigExtension extends \Twig_Extension implements TwigExtens
     }
 
     /**
-     * @param  array $option
+     * @param array $option
      *
      * @return $this
      */

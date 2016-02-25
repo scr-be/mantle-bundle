@@ -16,7 +16,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\HasValue;
 use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLocale;
 
 /**
- * Class TranslationMessage
+ * Class TranslationMessage.
  */
 class TranslationMessage extends UuidEntity
 {

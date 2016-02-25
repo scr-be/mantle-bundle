@@ -11,7 +11,6 @@
 
 namespace Scribe\MantleBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Scribe\WonkaBundle\Component\DependencyInjection\AbstractConfiguration;
@@ -82,7 +81,7 @@ class Configuration extends AbstractConfiguration
                 ->always(function ($configuration) {
                     if (array_key_exists('headers_list', $configuration)) {
                         $headers = $configuration['headers_list'];
-                        for ($i = 0; $i < count($headers); $i++) {
+                        for ($i = 0; $i < count($headers); ++$i) {
                             if (strtolower(str_replace('_', '-', $headers[$i]['key'])) === 'content-type') {
                                 return $configuration;
                             }

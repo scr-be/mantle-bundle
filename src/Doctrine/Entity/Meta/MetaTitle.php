@@ -11,7 +11,7 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Meta;
 
-use Scribe\Doctrine\ORM\Mapping\UuidEntity;
+use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasTitle;
 use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLocale;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeAction;
@@ -19,9 +19,9 @@ use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeBundle;
 use Scribe\MantleBundle\Doctrine\Entity\State\RuntimeController;
 
 /**
- * Class Locale;
+ * Class Locale;.
  */
-class MetaTitle extends UuidEntity
+class MetaTitle extends IdEntity
 {
     use HasTitle;
     use HasLocale;
@@ -47,7 +47,7 @@ class MetaTitle extends UuidEntity
     protected $action;
 
     /**
-     * @param  RuntimeBundle $bundle
+     * @param RuntimeBundle $bundle
      *
      * @return $this
      */
@@ -75,7 +75,7 @@ class MetaTitle extends UuidEntity
     }
 
     /**
-     * @param  RuntimeController $controller
+     * @param RuntimeController $controller
      *
      * @return $this
      */
@@ -103,7 +103,8 @@ class MetaTitle extends UuidEntity
     }
 
     /**
-     * @param  RuntimeAction $action
+     * @param RuntimeAction $action
+     *
      * @return $this
      */
     public function setAction(RuntimeAction $action)

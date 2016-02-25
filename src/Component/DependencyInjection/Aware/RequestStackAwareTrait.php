@@ -213,7 +213,7 @@ trait RequestStackAwareTrait
         try {
             return $this->requestStack->$method->$parameterBag->get($index);
         } catch (\Exception $e) {
-            return null;
+            return;
         }
     }
 
@@ -225,7 +225,7 @@ trait RequestStackAwareTrait
      */
     protected function normalizeRequestTypeMagicMethodName($action, $requestType)
     {
-        $methodName = $action . ucwords($requestType) . 'Request';
+        $methodName = $action.ucwords($requestType).'Request';
 
         if (null === ($method = preg_replace('#[^a-zA-Z]#', '', $methodName))) {
             throw new LogicException('Invalid resulting magic method name for %s in %s.', null, null, $methodName, __METHOD__);

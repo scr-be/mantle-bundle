@@ -11,9 +11,6 @@
 
 namespace Scribe\MantleBundle\Doctrine\Behavior\Model\Sluggable;
 
-use Scribe\MantleBundle\Doctrine\Exception\SubscriberEventORMException;
-use Scribe\MantleBundle\Doctrine\Exception\SubscriberORMException;
-
 /**
  * Class SluggableBehaviorStaticTrait.
  */

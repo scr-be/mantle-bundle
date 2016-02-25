@@ -115,9 +115,9 @@ abstract class AbstractCommand extends ContainerAwareCommand
         $lines = [0 => ''];
         $linei = 0;
 
-        for ($i = 0; $i < count($words); $i++) {
+        for ($i = 0; $i < count($words); ++$i) {
             if (strlen($lines[$linei].$words[$i]) > $max_string_width) {
-                $linei++;
+                ++$linei;
             }
 
             if (!isset($lines[$linei]) || empty($lines[$linei])) {
@@ -138,7 +138,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
     {
         $out = '<fg='.$fg.';bg='.$bg;
         if (count($attr) > 0) {
-            for ($i = 0; $i < count($attr); $i++) {
+            for ($i = 0; $i < count($attr); ++$i) {
                 $out .= ';options='.$attr[$i];
             }
         }
@@ -148,12 +148,12 @@ abstract class AbstractCommand extends ContainerAwareCommand
             $out .= "\n".str_pad('', ($width + ($padding * 2)), ' ', STR_PAD_BOTH)."\n";
         }
 
-        for ($i = 0; $i < count($lines); $i++) {
-            for ($j = 0; $j < $padding; $j++) {
+        for ($i = 0; $i < count($lines); ++$i) {
+            for ($j = 0; $j < $padding; ++$j) {
                 $out .= ' ';
             }
             $out .= str_pad($lines[$i], $width, ' ', $pad_type);
-            for ($j = 0; $j < $padding; $j++) {
+            for ($j = 0; $j < $padding; ++$j) {
                 $out .= ' ';
             }
             if ($i !== (count($lines) - 1) || $leadAndEndEmptyLine === true) {
@@ -167,7 +167,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         $out .= '</fg='.$fg.';bg='.$bg;
         if (count($attr) > 0) {
-            for ($i = 0; $i < count($attr); $i++) {
+            for ($i = 0; $i < count($attr); ++$i) {
                 $out .= ';options='.$attr[$i];
             }
         }
@@ -339,7 +339,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
         $indent_string = '    ';
 
-        for ($i = 2; $i < $indent_i; $i++) {
+        for ($i = 2; $i < $indent_i; ++$i) {
             $indent_string .= '    ';
         }
 

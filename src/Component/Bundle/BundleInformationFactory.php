@@ -11,7 +11,6 @@
 
 namespace Scribe\MantleBundle\Component\Bundle;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Scribe\MantleBundle\Component\DependencyInjection\Aware\RequestStackAwareTrait;
@@ -29,7 +28,7 @@ class BundleInformationFactory
     /**
      * @return BundleInformation
      */
-    static public function getInstance(RequestStack $requestStack, Router $router, $autoHandle = false)
+    public static function getInstance(RequestStack $requestStack, Router $router, $autoHandle = false)
     {
         return new BundleInformation($requestStack, $router, $autoHandle);
     }

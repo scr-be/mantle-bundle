@@ -155,10 +155,11 @@ class IconCreator extends AbstractTwigGenerator implements IconCreatorInterface
         return $html;
     }
 
-    protected function canonicalizeSlugs(...$slugs) {
+    protected function canonicalizeSlugs(...$slugs)
+    {
         $canonicalizedSlugs = [];
 
-        for ($i = 0; $i < count($slugs); $i++) {
+        for ($i = 0; $i < count($slugs); ++$i) {
             $canonicalizedSlugs[] = preg_replace('#[^a-z0-9_-]#i', '', $slugs[$i]);
         }
 

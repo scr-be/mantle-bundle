@@ -17,10 +17,10 @@ namespace Scribe\MantleBundle\Doctrine\Base\Model;
 trait HasPerson
 {
     use HasPersonHonorific;
-use HasPersonFirstName;
-use HasPersonMiddleName;
-use HasPersonSurname;
-use HasPersonSuffix;
+    use HasPersonFirstName;
+    use HasPersonMiddleName;
+    use HasPersonSurname;
+    use HasPersonSuffix;
 
     /**
      * Compiles full name string.

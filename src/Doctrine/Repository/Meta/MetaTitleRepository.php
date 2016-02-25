@@ -76,7 +76,7 @@ class MetaTitleRepository extends EntityRepository
     {
         $parameters = [
             'locale' => $locale,
-            'bundle' => $bundle
+            'bundle' => $bundle,
         ];
 
         $builder = $this
@@ -95,7 +95,7 @@ class MetaTitleRepository extends EntityRepository
         }
 
         $builder
-            ->where(   'l.name = :locale')
+            ->where('l.name = :locale')
             ->andWhere('b.name = :bundle');
 
         if ($controller !== null) {

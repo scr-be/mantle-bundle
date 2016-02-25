@@ -16,7 +16,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
- * Class StateTerritory
+ * Class StateTerritory.
  */
 class StateTerritory extends SlugEntity
 {

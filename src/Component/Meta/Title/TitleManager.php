@@ -12,7 +12,7 @@
 namespace Scribe\MantleBundle\Component\Meta\Title;
 
 /**
- * Class TitleManager
+ * Class TitleManager.
  */
 class TitleManager
 {
@@ -47,7 +47,8 @@ class TitleManager
     }
 
     /**
-     * @param  string $title
+     * @param string $title
+     *
      * @return string
      */
     protected function performTitleSubstitutions($title)

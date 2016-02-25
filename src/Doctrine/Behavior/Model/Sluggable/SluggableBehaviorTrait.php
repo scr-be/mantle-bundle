@@ -94,7 +94,6 @@ trait SluggableBehaviorTrait
         return $this;
     }
 
-
     /**
      * Set the slug.
      *
@@ -186,10 +185,14 @@ trait SluggableBehaviorTrait
             $usablePropertyNames = [];
 
             foreach ($this->getAutoSlugFields() as $f) {
-                if (false === property_exists($this, $f)) { continue; }
+                if (false === property_exists($this, $f)) {
+                    continue;
+                }
 
                 $value = $this->$f;
-                if (null === $value || false === is_string($value) || true === empty($value)) { continue; }
+                if (null === $value || false === is_string($value) || true === empty($value)) {
+                    continue;
+                }
 
                 $usablePropertyNames[] = $value;
             }

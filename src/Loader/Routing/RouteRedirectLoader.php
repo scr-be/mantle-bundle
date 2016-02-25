@@ -7,7 +7,6 @@ use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Scribe\Wonka\Exception\RuntimeException;
-use Scribe\Wonka\Utility\Filter\StringFilter;
 use Scribe\MantleBundle\Doctrine\Repository\Route\RouteRedirectRepository;
 
 /**
@@ -70,8 +69,6 @@ class RouteRedirectLoader extends Loader
 
         return (bool) ($type === self::SUPPORTED_TYPE);
     }
-
-
 
     /**
      * @param mixed $resource
@@ -179,8 +176,8 @@ class RouteRedirectLoader extends Loader
      */
     protected function assignRouteValue($what, array $entry, Route $route)
     {
-        if ($value = getArrayElement('route' . ucfirst($what), $entry)) {
-            $method = 'set' . ucfirst($what);
+        if ($value = getArrayElement('route'.ucfirst($what), $entry)) {
+            $method = 'set'.ucfirst($what);
             $route->{$method}($value);
         }
     }

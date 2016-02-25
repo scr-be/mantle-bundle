@@ -61,7 +61,7 @@ trait HasUsersInverseSide
      */
     public function hasUser(UserInterface $user)
     {
-        return (true === $this->users->contains($user) ?: false);
+        return true === $this->users->contains($user) ?: false;
     }
 }
 

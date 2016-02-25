@@ -17,7 +17,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry;
 use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasLanguageCollection;
 
 /**
- * Class City
+ * Class City.
  */
 class City extends UuidEntity
 {

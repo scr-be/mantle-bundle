@@ -192,7 +192,7 @@ class MaintenanceListener
      */
     private function isOverridden()
     {
-        return ($this->requestStack->getCurrentRequest()->get($this->overrideArgument) === $this->overrideValue ?: false);
+        return $this->requestStack->getCurrentRequest()->get($this->overrideArgument) === $this->overrideValue ?: false;
     }
 
     /**

@@ -14,7 +14,6 @@ namespace Scribe\MantleBundle\Doctrine\Repository\Route;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
-use Scribe\MantleBundle\Doctrine\Entity\Route\RouteRedirect;
 
 /**
  * Class RouteRedirectRepository.
@@ -46,9 +45,7 @@ class RouteRedirectRepository extends EntityRepository
             }
 
             throw new ORMException('No results found.');
-
         } catch (\Exception $exception) {
-
             throw $exception;
         }
     }

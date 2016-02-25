@@ -25,7 +25,7 @@ trait LoggableBehaviorTrait
     {
         $message = [];
         foreach ($changeSets as $property => $changeSet) {
-            for ($i = 0; $i < count($changeSet); $i++) {
+            for ($i = 0; $i < count($changeSet); ++$i) {
                 if ($changeSet[$i] instanceof \Datetime) {
                     $changeSet[$i] = $changeSet[$i]->format('Ymd His');
                 }

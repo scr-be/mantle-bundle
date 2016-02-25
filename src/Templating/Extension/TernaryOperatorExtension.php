@@ -35,7 +35,7 @@ class TernaryOperatorExtension extends AbstractTwigExtension
      */
     protected function attachExtensionFuncs()
     {
-        $this->addFunction('tern_op', [ $this, 'getTernaryResult' ]);
+        $this->addFunction('tern_op', [$this, 'getTernaryResult']);
 
         return $this;
     }
@@ -49,9 +49,11 @@ class TernaryOperatorExtension extends AbstractTwigExtension
      */
     public function getTernaryResult($decider, $trueResult, $falseResult = null)
     {
-        if ($decider) { return $trueResult; }
+        if ($decider) {
+            return $trueResult;
+        }
 
-        return ($falseResult ?: null);
+        return $falseResult ?: null;
     }
 }
 

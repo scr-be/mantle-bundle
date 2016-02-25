@@ -44,7 +44,7 @@ abstract class OptionsDefinition implements OptionsDefinitionInterface
     }
 
     /**
-     * @param  array $option
+     * @param array $option
      *
      * @return $this
      */
@@ -66,7 +66,7 @@ abstract class OptionsDefinition implements OptionsDefinitionInterface
     }
 
     /**
-     * @param  array $option
+     * @param array $option
      *
      * @return $this
      */

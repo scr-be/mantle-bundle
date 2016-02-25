@@ -80,7 +80,7 @@ class TranslationRepository extends EntityRepository
 
         try {
             return $q->getResult(Query::HYDRATE_ARRAY);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             throw new ORMException(
                 sprintf('Could not find any translations for locale %s within domain %s.', $locale->getName(), $domain->getName()),
                 null, $e

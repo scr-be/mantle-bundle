@@ -50,7 +50,6 @@ parameters :
     s.mantle.meta_title_provider.class:                                 Scribe\MantleBundle\Component\Meta\Title\TitleProvider
 
     # Bundle Information    Service/Twig-Extension
-
     s.mantle.bundle_information.class:                                  Scribe\MantleBundle\Component\Bundle\BundleInformation
     s.mantle.bundle_information_factory.class:                          Scribe\MantleBundle\Component\Bundle\BundleInformationFactory
     s.mantle.bundle_information.twig_extension.class:                   Scribe\MantleBundle\Templating\Extension\BundleIntrospectionExtension

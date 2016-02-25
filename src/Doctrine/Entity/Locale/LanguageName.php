@@ -11,14 +11,13 @@
 
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
-use Scribe\Doctrine\ORM\Mapping\IdEntity;
 use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasAliases;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasCode;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
- * Class Locale;
+ * Class Locale;.
  */
 class LanguageName extends SlugEntity
 {

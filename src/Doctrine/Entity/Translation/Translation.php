@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 
 /**
- * Class Translation;
+ * Class Translation;.
  */
 class Translation extends SlugEntity
 {
@@ -74,7 +74,7 @@ class Translation extends SlugEntity
         }
 
         if ($messageCollection === null) {
-            $messageCollection = new ArrayCollection;
+            $messageCollection = new ArrayCollection();
         }
 
         if ($messageCollection instanceof ArrayCollection) {

@@ -11,7 +11,6 @@
 
 namespace Scribe\MantleBundle\Doctrine\Base\Model\Hierarchy;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Scribe\Doctrine\ORM\Mapping\Entity;
 
@@ -58,8 +57,8 @@ trait HasChildCollectionOwningSide
      * Element adder for childCollection collection.
      *
      * @param Entity $child  an entity instance to add to the collection
-     * @param bool           $unique requires the passed object instance does not already exist within
-     *                               the collection
+     * @param bool   $unique requires the passed object instance does not already exist within
+     *                       the collection
      *
      * @return $this
      */

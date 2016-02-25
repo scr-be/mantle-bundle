@@ -87,22 +87,22 @@ class LegacyButtonRendererExtension extends AbstractTwigExtension
     public function getButtonDelete(Twig_Environment $twigEnvironment, $title, $what, $route = null, array $routeArgs = [],
                                     $icon = null, array $groupClasses = [], array $btnClasses = []
     ) {
-        $icon     = $icon === null ? 'icon-minus-sign' : $icon;
-        $desc     = $title . ' ' . $what;
+        $icon = $icon === null ? 'icon-minus-sign' : $icon;
+        $desc = $title.' '.$what;
         $hrefReal = '#';
         $hrefData = $route !== null ? $this->router->generate($route, $routeArgs) : $hrefReal;
 
         array_push($btnClasses, 'btn-danger');
 
         return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_delete.html.twig', [
-            'title'        => $title,
-            'desc'         => $desc,
-            'what'         => $what,
-            'data_href'    => $hrefData,
-            'url'          => $hrefReal,
-            'icon'         => $icon,
+            'title' => $title,
+            'desc' => $desc,
+            'what' => $what,
+            'data_href' => $hrefData,
+            'url' => $hrefReal,
+            'icon' => $icon,
             'groupClasses' => $groupClasses,
-            'btnClasses'   => $btnClasses
+            'btnClasses' => $btnClasses,
         ]);
     }
 
@@ -122,23 +122,23 @@ class LegacyButtonRendererExtension extends AbstractTwigExtension
     public function getButtonAjaxDelete(Twig_Environment $twigEnvironment, $title, $what, $route = null, array $routeArgs = [],
                                        $icon = null, $selector = null, array $groupClasses = [], array $btnClasses = []
     ) {
-        $icon     = $icon === null ? 'icon-minus-sign' : $icon;
-        $desc     = $title . ' ' . $what;
+        $icon = $icon === null ? 'icon-minus-sign' : $icon;
+        $desc = $title.' '.$what;
         $hrefReal = '#';
         $hrefData = $route !== null ? $this->router->generate($route, $routeArgs) : $hrefReal;
 
         array_push($btnClasses, 'btn-danger');
 
         return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_ajax_delete.html.twig', [
-            'title'        => $title,
-            'desc'         => $desc,
-            'what'         => $what,
-            'data_href'    => $hrefData,
-            'url'          => $hrefReal,
-            'icon'         => $icon,
+            'title' => $title,
+            'desc' => $desc,
+            'what' => $what,
+            'data_href' => $hrefData,
+            'url' => $hrefReal,
+            'icon' => $icon,
             'groupClasses' => $groupClasses,
-            'btnClasses'   => $btnClasses,
-            'selector'     => $selector
+            'btnClasses' => $btnClasses,
+            'selector' => $selector,
         ]);
     }
 
@@ -284,13 +284,13 @@ class LegacyButtonRendererExtension extends AbstractTwigExtension
         $hrefReal = $route !== null ? $this->router->generate($route, $routeArgs) : '#';
 
         return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_prevnext.html.twig', [
-            'title'        => $title,
-            'desc'         => $desc,
-            'url'          => $hrefReal,
-            'icon'         => $icon,
+            'title' => $title,
+            'desc' => $desc,
+            'url' => $hrefReal,
+            'icon' => $icon,
             'groupClasses' => $groupClasses,
-            'btnClasses'   => $btnClasses,
-            'direction'    => $direction,
+            'btnClasses' => $btnClasses,
+            'direction' => $direction,
         ]);
     }
 
@@ -312,12 +312,12 @@ class LegacyButtonRendererExtension extends AbstractTwigExtension
         $hrefReal = $route !== null ? $this->router->generate($route, $routeArgs) : '#';
 
         return $twigEnvironment->render('ScribeMantleBundle:Button:bs_btn_default.html.twig', [
-            'title'        => $title,
-            'desc'         => $desc,
-            'url'          => $hrefReal,
-            'icon'         => $icon,
+            'title' => $title,
+            'desc' => $desc,
+            'url' => $hrefReal,
+            'icon' => $icon,
             'groupClasses' => $groupClasses,
-            'btnClasses'   => $btnClasses,
+            'btnClasses' => $btnClasses,
         ]);
     }
 }

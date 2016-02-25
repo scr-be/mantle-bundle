@@ -248,7 +248,7 @@ interface ControllerBehaviorsInterface
      * Persist an entity to the database.
      *
      * @param Entity $entity An entity instance.
-     * @param bool           $flush  Whether to flush ORM change-set immediately or not.
+     * @param bool   $flush  Whether to flush ORM change-set immediately or not.
      *
      * @return $this
      */
@@ -258,7 +258,7 @@ interface ControllerBehaviorsInterface
      * Remove an orm entity and optionally flush the transaction.
      *
      * @param Entity $entity An entity instance.
-     * @param bool           $flush  Whether to flush ORM change-set immediately or not.
+     * @param bool   $flush  Whether to flush ORM change-set immediately or not.
      *
      * @return $this
      */
@@ -309,7 +309,7 @@ interface ControllerBehaviorsInterface
      * recursively copy the passed entities associations as well.
      *
      * @param Entity $entity An entity instance.
-     * @param bool           $deep   Determines if deep copy is performed (associated entities are copied).
+     * @param bool   $deep   Determines if deep copy is performed (associated entities are copied).
      *
      * @return Entity
      */

@@ -13,12 +13,11 @@ Scribe\MantleBundle\Doctrine\Entity\Meta\MetaTitle:
 
     id:
 
-        uuid :
-            type      : bin_uuid
+        id:
+            type : integer
+            id   : true
             generator :
-                strategy : CUSTOM
-            customIdGenerator :
-                class : Scribe\Doctrine\ORM\Id\BinaryUuid4PessimisticGenerator
+                strategy : AUTO
 
     indexes :
 

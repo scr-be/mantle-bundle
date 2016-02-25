@@ -34,7 +34,7 @@ class TranslationDomainRepository extends EntityRepository
             ->createQueryBuilder('d')
             ->where('d.name = :name')
             ->setParameters([
-                'name' => $domain
+                'name' => $domain,
             ])
             ->setMaxResults(1)
             ->getQuery()

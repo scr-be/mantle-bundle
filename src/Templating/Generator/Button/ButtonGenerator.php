@@ -20,7 +20,7 @@ use Symfony\Component\Translation\Translator;
 /**
  * Class AbstractButtonGenerator.
  */
-class AbstractButtonGenerator extends AbstractTwigGenerator
+class ButtonGenerator extends AbstractTwigGenerator
 {
     use RouterAwareTrait;
     use TranslatorAwareTrait;

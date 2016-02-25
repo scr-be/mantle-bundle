@@ -17,13 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Scribe\MantleBundle\Component\DependencyInjection\Aware\RequestStackAwareTrait;
-use Scribe\Wonka\Utility\Error\DeprecationErrorHandler;
 use Scribe\Wonka\Exception\InvalidArgumentException;
-use Scribe\Wonka\Exception\RuntimeException;
 use Symfony\Component\Routing\Route;
 
 /**
- * BundleInformation
+ * BundleInformation.
  *
  * Determine the org, bundle name, controller name, and action name. This can be determined via
  * the current request, a provided route index or route object, or a provided string. The values
@@ -105,7 +103,9 @@ class BundleInformation implements BundleInformationInterface
             ->setMode($mode !== null ? $mode : self::MODE_REQUEST)
             ->setRegex($regex !== null ? $regex : self::REGEX_CONTROLLER_SERVICE_ID);
 
-        if ($autoHandle === true) { $this->handle(); }
+        if ($autoHandle === true) {
+            $this->handle();
+        }
     }
 
     /**
@@ -310,7 +310,7 @@ class BundleInformation implements BundleInformationInterface
     {
         $mode = $mode !== null ? $mode : $this->getMode();
 
-        switch($mode) {
+        switch ($mode) {
             case self::MODE_REQUEST:
                 $this->determineFrameworkLocationByRequest();
                 break;
@@ -340,8 +340,7 @@ class BundleInformation implements BundleInformationInterface
     protected function determineFrameworkLocationByRequest()
     {
         if ($this->hasRequestStack() === true && $this->hasMasterRequest() === true &&
-            $this->getMasterRequest()->attributes->has('_controller'))
-        {
+            $this->getMasterRequest()->attributes->has('_controller')) {
             $this->setFrameworkProvidedLocation(
                 $this->getMasterRequest()->attributes->get('_controller')
             );
@@ -411,8 +410,7 @@ class BundleInformation implements BundleInformationInterface
         }
 
         if (false === preg_match($this->regex, $this->frameworkProvidedLocation, $matches) ||
-            false === (count($matches) > 0))
-        {
+            false === (count($matches) > 0)) {
             return $unknownReturnArray;
         }
 

@@ -12,11 +12,10 @@
 namespace Scribe\MantleBundle\Doctrine\Entity\Locale;
 
 use Scribe\Doctrine\ORM\Mapping\SlugEntity;
-use Scribe\MantleBundle\Doctrine\Base\Model\HasCode;
 use Scribe\MantleBundle\Doctrine\Base\Model\Name\HasName;
 
 /**
- * Class Country;
+ * Class Country;.
  */
 class Country extends SlugEntity
 {

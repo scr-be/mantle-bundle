@@ -15,7 +15,7 @@ use Scribe\Doctrine\ORM\Mapping\SlugEntity;
 use Scribe\MantleBundle\Doctrine\Base\Model\Description\HasDescription;
 
 /**
- * Class RuntimeController
+ * Class RuntimeController.
  */
 class RuntimeController extends SlugEntity
 {

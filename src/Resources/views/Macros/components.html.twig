@@ -36,16 +36,114 @@
  #}
 {% macro panel(header, content, affix = true, classCollection = null, icon = null, label = null) %}
 
-    <div class="panel scr-panel{% if affix == true %} container-affix{% endif %}{% for class in classCollection if class is not null %} {{ class }}{% endfor %}">
+    <div class="card card-inner-full panel scr-panel{% if affix == true %} container-affix{% endif %}{% for class in classCollection if class is not null %} {{ class }}{% endfor %}">
 
-        <div class="panel-heading">
+        <header>
             {% if label is not null %}{{ label }}{% endif %}
             {% if icon  is not null %}{{ icon  }}{% endif %}
-            {{ header }}
-        </div>
+            <h3>{{ header }}</h3>
+        </header>
 
         {{ content }}
 
     </div>
 
 {% endmacro %}
+
+{#
+ # create a node list
+ #}
+{% macro nodeListGroup(node, route, nodeList) %}
+
+    <ul class="list-group scr-list-group">
+        {% for n in nodeList
+            if (n.getK != 'index')
+            and (n.getRequiredRoles == null or is_granted(n.getRequiredRoles))
+        %}
+            <li class="list-group-item{% if n.getId == node.getId %} active{% endif %}">
+
+                {% if n.getId == node.getId %}
+                    <a href="{{ path(route, {k: n.getK}) }}">{{ icon('md:chevron-right') }}{{ n.getName }}</a>
+                {% elseif node.getParent != null and n.getId == node.getParent.getId %}
+                    <a href="{{ path(route, {k: n.getK}) }}">{{ icon('md:chevron-right') }}{{ n.getName }}</a>
+                {% else %}
+                    <a href="{{ path(route, {k: n.getK}) }}">{{ n.getName }}</a>
+                {% endif %}
+
+                {% if n.hasChildren and (n.getId == node.getId or (node.getParent != null and n.getId == node.getParent.getId)) %}
+
+                    <ul class="list-group-sub">
+                        {% for nc in n.getChildren
+                            if nc.getRequiredRoles == null
+                            or is_granted(nc.getRequiredRoles)
+                        %}
+                            <li>
+                                {% if nc.getId == node.getId %}
+                                    {{ nc.getName }}
+                                {% else %}
+                                    <a href="{{ path(route, {k: n.getK, kc: nc.getK}) }}">{{ nc.getName }}</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endmacro %}
+
+{#
+ # feature/testimonial
+ #}
+{% macro featureAndTestimonial() %}
+
+    {% set f = random_feature_project() %}
+    {% set t = random_testimonial() %}
+
+    <div class="panel scr-panel card card-inner-full">
+        <header class="primary">
+            <h3>
+                Featured Project
+                <span class="pull-right"><i class="fa fa-star"></i></span>
+            </h3>
+        </header>
+
+        <section class="body">
+            <div class="public-sidebar-feat" style="background-image:url({{ path('public_featured_project_image', {id: f.getId}) }});">
+                <h2 class="text-truncate">
+                    {{ f.getTitle }}<br>
+                    <small>{{ f.getClient }}</small>
+                </h2>
+            </div>
+        </section>
+    </div>
+
+    <div class="panel scr-panel card card-inner-full">
+        <header class="secondary">
+            <h3>
+                Client Testimonial
+                <span class="pull-right"><i class="fa fa-comments-o"></i></span>
+            </h3>
+        </header>
+
+        <section class="body">
+            <blockquote class="testimonial">
+                "{{ t.getBody | raw }}"
+            </blockquote>
+            <cite class="testimonial">
+                {{ t.getClient }}<br />
+                {% if t.getPosition != null %}
+                    {{ t.getPosition }}<br />
+                {% endif %}
+                {% if t.getCompany != null %}
+                    {{ t.getCompany }}
+                {% endif %}
+            </cite>
+        </section>
+    </div>
+
+{% endmacro %}
+
+{# EOF #}

@@ -24,7 +24,6 @@ class DatabaseLoader implements LoaderInterface
 
     /**
      * @param mixed  $resource
-     *
      * @param string $locale
      * @param string $domain
      *
@@ -41,7 +40,5 @@ class DatabaseLoader implements LoaderInterface
     public function getMessages()
     {
         $messages = [];
-
-
     }
 }

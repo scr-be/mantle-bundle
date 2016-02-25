@@ -16,7 +16,7 @@ use Scribe\MantleBundle\Doctrine\Base\Model\Locale\HasCountry;
 use Scribe\MantleBundle\Doctrine\Base\Model\HasLanguage;
 
 /**
- * Class Locale
+ * Class Locale.
  */
 class Locale extends SlugEntity
 {
