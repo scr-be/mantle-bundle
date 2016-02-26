@@ -38,11 +38,13 @@
 
     <div class="card card-inner-full card-sidebar panel scr-panel{% if affix == true %} container-affix{% endif %}{% for class in classCollection if class is not null %} {{ class }}{% endfor %}">
 
-        <header>
-            {% if label is not null %}{{ label }}{% endif %}
-            {% if icon  is not null %}{{ icon  }}{% endif %}
-            <h3>{{ header }}</h3>
-        </header>
+        {% if header != null %}
+            <header>
+                {% if label is not null %}{{ label }}{% endif %}
+                {% if icon  is not null %}{{ icon  }}{% endif %}
+                <h3>{{ header }}</h3>
+            </header>
+        {% endif %}
 
         {{ content }}
 
