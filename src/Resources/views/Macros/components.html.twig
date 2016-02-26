@@ -36,7 +36,7 @@
  #}
 {% macro panel(header, content, affix = true, classCollection = null, icon = null, label = null) %}
 
-    <div class="card card-inner-full panel scr-panel{% if affix == true %} container-affix{% endif %}{% for class in classCollection if class is not null %} {{ class }}{% endfor %}">
+    <div class="card card-inner-full card-sidebar panel scr-panel{% if affix == true %} container-affix{% endif %}{% for class in classCollection if class is not null %} {{ class }}{% endfor %}">
 
         <header>
             {% if label is not null %}{{ label }}{% endif %}
@@ -102,7 +102,7 @@
     {% set f = random_feature_project() %}
     {% set t = random_testimonial() %}
 
-    <div class="panel scr-panel card card-inner-full">
+    <div class="panel scr-panel card card-inner-full card-sidebar">
         <header class="primary">
             <h3>
                 Featured Project
