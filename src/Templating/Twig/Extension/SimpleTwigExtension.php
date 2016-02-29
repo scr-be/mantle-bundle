@@ -160,7 +160,7 @@ abstract class SimpleTwigExtension extends \Twig_Extension implements TwigExtens
     protected function stackOptions(array $optionCollection)
     {
         foreach ($optionCollection as $option) {
-            if (is_iterable_empty($option)) {
+            if (isEmptyIterable($option)) {
                 continue;
             }
 

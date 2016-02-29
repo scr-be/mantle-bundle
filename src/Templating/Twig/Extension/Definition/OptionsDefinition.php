@@ -115,7 +115,7 @@ abstract class OptionsDefinition implements OptionsDefinitionInterface
     protected function stackOptions(array $optionCollection)
     {
         foreach ($optionCollection as $option) {
-            if (is_iterable_empty($option)) {
+            if (isEmptyIterable($option)) {
                 continue;
             }
 
